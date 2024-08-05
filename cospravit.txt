@@ -532,6 +532,9 @@ PPExtenderBroadcastReceiver:
 
 ------------------
 
+Chyba v ACTION_VIEW a aj v Chrome. Download apk, napriklad InstallWithOptions.
+Testni znova.
+
 Samsung, One UI 6. Problem je download apk cez ACTION_VIEW. Stale zobrazuje Downloading a hotovo.
 Cize tuto mam velky problem. Skus pozriet alebo pouzi DownloadManager. S21. Tych Samsungov je veľa.
 Cize to bude daky bug v Samsung One UI asi.
@@ -553,3 +556,13 @@ Change: Changed label of main activity to "PPPPS".
 Change: Added more info about installation into README.md.
 Fixed appcompat 1.7.0 dependencies problem.
 Fix: Fixed download link of InstallWithOptions.pak in docs.
+
+--------------
+
+Tieto retazce zmen:
+    <string name="important_info_profile_activation_text9">Green: events can be started.</string>
+    <string name="important_info_profile_activation_text10">Orange: events cannot start - profile was activated manually.</string>
+Tieto da j prepozitn nanovo (najprv si ho uprav tu), hlavne o tom povoleni behu udalsoti, uz nie je v menu, je v top bare.
+    <string name="important_info_profile_activation_text11">Red: events are stopped - events run can be enabled through Editor menu item \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_2">You disable global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".</string>
+

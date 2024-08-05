@@ -416,9 +416,9 @@
     <string name="important_info_profile_activation_text5">Exception to this rule applies when you set the \"Ignore manual activation\" preference.</string>
     <string name="important_info_profile_activation_text6">Event restart can be invoked via the Activator, Editor or notification.</string>
     <string name="important_info_profile_activation_text8">In the titles of both the Activator and Editor is a "traffic light".</string>
-    <string name="important_info_profile_activation_text9">Green: events can be started.</string>
-    <string name="important_info_profile_activation_text10">Orange: events cannot start - profile was activated manually.</string>
-    <string name="important_info_profile_activation_text11">Red: events are stopped - events run can be enabled through Editor menu item \"Enable events run\".</string>
+    <string name="important_info_profile_activation_text9">Events can be started.</string>
+    <string name="important_info_profile_activation_text10">Events cannot start - profile was activated manually.</string>
+    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Restart events icon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Traffic light\" icon:</string>
     <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
@@ -1062,7 +1062,7 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
     <string name="info_notification_event_not_started_1">Event will not start when:</string>
-    <string name="info_notification_event_not_started_2">You disable global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
     <string name="info_notification_event_not_started_3">You manually activated a profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profiles are indicated with \"[M]\" in front of the profile name. Exception applies when the event has \"Ignore manual activation\" preference checked.</string>
     <string name="info_notification_event_not_started_4">You disable Run event in event preferences - event preferences \"Enable run\" must by checked. Note: \"Traffic light\" is in title of Activator and Editor.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
@@ -2241,6 +2241,8 @@
 
     <string name="important_info_profile_pppps_howTo_3">This application is in IzzyOnDroid repository and GitHub Releases. Click here to install it.</string>
     <string name="important_info_support">If you have problems, questions and suggestions, click here and write me.</string>
+
+    <string name="run_stop_indicator_light" translatable="false">⬤</string>
 
     <!-- **************************************************************************************** -->
 

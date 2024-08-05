@@ -58,28 +58,70 @@
                     android:text="@string/menu_run_events"
                     android:textSize="@dimen/gui_info_popup_text_size" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/important_info_profile_activation_text9"
-                    android:textSize="@dimen/gui_info_popup_text_size"
-                    android:paddingBottom="10dp"
-                    android:id="@+id/run_stop_indicator_popup_window_text2" />
-                <!--
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/run_stop_indicator_light"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:textColor="@color/traffic_light_green"
+                        android:id="@+id/run_stop_indicator_popup_window_text2_light1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important_info_profile_activation_text9"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:id="@+id/run_stop_indicator_popup_window_text2" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/important_info_profile_activation_text10"
-                    android:textSize="@dimen/gui_info_popup_text_size"
-                    android:id="@+id/run_stop_indicator_popup_window_text3" />
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/run_stop_indicator_light"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:textColor="@color/traffic_light_orange"
+                        android:id="@+id/run_stop_indicator_popup_window_text2_light2" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important_info_profile_activation_text10"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:id="@+id/run_stop_indicator_popup_window_text3" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:text="@string/important_info_profile_activation_text11"
-                    android:textSize="@dimen/gui_info_popup_text_size"
-                    android:id="@+id/run_stop_indicator_popup_window_text4" />
-                -->
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/run_stop_indicator_light"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:textColor="@color/traffic_light_red"
+                        android:id="@+id/run_stop_indicator_popup_window_text2_light3" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important_info_profile_activation_text11"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:id="@+id/run_stop_indicator_popup_window_text4" />
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

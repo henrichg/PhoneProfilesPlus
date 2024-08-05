@@ -99,6 +99,10 @@
     <color name="error_color">#FF2424</color>
     <color name="information_color">#67ACF8</color>
 
+    <color name="traffic_light_green">#00d800</color>
+    <color name="traffic_light_orange">#ffb000</color>
+    <color name="traffic_light_red">#ff0000</color>
+
     <!--    <color name="bottom_navigation_indicator">#80E99B7F</color>-->
 
 </resources>
