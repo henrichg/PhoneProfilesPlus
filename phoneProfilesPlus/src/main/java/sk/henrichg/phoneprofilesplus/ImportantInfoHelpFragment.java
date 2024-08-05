@@ -380,18 +380,18 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
+                                                               fragment.getString(R.string.traffic_light_green) + " " + fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_orange) + " " + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_red) + " " + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
+                                                               fragment.getString(R.string.traffic_light_green) + " " + fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_orange) + " " + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_red) + " " + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }

@@ -2243,6 +2243,9 @@
     <string name="important_info_support">If you have problems, questions and suggestions, click here and write me.</string>
 
     <string name="run_stop_indicator_light" translatable="false">⬤</string>
+    <string name="traffic_light_green">Green color:</string>
+    <string name="traffic_light_orange">Orange color:</string>
+    <string name="traffic_light_red">Red color:</string>
 
     <!-- **************************************************************************************** -->
 
