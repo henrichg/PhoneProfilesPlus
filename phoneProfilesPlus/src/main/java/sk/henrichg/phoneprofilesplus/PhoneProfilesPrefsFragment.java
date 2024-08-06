@@ -4,6 +4,7 @@ import static android.content.Context.RECEIVER_NOT_EXPORTED;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -75,6 +76,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
     private static final String PREF_GRANT_G1_PERMISSION = "permissionsGrantG1Permission";
     private static final String PREF_GRANT_SHIZUKU_PERMISSION = "permissionsGrantShizukuPermission";
+    private static final String PREF_NOTIFICATION_POLICY_ACCESS_PERMISSIONS = "permissionsNotificationPolicyAccessPermissions";
+    private static final int RESULT_NOTIFICATION_POLICY_ACCESS_PERMISSIONS = 2000;
 
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
@@ -1035,6 +1038,46 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
 
+            preference = findPreference(PREF_NOTIFICATION_POLICY_ACCESS_PERMISSIONS);
+            if (preference != null) {
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(preference14 -> {
+                    boolean ok = false;
+                    //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext())) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_NOTIFICATION_POLICY_ACCESS_PERMISSIONS);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                    if (!ok) {
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference14.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
+
+                        if (!getActivity().isFinishing())
+                            dialog.show();
+                    }
+                    return false;
+                });
+            }
 
         // force check root
         boolean rooted;
@@ -2395,6 +2438,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                             //setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
                             setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
+                            setSummary(PREF_NOTIFICATION_POLICY_ACCESS_PERMISSIONS);
 
                             activity.setResult(Activity.RESULT_OK);
                         }
@@ -2637,7 +2681,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_GRANT_G1_PERMISSION);
         setSummary(PREF_GRANT_SHIZUKU_PERMISSION);
         setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-        //setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+        setSummary(PREF_NOTIFICATION_POLICY_ACCESS_PERMISSIONS);
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
         setSummary(PREF_APPLICATION_PERMISSIONS);
         setSummary(PREF_AUTOSTART_MANAGER);
@@ -3834,16 +3878,20 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             preference.setSummary(summary);
         }
-            /*if (key.equals(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
-                String summary;
-                if (Permissions.checkAccessNotificationPolicy(context))
-                    summary = getString(R.string.permission_granted);
-                else {
-                    summary = getString(R.string.permission_not_granted);
-                    summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions_summary);
-                }
-                preference.setSummary(summary);
-            }*/
+        if (key.equals(PREF_NOTIFICATION_POLICY_ACCESS_PERMISSIONS)) {
+            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            boolean granted = false;
+            if (mNotificationManager != null)
+                granted = mNotificationManager.isNotificationPolicyAccessGranted();
+            String summary;
+            if (granted)
+                summary = getString(R.string.permission_granted);
+            else {
+                summary = getString(R.string.permission_not_granted);
+                //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions_summary);
+            }
+            preference.setSummary(summary);
+        }
         if (key.equals(PREF_DRAW_OVERLAYS_PERMISSIONS)) {
             String summary;
             if (Settings.canDrawOverlays(context))

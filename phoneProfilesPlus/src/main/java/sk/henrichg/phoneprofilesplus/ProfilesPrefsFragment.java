@@ -7103,7 +7103,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferencesAsyncTask.execute();
     }
 
-    private void enableNotificationAccess(
+    // this is required for "Do not disturb"
+    private void enableNotificationPolicyAccess(
             @SuppressWarnings("SameParameterValue") boolean showDoNotDisturbPermission) {
         boolean ok = false;
         if (showDoNotDisturbPermission) {
@@ -8140,7 +8141,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference14 -> {
-                                fragment.enableNotificationAccess(true/*showDoNotDisturbPermission*/);
+                                fragment.enableNotificationPolicyAccess(true/*showDoNotDisturbPermission*/);
                                 return false;
                             });
                         }
