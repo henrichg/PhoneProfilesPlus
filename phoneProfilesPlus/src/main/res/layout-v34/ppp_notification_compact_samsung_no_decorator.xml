@@ -3,8 +3,8 @@
     android:id="@+id/notification_activated_profile_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="0dp"
-    android:paddingBottom="0dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
     android:paddingStart="12dp"
     android:paddingEnd="15dp" >
 
