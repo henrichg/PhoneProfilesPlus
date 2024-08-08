@@ -372,7 +372,8 @@ class DatabaseHandlerCreateUpdateDB {
 //                + DatabaseHandler.KEY_E_CALL_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_MUSIC_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE + " " + DatabaseHandler.INTEGER_TYPE //+ ","
+                + DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_MUSIC_APPLICATIONS + " " + DatabaseHandler.TEXT_TYPE //+ ","
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -912,6 +913,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_APPLICATIONS, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3583,6 +3585,11 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2523) {
             if (Build.VERSION.SDK_INT >= 29)
                 db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "="+ Long.MAX_VALUE);
+        }
+
+        if (oldVersion < 2524)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MUSIC_APPLICATIONS + "=\"\"");
         }
 
     }

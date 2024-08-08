@@ -472,7 +472,7 @@ class Event {
 
     private void createEventPreferencesMusic()
     {
-        this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0);
+        this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0, "");
     }
 
     void createEventPreferences()

@@ -31,9 +31,9 @@ class EventPreferencesApplication extends EventPreferences {
     int _duration;
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
-    static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
-    static final String PREF_EVENT_APPLICATION_DURATION = "eventApplicationDuration";
-    static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
+    private static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
+    private static final String PREF_EVENT_APPLICATION_DURATION = "eventApplicationDuration";
+    private static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
     //static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
     //static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     //static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
