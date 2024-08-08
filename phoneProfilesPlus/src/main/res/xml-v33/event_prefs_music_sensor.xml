@@ -23,8 +23,8 @@
         app:defaultValue="@string/dash_string"
         app:key="eventMusicApplications"
         app:title="@string/event_preferences_applications_applications"
-        app:removePPApplications="0"
-        app:systemSettings="music"
+        app:removePPApplications="1"
+        app:systemSettings="not_check"
         app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

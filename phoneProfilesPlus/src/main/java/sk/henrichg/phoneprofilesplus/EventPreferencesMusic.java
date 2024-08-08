@@ -11,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -111,7 +110,7 @@ class EventPreferencesMusic extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -292,10 +291,10 @@ class EventPreferencesMusic extends EventPreferences {
                                 ComponentName notificationListenerComponent = new ComponentName(eventsHandler.context, PPNotificationListenerService.class);
                                 activeSessions = mediaSessionManager.getActiveSessions(notificationListenerComponent);
 
-                                Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
+//                                Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
                                 for (MediaController controller : activeSessions) {
                                     String applicationFromController = controller.getPackageName();
-                                    Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + applicationFromController);
+//                                    Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + applicationFromController);
                                     if (applicationFromController.equals(PPApplication.PACKAGE_NAME) ||
                                             applicationFromController.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
                                             applicationFromController.equals(PPApplication.PACKAGE_NAME_PPPPS)) {
