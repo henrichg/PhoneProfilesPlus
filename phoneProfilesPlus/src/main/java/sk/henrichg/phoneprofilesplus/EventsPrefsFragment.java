@@ -1710,7 +1710,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 event._eventPreferencesMobileCells.updateConfguredCellNames(prefMng, context);
         }
         if (requestCode == RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
-            event._eventPreferencesMusic.checkPreferences(prefMng, !nestedFragment, context);;
+            event._eventPreferencesMusic.checkPreferences(prefMng, !nestedFragment, context);
         }
     }
 
