@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -20,6 +21,9 @@ class EventPreferencesMusic extends EventPreferences {
 
     static final String PREF_EVENT_MUSIC_ENABLED = "eventMusicEnabled";
     private static final String PREF_EVENT_MUSIC_MUSIC_STATE = "eventMusicMusicState";
+
+    static final String PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "eventMusicNotificationsAccessSettings";
+    static final String PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "eventMusicNotificationsAccessSettingsRestrictedSettings";
 
     static final String PREF_EVENT_MUSIC_CATEGORY = "eventMusicCategoryRoot";
 
@@ -100,6 +104,21 @@ class EventPreferencesMusic extends EventPreferences {
             }
         }
 
+        if (key.equals(PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettings_summary);
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
+                    summary = "* " + context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
+                            summary;
+                } else {
+                    summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                            summary;
+                }
+                preference.setSummary(summary);
+            }
+        }
+
         /*
         Event event = new Event();
         event.createEventPreferences();
@@ -129,6 +148,10 @@ class EventPreferencesMusic extends EventPreferences {
         }
 
         if (key.equals(PREF_EVENT_MUSIC_MUSIC_STATE)) {
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
+        }
+
+        if (key.equals(PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
 
@@ -180,10 +203,10 @@ class EventPreferencesMusic extends EventPreferences {
         super.checkPreferences(prefMng, onlyCategory, context);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_MUSIC_ENABLED) != null) {
-                setSummary(prefMng, PREF_EVENT_MUSIC_ENABLED, preferences, context);
-            }
+            setSummary(prefMng, PREF_EVENT_MUSIC_ENABLED, preferences, context);
+            setSummary(prefMng, PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS, preferences, context);
         }
+
         setCategorySummary(prefMng, preferences, context);
     }
 
@@ -228,9 +251,9 @@ class EventPreferencesMusic extends EventPreferences {
                                 ComponentName notificationListenerComponent = new ComponentName(eventsHandler.context, PPNotificationListenerService.class);
                                 activeSessions = mediaSessionManager.getActiveSessions(notificationListenerComponent);
 
-                                //Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
+                                Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
                                 for (MediaController controller : activeSessions) {
-                                    //Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + controller.getPackageName());
+                                    Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + controller.getPackageName());
                                     if (controller.getPackageName().equals(PPApplication.PACKAGE_NAME)) {
                                         isNotAllowedSession = true;
                                         break;
