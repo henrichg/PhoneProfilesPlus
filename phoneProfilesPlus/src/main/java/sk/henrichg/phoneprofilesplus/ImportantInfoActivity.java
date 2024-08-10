@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -126,6 +127,109 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    boolean supportMenu(MenuItem item) {
+        Intent intent;
+
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_email_to_author) {
+            intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
+            String[] email = {StringConstants.AUTHOR_EMAIL};
+            intent.putExtra(Intent.EXTRA_EMAIL, email);
+            String packageVersion = "";
+            try {
+                PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.about_application_support_subject));
+            intent.putExtra(Intent.EXTRA_TEXT, EditorActivity.getEmailBodyText(this));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_xda_developers) {
+            String url = PPApplication.XDA_DEVELOPERS_PPP_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_server) {
+            String url = PPApplication.DISCORD_SERVER_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_discord_invitation) {
+            String url = PPApplication.DISCORD_INVITATION_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_twitter) {
+            String url = PPApplication.TWITTER_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_reddit) {
+            String url = PPApplication.REDDIT_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_bluesky) {
+            String url = PPApplication.BLUESKY_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

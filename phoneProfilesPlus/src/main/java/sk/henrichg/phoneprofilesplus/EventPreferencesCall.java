@@ -157,7 +157,7 @@ class EventPreferencesCall extends EventPreferences {
                 if (extenderVersion == 0) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_not_extender_installed));
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
                             .append(StringConstants.STR_COLON_WITH_SPACE).append(context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
                 } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
@@ -510,7 +510,7 @@ class EventPreferencesCall extends EventPreferences {
         int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled &&
                 isRunnable(context) && isAllConfigured(context)) {
@@ -530,7 +530,7 @@ class EventPreferencesCall extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_CALL_ENABLED) != null)
             {
                 final boolean accessibilityEnabled =
-                        PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
+                        PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, false
                                 /*, "EventPreferencesCall.checkPreferences"*/);
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);

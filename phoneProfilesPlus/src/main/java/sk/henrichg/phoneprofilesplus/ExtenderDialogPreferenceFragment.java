@@ -91,8 +91,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 prefVolumeDataSummary =  prefContext.getString(R.string.install_extender_installed_version) +
                         " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.install_extender_required_version) +
-                        " "+StringConstants.TAG_BOLD_START_HTML + preference.requiredExtenderVersionName + " (" + preference.requiredExtenderVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
-                if (extenderVersion < preference.requiredExtenderVersionCode)
+                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML;
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                 else
                   prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
@@ -116,7 +116,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 accessibilityEnabled = -2;
             else
             if ((extenderVersion > 0) &&
-                    (extenderVersion < preference.requiredExtenderVersionCode))
+                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
                 // old version
                 accessibilityEnabled = -1;
             else
@@ -234,11 +234,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         }
+//        dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
+//                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                " " + StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")" + StringConstants.TAG_BOLD_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_text2) + StringConstants.TAG_DOUBLE_BREAK_HTML;
-        dialogText = dialogText + activity.getString(R.string.install_extender_text3);
+        dialogText = dialogText + activity.getString(R.string.install_extender_text3)+StringConstants.TAG_DOUBLE_BREAK_HTML;
+        dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
@@ -387,8 +390,10 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         }
+        //dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
+        //        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_install_droidify_text);
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
@@ -468,9 +473,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
                 dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             }
+            //dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
+            //        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
-            dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
+                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML;
+            dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
             text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
             /*

@@ -146,18 +146,18 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         //if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
                         //    getVersion = false;
                         //else
-                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-                            getVersion = false;
-                        else {
+                        //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                        //    getVersion = false;
+                        //else {
                             PackageManager packageManager = appContext.getPackageManager();
 
                             //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
                             //boolean amazonAppStoreInstalled = (intent != null);
 
-                            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
-                            boolean huaweiAppGalleryInstalled = (intent != null);
+                            //Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
+                            //boolean huaweiAppGalleryInstalled = (intent != null);
 
-                            intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+                            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
                             boolean fdroidInstalled = (intent != null);
 
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
@@ -166,8 +166,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                             boolean neostoreInstalled = (intent != null);
 
-                            getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled || neostoreInstalled);
-                        }
+                            getVersion = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled);
+                        //}
                         if (getVersion)
                             _doWorkGitHub(appContext);
                         else

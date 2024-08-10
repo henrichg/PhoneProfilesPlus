@@ -26,8 +26,8 @@ class EventPreferencesBattery extends EventPreferences {
     boolean _powerSaveMode;
 
     static final String PREF_EVENT_BATTERY_ENABLED = "eventBatteryEnabled";
-    static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
-    static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
+    private static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
+    private static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
     private static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
     private static final String PREF_EVENT_BATTERY_PLUGGED = "eventBatteryPlugged";
     private static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";

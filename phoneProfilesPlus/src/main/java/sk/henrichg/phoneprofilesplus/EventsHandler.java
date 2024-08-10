@@ -1078,7 +1078,11 @@ class EventsHandler {
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
         if (DataWrapperStatic.displayPreferencesErrorNotification(null, event, true, context)) {
-            event.setStatus(Event.ESTATUS_STOP);
+            /* Do not stop event. For example user in profile disables Location, but event
+               with WiFi sensor must stayed in running status.
+
+                event.setStatus(Event.ESTATUS_STOP);
+            */
             return;
         }
 

@@ -418,6 +418,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if ((Build.VERSION.SDK_INT >= 29) && (preference instanceof PhoneCallSendSMSDialogPreference))
+        {
+            ((PhoneCallSendSMSDialogPreference) preference).fragment = new PhoneCallSendSMSDialogPreferenceFragment();
+            dialogFragment = ((PhoneCallSendSMSDialogPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -3706,6 +3715,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
             boolean blockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
+            //boolean sendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
 
             if (blockCalls) {
                 String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, R.string.profile_preference_phoneCallsContactGroups, context);
@@ -3769,7 +3779,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
-                }
+
+               }
             }
         }
 
@@ -3935,7 +3946,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
             ok = false;
-        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
             _value.append(getString(R.string.profile_preferences_device_not_allowed))
                     .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
             ok = false;
@@ -4011,7 +4022,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
-            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
                 //ok = false;
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
@@ -5595,7 +5606,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 }
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
@@ -5672,7 +5683,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
                         //ok = false;
                         changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
@@ -6903,7 +6914,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
             //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
+            enabled = PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, false
                     /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
             //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 
@@ -7092,7 +7103,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferencesAsyncTask.execute();
     }
 
-    private void enableNotificationAccess(
+    // this is required for "Do not disturb"
+    private void enableNotificationPolicyAccess(
             @SuppressWarnings("SameParameterValue") boolean showDoNotDisturbPermission) {
         boolean ok = false;
         if (showDoNotDisturbPermission) {
@@ -8129,7 +8141,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference14 -> {
-                                fragment.enableNotificationAccess(true/*showDoNotDisturbPermission*/);
+                                fragment.enableNotificationPolicyAccess(true/*showDoNotDisturbPermission*/);
                                 return false;
                             });
                         }

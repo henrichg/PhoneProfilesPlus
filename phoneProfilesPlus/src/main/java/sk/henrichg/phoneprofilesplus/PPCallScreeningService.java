@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.telecom.Call;
 import android.telecom.CallScreeningService;
@@ -34,27 +35,31 @@ public class PPCallScreeningService extends CallScreeningService {
 
                 boolean profileFound = false;
                 boolean phoneNumberFound = false;
-                String calledPhoneNumber = callDetails.getHandle().getSchemeSpecificPart();
-                if (
-                        (
-                                (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
-                                        ((contacts != null) && (!contacts.isEmpty())) ||
-                                        ((contactGroups != null) && (!contactGroups.isEmpty()))
-                        ) && blockCalls
-                ) {
+                String calledPhoneNumber = "";
+                        Uri callHandle =  callDetails.getHandle();
+                if (callHandle != null) {
+                    calledPhoneNumber = callHandle.getSchemeSpecificPart();
+                    if (
+                            (
+                                    (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                                            ((contacts != null) && (!contacts.isEmpty())) ||
+                                            ((contactGroups != null) && (!contactGroups.isEmpty()))
+                            ) && blockCalls
+                    ) {
 
-                    profileFound = true;
+                        profileFound = true;
 
-                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                    if (contactsCache != null) {
-                        List<Contact> contactList;
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache != null) {
+                            List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
+                            synchronized (PPApplication.contactsCacheMutex) {
+                                contactList = contactsCache.getList(/*false*/);
+                            }
+                            phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, contactListType, contactList, calledPhoneNumber);
+                            if (contactList != null)
+                                contactList.clear();
                         }
-                        phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, contactListType, contactList, calledPhoneNumber);
-                        if (contactList != null)
-                            contactList.clear();
                     }
                 }
 
@@ -62,7 +67,7 @@ public class PPCallScreeningService extends CallScreeningService {
                     response.setDisallowCall(true);
                     response.setRejectCall(true);
                     if (Permissions.checkSendSMS(getApplicationContext())) {
-                        if (sendSMS &&
+                        if (sendSMS && (!calledPhoneNumber.isEmpty()) &&
                                 (smsText != null) && (!smsText.isEmpty())) {
                             try {
                                 SmsManager smsManager = SmsManager.getDefault();

@@ -411,9 +411,9 @@
     <string name="important_info_profile_activation_text5">此规则的例外情况是，如果该事件在设置设置为“忽略手动激活”。</string>
     <string name="important_info_profile_activation_text6">可以从激活清单、 编辑器和通知调用中重新启动事件。</string>
     <string name="important_info_profile_activation_text8">在激活清单和编辑器的标题中显示的是“红绿灯”。</string>
-    <string name="important_info_profile_activation_text9">绿色: 事件可以启动。</string>
-    <string name="important_info_profile_activation_text10">橙色: 事件不能启动 - 已手动激活情景。</string>
-    <string name="important_info_profile_activation_text11">红色: 事件已停止 - 可以在编辑器功能菜单项目“激活事件运行”来执行。</string>
+    <string name="important_info_profile_activation_text9">事件可以启动。</string>
+    <string name="important_info_profile_activation_text10">事件不能启动 - 已手动激活情景。</string>
+    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
     <string name="important_info_profile_activation_restart_events_icon">重新启动事件图标：</string>
     <string name="important_info_profile_activation_traffic_light_icon">“红绿灯”图标：</string>
     <string name="important_info_android_doze_mode">Android 6+ 实现了“Doze模式”和“应用程序待机”。 关于事件配置文件激活的问题，如果您将设备断开电源，锁屏后后保持静止一段时间。 点此添加 PhoneProfilesPlus 到“未优化”。</string>
@@ -859,7 +859,6 @@
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">要启用“强制停止应用程序”参数，请在系统设置中允许PhoneProfilesPlusExtender“辅助功能”。</string>
     <string name="shortcut_activate_profile">激活配置:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">它仅在屏幕打开和解锁时才有效。</string>
-    <string name="important_info_contact">如果您有任何问题，疑问和建议，请给我发电子邮件：</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) 移动网络类型设置</string>
     <string name="profile_preferences_deviceCloseAllApplications">关闭所有应用程序</string>
     <string name="array_pref_do_not_close">不要关闭</string>
@@ -982,9 +981,6 @@
     <string name="permission_granted">已授权</string>
     <string name="important_info_email_body_device">设备：</string>
     <string name="important_info_email_body_android_version">Android版本：</string>
-    <string name="important_info_email_body_problems">问题：</string>
-    <string name="important_info_email_body_questions">问题：</string>
-    <string name="important_info_email_body_suggestions">建议：</string>
     <string name="about_application_support_subject">支持</string>
     <string name="dashclock_extension_description">以配置指示灯显示激活的情景。触碰时打开激活清单。</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">使用图标亮度自定义情景图标</string>
@@ -1059,7 +1055,7 @@
     <string name="array_pref_lockDevice_extender">使用PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">在Android 9+中，要扫描移动基站，您必须在系统设置中启用位置。</string>
     <string name="info_notification_event_not_started_1">以下情况事件将不会启动：</string>
-    <string name="info_notification_event_not_started_2">你禁用了全局事件运行 (显示红灯) - 请在编辑器菜单中点击“允许运行事件”以启用事件运行功能。</string>
+    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
     <string name="info_notification_event_not_started_3">你手工激活了情景 (显示黄灯) - 必须重新运行事件。使用激活清单、编辑器或通知中的“重新启动事件”图标。手动激活的情景在情景名称前用“[M]”标记。例外的情况：如果事件设置中选中了“忽略手工激活”，则事件仍会运行。</string>
     <string name="info_notification_event_not_started_4">你在事件设置中禁止了事件运行 - 必须在事件设置中选中“允许运行”选项n注意：“红绿灯”在激活清单和编辑器的标题中显示。</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">如果基站扫描不工作，在系统设置中启用定位。</string>
@@ -1549,8 +1545,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi 扫描时限</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">自</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">至</string>
-    <string name="menu_check_releases_appgallery">在 AppGallery 中检查</string>
-    <string name="check_releases_open_appgallery">打开 AppGallery</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">蓝牙扫描间隔</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">位置扫描间隔</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">方向扫描间隔</string>
@@ -1918,7 +1912,6 @@
     <string name="profile_preferences_vibrationIntensityAll">振动强度</string>
     <string name="important_info_profile_install_pppps">某些配置文件首选项需要使用 PPPPutSettinger 程序来设置参数到系统数据库中。 无需ROOT。这些首选项用(S)标记。</string>
     <string name="important_info_profile_pppps_howTo_1">带有(S)的配置文件参数需要辅助程序 PPPPutSettings。</string>
-    <string name="important_info_profile_pppps_howTo_2">此应用程序在 GitHub 发布。点击此处下载并安装它。</string>
     <string name="important_info_profile_pppps_howTo_4">安装成功后，所有带有(S)标记的配置文件参数将被启用。</string>
     <string name="install_pppps_dialog_title">安装 PPPPutSettings</string>
     <string name="install_pppps_text1">点击按钮安装最新版本的 PPPPutSettings</string>
@@ -1956,7 +1949,6 @@
     <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">点此安装/升级，启动PPPPutSettings。</string>
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">请授予 PPPPutSettings \"修改系统设置 \"的权限。这是 PPPPutSettings 正常工作所需要的。</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">已安装版本：</string>
-    <string name="pppps_pref_dialog_install_pppps_latest_version">最新版本：</string>
     <string name="important_info_pppps_new_version_notification">请安装新版本的PPPPutSettings。更多关于安装的信息在 \"重要信息\"，\"新闻 \"部分，点此显示。</string>
     <string name="important_info_pppps_new_version">请安装新版本的PPPutSettings。关于安装的更多信息，请参见PPPPutSettings所需的参数。</string>
     <string name="important_info_pppps_new_version_2">点击这里安装最新版本的 PPPPutSettings。</string>
@@ -2045,7 +2037,6 @@
     <string name="alert_button_install_store">安装商店</string>
     <string name="check_releases_droidify_ppp_release">Droid-ify中的 PhoneProfilesPlus 版本：</string>
     <string name="check_releases_fdroid_ppp_release">PhoneProfilesPlus 发布于 F-Droid：</string>
-    <string name="check_releases_appgallery_ppp_release">Huawei AppGallery的PhoneProfilesPlus 版本：</string>
     <string name="check_releases_ppp_release_clik_to_show">点此显示</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">播放音乐时更改媒体音量</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">扫描已暂停</string>
@@ -2211,4 +2202,16 @@
     <string name="profile_preferences_deviceDualSIMPINCode_summary">警告：设为 \"开启 \"的 SIM 卡的解锁时将需要输入 PIN 码。</string>
     <string name="menu_discord_server">PhoneProfilesPlus 服务器</string>
     <string name="menu_discord_invitation">PhoneProfilesPlus 服务器邀请</string>
+    <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
+    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Send SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Do not send SMS</string>
+    <string name="popup_event_states_state">State:</string>
+    <string name="popup_event_states_paused">Paused</string>
+    <string name="popup_event_states_running">Running</string>
+    <string name="popup_event_states_stopped">Stopped</string>
+    <string name="popup_event_states_paused_delay">Paused with delay</string>
+    <string name="popup_event_states_running_delay">Running with delay</string>
+    <string name="important_info_profile_pppps_howTo_3">This application is in IzzyOnDroid repository and GitHub Releases. Click here to install it.</string>
+    <string name="important_info_support">If you have problems, questions and suggestions, click here and write me.</string>
 </resources>

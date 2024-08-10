@@ -411,9 +411,9 @@
     <string name="important_info_profile_activation_text5">Bu kuralın istisnası, Durum ayarında \"El ile faaliyete geçirmeyi ihmal et\" seçilmiş olmasıdır.</string>
     <string name="important_info_profile_activation_text6">Durumları tekrar başlatma, Muharrik, Düzenleyici ve bildirimden çağrılabilir.</string>
     <string name="important_info_profile_activation_text8">Muharrik ve Düzenleyici başlığı bir \"Trafik ışığı\"dır.</string>
-    <string name="important_info_profile_activation_text9">Yeşil renk parlak: Durumlar başladı.</string>
-    <string name="important_info_profile_activation_text10">Turuncu renk parlak: Durumlar başlatılamaz - Bir Tercih el ile faaliyete geçirilmiş.</string>
-    <string name="important_info_profile_activation_text11">Kırmızı renk parlak: Durumlar durduruldu - Düzenleyici menüsündeki \"Durumların çalışmasına izin ver\" maddesi ile Durumların çalışmasına izin verilebilir.</string>
+    <string name="important_info_profile_activation_text9">Durumlar başladı.</string>
+    <string name="important_info_profile_activation_text10">Durumlar başlatılamaz - Bir Tercih el ile faaliyete geçirilmiş.</string>
+    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Durumları tekrar başlat simgesi:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
     <string name="important_info_android_doze_mode">Android 6+\'da \"Uyku modu\" ve \"Uygulama Bekletme\" uygulanmaktadır. Durumlar vasıtasıyla Tercihi faaliyete geçirmede sorun yaşanırsa şunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı ilave etmeniz lazımdır.</string>
@@ -859,7 +859,6 @@
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">\"Uygulamalar zorla durdur\" şartına izin vermek için \"Sistem Ayarları\" → \"Erişilebilirlik\" ayarlarında PhoneProfilesPlusExtender\'a izin verin.</string>
     <string name="shortcut_activate_profile">Tercihi faaliyete geçir:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Sadece ekran ve ekran kilidi açık olduğunda çalışır.</string>
-    <string name="important_info_contact">Eğer problem, soru ve önerileriniz varsa, bana bir e-posta yazınız:</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Şebeke ağ türü ayarları</string>
     <string name="profile_preferences_deviceCloseAllApplications">Uygulamaların tamamını kapat</string>
     <string name="array_pref_do_not_close">Kapatılmasın</string>
@@ -982,9 +981,6 @@
     <string name="permission_granted">İzin verildi</string>
     <string name="important_info_email_body_device">Cihaz:</string>
     <string name="important_info_email_body_android_version">Android sürümü:</string>
-    <string name="important_info_email_body_problems">Problemler:</string>
-    <string name="important_info_email_body_questions">Sorular:</string>
-    <string name="important_info_email_body_suggestions">Tavsiyeler:</string>
     <string name="about_application_support_subject">destek</string>
     <string name="dashclock_extension_description">Başlatılmış Tercihi ayarlar göstergesinde gösterir. Dokununca \"Muharrik\" açılır.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Hususi Tercih simgesi için simge rengi açıklığını kullan</string>
@@ -1059,7 +1055,7 @@
     <string name="array_pref_lockDevice_extender">PhoneProfilesPlusExtender\'ı kullan</string>
     <string name="important_info_profile_mobileCellsScanning_location">Android 9+\'da Şebeke hücreleri taramayı çalıştırmak için sistem ayarlarında Konumu açın.</string>
     <string name="info_notification_event_not_started_1">Durum başlamıyorsa:</string>
-    <string name="info_notification_event_not_started_2">Genel Durumları çalıştırmayı devre dışı bırakmışsınızdır: (Kırmızı \"trafik ışığı\" parlaktır) - Düzenleyici menüsünde \"Durumların çalışmasına izin ver\" kutusunu işaretleyin.</string>
+    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
     <string name="info_notification_event_not_started_3">El ile faaliyete geçirdiğiniz herhangi bir Tercih vardır: (Turuncu \"trafik ışığı\" parlaktır) - Durumları tekrar başlatmanız lüzumludur. Muharrik, Düzenleyici veya bildirim başlığında bulunan, \"Durumları tekrar başlat\" simgesine dokunun. Ayrıca El ile faaliyete geçirilmiş Tercih isminin önünde \"[M]\" işareti gösterilir. İstisnaî vaziyet ise Durum ayarında \"El ile faal etmeyi ihmal et\" işaretlenmiş olmasıdır.</string>
     <string name="info_notification_event_not_started_4">Durum ayarlarında - Durum, devre dışı bırakılmıştır. \"Durumu çalıştır\" ayarı işaretlenmesi lüzumlu. Dikkat: \"Trafik ışığı\" Muharrik ve Düzenleyici başlığında bulunur.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Eğer Şebeke hücreleri tarama çalışmıyorsa, Sistem Ayarları\'nda Konum\'u açın.</string>
@@ -1549,8 +1545,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi tarama zamanı</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">den/dan</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">e/a</string>
-    <string name="menu_check_releases_appgallery">\"AppGallery\"de kontrol et</string>
-    <string name="check_releases_open_appgallery">\"AppGallery\"de aç</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth taraması aralığı</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Konum tarama aralığı</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Döndürme taraması aralığı</string>
@@ -1918,7 +1912,6 @@
     <string name="profile_preferences_vibrationIntensityAll">Titreşim gücü</string>
     <string name="important_info_profile_install_pppps">Yardımcı uygulamanın sistem veri tabanına ayarları koyması için bazı Tercih ayarları WRITE_SECURE_SETTINGS iznini gerektirir. KÖK lüzumlu değildir. Bu ayarlar (S) ile işaretlenmiştir.</string>
     <string name="important_info_profile_pppps_howTo_1">(S) ile işaretlenmiş Tercih değerleri yardımcı uygulama PPPAyarlarıYap\'a ihtiyaç duyar.</string>
-    <string name="important_info_profile_pppps_howTo_2">Bu uygulama GitHub Sürümleri içerisindedir. Buraya dokunarak indirip yükleyiniz.</string>
     <string name="important_info_profile_pppps_howTo_4">Başarılı kurulumdan sonra, (S) işaretli Tercih değerlerinin tamamı kullanılabilir.</string>
     <string name="install_pppps_dialog_title">PPPAyarlarıYap\'ı kur</string>
     <string name="install_pppps_text1">PPPAyarlarıYap\'ın son sürümünü düğmeye dokunarak kurunuz</string>
@@ -1956,7 +1949,6 @@
     <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">PPPAyarlarıYap\'ı kurmak/yükseltmek, başlatmak için buraya dokununuz.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Lütfen PPPAyarlarıYap\'ta \"Sistem ayarlarını değiştir\" izni verin. PPPAyarlarıYap\'ın düzgün çalışması için gereklidir.</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">Yüklenmiş sürüm:</string>
-    <string name="pppps_pref_dialog_install_pppps_latest_version">En son sürüm:</string>
     <string name="important_info_pppps_new_version_notification">Lütfen PPPAyarlarıYap\'ın yeni sürümünü yükleyin. Yükleme hakkında daha fazla malumat, \"Mühim Malumat\"ın \"Yenilikler\" kısmında yazılmıştır. Görmek için buraya dokunun.</string>
     <string name="important_info_pppps_new_version">Lutfen PPPAyarlarıYap\'ın yeni sürümünü yükleyin. Yükleme hakkında daha fazla malumat, PhoneProfilesPlusExtender\'ın gerekli olduğu değerlerde bulunuyor.</string>
     <string name="important_info_pppps_new_version_2">PPPAyarlarıYap\'ın son sürümünü kurmak için buraya dokununuz.</string>
@@ -2045,7 +2037,6 @@
     <string name="alert_button_install_store">Mağazayı yükle</string>
     <string name="check_releases_droidify_ppp_release">Droid-ify\'da PhoneProfilesPlus sürümü:</string>
     <string name="check_releases_fdroid_ppp_release">F-Droid\'de PhoneProfilesPlus sürümü:</string>
-    <string name="check_releases_appgallery_ppp_release">Huawei AppGallery\'de PhoneProfilesPlus sürümü:</string>
     <string name="check_releases_ppp_release_clik_to_show">Göstermek için buraya dokunun.</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Müzik çalarken medya ses seviyesini değiştirme</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Tarama duraklatıldı</string>
@@ -2211,4 +2202,16 @@
     <string name="profile_preferences_deviceDualSIMPINCode_summary">WARNING: This brings the PIN code entry screen for the SIM card that is configured as \"On\".</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
     <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
+    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Send SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Do not send SMS</string>
+    <string name="popup_event_states_state">State:</string>
+    <string name="popup_event_states_paused">Paused</string>
+    <string name="popup_event_states_running">Running</string>
+    <string name="popup_event_states_stopped">Stopped</string>
+    <string name="popup_event_states_paused_delay">Paused with delay</string>
+    <string name="popup_event_states_running_delay">Running with delay</string>
+    <string name="important_info_profile_pppps_howTo_3">This application is in IzzyOnDroid repository and GitHub Releases. Click here to install it.</string>
+    <string name="important_info_support">If you have problems, questions and suggestions, click here and write me.</string>
 </resources>

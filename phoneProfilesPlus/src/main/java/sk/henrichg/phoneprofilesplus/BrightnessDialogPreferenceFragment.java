@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -26,7 +27,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     private BrightnessDialogPreference preference;
 
     // Layout widgets.
-    CheckBox noChangeChBox = null;
+    SwitchCompat noChangeChBox = null;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox automaticChBox = null;

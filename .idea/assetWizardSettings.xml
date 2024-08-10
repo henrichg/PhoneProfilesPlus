@@ -67,7 +67,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../_balast/ic_launcher_ppp_old_new/mipmap-xxxhdpi/ic_launcher_adaptive_back.png" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../_balast" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -90,7 +90,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../_balast/ic_ppp_launcher_laucher_color.svg" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../_balast/ppp_app_icon/drawable-xxxhdpi/ic_ppp_app_icon.png" />
                                                 <entry key="scalingPercent" value="70" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -124,7 +124,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="outputName" value="ic_launcher_pokus" />
+                                      <entry key="previewDensity" value="mdpi" />
+                                      <entry key="showGrid" value="true" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -288,6 +292,12 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="previewDensity" value="mdpi" />
+                                      <entry key="showGrid" value="true" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -21,11 +21,17 @@
         app:layout="@layout/mp_preference_material_widget"/>
 
 <!--    !!! Required because is not possible to use DrawOverAppsPermissionNotification.showNotification()
-        when PPP notificaitonsa are disabled (API 31 restrictions abount app notifications) -->
+        when PPP notificaitons are disabled (API 31 restrictions about app notifications) -->
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="permissionsDrawOverlaysPermissions"
         app:title="@string/phone_profiles_pref_drawOverlaysPermissions"
         app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="permissionsNotificationPolicyAccessPermissions"
+        app:title="@string/do_not_disturb_access_permission_notification"
+        app:summary="@string/do_not_disturb_access_permission_notification_text"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference

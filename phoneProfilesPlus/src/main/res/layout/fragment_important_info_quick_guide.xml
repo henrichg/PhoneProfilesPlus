@@ -36,8 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="@string/important_info_contact"
+            android:text="@string/important_info_support"
             android:textSize="@dimen/important_info_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/accent_color"
             android:id="@+id/activity_info_notification_contact" />
 
         <!--

@@ -532,6 +532,9 @@ PPExtenderBroadcastReceiver:
 
 ------------------
 
+Chyba v ACTION_VIEW a aj v Chrome. Download apk, napriklad InstallWithOptions.
+Testni znova.
+
 Samsung, One UI 6. Problem je download apk cez ACTION_VIEW. Stale zobrazuje Downloading a hotovo.
 Cize tuto mam velky problem. Skus pozriet alebo pouzi DownloadManager. S21. Tych Samsungov je veľa.
 Cize to bude daky bug v Samsung One UI asi.
@@ -539,54 +542,30 @@ Sranda, to iste robi Chrome aj ked priamo v nom otvorim InstallWithOtions releas
 Problém je zjavne v Chrome. Keď dam default Samsung internet, žiaden problém s downloadom nie je.
 Alebo v One UI. Že je tam zlý downloader.
 
--------------
-
-- Add: Added "Application run duration" into "Application sensor".
-- Add: "Phone calls" parameter for block calls.
-- Add: New senzor "Music sensor" to detect music playing.
-
-- Change: Fixed not working click to notification about new PPPPS version.
-- Change: Fixed not working notification about new PPP version.
-- Change: Increased delay between set sound mode and volumes.
-- Change: Fixed not working change of volume in DND Priority in Motorola.
-- Change: Better summary for profile parameter "Generate notification".
-- Change: Removed Galaxy Store form README.md.
-- Change: Removed Important info about Galaxy Store end of support.
-- Change: Fixed not working change of ringing volume when is set Priority DND, in all devices with Android 14+.
-- Change: Airplane mode parameters as sub-screen.
-- Change: Set wifi/on using "svc wifi" command, which do not generates prompt (HyperOs).
-- Change: Better notification channels descriptions.
-- Change: Bypass DND for some notifications.
-- Change: Set "Package name" as required for custom "Action" + "Broadcast".
-- Change: Displays toast from "Test" button for test of broadcast intent in Intent editor.
-- Change: Fixed show Important info about required versions of PPPE, PPPPS at PPP start.
-- Change: Installation of PPPPutSettings with InstallWithOptions.
-- Change: Profile parameter name "Lock screen" to "Unlock device".
-- Change: Added "Image wallpaper for lock screen" into profile "Change wallpaper".
-- Change: Disable "Wifi hotspot" SIM is not inserted.
-- Change: Disable "Default SIM card" if SIM is not inserted.
-- Change: Check more than 2 SIM cards in some profile/event parameters
-- Change: Allowed activation form event for end of duration "Activate default profile".
-- Change: Allowed activation from event for end of duration "Undo the profile"
-- Change: Allowed activation from event for end of duration "Restart events"
-- Change: Save activated profile to FIFO when is activated manually.
-- Change: Added (Z) information into Important info for profiles.
-- Change: HyperOs - disable Wi-Fi, Bluetooth ON/OFF ask dialogs with appops command.
-- Change: Change wallpaper: added recycle() for bitmaps after set wallpaper.
-- Change: Change wallpaper in MIUI. Added info for not working good WallpaperManager.setBitmap().
-- Change: fixes in manifest file for activities with excludeFromRecents.
-- Change: Fixed close of foreground application when night mode is changed from profile.
-
-- Fix: Fixed not working "Screen timeout" in OnePlus. Requires root, Shizuku.
-- Fix: Color of row in Activity log.
-- Fix: Change wallpaper with "(I) Change to image with".
-
-- Fixed bugs.
-- Updated translations.
-
 ------------
 
 Takze zatial kazdy mobil ma spriahnute ringing a system volume. Teda taky, co system nema v Settings.
 
 -----------------
 
+PPPPS:
+Added Neo Store into README.md.
+Change: Added GMail, Discord, Twitter, XDA-developers, Twitter, Reddit, Bluesky badges to README.md
+Change: Added "Support" submenu.
+Change: Changed label of main activity to "PPPPS".
+Change: Added more info about installation into README.md.
+Fixed appcompat 1.7.0 dependencies problem.
+Fix: Fixed download link of InstallWithOptions.pak in docs.
+
+--------------
+
+Tieto retazce zmen:
+    <string name="important_info_profile_activation_text9">Green: events can be started.</string>
+    <string name="important_info_profile_activation_text10">Orange: events cannot start - profile was activated manually.</string>
+Tieto da j prepozitn nanovo (najprv si ho uprav tu), hlavne o tom povoleni behu udalsoti, uz nie je v menu, je v top bare.
+    <string name="important_info_profile_activation_text11">Red: events are stopped - events run can be enabled through Editor menu item \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_2">You disable global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".</string>
+
+---
+
+Pokusxxx

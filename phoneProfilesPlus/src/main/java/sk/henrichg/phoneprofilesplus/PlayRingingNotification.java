@@ -128,7 +128,7 @@ class PlayRingingNotification
             }
 
             String phoneNumber = "";
-            if (PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, true
+            if (PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
                     /*, "PhoneProfilesService.doSimulatingRingingCall"*/))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 

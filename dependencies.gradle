@@ -1,47 +1,12 @@
-// 2322 = keep checked "Use Priority event parameter"
-// 2400 = start About application alarm for notification "Please donate me."
-// 2500 = profile notification is required, but if is not enabled, hide it from status bar
-//        (default for new apps is "show")
-// 2700 = not show Activator and Editor target helps
-// 3200 = show target helps for shared profile toolbar item
-// 3500 = added is "Confirm restart events"; removed "None", "Restart events" from rescan parameters;
-//         continue donation notification
-// 3900 = replaced applicationEventWifiEnableWifi with applicationEventBluetoothEnableBluetooth
-//        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
-// 4000 = updated privacy policy
-// 4100 = Wi-Fi AP = Toggle is not supported from Android 8+
-// 4200 = show Important info on first application start
-// 4400 = moved SMS/MMS and Call sensor receivers into Extender
-//        separated preferences for single row widget
-// 4600 = support for "NOT LIKE" in calendar sensor
-// 4800 = show target helps for Editor filter spinner
-//        removed color and dark-light theme
-// 5020 = set night_mode as default
-// 5082 = move Editor events filter "Running", because was added "Not stopped" filter
-// 5250 = also use ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED
-//        for API level >= 26
-// 5300 = PPService as foreground also for android < 26
-// 5400 = move night mode background color to "Use night mode"
-// 5700 = removed usage of screen timeout 24 hours and permanent on
-// 5900 = remove tap target helps, user can it start from Editor
-// 6200 = enable notification scanning when any non-stopped event has Notification sensor
-// 6700 = separated shortcut parameters from widhet icon parameters
-// 6730 = changed one row widget "Higher layout" parameter to "Layout height"
-// 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
-// 6920 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
-// 6960 = Increased default value for "Bluetooth LE scan duration".
-// 7065 = Convered old contacts data format in sensors to new format
-// 7080 = Lock device: use Extender for Android 9+
-// 7090 = Removed support for Galaxy Store
-
 ext.ppVersions = [
         /// WARNING:
         // Must be used android.jar downloaded from https://github.com/Reginer/aosp-android-jar
         // Downloaded android.jar must be copied into PC into folder \<android-sdk\>/platforms/android-XX
 
-        publishVersion    : '6.5.1.1',
+        // Add new version, published in GitHub Relases, also into Discord PPP server
 
-        publishVersionCode: 7165,
+        publishVersion    : '6.5.1.2b',
+        publishVersionCode: 7174,
 
         minSdk            : 26,
         targetSdk         : 28,

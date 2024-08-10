@@ -106,6 +106,10 @@
     <color name="error_color">#EB0000</color>
     <color name="information_color">#2A75CB</color>
 
+    <color name="traffic_light_green">#00c400</color>
+    <color name="traffic_light_orange">#ffa000</color>
+    <color name="traffic_light_red">#dc0000</color>
+
 <!--    <color name="bottom_navigation_indicator">#80DC8160</color>-->
 
 </resources>

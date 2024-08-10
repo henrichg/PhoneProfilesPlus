@@ -117,4 +117,6 @@
 
     <dimen name="dialog_progressbar_padding">15dp</dimen>
 
+    <dimen name="switch_padding">10dp</dimen>
+
 </resources>

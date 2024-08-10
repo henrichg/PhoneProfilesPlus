@@ -1850,6 +1850,25 @@ class DataWrapper {
             else {
                 if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
 //                    Log.e("DataWrapper.activateProfileWithAlert", "(2) xxxxx");
+
+                    if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                            (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                            (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                            //(startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                            (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+
+                        final DataWrapper _dataWrapper = this;
+
+                        if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() ||
+                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                            PlayRingingNotification.playNotificationSound(
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                    false, _dataWrapper.context);
+                            //PPApplication.sleep(500);
+                        }
+                    }
+
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 }
                 else {

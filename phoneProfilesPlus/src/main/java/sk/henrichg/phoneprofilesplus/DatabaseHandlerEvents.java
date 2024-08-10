@@ -1482,6 +1482,7 @@ class DatabaseHandlerEvents {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[] { DatabaseHandler.KEY_E_MUSIC_ENABLED,
                         DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE,
+                        DatabaseHandler.KEY_E_MUSIC_APPLICATIONS,
                         DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
@@ -1496,6 +1497,7 @@ class DatabaseHandlerEvents {
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_ENABLED)) == 1);
                 eventPreferences._musicState = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE));
+                eventPreferences._applications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_APPLICATIONS));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED)));
             }
             cursor.close();
@@ -2008,6 +2010,7 @@ class DatabaseHandlerEvents {
 
         values.put(DatabaseHandler.KEY_E_MUSIC_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE, eventPreferences._musicState);
+        values.put(DatabaseHandler.KEY_E_MUSIC_APPLICATIONS, eventPreferences._applications);
         values.put(DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row

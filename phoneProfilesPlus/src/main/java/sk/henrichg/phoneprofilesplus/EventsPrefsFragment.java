@@ -98,6 +98,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = 1998;
     private static final String PREF_EVENT_MOBILE_CELLS_CELLS_REGISTRATION = "eventMobileCellsCellsRegistration";
     private static final String PREF_EVENT_HIDE_NOT_USED_SENSORS = "eventHideNotUsedSensors";
+    private static final int RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1999;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1305,6 +1306,70 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             } else
                 preference.setVisible(false);
         }
+        preference = prefMng.findPreference(EventPreferencesMusic.PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference126 -> {
+                boolean ok = false;
+                String action;
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(action, getActivity().getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(action);
+                        startActivityForResult(intent, RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+                if (!ok) {
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference126.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
+
+                    if (!getActivity().isFinishing())
+                        dialog.show();
+                }
+                return false;
+            });
+        }
+        if (Build.VERSION.SDK_INT >= 33) {
+            final InfoDialogPreference _infoDialogPreference = prefMng.findPreference(EventPreferencesMusic.PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
+            if (_infoDialogPreference != null) {
+                _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
+                    _infoDialogPreference.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_export) + "\"." + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_import) + "\"."
+                    );
+                    _infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
+        }
     }
 
     @Override
@@ -1643,6 +1708,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS) {
             if (nestedFragment)
                 event._eventPreferencesMobileCells.updateConfguredCellNames(prefMng, context);
+        }
+        if (requestCode == RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
+            event._eventPreferencesMusic.checkPreferences(prefMng, !nestedFragment, context);
         }
     }
 

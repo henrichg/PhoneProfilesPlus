@@ -164,7 +164,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             } else if (systemSettings.equals("accessibility_2.0")) {
                 // PPPExtender
                 int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_8_1_3;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_REQUIRED;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -186,7 +186,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
                 int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_8_1_3;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_REQUIRED;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +

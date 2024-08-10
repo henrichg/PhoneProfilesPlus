@@ -411,9 +411,9 @@
     <string name="important_info_profile_activation_text5">Výnimky z tohto pravidla je, ak udalosť má nastavený parameter \"Ignoruj manuálnu aktiváciu\".</string>
     <string name="important_info_profile_activation_text6">Reštart udalostí sa dá vyvolať z Aktivátora, Editora a z notifikácie.</string>
     <string name="important_info_profile_activation_text8">V titulku Aktivátora a Editora je \"semafór\".</string>
-    <string name="important_info_profile_activation_text9">Zelená farba: udalosti môžu byť spustené.</string>
-    <string name="important_info_profile_activation_text10">Oranžová farba: udalosti nemôžu byť spustené - profil je aktivovaný manuálne.</string>
-    <string name="important_info_profile_activation_text11">Červená farba: udalosti sú zastavené - beh udalostí môže byt povolený z menu Editora položkou \"Povoliť beh udalostí\".</string>
+    <string name="important_info_profile_activation_text9">Udalosti môžu byť spustené.</string>
+    <string name="important_info_profile_activation_text10">Udalosti nemôžu byť spustené - profil je aktivovaný manuálne.</string>
+    <string name="important_info_profile_activation_text11">Udalosti sú zastavené - beh udalostí môže byt povolený ikonou \"Povoliť beh udalostí\" v hornom paneli Editora.</string>
     <string name="important_info_profile_activation_restart_events_icon">Ikona Reštart udalostí:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona \"semafór\":</string>
     <string name="important_info_android_doze_mode">Android 6+ implementuje \"Doze režim\" a \"Pohotovostný režim aplikácie\". Ak ste narazili na problémy s aktiváciou profilu z udalostí, ak ste nechali zariadenie v pokoji a odpojené nejakú dobu, s vypnutou obrazovkou, kliknite tu a pridajte PhoneProfilesPlus do \"Neoptimalizované\".</string>
@@ -859,7 +859,6 @@
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Vynútiť zastavenie aplikácií\".</string>
     <string name="shortcut_activate_profile">Aktivácia profilu:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje len ak je obrazovka zapnutá a odomknutá.</string>
-    <string name="important_info_contact">Ak máte problémy, otázky a návrhy, napíšte mi e-mail:</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Nastavenia typu mobilnej siete</string>
     <string name="profile_preferences_deviceCloseAllApplications">Zatvoriť všetky aplikácie</string>
     <string name="array_pref_do_not_close">Nezatvoriť</string>
@@ -982,9 +981,6 @@
     <string name="permission_granted">Udelené</string>
     <string name="important_info_email_body_device">Zariadenie:</string>
     <string name="important_info_email_body_android_version">Verzia Android:</string>
-    <string name="important_info_email_body_problems">Problémy:</string>
-    <string name="important_info_email_body_questions">Otázky:</string>
-    <string name="important_info_email_body_suggestions">Návrhy:</string>
     <string name="about_application_support_subject">podpora</string>
     <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Použiť svetlosť ikony pre vlastné ikony</string>
@@ -1059,7 +1055,7 @@
     <string name="array_pref_lockDevice_extender">Použi PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">V Android 9+, aby fungovalo skenovanie mobilných buniek, musíte povoliť Polohu v systémových nastaveniach.</string>
     <string name="info_notification_event_not_started_1">Udalosť sa nespustí, keď:</string>
-    <string name="info_notification_event_not_started_2">Máte zakázané spúšťanie udalostí (červený \"semafór\") - povoľte spúšťanie udalostí v menu Editora položkou menu \"Povoliť beh udalostí\".</string>
+    <string name="info_notification_event_not_started_2">Máte zakázané spúšťanie udalostí (červený \"semafór\") - povoľte spúšťanie udalostí pomocou ikony \"Povoliť beh udalostí\" v hornom paneli Editora.</string>
     <string name="info_notification_event_not_started_3">Máte manuálne aktivovaný profil (oranžový \"semafór\") - musíte reštartovať udalosti. Použite ikonu \"Reštart udalostí\" v titulku Aktivátora, Editora alebo v notifikácii. Manuálna aktivácia profilu je tiež indikovaná \"[M]\" pred názvom profilu. Výnimkou z blokovania udalosti manuálnou aktiváciou je, ak máte v parametroch udalosti zaškrnutý parameter \"Ignoruj manuálnu aktiváciu\".</string>
     <string name="info_notification_event_not_started_4">Máte zakázané spustenie udalosti v jeho parametroch - parameter \"Povoľ beh\" musí byť zaškrtnutý. Poznámka: \"Semafór\" sa nachádza v titulku Aktivátora a Editora.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Ak skenovanie mobilných buniek nefunguje, aktivujte Polohu v nastaveniach systému.</string>
@@ -1549,8 +1545,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi skenovanie v čase</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">Od</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
-    <string name="menu_check_releases_appgallery">Skontrolovať v AppGallery</string>
-    <string name="check_releases_open_appgallery">Otvoriť AppGallery</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Interval skenovania Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Interval skenovania polohy</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Interval skenovania orientácie</string>
@@ -1918,7 +1912,6 @@
     <string name="profile_preferences_vibrationIntensityAll">Intenzita vibrovania</string>
     <string name="important_info_profile_install_pppps">Niektoré parametre profilu vyžadujú pomocnú aplikáciu PPPPutSettings na vloženie parametra nastavenia do systémovej databázy. ROOT sa nevyžaduje. Tieto parametre sú označené (S).</string>
     <string name="important_info_profile_pppps_howTo_1">Parametre profilu označené (S) vyžadujú pomocnú aplikáciu PPPPutSettings.</string>
-    <string name="important_info_profile_pppps_howTo_2">Táto aplikácia je vo vydaniach GitHub. Kliknutím sem ju stiahnete a nainštalujete.</string>
     <string name="important_info_profile_pppps_howTo_4">Po úspešnej inštalácii, budú povolené všetky parametre profilu označené (S).</string>
     <string name="install_pppps_dialog_title">Inštalácia PPPPutSettings</string>
     <string name="install_pppps_text1">Nainštalujte najnovšiu verziu PPPPutSettings kliknutím na tlačidlo</string>
@@ -1956,7 +1949,6 @@
     <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Kliknite sem pre inštaláciu/inováciu, spustenie PPPPutSettings.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Udeľte povolenie \"Upraviť systémové nastavenia\" v PPPPutSettings. Vyžaduje sa pre správne fungovanie PPPPutSettings.</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">Nainštalovaná verzia:</string>
-    <string name="pppps_pref_dialog_install_pppps_latest_version">Najnovšia verzia:</string>
     <string name="important_info_pppps_new_version_notification">Prosím nainštalujte novú verziu PPPPutSettings. Viac informácií o inštalácii je v \"Dôležité informácie\", sekcia \"Novinky\". Kliknite sem, pre ich zobrazenie.</string>
     <string name="important_info_pppps_new_version">Prosím nainštalujte novú verziu PPPPutSettings. Ďalšie informácie o inštalácii sú v parametroch, ktoré PPPPutSettings vyžadujú.</string>
     <string name="important_info_pppps_new_version_2">Kliknite sem pre inštaláciu najnovšej verzie PPPPutSettings.</string>
@@ -2045,7 +2037,6 @@
     <string name="alert_button_install_store">Inštalovať obchod</string>
     <string name="check_releases_droidify_ppp_release">Vydanie PhoneProfilesPlus v Droid-ify:</string>
     <string name="check_releases_fdroid_ppp_release">Vydanie PhoneProfilesPlus v F-Droid:</string>
-    <string name="check_releases_appgallery_ppp_release">Vydanie PhoneProfilesPlus v Huawei AppGallery:</string>
     <string name="check_releases_ppp_release_clik_to_show">Kliknutím sem to zobrazíte.</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Meniť hlasitosť médií počas prehrávania hudby</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Skenovanie pozastavené</string>
@@ -2211,4 +2202,16 @@
     <string name="profile_preferences_deviceDualSIMPINCode_summary">UPOZORNENIE: Zobrazí sa obrazovka na zadanie kódu PIN pre kartu SIM, ktorá je nakonfigurovaná ako \"Zapnúť\".</string>
     <string name="menu_discord_server">Server PhoneProfilesPlus</string>
     <string name="menu_discord_invitation">Pozvánka na server PhoneProfilesPlus</string>
+    <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
+    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Send SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Do not send SMS</string>
+    <string name="popup_event_states_state">State:</string>
+    <string name="popup_event_states_paused">Paused</string>
+    <string name="popup_event_states_running">Running</string>
+    <string name="popup_event_states_stopped">Stopped</string>
+    <string name="popup_event_states_paused_delay">Paused with delay</string>
+    <string name="popup_event_states_running_delay">Running with delay</string>
+    <string name="important_info_profile_pppps_howTo_3">This application is in IzzyOnDroid repository and GitHub Releases. Click here to install it.</string>
+    <string name="important_info_support">If you have problems, questions and suggestions, click here and write me.</string>
 </resources>

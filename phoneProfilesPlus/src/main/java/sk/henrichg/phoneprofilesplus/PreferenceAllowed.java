@@ -1049,7 +1049,7 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             }
-            else if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+            else if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                 if (profile != null) {
                     if (profile._vibrateWhenRinging != 0)
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1159,7 +1159,7 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else
-                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                     if (profile != null) {
                         if (profile._vibrateNotifications != 0)
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1273,7 +1273,7 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                 if (profile != null) {
                     if (profile.getVibrationIntensityRingingChange())
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1359,7 +1359,7 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                 if (profile != null) {
                     if (profile.getVibrationIntensityNotificationsChange())
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1445,7 +1445,7 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                 if (profile != null) {
                     if (profile.getVibrationIntensityTouchInteractionChange())
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1878,7 +1878,7 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
 //                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
                 if (profile != null) {
                     if (profile._notificationLed != 0)
@@ -2564,7 +2564,7 @@ class PreferenceAllowed {
                             rootRequired = true;
                         boolean ppppsInstalled = false;
                         if (!rootRequired) {
-                            ppppsInstalled = ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0;
+                            ppppsInstalled = ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED;
                         }
                         if (ShizukuUtils.shizukuAvailable()) {
                             if (ShizukuUtils.hasShizukuPermission()) {
@@ -2740,7 +2740,7 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
                         } else
-                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
+                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                             if (profile != null) {
                                 if (profile._soundSameRingtoneForBothSIMCards != 0)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;

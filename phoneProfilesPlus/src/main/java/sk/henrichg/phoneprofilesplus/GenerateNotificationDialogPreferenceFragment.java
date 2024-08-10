@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -28,7 +29,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
 
     // Layout widgets
     private AlertDialog mDialog;
-    private CheckBox generateChBtn = null;
+    private SwitchCompat generateChBtn = null;
     private RadioButton informationIconRBtn = null;
     private RadioButton exclamationIconRBtn = null;
     private RadioButton profileIconRBtn = null;

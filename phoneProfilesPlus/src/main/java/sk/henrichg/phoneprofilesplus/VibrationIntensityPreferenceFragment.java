@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragmentCompat
@@ -39,7 +39,7 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        SwitchCompat noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
 
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
         valueText = view.findViewById(R.id.volumePrefDialogValueText);

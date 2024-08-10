@@ -17,7 +17,17 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         // Disable default animation
         //setAnimationStyle(0);
 
-        final TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
+        /*
+        TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_text2);
+        String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                activity.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                StringConstants.TAG_LIST_ITEM_START_HTML + activity.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                StringConstants.TAG_LIST_ITEM_START_HTML + activity.getString(R.string.important_info_profile_activation_text11) +
+                StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
+        textView.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, true));
+        */
+
+        TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
         textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
         textView.setClickable(true);
         textView.setOnClickListener(v -> {

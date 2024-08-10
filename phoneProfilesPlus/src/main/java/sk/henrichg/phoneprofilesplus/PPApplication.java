@@ -62,27 +62,24 @@ public class PPApplication extends Application
     static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     //// Extender versions
-    // versions required for profile, event parameters
-    static final int VERSION_CODE_EXTENDER_8_1_3 = 880;
-    static final String VERSION_NAME_EXTENDER_8_1_3 = "8.1.3";
     // for this version will be displayed upgrade notification
     //  required must by <= latest
-    static final int VERSION_CODE_EXTENDER_REQUIRED = 890;
-    // latest version in GitHub, IzzyOnDroid. will be installed
-    static final int VERSION_CODE_EXTENDER_LATEST = 900;         // must be <= as in Extender dependencies.gradle
-    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.6";  // must be <= as in Extender dependencies.gradle
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 900;
+    static final String VERSION_NAME_EXTENDER_REQUIRED = "8.1.6";
+    // Used for check required version. This version must be in IzzyOnDroid
+    static final int VERSION_CODE_EXTENDER_LATEST = 905;
+    //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.7";
     ///////
 
     //// PPPPutSettings versions
-    // versions required for profile, event parameters
-    static final int VERSION_CODE_PPPPS_1_0_8 = 65;
-    static final String VERSION_NAME_PPPPS_1_0_8 = "1.0.8";
     // for this version will be displayed upgrade notification
     //  required must by <= latest
     static final int VERSION_CODE_PPPPS_REQUIRED = 65;
-    // latest version in GitHub, IzzyOnDroid. will be installed
-    static final int VERSION_CODE_PPPPS_LATEST = 65;             // must be <= as in PPPPS dependencies.gradle
-    static final String VERSION_NAME_PPPPS_LATEST = "1.0.8";     // must be <= as in PPPPS dependencies.gradle
+    static final String VERSION_NAME_PPPPS_REQUIRED = "1.0.8";
+    // Used for check required version. This version must be in IzzyOnDroid
+    static final int VERSION_CODE_PPPPS_LATEST = 70;
+    //static final String VERSION_NAME_PPPPS_LATEST = "1.0.9";
+    ///////
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -160,9 +157,9 @@ public class PPApplication extends Application
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
     static final String APKPURE_APPLICATION_URL = "https://apkpure.com/apkpure/com.apkpure.aegon";
 
-    static final String HUAWEI_APPGALLERY_PACKAGE_NAME = "com.huawei.appmarket";
-    static final String HUAWEI_APPGALLERY_PPP_RELEASES_URL = "https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000";
-    static final String HUAWEI_APPGALLERY_APPLICATION_URL = "https://consumer.huawei.com/en/mobileservices/appgallery/";
+    //static final String HUAWEI_APPGALLERY_PACKAGE_NAME = "com.huawei.appmarket";
+    //static final String HUAWEI_APPGALLERY_PPP_RELEASES_URL = "https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000";
+    //static final String HUAWEI_APPGALLERY_APPLICATION_URL = "https://consumer.huawei.com/en/mobileservices/appgallery/";
 
     static final String DROIDIFY_PACKAGE_NAME = "com.looker.droidify";
     static final String DROIDIFY_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";

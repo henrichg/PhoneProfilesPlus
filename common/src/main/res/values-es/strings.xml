@@ -411,9 +411,9 @@
     <string name="important_info_profile_activation_text5">La excepción a esta regla se aplica cuando activas \"Ignorar la activación manual\" en las preferencias del evento.</string>
     <string name="important_info_profile_activation_text6">Reiniciar eventos puede ser invocado desde Activador, Editor o notificación.</string>
     <string name="important_info_profile_activation_text8">En el título del Activador y del Editor hay un \"semáforo\".</string>
-    <string name="important_info_profile_activation_text9">Verde: se pueden iniciar eventos.</string>
-    <string name="important_info_profile_activation_text10">Naranja: los eventos no pueden iniciarse - el perfil se activó manualmente.</string>
-    <string name="important_info_profile_activation_text11">Rojo: los eventos están detenidos - los eventos se pueden habilitar desde \"Activar eventos\" en el menú del Editor.</string>
+    <string name="important_info_profile_activation_text9">Se pueden iniciar eventos.</string>
+    <string name="important_info_profile_activation_text10">Los eventos no pueden iniciarse - el perfil se activó manualmente.</string>
+    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Icono de reiniciar eventos:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Icono de \"Semáforo\":</string>
     <string name="important_info_android_doze_mode">Android 6+ implementa \"Doze mode\" y \"App Standby\". Para evitar problemas con eventos de activación de perfiles —cuando dejas de usar el dispositivo durante un tiempo, con la pantalla apagada, sin conectarlo al cargador e inmoóvil— haz clic aquí para añadir PhoneProfilesPlus a \"No optimizado\".</string>
@@ -859,7 +859,6 @@
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Para habilitar el parámetro \"Forzar detener aplicaciones\", permite \"Accesibilidad\" a PhoneProfilesPlusExtender en los ajustes del sistema.</string>
     <string name="shortcut_activate_profile">Activar perfil:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Funciona sólo cuando la pantalla está encendida y desbloqueada.</string>
-    <string name="important_info_contact">Si tienes problemas, preguntas y sugerencias, envíame un email:</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Preferencias de tipo red móvil</string>
     <string name="profile_preferences_deviceCloseAllApplications">Cerrar todas las aplicaciones</string>
     <string name="array_pref_do_not_close">No cerrar</string>
@@ -982,9 +981,6 @@
     <string name="permission_granted">Concedido</string>
     <string name="important_info_email_body_device">Dispositivo:</string>
     <string name="important_info_email_body_android_version">Versión de Android:</string>
-    <string name="important_info_email_body_problems">Problemas:</string>
-    <string name="important_info_email_body_questions">Preguntas:</string>
-    <string name="important_info_email_body_suggestions">Sugerencias:</string>
     <string name="about_application_support_subject">soporte</string>
     <string name="dashclock_extension_description">Muestra el perfil activo con el indicador de preferencias. Abre el activador al pulsar.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Usar luminosidad de iconos para iconos de perfil personalizados</string>
@@ -1059,7 +1055,7 @@
     <string name="array_pref_lockDevice_extender">Usar PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">En Android 9+, para que el escaneo de celdas móviles funcione, debes habilitar la Ubicación en los ajustes del sistema.</string>
     <string name="info_notification_event_not_started_1">El evento no se iniciará cuando:</string>
-    <string name="info_notification_event_not_started_2">Has deshabilitado la ejecución global de eventos (\"semáforo\" en rojo) - habilítala desde el menú del Editor en la opción \"Habilitar ejecución de eventos\".</string>
+    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
     <string name="info_notification_event_not_started_3">Has activado manualmente el perfil (\"semáforo\" en ámbar) - debes reiniciar los eventos. Usa el icono de Reiniciar eventos en el título del Activador, Editor o en la notificación. Un perfil activado manualmente se indica también con \"[M]\" delante del nombre del perfil. Excepto cuando en el evento se ha activado la opción \"Ignorar activación automática\".</string>
     <string name="info_notification_event_not_started_4">Has deshabilitado la ejecución de eventos desde las preferencias de evento - la opción de evento \"Ejecutar eventos\" debe estar marcada. Nota: El \"Semáforo\" está en el título del Activador y en el Editor.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Si el escaneo de celdas móviles no funciona, habilita la Ubicación en los Ajustes del Sistema.</string>
@@ -1549,8 +1545,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Intervalo, en tiempo, de escaneo de Wi-Fi</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">Desde</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Hasta</string>
-    <string name="menu_check_releases_appgallery">Comprobar en AppGallery</string>
-    <string name="check_releases_open_appgallery">Abrir AppGallery</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Intervalo de escaneo de Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Intervalo de escaneo de ubicación</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Intervalo de escaneo de orientación</string>
@@ -1918,7 +1912,6 @@
     <string name="profile_preferences_vibrationIntensityAll">Intensidad de la vibración</string>
     <string name="important_info_profile_install_pppps">Algunas preferencias de perfil necesitan la aplicación de ayuda PPPPutSettings para colocar el parámetro de configuración en la base de datos del sistema. ROOT no es necesario. Estas preferencias están marcadas con (S).</string>
     <string name="important_info_profile_pppps_howTo_1">Los parámetros de perfil marcados con (S) necesitan la ayuda de la aplicación PPPPutSettings.</string>
-    <string name="important_info_profile_pppps_howTo_2">Esta aplicación está en GitHub Releases. Haz clic aquí para descargarla e instalarla.</string>
     <string name="important_info_profile_pppps_howTo_4">Después de instalarse con éxito, se habilitarán todos los parámetros de perfil identificados con (S).</string>
     <string name="install_pppps_dialog_title">Instalar PPPPutSettings</string>
     <string name="install_pppps_text1">Instalar la última versión de PPPPutSettings haciendo clic en el botón</string>
@@ -1956,7 +1949,6 @@
     <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Haz clic aquí para instalar/actualizar, iniciar PPPPutSettings.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Por favor, concede el permiso \"Modificar la configuración del sistema\" en PPPPutSettings. Es necesario para que PPPPutSettings funcione correctamente.</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">Versión instalada:</string>
-    <string name="pppps_pref_dialog_install_pppps_latest_version">Última versión:</string>
     <string name="important_info_pppps_new_version_notification">Por favor, instala la nueva versión de PPPPutSettings. Hay más información sobre la instalación en \"Información importante\", sección \"Noticias\". Haz clic aquí para mostrarla.</string>
     <string name="important_info_pppps_new_version">Por favor, instala la nueva versión de PPPPutSettings. Hay más información sobre la instalación en los parámetros para los que es necesario PPPPutSettings.</string>
     <string name="important_info_pppps_new_version_2">Haz clic aquí para instalar la última versión de PPPPutSettings.</string>
@@ -2045,7 +2037,6 @@
     <string name="alert_button_install_store">Instalar desde la tienda</string>
     <string name="check_releases_droidify_ppp_release">Versión de PhoneProfilesPlus en Droid-ify:</string>
     <string name="check_releases_fdroid_ppp_release">Versión de PhoneProfilesPlus en F-Droid:</string>
-    <string name="check_releases_appgallery_ppp_release">Versión de PhoneProfilesPlus en Huawei AppGallery:</string>
     <string name="check_releases_ppp_release_clik_to_show">Haz clic aquí para mostrarlo.</string>
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Cambiar el volumen multimedia mientras se reproduce música</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Escaneo pausado</string>
@@ -2211,4 +2202,16 @@
     <string name="profile_preferences_deviceDualSIMPINCode_summary">ADVERTENCIA: Esto activa la pantalla de entrada de código PIN para la tarjeta SIM que está configurada como «On».</string>
     <string name="menu_discord_server">Servidor PhoneProfilesPlus</string>
     <string name="menu_discord_invitation">Invitación al servidor PhoneProfilesPlus</string>
+    <string name="check_releases_apkpure_ppp_release">Versión de PhoneProfilesPlus en ApkPure:</string>
+    <string name="install_pppps_install_droidify_text">Por favor, instala Droid-ify. Es necesario para la instalación de PPPPutSettings. Después, vuelve a instalar PPPPutSettings.</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Enviar SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_notSend">No enviar SMS</string>
+    <string name="popup_event_states_state">Estado:</string>
+    <string name="popup_event_states_paused">En pausa</string>
+    <string name="popup_event_states_running">Ejecutándose</string>
+    <string name="popup_event_states_stopped">Detenido</string>
+    <string name="popup_event_states_paused_delay">Pausado con retraso</string>
+    <string name="popup_event_states_running_delay">Ejecutándose con retraso</string>
+    <string name="important_info_profile_pppps_howTo_3">Esta aplicación está en el repositorio IzzyOnDroid y en GitHub. Haz clic aquí para instalarla.</string>
+    <string name="important_info_support">Si tienes problemas, preguntas y sugerencias, haz clic aquí y escríbeme.</string>
 </resources>

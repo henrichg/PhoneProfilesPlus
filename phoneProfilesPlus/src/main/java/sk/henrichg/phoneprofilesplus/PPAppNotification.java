@@ -607,14 +607,12 @@ public class PPAppNotification {
                 if (notificationPrefIndicator) {
                     ProfilePreferencesIndicator _indicators = new ProfilePreferencesIndicator();
                     indicators = _indicators.getString(profile, /*0,*/ appContext);
-
                     // do not show indicators in collased notification ;-)
                     //notificationBuilder.setContentText(indicators);
-
                 }
-                else {
-                    notificationBuilder.setContentText(null);
-                }
+                //else {
+                //    notificationBuilder.setContentText(null);
+                //}
             }
         } catch (Exception e) {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._showNotification", Log.getStackTraceString(e));
@@ -750,20 +748,38 @@ public class PPAppNotification {
             if (Build.VERSION.SDK_INT >= 31) {
                 // this style is used, because large icon and indicators are hidden in collapsed mode
                 // but is reserved small space for bigPicture in expanded mode:-(
-                if (notificationShowProfileIcon)
-                    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                                    .setBigContentTitle(profileName.toString())
-                                    .setSummaryText(indicators)
-                                    .bigLargeIcon(notificationIconData.imageBitmap)
-                                    .bigPicture((Bitmap)null)
-                    );
-                else
-                    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                                    .setBigContentTitle(profileName.toString())
-                                    .setSummaryText(indicators)
-                                    .bigLargeIcon((Bitmap)null)
-                                    .bigPicture((Bitmap)null)
-                    );
+                if (notificationShowProfileIcon) {
+                    if ((indicators == null) || (indicators.isEmpty()))
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                //.setSummaryText(null)
+                                .bigLargeIcon(notificationIconData.imageBitmap)
+                                //.bigPicture((Bitmap) null)
+                        );
+                    else
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                .setSummaryText(indicators)
+                                .bigLargeIcon(notificationIconData.imageBitmap)
+                                //.bigPicture((Bitmap) null)
+                        );
+                }
+                else {
+                    if ((indicators == null) || (indicators.isEmpty()))
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                //.setSummaryText(null)
+                                //.bigLargeIcon((Bitmap) null)
+                                //.bigPicture((Bitmap) null)
+                        );
+                    else
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                .setSummaryText(indicators)
+                                //.bigLargeIcon((Bitmap) null)
+                                //.bigPicture((Bitmap) null)
+                        );
+                }
             }
             else
                 notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));

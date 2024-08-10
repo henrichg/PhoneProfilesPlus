@@ -148,7 +148,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/important_info_profile_pppps_howTo_2"
+        android:text="@string/important_info_profile_pppps_howTo_3"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_profile_pppps_howTo_2" />
     <TextView
