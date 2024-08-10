@@ -1,0 +1,104 @@
+Netusim, co znamena toto cele: mam uid ale nie je to Extender? uid 10270.
+Ze by daky hnusny bug v bete Android 13? Mozno.
+
+2022-06-18 13:18:45.945 1928-10261/? E/UserRestrictionsUtils: Unknown restriction queried by uid 1000 (com.android.inputdevices et al): sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:18:47.198 1928-1946/? E/AppOps: package sk.henrichg.phoneprofilesplusextender not found, can't check for attributionTag null
+2022-06-18 13:18:47.198 1928-1946/? E/AppOps: Bad call made by uid 10213. Package "sk.henrichg.phoneprofilesplusextender" does not belong to uid 10270.
+2022-06-18 13:18:47.198 1928-1946/? E/AppOps: checkOperation
+    java.lang.SecurityException: Specified package "sk.henrichg.phoneprofilesplusextender" under uid 10270 but it is not
+        at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4695)
+        at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4562)
+        at com.android.server.appop.AppOpsService.checkOperationUnchecked(AppOpsService.java:3251)
+        at com.android.server.appop.AppOpsService.checkOperationImpl(AppOpsService.java:3234)
+        at com.android.server.appop.AppOpsService.-$$Nest$mcheckOperationImpl(Unknown Source:0)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.lambda$checkOperation$0(AppOpsService.java:7595)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$KrwrxMLmGzFSEjEyo0aJ63o5J9E(Unknown Source:0)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda9.apply(Unknown Source:24)
+        at com.android.server.policy.AppOpsPolicy.checkOperation(AppOpsPolicy.java:213)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.checkOperation(AppOpsService.java:7594)
+        at com.android.server.appop.AppOpsService.checkOperation(AppOpsService.java:3221)
+        at com.android.internal.app.IAppOpsService$Stub.onTransact(IAppOpsService.java:457)
+        at android.os.Binder.execTransactInternal(Binder.java:1280)
+        at android.os.Binder.execTransact(Binder.java:1244)
+2022-06-18 13:19:04.910 15823-15823/? E/studio.deploy: Could not get package user id: run-as: unknown package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:19:04.923 15823-15823/? E/studio.deploy: Could not find apks for this package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:19:04.950 15823-15823/? E/studio.deploy: Could not get package user id: run-as: unknown package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:19:04.975 15823-15823/? E/studio.deploy: Could not find apks for this package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:19:06.197 1928-2001/? E/VerityUtils: Failed to measure fs-verity, errno 1: /data/app/~~OIcyv73yCDGcVXp5p1x0ZA==/sk.henrichg.phoneprofilesplusextender-ltTThjveE0IoP1MAZ4g7JA==/base.apk
+2022-06-18 13:19:06.415 16448-16448/sk.henrichg.phoneprofilesplusextender E/##### PPPEApplication.attachBaseContext: ACRA inittialization
+2022-06-18 13:19:06.478 16448-16448/sk.henrichg.phoneprofilesplusextender E/##### PPPEApplication.onCreate: Start
+2022-06-18 13:19:06.479 16448-16448/sk.henrichg.phoneprofilesplusextender E/##### PPPEApplication.onCreate: after cerate notification channel
+
+
+Odinstalacia, uplne rovnaka chyba? Ale s inym uid 10271?
+
+2022-06-18 13:26:08.375 1928-4100/? E/UserRestrictionsUtils: Unknown restriction queried by uid 1000 (com.android.inputdevices et al): sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:26:09.730 1928-4100/? E/AppOps: package sk.henrichg.phoneprofilesplusextender not found, can't check for attributionTag null
+2022-06-18 13:26:09.730 1928-4100/? E/AppOps: Bad call made by uid 10213. Package "sk.henrichg.phoneprofilesplusextender" does not belong to uid 10271.
+2022-06-18 13:26:09.730 1928-4100/? E/AppOps: checkOperation
+    java.lang.SecurityException: Specified package "sk.henrichg.phoneprofilesplusextender" under uid 10271 but it is not
+        at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4695)
+        at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4562)
+        at com.android.server.appop.AppOpsService.checkOperationUnchecked(AppOpsService.java:3251)
+        at com.android.server.appop.AppOpsService.checkOperationImpl(AppOpsService.java:3234)
+        at com.android.server.appop.AppOpsService.-$$Nest$mcheckOperationImpl(Unknown Source:0)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.lambda$checkOperation$0(AppOpsService.java:7595)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$KrwrxMLmGzFSEjEyo0aJ63o5J9E(Unknown Source:0)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda9.apply(Unknown Source:24)
+        at com.android.server.policy.AppOpsPolicy.checkOperation(AppOpsPolicy.java:213)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.checkOperation(AppOpsService.java:7594)
+        at com.android.server.appop.AppOpsService.checkOperation(AppOpsService.java:3221)
+        at com.android.internal.app.IAppOpsService$Stub.onTransact(IAppOpsService.java:457)
+        at android.os.Binder.execTransactInternal(Binder.java:1280)
+        at android.os.Binder.execTransact(Binder.java:1244)
+        
+        
+------------------
+        
+adb shell "dumpsys package | grep -A1 'userId=10213'"
+        
+Cize permissioncontroler to vyvolava:
+    userId=10213
+    pkg=Package{fb7181a com.google.android.permissioncontroller}
+
+ALE UID 10271 NEEXISTUJE!!! PPPE ma uid 10272!
+Co to kua je?
+        
+2022-06-18 13:26:08.375 1928-4100/? E/UserRestrictionsUtils: Unknown restriction queried by uid 1000 (com.android.inputdevices et al): sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:26:09.730 1928-4100/? E/AppOps: package sk.henrichg.phoneprofilesplusextender not found, can't check for attributionTag null
+2022-06-18 13:26:09.730 1928-4100/? E/AppOps: Bad call made by uid 10213. Package "sk.henrichg.phoneprofilesplusextender" does not belong to uid 10271.
+2022-06-18 13:26:09.730 1928-4100/? E/AppOps: checkOperation
+    java.lang.SecurityException: Specified package "sk.henrichg.phoneprofilesplusextender" under uid 10271 but it is not
+        at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4695)
+        at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4562)
+        at com.android.server.appop.AppOpsService.checkOperationUnchecked(AppOpsService.java:3251)
+        at com.android.server.appop.AppOpsService.checkOperationImpl(AppOpsService.java:3234)
+        at com.android.server.appop.AppOpsService.-$$Nest$mcheckOperationImpl(Unknown Source:0)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.lambda$checkOperation$0(AppOpsService.java:7595)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$KrwrxMLmGzFSEjEyo0aJ63o5J9E(Unknown Source:0)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda9.apply(Unknown Source:24)
+        at com.android.server.policy.AppOpsPolicy.checkOperation(AppOpsPolicy.java:213)
+        at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.checkOperation(AppOpsService.java:7594)
+        at com.android.server.appop.AppOpsService.checkOperation(AppOpsService.java:3221)
+        at com.android.internal.app.IAppOpsService$Stub.onTransact(IAppOpsService.java:457)
+        at android.os.Binder.execTransactInternal(Binder.java:1280)
+        at android.os.Binder.execTransact(Binder.java:1244)
+2022-06-18 13:35:32.182 15823-15823/? E/studio.deploy: Could not get package user id: run-as: unknown package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:35:32.207 15823-15823/? E/studio.deploy: Could not find apks for this package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:35:32.231 15823-15823/? E/studio.deploy: Could not get package user id: run-as: unknown package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:35:32.257 15823-15823/? E/studio.deploy: Could not find apks for this package: sk.henrichg.phoneprofilesplusextender
+2022-06-18 13:35:33.529 1928-2001/? E/VerityUtils: Failed to measure fs-verity, errno 1: /data/app/~~6QfLsaVAYcdzwCuzwAcnHA==/sk.henrichg.phoneprofilesplusextender-Yu3ISP5lzsC7-lsdcLhbNA==/base.apk
+2022-06-18 13:35:33.749 16858-16858/sk.henrichg.phoneprofilesplusextender E/##### PPPEApplication.attachBaseContext: ACRA inittialization
+2022-06-18 13:35:33.795 16858-16858/sk.henrichg.phoneprofilesplusextender E/##### PPPEApplication.onCreate: Start
+2022-06-18 13:35:33.797 16858-16858/sk.henrichg.phoneprofilesplusextender E/##### PPPEApplication.onCreate: after cerate notification channel
+        
+        
+---------
+
+To cele vypada, ze to uid, co ziska AppOps je o 1 mensie, nez skutocne UID Extendera. Ze by dake cashovane uid a zostane po odinstalovani?
+Odinstalacia spadne zasa, lebo uz uid PPP je neplatne. PPP sa odinstalovalo.
+Co vlastne checkuje, ake permission po instalacii? To pre notifikacie?
+Je pravda, ze prve spustenie aktivity PPPE si to nepyta potvrdenie prava, az druhe.
+
+        
+
