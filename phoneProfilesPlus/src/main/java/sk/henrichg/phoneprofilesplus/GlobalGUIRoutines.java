@@ -81,8 +81,11 @@ class GlobalGUIRoutines {
 //            Log.e("GlobalGUIRoutines.getTheme", "Build.VERSION.INCREMENTAL="+Build.VERSION.INCREMENTAL);
             String[] splits = Build.VERSION.INCREMENTAL.split("\\.");
 //            Log.e("GlobalGUIRoutines.getTheme", "splits[0]="+splits[0]);
-            miuiVersion = Integer.parseInt(splits[0].substring(1));
-//            Log.e("GlobalGUIRoutines.getTheme", "miuiVersion="+miuiVersion);
+            try {
+                miuiVersion = Integer.parseInt(splits[0].substring(1));
+//                Log.e("GlobalGUIRoutines.getTheme", "miuiVersion="+miuiVersion);
+            }
+            catch (Exception ignored) {}
         }
 
         if (forActivator) {
