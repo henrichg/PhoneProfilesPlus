@@ -250,6 +250,7 @@ public class Shell {
     }
 
 
+    /** @noinspection RedundantThrows*/
     public Command add(Command command) throws IOException {
         if (this.close) {
             throw new IllegalStateException(
@@ -317,6 +318,7 @@ public class Shell {
         }
     }
 
+    /** @noinspection RedundantThrows*/
     public void close() throws IOException {
         RootShell.log("Request to close shell!");
 
