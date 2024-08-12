@@ -1667,8 +1667,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //callScreeningPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 callScreeningPreference.setOnPreferenceClickListener(preference13 -> {
                     RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-                    Intent intent = roleManager.createRequestRoleIntent(ROLE_CALL_SCREENING);
-                    startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
+                    if (roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
+                    } else {
+                        Intent intent = roleManager.createRequestRoleIntent(ROLE_CALL_SCREENING);
+                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
+                    }
                     return false;
                 });
             }
@@ -7029,9 +7035,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (Build.VERSION.SDK_INT >= 29) {
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
                 boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
-                Preference preference = prefMng.findPreference(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
-                if (preference != null)
-                    preference.setEnabled(!isHeld);
+                //Preference preference = prefMng.findPreference(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+                //if (preference != null)
+                //    preference.setEnabled(!isHeld);
 
 
                 int phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
@@ -7046,7 +7052,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
                         ((contactsValue != null) && (!contactsValue.isEmpty()));
 
-                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
+                Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
                 if (preference != null)
                     preference.setEnabled(isHeld);
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
