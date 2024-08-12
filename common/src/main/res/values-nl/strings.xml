@@ -413,7 +413,7 @@
     <string name="important_info_profile_activation_text8">In de titel van Activator en Editor is het \"verkeerslicht\".</string>
     <string name="important_info_profile_activation_text9">Events kunnen starten.</string>
     <string name="important_info_profile_activation_text10">Events kunnen niet starten - profiel was handmatig geactiveerd.</string>
-    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
+    <string name="important_info_profile_activation_text11">Events zijn gestopt - events uitvoeren kan via het Editor bovenste pictogram \"Events uitvoeren\" worden ingeschakeld.</string>
     <string name="important_info_profile_activation_restart_events_icon">Herstart events icoon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Verkeerslicht\" icoon:</string>
     <string name="important_info_android_doze_mode">Android 6+ implementeert \"Doze mode\" en \"App stand-by\". Dit kan problemen geven bij het activeren van een event profiel als je het apparaat niet aangesloten en stil laat liggen gedurende enige tijd met het scherm uit. Klik hier om PhoneProfilesPlus toe te voegen aan \"Niet geoptimaliseerd\" om dit op te lossen.</string>
@@ -1055,7 +1055,7 @@
     <string name="array_pref_lockDevice_extender">Gebruik PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, moet u locatie inschakelen in systeeminstellingen om zendmast cellen te scannen.</string>
     <string name="info_notification_event_not_started_1">Event wordt niet gestart wanneer:</string>
-    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_2">Je hebt de globale events uitvoeren (rood \"verkeerslicht\") uitgeschakeld - schakel het in de Editor bovenste pictogram \"Events uitvoeren\" in.</string>
     <string name="info_notification_event_not_started_3">Je handmatig een profiel hebt geactiveerd (oranje verkeerslicht) - herstart de events. Gebruik de \"Events herstarten\" knop in de header van de activator, de editor of in de melding. Handmatig geactiveerde profielen zijn ook herkenbaar aan de \"[M]\" voor de profielnaam. De enige uitzondering is wanneer er in een event de optie \"Negeer handmatige activatie\" is geselecteerd.</string>
     <string name="info_notification_event_not_started_4">Je een of meerdere events niet hebt geactiveerd, activeer deze per event in de editor door \"Uitvoeren inschakelen\" te selecteren. Noot: het \"verkeerslicht\" is zichtbaar in de header van de activator en de editor.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Als zendmast cellen scannen niet werkt, schakel Locatie in bij Systeeminstellingen.</string>
@@ -2214,4 +2214,7 @@
     <string name="popup_event_states_running_delay">Bezig met vertraging</string>
     <string name="important_info_profile_pppps_howTo_3">Deze applicatie is beschikbaar in de IzzyOnDroid repository en GitHub Releases. Klik hier om te installeren.</string>
     <string name="important_info_support">Als je problemen, vragen en suggesties hebt, klik dan hier en schrijf me.</string>
+    <string name="event_preferences_music_notificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Music sensor will not detect application which plays music.</string>
+    <string name="event_preferences_music_notificationAccessSystemSettingsDisabled_summary">Notification access disabled</string>
+    <string name="event_preferences_music_notificationAccessSystemSettingsEnabled_summary">Notification access enabled</string>
 </resources>

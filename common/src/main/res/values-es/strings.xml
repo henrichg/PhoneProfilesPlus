@@ -413,7 +413,7 @@
     <string name="important_info_profile_activation_text8">En el título del Activador y del Editor hay un \"semáforo\".</string>
     <string name="important_info_profile_activation_text9">Se pueden iniciar eventos.</string>
     <string name="important_info_profile_activation_text10">Los eventos no pueden iniciarse - el perfil se activó manualmente.</string>
-    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
+    <string name="important_info_profile_activation_text11">Los eventos están detenidos - los eventos se pueden activar a través del icono de la barra superior del Editor \"Activar ejecución de eventos\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Icono de reiniciar eventos:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Icono de \"Semáforo\":</string>
     <string name="important_info_android_doze_mode">Android 6+ implementa \"Doze mode\" y \"App Standby\". Para evitar problemas con eventos de activación de perfiles —cuando dejas de usar el dispositivo durante un tiempo, con la pantalla apagada, sin conectarlo al cargador e inmoóvil— haz clic aquí para añadir PhoneProfilesPlus a \"No optimizado\".</string>
@@ -1055,7 +1055,7 @@
     <string name="array_pref_lockDevice_extender">Usar PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">En Android 9+, para que el escaneo de celdas móviles funcione, debes habilitar la Ubicación en los ajustes del sistema.</string>
     <string name="info_notification_event_not_started_1">El evento no se iniciará cuando:</string>
-    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_2">Has deshabilitado la ejecución global de eventos (\"semáforo\" en rojo) - habilítala desde el menú del Editor en la opción \"Habilitar ejecución de eventos\".</string>
     <string name="info_notification_event_not_started_3">Has activado manualmente el perfil (\"semáforo\" en ámbar) - debes reiniciar los eventos. Usa el icono de Reiniciar eventos en el título del Activador, Editor o en la notificación. Un perfil activado manualmente se indica también con \"[M]\" delante del nombre del perfil. Excepto cuando en el evento se ha activado la opción \"Ignorar activación automática\".</string>
     <string name="info_notification_event_not_started_4">Has deshabilitado la ejecución de eventos desde las preferencias de evento - la opción de evento \"Ejecutar eventos\" debe estar marcada. Nota: El \"Semáforo\" está en el título del Activador y en el Editor.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Si el escaneo de celdas móviles no funciona, habilita la Ubicación en los Ajustes del Sistema.</string>
@@ -2214,4 +2214,7 @@
     <string name="popup_event_states_running_delay">Ejecutándose con retraso</string>
     <string name="important_info_profile_pppps_howTo_3">Esta aplicación está en el repositorio IzzyOnDroid y en GitHub. Haz clic aquí para instalarla.</string>
     <string name="important_info_support">Si tienes problemas, preguntas y sugerencias, haz clic aquí y escríbeme.</string>
+    <string name="event_preferences_music_notificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Music sensor will not detect application which plays music.</string>
+    <string name="event_preferences_music_notificationAccessSystemSettingsDisabled_summary">Notification access disabled</string>
+    <string name="event_preferences_music_notificationAccessSystemSettingsEnabled_summary">Notification access enabled</string>
 </resources>

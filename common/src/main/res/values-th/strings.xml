@@ -2214,4 +2214,7 @@
     <string name="popup_event_states_running_delay">Running with delay</string>
     <string name="important_info_profile_pppps_howTo_3">This application is in IzzyOnDroid repository and GitHub Releases. Click here to install it.</string>
     <string name="important_info_support">If you have problems, questions and suggestions, click here and write me.</string>
+    <string name="event_preferences_music_notificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Music sensor will not detect application which plays music.</string>
+    <string name="event_preferences_music_notificationAccessSystemSettingsDisabled_summary">Notification access disabled</string>
+    <string name="event_preferences_music_notificationAccessSystemSettingsEnabled_summary">Notification access enabled</string>
 </resources>
