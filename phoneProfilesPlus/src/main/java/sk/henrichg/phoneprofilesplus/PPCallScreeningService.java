@@ -16,9 +16,11 @@ public class PPCallScreeningService extends CallScreeningService {
     @Override
     public void onScreenCall(Call.Details callDetails) {
         if (Build.VERSION.SDK_INT >= 29) {
+//            Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
+
             CallResponse.Builder response = new CallResponse.Builder();
             if (callDetails.getCallDirection() ==  Call.Details.DIRECTION_INCOMING) {
-                //Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
+//                Log.e("PPCallScreeningService.onScreenCall", "incomming call");
 
                 //DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
                 //Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
@@ -36,7 +38,7 @@ public class PPCallScreeningService extends CallScreeningService {
                 boolean profileFound = false;
                 boolean phoneNumberFound = false;
                 String calledPhoneNumber = "";
-                        Uri callHandle =  callDetails.getHandle();
+                Uri callHandle =  callDetails.getHandle();
                 if (callHandle != null) {
                     calledPhoneNumber = callHandle.getSchemeSpecificPart();
                     if (
