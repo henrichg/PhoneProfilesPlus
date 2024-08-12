@@ -377,6 +377,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText100.setText(text);
         }
 
+        /*
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
@@ -395,6 +396,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
+        */
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
