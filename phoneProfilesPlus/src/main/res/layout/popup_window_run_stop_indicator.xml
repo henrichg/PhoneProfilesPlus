@@ -125,7 +125,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/popup_window_events_status_show_info"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/run_stop_indicator_popup_window_important_info"

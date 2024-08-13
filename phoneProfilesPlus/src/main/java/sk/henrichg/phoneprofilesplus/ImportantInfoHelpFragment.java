@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -156,7 +157,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     static void doOnViewCreated(@NonNull View view, Fragment fragment) {
 
-        final ImportantInfoActivity activity = (ImportantInfoActivity) fragment.getActivity();
+        final Activity activity = fragment.getActivity();
         if (activity == null)
             return;
 
@@ -656,7 +657,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
 
-                    popup.setOnMenuItemClickListener(activity::supportMenu);
+                    ImportantInfoActivity importantInfoActivity = (ImportantInfoActivity) activity;
+                    popup.setOnMenuItemClickListener(importantInfoActivity::supportMenu);
 
                     if (!activity.isFinishing())
                         popup.show();
