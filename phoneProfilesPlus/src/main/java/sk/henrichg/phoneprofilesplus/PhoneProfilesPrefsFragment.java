@@ -1,11 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.role.RoleManager.ROLE_CALL_SCREENING;
 import static android.content.Context.RECEIVER_NOT_EXPORTED;
+import static android.content.Context.ROLE_SERVICE;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.role.RoleManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -114,6 +117,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsProfileList";
     private static final String PREF_NOTIFICATION_SCANNING_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "applicationEventNotificationNotificationsAccessSettingsRestrictedSettings";
     static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "applicationEventMobileCellsRegistration";
+    private final String PREF_SET_CALL_SCREENING_ROLE_SETTINGS = "setCallScreeningRoleSettings";
+    private final int RESULT_SET_CALL_SCREENING_ROLE_SETTINGS = 1995;
 
     static final String PREF_APPLICATION_INTERFACE_CATEGORY_ROOT = "applicationInterfaceCategoryRoot";
     static final String PREF_APPLICATION_START_CATEGORY_ROOT = "categoryApplicationStartRoot";
@@ -140,6 +145,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT = "categorySamsungEdgePanelRoot";
     static final String PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT = "categoryWidgetDashClockRoot";
+    static final String PREF_CALL_SCREENING_CATEGORY_ROOT = "categoryCallScreeningRoot";
 
     static final String PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO = "applicationUnlinkRingerNotificationVolumesInfo";
     static final String PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "applicationEventPeriodicScanningScanIntervalInfo";
@@ -518,6 +524,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategoryScreen != null)
                     setCategorySummary(preferenceCategoryScreen);
             }
+
+            preferenceCategoryScreen = findPreference(PREF_CALL_SCREENING_CATEGORY_ROOT);
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
 
         Preference preference;/* = findPreference(PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO);
@@ -2190,6 +2199,25 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setIsHtml(true);
         }
 
+        if (Build.VERSION.SDK_INT >= 29) {
+            Preference callScreeningPreference = prefMng.findPreference(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
+            if (callScreeningPreference != null) {
+                //callScreeningPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                callScreeningPreference.setOnPreferenceClickListener(preference13 -> {
+                    RoleManager roleManager = (RoleManager) appContext.getSystemService(ROLE_SERVICE);
+                    if (roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE_SETTINGS);
+                    } else {
+                        Intent intent = roleManager.createRequestRoleIntent(ROLE_CALL_SCREENING);
+                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE_SETTINGS);
+                    }
+                    return false;
+                });
+            }
+        }
+
     }
 
     private void doOnActivityCreatedBatterySaver(String key) {
@@ -2524,6 +2552,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.startRegistration();
         }
+
+        if (requestCode == RESULT_SET_CALL_SCREENING_ROLE_SETTINGS) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                setSummary(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
+            }
+        }
+
     }
 
     @SuppressWarnings("deprecation")
@@ -2817,6 +2852,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
         setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+        setSummary(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
 
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -4073,6 +4109,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(PREF_SET_CALL_SCREENING_ROLE_SETTINGS)) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                String summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
+                Preference _preference = prefMng.findPreference(key);
+                if (_preference != null) {
+                    RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+                    boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+                    if (isHeld) {
+                        summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1) +
+                                StringConstants.STR_DOUBLE_NEWLINE + summary;
+                    } else {
+                        summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0) +
+                                StringConstants.STR_DOUBLE_NEWLINE + summary;
+                    }
+                    _preference.setSummary(summary);
+                }
+            }
+        }
 
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
@@ -4699,6 +4753,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_notificationBackgroundColor));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness));
+        }
+        if (key.equals(PREF_CALL_SCREENING_CATEGORY_ROOT)) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                String summary; //= getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
+                RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+                if (isHeld) {
+                    summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1);// +
+                            //StringConstants.STR_DOUBLE_NEWLINE + summary;
+                } else {
+                    summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0);//' +
+                            //StringConstants.STR_DOUBLE_NEWLINE + summary;
+                }
+                _value.append(summary);
+            }
         }
 
         /*if (addEnd) {

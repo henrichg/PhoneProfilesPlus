@@ -197,6 +197,7 @@ class Profile {
     static final String PREF_PROFILE_DEVICE_KEYGUARD = "prf_pref_deviceKeyguard";
     static final String PREF_PROFILE_VIBRATION_ON_TOUCH = "prf_pref_vibrationOnTouch";
     static final String PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS = "prf_pref_volumeUnlinkVolumesAppSettings";
+
     static final String PREF_PROFILE_DEVICE_WIFI_AP = "prf_pref_deviceWiFiAP";
     static final String PREF_PROFILE_DEVICE_POWER_SAVE_MODE = "prf_pref_devicePowerSaveMode";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
@@ -274,6 +275,7 @@ class Profile {
     static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
     static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN = "prf_pref_deviceWallpaperLockScreen";
+    static final String PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE = "prf_pref_phoneCalls_setCallScreeningRole";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;

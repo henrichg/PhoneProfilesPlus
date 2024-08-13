@@ -6,7 +6,7 @@
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="prf_pref_phoneCalls_setCallScreeningRole"
-        app:title="@string/profile_preferences_phoneCalls_setCallScreeningRole"
+        app:title="@string/phone_profiles_pref_call_screening"
         app:summary="@string/profile_preferences_phoneCalls_setCallScreeningRole_summary"
         app:layout="@layout/mp_preference_material_widget"/>
 

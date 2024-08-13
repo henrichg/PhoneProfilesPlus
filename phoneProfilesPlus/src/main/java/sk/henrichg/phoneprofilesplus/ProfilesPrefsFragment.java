@@ -130,7 +130,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_OTHERS_CATTEGORY = "prf_pref_othersCategory";
     private static final String PREF_PROFILE_SCREEN_CATTEGORY = "prf_pref_screenCategory";
     private static final String PREF_PROFILE_VOLUME_TYPE_CATTEGORY = "prf_pref_volumeTypeCategory";
-    private static final String PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE = "prf_pref_phoneCalls_setCallScreeningRole";
+
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_CATTEGORY = "prf_pref_deviceWallpaperCategory";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO = "prf_pref_deviceWallpaperHuaweiInfo";
 
@@ -1662,18 +1662,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            Preference callScreeningPreference = prefMng.findPreference(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
-            if (callScreeningPreference != null) {
-                //callScreeningPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                callScreeningPreference.setOnPreferenceClickListener(preference13 -> {
-                    RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-                    if (roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
-                    } else {
-                        Intent intent = roleManager.createRequestRoleIntent(ROLE_CALL_SCREENING);
-                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(preference1 -> {
+                    // start preferences activity for default profile
+                    if (getActivity() != null) {
+                        Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
+                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT);
+                        getActivity().startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
                     }
                     return false;
                 });
@@ -2041,8 +2037,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (requestCode == RESULT_SET_CALL_SCREENING_ROLE) {
             if (Build.VERSION.SDK_INT >= 29) {
-                disableDependedPref(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
-                setSummary(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+                disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+                setSummary(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
 
                 ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
                 if (activity != null) {
@@ -2050,17 +2046,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     activity.invalidateOptionsMenu();
                 }
             }
-            /*
-            //disableDependedPref(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
-            setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
-            setSummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
-            // show save menu
-            ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
-            if (activity != null) {
-                activity.showSaveMenu = true;
-                activity.invalidateOptionsMenu();
-            }
-            */
         }
     }
 
@@ -5870,7 +5855,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false, false);
             }
         }
-        if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE)) {
+        if (key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 String summary = getString(R.string.profile_preferences_phoneCalls_setCallScreeningRole_summary);
                 Preference preference = prefMng.findPreference(key);
@@ -5878,10 +5863,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
                     boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
                     if (isHeld) {
-                        summary = getString(R.string.profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_1) +
+                        summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1) +
                                 StringConstants.STR_DOUBLE_NEWLINE + summary;
                     } else {
-                        summary = getString(R.string.profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_0) +
+                        summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0) +
                                 StringConstants.STR_DOUBLE_NEWLINE + summary;
                     }
                     preference.setSummary(summary);
@@ -6555,7 +6540,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
-        disableDependedPref(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+        disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
         //disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
         //disableDependedPref(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS);
 
@@ -6676,7 +6661,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL);
         setSummary(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL);
         setSummary(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL);
-        setSummary(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
+        setSummary(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
@@ -7026,7 +7011,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         */
 
-        if (key.equals(PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
+        if (key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS) ||

@@ -2149,10 +2149,7 @@
     <string name="event_preferences_applications_duration">Applications run duration</string>
     <string name="event_preferences_applications_duration_unlimited">Unlimited</string>
     <string name="profile_preferences_category_phone_calls">Phone calls</string>
-    <string name="profile_preferences_phoneCalls_setCallScreeningRole">Set call screening role</string>
     <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Block phone calls\".</string>
-    <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
-    <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
     <string name="profile_preference_phoneCallsBlockCalls">Block phone calls</string>
     <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notification about blocked calls will not be displayed!</string>
     <string name="profile_preference_phoneCallsContactGroups">Contact groups</string>
@@ -2247,6 +2244,11 @@
     <string name="event_preferences_music_notificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Music sensor will not detect application which plays music.</string>
     <string name="event_preferences_music_notificationAccessSystemSettingsDisabled_summary">Notification access disabled</string>
     <string name="event_preferences_music_notificationAccessSystemSettingsEnabled_summary">Notification access enabled</string>
+
+    <string name="phone_profiles_pref_call_screening">Set call screening role</string>
+    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Call screening\" event sensor.</string>
+    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
+    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
 
     <!-- **************************************************************************************** -->
 
