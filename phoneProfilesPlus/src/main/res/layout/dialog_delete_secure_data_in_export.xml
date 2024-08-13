@@ -128,6 +128,13 @@
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_notification" />
             <CheckBox
+                android:id="@+id/deleteSecureDataInExportDialogCallScreening"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/checkbox_radiobutton_color"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_contacts_data_callScreening" />
+            <CheckBox
                 android:id="@+id/deleteSecureDataInExportDialogPhoneCalls"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

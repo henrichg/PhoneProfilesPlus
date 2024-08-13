@@ -2946,6 +2946,9 @@ class DataWrapper {
                         case DatabaseHandler.ETYPE_MUSIC:
                             sensorEnabled = _event._eventPreferencesMusic._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_CALL_SCREENING:
+                            sensorEnabled = _event._eventPreferencesCallScreening._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;

@@ -89,6 +89,7 @@ class Event {
     EventPreferencesRoaming _eventPreferencesRoaming;
     EventPreferencesVPN _eventPreferencesVPN;
     EventPreferencesMusic _eventPreferencesMusic;
+    EventPreferencesCallScreening _eventPreferencesCallScreening;
 
     Spanned _peferencesDecription;
 
@@ -475,6 +476,11 @@ class Event {
         this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0, "");
     }
 
+    private void createEventPreferencesCallScreening()
+    {
+        this._eventPreferencesCallScreening = new EventPreferencesCallScreening(this, false, "", "", 0, false, false, "");
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -559,6 +565,8 @@ class Event {
             createEventPreferencesVPN();
         if (this._eventPreferencesMusic == null)
             createEventPreferencesMusic();
+        if (this._eventPreferencesCallScreening == null)
+            createEventPreferencesCallScreening();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -585,6 +593,7 @@ class Event {
         this._eventPreferencesRoaming.copyPreferences(fromEvent);
         this._eventPreferencesVPN.copyPreferences(fromEvent);
         this._eventPreferencesMusic.copyPreferences(fromEvent);
+        this._eventPreferencesCallScreening.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -656,7 +665,10 @@ class Event {
                 (this._eventPreferencesVPN._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesMusic._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesCallScreening._enabled &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                ;
     }
 
     boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -720,6 +732,8 @@ class Event {
             runnable = runnable && this._eventPreferencesVPN.isRunnable(appContext);
         if (this._eventPreferencesMusic._enabled)
             runnable = runnable && this._eventPreferencesMusic.isRunnable(appContext);
+        if (this._eventPreferencesCallScreening._enabled)
+            runnable = runnable && this._eventPreferencesCallScreening.isRunnable(appContext);
 
         return runnable;
     }
@@ -785,6 +799,8 @@ class Event {
             isAllConfigured = isAllConfigured && this._eventPreferencesVPN.isAllConfigured(appContext);
         if (this._eventPreferencesMusic._enabled)
             isAllConfigured = isAllConfigured && this._eventPreferencesMusic.isAllConfigured(appContext);
+        if (this._eventPreferencesCallScreening._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesCallScreening.isAllConfigured(appContext);
 
         return isAllConfigured;
     }
@@ -819,7 +835,8 @@ class Event {
                             this._eventPreferencesActivatedProfile._enabled ||
                             this._eventPreferencesRoaming._enabled ||
                             this._eventPreferencesVPN._enabled ||
-                            this._eventPreferencesMusic._enabled;
+                            this._eventPreferencesMusic._enabled ||
+                            this._eventPreferencesCallScreening._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -874,6 +891,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesVPN.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesMusic._enabled)
                 accessibilityEnabled = this._eventPreferencesMusic.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesCallScreening._enabled)
+                accessibilityEnabled = this._eventPreferencesCallScreening.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
@@ -938,6 +957,7 @@ class Event {
         this._eventPreferencesRoaming.loadSharedPreferences(preferences);
         this._eventPreferencesVPN.loadSharedPreferences(preferences);
         this._eventPreferencesMusic.loadSharedPreferences(preferences);
+        this._eventPreferencesCallScreening.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -1004,6 +1024,7 @@ class Event {
         this._eventPreferencesRoaming.saveSharedPreferences(preferences);
         this._eventPreferencesVPN.saveSharedPreferences(preferences);
         this._eventPreferencesMusic.saveSharedPreferences(preferences);
+        this._eventPreferencesCallScreening.saveSharedPreferences(preferences);
 
         if (!(this.isRunnable(context, true) && this.isAllConfigured(context, true)))
             this._status = ESTATUS_STOP;
@@ -1484,6 +1505,8 @@ class Event {
             _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesMusic.setSummary(prefMng, key, preferences, context);
             _eventPreferencesMusic.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesCallScreening.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesCallScreening.setCategorySummary(prefMng, preferences, context);
         }
     }
 
@@ -1573,6 +1596,8 @@ class Event {
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesMusic.setAllSummary(prefMng, preferences, context);
         _eventPreferencesMusic.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesCallScreening.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesCallScreening.setCategorySummary(prefMng, preferences, context);
     }
 
     String getPreferencesDescription(Context context, DataWrapper _dataWrapper, boolean addPassStatus)
@@ -1655,6 +1680,12 @@ class Event {
 
         if (_eventPreferencesCall._enabled) {
             String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, false, context);
+            if (desc != null)
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
+
+        if (_eventPreferencesCallScreening._enabled) {
+            String desc = _eventPreferencesCallScreening.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
                 _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
@@ -1819,6 +1850,7 @@ class Event {
         _eventPreferencesRoaming.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesVPN.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesMusic.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesCallScreening.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*
@@ -2532,6 +2564,7 @@ class Event {
         _eventPreferencesRoaming.setSensorPassed(_eventPreferencesRoaming.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesVPN.setSensorPassed(_eventPreferencesVPN.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesMusic.setSensorPassed(_eventPreferencesMusic.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesCallScreening.setSensorPassed(_eventPreferencesCallScreening.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2566,6 +2599,7 @@ class Event {
             _eventPreferencesRoaming.setSystemEventForStart(context);
             _eventPreferencesVPN.setSystemEventForStart(context);
             _eventPreferencesMusic.setSystemEventForStart(context);
+            _eventPreferencesCallScreening.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2598,6 +2632,7 @@ class Event {
             _eventPreferencesRoaming.setSystemEventForPause(context);
             _eventPreferencesVPN.setSystemEventForPause(context);
             _eventPreferencesMusic.setSystemEventForPause(context);
+            _eventPreferencesCallScreening.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2630,6 +2665,7 @@ class Event {
             _eventPreferencesRoaming.removeSystemEvent(context);
             _eventPreferencesVPN.removeSystemEvent(context);
             _eventPreferencesMusic.removeSystemEvent(context);
+            _eventPreferencesCallScreening.removeSystemEvent(context);
         }
     }
 

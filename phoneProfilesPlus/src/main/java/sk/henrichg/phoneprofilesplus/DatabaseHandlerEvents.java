@@ -1504,6 +1504,40 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static private void getEventPreferencesCallScreening(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                new String[]{DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED
+                },
+                DatabaseHandler.KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesCallScreening eventPreferences = event._eventPreferencesCallScreening;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED)) == 1);
+                eventPreferences._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS));
+                eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE));
+                eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS));
+                eventPreferences._blockCalls = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS)) == 1);
+                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS)) == 1);
+                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
     // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
     static private void getEventPreferences(Event event, SQLiteDatabase db) {
@@ -1533,6 +1567,7 @@ class DatabaseHandlerEvents {
         getEventPreferencesVPN(event, db);
         getEventPreferencesBrightness(event, db);
         getEventPreferencesMusic(event, db);
+        getEventPreferencesCallScreening(event, db);
     }
 
     static private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -2018,6 +2053,25 @@ class DatabaseHandlerEvents {
                 new String[] { String.valueOf(event._id) });
     }
 
+    static private void updateEventPreferencesCallScreening(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesCallScreening eventPreferences = event._eventPreferencesCallScreening;
+
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, eventPreferences._contacts);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, eventPreferences._contactListType);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, eventPreferences._contactGroups);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS, (eventPreferences._blockCalls) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT, eventPreferences._smsText);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
     static private void updateEventPreferences(Event event, SQLiteDatabase db) {
@@ -2047,6 +2101,7 @@ class DatabaseHandlerEvents {
         updateEventPreferencesVPN(event, db);
         updateEventPreferencesBrightness(event, db);
         updateEventPreferencesMusic(event, db);
+        updateEventPreferencesCallScreening(event, db);
     }
 
 
@@ -2783,6 +2838,8 @@ class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_MUSIC)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MUSIC_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_CALL_SCREENING)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +

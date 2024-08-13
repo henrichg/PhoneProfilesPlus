@@ -72,6 +72,7 @@ class EventsHandler {
     boolean notAllowedRoaming;
     boolean notAllowedVPN;
     boolean notAllowedMusic;
+    boolean notAllowedCallScreening;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -99,6 +100,7 @@ class EventsHandler {
     boolean roamingPassed;
     boolean vpnPassed;
     boolean musicPassed;
+    boolean callScreeningPassed;
 
     static final int SENSOR_TYPE_RADIO_SWITCH = 1;
     static final int SENSOR_TYPE_RESTART_EVENTS = 2;
@@ -156,6 +158,8 @@ class EventsHandler {
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
     static final int SENSOR_TYPE_MUSIC = 56;
+    static final int SENSOR_TYPE_CALL_SCREENING = 57;
+    static final int SENSOR_TYPE_CALL_SCREENING_EVENT_END = 58;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -980,6 +984,9 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_BRIGHTNESS;
             case SENSOR_TYPE_MUSIC:
                 return DatabaseHandler.ETYPE_MUSIC;
+            case SENSOR_TYPE_CALL_SCREENING:
+            case SENSOR_TYPE_CALL_SCREENING_EVENT_END:
+                return DatabaseHandler.ETYPE_CALL_SCREENING;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
@@ -1117,6 +1124,7 @@ class EventsHandler {
         notAllowedRoaming = false;
         notAllowedVPN = false;
         notAllowedMusic = false;
+        notAllowedCallScreening = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1144,6 +1152,7 @@ class EventsHandler {
         roamingPassed = true;
         vpnPassed = true;
         musicPassed = true;
+        callScreeningPassed = true;
 
         event._eventPreferencesTime.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesBattery.doHandleEvent(this/*, sensorType, forRestartEvents*/);
@@ -1171,6 +1180,7 @@ class EventsHandler {
         event._eventPreferencesRoaming.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesVPN.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesMusic.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesCallScreening.doHandleEvent(this/*, forRestartEvents*/);
 
         boolean allPassed = true;
         boolean someNotAllowed = false;
@@ -1355,6 +1365,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedMusic)
                 allPassed &= musicPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesCallScreening._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedCallScreening)
+                allPassed &= callScreeningPassed;
             else
                 someNotAllowed = true;
         }

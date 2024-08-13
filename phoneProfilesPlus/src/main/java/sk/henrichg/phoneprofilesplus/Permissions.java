@@ -86,6 +86,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS = 56;
     static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
     static final int PERMISSION_TYPE_PROFILE_PHONE_CALLS = 58;
+    static final int PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES = 59;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -1205,6 +1206,7 @@ class Permissions {
         checkEventLocation(context, event, preferences, permissions, sensorType);
         checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
         //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
+        checkEventCallScreeningContacts(context, event, preferences, permissions, sensorType);
 
         return permissions;
     }
@@ -1764,6 +1766,34 @@ class Permissions {
 
             }
 
+        }
+    }
+
+    static private void checkEventCallScreeningContacts(Context context, Event event, SharedPreferences preferences,
+                                              ArrayList<PermissionType>  permissions, int sensorType) {
+        if ((event == null) && (preferences == null)) return; // true;
+
+        if (event != null) {
+            try {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
+                    if (event._eventPreferencesCallScreening._enabled) {
+                        boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                        if ((permissions != null) && (!granted))
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
+        else {
+            try {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
+                    if (preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false)) {
+                        boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                        if ((permissions != null) && (!granted))
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
+                    }
+                }
+            } catch (Exception ignored) {}
         }
     }
 

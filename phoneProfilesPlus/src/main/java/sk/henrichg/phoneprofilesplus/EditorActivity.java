@@ -2951,10 +2951,12 @@ public class EditorActivity extends AppCompatActivity
                 boolean deleteNotification = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogPhoneCalls);
                 boolean deletePhoneCalls = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallScreening);
+                boolean deleteCallScreening = checkbox.isChecked();
 
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
                         deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                        deleteCall, deleteSMS, deleteNotification, deletePhoneCalls,
+                        deleteCall, deleteSMS, deleteNotification, deletePhoneCalls, deleteCallScreening,
                         activity);
                 exportAsyncTask.execute();
             });
@@ -4621,6 +4623,7 @@ public class EditorActivity extends AppCompatActivity
         final boolean deleteSMS;
         final boolean deleteNotification;
         final boolean deletePhoneCalls;
+        final boolean deleteCallScreening;
         File zipFile = null;
 
         public ExportAsyncTask(final boolean email, final boolean toAuthor, final boolean share,
@@ -4628,6 +4631,7 @@ public class EditorActivity extends AppCompatActivity
                                final boolean deleteBluetoothNames, final boolean deleteMobileCells,
                                final boolean deleteCall, final boolean deleteSMS,
                                final boolean deleteNotification, final boolean deletePhoneCalls,
+                               final boolean deleteCallScreening,
                                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
@@ -4641,6 +4645,7 @@ public class EditorActivity extends AppCompatActivity
             this.deleteSMS = deleteSMS;
             this.deleteNotification = deleteNotification;
             this.deletePhoneCalls = deletePhoneCalls;
+            this.deleteCallScreening = deleteCallScreening;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.export_profiles_alert_title);
@@ -4698,7 +4703,7 @@ public class EditorActivity extends AppCompatActivity
                             this.deleteGeofences, this.deleteWifiSSIDs,
                             this.deleteBluetoothNames, this.deleteMobileCells,
                             this.deleteCall, this.deleteSMS, this.deleteNotification,
-                            this.deletePhoneCalls
+                            this.deletePhoneCalls, this.deleteCallScreening
                     );
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);

@@ -2245,10 +2245,27 @@
     <string name="event_preferences_music_notificationAccessSystemSettingsDisabled_summary">Notification access disabled</string>
     <string name="event_preferences_music_notificationAccessSystemSettingsEnabled_summary">Notification access enabled</string>
 
+    <string name="profile_preference_phoneCallsContactListType">Contact list type</string>
+
     <string name="phone_profiles_pref_call_screening">Set call screening role</string>
     <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Call screening\" event sensor.</string>
     <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
     <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
+
+    <string name="event_type_call_screening">Call screening</string>
+    <string name="event_preferences_category_eventCallScreeningParameters">Call screening</string>
+    <string name="event_preference_sensor_call_screening_summary">This sensor will start an event if displayed is phone call screen during call. Call blocking is supported in it. Parameters: Contact groups, Contacts, Contact list type (white/black list), Block phone call, Send SMS, SMS text.</string>
+<!--    <string name="event_preferences_category_phone_calls">Phone calls</string>-->
+<!--    <string name="event_preferences_phoneCalls_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Block phone calls\".</string>-->
+    <string name="event_why_profile_call_screening">for read contacts in event sensor \"Call screening\"</string>
+    <string name="export_settings_delete_contacts_data_callScreening">Contacts for sensor \"Call screening\"</string>
+    <string name="event_preference_callScreeningBlockCalls">Block phone calls</string>
+    <string name="event_preference_callScreeningBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notification about blocked calls will not be displayed!</string>
+    <string name="event_preference_callScreeningContactGroups">Contact groups</string>
+    <string name="event_preference_callScreeningContacts">Contacts</string>
+    <string name="event_preference_callScreeningSendSMS">Send SMS</string>
+    <string name="event_preference_callScreeningSMSText">SMS Text</string>
+    <string name="event_preference_callScreening_sendSMS_sumary">WARNING: Sending SMS may be charged or used from a prepaid SMS package!</string>
 
     <!-- **************************************************************************************** -->
 

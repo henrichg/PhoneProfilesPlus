@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2524;
+    static final int DATABASE_VERSION = 2525;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -103,6 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_VPN = 44;
     static final int ETYPE_BRIGHTNESS = 45;
     static final int ETYPE_MUSIC = 46;
+    static final int ETYPE_CALL_SCREENING = 47;
 
     // Profiles Table Columns names
     static final String KEY_ID = "id";
@@ -453,6 +454,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_MUSIC_SENSOR_PASSED = "musicSensorPassed";
     static final String KEY_E_MUSIC_MUSIC_STATE = "musicMusicState";
     static final String KEY_E_MUSIC_APPLICATIONS = "musicApplications";
+    static final String KEY_E_CALL_SCREENING_ENABLED = "callScreeningEnabled";
+    static final String KEY_E_CALL_SCREENING_SENSOR_PASSED = "callScreeningSensorPassed";
+    static final String KEY_E_CALL_SCREENING_CONTACTS = "callScreeningContacts";
+    static final String KEY_E_CALL_SCREENING_CONTACT_GROUPS = "callScreeningContactGroups";
+    static final String KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE = "callScreeningContactListType";
+    static final String KEY_E_CALL_SCREENING_BLOCK_CALLS = "callScreeningBlockCalls";
+    static final String KEY_E_CALL_SCREENING_SEND_SMS = "callScreeningSendSMS";
+    static final String KEY_E_CALL_SCREENING_SMS_TEXT = "callScreeningSMSText";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1415,11 +1424,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     int exportDB(boolean deleteGeofences, boolean deleteWifiSSIDs,
                  boolean deleteBluetoothNames, boolean deleteMobileCells,
                  boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
-                 boolean deletePhoneCalls)
+                 boolean deletePhoneCalls, boolean deleteCallScreening)
     {
         return DatabaseHandlerImportExport.exportDB(this,
                     deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls
+                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls, deleteCallScreening
                 );
     }
 

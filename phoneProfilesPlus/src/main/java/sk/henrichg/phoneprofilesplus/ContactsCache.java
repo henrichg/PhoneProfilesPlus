@@ -337,6 +337,57 @@ class ContactsCache {
                                 }
                             }
 
+                            if (!event._eventPreferencesCallScreening._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesCallScreening._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split("#");
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split("#");
+                                        if (splits2.length != 3) {
+                                            // old data
+                                            splits2 = split.split("#");
+                                            if (splits2.length != 2)
+                                                continue;
+                                            contactId = Long.parseLong(splits2[0]);
+                                            long phoneId = Long.parseLong(splits2[1]);
+
+                                            boolean found = false;
+                                            for (Contact contact : contactList) {
+                                                if (phoneId != 0) {
+                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                        found = true;
+                                                } else {
+                                                    if (contact.contactId == contactId)
+                                                        found = true;
+                                                }
+                                                if (found) {
+                                                    if (newContacts.length() > 0)
+                                                        newContacts.append("|");
+                                                    newContacts
+                                                            .append(contact.name)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.phoneNumber)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.accountType);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesCallScreening._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
                             if (dataChanged)
                                 DatabaseHandler.getInstance(appContext).updateEvent(event);
                         }

@@ -1791,7 +1791,7 @@ class DatabaseHandlerImportExport {
                         boolean deleteGeofences, boolean deleteWifiSSIDs,
                         boolean deleteBluetoothNames, boolean deleteMobileCells,
                         boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
-                        boolean deletePhoneCalls)
+                        boolean deletePhoneCalls, boolean deleteCallScreening)
     {
         instance.importExportLock.lock();
         try {
@@ -2115,6 +2115,13 @@ class DatabaseHandlerImportExport {
                                             _values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, _values, null, null);
+                                        }
+                                        if (deleteCallScreening) {
+                                            //Log.e("DatabaseHandlerImportExport.exportedDB", "deletePhoneCalls");
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
                                         }
 
                                     } catch (Exception ee) {
