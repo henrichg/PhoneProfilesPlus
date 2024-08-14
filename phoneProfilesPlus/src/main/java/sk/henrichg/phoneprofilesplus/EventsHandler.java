@@ -42,6 +42,8 @@ class EventsHandler {
     private long eventDeviceBootDate;
     private String eventApplicationPackageName;
     private long eventApplicationDate;
+    private String eventCallScreeningPhoneNumber;
+    private long eventCallScreeningDate;
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
@@ -477,6 +479,29 @@ class EventsHandler {
                         }
                     }
                 }
+                if (Arrays.stream(sensorType).anyMatch(i ->
+                        (i == SENSOR_TYPE_CALL_SCREENING) ||
+                        (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
+                    // search for sms events, save start time
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache != null) {
+                        List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
+                        synchronized (PPApplication.contactsCacheMutex) {
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+                        for (Event _event : dataWrapper.eventList) {
+                            if (_event.getStatus() != Event.ESTATUS_STOP) {
+                                if (_event._eventPreferencesCallScreening._enabled) {
+                                    _event._eventPreferencesCallScreening.saveStartTime(contactList, dataWrapper, eventCallScreeningPhoneNumber, eventCallScreeningDate);
+                                }
+                            }
+                        }
+                        if (contactList != null)
+                            contactList.clear();
+                    }
+                }
+
             }
 
             boolean forDelayStartAlarm = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_EVENT_DELAY_START);
@@ -1553,9 +1578,11 @@ class EventsHandler {
         eventDeviceBootDate = date;
     }
 
-    void setEventCallScreeningParameters(boolean active, String phoneNumber) {
-        EventPreferencesCallScreening.setEventCallScreeningActive(context, active);
-        EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(context, phoneNumber);
+    void setEventCallScreeningParameters(String phoneNumber, long date) {
+        //EventPreferencesCallScreening.setEventCallScreeningActive(context, active);
+        //EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(context, phoneNumber);
+        eventCallScreeningPhoneNumber = phoneNumber;
+        eventCallScreeningDate = date;
     }
 
     /*

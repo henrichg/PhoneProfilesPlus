@@ -106,7 +106,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         editor.putBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, this._sendSMS);
         editor.putString(PREF_EVENT_CALL_SCREENING_SMS_TEXT, this._smsText);
         editor.putBoolean(PREF_EVENT_CALL_SCREENING_PERMANENT_RUN, this._permanentRun);
-        editor.putInt(PREF_EVENT_CALL_SCREENING_DURATION, this._duration);
+        editor.putString(PREF_EVENT_CALL_SCREENING_DURATION, String.valueOf(this._duration));
         editor.apply();
     }
 
@@ -119,7 +119,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         this._sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, false);
         this._smsText = preferences.getString(PREF_EVENT_CALL_SCREENING_SMS_TEXT, "");
         this._permanentRun = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_PERMANENT_RUN, false);
-        this._duration = preferences.getInt(PREF_EVENT_CALL_SCREENING_DURATION, 5);
+        this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_SCREENING_DURATION, "5"));
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
@@ -417,8 +417,12 @@ class EventPreferencesCallScreening extends EventPreferences {
 
         removeAlarm(context);
 
+        Log.e("EventPreferencesCallScreening.setSystemEventForPause", "xxxxxxxxx (1)");
+
         if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
+
+        Log.e("EventPreferencesCallScreening.setSystemEventForPause", "xxxxxxxxx (2)");
 
         setAlarm(computeAlarm(), context);
     }
@@ -508,6 +512,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                     getSharedPreferences(context).getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ACTIVE, false);
         }
     }
+    /*
     static void setEventCallScreeningActive(Context context, boolean active) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.setEventCallScreeningActive", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
@@ -517,6 +522,7 @@ class EventPreferencesCallScreening extends EventPreferences {
             ApplicationPreferences.prefEventCallScreeningActive = active;
         }
     }
+    */
     static void getEventCallScreeningPhoneNumber(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.getEventCallScreeningPhoneNumber", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
@@ -586,7 +592,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         }
     }
 
-    void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper, String phoneNumber, long startTime, int fromSIMSlot) {
+    void saveStartTime(List<Contact> contactList, DataWrapper dataWrapper, String phoneNumber, long startTime) {
         if (this._startTime == 0) {
             // alarm for end is not set
 
@@ -679,6 +685,7 @@ class EventPreferencesCallScreening extends EventPreferences {
 
                 if (isIsCallScreeningHeld(eventsHandler.context)) {
 
+                    Log.e("EventPreferencesCallScreening.doHandleEvent", "_startTime="+_startTime);
                     if (_startTime > 0) {
 
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();

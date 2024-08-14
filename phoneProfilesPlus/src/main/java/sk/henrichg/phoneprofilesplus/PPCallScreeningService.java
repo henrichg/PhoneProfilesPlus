@@ -7,7 +7,9 @@ import android.telecom.Call;
 import android.telecom.CallScreeningService;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
+import android.util.Log;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class PPCallScreeningService extends CallScreeningService {
@@ -31,10 +33,17 @@ public class PPCallScreeningService extends CallScreeningService {
                         String callingPhoneNumber = callHandle.getSchemeSpecificPart();
                         //Log.e("PPCallScreeningService.onScreenCall", "callingPhoneNumber="+callingPhoneNumber);
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        Runnable runnable = () -> {
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
 
-                        eventsHandler.setEventCallScreeningParameters(true, callingPhoneNumber);
-                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING});
+                            Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler");
+                            Calendar now = Calendar.getInstance();
+                            long time = now.getTimeInMillis();
+                            eventsHandler.setEventCallScreeningParameters(callingPhoneNumber, time);
+                            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING});
+                        };
+                        PPApplicationStatic.createBasicExecutorPool();
+                        PPApplication.basicExecutorPool.submit(runnable);
 
                         boolean sendSMS = false;
                         String smsText = "";

@@ -841,7 +841,7 @@ public class PhoneProfilesService extends Service
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 2, false, false);
 
-                EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
+                //EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
                 EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(appContext, "");
 
                 // set alarm for Alarm clock sensor from last saved time in
