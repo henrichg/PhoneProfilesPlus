@@ -41,38 +41,37 @@ public class PPCallScreeningService extends CallScreeningService {
 
                         List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
                         for (Event event : eventList) {
-                            if (event.getStatus() == Event.ESTATUS_RUNNING) {
-                                if (event._eventPreferencesCallScreening._enabled) {
-                                    String contacts = event._eventPreferencesCallScreening._contacts;
-                                    String contactGroups = event._eventPreferencesCallScreening._contactGroups;
-                                    //int contactListType = event._eventPreferencesCallScreening._contactListType;
-                                    boolean blockCalls = event._eventPreferencesCallScreening._blockCalls;
-                                    sendSMS = event._eventPreferencesCallScreening._sendSMS;
-                                    smsText = event._eventPreferencesCallScreening._smsText;
+                            if (event._eventPreferencesCallScreening._enabled &&
+                                    event._eventPreferencesCallScreening.isRunnable(appContext)) {
+                                String contacts = event._eventPreferencesCallScreening._contacts;
+                                String contactGroups = event._eventPreferencesCallScreening._contactGroups;
+                                //int contactListType = event._eventPreferencesCallScreening._contactListType;
+                                boolean blockCalls = event._eventPreferencesCallScreening._blockCalls;
+                                sendSMS = event._eventPreferencesCallScreening._sendSMS;
+                                smsText = event._eventPreferencesCallScreening._smsText;
 
-                                    if (
-                                            (
-                                                /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                                ((contacts != null) && (!contacts.isEmpty())) ||
-                                                        ((contactGroups != null) && (!contactGroups.isEmpty()))
-                                            ) && blockCalls
-                                    ) {
-                                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                                        if (contactsCache != null) {
-                                            List<Contact> contactList;
+                                if (
+                                        (
+                                            /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                            ((contacts != null) && (!contacts.isEmpty())) ||
+                                                    ((contactGroups != null) && (!contactGroups.isEmpty()))
+                                        ) && blockCalls
+                                ) {
+                                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                    if (contactsCache != null) {
+                                        List<Contact> contactList;
 //                                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                                            synchronized (PPApplication.contactsCacheMutex) {
-                                                contactList = contactsCache.getList(/*false*/);
-                                            }
-                                            phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
-                                            if (contactList != null)
-                                                contactList.clear();
+                                        synchronized (PPApplication.contactsCacheMutex) {
+                                            contactList = contactsCache.getList(/*false*/);
                                         }
+                                        phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
+                                        if (contactList != null)
+                                            contactList.clear();
                                     }
                                 }
-                                if (phoneNumberFound)
-                                    break;
                             }
+                            if (phoneNumberFound)
+                                break;
                         }
 
                         //Log.e("PPCallScreeningService.onScreenCall", "phoneNumberFound="+phoneNumberFound);
