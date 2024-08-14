@@ -2270,6 +2270,8 @@
 
     <string name="event_preference_callScreening_not_held_call_screening_role">not set call screening role for PhoneProfilePlus</string>
 
+    <string name="permission_why_event_call_screening">for read contacts, send SMS in event sensor \"Call screening\"</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

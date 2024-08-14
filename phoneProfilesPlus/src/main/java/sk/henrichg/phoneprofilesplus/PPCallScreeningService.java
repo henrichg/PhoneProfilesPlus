@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.telecom.Call;
@@ -16,83 +15,111 @@ public class PPCallScreeningService extends CallScreeningService {
     @Override
     public void onScreenCall(Call.Details callDetails) {
         if (Build.VERSION.SDK_INT >= 29) {
-//            Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
+            //Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
 
-            CallResponse.Builder response = new CallResponse.Builder();
+            final Context appContext = getApplicationContext();
+
             if (callDetails.getCallDirection() ==  Call.Details.DIRECTION_INCOMING) {
 //                Log.e("PPCallScreeningService.onScreenCall", "incomming call");
 
-                //DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
-                //Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-
-                // get profile from shared preferences, saved in Profile.execute()
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_ACTIVATE_PROFILE_HELPER_EXECUTE, Context.MODE_PRIVATE);
-
-                String contacts = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
-                String contactGroups = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
-                //int contactListType = Integer.parseInt(sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
-                boolean blockCalls = sharedPreferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, Boolean.TRUE.equals(Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)));
-                boolean sendSMS = sharedPreferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, Boolean.TRUE.equals(Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)));
-                String smsText = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT));
-
-                boolean profileFound = false;
-                boolean phoneNumberFound = false;
-                String calledPhoneNumber = "";
                 Uri callHandle =  callDetails.getHandle();
                 if (callHandle != null) {
-                    calledPhoneNumber = callHandle.getSchemeSpecificPart();
-                    if (
-                            (
-                                    /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                        ((contacts != null) && (!contacts.isEmpty())) ||
-                                        ((contactGroups != null) && (!contactGroups.isEmpty()))
-                            ) && blockCalls
-                    ) {
 
-                        profileFound = true;
+                    //Runnable runnable = () -> { // NOT WORKING BLOCK CALL WTH THIS !!!
+                        boolean phoneNumberFound = false;
 
-                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                        if (contactsCache != null) {
-                            List<Contact> contactList;
-//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                            synchronized (PPApplication.contactsCacheMutex) {
-                                contactList = contactsCache.getList(/*false*/);
+                        String callingPhoneNumber = callHandle.getSchemeSpecificPart();
+                        //Log.e("PPCallScreeningService.onScreenCall", "callingPhoneNumber="+callingPhoneNumber);
+
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+
+                        eventsHandler.setEventCallScreeningParameters(true, callingPhoneNumber);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING});
+
+                        boolean sendSMS = false;
+                        String smsText = "";
+
+                        List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+                        for (Event event : eventList) {
+                            if (event.getStatus() == Event.ESTATUS_RUNNING) {
+                                if (event._eventPreferencesCallScreening._enabled) {
+                                    String contacts = event._eventPreferencesCallScreening._contacts;
+                                    String contactGroups = event._eventPreferencesCallScreening._contactGroups;
+                                    //int contactListType = event._eventPreferencesCallScreening._contactListType;
+                                    boolean blockCalls = event._eventPreferencesCallScreening._blockCalls;
+                                    sendSMS = event._eventPreferencesCallScreening._sendSMS;
+                                    smsText = event._eventPreferencesCallScreening._smsText;
+
+                                    if (
+                                            (
+                                                /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                                ((contacts != null) && (!contacts.isEmpty())) ||
+                                                        ((contactGroups != null) && (!contactGroups.isEmpty()))
+                                            ) && blockCalls
+                                    ) {
+                                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                        if (contactsCache != null) {
+                                            List<Contact> contactList;
+//                                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+                                            synchronized (PPApplication.contactsCacheMutex) {
+                                                contactList = contactsCache.getList(/*false*/);
+                                            }
+                                            phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
+                                            if (contactList != null)
+                                                contactList.clear();
+                                        }
+                                    }
+                                }
+                                if (phoneNumberFound)
+                                    break;
                             }
-                            phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, calledPhoneNumber);
-                            if (contactList != null)
-                                contactList.clear();
                         }
-                    }
-                }
 
-                if (profileFound && phoneNumberFound) {
-                    response.setDisallowCall(true);
-                    response.setRejectCall(true);
-                    if (Permissions.checkSendSMS(getApplicationContext())) {
-                        if (sendSMS && (!calledPhoneNumber.isEmpty()) &&
-                                (smsText != null) && (!smsText.isEmpty())) {
-                            try {
-                                SmsManager smsManager = SmsManager.getDefault();
-                                smsManager.sendTextMessage(calledPhoneNumber, null, smsText, null, null);
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
+                        //Log.e("PPCallScreeningService.onScreenCall", "phoneNumberFound="+phoneNumberFound);
+
+                        CallResponse.Builder response = new CallResponse.Builder();
+
+                        if (phoneNumberFound) {
+                            //block call
+                            response.setDisallowCall(true);
+                            response.setRejectCall(true);
+
+                            if (Permissions.checkSendSMS(appContext)) {
+                                // send sms
+                                if (sendSMS && (!callingPhoneNumber.isEmpty()) &&
+                                        (smsText != null) && (!smsText.isEmpty())) {
+                                    try {
+                                        SmsManager smsManager = SmsManager.getDefault();
+                                        smsManager.sendTextMessage(callingPhoneNumber, null, smsText, null, null);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                }
                             }
+                        } else {
+                            response.setDisallowCall(false);
+                            response.setRejectCall(false);
                         }
-                    }
-                } else {
-                    response.setDisallowCall(false);
-                    response.setRejectCall(false);
+
+                        response.setSilenceCall(false);
+                        response.setSkipCallLog(false);
+                        response.setSkipNotification(false);
+                        respondToCall(callDetails, response.build());
+                        return;
+                    //};
+                    //PPApplicationStatic.createEventsHandlerExecutor();
+                    //PPApplication.eventsHandlerExecutor.submit(runnable);
                 }
-            } else {
-                response.setDisallowCall(false);
-                response.setRejectCall(false);
             }
+
+            CallResponse.Builder response = new CallResponse.Builder();
+            response.setDisallowCall(false);
+            response.setRejectCall(false);
+
             response.setSilenceCall(false);
             response.setSkipCallLog(false);
             response.setSkipNotification(false);
             respondToCall(callDetails, response.build());
-
-            //dataWrapper.invalidateDataWrapper();
         }
     }
 

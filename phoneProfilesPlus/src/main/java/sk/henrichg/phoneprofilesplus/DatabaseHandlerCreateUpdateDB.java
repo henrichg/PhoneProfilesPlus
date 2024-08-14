@@ -381,7 +381,10 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE// + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME + " " + DatabaseHandler.INTEGER_TYPE //+ ","
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -931,6 +934,9 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3618,6 +3624,12 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + "=\"\"");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2526) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_DURATION + "=5");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME + "=0");
         }
 
     }

@@ -2758,6 +2758,12 @@ class DataWrapper {
             _event._eventPreferencesDeviceBoot.removeAlarm(context);
         }
 
+        if (force || _event._eventPreferencesCallScreening._permanentRun) {
+            _event._eventPreferencesCallScreening._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateCallScreeningStartTime(_event);
+            _event._eventPreferencesCallScreening.removeAlarm(context);
+        }
+
         if (force) {
             _event._eventPreferencesPeriodic._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updatePeriodicStartTime(_event);

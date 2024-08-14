@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2525;
+    static final int DATABASE_VERSION = 2526;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -462,6 +462,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALL_SCREENING_BLOCK_CALLS = "callScreeningBlockCalls";
     static final String KEY_E_CALL_SCREENING_SEND_SMS = "callScreeningSendSMS";
     static final String KEY_E_CALL_SCREENING_SMS_TEXT = "callScreeningSMSText";
+    static final String KEY_E_CALL_SCREENING_START_TIME = "smsStartTime";
+    static final String KEY_E_CALL_SCREENING_DURATION = "callScreeningDuration";
+    static final String KEY_E_CALL_SCREENING_PERMANENT_RUN = "callScreeningPermanentRun";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1146,6 +1149,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void getApplicationStartTime(Event event)
     {
         DatabaseHandlerEvents.getApplicationStartTime(this, event);
+    }
+
+    void updateCallScreeningStartTime(Event event)
+    {
+        DatabaseHandlerEvents.updateCallScreeningStartTime(this, event);
+    }
+
+    void getCallScreeningStartTime(Event event)
+    {
+        DatabaseHandlerEvents.getCallScreeningStartTime(this, event);
     }
 
     void updateEventForceRun(Event event) {

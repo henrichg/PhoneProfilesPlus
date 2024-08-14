@@ -980,6 +980,7 @@ public class PPApplication extends Application
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
+    static volatile CallScreeningEventEndBroadcastReceiver callScreeningEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 

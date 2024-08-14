@@ -1194,6 +1194,53 @@ class Permissions {
         }
     }
 
+    static void checkEventCallScreening(Context context, Event event, SharedPreferences preferences,
+                                        ArrayList<PermissionType>  permissions, int sensorType) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            if ((event == null) && (preferences == null)) return; // true;
+
+            RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
+            boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+
+            if (isHeld) {
+                boolean grantedContacts = true;
+                boolean grantedSendSMS = true;
+                if (event != null) {
+                    try {
+                        if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
+                            if (event._eventPreferencesCallScreening._enabled) {
+                                grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+//                                Log.e("Permissions.checkEventCallScreening", "grantedContacts="+grantedContacts);
+                                if ((permissions != null) && (!grantedContacts))
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
+                                if (event._eventPreferencesCallScreening._sendSMS) {
+                                    grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+//                                    Log.e("Permissions.checkEventCallScreening", "grantedSendSMS="+grantedSendSMS);
+                                    if ((permissions != null) && (!grantedSendSMS))
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.SEND_SMS));
+                                }
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    }
+                } else {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
+                        if (preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false)) {
+                            grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                            if ((permissions != null) && (!grantedContacts))
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
+                            if (preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_SEND_SMS, false)) {
+                                grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                                if ((permissions != null) && (!grantedSendSMS))
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.SEND_SMS));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
                                                            int sensorType) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
@@ -1206,7 +1253,7 @@ class Permissions {
         checkEventLocation(context, event, preferences, permissions, sensorType);
         checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
         //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
-        checkEventCallScreeningContacts(context, event, preferences, permissions, sensorType);
+        checkEventCallScreening(context, event, preferences, permissions, sensorType);
 
         return permissions;
     }
@@ -1766,34 +1813,6 @@ class Permissions {
 
             }
 
-        }
-    }
-
-    static private void checkEventCallScreeningContacts(Context context, Event event, SharedPreferences preferences,
-                                              ArrayList<PermissionType>  permissions, int sensorType) {
-        if ((event == null) && (preferences == null)) return; // true;
-
-        if (event != null) {
-            try {
-                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
-                    if (event._eventPreferencesCallScreening._enabled) {
-                        boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                        if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
-                    }
-                }
-            } catch (Exception ignored) {}
-        }
-        else {
-            try {
-                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
-                    if (preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false)) {
-                        boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                        if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
-                    }
-                }
-            } catch (Exception ignored) {}
         }
     }
 

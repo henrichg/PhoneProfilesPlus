@@ -1486,6 +1486,41 @@ class PhoneProfilesServiceStatic
         }
     }
 
+    static void registerReceiverForCallScreeningSensor(boolean register, DataWrapper dataWrapper, Context context) {
+        Context appContext = context.getApplicationContext();
+        if (!register) {
+            if (PPApplication.callScreeningEventEndBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.callScreeningEventEndBroadcastReceiver);
+                    PPApplication.callScreeningEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.callScreeningEventEndBroadcastReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL_SCREENING/*, false*/);
+            }
+            if (allowed) {
+                if (PPApplication.callScreeningEventEndBroadcastReceiver == null) {
+                    PPApplication.callScreeningEventEndBroadcastReceiver = new CallScreeningEventEndBroadcastReceiver();
+                    IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_CALL_SCREENING_EVENT_END_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.callScreeningEventEndBroadcastReceiver, intentFilter22, receiverFlags);
+                }
+
+//                Log.e("PhoneProfilesService.registerReceiverForcallScreeningSensor", "xxx");
+            } else
+                registerReceiverForCallScreeningSensor(false, dataWrapper, appContext);
+        }
+    }
+
     static void unregisterPPPExtenderReceiver(int type, Context context) {
         Context appContext = context.getApplicationContext();
 
@@ -3007,6 +3042,10 @@ class PhoneProfilesServiceStatic
         // required for orientation event
         //registerReceiverForOrientationSensor(true, dataWrapper);
 
+        // required for Call screening sensor
+        registerReceiverForCallScreeningSensor(true, dataWrapper, appContext);
+
+
         // required for calendar event
         registerReceiverForActivatedProfileSensor(true, dataWrapper, appContext);
 
@@ -3068,6 +3107,7 @@ class PhoneProfilesServiceStatic
         registerLocationScannerReceiver(false,  null, appContext);
         registerReceiverForNotificationSensor(false, null, appContext);
         //registerReceiverForOrientationSensor(false, null);
+        registerReceiverForCallScreeningSensor(false, null, appContext);
 
         //if (alarmClockBroadcastReceiver != null)
         //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
@@ -3136,6 +3176,7 @@ class PhoneProfilesServiceStatic
         registerReceiverForNotificationSensor(true,dataWrapper, appContext);
         registerReceiverForActivatedProfileSensor(true, dataWrapper, appContext);
         //registerReceiverForMusicSensor(true, dataWrapper, appContext);
+        registerReceiverForCallScreeningSensor(true, dataWrapper, appContext);
         registerVPNCallback(true, dataWrapper, appContext);
         registerAudioPlaybackCallback(true, dataWrapper, appContext);
 
@@ -3328,6 +3369,16 @@ class PhoneProfilesServiceStatic
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                             registerReceiverForSMSSensor(false, dataWrapper, appContext);
                             dataWrapper.invalidateDataWrapper();
+                        /*}  else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR, false)) {
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR");
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                            registerReceiverForCallScreeningSensor(true, dataWrapper, appContext);
+                            dataWrapper.invalidateDataWrapper();
+                        } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR, false)) {
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR");
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                            registerReceiverForCallScreeningSensor(false, dataWrapper, appContext);
+                            dataWrapper.invalidateDataWrapper();*/
                         } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
