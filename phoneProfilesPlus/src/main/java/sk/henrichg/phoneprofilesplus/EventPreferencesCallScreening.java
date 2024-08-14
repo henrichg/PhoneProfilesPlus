@@ -50,8 +50,8 @@ class EventPreferencesCallScreening extends EventPreferences {
 
     static final String PREF_EVENT_CALL_SCREENING_CATEGORY = "eventCallScreeningCategoryRoot";
 
-    private static final String PREF_EVENT_CALL_SCREENING_ACTIVE = "eventCallScreeningActive";
-    private static final String PREF_EVENT_CALL_SCREENING_PHONE_NUMBER = "eventCallScreeningPhoneNumber";
+    //private static final String PREF_EVENT_CALL_SCREENING_ACTIVE = "eventCallScreeningActive";
+    //private static final String PREF_EVENT_CALL_SCREENING_PHONE_NUMBER = "eventCallScreeningPhoneNumber";
 
     //static final int CONTACT_LIST_TYPE_WHITE_LIST = 0;
     //static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
@@ -505,6 +505,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         return phoneNumberFound;
     }
 
+    /*
     static void getEventCallScreeningActive(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.getEventCallScreeningActive", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
@@ -512,7 +513,6 @@ class EventPreferencesCallScreening extends EventPreferences {
                     getSharedPreferences(context).getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ACTIVE, false);
         }
     }
-    /*
     static void setEventCallScreeningActive(Context context, boolean active) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.setEventCallScreeningActive", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
@@ -522,7 +522,6 @@ class EventPreferencesCallScreening extends EventPreferences {
             ApplicationPreferences.prefEventCallScreeningActive = active;
         }
     }
-    */
     static void getEventCallScreeningPhoneNumber(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.getEventCallScreeningPhoneNumber", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
@@ -539,6 +538,7 @@ class EventPreferencesCallScreening extends EventPreferences {
             ApplicationPreferences.prefEventCallScreeningPhoneNumber = phoneNumber;
         }
     }
+    */
 
     void removeAlarm(Context context)
     {
