@@ -223,7 +223,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "applicationPeriodicScanningScanInterval";
     static final String KEY_PHONE_CALLS_CONTACTS = "phoneCallsContacts";
     static final String KEY_PHONE_CALLS_CONTACT_GROUPS = "phoneCallsContactGroups";
-    static final String KEY_PHONE_CALLS_CONTACT_LIST_TYPE = "phoneCallsContactListType";
+    //static final String KEY_PHONE_CALLS_CONTACT_LIST_TYPE = "phoneCallsContactListType";
     static final String KEY_PHONE_CALLS_BLOCK_CALLS = "phoneCallsBlockCalls";
     static final String KEY_PHONE_CALLS_SEND_SMS = "phoneCallsSendSMS";
     static final String KEY_PHONE_CALLS_SMS_TEXT = "phoneCallsSMSText";
@@ -458,7 +458,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALL_SCREENING_SENSOR_PASSED = "callScreeningSensorPassed";
     static final String KEY_E_CALL_SCREENING_CONTACTS = "callScreeningContacts";
     static final String KEY_E_CALL_SCREENING_CONTACT_GROUPS = "callScreeningContactGroups";
-    static final String KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE = "callScreeningContactListType";
+    //static final String KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE = "callScreeningContactListType";
     static final String KEY_E_CALL_SCREENING_BLOCK_CALLS = "callScreeningBlockCalls";
     static final String KEY_E_CALL_SCREENING_SEND_SMS = "callScreeningSendSMS";
     static final String KEY_E_CALL_SCREENING_SMS_TEXT = "callScreeningSMSText";

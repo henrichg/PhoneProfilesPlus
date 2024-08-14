@@ -137,7 +137,7 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
+                //+ DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + " " + DatabaseHandler.TEXT_TYPE
@@ -377,7 +377,7 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
+                //+ DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
@@ -698,7 +698,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, DatabaseHandler.INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
+                //createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, DatabaseHandler.TEXT_TYPE, columns);
@@ -926,7 +926,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, DatabaseHandler.TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
+                //createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
@@ -2657,7 +2657,7 @@ class DatabaseHandlerCreateUpdateDB {
                                 15,
                                 "",
                                 "",
-                                0,
+                                //0,
                                 false,
                                 false,
                                 "",
@@ -3570,11 +3570,11 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=\"\"");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=\"\"");
         }
-        if (oldVersion < 2518)
+        /*if (oldVersion < 2518)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + "=0");
-        }
+        }*/
         if (oldVersion < 2519)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "=0");
@@ -3613,7 +3613,7 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS + "=\"\"");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + "=0");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + "=\"\"");

@@ -715,7 +715,7 @@ class ProfileStatic {
                     profile._applicationPeriodicScanInterval,
                     profile._phoneCallsContacts,
                     profile._phoneCallsContactGroups,
-                    profile._phoneCallsContactListType,
+                    //profile._phoneCallsContactListType,
                     profile._phoneCallsBlockCalls,
                     profile._phoneCallsSendSMS,
                     profile._phoneCallsSMSText,

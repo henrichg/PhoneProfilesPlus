@@ -30,7 +30,7 @@ public class PPCallScreeningService extends CallScreeningService {
 
                 String contacts = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
                 String contactGroups = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
-                int contactListType = Integer.parseInt(sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
+                //int contactListType = Integer.parseInt(sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
                 boolean blockCalls = sharedPreferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, Boolean.TRUE.equals(Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS)));
                 boolean sendSMS = sharedPreferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, Boolean.TRUE.equals(Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)));
                 String smsText = sharedPreferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT));
@@ -43,9 +43,9 @@ public class PPCallScreeningService extends CallScreeningService {
                     calledPhoneNumber = callHandle.getSchemeSpecificPart();
                     if (
                             (
-                                    (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
-                                            ((contacts != null) && (!contacts.isEmpty())) ||
-                                            ((contactGroups != null) && (!contactGroups.isEmpty()))
+                                    /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                        ((contacts != null) && (!contacts.isEmpty())) ||
+                                        ((contactGroups != null) && (!contactGroups.isEmpty()))
                             ) && blockCalls
                     ) {
 
@@ -58,7 +58,7 @@ public class PPCallScreeningService extends CallScreeningService {
                             synchronized (PPApplication.contactsCacheMutex) {
                                 contactList = contactsCache.getList(/*false*/);
                             }
-                            phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, contactListType, contactList, calledPhoneNumber);
+                            phoneNumberFound = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, calledPhoneNumber);
                             if (contactList != null)
                                 contactList.clear();
                         }
@@ -96,10 +96,10 @@ public class PPCallScreeningService extends CallScreeningService {
         }
     }
 
-    private boolean isPhoneNumberConfigured(String contacts, String contactGroups, int contactListType, List<Contact> contactList, String phoneNumber) {
+    private boolean isPhoneNumberConfigured(String contacts, String contactGroups, /*int contactListType,*/ List<Contact> contactList, String phoneNumber) {
         boolean phoneNumberFound = false;
 
-        if (contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+        //if (contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
 
             // find phone number in groups
             String[] splits = contactGroups.split(StringConstants.STR_SPLIT_REGEX);
@@ -153,10 +153,10 @@ public class PPCallScreeningService extends CallScreeningService {
                 }
             }
 
-            if (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
-                phoneNumberFound = !phoneNumberFound;
-        } else
-           phoneNumberFound = true;
+            //if (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
+            //    phoneNumberFound = !phoneNumberFound;
+        //} else
+        //   phoneNumberFound = true;
 
         return phoneNumberFound;
     }

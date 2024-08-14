@@ -3699,8 +3699,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
         }
         if (isHeld) {
-            int contactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
-                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
+            //int contactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
+            //        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
             String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
             String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
@@ -3734,11 +3734,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 }
                 if (
-                    (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                    /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                     ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
                     ((contactsValue != null) && (!contactsValue.isEmpty()))
                 ) {
-                    title = context.getString(R.string.event_preferences_contactListType);
+                    /*title = context.getString(R.string.event_preferences_contactListType);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
@@ -3751,7 +3751,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
-                    }
+                    }*/
 
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, R.string.profile_preference_phoneCallsBlockCalls, context);
                     if (!title.isEmpty()) {
@@ -5873,7 +5873,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)) {
+        /*if (key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)) {
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 String sValue = value.toString();
@@ -5881,7 +5881,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
             }
-        }
+        }*/
         if (key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -6665,7 +6665,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
-        setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE);
+        //setSummary(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS);
         setSummary(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT);
 
@@ -7015,7 +7015,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS) ||
-                key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE) ||
+                //key.equals(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE) ||
                 key.equals(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
@@ -7025,15 +7025,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //    preference.setEnabled(!isHeld);
 
 
-                int phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
-                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
+                //int phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
+                //        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
                 String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS));
                 String contactsValue = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS));
 
                 boolean contactsConfigured =
-                        (phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                        /*(phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                         ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
                         ((contactsValue != null) && (!contactsValue.isEmpty()));
 
@@ -7043,9 +7043,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS);
                 if (preference != null)
                     preference.setEnabled(isHeld);
-                preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE);
-                if (preference != null)
-                    preference.setEnabled(isHeld);
+                //preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE);
+                //if (preference != null)
+                //    preference.setEnabled(isHeld);
 
                 boolean blockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
                 preference = prefMng.findPreference(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS);

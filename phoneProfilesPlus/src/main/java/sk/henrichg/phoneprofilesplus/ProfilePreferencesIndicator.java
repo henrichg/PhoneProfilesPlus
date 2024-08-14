@@ -2216,7 +2216,7 @@ class ProfilePreferencesIndicator {
             // phone calls
             if (
                 (
-                 (profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                 /*(profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                  ((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
                  ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))
                 ) &&

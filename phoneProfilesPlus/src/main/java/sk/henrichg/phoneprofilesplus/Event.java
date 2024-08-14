@@ -478,7 +478,7 @@ class Event {
 
     private void createEventPreferencesCallScreening()
     {
-        this._eventPreferencesCallScreening = new EventPreferencesCallScreening(this, false, "", "", 0, false, false, "");
+        this._eventPreferencesCallScreening = new EventPreferencesCallScreening(this, false, "", "", /*0,*/ false, false, "");
     }
 
     void createEventPreferences()
