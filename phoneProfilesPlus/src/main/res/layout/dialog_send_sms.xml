@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/phone_calls_send_sms_dialog_root"
+    android:id="@+id/send_sms_dialog_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <View
-        android:id="@+id/phone_calls_send_sms_dialog_divider"
+        android:id="@+id/send_sms_dialog_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="10dp"
@@ -26,7 +26,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/phone_calls_send_sms_checkBox"
+            android:id="@+id/send_sms_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
@@ -36,14 +36,14 @@
             app:switchPadding="@dimen/switch_padding"/>
 
         <TextView
-            android:id="@+id/phone_calls_send_sms_text"
+            android:id="@+id/send_sms_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="@string/profile_preference_phoneCalls_sendSMS_sumary"/>
+            android:text="@string/warning_send_sms_sumary"/>
 
     </LinearLayout>
 

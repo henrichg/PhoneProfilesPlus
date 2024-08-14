@@ -7,7 +7,6 @@ import android.telecom.Call;
 import android.telecom.CallScreeningService;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
-import android.util.Log;
 
 import java.util.Calendar;
 import java.util.List;
@@ -36,7 +35,7 @@ public class PPCallScreeningService extends CallScreeningService {
                         Runnable runnable = () -> {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
 
-                            Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler");
+                            //Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler");
                             Calendar now = Calendar.getInstance();
                             long time = now.getTimeInMillis();
                             eventsHandler.setEventCallScreeningParameters(callingPhoneNumber, time);

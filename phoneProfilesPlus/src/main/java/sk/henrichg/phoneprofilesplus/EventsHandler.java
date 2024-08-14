@@ -42,8 +42,8 @@ class EventsHandler {
     private long eventDeviceBootDate;
     private String eventApplicationPackageName;
     private long eventApplicationDate;
-    private String eventCallScreeningPhoneNumber;
-    private long eventCallScreeningDate;
+    //private String eventCallScreeningPhoneNumber;
+    //private long eventCallScreeningDate;
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
@@ -493,7 +493,11 @@ class EventsHandler {
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesCallScreening._enabled) {
-                                    _event._eventPreferencesCallScreening.saveStartTime(contactList, dataWrapper, eventCallScreeningPhoneNumber, eventCallScreeningDate);
+                                    EventPreferencesCallScreening.getEventCallScreeningTime(context);
+                                    EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
+                                    _event._eventPreferencesCallScreening.saveStartTime(contactList, dataWrapper,
+                                            ApplicationPreferences.prefEventCallScreeningPhoneNumber,
+                                            ApplicationPreferences.prefEventCallScreeningTime);
                                 }
                             }
                         }
@@ -1579,10 +1583,10 @@ class EventsHandler {
     }
 
     void setEventCallScreeningParameters(String phoneNumber, long date) {
-        //EventPreferencesCallScreening.setEventCallScreeningActive(context, active);
-        //EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(context, phoneNumber);
-        eventCallScreeningPhoneNumber = phoneNumber;
-        eventCallScreeningDate = date;
+        EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(context, phoneNumber);
+        EventPreferencesCallScreening.setEventCallScreeningTime(context, date);
+        //eventCallScreeningPhoneNumber = phoneNumber;
+        //eventCallScreeningDate = date;
     }
 
     /*

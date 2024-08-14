@@ -2759,6 +2759,7 @@ class DataWrapper {
         }
 
         if (force || _event._eventPreferencesCallScreening._permanentRun) {
+            //Log.e("DataWrapper.clearSensorsStartTime", "*** _startTime = 0");
             _event._eventPreferencesCallScreening._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateCallScreeningStartTime(_event);
             _event._eventPreferencesCallScreening.removeAlarm(context);

@@ -1203,8 +1203,8 @@ class Permissions {
             boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
 
             if (isHeld) {
-                boolean grantedContacts = true;
-                boolean grantedSendSMS = true;
+                boolean grantedContacts;
+                boolean grantedSendSMS;
                 if (event != null) {
                     try {
                         if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {

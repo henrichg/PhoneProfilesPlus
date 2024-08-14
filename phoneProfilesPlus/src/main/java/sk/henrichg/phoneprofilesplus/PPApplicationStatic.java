@@ -715,7 +715,8 @@ class PPApplicationStatic {
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 1);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 2);
         //EventPreferencesCallScreening.getEventCallScreeningActive(context);
-        //EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
+        EventPreferencesCallScreening.getEventCallScreeningTime(context);
+        EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
 
         ApplicationPreferences.loadStartTargetHelps(context);
     }

@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -51,7 +50,8 @@ class EventPreferencesCallScreening extends EventPreferences {
     static final String PREF_EVENT_CALL_SCREENING_CATEGORY = "eventCallScreeningCategoryRoot";
 
     //private static final String PREF_EVENT_CALL_SCREENING_ACTIVE = "eventCallScreeningActive";
-    //private static final String PREF_EVENT_CALL_SCREENING_PHONE_NUMBER = "eventCallScreeningPhoneNumber";
+    private static final String PREF_EVENT_CALL_SCREENING_TIME = "eventCallScreeningTime";
+    private static final String PREF_EVENT_CALL_SCREENING_PHONE_NUMBER = "eventCallScreeningPhoneNumber";
 
     //static final int CONTACT_LIST_TYPE_WHITE_LIST = 0;
     //static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
@@ -417,12 +417,12 @@ class EventPreferencesCallScreening extends EventPreferences {
 
         removeAlarm(context);
 
-        Log.e("EventPreferencesCallScreening.setSystemEventForPause", "xxxxxxxxx (1)");
+        //Log.e("EventPreferencesCallScreening.setSystemEventForPause", "xxxxxxxxx (1)");
 
         if (!(isRunnable(context) && isAllConfigured(context) && _enabled))
             return;
 
-        Log.e("EventPreferencesCallScreening.setSystemEventForPause", "xxxxxxxxx (2)");
+        //Log.e("EventPreferencesCallScreening.setSystemEventForPause", "xxxxxxxxx (2)");
 
         setAlarm(computeAlarm(), context);
     }
@@ -522,23 +522,39 @@ class EventPreferencesCallScreening extends EventPreferences {
             ApplicationPreferences.prefEventCallScreeningActive = active;
         }
     }
+    */
+    static void getEventCallScreeningTime(Context context) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.getEventCallEventTime", "PPApplication.eventCallSensorMutex");
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.prefEventCallScreeningTime = ApplicationPreferences.
+                    getSharedPreferences(context).getLong(PREF_EVENT_CALL_SCREENING_TIME, 0);
+        }
+    }
+    static void setEventCallScreeningTime(Context context, long time) {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallEventTime", "PPApplication.eventCallSensorMutex");
+        synchronized (PPApplication.eventCallSensorMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putLong(PREF_EVENT_CALL_SCREENING_TIME, time);
+            ApplicationPreferences.prefEventCallScreeningTime = time;
+            editor.apply();
+        }
+    }
     static void getEventCallScreeningPhoneNumber(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.getEventCallScreeningPhoneNumber", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallScreeningPhoneNumber = ApplicationPreferences.
-                    getSharedPreferences(context).getString(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_PHONE_NUMBER, "");
+                    getSharedPreferences(context).getString(PREF_EVENT_CALL_SCREENING_PHONE_NUMBER, "");
         }
     }
     static void setEventCallScreeningPhoneNumber(Context context, String phoneNumber) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.setEventCallScreeningPhoneNumber", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putString(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_PHONE_NUMBER, phoneNumber);
+            editor.putString(PREF_EVENT_CALL_SCREENING_PHONE_NUMBER, phoneNumber);
             editor.apply();
             ApplicationPreferences.prefEventCallScreeningPhoneNumber = phoneNumber;
         }
     }
-    */
 
     void removeAlarm(Context context)
     {
@@ -662,6 +678,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                     this._startTime = startTime;// + (10 * 1000);
                 }
                 else {
+                    //Log.e("EventPreferencesCallScreening.saveStartTime", "*** (1) _startTime = 0");
                     this._startTime = 0;
                 }
 
@@ -672,6 +689,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                     setSystemEventForPause(dataWrapper.context);
                 }
             } else {
+                //Log.e("EventPreferencesCallScreening.saveStartTime", "*** (2) _startTime = 0");
                 this._startTime = 0;
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallScreeningStartTime(_event);
             }
@@ -685,7 +703,7 @@ class EventPreferencesCallScreening extends EventPreferences {
 
                 if (isIsCallScreeningHeld(eventsHandler.context)) {
 
-                    Log.e("EventPreferencesCallScreening.doHandleEvent", "_startTime="+_startTime);
+                    //Log.e("EventPreferencesCallScreening.doHandleEvent", "_startTime="+_startTime);
                     if (_startTime > 0) {
 
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -709,20 +727,22 @@ class EventPreferencesCallScreening extends EventPreferences {
                             continueHandler = nowAlarmTime >= startTime;
                         }
 
+                        //Log.e("EventPreferencesCallScreening.doHandleEvent", "continueHandler="+continueHandler);
+
                         if (continueHandler) {
                             // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
-                            boolean screeningActive = ApplicationPreferences.prefEventCallScreeningActive;
+                            //boolean screeningActive = ApplicationPreferences.prefEventCallScreeningActive;
                             String phoneNumber = ApplicationPreferences.prefEventCallScreeningPhoneNumber;
                             //Log.e("EventPreferencesCallScreening.doHandleEvent", "screeningActive="+screeningActive);
                             //Log.e("EventPreferencesCallScreening.doHandleEvent", "phoneNumber="+phoneNumber);
 
                             boolean phoneNumberFound = false;
 
-                            if (screeningActive) {
+                            //if (screeningActive) {
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache != null) {
                                     List<Contact> contactList;
-//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+//                                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
                                     synchronized (PPApplication.contactsCacheMutex) {
                                         contactList = contactsCache.getList();
                                     }
@@ -731,13 +751,13 @@ class EventPreferencesCallScreening extends EventPreferences {
                                         contactList.clear();
                                 }
 
-                                if (phoneNumberFound) {
-                                    //Log.e("", "");
-                                } else
+                                //Log.e("EventPreferencesCallScreening.doHandleEvent", "phoneNumberFound="+phoneNumberFound);
+
+                                if (!phoneNumberFound)
                                     eventsHandler.callScreeningPassed = false;
 
-                            } else
-                                eventsHandler.callScreeningPassed = false;
+                            //} else
+                            //    eventsHandler.callScreeningPassed = false;
                         } else
                             eventsHandler.callScreeningPassed = false;
                     } else
@@ -746,6 +766,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                     eventsHandler.notAllowedCallScreening = false;
 
                 if (!eventsHandler.callScreeningPassed) {
+                    //Log.e("EventPreferencesCallScreening.doHandleEvent", "*** _startTime = 0");
                     _startTime = 0;
                     DatabaseHandler.getInstance(eventsHandler.context).updateCallScreeningStartTime(_event);
                 }

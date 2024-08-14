@@ -27,14 +27,14 @@ public class SendSMSDialogPreferenceFragment extends PreferenceDialogFragmentCom
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.dialog_phone_calls_send_sms, null, false);
+        return inflater.inflate(R.layout.dialog_send_sms, null, false);
     }
 
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        sendSMSChBox = view.findViewById(R.id.phone_calls_send_sms_checkBox);
+        sendSMSChBox = view.findViewById(R.id.send_sms_checkBox);
         sendSMSChBox.setChecked(preference.sendSMS);
     }
 
