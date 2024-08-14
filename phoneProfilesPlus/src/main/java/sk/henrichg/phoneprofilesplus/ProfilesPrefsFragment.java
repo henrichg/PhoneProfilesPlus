@@ -419,10 +419,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogFragment.setArguments(bundle);
         }
         else
-        if ((Build.VERSION.SDK_INT >= 29) && (preference instanceof PhoneCallSendSMSDialogPreference))
+        if ((Build.VERSION.SDK_INT >= 29) && (preference instanceof SendSMSDialogPreference))
         {
-            ((PhoneCallSendSMSDialogPreference) preference).fragment = new PhoneCallSendSMSDialogPreferenceFragment();
-            dialogFragment = ((PhoneCallSendSMSDialogPreference) preference).fragment;
+            ((SendSMSDialogPreference) preference).fragment = new SendSMSDialogPreferenceFragment();
+            dialogFragment = ((SendSMSDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);

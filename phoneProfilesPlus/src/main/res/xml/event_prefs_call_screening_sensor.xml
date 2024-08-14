@@ -49,7 +49,7 @@
         app:dependency="eventCallScreeningEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.PhoneCallSendSMSDialogPreference
+    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
         app:title="@string/event_preference_callScreeningSendSMS"
         app:key="eventCallScreeningSendSMS"
         app:defaultValue="false"

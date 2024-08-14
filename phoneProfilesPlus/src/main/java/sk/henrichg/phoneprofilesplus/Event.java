@@ -509,6 +509,7 @@ class Event {
         createEventPreferencesRoaming();
         createEventPreferencesVPN();
         createEventPreferencesMusic();
+        createEventPreferencesCallScreening();
     }
 
     void copyEventPreferences(Event fromEvent)

@@ -2430,6 +2430,9 @@ class DatabaseHandlerEvents {
                         case DatabaseHandler.ETYPE_MUSIC:
                             sensorPassedField = DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED;
                             break;
+                        case DatabaseHandler.ETYPE_CALL_SCREENING:
+                            sensorPassedField = DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
@@ -2579,6 +2582,10 @@ class DatabaseHandlerEvents {
                     case DatabaseHandler.ETYPE_MUSIC:
                         sensorPassed = event._eventPreferencesMusic.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED;
+                        break;
+                    case DatabaseHandler.ETYPE_CALL_SCREENING:
+                        sensorPassed = event._eventPreferencesCallScreening.getSensorPassed();
+                        sensorPassedField = DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();

@@ -38,7 +38,7 @@
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.PhoneCallSendSMSDialogPreference
+    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
         app:title="@string/profile_preference_phoneCallsSendSMS"
         app:key="prf_pref_phoneCalls_sendSMS"
         app:defaultValue="false"

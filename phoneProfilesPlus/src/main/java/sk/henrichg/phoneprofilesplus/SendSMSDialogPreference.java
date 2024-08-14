@@ -11,9 +11,9 @@ import androidx.annotation.RequiresApi;
 import androidx.preference.DialogPreference;
 
 @RequiresApi(api = Build.VERSION_CODES.Q)
-public class PhoneCallSendSMSDialogPreference extends DialogPreference {
+public class SendSMSDialogPreference extends DialogPreference {
 
-    PhoneCallSendSMSDialogPreferenceFragment fragment;
+    SendSMSDialogPreferenceFragment fragment;
 
     private final Context _context;
 
@@ -22,7 +22,7 @@ public class PhoneCallSendSMSDialogPreference extends DialogPreference {
     private boolean defaultValue;
     private boolean savedInstanceState;
 
-    public PhoneCallSendSMSDialogPreference(Context context, AttributeSet attrs) {
+    public SendSMSDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         _context = context;
@@ -81,7 +81,7 @@ public class PhoneCallSendSMSDialogPreference extends DialogPreference {
             return superState;
         }*/
 
-        final PhoneCallSendSMSDialogPreference.SavedState myState = new PhoneCallSendSMSDialogPreference.SavedState(superState);
+        final SendSMSDialogPreference.SavedState myState = new SendSMSDialogPreference.SavedState(superState);
         myState.sendSMS = sendSMS;
         myState.defaultValue = defaultValue;
         return myState;
@@ -90,7 +90,7 @@ public class PhoneCallSendSMSDialogPreference extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if ((state == null) || (!state.getClass().equals(PhoneCallSendSMSDialogPreference.SavedState.class))) {
+        if ((state == null) || (!state.getClass().equals(SendSMSDialogPreference.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             sendSMS = false;
@@ -99,7 +99,7 @@ public class PhoneCallSendSMSDialogPreference extends DialogPreference {
         }
 
         // restore instance state
-        PhoneCallSendSMSDialogPreference.SavedState myState = (PhoneCallSendSMSDialogPreference.SavedState)state;
+        SendSMSDialogPreference.SavedState myState = (SendSMSDialogPreference.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         sendSMS = myState.sendSMS;
         defaultValue = myState.defaultValue;
@@ -135,14 +135,14 @@ public class PhoneCallSendSMSDialogPreference extends DialogPreference {
         }
 
         public static final Creator<SavedState> CREATOR =
-                new Creator<PhoneCallSendSMSDialogPreference.SavedState>() {
-                    public PhoneCallSendSMSDialogPreference.SavedState createFromParcel(Parcel in)
+                new Creator<SendSMSDialogPreference.SavedState>() {
+                    public SendSMSDialogPreference.SavedState createFromParcel(Parcel in)
                     {
-                        return new PhoneCallSendSMSDialogPreference.SavedState(in);
+                        return new SendSMSDialogPreference.SavedState(in);
                     }
-                    public PhoneCallSendSMSDialogPreference.SavedState[] newArray(int size)
+                    public SendSMSDialogPreference.SavedState[] newArray(int size)
                     {
-                        return new PhoneCallSendSMSDialogPreference.SavedState[size];
+                        return new SendSMSDialogPreference.SavedState[size];
                     }
 
                 };

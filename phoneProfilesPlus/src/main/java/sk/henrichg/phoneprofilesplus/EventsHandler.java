@@ -159,7 +159,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
     static final int SENSOR_TYPE_MUSIC = 56;
     static final int SENSOR_TYPE_CALL_SCREENING = 57;
-    static final int SENSOR_TYPE_CALL_SCREENING_EVENT_END = 58;
+    //static final int SENSOR_TYPE_CALL_SCREENING_EVENT_END = 58;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -985,7 +985,7 @@ class EventsHandler {
             case SENSOR_TYPE_MUSIC:
                 return DatabaseHandler.ETYPE_MUSIC;
             case SENSOR_TYPE_CALL_SCREENING:
-            case SENSOR_TYPE_CALL_SCREENING_EVENT_END:
+            //case SENSOR_TYPE_CALL_SCREENING_EVENT_END:
                 return DatabaseHandler.ETYPE_CALL_SCREENING;
             default:
                 return DatabaseHandler.ETYPE_ALL;

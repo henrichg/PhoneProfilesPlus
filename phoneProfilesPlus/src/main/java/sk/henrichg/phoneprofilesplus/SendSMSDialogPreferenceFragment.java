@@ -12,10 +12,10 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @RequiresApi(api = Build.VERSION_CODES.Q)
-public class PhoneCallSendSMSDialogPreferenceFragment extends PreferenceDialogFragmentCompat
+public class SendSMSDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 {
 
-    private PhoneCallSendSMSDialogPreference preference;
+    private SendSMSDialogPreference preference;
 
     SwitchCompat sendSMSChBox;
 
@@ -23,7 +23,7 @@ public class PhoneCallSendSMSDialogPreferenceFragment extends PreferenceDialogFr
     @Override
     protected View onCreateDialogView(@NonNull Context context)
     {
-        preference = (PhoneCallSendSMSDialogPreference) getPreference();
+        preference = (SendSMSDialogPreference) getPreference();
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);

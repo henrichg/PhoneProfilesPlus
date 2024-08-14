@@ -2260,12 +2260,15 @@
     <string name="event_why_profile_call_screening">for read contacts in event sensor \"Call screening\"</string>
     <string name="export_settings_delete_contacts_data_callScreening">Contacts for sensor \"Call screening\"</string>
     <string name="event_preference_callScreeningBlockCalls">Block phone calls</string>
+    <string name="event_preference_callScreeningBlockCalls_enabled">block</string>
     <string name="event_preference_callScreeningBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notification about blocked calls will not be displayed!</string>
     <string name="event_preference_callScreeningContactGroups">Contact groups</string>
     <string name="event_preference_callScreeningContacts">Contacts</string>
     <string name="event_preference_callScreeningSendSMS">Send SMS</string>
     <string name="event_preference_callScreeningSMSText">SMS Text</string>
     <string name="event_preference_callScreening_sendSMS_sumary">WARNING: Sending SMS may be charged or used from a prepaid SMS package!</string>
+
+    <string name="event_preference_callScreening_not_held_call_screening_role">not set call screening role for PhoneProfilePlus</string>
 
     <!-- **************************************************************************************** -->
 

@@ -431,6 +431,15 @@ class EventStatic {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
+        if (preferenceKey.equals(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED))
+        {
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            }
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
         return preferenceAllowed;
