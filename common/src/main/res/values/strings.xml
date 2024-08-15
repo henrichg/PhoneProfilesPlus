@@ -2271,6 +2271,7 @@
     <string name="array_event_pref_call_screening_direction_all">All calls</string>
 
     <string name="event_name_copy_from_profile_block_calls">Block calls</string>
+    <string name="important_info_phone_call_to_call_screening">For each profile with configured parameter \"Phone calls\"\/\"Block calls\", is generated new event with \"Call screening\" sensor. This event has the \"Event run\" parameter disabled. \"Phone calls\" parameter from profiles is removed.</string>
 
     <!-- **************************************************************************************** -->
 

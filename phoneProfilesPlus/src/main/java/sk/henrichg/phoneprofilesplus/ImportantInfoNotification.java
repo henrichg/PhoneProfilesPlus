@@ -53,6 +53,8 @@ class ImportantInfoNotification {
             boolean showExtender = false;
             boolean showPPPPS = false;
             if (packageVersionCode > savedVersionCode) {
+                // show notification only when is new version of package, not saved
+                // result = notification will be displayed only once
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
             }
             int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -67,6 +69,9 @@ class ImportantInfoNotification {
             //Log.e("ImportantInfoNotification.showInfoNotification", "showExtender="+showExtender);
             //Log.e("ImportantInfoNotification.showInfoNotification", "showPPPPS="+showPPPPS);
 
+            // Save package version, in future notification will be displayed only when pacakage
+            // version will be changed.
+            // But this may be disabled by PPApplication.SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false.
             setShowInfoNotificationOnStart(context, showInfo || showExtender || showPPPPS, packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {

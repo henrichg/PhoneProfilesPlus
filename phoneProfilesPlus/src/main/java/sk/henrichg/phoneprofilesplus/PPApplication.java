@@ -56,10 +56,12 @@ public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
-    // this version code must by <= version code in dependencies.gradle
+    // this version code must by <= then version code in dependencies.gradle
     static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
+    // TODO set it to false if you do not want to show News
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
+    // TODO set it to false if you do not want to show notification
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
 
     //// Extender versions
     // for this version will be displayed upgrade notification

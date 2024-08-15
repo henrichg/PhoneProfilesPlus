@@ -69,6 +69,16 @@
             android:textSize="@dimen/important_info_title_size"
             android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_phone_call_to_call_screening"
+                android:textSize="@dimen/important_info_text_size"
+                android:id="@+id/important_info_news_1"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
 <!--        <TextView-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
