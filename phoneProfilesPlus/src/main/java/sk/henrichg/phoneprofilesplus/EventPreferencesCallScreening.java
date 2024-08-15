@@ -261,12 +261,12 @@ class EventPreferencesCallScreening extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
-        /*if (key.equals(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE) ||
+        if (/*key.equals(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE) ||
                 key.equals(PREF_EVENT_CALL_SCREENING_CONTACTS) ||
-                key.equals(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS) ||
+                key.equals(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS) ||*/
                 key.equals(PREF_EVENT_CALL_SCREENING_SMS_TEXT)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
-        }*/
+        }
         if (key.equals(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS) ||
                 key.equals(PREF_EVENT_CALL_SCREENING_SEND_SMS)) {
             boolean value = preferences.getBoolean(key, false);
