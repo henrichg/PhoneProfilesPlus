@@ -717,6 +717,7 @@ class PPApplicationStatic {
         //EventPreferencesCallScreening.getEventCallScreeningActive(context);
         EventPreferencesCallScreening.getEventCallScreeningTime(context);
         EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
+        EventPreferencesCallScreening.getEventCallScreeningCallDirection(context);
 
         ApplicationPreferences.loadStartTargetHelps(context);
     }

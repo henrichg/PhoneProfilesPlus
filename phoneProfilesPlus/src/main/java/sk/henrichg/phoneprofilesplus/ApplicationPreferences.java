@@ -54,6 +54,7 @@ class ApplicationPreferences {
     //static volatile boolean prefEventCallScreeningActive;
     static volatile long prefEventCallScreeningTime;
     static volatile String prefEventCallScreeningPhoneNumber;
+    static volatile int prefEventCallScreeningCallDirection;
 
     static volatile boolean applicationEventNeverAskForEnableRun;
     static volatile boolean applicationNeverAskForGrantRoot;

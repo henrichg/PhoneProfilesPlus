@@ -1507,6 +1507,7 @@ class DatabaseHandlerEvents {
     static private void getEventPreferencesCallScreening(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
                 new String[]{DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION,
                         DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS,
                         //DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE,
                         DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS,
@@ -1529,6 +1530,7 @@ class DatabaseHandlerEvents {
                 EventPreferencesCallScreening eventPreferences = event._eventPreferencesCallScreening;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED)) == 1);
+                eventPreferences._callDirection = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION));
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS));
                 //eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE));
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS));
@@ -2065,6 +2067,7 @@ class DatabaseHandlerEvents {
         EventPreferencesCallScreening eventPreferences = event._eventPreferencesCallScreening;
 
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION, eventPreferences._callDirection);
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, eventPreferences._contacts);
         //values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, eventPreferences._contactGroups);

@@ -495,6 +495,7 @@ class EventsHandler {
                                 if (_event._eventPreferencesCallScreening._enabled) {
                                     EventPreferencesCallScreening.getEventCallScreeningTime(context);
                                     EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
+                                    EventPreferencesCallScreening.getEventCallScreeningCallDirection(context);
                                     _event._eventPreferencesCallScreening.saveStartTime(contactList, dataWrapper,
                                             ApplicationPreferences.prefEventCallScreeningPhoneNumber,
                                             ApplicationPreferences.prefEventCallScreeningTime);
@@ -1582,11 +1583,10 @@ class EventsHandler {
         eventDeviceBootDate = date;
     }
 
-    void setEventCallScreeningParameters(String phoneNumber, long date) {
+    void setEventCallScreeningParameters(String phoneNumber, long date, int direction) {
         EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(context, phoneNumber);
         EventPreferencesCallScreening.setEventCallScreeningTime(context, date);
-        //eventCallScreeningPhoneNumber = phoneNumber;
-        //eventCallScreeningDate = date;
+        EventPreferencesCallScreening.setEventCallScreeningCallDirection(context, direction);
     }
 
     /*

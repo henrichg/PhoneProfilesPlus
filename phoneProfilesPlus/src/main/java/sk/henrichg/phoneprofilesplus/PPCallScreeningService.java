@@ -26,6 +26,7 @@ public class PPCallScreeningService extends CallScreeningService {
                 //Runnable runnable = () -> { // NOT WORKING BLOCK CALL WTH THIS !!!
                 final String callingPhoneNumber = callHandle.getSchemeSpecificPart();
                 //Log.e("PPCallScreeningService.onScreenCall", "callingPhoneNumber="+callingPhoneNumber);
+                final int callDirection = callDetails.getCallDirection();
 
                 Runnable runnable = () -> {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -33,7 +34,7 @@ public class PPCallScreeningService extends CallScreeningService {
                     //Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler");
                     Calendar now = Calendar.getInstance();
                     long time = now.getTimeInMillis();
-                    eventsHandler.setEventCallScreeningParameters(callingPhoneNumber, time);
+                    eventsHandler.setEventCallScreeningParameters(callingPhoneNumber, time, callDirection);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING});
                 };
                 PPApplicationStatic.createBasicExecutorPool();
@@ -41,7 +42,7 @@ public class PPCallScreeningService extends CallScreeningService {
 
                 CallResponse.Builder response = new CallResponse.Builder();
 
-                if (callDetails.getCallDirection() ==  Call.Details.DIRECTION_INCOMING) {
+                if (callDirection ==  Call.Details.DIRECTION_INCOMING) {
                     // blok call only for incoming call
 
                     //noinspection ExtractMethodRecommender

@@ -1919,7 +1919,7 @@
     <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
     <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
     <string name="profile_preferences_category_vibrationIntensity">Vibration intensity</string>
-    <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
+    <string name="profile_preferences_vibrationIntensityRinging">Incoming call</string>
     <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
     <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
     <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
@@ -2264,6 +2264,11 @@
     <string name="event_preference_callScreening_not_held_call_screening_role">not set call screening role for PhoneProfilePlus</string>
 
     <string name="permission_why_event_call_screening">for read contacts, send SMS in event sensor \"Call screening\"</string>
+
+    <string name="event_preferences_call_screening_call_direction">Call direction</string>
+    <string name="array_event_pref_call_screening_direction_incoming">Incoming calls</string>
+    <string name="array_event_pref_call_screening_direction_outgoing">Outgoing calls</string>
+    <string name="array_event_pref_call_screening_direction_all">All calls</string>
 
     <!-- **************************************************************************************** -->
 

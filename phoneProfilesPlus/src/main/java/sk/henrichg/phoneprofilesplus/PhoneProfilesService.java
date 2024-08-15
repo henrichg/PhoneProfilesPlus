@@ -844,6 +844,7 @@ public class PhoneProfilesService extends Service
                 //EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
                 EventPreferencesCallScreening.setEventCallScreeningTime(appContext, 0);
                 EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(appContext, "");
+                EventPreferencesCallScreening.setEventCallScreeningCallDirection(appContext, 0);
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
