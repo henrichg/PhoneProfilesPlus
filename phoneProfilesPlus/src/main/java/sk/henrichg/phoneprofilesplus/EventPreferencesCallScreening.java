@@ -594,7 +594,7 @@ class EventPreferencesCallScreening extends EventPreferences {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.setEventCallEventTime", "PPApplication.eventCallSensorMutex");
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putLong(PREF_EVENT_CALL_SCREENING_CALL_DIRECTION, direction);
+            editor.putInt(PREF_EVENT_CALL_SCREENING_CALL_DIRECTION, direction);
             ApplicationPreferences.prefEventCallScreeningCallDirection = direction;
             editor.apply();
         }

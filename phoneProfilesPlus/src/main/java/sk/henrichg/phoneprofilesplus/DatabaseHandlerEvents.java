@@ -12,62 +12,66 @@ import java.util.List;
 class DatabaseHandlerEvents {
 
     // Adding new event
+    static void addEvent(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHandler.KEY_E_NAME, event._name); // Event Name
+        values.put(DatabaseHandler.KEY_E_START_ORDER, event._startOrder); // start order
+        values.put(DatabaseHandler.KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
+        values.put(DatabaseHandler.KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
+        values.put(DatabaseHandler.KEY_E_STATUS, event.getStatus()); // event status
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START, event._notificationSoundStart); // notification sound
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_START, event._notificationVibrateStart); // notification vibrate
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_START, event._repeatNotificationStart); // repeat notification sound
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, event._repeatNotificationIntervalStart); // repeat notification sound interval
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END, event._notificationSoundEnd); // notification sound
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_END, event._notificationVibrateEnd); // notification vibrate
+        values.put(DatabaseHandler.KEY_E_FORCE_RUN, event._ignoreManualActivation ? 1 : 0); // force run when manual profile activation
+        values.put(DatabaseHandler.KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
+        values.put(DatabaseHandler.KEY_E_PRIORITY, event._priority); // priority
+        values.put(DatabaseHandler.KEY_E_DELAY_START, event._delayStart); // delay for start
+        values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
+        values.put(DatabaseHandler.KEY_E_AT_END_DO, event._atEndDo); //at end of event do
+        values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation at start
+        values.put(DatabaseHandler.KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+        values.put(DatabaseHandler.KEY_E_DELAY_END, event._delayEnd); // delay for end
+        values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
+        values.put(DatabaseHandler.KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
+        values.put(DatabaseHandler.KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
+        values.put(DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
+        values.put(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
+        //values.put(DatabaseHandler.KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
+        values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
+
+        db.beginTransaction();
+
+        try {
+            // Inserting Row
+            event._id = db.insert(DatabaseHandler.TABLE_EVENTS, null, values);
+            updateEventPreferences(event, db);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     static void addEvent(DatabaseHandler instance, Event event) {
         instance.importExportLock.lock();
         try {
             try {
                 instance.startRunningCommand();
 
-                int startOrder = getMaxEventStartOrder(instance) + 1;
+                event._startOrder = getMaxEventStartOrder(instance) + 1;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                ContentValues values = new ContentValues();
-                values.put(DatabaseHandler.KEY_E_NAME, event._name); // Event Name
-                values.put(DatabaseHandler.KEY_E_START_ORDER, startOrder); // start order
-                values.put(DatabaseHandler.KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
-                values.put(DatabaseHandler.KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
-                values.put(DatabaseHandler.KEY_E_STATUS, event.getStatus()); // event status
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START, event._notificationSoundStart); // notification sound
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_START, event._notificationVibrateStart); // notification vibrate
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_START, event._repeatNotificationStart); // repeat notification sound
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, event._repeatNotificationIntervalStart); // repeat notification sound interval
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END, event._notificationSoundEnd); // notification sound
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_END, event._notificationVibrateEnd); // notification vibrate
-                values.put(DatabaseHandler.KEY_E_FORCE_RUN, event._ignoreManualActivation ? 1 : 0); // force run when manual profile activation
-                values.put(DatabaseHandler.KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
-                values.put(DatabaseHandler.KEY_E_PRIORITY, event._priority); // priority
-                values.put(DatabaseHandler.KEY_E_DELAY_START, event._delayStart); // delay for start
-                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
-                values.put(DatabaseHandler.KEY_E_AT_END_DO, event._atEndDo); //at end of event do
-                values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation at start
-                values.put(DatabaseHandler.KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                values.put(DatabaseHandler.KEY_E_DELAY_END, event._delayEnd); // delay for end
-                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
-                values.put(DatabaseHandler.KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
-                values.put(DatabaseHandler.KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
-                values.put(DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
-                values.put(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
-                //values.put(DatabaseHandler.KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
-                values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
-
-                db.beginTransaction();
-
-                try {
-                    // Inserting Row
-                    event._id = db.insert(DatabaseHandler.TABLE_EVENTS, null, values);
-                    updateEventPreferences(event, db);
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
+                addEvent(event, db);
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {

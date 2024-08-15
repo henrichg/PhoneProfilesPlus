@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -3636,6 +3637,69 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2527) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION + "=0");
+        }
+
+        if (oldVersion < 2531) {
+            try {
+                int eventStartOrder = 0;
+                String countQuery = "SELECT MAX(" + DatabaseHandler.KEY_E_START_ORDER + ") FROM " + DatabaseHandler.TABLE_EVENTS;
+                Cursor cursorCount = db.rawQuery(countQuery, null);
+                if (cursorCount.getCount() > 0) {
+                    if (cursorCount.moveToFirst()) {
+                        eventStartOrder = cursorCount.getInt(0);
+                    }
+                }
+                cursorCount.close();
+
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_ID + "," +
+                        DatabaseHandler.KEY_NAME + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT +
+                        " FROM " + DatabaseHandler.TABLE_PROFILES;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        int blockCallsInProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS));
+
+                        if (blockCallsInProfile == 1) {
+                            // block calls is enabled in profile
+
+                            ++eventStartOrder;
+                            Event event = DataWrapperStatic.getNonInitializedEvent(
+                                    instance.context.getString(R.string.event_name_copy_from_profile_block_calls)+"-"+
+                                            cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME)),
+                                    eventStartOrder);
+                            event.setStatus(Event.ESTATUS_STOP);
+                            event._atEndDo = Event.EATENDDO_NONE;
+                            event._eventPreferencesCallScreening._enabled = true;
+                            event._eventPreferencesCallScreening._callDirection = EventPreferencesCallScreening.CALL_DIRECTION_INCOMING;
+                            event._eventPreferencesCallScreening._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+                            event._eventPreferencesCallScreening._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS));
+                            event._eventPreferencesCallScreening._blockCalls = true;
+                            event._eventPreferencesCallScreening._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1);
+                            event._eventPreferencesCallScreening._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT));
+                            event._eventPreferencesCallScreening._duration = 5;
+                            event._eventPreferencesCallScreening._permanentRun = false;
+
+                            DatabaseHandlerEvents.addEvent(event, db);
+                        }
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+
+                // TODO odblokuj po teste
+                //db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
+                //db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
+
+            } catch (Exception e) {
+                Log.e("DatabaseHandlerCreateUpdateDB", Log.getStackTraceString(e));
+            }
         }
 
     }

@@ -2270,6 +2270,8 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Outgoing calls</string>
     <string name="array_event_pref_call_screening_direction_all">All calls</string>
 
+    <string name="event_name_copy_from_profile_block_calls">Block calls</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
