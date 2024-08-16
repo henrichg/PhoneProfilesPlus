@@ -1508,8 +1508,14 @@ class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         //Profile.setActivatedProfileForDuration(context, 0);
 
-        // get currently activated profile
-        //Profile oldActivatedProfile = getActivatedProfile(false, false);
+        // get first profile from fifo
+        long oldActivatedProfileId = 0;
+        List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
+        if (!activateProfilesFIFO.isEmpty()) {
+            String fromFifo = activateProfilesFIFO.get(0);
+            String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+            oldActivatedProfileId = Long.parseLong(splits[0]);
+        }
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_EVENT) //&&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1540,7 +1546,7 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
             (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EXTERNAL_APP);
@@ -1608,7 +1614,7 @@ class DataWrapper {
         PPApplication.updateGUI(false, false, context);
 
         if (_profile != null) {
-            ActivateProfileHelper.execute(context, _profile);
+            ActivateProfileHelper.execute(context, _profile, startupSource, forRestartEvents, oldActivatedProfileId);
         }
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
@@ -1947,7 +1953,7 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
             (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE))
         {
             // activation is invoked from shortcut, widget, Activator, Editor, service,
@@ -2006,7 +2012,7 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
             (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE))
         {
             if (profile_id == 0)

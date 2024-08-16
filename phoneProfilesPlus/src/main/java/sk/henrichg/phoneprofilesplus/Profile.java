@@ -131,12 +131,11 @@ class Profile {
     int _applicationLocationScanInterval;
     int _applicationOrientationScanInterval;
     int _applicationPeriodicScanInterval;
-    String _phoneCallsContacts; // contactId#phoneId|...
-    String _phoneCallsContactGroups; // groupId|...
-    //int _phoneCallsContactListType;
-    boolean _phoneCallsBlockCalls;
-    boolean _phoneCallsSendSMS;
-    String _phoneCallsSMSText;
+    String _sendSMSContacts; // contactId#phoneId|...
+    String _sendSMSContactGroups; // groupId|...
+    //int _sendSMSContactListType;
+    boolean _sendSMSSendSMS;
+    String _sendSMSSMSText;
     String _deviceWallpaperLockScreen;
 
 
@@ -268,14 +267,12 @@ class Profile {
     static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateInterval";
     static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
     static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
-    static final String PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS = "prf_pref_phoneCalls_blockCalls";
-    static final String PREF_PROFILE_PHONE_CALLS_CONTACTS = "prf_pref_phoneCalls_contacts";
-    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS = "prf_pref_phoneCalls_contactGroups";
-    //static final String PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE = "prf_pref_phoneCalls_contactListType";
-    static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
-    static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
+    static final String PREF_PROFILE_SEND_SMS_CONTACTS = "prf_pref_sendSMS_contacts";
+    static final String PREF_PROFILE_SEND_SMS_CONTACT_GROUPS = "prf_pref_semdSMS_contactGroups";
+    //static final String PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE = "prf_pref_sendSMS_contactListType";
+    static final String PREF_PROFILE_SEND_SMS_SEND_SMS = "prf_pref_sendSMS_sendSMS";
+    static final String PREF_PROFILE_SEND_SMS_SMS_TEXT = "prf_pref_sendSMS_SMSText";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN = "prf_pref_deviceWallpaperLockScreen";
-    static final String PREF_PROFILE_PHONE_CALLS_SET_CALL_SCREENING_ROLE = "prf_pref_phoneCalls_setCallScreeningRole";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
@@ -322,8 +319,7 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
-        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
-        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_SEND_SMS_SEND_SMS, false);
     }
     static final ArrayMap<String, String> defaultValuesString;
     static {
@@ -434,10 +430,10 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "15");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "10");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
-        //defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
+        defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACTS, "");
+        defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
+        //defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_SEND_SMS_SMS_TEXT, "");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "-");
     }
 
@@ -1099,12 +1095,11 @@ class Profile {
                    int applicationLocationScanInterval,
                    int applicationOrientationScanInterval,
                    int applicationPeriodicScanInterval,
-                   String phoneCallsContacts,
-                   String phoneCallsContactGroups,
-                   //int phoneCallsContactListType,
-                   boolean phoneCallsBlockCalls,
-                   boolean phoneCallsSendSMS,
-                   String phoneCallsSMSText,
+                   String sendSMSContacts,
+                   String sendSMSContactGroups,
+                   //int sendSMSContactListType,
+                   boolean sendSMSSendSMS,
+                   String sendSMSSMSText,
                    String deviceWallpaperLockscreen
             )
     {
@@ -1221,12 +1216,11 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
-        this._phoneCallsContacts = phoneCallsContacts;
-        this._phoneCallsContactGroups = phoneCallsContactGroups;
-        //this._phoneCallsContactListType = phoneCallsContactListType;
-        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
-        this._phoneCallsSendSMS = phoneCallsSendSMS;
-        this._phoneCallsSMSText = phoneCallsSMSText;
+        this._sendSMSContacts = sendSMSContacts;
+        this._sendSMSContactGroups = sendSMSContactGroups;
+        //this._phoneCallsContactListType = sendSMSContactListType;
+        this._sendSMSSendSMS = sendSMSSendSMS;
+        this._sendSMSSMSText = sendSMSSMSText;
         this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
 
         this._iconBitmap = null;
@@ -1348,12 +1342,11 @@ class Profile {
             int applicationLocationScanInterval,
             int applicationOrientationScanInterval,
             int applicationPeriodicScanInterval,
-            String phoneCallsContacts,
-            String phoneCallsContactGroups,
-            //int phoneCallsContactListType,
-            boolean phoneCallsBlockCalls,
-            boolean phoneCallsSendSMS,
-            String phoneCallsSMSText,
+            String sendSMSContacts,
+            String sendSMSContactGroups,
+            //int sendSMSContactListType,
+            boolean sendSMSSendSMS,
+            String sendSMSSMSText,
             String deviceWallpaperLockscreen
     )
     {
@@ -1469,12 +1462,11 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
-        this._phoneCallsContacts = phoneCallsContacts;
-        this._phoneCallsContactGroups = phoneCallsContactGroups;
-        //this._phoneCallsContactListType = phoneCallsContactListType;
-        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
-        this._phoneCallsSendSMS = phoneCallsSendSMS;
-        this._phoneCallsSMSText = phoneCallsSMSText;
+        this._sendSMSContacts = sendSMSContacts;
+        this._sendSMSContactGroups = sendSMSContactGroups;
+        //this._sendSMSContactListType = sendSMSContactListType;
+        this._sendSMSSendSMS = sendSMSSendSMS;
+        this._sendSMSSMSText = sendSMSSMSText;
         this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
 
         this._iconBitmap = null;
@@ -1597,12 +1589,11 @@ class Profile {
         this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
         this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
-        this._phoneCallsContacts = profile._phoneCallsContacts;
-        this._phoneCallsContactGroups = profile._phoneCallsContactGroups;
-        //this._phoneCallsContactListType = profile._phoneCallsContactListType;
-        this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
-        this._phoneCallsSendSMS = profile._phoneCallsSendSMS;
-        this._phoneCallsSMSText = profile._phoneCallsSMSText;
+        this._sendSMSContacts = profile._sendSMSContacts;
+        this._sendSMSContactGroups = profile._sendSMSContactGroups;
+        //this._sendSMSContactListType = profile._sendSMSContactListType;
+        this._sendSMSSendSMS = profile._sendSMSSendSMS;
+        this._sendSMSSMSText = profile._sendSMSSMSText;
         this._deviceWallpaperLockScreen = profile._deviceWallpaperLockScreen;
 
         this._iconBitmap = profile._iconBitmap;
@@ -1961,18 +1952,16 @@ class Profile {
                     this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
                 if (withProfile._applicationPeriodicScanInterval != 0)
                     this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
-                if (!withProfile._phoneCallsContacts.isEmpty())
-                    this._phoneCallsContacts = withProfile._phoneCallsContacts;
-                if (!withProfile._phoneCallsContactGroups.isEmpty())
-                    this._phoneCallsContactGroups = withProfile._phoneCallsContactGroups;
+                if (!withProfile._sendSMSContacts.isEmpty())
+                    this._sendSMSContacts = withProfile._sendSMSContacts;
+                if (!withProfile._sendSMSContactGroups.isEmpty())
+                    this._sendSMSContactGroups = withProfile._sendSMSContactGroups;
                 //if (withProfile._phoneCallsContactListType != 0)
                 //    this._phoneCallsContactListType = withProfile._phoneCallsContactListType;
-                if (withProfile._phoneCallsBlockCalls)
-                    this._phoneCallsBlockCalls = true;
-                if (withProfile._phoneCallsSendSMS)
-                    this._phoneCallsSendSMS = true;
-                if (!withProfile._phoneCallsSMSText.isEmpty())
-                    this._phoneCallsSMSText = withProfile._phoneCallsSMSText;
+                if (withProfile._sendSMSSendSMS)
+                    this._sendSMSSendSMS = true;
+                if (!withProfile._sendSMSSMSText.isEmpty())
+                    this._sendSMSSMSText = withProfile._sendSMSSMSText;
             }
 
             // set merged profile as activated
@@ -2355,22 +2344,19 @@ class Profile {
             if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
                 return false;
             }
-            if (!this._phoneCallsContacts.equals(withProfile._phoneCallsContacts)) {
+            if (!this._sendSMSContacts.equals(withProfile._sendSMSContacts)) {
                 return false;
             }
-            if (!this._phoneCallsContactGroups.equals(withProfile._phoneCallsContactGroups)) {
+            if (!this._sendSMSContactGroups.equals(withProfile._sendSMSContactGroups)) {
                 return false;
             }
             //if (this._phoneCallsContactListType != withProfile._phoneCallsContactListType) {
             //    return false;
             //}
-            if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
+            if (this._sendSMSSendSMS != withProfile._sendSMSSendSMS) {
                 return false;
             }
-            if (this._phoneCallsSendSMS != withProfile._phoneCallsSendSMS) {
-                return false;
-            }
-            if (!this._phoneCallsSMSText.equals(withProfile._phoneCallsSMSText)) {
+            if (!this._sendSMSSMSText.equals(withProfile._sendSMSSMSText)) {
                 return false;
             }
 
@@ -3424,12 +3410,11 @@ class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
-        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACTS, this._phoneCallsContacts);
-        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, this._phoneCallsContactGroups);
-        //editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
-        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
-        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_SEND_SMS, this._phoneCallsSendSMS);
-        editor.putString(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, this._phoneCallsSMSText);
+        editor.putString(PREF_PROFILE_SEND_SMS_CONTACTS, this._sendSMSContacts);
+        editor.putString(PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, this._sendSMSContactGroups);
+        //editor.putString(PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
+        editor.putBoolean(PREF_PROFILE_SEND_SMS_SEND_SMS, this._sendSMSSendSMS);
+        editor.putString(PREF_PROFILE_SEND_SMS_SMS_TEXT, this._sendSMSSMSText);
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, this._deviceWallpaperLockScreen);
 
         editor.apply();

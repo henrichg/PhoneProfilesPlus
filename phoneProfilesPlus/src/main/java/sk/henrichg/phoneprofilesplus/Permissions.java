@@ -85,7 +85,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
     static final int PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS = 56;
     static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
-    static final int PERMISSION_TYPE_PROFILE_PHONE_CALLS = 58;
+    static final int PERMISSION_TYPE_PROFILE_SEND_SMS = 58;
     static final int PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES = 59;
 
     static final int GRANT_TYPE_PROFILE = 1;
@@ -261,7 +261,7 @@ class Permissions {
         checkProfileRunApplications(context, profile, permissions);
         checkProfileInteractivePreferences(context, profile, permissions);
         checkProfileCloseAllApplications(context, profile, permissions);
-        checkProfilePhoneCalls(context, profile, permissions);
+        checkProfileSendSMS(context, profile, permissions);
         checkProfilePPPPutSettings(context, profile, permissions);
 
         return permissions;
@@ -1164,33 +1164,23 @@ class Permissions {
         //return /*true*/;
     }
 
-    static void checkProfilePhoneCalls(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+    static void checkProfileSendSMS(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
-        if (Build.VERSION.SDK_INT >= 29) {
-            try {
-                RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
-
-                boolean grantedContacts = true;
-                boolean grantedSendSMS = true;
-                if (isHeld) {
-                    if (((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
-                        ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))) {
-                        grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                        if (profile._phoneCallsBlockCalls && profile._phoneCallsSendSMS)
-                            grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-                    }
-                }
-                if (permissions != null) {
-                    if (!grantedContacts)
-                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.READ_CONTACTS));
-                    if (!grantedSendSMS)
-                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PHONE_CALLS, permission.SEND_SMS));
-                }
-            } catch (Exception e) {
-                //return;
-            }
+        boolean grantedContacts = true;
+        boolean grantedSendSMS = true;
+        if (profile._sendSMSSendSMS) {
+            if (((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
+                ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty())))
+                grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+            if (profile._sendSMSSendSMS)
+                grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+        }
+        if (permissions != null) {
+            if (!grantedContacts)
+                permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SEND_SMS, permission.READ_CONTACTS));
+            if (!grantedSendSMS)
+                permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SEND_SMS, permission.SEND_SMS));
         }
     }
 

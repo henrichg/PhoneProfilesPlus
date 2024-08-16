@@ -495,7 +495,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                                (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+                                //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
                                 (startupSource == PPApplication.STARTUP_SOURCE_EXTERNAL_APP);

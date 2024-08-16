@@ -150,12 +150,11 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS),
-                //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS),
+                //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN)
                 );
     }

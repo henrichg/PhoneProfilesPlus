@@ -2949,7 +2949,7 @@ public class EditorActivity extends AppCompatActivity
                 boolean deleteSMS = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogNotification);
                 boolean deleteNotification = checkbox.isChecked();
-                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogPhoneCalls);
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSendSMS);
                 boolean deletePhoneCalls = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallScreening);
                 boolean deleteCallScreening = checkbox.isChecked();

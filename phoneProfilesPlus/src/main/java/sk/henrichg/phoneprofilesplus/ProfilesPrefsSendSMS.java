@@ -2,11 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.os.Bundle;
 
-public class ProfilesPrefsPhoneCalls extends ProfilesPrefsFragment {
+public class ProfilesPrefsSendSMS extends ProfilesPrefsFragment {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String rootKey) {
-        setPreferencesFromResource(R.xml.profile_prefs_phone_calls, rootKey);
+        setPreferencesFromResource(R.xml.profile_prefs_send_sms, rootKey);
     }
 
 }

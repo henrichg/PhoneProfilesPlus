@@ -142,6 +142,9 @@
     <uses-feature
         android:name="android.hardware.sensor.light"
         android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.telephony.messaging"
+        android:required="false"/>
 
     <queries>
         <!-- ACRA fix of MailSenderConfigurationBuilder for Android 11 -->

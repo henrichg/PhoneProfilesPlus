@@ -463,12 +463,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationLocationScanInterval,
                         origProfile._applicationOrientationScanInterval,
                         origProfile._applicationPeriodicScanInterval,
-                        origProfile._phoneCallsContacts,
-                        origProfile._phoneCallsContactGroups,
-                        //origProfile._phoneCallsContactListType,
-                        origProfile._phoneCallsBlockCalls,
-                        origProfile._phoneCallsSendSMS,
-                        origProfile._phoneCallsSMSText,
+                        origProfile._sendSMSContacts,
+                        origProfile._sendSMSContactGroups,
+                        //origProfile._sendSMSContactListType,
+                        origProfile._sendSMSSendSMS,
+                        origProfile._sendSMSSMSText,
                         origProfile._deviceWallpaperLockScreen
                 );
                 showSaveMenu = true;
@@ -678,12 +677,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationLocationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, ""));
             profile._applicationOrientationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, ""));
             profile._applicationPeriodicScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, ""));
-            profile._phoneCallsContacts = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
-            profile._phoneCallsContactGroups = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
+            profile._sendSMSContacts = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS, "");
+            profile._sendSMSContactGroups = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
             //profile._phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, ""));
-            profile._phoneCallsBlockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
-            profile._phoneCallsSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
-            profile._phoneCallsSMSText = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
+            profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+            profile._sendSMSSMSText = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT, "");
         }
 
         return profile;

@@ -917,6 +917,41 @@ class DatabaseHandlerImportExport {
                         cursorImportDB.close();
                 }
 
+                try {
+                    cursorImportDB = db.rawQuery("SELECT " +
+                            DatabaseHandler.KEY_ID + "," +
+                            DatabaseHandler.KEY_SEND_SMS_CONTACTS +
+                            " FROM " + DatabaseHandler.TABLE_PROFILES, null);
+
+                    if (cursorImportDB.moveToFirst()) {
+                        do {
+                            long profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+
+                            String phoneCallsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+
+                            String decryptedPhoneCallsContacts;
+                            try {
+                                decryptedPhoneCallsContacts = encryption.decryptOrNull(phoneCallsContacts);
+                            } catch (Exception e) {
+                                decryptedPhoneCallsContacts = "";
+                            }
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedPhoneCallsContacts="+decryptedPhoneCallsContacts);
+                            if (decryptedPhoneCallsContacts == null) decryptedPhoneCallsContacts = "";
+
+                            ContentValues values = new ContentValues();
+                            values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, decryptedPhoneCallsContacts);
+
+                            db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                    new String[]{String.valueOf(profileId)});
+
+                        } while (cursorImportDB.moveToNext());
+                    }
+                    cursorImportDB.close();
+                } finally {
+                    if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                        cursorImportDB.close();
+                }
+
             }
         }
     }
@@ -1929,6 +1964,37 @@ class DatabaseHandlerImportExport {
 
                                                     ContentValues values = new ContentValues();
                                                     values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, encryptedPhoneCallsContacts);
+
+                                                    exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                                            new String[]{String.valueOf(profileId)});
+
+                                                } while (cursorExportDB.moveToNext());
+                                            }
+                                            cursorExportDB.close();
+                                        } finally {
+                                            if ((cursorExportDB != null) && (!cursorExportDB.isClosed()))
+                                                cursorExportDB.close();
+                                        }
+
+                                        cursorExportDB = null;
+                                        try {
+                                            cursorExportDB = exportedDBObj.rawQuery("SELECT " +
+                                                    DatabaseHandler.KEY_ID + "," +
+                                                    DatabaseHandler.KEY_SEND_SMS_CONTACTS +
+                                                    " FROM " + DatabaseHandler.TABLE_PROFILES, null);
+
+                                            if (cursorExportDB.moveToFirst()) {
+                                                do {
+                                                    long profileId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+
+                                                    String phoneCallsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+
+                                                    String encryptedPhoneCallsContacts = encryption.encryptOrNull(phoneCallsContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedPhoneCallsContacts="+encryptedPhoneCallsContacts);
+                                                    if (encryptedPhoneCallsContacts == null) encryptedPhoneCallsContacts="";
+
+                                                    ContentValues values = new ContentValues();
+                                                    values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, encryptedPhoneCallsContacts);
 
                                                     exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                                             new String[]{String.valueOf(profileId)});

@@ -138,12 +138,11 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, profile._phoneCallsContacts);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, profile._phoneCallsContactGroups);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
-                //values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, profile._phoneCallsContactListType);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, (profile._phoneCallsSendSMS) ? 1 : 0);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, profile._phoneCallsSMSText);
+                values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, profile._sendSMSContacts);
+                values.put(DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS, profile._sendSMSContactGroups);
+                //values.put(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE, profile._sendSMSContactListType);
+                values.put(DatabaseHandler.KEY_SEND_SMS_SEND_SMS, (profile._sendSMSSendSMS) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT, profile._sendSMSSMSText);
                 values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, profile._deviceWallpaperLockScreen);
 
                 // Insert Row
@@ -294,12 +293,11 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL,
-                                DatabaseHandler.KEY_PHONE_CALLS_CONTACTS,
-                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS,
-                                DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS,
-                                //DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE,
-                                DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS,
-                                DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT,
+                                DatabaseHandler.KEY_SEND_SMS_CONTACTS,
+                                DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS,
+                                //DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE,
+                                DatabaseHandler.KEY_SEND_SMS_SEND_SMS,
+                                DatabaseHandler.KEY_SEND_SMS_SMS_TEXT,
                                 DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN
                         },
                         DatabaseHandler.KEY_ID + "=?",
@@ -423,12 +421,11 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS)),
-                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1,
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACTS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SEND_SMS)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN))
                         );
                     }
@@ -572,12 +569,11 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL + "," +
                         DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL + "," +
                         DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL + "," +
-                        DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "," +
-                        DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "," +
-                        //DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + "," +
-                        DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "," +
-                        DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "," +
-                        DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "," +
+                        DatabaseHandler.KEY_SEND_SMS_CONTACTS + "," +
+                        DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS + "," +
+                        //DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE + "," +
+                        DatabaseHandler.KEY_SEND_SMS_SEND_SMS + "," +
+                        DatabaseHandler.KEY_SEND_SMS_SMS_TEXT + "," +
                         DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
@@ -704,12 +700,11 @@ class DatabaseHandlerProfiles {
                         profile._applicationLocationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL));
                         profile._applicationOrientationScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL));
                         profile._applicationPeriodicScanInterval = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL));
-                        profile._phoneCallsContacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
-                        profile._phoneCallsContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS));
-                        profile._phoneCallsBlockCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1;
-                        //profile._phoneCallsContactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE));
-                        profile._phoneCallsSendSMS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1;
-                        profile._phoneCallsSMSText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT));
+                        profile._sendSMSContacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACTS));
+                        profile._sendSMSContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS));
+                        //profile._phoneCallsContactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE));
+                        profile._sendSMSSendSMS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SEND_SMS)) == 1;
+                        profile._sendSMSSMSText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT));
                         profile._deviceWallpaperLockScreen = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN));
                         // Adding profile to list
                         profileList.add(profile);
@@ -854,12 +849,11 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL, profile._applicationLocationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL, profile._applicationOrientationScanInterval);
                 values.put(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, profile._applicationPeriodicScanInterval);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS, profile._phoneCallsContacts);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS, profile._phoneCallsContactGroups);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS, (profile._phoneCallsBlockCalls) ? 1 : 0);
-                //values.put(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE, profile._phoneCallsContactListType);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, (profile._phoneCallsSendSMS) ? 1 : 0);
-                values.put(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, profile._phoneCallsSMSText);
+                values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, profile._sendSMSContacts);
+                values.put(DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS, profile._sendSMSContactGroups);
+                //values.put(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE, profile._sendSMSContactListType);
+                values.put(DatabaseHandler.KEY_SEND_SMS_SEND_SMS, (profile._sendSMSSendSMS) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT, profile._sendSMSSMSText);
                 values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, profile._deviceWallpaperLockScreen);
 
                 // updating row
@@ -1220,12 +1214,11 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL,
                                 DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL,
-                                DatabaseHandler.KEY_PHONE_CALLS_CONTACTS,
-                                DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS,
-                                DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS,
-                                //DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE,
-                                DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS,
-                                DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT,
+                                DatabaseHandler.KEY_SEND_SMS_CONTACTS,
+                                DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS,
+                                //DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE,
+                                DatabaseHandler.KEY_SEND_SMS_SEND_SMS,
+                                DatabaseHandler.KEY_SEND_SMS_SMS_TEXT,
                                 DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
@@ -1351,12 +1344,11 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS)),
-                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS)) == 1,
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1,
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACTS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SEND_SMS)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN))
                                 );
                     }

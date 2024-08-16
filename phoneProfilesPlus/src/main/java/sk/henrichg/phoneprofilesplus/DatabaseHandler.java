@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2531;
+    static final int DATABASE_VERSION = 2532;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -223,11 +223,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "applicationPeriodicScanningScanInterval";
     static final String KEY_PHONE_CALLS_CONTACTS = "phoneCallsContacts";
     static final String KEY_PHONE_CALLS_CONTACT_GROUPS = "phoneCallsContactGroups";
-    //static final String KEY_PHONE_CALLS_CONTACT_LIST_TYPE = "phoneCallsContactListType";
+    static final String KEY_PHONE_CALLS_CONTACT_LIST_TYPE = "phoneCallsContactListType";
     static final String KEY_PHONE_CALLS_BLOCK_CALLS = "phoneCallsBlockCalls";
     static final String KEY_PHONE_CALLS_SEND_SMS = "phoneCallsSendSMS";
     static final String KEY_PHONE_CALLS_SMS_TEXT = "phoneCallsSMSText";
     static final String KEY_DEVICE_WALLPAPER_LOCKSCREEN = "deviceWallpaperLockScreen";
+    static final String KEY_SEND_SMS_CONTACTS = "sendSMSContacts";
+    static final String KEY_SEND_SMS_CONTACT_GROUPS = "sendSMSContactGroups";
+    //static final String KEY_SEND_SMS_CONTACT_LIST_TYPE = "sendSMSContactListType";
+    static final String KEY_SEND_SMS_SEND_SMS = "sendSMSSendSMS";
+    static final String KEY_SEND_SMS_SMS_TEXT = "sendSMSSMSText";
 
     // Events Table Columns names
     static final String KEY_E_ID = "id";

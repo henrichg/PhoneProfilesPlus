@@ -1181,7 +1181,7 @@ class PPApplicationStatic {
     }
     */
 
-    private static void getLastActivatedProfile(Context context)
+    static void getLastActivatedProfile(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getLastActivatedProfile", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {

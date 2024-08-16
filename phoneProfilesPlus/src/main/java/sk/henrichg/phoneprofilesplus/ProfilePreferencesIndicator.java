@@ -83,9 +83,11 @@ class ProfilePreferencesIndicator {
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
             // add icon into profile preferences indicator
+            //noinspection ConstantValue
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
+            //noinspection ConstantValue
             if (bitmapResult != null) {
                 try {
                     bitmapResult.recycle();
@@ -2213,22 +2215,22 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // phone calls
+            // send sms
             if (
                 (
                  /*(profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                 ((profile._phoneCallsContacts != null) && (!profile._phoneCallsContacts.isEmpty())) ||
-                 ((profile._phoneCallsContactGroups != null) && (!profile._phoneCallsContactGroups.isEmpty()))
+                 ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
+                 ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))
                 ) &&
-                profile._phoneCallsBlockCalls) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                profile._sendSMSSendSMS) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_category_phone_calls);
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_category_send_sms);
                     if (fillStrings)
-                        strings[countDrawables++] = "pcal";
+                        strings[countDrawables++] = "ssms";
                     else {
                         disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_phonecalls;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_send_sms;
                     }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;

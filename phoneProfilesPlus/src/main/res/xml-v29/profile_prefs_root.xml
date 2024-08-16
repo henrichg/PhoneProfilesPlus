@@ -113,10 +113,10 @@
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsApplication" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
-            app:title="@string/profile_preferences_category_phone_calls"
-            app:key="prf_pref_phoneCallsCategoryRoot"
+            app:title="@string/profile_preferences_category_send_sms"
+            app:key="prf_pref_sendSMSCategoryRoot"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsPhoneCalls" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsSendSMS" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/profile_preferences_category_others"

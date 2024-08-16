@@ -713,12 +713,11 @@ class ProfileStatic {
                     profile._applicationLocationScanInterval,
                     profile._applicationOrientationScanInterval,
                     profile._applicationPeriodicScanInterval,
-                    profile._phoneCallsContacts,
-                    profile._phoneCallsContactGroups,
-                    //profile._phoneCallsContactListType,
-                    profile._phoneCallsBlockCalls,
-                    profile._phoneCallsSendSMS,
-                    profile._phoneCallsSMSText,
+                    profile._sendSMSContacts,
+                    profile._sendSMSContactGroups,
+                    //profile._sendSMSContactListType,
+                    profile._sendSMSSendSMS,
+                    profile._sendSMSSMSText,
                     profile._deviceWallpaperLockScreen
             );
 
@@ -1008,6 +1007,8 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, preferenceKey, null, sharedPreferences/*, fromUIThread, context*/);
                     break;
+                case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS(preferenceAllowed);
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }

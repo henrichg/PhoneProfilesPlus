@@ -414,6 +414,8 @@ public class PPApplication extends Application
     static volatile boolean HAS_FEATURE_LOCATION = false;
     static volatile boolean HAS_FEATURE_LOCATION_GPS = false;
     static volatile boolean HAS_FEATURE_CAMERA_FLASH = false;
+    // this is required for target 33
+    //static volatile boolean HAS_FEATURE_TELEPHONY_MESSAGING = false;
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -443,7 +445,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_EDITOR = 8;
     //static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
     //static final int STARTUP_SOURCE_LAUNCHER_START = 10;
-    static final int STARTUP_SOURCE_LAUNCHER = 11;
+    //static final int STARTUP_SOURCE_LAUNCHER = 11;
     // STARTUP_SOURCE_EVENT_MANUAL is for activation of profile from evet, when is set:
     //  - "Start of event"/"Other parameters"/"[M] Manual profile activation at start"
     //  - "End of event"/"Other parameters"/"[M] Manual profile activation at end"
@@ -1214,6 +1216,7 @@ public class PPApplication extends Application
         HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
         HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
+        //HAS_FEATURE_TELEPHONY_MESSAGING = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY_MESSAGING);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");
 

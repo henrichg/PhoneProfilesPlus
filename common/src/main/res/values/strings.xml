@@ -2148,16 +2148,6 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_touch2">Write will be started.</string>
     <string name="event_preferences_applications_duration">Applications run duration</string>
     <string name="event_preferences_applications_duration_unlimited">Unlimited</string>
-    <string name="profile_preferences_category_phone_calls">Phone calls</string>
-    <string name="profile_preferences_phoneCalls_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Block phone calls\".</string>
-    <string name="profile_preference_phoneCallsBlockCalls">Block phone calls</string>
-    <string name="profile_preference_phoneCallsBlockCalls_summary">WARNING: This parameter allows block calls, configured in \"Contact groups\", \"Contacts\". Notification about blocked calls will not be displayed!</string>
-    <string name="profile_preference_phoneCallsContactGroups">Contact groups</string>
-    <string name="profile_preference_phoneCallsContacts">Contacts</string>
-    <string name="permission_why_profile_phone_calls">for read contacts in profile parameter \"Phone calls\"</string>
-    <string name="export_settings_delete_contacts_data_phonecalls">Contacts for profile parameter \"Phone calls\"</string>
-    <string name="profile_preference_phoneCallsSendSMS">Send SMS</string>
-    <string name="profile_preference_phoneCallsSMSText">SMS Text</string>
     <string name="notification_channel_notify_event_start_description_2">Is displayed, when event has enabled \"Start of event\"/\"Other parameters\"/\"Repeat notification\".</string>
     <string name="notification_channel_generated_by_profile_description_2">Is displayed, when profile has configured \"Others\"/\"Generate notification\".</string>
     <string name="notification_channel_profile_list_description_2">Is displayed, when is enabled \"Settings\"/\"Profile list notification\"/\"Display notification\"</string>
@@ -2272,6 +2262,14 @@
 
     <string name="event_name_copy_from_profile_block_calls">Block calls</string>
     <string name="important_info_phone_call_to_call_screening">For each profile with configured parameter \"Phone calls\"\/\"Block calls\", is generated new event with \"Call screening\" sensor. This event has the \"Event run\" parameter disabled. \"Phone calls\" parameter from profiles is removed.</string>
+
+    <string name="profile_preferences_category_send_sms">Send SMS</string>
+    <string name="profile_preference_sendSMSContactGroups">Contact groups</string>
+    <string name="profile_preference_sendSMSContacts">Contacts</string>
+    <string name="permission_why_profile_send_sms">for read contacts in profile parameter \"Phone calls\"</string>
+    <string name="export_settings_delete_contacts_data_send_sms">Contacts for profile parameter \"Phone calls\"</string>
+    <string name="profile_preference_sendSMSSendSMS">Send SMS</string>
+    <string name="profile_preference_sendSMSSMSText">SMS Text</string>
 
     <!-- **************************************************************************************** -->
 

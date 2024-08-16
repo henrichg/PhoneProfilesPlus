@@ -2868,4 +2868,15 @@ class PreferenceAllowed {
         }
     }
 
+    static void isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS(PreferenceAllowed preferenceAllowed) {
+        //if (PPApplication.HAS_FEATURE_TELEPHONY_MESSAGING)
+        //{
+            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+        //}
+        //else {
+        //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+        //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        //}
+    }
+
 }
