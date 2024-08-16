@@ -2271,6 +2271,8 @@
     <string name="profile_preference_sendSMSSendSMS">Send SMS</string>
     <string name="profile_preference_sendSMSSMSText">SMS Text</string>
 
+    <string name="altype_profileError_sendSMS">profile - error on send SMS</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

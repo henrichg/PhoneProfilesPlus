@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.ArrayMap;
+import android.util.Log;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
@@ -1966,6 +1967,7 @@ class Profile {
 
             // set merged profile as activated
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
+//            Log.e("Pofile.mergeProfiles", "profile to db="+withProfile._id);
             dataWrapper.setProfileActive(withProfile);
 
             /* Do not log this, logged is merged profile in EventsHandler

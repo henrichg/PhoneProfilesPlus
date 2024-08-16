@@ -327,6 +327,9 @@ class EventsHandler {
                 return;
             }
 
+            PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
+//            Log.e("EventsHandler.handleEvents", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();

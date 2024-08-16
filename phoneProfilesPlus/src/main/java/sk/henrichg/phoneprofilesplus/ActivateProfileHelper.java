@@ -5256,8 +5256,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static void execute(final Context context, final Profile profile, int startupSource,
-                        final boolean forRestartEvents, final long oldActivatedProfileId)
+    static void execute(final Context context, final Profile profile, final boolean forRestartEvents)
     {
         final Context appContext = context.getApplicationContext();
 
@@ -5853,8 +5852,7 @@ class ActivateProfileHelper {
 
         setVibrationIntensity(appContext, profile, executedProfileSharedPreferences);
 
-        sendSMS(appContext, profile, executedProfileSharedPreferences,
-                    startupSource, forRestartEvents, oldActivatedProfileId);
+        sendSMS(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
 
         if (profile._applicationDisableGloabalEventsRun != 0) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0);
@@ -8672,8 +8670,9 @@ class ActivateProfileHelper {
         }
     }
 
-    static void sendSMS(Context appContext, Profile profile, SharedPreferences executedProfileSharedPreferences,
-                        int startupSource, final boolean forRestartEvents, final long oldActivatedProfileId)  {
+    static void sendSMS(final Context appContext, Profile profile,
+                        SharedPreferences executedProfileSharedPreferences,
+                        final boolean forRestartEvents)  {
         if (PPApplication.blockProfileEventActions)
             // not send sms when are blocked profile ections (for example at start of PPP)
             return;
@@ -8683,61 +8682,58 @@ class ActivateProfileHelper {
             return;
 //        Log.e("ActivateProfileHelper.sendSMS", "222222222222222");
 
-        boolean manualProfileActivation =
-                (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE);
-//        Log.e("ActivateProfileHelper.sendSMS", "profile._id="+profile._id);
-//        Log.e("ActivateProfileHelper.sendSMS", "oldActivatedProfileId="+oldActivatedProfileId);
-        boolean newProfile = profile._id != oldActivatedProfileId;
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).allowed
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-        if (manualProfileActivation || newProfile) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).allowed
-                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            long oldActivatedProfileId = PPApplication.prefProfileBeforeActivation;
+//            Log.e("ActivateProfileHelper.sendSMS", "profile._id="+profile._id);
+//            Log.e("ActivateProfileHelper.sendSMS", "oldActivatedProfileId="+oldActivatedProfileId);
+            if (profile._id != oldActivatedProfileId) {
 
-                List<String> usedTelNumbers = new ArrayList<>();
+                try {
 
-                if (profile._sendSMSSendSMS && (profile._sendSMSSMSText != null) && (!profile._sendSMSSMSText.isEmpty())) {
-//                    Log.e("ActivateProfileHelper.sendSMS", "xxxxxxxxxxxxxxxx");
+                    List<String> usedTelNumbers = new ArrayList<>();
 
-                    if (Permissions.checkSendSMS(appContext)) {
-                        if (/*(profile._sendSMSContactListType == Profile.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
-                                        ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))) {
+                    if (profile._sendSMSSendSMS && (profile._sendSMSSMSText != null) && (!profile._sendSMSSMSText.isEmpty())) {
+//                        Log.e("ActivateProfileHelper.sendSMS", "xxxxxxxxxxxxxxxx");
 
-                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                            List<Contact> contactList = null;
-                            if (contactsCache != null) {
-                                synchronized (PPApplication.contactsCacheMutex) {
-                                    contactList = contactsCache.getList(/*false*/);
-                                }
-                            }
+                        if (Permissions.checkSendSMS(appContext)) {
+                            if (/*(profile._sendSMSContactListType == Profile.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                    ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
+                                            ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))) {
 
-                            // send sms for configured contect groups
-                            String[] splits = profile._sendSMSContactGroups.split(StringConstants.STR_SPLIT_REGEX);
-                            for (String split : splits) {
-                                if (!split.isEmpty()) {
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                List<Contact> contactList = null;
+                                if (contactsCache != null) {
                                     synchronized (PPApplication.contactsCacheMutex) {
-                                        if (contactList != null) {
-                                            for (Contact contact : contactList) {
-                                                if (contact.groups != null) {
-                                                    long groupId = contact.groups.indexOf(Long.valueOf(split));
-                                                    if (groupId != -1) {
-                                                        // group found in contact
-                                                        if (contact.phoneId != 0) {
-                                                            String _phoneNumber = contact.phoneNumber;
-                                                            // send sms
-                                                            if (!usedTelNumbers.contains(_phoneNumber)) {
-                                                                // not sent, send it
-                                                                try {
-                                                                    SmsManager smsManager = SmsManager.getDefault();
-                                                                    smsManager.sendTextMessage(_phoneNumber, null, profile._sendSMSSMSText, null, null);
-                                                                    usedTelNumbers.add(_phoneNumber);
-                                                                } catch (Exception e) {
-                                                                    PPApplicationStatic.recordException(e);
+                                        contactList = contactsCache.getList(/*false*/);
+                                    }
+                                }
+
+                                // send sms for configured contect groups
+                                String[] splits = profile._sendSMSContactGroups.split(StringConstants.STR_SPLIT_REGEX);
+                                for (String split : splits) {
+                                    if (!split.isEmpty()) {
+                                        synchronized (PPApplication.contactsCacheMutex) {
+                                            if (contactList != null) {
+                                                for (Contact contact : contactList) {
+                                                    if (contact.groups != null) {
+                                                        long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                                        if (groupId != -1) {
+                                                            // group found in contact
+                                                            if (contact.phoneId != 0) {
+                                                                String _phoneNumber = contact.phoneNumber;
+                                                                // send sms
+                                                                if (!usedTelNumbers.contains(_phoneNumber)) {
+                                                                    // not sent, send it
+                                                                    try {
+                                                                        SmsManager smsManager = SmsManager.getDefault();
+                                                                        smsManager.sendTextMessage(_phoneNumber, null, profile._sendSMSSMSText, null, null);
+                                                                        usedTelNumbers.add(_phoneNumber);
+                                                                    } catch (
+                                                                            Exception e) {
+                                                                        PPApplicationStatic.recordException(e);
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -8747,36 +8743,40 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
-                            }
 
-                            // send sms for configured contacts
-                            splits = (profile._sendSMSContacts.split(StringConstants.STR_SPLIT_REGEX));
-                            for (String split : splits) {
-                                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+                                // send sms for configured contacts
+                                splits = (profile._sendSMSContacts.split(StringConstants.STR_SPLIT_REGEX));
+                                for (String split : splits) {
+                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
 
-                                if ((!split.isEmpty()) &&
-                                        (splits2.length == 3) &&
-                                        (!splits2[0].isEmpty()) &&
-                                        (!splits2[1].isEmpty()) &&
-                                        (!splits2[2].isEmpty())) {
-                                    String contactPhoneNumber = splits2[1];
-                                    // send sms
-                                    if (!usedTelNumbers.contains(contactPhoneNumber)) {
-                                        // not sent, send it
-                                        try {
-                                            SmsManager smsManager = SmsManager.getDefault();
-                                            smsManager.sendTextMessage(contactPhoneNumber, null, profile._sendSMSSMSText, null, null);
-                                            usedTelNumbers.add(contactPhoneNumber);
-                                        } catch (Exception e) {
-                                            PPApplicationStatic.recordException(e);
+                                    if ((!split.isEmpty()) &&
+                                            (splits2.length == 3) &&
+                                            (!splits2[0].isEmpty()) &&
+                                            (!splits2[1].isEmpty()) &&
+                                            (!splits2[2].isEmpty())) {
+                                        String contactPhoneNumber = splits2[1];
+                                        // send sms
+                                        if (!usedTelNumbers.contains(contactPhoneNumber)) {
+                                            // not sent, send it
+                                            try {
+                                                SmsManager smsManager = SmsManager.getDefault();
+                                                smsManager.sendTextMessage(contactPhoneNumber, null, profile._sendSMSSMSText, null, null);
+                                                usedTelNumbers.add(contactPhoneNumber);
+                                            } catch (Exception e) {
+                                                PPApplicationStatic.recordException(e);
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                } catch (Exception e) {
+                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS,
+                            null, profile._name, "");
                 }
             }
+
         }
     }
 

@@ -263,7 +263,8 @@ class PPApplicationStatic {
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
-                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS)) {
 
                 boolean manualProfileActivation = false;
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
@@ -338,6 +339,11 @@ class PPApplicationStatic {
                             text = appContext.getString(R.string.altype_profileError_closeAllApplications);
                             notificationId = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_ID;
                             notificationTag = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS:
+                            text = appContext.getString(R.string.altype_profileError_sendSMS);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_TAG;
                             break;
                     }
                     if (!text.isEmpty()) {
@@ -1197,7 +1203,14 @@ class PPApplicationStatic {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(PPApplication.PREF_LAST_ACTIVATED_PROFILE, profileId);
             editor.apply();
-            PPApplication.prefLastActivatedProfile = profileId;
+//            PPApplication.prefLastActivatedProfile = profileId;
+        }
+    }
+    static void getProfileBeforeActivation(Context context)
+    {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.geProfileBeforeActivation", "PPApplication.applicationGlobalPreferencesMutex");
+        synchronized (PPApplication.applicationGlobalPreferencesMutex) {
+            PPApplication.prefProfileBeforeActivation = DatabaseHandler.getInstance(context).getActivatedProfileId();
         }
     }
 

@@ -1508,14 +1508,34 @@ class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         //Profile.setActivatedProfileForDuration(context, 0);
 
+        /*
         // get first profile from fifo
-        long oldActivatedProfileId = 0;
-        List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
-        if (!activateProfilesFIFO.isEmpty()) {
-            String fromFifo = activateProfilesFIFO.get(0);
-            String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
-            oldActivatedProfileId = Long.parseLong(splits[0]);
+        long oldActivatedProfileId;
+        boolean manualProfileActivation =
+                (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE);
+        if (manualProfileActivation) {
+            oldActivatedProfileId = getActivatedProfileId();
+            Log.e("DataWrapper._activateProfile", "(3) oldActivatedProfileId=" + oldActivatedProfileId);
+        } else {
+            List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
+            if (!activateProfilesFIFO.isEmpty()) {
+                String fromFifo = activateProfilesFIFO.get(0);
+                String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                //oldActivatedProfileId = getActivatedProfileId();
+                //Log.e("DataWrapper._activateProfile", "(1.1) oldActivatedProfileId=" + oldActivatedProfileId);
+                oldActivatedProfileId = Long.parseLong(splits[0]);
+                Log.e("DataWrapper._activateProfile", "(1.2) oldActivatedProfileId=" + oldActivatedProfileId);
+            } else {
+                oldActivatedProfileId = getActivatedProfileId();
+                Log.e("DataWrapper._activateProfile", "(2) oldActivatedProfileId=" + oldActivatedProfileId);
+            }
         }
+        */
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_EVENT) //&&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1533,7 +1553,7 @@ class DataWrapper {
         }
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
-//        Log.e("DataWrapper._activateProfile", "profile="+_profile._name);
+//        Log.e("DataWrapper._activateProfile", "profile to db="+_profile._id);
         setProfileActive(_profile);
 
         // for STARTUP_SOURCE_EVENT, STARTUP_SOURCE_FOR_FIRST_START is mandatory
@@ -1613,9 +1633,8 @@ class DataWrapper {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
         PPApplication.updateGUI(false, false, context);
 
-        if (_profile != null) {
-            ActivateProfileHelper.execute(context, _profile, startupSource, forRestartEvents, oldActivatedProfileId);
-        }
+        if (_profile != null)
+            ActivateProfileHelper.execute(context, _profile, forRestartEvents);
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
@@ -1654,6 +1673,10 @@ class DataWrapper {
         final Context appContext = context.getApplicationContext();
         final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+
+        PPApplicationStatic.getProfileBeforeActivation(appContext);
+//        Log.e("DataWrapper.activateProfileFromMainThread", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
@@ -1935,6 +1958,9 @@ class DataWrapper {
 
     void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
     {
+        PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
+//        Log.e("DataWrapper.activateProfile", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
         Profile profile;
 
         // for activated profile is recommended update of activity
@@ -2038,7 +2064,7 @@ class DataWrapper {
         {
             if (profile != null) {
                 DatabaseHandler.getInstance(context).activateProfile(profile);
-//                Log.e("DataWrapper.activateProfile", "profile="+profile._name);
+//                Log.e("DataWrapper.activateProfile", "profile to db="+profile._id);
                 setProfileActive(profile);
             }
 
@@ -2082,6 +2108,8 @@ class DataWrapper {
                     fifoSaveProfiles(activateProfilesFIFO);
                 }
 
+                PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
+//                Log.e("DataWrapper.activateProfileAfterDuration", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
                 // activateProfileAfterDuration is already called from handlerThread
                 _activateProfile(profile, false, startupSource, false, false);
             }
@@ -2092,6 +2120,9 @@ class DataWrapper {
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
+        //PPApplicationStatic.geProfileBeforeActivation(context.getApplicationContext());
+        //Log.e("DataWrapper._restartEvents", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
             if (logRestart) {
                 if (manualRestart)
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
@@ -2172,6 +2203,9 @@ class DataWrapper {
     }
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
+        //PPApplicationStatic.geProfileBeforeActivation(context.getApplicationContext());
+        //Log.e("DataWrapper._restartEventsWithRescan", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
         if (alsoRescan) {
             // remove all event delay alarms
             resetAllEventsInDelayStart(false);

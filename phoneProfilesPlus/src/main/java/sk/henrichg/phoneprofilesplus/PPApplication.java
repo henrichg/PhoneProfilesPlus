@@ -371,6 +371,7 @@ public class PPApplication extends Application
     static final int ALTYPE_PROFILE_ERROR_WIFI = 1009;
     static final int ALTYPE_PROFILE_ERROR_WIFIAP = 1010;
     static final int ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS = 1011;
+    static final int ALTYPE_PROFILE_ERROR_SEND_SMS = 1012;
 
     static final int ALTYPE_DATA_EXPORT = 101;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION = 102;
@@ -575,6 +576,8 @@ public class PPApplication extends Application
     static final int PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_ID = 168;
     static final String PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION";
     static final String PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP";
+    static final int PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_ID = 169;
+    static final String PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_SEND_SMS_ERROR_NOTIFICATION";
 
     static final int KEEP_SCREEN_ON_NOTIFICATION_ID = 142;
     static final String KEEP_SCREEN_ON_NOTIFICATION_TAG = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION";
@@ -1080,6 +1083,7 @@ public class PPApplication extends Application
 
     static boolean prefActivityLogEnabled;
     static long prefLastActivatedProfile;
+    static long prefProfileBeforeActivation;
     static long wallpaperChangeTime;
 
     static volatile String connectToSSID = StringConstants.CONNECTTOSSID_JUSTANY;
