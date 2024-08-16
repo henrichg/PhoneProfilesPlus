@@ -61,7 +61,7 @@ class EventPreferencesCallScreening extends EventPreferences {
     //static final int CONTACT_LIST_TYPE_NOT_USE = 2;
 
     static final int CALL_DIRECTION_INCOMING = 0;
-    //static final int CALL_DIRECTION_OUTGOING = 1;
+    static final int CALL_DIRECTION_OUTGOING = 1;
     static final int CALL_DIRECTION_ALL = 2;
 
     EventPreferencesCallScreening(Event event,
@@ -379,29 +379,32 @@ class EventPreferencesCallScreening extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_CALL_SCREENING_ENABLED) != null)
             {
                 boolean isRoleHeld = isIsCallScreeningHeld(context);
-                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false);
+                if (preferences != null) {
+                    boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false);
+                    int direction = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_SCREENING_CALL_DIRECTION, "0"));
 
-                if (enabled) {
-                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACTS);
-                    if (preference != null)
-                        preference.setEnabled(isRoleHeld);
-                    preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS);
-                    if (preference != null)
-                        preference.setEnabled(isRoleHeld);
-                    //preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE);
-                    //if (preference != null)
-                    //    preference.setEnabled(isRoleHeld);
-                    preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS);
-                    if (preference != null)
-                        preference.setEnabled(isRoleHeld);
-                    preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SEND_SMS);
-                    if (preference != null)
-                        preference.setEnabled(isRoleHeld);
+                    if (enabled) {
+                        Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACTS);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld);
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld);
+                        //preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE);
+                        //if (preference != null)
+                        //    preference.setEnabled(isRoleHeld);
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld && (direction != CALL_DIRECTION_OUTGOING));
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SEND_SMS);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld && (direction != CALL_DIRECTION_OUTGOING));
 
-                    boolean sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, false);
-                    preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SMS_TEXT);
-                    if (preference != null)
-                        preference.setEnabled(isRoleHeld && sendSMS);
+                        boolean sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, false);
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SMS_TEXT);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld && sendSMS && (direction != CALL_DIRECTION_OUTGOING));
+                    }
                 }
 
                 setSummary(prefMng, PREF_EVENT_CALL_SCREENING_ENABLED, preferences, context);
