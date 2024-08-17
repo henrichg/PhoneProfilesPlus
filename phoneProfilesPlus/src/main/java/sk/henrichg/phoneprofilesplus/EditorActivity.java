@@ -45,6 +45,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,7 +58,10 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 //import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -238,6 +242,9 @@ public class EditorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 //        Log.e("EditorActivity.onCreate", "xxxx");
 
+        EdgeToEdge.enable(this);
+
+
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);
@@ -273,6 +280,25 @@ public class EditorActivity extends AppCompatActivity
                     }
                 }
             );
+        */
+
+        /*
+        ViewCompat.setOnApplyWindowInsetsListener(fab, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            // Apply the insets as a margin to the view. This solution sets only the
+            // bottom, left, and right dimensions, but you can apply whichever insets are
+            // appropriate to your layout. You can also update the view padding if that's
+            // more appropriate.
+            MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
+            mlp.leftMargin = insets.left;
+            mlp.bottomMargin = insets.bottom;
+            mlp.rightMargin = insets.right;
+            v.setLayoutParams(mlp);
+
+            // Return CONSUMED if you don't want want the window insets to keep passing
+            // down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
         */
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
