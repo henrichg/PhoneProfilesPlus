@@ -232,6 +232,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
+    /** @noinspection NullableProblems*/
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);

@@ -8,7 +8,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.ArrayMap;
-import android.util.Log;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
