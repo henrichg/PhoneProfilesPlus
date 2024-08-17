@@ -81,7 +81,7 @@ dependencies {
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
 
     /// ACRA
-    implementation "com.google.guava:guava:33.2.1-android" //33.0.0-android"
+    implementation 'com.google.guava:guava:33.3.0-android' //33.0.0-android"
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
     // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
@@ -155,7 +155,7 @@ dependencies {
     implementation "com.github.skydoves:expandablelayout:1.0.7"
 
     /// for Wi-Fi AP profile parameter
-    implementation 'com.linkedin.dexmaker:dexmaker:2.28.3'
+    implementation 'com.linkedin.dexmaker:dexmaker:2.28.4'
 
     /// for backup/restore encripted data
     implementation 'com.github.simbiose:Encryption:2.0.1'
