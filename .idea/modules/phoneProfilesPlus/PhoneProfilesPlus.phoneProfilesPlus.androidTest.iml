@@ -23,6 +23,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/res/resValues/androidTest/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/res/resValues/androidTest/debug" type="java-test-resource" generated="true" />
@@ -99,7 +100,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.transition:transition:1.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.ibrahimsn98:SmoothBottomBar:1.7.9@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.osmdroid:osmdroid-android:6.1.18@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.getkeepsafe.taptargetview:taptargetview:1.13.3@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.getkeepsafe.taptargetview:taptargetview:1.14.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.volley:volley:1.2.1@aar" level="project" />

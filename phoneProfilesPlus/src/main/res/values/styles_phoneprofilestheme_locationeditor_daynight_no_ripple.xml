@@ -10,8 +10,8 @@
         <item name="android:dropDownListViewStyle">@style/PopupMenuItemStyle</item>
         <item name="dropDownListViewStyle">@style/PopupMenuItemStyle</item>
 
-        <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
-        <item name="android:navigationBarColor">@color/navigationBar</item>
+<!--        <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>-->
+<!--        <item name="android:navigationBarColor">@color/navigationBar</item>-->
     </style>
 
 </resources>

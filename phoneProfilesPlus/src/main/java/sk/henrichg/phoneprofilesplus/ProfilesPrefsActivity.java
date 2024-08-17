@@ -826,6 +826,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     //PPApplicationStatic.recordException(e);
                 }
 
+                for (TapTarget target : targets) {
+                    target.setDrawBehindStatusBar(true);
+                    target.setDrawBehindNavigationBar(true);
+                }
+
                 sequence.targets(targets);
             //}
             sequence.listener(new TapTargetSequence.Listener() {

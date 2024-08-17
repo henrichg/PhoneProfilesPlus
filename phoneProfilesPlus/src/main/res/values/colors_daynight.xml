@@ -3,7 +3,7 @@
     <color name="primary">#FFFFFF</color>
     <color name="primaryDark">#FFFFFF</color>
 
-    <color name="navigationBar">#000000</color>
+<!--    <color name="navigationBar">#000000</color>-->
 
     <color name="activityBackgroundColor">#FFFFFF</color>
     <color name="activityNormalTextColor">#000000</color>

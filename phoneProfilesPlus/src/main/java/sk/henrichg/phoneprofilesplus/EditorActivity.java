@@ -57,6 +57,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 //import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.WindowCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -3816,6 +3817,10 @@ public class EditorActivity extends AppCompatActivity
                     );
                 }
 
+                for (TapTarget target : targets) {
+                    target.setDrawBehindStatusBar(true);
+                    target.setDrawBehindNavigationBar(true);
+                }
                 sequence.targets(targets);
 
                 sequence.listener(new TapTargetSequence.Listener() {
