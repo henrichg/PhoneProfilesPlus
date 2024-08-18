@@ -739,10 +739,10 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME,
                         DatabaseHandler.KEY_E_CALL_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT,
-                        DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD//,
+                        DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD,
 //                        DatabaseHandler.KEY_E_CALL_STOP_RINGING,
-//                        DatabaseHandler.KEY_E_CALL_SEND_SMS,
-//                        DatabaseHandler.KEY_E_CALL_SMS_TEXT,
+                        DatabaseHandler.KEY_E_CALL_SEND_SMS,
+                        DatabaseHandler.KEY_E_CALL_SMS_TEXT
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -763,8 +763,8 @@ class DatabaseHandlerEvents {
                 eventPreferences._runAfterCallEndPermanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN)) == 1);
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD));
 //                eventPreferences._stopRinging = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_STOP_RINGING)) == 1);
-//                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SEND_SMS)) == 1);
-//                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SMS_TEXT));
+                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SEND_SMS)) == 1);
+                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SMS_TEXT));
                 eventPreferences._runAfterCallEndTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME));
                 eventPreferences._runAfterCallEndFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
@@ -1642,8 +1642,8 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD, eventPreferences._forSIMCard);
 //        values.put(DatabaseHandler.KEY_E_CALL_STOP_RINGING, (eventPreferences._stopRinging) ? 1 : 0);
-//        values.put(DatabaseHandler.KEY_E_CALL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
-//        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
+        values.put(DatabaseHandler.KEY_E_CALL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME, eventPreferences._runAfterCallEndTime);
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, eventPreferences._runAfterCallEndFromSIMSlot);
 

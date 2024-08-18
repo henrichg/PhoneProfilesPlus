@@ -29,6 +29,8 @@ class EventPreferencesCall extends EventPreferences {
     boolean _runAfterCallEndPermanentRun;
     int _runAfterCallEndDuration;
     int _forSIMCard;
+    boolean _sendSMS;
+    String _smsText;
 
     long _runAfterCallEndTime;
     int _runAfterCallEndFromSIMSlot;
@@ -45,6 +47,8 @@ class EventPreferencesCall extends EventPreferences {
     //static final String PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS = "eventCallAccessibilitySettings";
     //static final String PREF_EVENT_CALL_LAUNCH_EXTENDER = "eventCallLaunchExtender";
     private static final String PREF_EVENT_CALL_FOR_SIM_CARD = "eventCallForSimCard";
+    static final String PREF_EVENT_CALL_SEND_SMS = "eventCallSendSMS";
+    static final String PREF_EVENT_CALL_SMS_TEXT = "eventCallSMSText";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
 
@@ -84,7 +88,9 @@ class EventPreferencesCall extends EventPreferences {
                          int contactListType,
                          boolean runAfterCallEndPermanentRun,
                          int runAfterCallEndDuration,
-                         int forSIMCard) {
+                         int forSIMCard,
+                         boolean sendSMS,
+                         String smsText) {
         super(event, enabled);
 
         this._callEvent = callEvent;
@@ -94,6 +100,8 @@ class EventPreferencesCall extends EventPreferences {
         this._runAfterCallEndPermanentRun = runAfterCallEndPermanentRun;
         this._runAfterCallEndDuration = runAfterCallEndDuration;
         this._forSIMCard = forSIMCard;
+        this._sendSMS = sendSMS;
+        this._smsText = smsText;
 
         this._runAfterCallEndTime = 0;
         this._runAfterCallEndFromSIMSlot = 0;
@@ -108,6 +116,8 @@ class EventPreferencesCall extends EventPreferences {
         this._runAfterCallEndPermanentRun = fromEvent._eventPreferencesCall._runAfterCallEndPermanentRun;
         this._runAfterCallEndDuration = fromEvent._eventPreferencesCall._runAfterCallEndDuration;
         this._forSIMCard = fromEvent._eventPreferencesCall._forSIMCard;
+        this._sendSMS = fromEvent._eventPreferencesCall._sendSMS;
+        this._smsText = fromEvent._eventPreferencesCall._smsText;
         this.setSensorPassed(fromEvent._eventPreferencesCall.getSensorPassed());
 
         this._runAfterCallEndTime = 0;
@@ -124,6 +134,8 @@ class EventPreferencesCall extends EventPreferences {
         editor.putBoolean(PREF_EVENT_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN, this._runAfterCallEndPermanentRun);
         editor.putString(PREF_EVENT_CALL_RUN_AFTER_CALL_END_DURATION, String.valueOf(this._runAfterCallEndDuration));
         editor.putString(PREF_EVENT_CALL_FOR_SIM_CARD, String.valueOf(this._forSIMCard));
+        editor.putBoolean(PREF_EVENT_CALL_SEND_SMS, this._sendSMS);
+        editor.putString(PREF_EVENT_CALL_SMS_TEXT, this._smsText);
         editor.apply();
     }
 
@@ -136,6 +148,8 @@ class EventPreferencesCall extends EventPreferences {
         this._runAfterCallEndPermanentRun = preferences.getBoolean(PREF_EVENT_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN, false);
         this._runAfterCallEndDuration = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_RUN_AFTER_CALL_END_DURATION, "5"));
         this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_FOR_SIM_CARD, "0"));
+        this._sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
+        this._smsText = preferences.getString(PREF_EVENT_CALL_SMS_TEXT, "");
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
@@ -211,6 +225,10 @@ class EventPreferencesCall extends EventPreferences {
                             _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         else
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._runAfterCallEndDuration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+
+                        if ((this._callEvent == CALL_EVENT_MISSED_CALL)) {
+                            _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preference_callSendSMS));
+                        }
                     }
 
                 }
@@ -291,6 +309,12 @@ class EventPreferencesCall extends EventPreferences {
                 delay = 5;
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false, false);
+        }
+        if (key.equals(PREF_EVENT_CALL_SMS_TEXT)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(value);
+            }
         }
 
         boolean hasFeature = false;
@@ -387,6 +411,16 @@ class EventPreferencesCall extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, false, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
+        if (preference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_CALL_SMS_TEXT);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SMS_TEXT, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
 
         int _isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
@@ -445,6 +479,10 @@ class EventPreferencesCall extends EventPreferences {
                 key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
+        if (key.equals(PREF_EVENT_CALL_SEND_SMS)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
+        }
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -458,13 +496,16 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_EXTENDER, preferences, context);
         //setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_FOR_SIM_CARD, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_SEND_SMS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_SMS_TEXT, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups,
-                    this._contactListType, this._runAfterCallEndPermanentRun, this._runAfterCallEndDuration, this._forSIMCard);
+                    this._contactListType, this._runAfterCallEndPermanentRun, this._runAfterCallEndDuration, this._forSIMCard,
+                    this._sendSMS, this._smsText);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -575,6 +616,12 @@ class EventPreferencesCall extends EventPreferences {
                     preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
                     if (preference != null)
                         preference.setVisible(false);
+                }
+                if (preferences != null) {
+                    boolean sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_SMS_TEXT);
+                    if (preference != null)
+                        preference.setEnabled(sendSMS);
                 }
 
                 setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
