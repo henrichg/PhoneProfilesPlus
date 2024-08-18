@@ -382,10 +382,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     }
 
 
-    void showTargetHelps(final Activity activity, /*final EditorProfileListFragment fragment,*/ final View listItemView) {
-        //if (fragment.targetHelpsSequenceStarted)
-        //    return;
-
+    void showTargetHelps(final Activity activity, final View listItemView) {
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished &&
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
@@ -399,18 +396,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsShowInActivator) {
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(activity);
             List<TapTarget> targets = new ArrayList<>();
@@ -428,7 +417,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
                 listItemView.getLocationOnScreen(screenLocation);
-                //listItemView.getLocationInWindow(screenLocation);
 
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     View dragHandle = listItemView.findViewById(R.id.profile_list_drag_handle);
@@ -448,6 +436,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -459,6 +449,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -470,6 +462,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -481,6 +475,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -496,6 +492,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -507,6 +505,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -518,6 +518,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -533,6 +535,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -544,6 +548,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -555,6 +561,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -577,6 +585,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -597,6 +607,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                 .targetCircleColor(targetCircleColor)
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
@@ -613,11 +625,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -627,8 +636,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
@@ -641,18 +648,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
 
                     ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
-
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
-
-            //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = false;
 
             for (TapTarget target : targets) {
                 target.setDrawBehindStatusBar(true);

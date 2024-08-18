@@ -573,18 +573,10 @@ public class ActivatorActivity extends AppCompatActivity
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
 
-                //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int titleTextColor = R.color.tabTargetHelpTitleTextColor;
                 int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-                //boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
@@ -598,6 +590,8 @@ public class ActivatorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -615,6 +609,8 @@ public class ActivatorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -637,6 +633,8 @@ public class ActivatorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -736,12 +734,6 @@ public class ActivatorActivity extends AppCompatActivity
                     Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                     LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
-                    /*if (ActivatorActivity.getInstance() != null) {
-                        Fragment fragment = ActivatorActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
-                        if (fragment != null) {
-                            ((ActivatorListFragment) fragment).showTargetHelps();
-                        }
-                    }*/
                 }, 500);
             }
         }
@@ -758,7 +750,6 @@ public class ActivatorActivity extends AppCompatActivity
                         PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
-                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }

@@ -288,12 +288,9 @@ class ActivatorListAdapter extends BaseAdapter
         return vi;
     }
 
-    void showTargetHelps(final Activity activity, /*final ActivatorListFragment fragment,*/ final View listItemView) {
+    void showTargetHelps(final Activity activity, final View listItemView) {
         if (ActivatorTargetHelpsActivity.activity == null)
             return;
-
-        //if (fragment.targetHelpsSequenceStarted)
-        //    return;
 
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished &&
                                             ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished;
@@ -310,7 +307,6 @@ class ActivatorListAdapter extends BaseAdapter
             Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];
             listItemView.getLocationOnScreen(screenLocation);
-            //listItemView.getLocationInWindow(screenLocation);
             if (ApplicationPreferences.applicationActivatorGridLayout)
                 profileItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
             else
@@ -318,18 +314,10 @@ class ActivatorListAdapter extends BaseAdapter
 
             final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
 
-            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             sequence.targets(
                     TapTarget.forBounds(profileItemTarget, activity.getString(R.string.activator_activity_targetHelps_activateProfile_title), activity.getString(R.string.activator_activity_targetHelps_activateProfile_description))
@@ -338,6 +326,8 @@ class ActivatorListAdapter extends BaseAdapter
                             .targetCircleColor(targetCircleColor)
                             .titleTextColor(titleTextColor)
                             .descriptionTextColor(descriptionTextColor)
+                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                            .titleTextSize(PPApplication.titleTapTargetSize)
                             .textTypeface(Typeface.DEFAULT_BOLD)
                             .tintTarget(true)
                             .drawShadow(true)
@@ -348,14 +338,10 @@ class ActivatorListAdapter extends BaseAdapter
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = true;
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
@@ -369,7 +355,6 @@ class ActivatorListAdapter extends BaseAdapter
                                 PPApplicationStatic.recordException(e);
                             }
                             ActivatorTargetHelpsActivity.activity = null;
-                            //ActivatorTargetHelpsActivity.activatorActivity = null;
                         }
                     }, 500);
                 }
@@ -414,19 +399,12 @@ class ActivatorListAdapter extends BaseAdapter
                                 PPApplicationStatic.recordException(e);
                             }
                             ActivatorTargetHelpsActivity.activity = null;
-                            //ActivatorTargetHelpsActivity.activatorActivity = null;
                         }
                     }, 500);
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
-
-            //editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            //editor.putBoolean(ActivatorListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefActivatorAdapterStartTargetHelpsFinished = false;
 
             sequence.start();
         }
@@ -443,7 +421,6 @@ class ActivatorListAdapter extends BaseAdapter
                         PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
-                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }

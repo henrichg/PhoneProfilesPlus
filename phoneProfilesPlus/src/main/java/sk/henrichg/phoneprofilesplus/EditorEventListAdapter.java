@@ -369,10 +369,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         activityDataWrapper.restartEventsWithDelay(true, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
-    void showTargetHelps(Activity activity, /*EditorEventListFragment fragment,*/ View listItemView) {
-        //if (fragment.targetHelpsSequenceStarted)
-        //    return;
-
+    void showTargetHelps(Activity activity, View listItemView) {
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished &&
                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
@@ -384,25 +381,16 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsStatus) {
 
-            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];
             listItemView.getLocationOnScreen(screenLocation);
-            //listItemView.getLocationInWindow(screenLocation);
 
             final TapTargetSequence sequence = new TapTargetSequence(activity);
             List<TapTarget> targets = new ArrayList<>();
@@ -437,6 +425,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -448,6 +439,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -459,6 +452,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -470,6 +465,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -481,6 +478,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -496,6 +495,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -507,6 +508,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -518,6 +521,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -529,6 +534,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -550,6 +557,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -570,6 +579,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                 .targetCircleColor(targetCircleColor)
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(false)
                                 .drawShadow(true)
@@ -582,15 +593,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -600,14 +606,11 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
 
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 
@@ -615,18 +618,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
 
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
-
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
-
-            //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = false;
 
             for (TapTarget target : targets) {
                 target.setDrawBehindStatusBar(true);

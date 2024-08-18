@@ -684,23 +684,10 @@ public class EventsPrefsActivity extends AppCompatActivity
 
             Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
-            //TypedValue tv = new TypedValue();
-            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-
-            //final Display display = getWindowManager().getDefaultDisplay();
-
-            //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
             List<TapTarget> targets = new ArrayList<>();
@@ -712,6 +699,8 @@ public class EventsPrefsActivity extends AppCompatActivity
                                 .targetCircleColor(targetCircleColor)
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
@@ -733,13 +722,6 @@ public class EventsPrefsActivity extends AppCompatActivity
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    //targetHelpsSequenceStarted = false;
-
-                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    //editor.apply();
-                    //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -749,17 +731,10 @@ public class EventsPrefsActivity extends AppCompatActivity
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
-
-            //editor = ApplicationPreferences.getEditor(getApplicationContext());
-            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }

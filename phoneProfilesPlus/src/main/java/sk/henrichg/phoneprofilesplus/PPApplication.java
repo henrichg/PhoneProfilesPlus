@@ -800,6 +800,10 @@ public class PPApplication extends Application
     //static volatile boolean applicationPackageReplaced = false;
     static volatile boolean deviceBoot = false;
 
+    static final int titleTapTargetSize = 22;
+    static final float descriptionTapTargetAlpha = 0.95f;
+
+
     //static final boolean restoreFinished = true;
 
     static volatile Collator collator = null;

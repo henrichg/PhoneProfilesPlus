@@ -1514,9 +1514,6 @@ public class EditorEventListFragment extends Fragment
         if (getActivity() == null)
             return;
 
-        //if (((EditorActivity)getActivity()).targetHelpsSequenceStarted)
-        //    return;
-
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
             return;
@@ -1548,24 +1545,10 @@ public class EditorEventListFragment extends Fragment
                 if (filterType != FILTER_TYPE_START_ORDER)
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = false;
 
-                //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int titleTextColor = R.color.tabTargetHelpTitleTextColor;
                 int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-                //boolean tintTarget = !appTheme.equals("white");
-
-                //int[] screenLocation = new int[2];
-                //orderSpinner.getLocationOnScreen(screenLocation);
-                //orderSpinner.getLocationInWindow(screenLocation);
-                //Rect orderSpinnerTarget = new Rect(0, 0, orderSpinner.getHeight(), orderSpinner.getHeight());
-                //orderSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -1579,6 +1562,8 @@ public class EditorEventListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1596,6 +1581,8 @@ public class EditorEventListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1613,6 +1600,8 @@ public class EditorEventListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1629,6 +1618,8 @@ public class EditorEventListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1647,6 +1638,8 @@ public class EditorEventListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1668,6 +1661,8 @@ public class EditorEventListFragment extends Fragment
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -1691,8 +1686,6 @@ public class EditorEventListFragment extends Fragment
                             // to the sequence
                             @Override
                             public void onSequenceFinish() {
-                                //targetHelpsSequenceStarted = false;
-
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                                 editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                                 editor.apply();
@@ -1708,7 +1701,6 @@ public class EditorEventListFragment extends Fragment
 
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
-                                //targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                                 editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_START_ORDER)
@@ -1716,7 +1708,6 @@ public class EditorEventListFragment extends Fragment
                                 editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_STATUS, false);
 
                                 editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                                //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
 
@@ -1726,12 +1717,10 @@ public class EditorEventListFragment extends Fragment
                                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
 
                                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                                //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, false);
@@ -1772,17 +1761,14 @@ public class EditorEventListFragment extends Fragment
         if ((eventListAdapter != null) && (itemView != null))
             eventListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
-            //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getActivity().getApplicationContext());
             editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
             if (filterType == FILTER_TYPE_START_ORDER)
                 editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
-            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
             if (filterType == FILTER_TYPE_START_ORDER)
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
-            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
         }
     }
 
