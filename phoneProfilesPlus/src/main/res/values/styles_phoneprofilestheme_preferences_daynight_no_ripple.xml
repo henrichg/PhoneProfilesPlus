@@ -2,6 +2,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.PhoneProfilesTheme_preferences_dayNight_noRipple" parent="@style/Base.Theme.PhoneProfilesTheme_preferences_dayNight">
+        <item name="android:fitsSystemWindows">true</item>
+
         <item name="listViewItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector_no_ripple</item>
 

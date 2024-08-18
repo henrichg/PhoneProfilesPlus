@@ -110,7 +110,7 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.preference:preference:1.1.1'
 
-    implementation 'androidx.activity:activity:1.9.1'
+    //implementation 'androidx.activity:activity:1.9.1'
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 

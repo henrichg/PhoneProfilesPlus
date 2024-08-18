@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginStart="@dimen/activity_margin_start"
-    android:layout_marginEnd="@dimen/activity_margin_end"
-    android:fitsSystemWindows="false">
+    android:layout_marginEnd="@dimen/activity_margin_end">
+<!--    android:fitsSystemWindows="false"    -->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_preferences_toolbar"
