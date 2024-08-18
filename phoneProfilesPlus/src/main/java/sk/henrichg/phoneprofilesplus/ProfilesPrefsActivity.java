@@ -764,6 +764,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
                                 .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .dimColor(R.color.tabTargetHelpDimColor)
                                 .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
