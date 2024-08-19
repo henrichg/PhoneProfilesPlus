@@ -996,7 +996,6 @@
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
     <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
-    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
     <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
@@ -2270,8 +2269,9 @@
     <string name="profile_preference_sendSMSSMSText">SMS Text</string>
     <string name="altype_profileError_sendSMS">profile - error on send SMS</string>
 
-    <string name="event_preference_callSendSMS">Send SMS to contact of missed call</string>
+    <string name="event_preference_callSendSMS">Send SMS</string>
     <string name="event_preference_callSMSText">SMS Text</string>
+    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\"), send SMS in Call sensor</string>
 
     <!-- **************************************************************************************** -->
 

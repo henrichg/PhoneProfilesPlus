@@ -11,6 +11,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.SmsManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
@@ -435,6 +437,75 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PHONE_CALL});
                             //}
 
+                            if (callEventType == EventPreferencesCall.CALL_EVENT_MISSED_CALL) {
+
+                                //noinspection ExtractMethodRecommender
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                List<Contact> contactList = null;
+                                if (contactsCache != null) {
+//                                    PPApplicationStatic.logE("[SYNCHRONIZED] PPExtenderBroadcastReceiver.doHandleEvent", "PPApplication.contactsCacheMutex");
+                                    synchronized (PPApplication.contactsCacheMutex) {
+                                        contactList = contactsCache.getList(/*false*/);
+                                    }
+                                }
+
+                                boolean callingPhoneNumber = false;
+                                boolean sendSMSFromEvent = false;
+                                String smsTextFromEvent = "";
+
+                                if (contactList != null) {
+                                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+                                    for (Event event : eventList) {
+                                        if (event._eventPreferencesCall._enabled &&
+                                                event._eventPreferencesCall.isRunnable(appContext)) {
+                                            String contactsFromEvent = event._eventPreferencesCall._contacts;
+                                            String contactGroupsFromEvent = event._eventPreferencesCall._contactGroups;
+                                            int contactListTypeFromEvent = event._eventPreferencesCall._contactListType;
+                                            int callEventFromEvent = event._eventPreferencesCall._callEvent;
+                                            int forSIMCardFromEvent = event._eventPreferencesCall._forSIMCard;
+                                            sendSMSFromEvent = event._eventPreferencesCall._sendSMS;
+                                            smsTextFromEvent = event._eventPreferencesCall._smsText;
+
+                                            if ((
+                                                    /*(contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                                    ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
+                                                            ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
+                                                ) && (callEventFromEvent != EventPreferencesCall.CALL_EVENT_MISSED_CALL) &&
+                                                        (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) && // only white list is allowed for send sms
+                                                    ((forSIMCardFromEvent == 0) ||
+                                                        ((slotIndex == 1) && (forSIMCardFromEvent == 1)) ||
+                                                        ((slotIndex == 2) && (forSIMCardFromEvent == 2)))
+                                            )
+                                            {
+                                                callingPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, phoneNumber);
+                                            }
+                                        }
+                                        if (callingPhoneNumber)
+                                            break;
+                                    }
+
+                                    contactList.clear();
+                                }
+
+                                //Log.e("PPCallScreeningService.onScreenCall", "phoneNumberToBlock="+phoneNumberToBlock);
+
+                                if (callingPhoneNumber) {
+                                    if (Permissions.checkSendSMS(appContext)) {
+                                        // send sms
+                                        if (sendSMSFromEvent && (!phoneNumber.isEmpty()) &&
+                                                (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
+                                            try {
+                                                SmsManager smsManager = SmsManager.getDefault();
+                                                smsManager.sendTextMessage(phoneNumber, null, smsTextFromEvent, null, null);
+                                            } catch (Exception e) {
+                                                PPApplicationStatic.recordException(e);
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
                         } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
@@ -452,6 +523,71 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }
                 break;
         }
+    }
+
+    private boolean isPhoneNumberConfigured(String contacts, String contactGroups, /*int contactListType,*/ List<Contact> contactList, String phoneNumber) {
+        boolean phoneNumberFound = false;
+
+        //if (contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+
+        // find phone number in groups
+        String[] splits = contactGroups.split(StringConstants.STR_SPLIT_REGEX);
+        for (String split : splits) {
+            if (!split.isEmpty()) {
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
+                synchronized (PPApplication.contactsCacheMutex) {
+                    if (contactList != null) {
+                        for (Contact contact : contactList) {
+                            if (contact.groups != null) {
+                                long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                if (groupId != -1) {
+                                    // group found in contact
+                                    if (contact.phoneId != 0) {
+                                        String _phoneNumber = contact.phoneNumber;
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (phoneNumberFound)
+                break;
+        }
+
+        if (!phoneNumberFound) {
+            // find phone number in contacts
+            // contactId#phoneId|...
+            splits = contacts.split(StringConstants.STR_SPLIT_REGEX);
+            for (String split : splits) {
+                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+
+                if ((!split.isEmpty()) &&
+                        (splits2.length == 3) &&
+                        (!splits2[0].isEmpty()) &&
+                        (!splits2[1].isEmpty()) &&
+                        (!splits2[2].isEmpty())) {
+                    String contactPhoneNumber = splits2[1];
+                    if (PhoneNumberUtils.compare(contactPhoneNumber, phoneNumber)) {
+                        // phone number is in sensor configured
+                        phoneNumberFound = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //if (contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
+        //    phoneNumberFound = !phoneNumberFound;
+        //} else
+        //   phoneNumberFound = true;
+
+        return phoneNumberFound;
     }
 
     private ActivityInfo tryGetActivity(Context context, ComponentName componentName) {

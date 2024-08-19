@@ -49,7 +49,7 @@ public class PPCallScreeningService extends CallScreeningService {
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     List<Contact> contactList = null;
                     if (contactsCache != null) {
-//                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
+//                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
                         synchronized (PPApplication.contactsCacheMutex) {
                             contactList = contactsCache.getList(/*false*/);
                         }

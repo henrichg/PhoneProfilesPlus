@@ -1238,7 +1238,7 @@ class Permissions {
 
         checkEventCalendar(context, event, preferences, permissions, sensorType);
         checkEventPhoneState(context, event, preferences, permissions, sensorType);
-        checkEventCallContacts(context, event, preferences, permissions, sensorType);
+        checkEventCall(context, event, preferences, permissions, sensorType);
         checkEventSMSContacts(context, event, preferences, permissions, sensorType);
         checkEventLocation(context, event, preferences, permissions, sensorType);
         checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
@@ -1256,17 +1256,26 @@ class Permissions {
         }
     }
 
-    static private void checkEventCallContacts(Context context, Event event, SharedPreferences preferences,
-                                               ArrayList<PermissionType>  permissions, int sensorType) {
+    static private void checkEventCall(Context context, Event event, SharedPreferences preferences,
+                                       ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
+        boolean grantedContacts;
+        boolean grantedSendSMS;
         if (event != null) {
             try {
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                     if (event._eventPreferencesCall._enabled) {
-                        boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                        if ((permissions != null) && (!granted))
+                        grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+//                                Log.e("Permissions.checkEventCall", "grantedContacts="+grantedContacts);
+                        if ((permissions != null) && (!grantedContacts))
                             permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
+                        if (event._eventPreferencesCall._sendSMS) {
+                            grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+//                                    Log.e("Permissions.checkEventCallScreening", "grantedSendSMS="+grantedSendSMS);
+                            if ((permissions != null) && (!grantedSendSMS))
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.SEND_SMS));
+                        }
                     }
                 }
             } catch (Exception ignored) {
@@ -1275,9 +1284,14 @@ class Permissions {
         else {
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                 if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false)) {
-                    boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                    if ((permissions != null) && (!granted))
+                    grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+                    if ((permissions != null) && (!grantedContacts))
                         permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
+                    if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_SEND_SMS, false)) {
+                        grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                        if ((permissions != null) && (!grantedSendSMS))
+                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.SEND_SMS));
+                    }
                 }
             }
         }
