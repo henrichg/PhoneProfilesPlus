@@ -292,6 +292,7 @@ class PhoneProfilesServiceStatic
             }
 
             if (PPApplication.pppExtenderBroadcastReceiver == null) {
+//                Log.e("PhoneProfilesServiceStatic.registerAllTheTimeRequiredPPPBroadcastReceivers", "xxxx");
                 PPApplication.pppExtenderBroadcastReceiver = new PPExtenderBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(PPApplication.ACTION_PPPEXTENDER_STARTED);

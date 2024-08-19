@@ -73,7 +73,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
     private static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
     private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
-    private static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
+    static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
     private static final int PHONE_CALL_EVENT_SERVICE_UNBIND = 8;
 
     private static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";

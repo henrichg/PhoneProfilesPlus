@@ -55,14 +55,19 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] PPExtenderBroadcastReceiver.onReceive", "xxx");
 
+//        Log.e("PPExtenderBroadcastReceiver.onReceive", "**********");
+
         if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
+
+//        Log.e("PPExtenderBroadcastReceiver.onReceive", "xxxxxxxxxxxxxxx");
 
         if ((intent == null) || (intent.getAction() == null))
             return;
 
 //        PPApplicationStatic.logE("[IN_BROADCAST] PPExtenderBroadcastReceiver.onReceive", intent.getAction());
+//        Log.e("PPExtenderBroadcastReceiver.onReceive", intent.getAction());
 
         final Context appContext = context.getApplicationContext();
 
@@ -409,11 +414,15 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }
                 break;
             case PPApplication.ACTION_CALL_RECEIVED:
+//                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (0) *****");
+
                 //final int servicePhoneEvent = intent.getIntExtra(EXTRA_SERVICE_PHONE_EVENT, 0);
                 final int callEventType = intent.getIntExtra(EXTRA_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 final String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
                 final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
                 final int slotIndex = intent.getIntExtra(EXTRA_SIM_SLOT, 0);
+
+//                Log.e("PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     Runnable runnable3 = () -> {
@@ -438,7 +447,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PHONE_CALL});
                             //}
 
-                            if (callEventType == EventPreferencesCall.CALL_EVENT_MISSED_CALL) {
+                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) {
+
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (1) *****");
 
                                 //noinspection ExtractMethodRecommender
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
@@ -459,6 +470,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     for (Event event : eventList) {
                                         if (event._eventPreferencesCall._enabled &&
                                                 event._eventPreferencesCall.isRunnable(appContext)) {
+
+//                                            Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (2) *****");
+
                                             String contactsFromEvent = event._eventPreferencesCall._contacts;
                                             String contactGroupsFromEvent = event._eventPreferencesCall._contactGroups;
                                             int contactListTypeFromEvent = event._eventPreferencesCall._contactListType;
@@ -471,10 +485,12 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                                     /*(contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                                                     ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
                                                             ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
-                                                ) && (callEventFromEvent != EventPreferencesCall.CALL_EVENT_MISSED_CALL) &&
+                                                ) && (callEventFromEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) &&
                                                         (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) // only white list is allowed for send sms
                                             )
                                             {
+//                                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (3) *****");
+
                                                 boolean simSlotOK = true;
                                                 if (forSIMCardFromEvent != 0) {
                                                     boolean hasFeature = false;
@@ -492,6 +508,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                                         simSlotOK = ((slotIndex == 1) && (forSIMCardFromEvent == 1)) ||
                                                                     ((slotIndex == 2) && (forSIMCardFromEvent == 2));
                                                 }
+
+//                                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (4) *****");
+
                                                 if (simSlotOK)
                                                     callingPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, phoneNumber);
                                             }
@@ -506,11 +525,14 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 //Log.e("PPCallScreeningService.onScreenCall", "phoneNumberToBlock="+phoneNumberToBlock);
 
                                 if (callingPhoneNumber) {
+//                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (5) *****");
                                     if (Permissions.checkSendSMS(appContext)) {
                                         // send sms
                                         if (sendSMSFromEvent && (!phoneNumber.isEmpty()) &&
                                                 (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
                                             try {
+//                                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (6) *****");
+
                                                 SmsManager smsManager = SmsManager.getDefault();
                                                 smsManager.sendTextMessage(phoneNumber, null, smsTextFromEvent, null, null);
                                             } catch (Exception e) {
