@@ -15,6 +15,7 @@ import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import androidx.core.app.NotificationManagerCompat;
@@ -471,13 +472,28 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                                     ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
                                                             ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
                                                 ) && (callEventFromEvent != EventPreferencesCall.CALL_EVENT_MISSED_CALL) &&
-                                                        (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) && // only white list is allowed for send sms
-                                                    ((forSIMCardFromEvent == 0) ||
-                                                        ((slotIndex == 1) && (forSIMCardFromEvent == 1)) ||
-                                                        ((slotIndex == 2) && (forSIMCardFromEvent == 2)))
+                                                        (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) // only white list is allowed for send sms
                                             )
                                             {
-                                                callingPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, phoneNumber);
+                                                boolean simSlotOK = true;
+                                                if (forSIMCardFromEvent != 0) {
+                                                    boolean hasFeature = false;
+                                                    boolean hasSIMCard = false;
+                                                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                                                    if (telephonyManager != null) {
+                                                        int phoneCount = telephonyManager.getPhoneCount();
+                                                        if (phoneCount > 1) {
+                                                            hasFeature = true;
+                                                            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                                                            hasSIMCard = hasSIMCardData.simCount >= 1;
+                                                        }
+                                                    }
+                                                    if (hasFeature && hasSIMCard)
+                                                        simSlotOK = ((slotIndex == 1) && (forSIMCardFromEvent == 1)) ||
+                                                                    ((slotIndex == 2) && (forSIMCardFromEvent == 2));
+                                                }
+                                                if (simSlotOK)
+                                                    callingPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, phoneNumber);
                                             }
                                         }
                                         if (callingPhoneNumber)
