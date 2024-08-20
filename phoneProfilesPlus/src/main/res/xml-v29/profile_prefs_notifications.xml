@@ -2,7 +2,7 @@
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     app:title="@string/profile_preferences_category_send_sms"
-    app:key="prf_pref_sendSMSCategory">
+    app:key="prf_pref_NotificationsCategory">
 
     <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
         app:title="@string/profile_preference_sendSMSSendSMS"

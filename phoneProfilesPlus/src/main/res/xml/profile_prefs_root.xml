@@ -101,6 +101,12 @@
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsLedAccessories" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/profile_preferences_category_notifications"
+            app:key="prf_pref_NotificationsCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsNotifications" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/profile_preferences_category_application"
             app:key="prf_pref_applicationCategoryRoot"
             app:layout="@layout/mp_preference_material_widget"

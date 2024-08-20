@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_others"
+    app:key="prf_pref_othersCategory" >
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_devicePowerSaveMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_devicePowerSaveMode"
+        app:defaultValue="0"
+        app:ppEntries="@array/hardwareModeArray"
+        app:ppEntryValues="@array/hardwareModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceRunApplicationChange"
+        app:defaultValue="0"
+        app:ppEntries="@array/runApplicationArray"
+        app:ppEntryValues="@array/runApplicationValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.RunApplicationsDialogPreference
+        app:defaultValue="-"
+        app:key="prf_pref_deviceRunApplicationPackageName"
+        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="prf_pref_deviceRunApplicationMIUIPermissions"
+        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsForMIUI"
+        app:summary="@string/profile_preferences_deviceRunApplicationsShortcutsForMIUI_info"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_deviceCloseAllApplicationsInfo"
+        app:title="@string/profile_preferences_deviceCloseAllApplications"
+        app:summary="@string/profile_preferences_deviceCloseAllApplicationsInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_deviceCloseAllApplications"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceCloseAllApplications"
+        app:defaultValue="0"
+        app:ppEntries="@array/closeAllApplicationsArray"
+        app:ppEntryValues="@array/closeAllApplicationsValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
+        app:key="prf_pref_forceStopApplicationsCategoryRoot"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsForceStopApplications" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/profile_preferences_category_send_sms"
+        app:key="prf_pref_sendSMSCategoryRoot"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsSendSMS" />
+
+    <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreference
+        app:defaultValue="0|0||"
+        app:key="prf_pref_generateNotification"
+        app:title="@string/profile_preferences_generateNotification"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

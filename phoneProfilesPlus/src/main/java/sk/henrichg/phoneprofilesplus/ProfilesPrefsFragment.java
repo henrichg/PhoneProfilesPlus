@@ -3663,19 +3663,34 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
-        //if (isHeld) {
-            //int contactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
-            //        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
-            String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS,
-                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS));
-            String contactsValue = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS,
-                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACTS));
-            //boolean sendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+        //int contactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
+        //        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)));
+        String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS,
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS));
+        String contactsValue = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS,
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACTS));
+        boolean sendSMS = false;
 
+        if (
+            /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                        ((contactsValue != null) && (!contactsValue.isEmpty()))
+        ) {
+            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, R.string.profile_preference_sendSMSSendSMS, context);
+            if (!title.isEmpty()) {
+                sendSMS = true;
+                cattegorySummaryData.bold = true;
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+            }
+        }
+
+        if (sendSMS) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, R.string.profile_preference_sendSMSContactGroups, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
-                //if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 contactGroupsValue = ContactGroupsMultiSelectDialogPreference.getSummary(contactGroupsValue, context);
 
@@ -3696,48 +3711,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         .append(StringConstants.TAG_BOLD_END_HTML);
 
             }
-            if (
-                /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
-                ((contactsValue != null) && (!contactsValue.isEmpty()))
-            ) {
-                /*title = context.getString(R.string.event_preferences_contactListType);
-                if (!title.isEmpty()) {
-                    cattegorySummaryData.bold = true;
-                    if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-                    String value = StringFormatUtils.getListPreferenceString(
-                            preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE,
-                                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                            R.array.phoneCallsContactListTypeValues, R.array.phoneCallsContactListTypeArray, context);
-
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_PHONE_CALLS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-                }*/
-
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, R.string.profile_preference_sendSMSSendSMS, context);
-                if (!title.isEmpty()) {
-                    cattegorySummaryData.bold = true;
-                    _value.append(StringConstants.STR_BULLET)
-                            .append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
-                }
-            }
-        //}
+        }
 
         cattegorySummaryData.summary = _value.toString();
 
-        //if (isHeld) {
-            Profile profile = new Profile();
-            profile._sendSMSContacts = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS, "");
-            profile._sendSMSContactGroups = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
-            profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
-            ArrayList<PermissionType> permissions = new ArrayList<>();
-            Permissions.checkProfileSendSMS(context, profile, permissions);
-            cattegorySummaryData.permissionGranted = permissions.isEmpty();
-        //}
+        Profile profile = new Profile();
+        profile._sendSMSContacts = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS, "");
+        profile._sendSMSContactGroups = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
+        profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileSendSMS(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.isEmpty();
 
         return false;
     }
@@ -3814,6 +3798,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Profile profile = new Profile();
             profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
             cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
+        }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, R.string.profile_preference_sendSMSSendSMS, context);
+        if (!title.isEmpty()) {
+            String contactGroupsValue = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS));
+            String contactsValue = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACTS));
+
+            if (
+                /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                    ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
+                            ((contactsValue != null) && (!contactsValue.isEmpty()))
+            ) {
+                cattegorySummaryData.bold = true;
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+            }
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, context);
         if (!title.isEmpty()) {
