@@ -129,7 +129,7 @@ dependencies {
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
     /// for map display in Location editor dialog
-    implementation 'org.osmdroid:osmdroid-android:6.1.18'
+    implementation 'org.osmdroid:osmdroid-android:6.1.20' //6.1.18'
 
     /// for json usage in some preferenses (wifi, bluetooth connection, scanning, ...)
     implementation 'com.google.code.gson:gson:2.11.0' //2.10.1'
