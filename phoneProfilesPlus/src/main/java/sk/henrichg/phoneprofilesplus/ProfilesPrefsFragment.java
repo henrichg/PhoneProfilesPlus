@@ -141,6 +141,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_OTHERS_CATTEGORY_ROOT = "prf_pref_othersCategoryRoot";
     private static final String PREF_PROFILE_APPLICATION_CATTEGORY_ROOT = "prf_pref_applicationCategoryRoot";
     private static final String PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT = "prf_pref_sendSMSCategoryRoot";
+    private static final String PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT = "prf_pref_NotificationsCategoryRoot";
 
     private static final String TAG_RINGTONE_NAME = "<ringtone_name>";
     private static final String TAG_NOTIFICATION_NAME = "<notification_name>";
@@ -3819,45 +3820,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
-        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, context);
-        if (!title.isEmpty()) {
-            cattegorySummaryData.bold = true;
-            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
-
-            String value = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION,
-                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION));
-
-            //boolean generate = Profile.getGenerateNotificationChange(value);
-            int iconType = ProfileStatic.getGenerateNotificationIconType(value);
-            boolean replaceWithPPPIcon = ProfileStatic.getGenerateNotificationReplaceWithPPPIcon(value);
-            boolean showLargeIcon = ProfileStatic.getGenerateNotificationShowLargeIcon(value);
-            String notificationTitle = ProfileStatic.getGenerateNotificationTitle(value);
-            String notificationBody = ProfileStatic.getGenerateNotificationBody(value);
-
-            String summaryString = "";
-
-            if (iconType == 0)
-                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
-            else if (iconType == 1)
-                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_exclamation_icon) + "; ";
-            else
-                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
-
-            if (replaceWithPPPIcon)
-                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_replace_with_ppp_icon) + "; ";
-            if (showLargeIcon)
-                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_show_large_icon) + "; ";
-
-            if (notificationBody.isEmpty())
-                summaryString = summaryString + StringConstants.CHAR_QUOTE_HTML + notificationTitle + StringConstants.CHAR_QUOTE_HTML;
-            else
-                summaryString = summaryString + StringConstants.CHAR_QUOTE_HTML + notificationTitle + StringConstants.CHAR_QUOTE_HTML
-                                                 + "; " + StringConstants.CHAR_QUOTE_HTML + notificationBody + StringConstants.CHAR_QUOTE_HTML;
-
-            _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                    .append(ProfileStatic.getColorForChangedPreferenceValue(summaryString, prefMng, PREF_PROFILE_OTHERS_CATTEGORY_ROOT, context))
-                    .append(StringConstants.TAG_BOLD_END_HTML);
-        }
 
         cattegorySummaryData.summary = _value.toString();
 
@@ -4569,6 +4531,57 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    @SuppressWarnings("SameReturnValue")
+    private boolean setCategorySummaryNotificaitons(Context context,
+                                              CattegorySummaryData cattegorySummaryData) {
+
+        StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
+
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+            String value = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION));
+
+            //boolean generate = Profile.getGenerateNotificationChange(value);
+            int iconType = ProfileStatic.getGenerateNotificationIconType(value);
+            boolean replaceWithPPPIcon = ProfileStatic.getGenerateNotificationReplaceWithPPPIcon(value);
+            boolean showLargeIcon = ProfileStatic.getGenerateNotificationShowLargeIcon(value);
+            String notificationTitle = ProfileStatic.getGenerateNotificationTitle(value);
+            String notificationBody = ProfileStatic.getGenerateNotificationBody(value);
+
+            String summaryString = "";
+
+            if (iconType == 0)
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
+            else if (iconType == 1)
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_exclamation_icon) + "; ";
+            else
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
+
+            if (replaceWithPPPIcon)
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_replace_with_ppp_icon) + "; ";
+            if (showLargeIcon)
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_show_large_icon) + "; ";
+
+            if (notificationBody.isEmpty())
+                summaryString = summaryString + StringConstants.CHAR_QUOTE_HTML + notificationTitle + StringConstants.CHAR_QUOTE_HTML;
+            else
+                summaryString = summaryString + StringConstants.CHAR_QUOTE_HTML + notificationTitle + StringConstants.CHAR_QUOTE_HTML
+                        + "; " + StringConstants.CHAR_QUOTE_HTML + notificationBody + StringConstants.CHAR_QUOTE_HTML;
+
+            _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                    .append(ProfileStatic.getColorForChangedPreferenceValue(summaryString, prefMng, PREF_PROFILE_OTHERS_CATTEGORY_ROOT, context))
+                    .append(StringConstants.TAG_BOLD_END_HTML);
+        }
+
+        cattegorySummaryData.summary = _value.toString();
+
+        return false;
+    }
+
     private void setCategorySummary(String key, Context context) {
         Preference preferenceScreen = prefMng.findPreference(key);
         if (preferenceScreen == null)
@@ -4644,6 +4657,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
         }
 
+        if (key.equals(PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT)) {
+            if (setCategorySummaryNotificaitons(context, cattegorySummaryData))
+                return;
+        }
+
         if (key.equals(PREF_PROFILE_OTHERS_CATTEGORY_ROOT)) {
             if (setCategorySummaryOthers(context, cattegorySummaryData))
                 return;
@@ -4690,7 +4708,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (setCategorySummarySendSMS(context, cattegorySummaryData))
                 return;
         }
-
 
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                 (!cattegorySummaryData.permissionGranted) ||
@@ -6612,6 +6629,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_PROFILE_RADIOS_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_LED_ACCESSORIES_CATTEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_OTHERS_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_APPLICATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT, context);

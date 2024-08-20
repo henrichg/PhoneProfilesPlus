@@ -4,4 +4,10 @@
     app:title="@string/profile_preferences_category_notifications"
     app:key="prf_pref_NotificationsCategory">
 
+    <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreference
+        app:defaultValue="0|0||"
+        app:key="prf_pref_generateNotification"
+        app:title="@string/profile_preferences_generateNotification"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>
