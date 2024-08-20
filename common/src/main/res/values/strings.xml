@@ -2261,6 +2261,7 @@
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\"), send SMS in Call sensor</string>
 
     <string name="profile_preferences_category_notifications">Notifications</string>
+    <string name="profile_preferences_category_clear_notifications">Clear notifications</string>
 
     <!-- **************************************************************************************** -->
 

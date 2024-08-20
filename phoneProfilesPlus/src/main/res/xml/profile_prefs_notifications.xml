@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     app:title="@string/profile_preferences_category_notifications"
     app:key="prf_pref_NotificationsCategory">
 
@@ -9,5 +8,11 @@
         app:key="prf_pref_generateNotification"
         app:title="@string/profile_preferences_generateNotification"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/profile_preferences_category_clear_notifications"
+        app:key="prf_pref_clearNotificationsCategoryRoot"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsClearNotifications" />
 
 </androidx.preference.PreferenceScreen>
