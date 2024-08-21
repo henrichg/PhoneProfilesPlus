@@ -21,6 +21,7 @@
         app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary2"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="eventNotificationInCall"
         app:title="@string/event_preferences_notifications_inCall"
@@ -33,6 +34,7 @@
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="eventNotificationApplications"

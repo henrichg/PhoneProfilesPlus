@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
     private static final int RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS = 2984;
     private static final int RESULT_ASSISTANT_SETTINGS = 2985;
+    private static final int RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 2986;
 
     private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
@@ -108,6 +110,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO = "prf_pref_applicationNotificationScanIntervalInfo";
     private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT = "prf_pref_deviceRadiosAirplaneModeCategoryRoot";
+    private static final String PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettings";
+    private static final String PREF_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettingsRestrictedSettings";
 
     private static final String PREF_PROFILE_VOLUME_ZEN_MODE_INFO = "prf_pref_volumeZenModeInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_INFO = "prf_pref_volumeSoundMode_info";
@@ -419,6 +423,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ((SendSMSDialogPreference) preference).fragment = new SendSMSDialogPreferenceFragment();
             dialogFragment = ((SendSMSDialogPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof SearchStringPreference) {
+            ((SearchStringPreference) preference).fragment = new SearchStringPreferenceFragment();
+            dialogFragment = ((SearchStringPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -1670,6 +1682,74 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             disableDependedPref(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
         }
+
+        preference = findPreference(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference114 -> {
+                boolean ok = false;
+                String action;
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(action, getActivity().getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(action);
+                        startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+                if (!ok) {
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference114.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
+
+                    if (!getActivity().isFinishing())
+                        dialog.show();
+                }
+                return false;
+            });
+        }
+        if (Build.VERSION.SDK_INT >= 33) {
+            InfoDialogPreference infoDialogPreference2 = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
+            if (infoDialogPreference2 != null) {
+                infoDialogPreference2.setOnPreferenceClickListener(preference120 -> {
+//                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
+
+                    infoDialogPreference2.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                    );
+                    infoDialogPreference2.setIsHtml(true);
+
+                    return false;
+                });
+            }
+        }
+
     }
 
     @Override
@@ -2018,6 +2098,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 activity.showSaveMenu = true;
                 activity.invalidateOptionsMenu();
             }
+        }
+        if (requestCode == RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
+            setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
         }
     }
 
@@ -5846,6 +5929,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (key.equals(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = getString(R.string.profile_preferences_clearNotificationsAccessSettings_summary);
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
+                    summary = "* " + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
+                            summary;
+                } else {
+                    summary = getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                            summary;
+                }
+                preference.setSummary(summary);
+            }
+        }
+
     }
 
     private void setSummaryTones(String key, Object value, Context context, int phoneCount) {
@@ -6619,6 +6717,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(Profile.PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE);
         setSummary(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
         setSummary(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT);
+        setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);

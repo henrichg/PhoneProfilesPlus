@@ -2262,6 +2262,7 @@
 
     <string name="profile_preferences_category_notifications">Notifications</string>
     <string name="profile_preferences_category_clear_notifications">Clear notifications</string>
+    <string name="profile_preferences_clearNotificationsAccessSettings_summary">Please enable \"Notification access\". Without this, Clear notification will not work.</string>
 
     <!-- **************************************************************************************** -->
 

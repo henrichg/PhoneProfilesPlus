@@ -295,7 +295,8 @@ class EventPreferencesMusic extends EventPreferences {
                                 for (MediaController controller : activeSessions) {
                                     String applicationFromController = controller.getPackageName();
 //                                    Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + applicationFromController);
-                                    if (applicationFromController.equals(PPApplication.PACKAGE_NAME) ||
+                                    if (applicationFromController.equals(PPApplication.PACKAGE_NAME_PP) ||
+                                            applicationFromController.equals(PPApplication.PACKAGE_NAME) ||
                                             applicationFromController.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
                                             applicationFromController.equals(PPApplication.PACKAGE_NAME_PPPPS)) {
                                         isNotAllowedSession = true;
