@@ -16,6 +16,13 @@
         app:summary="@string/profile_preferences_clearNotificationsAccessSettings_summary"
         app:dependency="prf_pref_clearNotificationEnbaled"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.InfoDialogPreference
+        app:key="prf_pref_clearNotificationNotificationsAccessSettingsRestrictedSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1"
+        app:dependency="prf_pref_clearNotificationNotificationsAccessSettings"
+        app:infoText=""
+        app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"

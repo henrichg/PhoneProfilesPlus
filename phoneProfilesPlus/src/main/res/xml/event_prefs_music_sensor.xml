@@ -19,6 +19,13 @@
         app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="eventMusicNotificationsAccessSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/event_preferences_music_notificationAccessSystemSettings_summary"
+        app:dependency="eventMusicEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="eventMusicApplications"
@@ -27,13 +34,5 @@
         app:systemSettings="not_check"
         app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-
-    <sk.henrichg.phoneprofilesplus.StartActivityPreference
-        app:key="eventMusicNotificationsAccessSettings"
-        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
-        app:summary="@string/event_preferences_music_notificationAccessSystemSettings_summary"
-        app:dependency="eventMusicEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-
 
 </androidx.preference.PreferenceScreen>

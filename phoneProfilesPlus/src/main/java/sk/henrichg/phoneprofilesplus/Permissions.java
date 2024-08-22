@@ -87,6 +87,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
     static final int PERMISSION_TYPE_PROFILE_SEND_SMS = 58;
     static final int PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES = 59;
+    static final int PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS = 60;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -1230,6 +1231,28 @@ class Permissions {
             }
         }
     }
+
+    static void checkProfileClearNotifications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        boolean grantedContacts = true;
+        //boolean grantedClearNotificaiton = true;
+        if (profile._clearNotificationEnabled) {
+            if ((profile._clearNotificationCheckContacts) &&
+                    ((profile._clearNotificationContacts != null) && (!profile._clearNotificationContacts.isEmpty())) ||
+                    ((profile._clearNotificationContactGroups != null) && (!profile._clearNotificationContactGroups.isEmpty())))
+                grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+            //if (profile._sendSMSSendSMS)
+            //    grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+        }
+        if (permissions != null) {
+            if (!grantedContacts)
+                permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS, permission.READ_CONTACTS));
+            //if (!grantedSendSMS)
+            //    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SEND_SMS, permission.SEND_SMS));
+        }
+    }
+
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
                                                            int sensorType) {

@@ -824,6 +824,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES:
                         s = getString(R.string.permission_why_event_call_screening);
                         break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS:
+                        s = getString(R.string.permission_why_profile_clear_notifications);
+                        break;
                 }
             }
         }

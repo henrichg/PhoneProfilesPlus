@@ -146,6 +146,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_APPLICATION_CATTEGORY_ROOT = "prf_pref_applicationCategoryRoot";
     private static final String PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT = "prf_pref_sendSMSCategoryRoot";
     private static final String PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT = "prf_pref_NotificationsCategoryRoot";
+    private static final String PREF_PROFILE_CLEAR_NOTIFICATIONS_CATTEGORY_ROOT = "prf_pref_clearNotificationsCategoryRoot";
 
     private static final String TAG_RINGTONE_NAME = "<ringtone_name>";
     private static final String TAG_NOTIFICATION_NAME = "<notification_name>";
@@ -1750,6 +1751,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        preference = findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
+        if (preference != null) {
+            disableDependedPref(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
+        }
+
     }
 
     @Override
@@ -1846,9 +1852,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
                 key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
                 key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
-                key.endsWith(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
-                key.endsWith(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY) ||
-                key.endsWith(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS)) {
+                key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY) ||
+                key.equals(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
@@ -2183,8 +2192,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 case Profile.PREF_PROFILE_ASK_FOR_DURATION:
                 case Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE:
                 case Profile.PREF_PROFILE_VOLUME_MUTE_SOUND:
-                case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
                 //case Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR:
+                case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
+                case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED:
+                case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS:
+                case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT:
                     /*boolean defaultValue =
                             getResources().getBoolean(
                                     GlobalGUIRoutines.getResourceId(key, "bool", context));*/
@@ -4665,6 +4677,29 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    private boolean setCategorySummaryClearNotifications(Context context,
+                                              CattegorySummaryData cattegorySummaryData) {
+
+        StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
+
+        //TODO sem napn _value na zobrazeniesuppary v cattegory
+
+        cattegorySummaryData.summary = _value.toString();
+
+        Profile profile = new Profile();
+        profile._clearNotificationEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+        profile._clearNotificationApplications = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, "");
+        profile._clearNotificationCheckContacts = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, false);
+        profile._clearNotificationContacts = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
+        profile._clearNotificationContactGroups = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileClearNotifications(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.isEmpty();
+
+        return false;
+    }
+
+
     private void setCategorySummary(String key, Context context) {
         Preference preferenceScreen = prefMng.findPreference(key);
         if (preferenceScreen == null)
@@ -4791,6 +4826,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (setCategorySummarySendSMS(context, cattegorySummaryData))
                 return;
         }
+
+        if (key.equals(PREF_PROFILE_CLEAR_NOTIFICATIONS_CATTEGORY_ROOT)) {
+            if (setCategorySummaryClearNotifications(context, cattegorySummaryData))
+                return;
+        }
+
 
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                 (!cattegorySummaryData.permissionGranted) ||
@@ -6550,7 +6591,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
             key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
             key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
-            key.equals(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS)) {
+            key.equals(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
             setSummary(key, value);
@@ -6593,7 +6637,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
-        //disableDependedPref(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
+        disableDependedPref(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
+        disableDependedPref(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
 
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
@@ -6718,6 +6763,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
         setSummary(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT);
         setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT);
+        setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
@@ -6738,6 +6790,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_CLEAR_NOTIFICATIONS_CATTEGORY_ROOT, context);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -7096,6 +7149,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(contactsConfigured);
         }
 
+        if (key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT) ||
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT)) {
+            //TODO pridaj dependency
+        }
+
     }
 
     private void disableDependedPref(String key) {
@@ -7103,7 +7166,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
             key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
-            key.equals(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS)) {
+            key.equals(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }
@@ -7111,7 +7177,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             value = preferences.getString(key, "");
 
         if (key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACTS) ||
-                (key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS))) {
+            key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS) ||
+            key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)) {
             value = preferences.getString(key, "");
         }
         disableDependedPref(key, value);

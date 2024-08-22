@@ -137,7 +137,13 @@ class Profile {
     boolean _sendSMSSendSMS;
     String _sendSMSSMSText;
     String _deviceWallpaperLockScreen;
-
+    boolean _clearNotificationEnabled;
+    String _clearNotificationApplications;
+    boolean _clearNotificationCheckContacts;
+    String _clearNotificationContacts; // contactId#phoneId|...
+    String _clearNotificationContactGroups; // groupId|...
+    boolean _clearNotificationCheckText;
+    String _clearNotificationText;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -196,7 +202,6 @@ class Profile {
     static final String PREF_PROFILE_DEVICE_KEYGUARD = "prf_pref_deviceKeyguard";
     static final String PREF_PROFILE_VIBRATION_ON_TOUCH = "prf_pref_vibrationOnTouch";
     static final String PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS = "prf_pref_volumeUnlinkVolumesAppSettings";
-
     static final String PREF_PROFILE_DEVICE_WIFI_AP = "prf_pref_deviceWiFiAP";
     static final String PREF_PROFILE_DEVICE_POWER_SAVE_MODE = "prf_pref_devicePowerSaveMode";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
@@ -273,6 +278,13 @@ class Profile {
     static final String PREF_PROFILE_SEND_SMS_SEND_SMS = "prf_pref_sendSMS_sendSMS";
     static final String PREF_PROFILE_SEND_SMS_SMS_TEXT = "prf_pref_sendSMS_SMSText";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN = "prf_pref_deviceWallpaperLockScreen";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED = "prf_pref_clearNotificationEnbaled";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS = "prf_pref_clearNotificationApplications";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS = "prf_pref_clearNotificationCheckContacts";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT = "prf_pref_clearNotificationCheckText";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS = "prf_pref_clearNotificationContactGroups";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS = "prf_pref_clearNotificationContacts";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_TEXT = "prf_pref_clearNotificationText";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;

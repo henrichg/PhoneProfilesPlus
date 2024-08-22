@@ -19,15 +19,6 @@
         app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-        app:defaultValue="@string/dash_string"
-        app:key="eventMusicApplications"
-        app:title="@string/event_preferences_applications_applications"
-        app:removePPApplications="1"
-        app:systemSettings="not_check"
-        app:dependency="eventMusicEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventMusicNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
@@ -41,6 +32,15 @@
         app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1"
         app:dependency="eventMusicEnabled"
         app:infoText=""
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+        app:defaultValue="@string/dash_string"
+        app:key="eventMusicApplications"
+        app:title="@string/event_preferences_applications_applications"
+        app:removePPApplications="1"
+        app:systemSettings="not_check"
+        app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
 
