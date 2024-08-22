@@ -332,6 +332,9 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
         defaultValuesBoolean.put(PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+        defaultValuesBoolean.put(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, false);
     }
     static final ArrayMap<String, String> defaultValuesString;
     static {
@@ -447,6 +450,10 @@ class Profile {
         //defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE, "0");
         defaultValuesString.put(PREF_PROFILE_SEND_SMS_SMS_TEXT, "");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "-");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, "");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
     }
 
     static final int[] profileIconId = {
@@ -1112,7 +1119,14 @@ class Profile {
                    //int sendSMSContactListType,
                    boolean sendSMSSendSMS,
                    String sendSMSSMSText,
-                   String deviceWallpaperLockscreen
+                   String deviceWallpaperLockscreen,
+                   boolean clearNotificationEnabled,
+                   String clearNotificationApplications,
+                   boolean clearNotificationCheckContacts,
+                   String clearNotificationContacts,
+                   String clearNotificationContactGroups,
+                   boolean clearNotificationCheckText,
+                   String clearNotificationText
             )
     {
         this._id = id;
@@ -1234,6 +1248,13 @@ class Profile {
         this._sendSMSSendSMS = sendSMSSendSMS;
         this._sendSMSSMSText = sendSMSSMSText;
         this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
+        this._clearNotificationEnabled = clearNotificationEnabled;
+        this._clearNotificationApplications = clearNotificationApplications;
+        this._clearNotificationCheckContacts = clearNotificationCheckContacts;
+        this._clearNotificationContacts = clearNotificationContacts;
+        this._clearNotificationContactGroups = clearNotificationContactGroups;
+        this._clearNotificationCheckText = clearNotificationCheckText;
+        this._clearNotificationText = clearNotificationText;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1359,7 +1380,14 @@ class Profile {
             //int sendSMSContactListType,
             boolean sendSMSSendSMS,
             String sendSMSSMSText,
-            String deviceWallpaperLockscreen
+            String deviceWallpaperLockscreen,
+            boolean clearNotificationEnabled,
+            String clearNotificationApplications,
+            boolean clearNotificationCheckContacts,
+            String clearNotificationContacts,
+            String clearNotificationContactGroups,
+            boolean clearNotificationCheckText,
+            String clearNotificationText
     )
     {
         this._name = name;
@@ -1480,6 +1508,13 @@ class Profile {
         this._sendSMSSendSMS = sendSMSSendSMS;
         this._sendSMSSMSText = sendSMSSMSText;
         this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
+        this._clearNotificationEnabled = clearNotificationEnabled;
+        this._clearNotificationApplications = clearNotificationApplications;
+        this._clearNotificationCheckContacts = clearNotificationCheckContacts;
+        this._clearNotificationContacts = clearNotificationContacts;
+        this._clearNotificationContactGroups = clearNotificationContactGroups;
+        this._clearNotificationCheckText = clearNotificationCheckText;
+        this._clearNotificationText = clearNotificationText;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1607,6 +1642,13 @@ class Profile {
         this._sendSMSSendSMS = profile._sendSMSSendSMS;
         this._sendSMSSMSText = profile._sendSMSSMSText;
         this._deviceWallpaperLockScreen = profile._deviceWallpaperLockScreen;
+        this._clearNotificationEnabled = profile._clearNotificationEnabled;
+        this._clearNotificationApplications = profile._clearNotificationApplications;
+        this._clearNotificationCheckContacts = profile._clearNotificationCheckContacts;
+        this._clearNotificationContacts = profile._clearNotificationContacts;
+        this._clearNotificationContactGroups = profile._clearNotificationContactGroups;
+        this._clearNotificationCheckText = profile._clearNotificationCheckText;
+        this._clearNotificationText = profile._clearNotificationText;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1974,6 +2016,20 @@ class Profile {
                     this._sendSMSSendSMS = true;
                 if (!withProfile._sendSMSSMSText.isEmpty())
                     this._sendSMSSMSText = withProfile._sendSMSSMSText;
+                if (withProfile._clearNotificationEnabled)
+                    this._clearNotificationEnabled = true;
+                if (!withProfile._clearNotificationApplications.isEmpty())
+                    this._clearNotificationApplications = withProfile._clearNotificationApplications;
+                if (withProfile._clearNotificationCheckContacts)
+                    this._clearNotificationCheckContacts = true;
+                if (!withProfile._clearNotificationContacts.isEmpty())
+                    this._clearNotificationContacts = withProfile._clearNotificationContacts;
+                if (!withProfile._clearNotificationContactGroups.isEmpty())
+                    this._clearNotificationContactGroups = withProfile._clearNotificationContactGroups;
+                if (withProfile._clearNotificationCheckText)
+                    this._clearNotificationCheckText = true;
+                if (!withProfile._clearNotificationText.isEmpty())
+                    this._clearNotificationText = withProfile._clearNotificationText;
             }
 
             // set merged profile as activated
@@ -2370,6 +2426,27 @@ class Profile {
                 return false;
             }
             if (!this._sendSMSSMSText.equals(withProfile._sendSMSSMSText)) {
+                return false;
+            }
+            if (this._clearNotificationEnabled != withProfile._clearNotificationEnabled) {
+                return false;
+            }
+            if (!this._clearNotificationApplications.equals(withProfile._clearNotificationApplications)) {
+                return false;
+            }
+            if (this._clearNotificationCheckContacts != withProfile._clearNotificationCheckContacts) {
+                return false;
+            }
+            if (!this._clearNotificationContacts.equals(withProfile._clearNotificationContacts)) {
+                return false;
+            }
+            if (!this._clearNotificationContactGroups.equals(withProfile._clearNotificationContactGroups)) {
+                return false;
+            }
+            if (this._clearNotificationCheckText != withProfile._clearNotificationCheckText) {
+                return false;
+            }
+            if (!this._clearNotificationText.equals(withProfile._clearNotificationText)) {
                 return false;
             }
 
@@ -3429,6 +3506,13 @@ class Profile {
         editor.putBoolean(PREF_PROFILE_SEND_SMS_SEND_SMS, this._sendSMSSendSMS);
         editor.putString(PREF_PROFILE_SEND_SMS_SMS_TEXT, this._sendSMSSMSText);
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, this._deviceWallpaperLockScreen);
+        editor.putBoolean(PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, this._clearNotificationEnabled);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, this._clearNotificationApplications);
+        editor.putBoolean(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, this._clearNotificationCheckContacts);
+        editor.putBoolean(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, this._clearNotificationCheckText);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, this._clearNotificationContactGroups);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, this._clearNotificationContacts);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, this._clearNotificationText);
 
         editor.apply();
     }

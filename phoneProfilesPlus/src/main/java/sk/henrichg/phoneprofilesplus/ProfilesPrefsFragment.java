@@ -7149,6 +7149,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(contactsConfigured);
         }
 
+        /*
         if (key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
@@ -7156,8 +7157,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT)) {
-            //TODO pridaj dependency
         }
+        */
 
     }
 
