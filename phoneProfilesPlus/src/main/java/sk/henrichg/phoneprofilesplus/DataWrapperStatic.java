@@ -155,7 +155,14 @@ class DataWrapperStatic {
                 //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE)),
                 Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN)
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT)
                 );
     }
 

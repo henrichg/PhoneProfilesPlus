@@ -144,6 +144,13 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_SEND_SMS_SEND_SMS, (profile._sendSMSSendSMS) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT, profile._sendSMSSMSText);
                 values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, profile._deviceWallpaperLockScreen);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED, (profile._clearNotificationEnabled) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS, profile._clearNotificationApplications);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS, (profile._clearNotificationCheckContacts) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS, profile._clearNotificationCheckText);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS, profile._clearNotificationContactGroups);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT, (profile._clearNotificationCheckText) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT, profile._clearNotificationText);
 
                 // Insert Row
                 if (!merged) {
@@ -298,7 +305,14 @@ class DatabaseHandlerProfiles {
                                 //DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE,
                                 DatabaseHandler.KEY_SEND_SMS_SEND_SMS,
                                 DatabaseHandler.KEY_SEND_SMS_SMS_TEXT,
-                                DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN
+                                DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -426,7 +440,14 @@ class DatabaseHandlerProfiles {
                                 //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SEND_SMS)) == 1,
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN))
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT))
                         );
                     }
 
@@ -574,7 +595,14 @@ class DatabaseHandlerProfiles {
                         //DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE + "," +
                         DatabaseHandler.KEY_SEND_SMS_SEND_SMS + "," +
                         DatabaseHandler.KEY_SEND_SMS_SMS_TEXT + "," +
-                        DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN +
+                        DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT + "," +
+                        DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -706,6 +734,13 @@ class DatabaseHandlerProfiles {
                         profile._sendSMSSendSMS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SEND_SMS)) == 1;
                         profile._sendSMSSMSText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT));
                         profile._deviceWallpaperLockScreen = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN));
+                        profile._clearNotificationEnabled = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED)) == 1;
+                        profile._clearNotificationApplications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS));
+                        profile._clearNotificationCheckContacts = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS)) == 1;;
+                        profile._clearNotificationContacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS));
+                        profile._clearNotificationContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS));;
+                        profile._clearNotificationCheckText = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1;;
+                        profile._clearNotificationText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT));;
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -855,6 +890,13 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_SEND_SMS_SEND_SMS, (profile._sendSMSSendSMS) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT, profile._sendSMSSMSText);
                 values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, profile._deviceWallpaperLockScreen);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED, (profile._clearNotificationEnabled) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS, profile._clearNotificationApplications);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS, (profile._clearNotificationCheckContacts) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS, profile._clearNotificationContacts);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS, profile._clearNotificationContactGroups);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT, (profile._clearNotificationCheckText) ? 1 : 0);
+                values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT, profile._clearNotificationText);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1219,7 +1261,14 @@ class DatabaseHandlerProfiles {
                                 //DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE,
                                 DatabaseHandler.KEY_SEND_SMS_SEND_SMS,
                                 DatabaseHandler.KEY_SEND_SMS_SMS_TEXT,
-                                DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN
+                                DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT,
+                                DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1349,7 +1398,14 @@ class DatabaseHandlerProfiles {
                                 //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SEND_SMS)) == 1,
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_SMS_TEXT)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN))
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1,
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT))
                                 );
                     }
 

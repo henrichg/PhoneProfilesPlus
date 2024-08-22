@@ -473,7 +473,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         //origProfile._sendSMSContactListType,
                         origProfile._sendSMSSendSMS,
                         origProfile._sendSMSSMSText,
-                        origProfile._deviceWallpaperLockScreen
+                        origProfile._deviceWallpaperLockScreen,
+                        origProfile._clearNotificationEnabled,
+                        origProfile._clearNotificationApplications,
+                        origProfile._clearNotificationCheckContacts,
+                        origProfile._clearNotificationContacts,
+                        origProfile._clearNotificationContactGroups,
+                        origProfile._clearNotificationCheckText,
+                        origProfile._clearNotificationText
                 );
                 showSaveMenu = true;
             }

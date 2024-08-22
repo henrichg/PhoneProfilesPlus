@@ -718,7 +718,14 @@ class ProfileStatic {
                     //profile._sendSMSContactListType,
                     profile._sendSMSSendSMS,
                     profile._sendSMSSMSText,
-                    profile._deviceWallpaperLockScreen
+                    profile._deviceWallpaperLockScreen,
+                    profile._clearNotificationEnabled,
+                    profile._clearNotificationApplications,
+                    profile._clearNotificationCheckContacts,
+                    profile._clearNotificationContacts,
+                    profile._clearNotificationContactGroups,
+                    profile._clearNotificationCheckText,
+                    profile._clearNotificationText
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
