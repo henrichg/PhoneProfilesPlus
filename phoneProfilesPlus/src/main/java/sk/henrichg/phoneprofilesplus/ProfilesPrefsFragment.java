@@ -24,7 +24,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -2110,6 +2109,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
             setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+            setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
+            //disableDependedPref(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
         }
     }
 
@@ -4627,8 +4628,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     @SuppressWarnings("SameReturnValue")
-    private boolean setCategorySummaryNotificaitons(Context context,
-                                              CattegorySummaryData cattegorySummaryData) {
+    private boolean setCategorySummaryNotifications(Context context,
+                                                    CattegorySummaryData cattegorySummaryData) {
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
@@ -4671,6 +4672,33 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(summaryString, prefMng, PREF_PROFILE_OTHERS_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, R.string.profile_preferences_category_clear_notifications, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+                String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+                if ((value != null) &&
+                        (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS)))) {
+                    String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                } else
+                    _value.append(title);
+            } else {
+                String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(
+                                ProfileStatic.getColorForChangedPreferenceValue(
+                                        ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(value, "notifications", context, true),
+                                        prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context)
+                        ).append(StringConstants.TAG_BOLD_END_HTML);
+            }
+        }
 
         cattegorySummaryData.summary = _value.toString();
 
@@ -4682,7 +4710,33 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
-        //TODO sem napn _value na zobrazeniesuppary v cattegory
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, R.string.profile_preferences_category_clear_notifications, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+                String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+                if ((value != null) &&
+                        (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS)))) {
+                    String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                } else
+                    _value.append(title);
+            } else {
+                String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+                _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(
+                                ProfileStatic.getColorForChangedPreferenceValue(
+                                        ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(value, "notifications", context, true),
+                                        prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context)
+                        ).append(StringConstants.TAG_BOLD_END_HTML);
+            }
+        }
 
         cattegorySummaryData.summary = _value.toString();
 
@@ -4776,7 +4830,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (key.equals(PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT)) {
-            if (setCategorySummaryNotificaitons(context, cattegorySummaryData))
+            if (setCategorySummaryNotifications(context, cattegorySummaryData))
                 return;
         }
 
@@ -4831,7 +4885,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (setCategorySummaryClearNotifications(context, cattegorySummaryData))
                 return;
         }
-
 
         GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, cattegorySummaryData.bold, false, false,
                 (!cattegorySummaryData.permissionGranted) ||
@@ -5982,6 +6035,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             summary;
                 }
                 preference.setSummary(summary);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS)) {
+            //boolean isEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+            //boolean listenerEnabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false);
+            ApplicationsMultiSelectDialogPreference appPreference =
+                    prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
+            if (appPreference != null) {
+                appPreference.setSummaryAMSDP();
             }
         }
 
@@ -7149,7 +7211,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(contactsConfigured);
         }
 
-        /*
         if (key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
@@ -7158,8 +7219,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT)) {
         }
-        */
-
     }
 
     private void disableDependedPref(String key) {

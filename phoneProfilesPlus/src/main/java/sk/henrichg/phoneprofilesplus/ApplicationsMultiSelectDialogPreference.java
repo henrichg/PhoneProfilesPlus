@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -208,6 +209,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 }
             }
         }
+        Log.e("ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory", "ok="+ok);
         if (ok) {
             if (!value.isEmpty() && !value.equals("-")) {
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
@@ -253,9 +255,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
     private String getSummaryAMSDP()
     {
-        String prefDataSummary = getSummaryForPreferenceCategory(value, systemSettings, _context, true);
-        setSummary(prefDataSummary);
-        return prefDataSummary;
+        return /*String prefDataSummary =*/ getSummaryForPreferenceCategory(value, systemSettings, _context, true);
+        //setSummary(prefDataSummary);
+        //return prefDataSummary;
     }
 
     void setSummaryAMSDP()
