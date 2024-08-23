@@ -694,6 +694,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             //profile._phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, ""));
             profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
             profile._sendSMSSMSText = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT, "");
+            profile._clearNotificationEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+            profile._clearNotificationApplications = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, "");
+            profile._clearNotificationCheckContacts = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, false);
+            profile._clearNotificationContacts = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
+            profile._clearNotificationContactGroups = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+            profile._clearNotificationCheckText = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, false);
+            profile._clearNotificationText = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
         }
 
         return profile;

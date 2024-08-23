@@ -1016,6 +1016,8 @@ class ProfileStatic {
                     break;
                 case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS(preferenceAllowed);
+                case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED(preferenceAllowed);
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }

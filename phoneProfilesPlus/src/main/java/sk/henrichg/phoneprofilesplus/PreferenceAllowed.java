@@ -2879,4 +2879,8 @@ class PreferenceAllowed {
         //}
     }
 
+    static void isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED(PreferenceAllowed preferenceAllowed) {
+        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+    }
+
 }
