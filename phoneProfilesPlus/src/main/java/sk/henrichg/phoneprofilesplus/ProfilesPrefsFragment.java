@@ -7324,6 +7324,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT)) {
+
+            boolean listenerEnabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false);
+            //noinspection DataFlowIssue
+            boolean clearEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED,
+                            Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED));
+
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
+            if (preference != null)
+                preference.setEnabled(listenerEnabled && clearEnabled);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS);
+            if (preference != null)
+                preference.setEnabled(listenerEnabled && clearEnabled);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT);
+            if (preference != null)
+                preference.setEnabled(listenerEnabled && clearEnabled);
         }
     }
 
