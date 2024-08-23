@@ -209,7 +209,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 }
             }
         }
-        Log.e("ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory", "ok="+ok);
         if (ok) {
             if (!value.isEmpty() && !value.equals("-")) {
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);

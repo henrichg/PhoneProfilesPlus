@@ -2265,6 +2265,10 @@
     <string name="profile_preferences_clearNotificationsAccessSettings_summary">Please enable \"Notification access\". Without this, clear notification will not work.</string>
     <string name="profile_preferences_clearNotificationEnabled">Clear notifications</string>
     <string name="permission_why_profile_clear_notifications">for read contacts in profile parameter \"Clear notifications\"</string>
+    <string name="profile_preferences_clearNotification_applications_summary_text">Applications:</string>
+    <string name="profile_preferences_clearNotification_contact_groups_summary_text">Contact groups:</string>
+    <string name="profile_preferences_clearNotification_contacts_summary_text">Contacts:</string>
+    <string name="profile_preferences_clearNotification_text_summary_text">Text</string>
 
     <!-- **************************************************************************************** -->
 
