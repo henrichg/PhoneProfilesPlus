@@ -53,6 +53,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
         listView = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
         emptyList = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_empty);
 
+        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext, preference);
+        listView.setAdapter(listAdapter);
+
         listView.setOnItemClickListener((parent, item, position, id) -> {
             ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
             if (contactGroup != null) {
@@ -61,9 +64,6 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 viewHolder.checkBox.setChecked(contactGroup.checked);
             }
         });
-
-        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext, preference);
-        listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
         unselectAllButton.setOnClickListener(v -> {

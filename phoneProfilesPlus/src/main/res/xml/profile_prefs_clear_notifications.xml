@@ -44,7 +44,7 @@
         app:title="@string/event_preferences_notifications_contacts"
         app:dependency="prf_pref_clearNotificationCheckContacts"
         app:layout="@layout/mp_preference_material_widget"
-        app:withoutNumbers="true" />
+        app:withoutNumbers="false" />
 
     <SwitchPreferenceCompat
         app:key="prf_pref_clearNotificationCheckText"

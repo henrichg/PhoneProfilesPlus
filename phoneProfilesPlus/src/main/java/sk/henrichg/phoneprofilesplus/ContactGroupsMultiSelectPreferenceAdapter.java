@@ -30,19 +30,13 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             return preference.contactGroupList.size();
         else
             return 0;
-        /*ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null)
-            return contactGroupsCache.getLength();
-        else
-            return 0;*/
     }
 
     public Object getItem(int position) {
-        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null)
-            return contactGroupsCache.getContactGroup(position);
+        if (preference.contactGroupList != null)
+            return preference.contactGroupList.get(position);
         else
-           return null;
+            return null;
     }
 
     public long getItemId(int position) {
