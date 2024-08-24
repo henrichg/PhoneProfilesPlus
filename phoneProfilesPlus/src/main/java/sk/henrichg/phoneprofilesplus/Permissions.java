@@ -264,6 +264,7 @@ class Permissions {
         checkProfileCloseAllApplications(context, profile, permissions);
         checkProfileSendSMS(context, profile, permissions);
         checkProfilePPPPutSettings(context, profile, permissions);
+        checkProfileClearNotifications(context, profile, permissions);
 
         return permissions;
     }

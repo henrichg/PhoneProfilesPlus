@@ -3919,6 +3919,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         cattegorySummaryData.summary = _value.toString();
 
+        Profile profile = new Profile();
+        profile._sendSMSContacts = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS, "");
+        profile._sendSMSContactGroups = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
+        profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileSendSMS(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.isEmpty();
+
+        profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
+        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
+
         return false;
     }
 
@@ -4754,6 +4765,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         cattegorySummaryData.summary = _value.toString();
+
+        Profile profile = new Profile();
+        profile._clearNotificationEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+        profile._clearNotificationApplications = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, "");
+        profile._clearNotificationCheckContacts = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, false);
+        profile._clearNotificationContacts = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
+        profile._clearNotificationContactGroups = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileClearNotifications(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.isEmpty();
 
         return false;
     }
