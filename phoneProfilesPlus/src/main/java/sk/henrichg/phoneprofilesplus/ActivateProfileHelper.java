@@ -8780,6 +8780,22 @@ class ActivateProfileHelper {
         }
     }
 
+    static void clearNotificaitons(final Context appContext, Profile profile,
+                                   SharedPreferences executedProfileSharedPreferences,
+                                   final boolean forRestartEvents) {
+        if (PPApplication.blockProfileEventActions)
+            // not send sms when are blocked profile ections (for example at start of PPP)
+            return;
+        if (forRestartEvents)
+            // do not send sms for restart events
+            return;
+
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).allowed
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+        }
+    }
+
     static void getRingerVolume(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getRingerVolume", "PPApplication.profileActivationMutex");
