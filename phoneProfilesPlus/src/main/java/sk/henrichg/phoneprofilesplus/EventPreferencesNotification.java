@@ -513,28 +513,28 @@ class EventPreferencesNotification extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         boolean okCheck = false;
+        if (_inCall || _missedCall || (!_applications.isEmpty())) {
+            if (_checkContacts) {
+                runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                        (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+                okCheck = true;
+            }
 
-        if (_checkContacts) {
-            runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
-                    (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
-            okCheck = true;
+            if (_checkText) {
+                runnable = runnable && (!_text.isEmpty());
+                okCheck = true;
+            }
         }
 
-        if (_checkText) {
-            runnable = runnable && (!_text.isEmpty());
-            okCheck = true;
-        }
-
-        if (!okCheck)
-            runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
-
-        return runnable;
+        return runnable && okCheck;
     }
 
     @Override
     boolean isAllConfigured(Context context)
     {
         boolean allConfigured = super.isAllConfigured(context);
+
+        allConfigured = allConfigured && isRunnable(context);
 
         allConfigured = allConfigured &&
                 (ApplicationPreferences.applicationEventNotificationEnableScanning ||

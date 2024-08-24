@@ -4689,68 +4689,77 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
-                boolean applications = false;
-                boolean contactGroups = false;
-                boolean contacts = false;
+                //boolean applications = false;
+                //boolean contactGroups = false;
+                //boolean contacts = false;
                 String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
                 if ((value != null) &&
                         (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS)))) {
-                    applications = true;
+                    //applications = true;
                     _value.append(title).append(": ");
 
                     String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                     _value.append(StringConstants.TAG_BOLD_START_HTML)
                             .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_applications_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML);
-                }
-                //noinspection DataFlowIssue
-                if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS,
-                        Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS)))
-                {
-                    value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS));
-                    if ((value != null) &&
-                            (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)))) {
-                        contactGroups = true;
-                        if (applications)
-                            _value.append("; ");
-                        else
-                            _value.append(title).append(": ");
+                    //noinspection DataFlowIssue
+                    if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS,
+                            Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS))) {
+                        value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS));
+                        if ((value != null) &&
+                                (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)))) {
+                            //contactGroups = true;
+                            //if (applications)
+                                _value.append("; ");
+                            //else
+                            //    _value.append(title).append(": ");
 
-                        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contact_groups_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
-                                .append(StringConstants.TAG_BOLD_END_HTML);
-                    }
-                    value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS));
-                    if ((value != null) &&
-                            (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS)))) {
-                        contacts = true;
-                        if (applications || contactGroups)
-                            _value.append("; ");
-                        else
-                            _value.append(title).append(": ");
+                            splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contact_groups_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
+                        }
+                        value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS));
+                        if ((value != null) &&
+                                (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS)))) {
+                            //contacts = true;
+                            //if (applications || contactGroups)
+                                _value.append("; ");
+                            //else
+                            //    _value.append(title).append(": ");
 
-                        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contacts_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
-                                .append(StringConstants.TAG_BOLD_END_HTML);
+                            splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contacts_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
+                        }
                     }
-                }
-                //noinspection DataFlowIssue
-                if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT,
-                        Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT)))
-                {
-                    if (applications || contactGroups ||contacts)
+                    //noinspection DataFlowIssue
+                    if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT,
+                            Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT))) {
+                        //if (applications || contactGroups || contacts)
                         _value.append("; ");
-                    else
-                        _value.append(title).append(": ");
+                        //else
+                        //    _value.append(title).append(": ");
 
-                    _value.append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_text_summary_text), prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_text_summary_text), prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
+                    }
+                } else {
+                    value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(
+                                    ProfileStatic.getColorForChangedPreferenceValue(
+                                            context.getString(R.string.profile_preferences_clearNotification_applications_summary_text) + " " +
+                                            ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(value, "notifications", context, true),
+                                            prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context)
+                            ).append(StringConstants.TAG_BOLD_END_HTML);
+
                 }
             } else {
                 String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
@@ -4790,68 +4799,77 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
-                boolean applications = false;
-                boolean contactGroups = false;
-                boolean contacts = false;
+                //boolean applications = false;
+                //boolean contactGroups = false;
+                //boolean contacts = false;
                 String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
                 if ((value != null) &&
                         (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS)))) {
-                    applications = true;
+                    //applications = true;
                     _value.append(title).append(": ");
 
                     String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                     _value.append(StringConstants.TAG_BOLD_START_HTML)
                             .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_applications_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML);
-                }
-                //noinspection DataFlowIssue
-                if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS,
-                        Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS)))
-                {
-                    value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS));
-                    if ((value != null) &&
-                            (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)))) {
-                        contactGroups = true;
-                        if (applications)
-                            _value.append("; ");
-                        else
-                            _value.append(title).append(": ");
+                    //noinspection DataFlowIssue
+                    if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS,
+                            Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS))) {
+                        value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS));
+                        if ((value != null) &&
+                                (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)))) {
+                            //contactGroups = true;
+                            //if (applications)
+                                _value.append("; ");
+                            //else
+                            //    _value.append(title).append(": ");
 
-                        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contact_groups_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
-                                .append(StringConstants.TAG_BOLD_END_HTML);
-                    }
-                    value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS));
-                    if ((value != null) &&
-                            (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS)))) {
-                        contacts = true;
-                        if (applications || contactGroups)
-                            _value.append("; ");
-                        else
-                            _value.append(title).append(": ");
+                            splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contact_groups_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
+                        }
+                        value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS));
+                        if ((value != null) &&
+                                (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS)))) {
+                            //contacts = true;
+                            //if (applications || contactGroups)
+                                _value.append("; ");
+                            //else
+                            //    _value.append(title).append(": ");
 
-                        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contacts_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
-                                .append(StringConstants.TAG_BOLD_END_HTML);
+                            splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_contacts_summary_text) + " " + splits.length, prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
+                        }
                     }
-                }
-                //noinspection DataFlowIssue
-                if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT,
-                        Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT)))
-                {
-                    if (applications || contactGroups ||contacts)
+                    //noinspection DataFlowIssue
+                    if (preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT,
+                            Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT))) {
+                        //if (applications || contactGroups || contacts)
                         _value.append("; ");
-                    else
-                        _value.append(title).append(": ");
+                        //else
+                        //    _value.append(title).append(": ");
 
-                    _value.append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_text_summary_text), prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
-                            .append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.profile_preferences_clearNotification_text_summary_text), prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
+                    }
+                } else {
+                    value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(
+                                    ProfileStatic.getColorForChangedPreferenceValue(
+                                            context.getString(R.string.profile_preferences_clearNotification_applications_summary_text) + " " +
+                                            ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(value, "notifications", context, true),
+                                            prefMng, PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT, context)
+                            ).append(StringConstants.TAG_BOLD_END_HTML);
+
                 }
             } else {
                 String value = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
@@ -7350,16 +7368,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //noinspection DataFlowIssue
             boolean clearEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED,
                             Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED));
+            boolean applicationsSet = !preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS))
+                    .equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
             if (preference != null)
                 preference.setEnabled(listenerEnabled && clearEnabled);
             preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS);
             if (preference != null)
-                preference.setEnabled(listenerEnabled && clearEnabled);
+                preference.setEnabled(listenerEnabled && clearEnabled && applicationsSet);
             preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT);
             if (preference != null)
-                preference.setEnabled(listenerEnabled && clearEnabled);
+                preference.setEnabled(listenerEnabled && clearEnabled && applicationsSet);
         }
     }
 
