@@ -8834,24 +8834,8 @@ class ActivateProfileHelper {
                                                 packageName,
                                                 contactList);
                                         if (activeNotification != null) {
-                                            // TODO - vymaz notifikaciu
                                             if (!activeNotification.isOngoing()) {
                                                 String key = activeNotification.getKey();
-                                                /*
-                                                NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                                                int id = activeNotification.getId();
-                                                String tag = activeNotification.getTag();
-                                                if (notificationManager != null) {
-                                                    try {
-                                                        if ((tag != null) && (!tag.isEmpty()))
-                                                            notificationManager.cancel(tag, id);
-                                                        else
-                                                            notificationManager.cancel(id);
-                                                    } catch (Exception e) {
-                                                        PPApplicationStatic.recordException(e);
-                                                    }
-                                                }
-                                                */
                                                 try {
                                                     service.cancelNotification(key);
                                                 } catch (Exception e) {
