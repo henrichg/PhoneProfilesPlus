@@ -340,6 +340,7 @@ class ContactGroupsCache {
         }
     }
 
+/*
     ContactGroup getContactGroup(int position)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroup", "PPApplication.contactsCacheMutex");
@@ -350,6 +351,7 @@ class ContactGroupsCache {
                 return null;
         }
     }
+ */
 
     // called only from ContactGroupsCache
     void clearGroups(List<Contact> _contactList) {
