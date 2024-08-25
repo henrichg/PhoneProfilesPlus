@@ -39,11 +39,13 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -5854,6 +5856,8 @@ class ActivateProfileHelper {
 
         sendSMS(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
 
+        clearNotificaitons(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
+
         if (profile._applicationDisableGloabalEventsRun != 0) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0);
             dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1,
@@ -8793,8 +8797,364 @@ class ActivateProfileHelper {
         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, true)) {
+                PPNotificationListenerService service = PPNotificationListenerService.getInstance();
+                if (service != null) {
+                    try {
+                        StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                        //noinspection RedundantLengthCheck
+                        if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                            if (contactsCache != null) {
+                                List<Contact> contactList;
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.isNotificationVisible", "PPApplication.contactsCacheMutex");
+                                synchronized (PPApplication.contactsCacheMutex) {
+                                    contactList = contactsCache.getList(/*false*/);
+                                }
+
+                                for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+
+                                    // ignore PPP notification
+                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                        continue;
+                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
+                                        continue;
+                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                        continue;
+                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_EXTENDER))
+                                        continue;
+
+                                    String[] splits = profile._clearNotificationApplications.split(StringConstants.STR_SPLIT_REGEX);
+                                    for (String split : splits) {
+                                        // get only package name = remove activity
+                                        String packageName = Application.getPackageName(split);
+                                        // search for package name in saved package names
+                                        StatusBarNotification activeNotification = isNotificationActive(profile,
+                                                statusBarNotification,
+                                                packageName,
+                                                contactList);
+                                        if (activeNotification != null) {
+                                            // TODO - vymaz notifikaciu
+                                            if (!activeNotification.isOngoing()) {
+                                                String key = activeNotification.getKey();
+                                                /*
+                                                NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                                                int id = activeNotification.getId();
+                                                String tag = activeNotification.getTag();
+                                                if (notificationManager != null) {
+                                                    try {
+                                                        if ((tag != null) && (!tag.isEmpty()))
+                                                            notificationManager.cancel(tag, id);
+                                                        else
+                                                            notificationManager.cancel(id);
+                                                    } catch (Exception e) {
+                                                        PPApplicationStatic.recordException(e);
+                                                    }
+                                                }
+                                                */
+                                                try {
+                                                    service.cancelNotification(key);
+                                                } catch (Exception e) {
+                                                    PPApplicationStatic.recordException(e);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (contactList != null)
+                                    contactList.clear();
+                            }
+                        }
+                    } catch (Exception e) {
+                        //Log.e("ActivateProfileHelper.isNotificationVisible", Log.getStackTraceString(e));
+
+                        // Hm: java.lang.RuntimeException: Could not read bitmap blob.
+                        //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                        //PPApplicationStatic.recordException(e);
+                    }
+                }
+            }
         }
     }
+    // test statusBarNotification for event parameters
+    private static StatusBarNotification isNotificationActive(Profile profile,
+                                                       StatusBarNotification statusBarNotification,
+                                                       String packageName,
+                                                       List<Contact> contactList) {
+        try {
+            String packageNameFromNotification = statusBarNotification.getPackageName();
+//            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
+
+            boolean packageNameFound = false;
+            if (packageNameFromNotification.equals(packageName)) {
+                packageNameFound = true;
+            }
+
+            if (packageNameFound) {
+
+                boolean testText = false;
+
+                String notificationTicker = "";
+                String notificationTitle = "";
+                String notificationText = "";
+
+                if (profile._clearNotificationCheckContacts || profile._clearNotificationCheckText) {
+                    if (statusBarNotification.getNotification().tickerText != null) {
+                        notificationTicker = statusBarNotification.getNotification().tickerText.toString();
+                        testText = true;
+                    }
+                    Bundle extras = statusBarNotification.getNotification().extras;
+                    if (extras != null) {
+                        String _text1 = extras.getString("android.title");
+                        if (_text1 != null) {
+                            notificationTitle = _text1;
+                            testText = true;
+                        }
+                        CharSequence _text2 = extras.getCharSequence("android.text");
+                        if (_text2 != null) {
+                            notificationText = _text2.toString();
+                            testText = true;
+                        }
+                    }
+                }
+
+                boolean textFound = false;
+                if (testText) {
+                    // title or text or ticker is set in notification
+
+                    if (profile._clearNotificationCheckContacts) {
+                        boolean phoneNumberFound = false;
+                        if (!notificationTitle.isEmpty())
+                            phoneNumberFound = isContactConfigured(profile, notificationTitle, contactList);
+                        if (!notificationText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(profile, notificationText, contactList);
+                        if (!notificationTicker.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(profile, notificationTicker, contactList);
+
+                        textFound = phoneNumberFound;
+                    }
+                    if (profile._clearNotificationCheckText) {
+                        String searchText = "";
+                        for (int whatTest = 0; whatTest < 3; whatTest++) {
+                            // test in loop title (0), text(1), ticker(2)
+                            if (whatTest == 0) {
+                                if (!notificationTitle.isEmpty())
+                                    searchText = notificationTitle;
+                                else
+                                    continue;
+                            }
+                            if (whatTest == 1) {
+                                if (!notificationText.isEmpty())
+                                    searchText = notificationText;
+                                else
+                                    continue;
+                            }
+                            if (whatTest == 2) {
+                                if (!notificationTicker.isEmpty())
+                                    searchText = notificationTicker;
+                                else
+                                    continue;
+                            }
+
+                            String[] textSplits = profile._clearNotificationText.split(StringConstants.STR_SPLIT_REGEX);
+
+                            String[] positiveList = new String[textSplits.length];
+                            String[] negativeList = new String[textSplits.length];
+                            int argsId;
+
+                            // positive strings
+                            boolean positiveExists = false;
+                            argsId = 0;
+                            for (String split : textSplits) {
+                                if (!split.isEmpty()) {
+                                    String searchPattern = split;
+
+                                    if (searchPattern.startsWith("!")) {
+                                        // only positive
+                                        continue;
+                                    }
+
+                                    // trim leading and trailing spaces
+                                    searchPattern = searchPattern.trim();
+
+                                    // when in searchPattern are not wildcards add %
+                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                        searchPattern = "%" + searchPattern + "%";
+
+                                    searchPattern = searchPattern.replace("\\%", "{^^}");
+                                    searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                    searchPattern = searchPattern.replace("%", "(.*)");
+                                    searchPattern = searchPattern.replace("_", "(.)");
+
+                                    searchPattern = searchPattern.replace("{^^}", "\\%");
+                                    searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                    //if (!searchPattern.startsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "^";
+                                    //if (!searchPattern.endsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "$";
+
+                                    positiveList[argsId] = searchPattern;
+
+                                    positiveExists = true;
+
+                                    ++argsId;
+
+                                }
+                            }
+
+                            // negative strings
+                            boolean negativeExists = false;
+                            argsId = 0;
+                            for (String split : textSplits) {
+                                if (!split.isEmpty()) {
+                                    String searchPattern = split;
+
+                                    if (!searchPattern.startsWith("!")) {
+                                        // only negative
+                                        continue;
+                                    }
+
+                                    // remove !
+                                    searchPattern = searchPattern.substring(1);
+
+                                    // trim leading and trailing spaces
+                                    searchPattern = searchPattern.trim();
+
+                                    // when in searchPattern are not wildcards add %
+                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                        searchPattern = "%" + searchPattern + "%";
+
+                                    searchPattern = searchPattern.replace("\\%", "{^^}");
+                                    searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                    searchPattern = searchPattern.replace("%", "(.*)");
+                                    searchPattern = searchPattern.replace("_", "(.)");
+
+                                    searchPattern = searchPattern.replace("{^^}", "\\%");
+                                    searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                    //if (!searchPattern.startsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "^";
+                                    //if (!searchPattern.endsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "$";
+
+                                    negativeList[argsId] = searchPattern;
+
+                                    negativeExists = true;
+
+                                    ++argsId;
+
+                                }
+                            }
+
+                            boolean foundPositive = false;
+                            if (positiveExists) {
+                                for (String _positiveText : positiveList) {
+                                    if ((_positiveText != null) && (!_positiveText.isEmpty())) {
+                                        if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
+                                            foundPositive = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            boolean foundNegative = true;
+                            if (negativeExists) {
+                                for (String _negativeText : negativeList) {
+                                    if ((_negativeText != null) && (!_negativeText.isEmpty())) {
+                                        if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
+                                            foundNegative = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            textFound = foundPositive && foundNegative;
+
+                            if (textFound)
+                                break;
+                        }
+                    }
+                }
+
+                if (testText) {
+                    // is configured test text (_checkContacts or _checkText = true)
+                    if (textFound)
+                        return statusBarNotification;
+                    else
+                        return null;
+                } else {
+                    // is not configured test text (_checkContacts and _checkText = false)
+                    return statusBarNotification;
+                }
+            }
+        } catch (Exception e) {
+            //Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
+        // package name not found
+        return null;
+    }
+    private static boolean isContactConfigured(Profile profile, String text, List<Contact> contactList) {
+        boolean phoneNumberFound = false;
+
+        // find phone number in groups
+        String[] splits = profile._clearNotificationContactGroups.split(StringConstants.STR_SPLIT_REGEX);
+        for (String split : splits) {
+            if (!split.isEmpty()) {
+//                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isContactConfigured", "PPApplication.contactsCacheMutex");
+                synchronized (PPApplication.contactsCacheMutex) {
+                    if (contactList != null) {
+                        for (Contact contact : contactList) {
+                            if (contact.groups != null) {
+                                long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                if (groupId != -1) {
+                                    // group found in contact
+                                    String _contactName = contact.name;
+                                    if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                        phoneNumberFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (phoneNumberFound)
+                break;
+        }
+
+        if (!phoneNumberFound) {
+            // find phone number in contacts
+            // contactId#phoneId|...
+            splits = profile._clearNotificationContacts.split(StringConstants.STR_SPLIT_REGEX);
+            for (String split : splits) {
+                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+
+                if ((!split.isEmpty()) &&
+                        (splits2.length == 3) &&
+                        (!splits2[0].isEmpty()) &&
+                        (!splits2[1].isEmpty()) &&
+                        (!splits2[2].isEmpty())) {
+                    String contactName = splits2[0];
+                    if (text.toLowerCase().contains(contactName.toLowerCase())) {
+                        // phone number is in sensor configured
+                        phoneNumberFound = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return phoneNumberFound;
+    }
+
 
     static void getRingerVolume(Context context)
     {
