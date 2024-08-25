@@ -4788,8 +4788,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    /** @noinspection SameReturnValue*/
     private boolean setCategorySummaryClearNotifications(Context context,
-                                              CattegorySummaryData cattegorySummaryData) {
+                                                         CattegorySummaryData cattegorySummaryData) {
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 

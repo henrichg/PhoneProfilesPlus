@@ -736,11 +736,11 @@ class DatabaseHandlerProfiles {
                         profile._deviceWallpaperLockScreen = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN));
                         profile._clearNotificationEnabled = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED)) == 1;
                         profile._clearNotificationApplications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS));
-                        profile._clearNotificationCheckContacts = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS)) == 1;;
+                        profile._clearNotificationCheckContacts = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS)) == 1;
                         profile._clearNotificationContacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS));
-                        profile._clearNotificationContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS));;
-                        profile._clearNotificationCheckText = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1;;
-                        profile._clearNotificationText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT));;
+                        profile._clearNotificationContactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS));
+                        profile._clearNotificationCheckText = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1;
+                        profile._clearNotificationText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
