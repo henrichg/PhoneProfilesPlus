@@ -774,7 +774,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
+        //widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
+        widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
 
         //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
         //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);

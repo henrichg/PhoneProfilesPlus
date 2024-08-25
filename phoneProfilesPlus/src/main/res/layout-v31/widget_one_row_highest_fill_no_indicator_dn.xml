@@ -25,7 +25,10 @@
         android:layout_height="wrap_content"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/widget_ripple_list_item">
 
         <!-- must be RelativeLayout for best vertical center -->
         <RelativeLayout
@@ -60,10 +63,7 @@
             android:orientation="horizontal"
             android:layout_toStartOf="@id/widget_one_row_header_restart_events_click"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/widget_ripple_list_item">
+            android:layout_alignParentStart="true">
 
             <ImageView
                 android:id="@+id/widget_one_row_header_profile_icon"
