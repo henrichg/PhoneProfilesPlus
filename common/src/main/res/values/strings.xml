@@ -2269,6 +2269,7 @@
     <string name="profile_preferences_clearNotification_contact_groups_summary_text">Contact groups:</string>
     <string name="profile_preferences_clearNotification_contacts_summary_text">Contacts:</string>
     <string name="profile_preferences_clearNotification_text_summary_text">Text</string>
+    <string name="export_settings_delete_contacts_data_clear_notification">Contacts for profile parameter \"Clear notifications\"</string>
 
     <!-- **************************************************************************************** -->
 

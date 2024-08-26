@@ -141,6 +141,13 @@
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_send_sms" />
+            <CheckBox
+                android:id="@+id/deleteSecureDataInExportDialogClearNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/checkbox_radiobutton_color"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_contacts_data_clear_notification" />
 
         </LinearLayout>
 

@@ -829,7 +829,8 @@ class DatabaseHandlerImportExport {
                             DatabaseHandler.KEY_E_ID + "," +
                             DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
                             DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
-                            DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                            DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS + "," +
+                            DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS +
                             " FROM " + DatabaseHandler.TABLE_EVENTS, null);
 
                     if (cursorImportDB.moveToFirst()) {
@@ -839,6 +840,7 @@ class DatabaseHandlerImportExport {
                             String callContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
                             String smsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
                             String notificationContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
+                            String callScreeningContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS));
 
                             String decryptedCallContacts;
                             try {
@@ -858,18 +860,26 @@ class DatabaseHandlerImportExport {
                             } catch (Exception e) {
                                 decryptedNotificationContacts = "";
                             }
+                            String decryptedCallScreeningContacts;
+                            try {
+                                decryptedCallScreeningContacts = encryption.decryptOrNull(callScreeningContacts);
+                            } catch (Exception e) {
+                                decryptedCallScreeningContacts = "";
+                            }
 //                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedCallContacts="+decryptedCallContacts);
 //                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSMSContacts="+decryptedSMSContacts);
 //                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedNotificationContacts);
+//                        Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedNotificationContacts="+decryptedCallScreeningContacts);
                             if (decryptedCallContacts == null) decryptedCallContacts = "";
                             if (decryptedSMSContacts == null) decryptedSMSContacts = "";
-                            if (decryptedNotificationContacts == null)
-                                decryptedNotificationContacts = "";
+                            if (decryptedNotificationContacts == null) decryptedNotificationContacts = "";
+                            if (decryptedCallScreeningContacts == null) decryptedCallScreeningContacts = "";
 
                             ContentValues values = new ContentValues();
                             values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, decryptedCallContacts);
                             values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, decryptedSMSContacts);
                             values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, decryptedNotificationContacts);
+                            values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, decryptedCallScreeningContacts);
 
                             db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                     new String[]{String.valueOf(eventId)});
@@ -882,6 +892,7 @@ class DatabaseHandlerImportExport {
                         cursorImportDB.close();
                 }
 
+                /*
                 try {
                     cursorImportDB = db.rawQuery("SELECT " +
                             DatabaseHandler.KEY_ID + "," +
@@ -916,30 +927,42 @@ class DatabaseHandlerImportExport {
                     if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                         cursorImportDB.close();
                 }
+                */
 
                 try {
                     cursorImportDB = db.rawQuery("SELECT " +
                             DatabaseHandler.KEY_ID + "," +
-                            DatabaseHandler.KEY_SEND_SMS_CONTACTS +
+                            DatabaseHandler.KEY_SEND_SMS_CONTACTS + "," +
+                            DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS +
                             " FROM " + DatabaseHandler.TABLE_PROFILES, null);
 
                     if (cursorImportDB.moveToFirst()) {
                         do {
                             long profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
 
-                            String phoneCallsContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+                            String sendSMSContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACTS));
+                            String clearNotificationContacts = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS));
 
-                            String decryptedPhoneCallsContacts;
+                            String decryptedSendSMSContacts;
                             try {
-                                decryptedPhoneCallsContacts = encryption.decryptOrNull(phoneCallsContacts);
+                                decryptedSendSMSContacts = encryption.decryptOrNull(sendSMSContacts);
                             } catch (Exception e) {
-                                decryptedPhoneCallsContacts = "";
+                                decryptedSendSMSContacts = "";
                             }
-                            //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedPhoneCallsContacts="+decryptedPhoneCallsContacts);
-                            if (decryptedPhoneCallsContacts == null) decryptedPhoneCallsContacts = "";
+                            String decryptedClearNotificationContacts;
+                            try {
+                                decryptedClearNotificationContacts = encryption.decryptOrNull(clearNotificationContacts);
+                            } catch (Exception e) {
+                                decryptedClearNotificationContacts = "";
+                            }
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedSendSMSContacts="+decryptedSendSMSContacts);
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", "decryptedClearNotificationContacts="+decryptedClearNotificationContacts);
+                            if (decryptedSendSMSContacts == null) decryptedSendSMSContacts = "";
+                            if (decryptedClearNotificationContacts == null) decryptedClearNotificationContacts = "";
 
                             ContentValues values = new ContentValues();
-                            values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, decryptedPhoneCallsContacts);
+                            values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, decryptedSendSMSContacts);
+                            values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS, decryptedClearNotificationContacts);
 
                             db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                     new String[]{String.valueOf(profileId)});
@@ -1826,7 +1849,8 @@ class DatabaseHandlerImportExport {
                         boolean deleteGeofences, boolean deleteWifiSSIDs,
                         boolean deleteBluetoothNames, boolean deleteMobileCells,
                         boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
-                        boolean deletePhoneCalls, boolean deleteCallScreening)
+                        boolean deletePhoneCalls, boolean deleteCallScreening,
+                        boolean deleteClearNotifications)
     {
         instance.importExportLock.lock();
         try {
@@ -1908,7 +1932,8 @@ class DatabaseHandlerImportExport {
                                                     DatabaseHandler.KEY_E_ID + "," +
                                                     DatabaseHandler.KEY_E_CALL_CONTACTS + "," +
                                                     DatabaseHandler.KEY_E_SMS_CONTACTS + "," +
-                                                    DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS +
+                                                    DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS + "," +
+                                                    DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS +
                                                     " FROM " + DatabaseHandler.TABLE_EVENTS, null);
 
                                             if (cursorExportDB.moveToFirst()) {
@@ -1918,21 +1943,26 @@ class DatabaseHandlerImportExport {
                                                     String callContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTACTS));
                                                     String smsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_CONTACTS));
                                                     String notificationContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS));
+                                                    String callScreeningContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS));
 
                                                     String encryptedCallContacts = encryption.encryptOrNull(callContacts);
                                                     String encryptedSMSContacts = encryption.encryptOrNull(smsContacts);
                                                     String encryptedNotificationContacts = encryption.encryptOrNull(notificationContacts);
+                                                    String encryptedCallScreeningContacts = encryption.encryptOrNull(callScreeningContacts);
 //                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallContacts="+encryptedCallContacts);
 //                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSMSContacts="+encryptedSMSContacts);
 //                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedNotificationContacts="+encryptedNotificationContacts);
+//                                                    Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedCallScreeningContacts="+encryptedCallScreeningContacts);
                                                     if (encryptedCallContacts == null) encryptedCallContacts="";
                                                     if (encryptedSMSContacts == null) encryptedSMSContacts="";
                                                     if (encryptedNotificationContacts == null) encryptedNotificationContacts="";
+                                                    if (encryptedCallScreeningContacts == null) encryptedCallScreeningContacts="";
 
                                                     ContentValues values = new ContentValues();
                                                     values.put(DatabaseHandler.KEY_E_CALL_CONTACTS, encryptedCallContacts);
                                                     values.put(DatabaseHandler.KEY_E_SMS_CONTACTS, encryptedSMSContacts);
                                                     values.put(DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS, encryptedNotificationContacts);
+                                                    values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, encryptedCallScreeningContacts);
 
                                                     exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                                                 new String[]{String.valueOf(eventId)});
@@ -1945,6 +1975,7 @@ class DatabaseHandlerImportExport {
                                                 cursorExportDB.close();
                                         }
 
+                                        // encript it, because must be encripted evem when is not used
                                         cursorExportDB = null;
                                         try {
                                             cursorExportDB = exportedDBObj.rawQuery("SELECT " +
@@ -1980,21 +2011,27 @@ class DatabaseHandlerImportExport {
                                         try {
                                             cursorExportDB = exportedDBObj.rawQuery("SELECT " +
                                                     DatabaseHandler.KEY_ID + "," +
-                                                    DatabaseHandler.KEY_SEND_SMS_CONTACTS +
+                                                    DatabaseHandler.KEY_SEND_SMS_CONTACTS + "," +
+                                                    DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS +
                                                     " FROM " + DatabaseHandler.TABLE_PROFILES, null);
 
                                             if (cursorExportDB.moveToFirst()) {
                                                 do {
                                                     long profileId = cursorExportDB.getLong(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
 
-                                                    String phoneCallsContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+                                                    String sendSMSContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SEND_SMS_CONTACTS));
+                                                    String clearNotificationContacts = cursorExportDB.getString(cursorExportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS));
 
-                                                    String encryptedPhoneCallsContacts = encryption.encryptOrNull(phoneCallsContacts);
-                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedPhoneCallsContacts="+encryptedPhoneCallsContacts);
-                                                    if (encryptedPhoneCallsContacts == null) encryptedPhoneCallsContacts="";
+                                                    String encryptedSendSMSContacts = encryption.encryptOrNull(sendSMSContacts);
+                                                    String encryptedClearNotificationContacts = encryption.encryptOrNull(clearNotificationContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedSendSMSContacts="+encryptedSendSMSContacts);
+                                                    //Log.e("DatabaseHandlerImportExport.exportedDB", "encryptedClearNotificationContacts="+encryptedClearNotificationContacts);
+                                                    if (encryptedSendSMSContacts == null) encryptedSendSMSContacts="";
+                                                    if (encryptedClearNotificationContacts == null) encryptedClearNotificationContacts="";
 
                                                     ContentValues values = new ContentValues();
-                                                    values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, encryptedPhoneCallsContacts);
+                                                    values.put(DatabaseHandler.KEY_SEND_SMS_CONTACTS, encryptedSendSMSContacts);
+                                                    values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS, encryptedClearNotificationContacts);
 
                                                     exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                                             new String[]{String.valueOf(profileId)});
@@ -2188,6 +2225,13 @@ class DatabaseHandlerImportExport {
                                             _values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, encriptedEmptyStr);
                                             _values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, "");
                                             exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, _values, null, null);
+                                        }
+                                        if (deleteClearNotifications) {
+                                            //Log.e("DatabaseHandlerImportExport.exportedDB", "deletePhoneCalls");
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS, encriptedEmptyStr);
+                                            _values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_PROFILES, _values, null, null);
                                         }
 
                                     } catch (Exception ee) {
