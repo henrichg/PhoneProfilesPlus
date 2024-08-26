@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7358,6 +7359,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
+                key.equals(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS) ||
@@ -7375,7 +7377,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
             if (preference != null)
-                preference.setEnabled(listenerEnabled && clearEnabled);
+                preference.setEnabled(listenerEnabled);
+
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
+            if (preference != null)
+                preference.setEnabled(listenerEnabled && applicationsSet);
+
             preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS);
             if (preference != null)
                 preference.setEnabled(listenerEnabled && clearEnabled && applicationsSet);
@@ -7402,6 +7409,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACTS) ||
             key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS) ||
+            key.equals(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) ||
             key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
             key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS) ||
             key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)) {

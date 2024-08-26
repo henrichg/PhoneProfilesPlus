@@ -14,7 +14,6 @@
         app:key="prf_pref_clearNotificationNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
         app:summary="@string/profile_preferences_clearNotificationsAccessSettings_summary"
-        app:dependency="prf_pref_clearNotificationEnbaled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
@@ -23,7 +22,6 @@
         app:title="@string/event_preferences_notifications_applications"
         app:removePPApplications="1"
         app:systemSettings="notifications"
-        app:dependency="prf_pref_clearNotificationEnbaled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat

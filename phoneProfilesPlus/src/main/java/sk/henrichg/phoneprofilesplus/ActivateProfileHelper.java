@@ -8788,74 +8788,77 @@ class ActivateProfileHelper {
                                    SharedPreferences executedProfileSharedPreferences,
                                    final boolean forRestartEvents) {
         if (PPApplication.blockProfileEventActions)
-            // not send sms when are blocked profile ections (for example at start of PPP)
+            // not clear notifications when are blocked profile ections (for example at start of PPP)
             return;
         if (forRestartEvents)
-            // do not send sms for restart events
+            // do not clear notifications for restart events
             return;
 
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, null, executedProfileSharedPreferences, true, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, true)) {
-                PPNotificationListenerService service = PPNotificationListenerService.getInstance();
-                if (service != null) {
-                    try {
-                        StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
-                        //noinspection RedundantLengthCheck
-                        if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
-                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                            if (contactsCache != null) {
-                                List<Contact> contactList;
+                if (profile._clearNotificationEnabled && (profile._clearNotificationApplications != null)
+                        && (!profile._clearNotificationApplications.isEmpty())) {
+                    PPNotificationListenerService service = PPNotificationListenerService.getInstance();
+                    if (service != null) {
+                        try {
+                            StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                            //noinspection RedundantLengthCheck
+                            if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                if (contactsCache != null) {
+                                    List<Contact> contactList;
 //                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.isNotificationVisible", "PPApplication.contactsCacheMutex");
-                                synchronized (PPApplication.contactsCacheMutex) {
-                                    contactList = contactsCache.getList(/*false*/);
-                                }
+                                    synchronized (PPApplication.contactsCacheMutex) {
+                                        contactList = contactsCache.getList(/*false*/);
+                                    }
 
-                                for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+                                    for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
-                                    // ignore PPP notification
-                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
-                                        continue;
-                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
-                                        continue;
-                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
-                                        continue;
-                                    if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_EXTENDER))
-                                        continue;
+                                        // ignore PPP notification
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                            continue;
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
+                                            continue;
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                            continue;
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_EXTENDER))
+                                            continue;
 
-                                    String[] splits = profile._clearNotificationApplications.split(StringConstants.STR_SPLIT_REGEX);
-                                    for (String split : splits) {
-                                        // get only package name = remove activity
-                                        String packageName = Application.getPackageName(split);
-                                        // search for package name in saved package names
-                                        StatusBarNotification activeNotification = isNotificationActive(profile,
-                                                statusBarNotification,
-                                                packageName,
-                                                contactList);
-                                        if (activeNotification != null) {
-                                            if (!activeNotification.isOngoing()) {
-                                                String key = activeNotification.getKey();
-                                                try {
-                                                    service.cancelNotification(key);
-                                                } catch (Exception e) {
-                                                    PPApplicationStatic.recordException(e);
+                                        String[] splits = profile._clearNotificationApplications.split(StringConstants.STR_SPLIT_REGEX);
+                                        for (String split : splits) {
+                                            // get only package name = remove activity
+                                            String packageName = Application.getPackageName(split);
+                                            // search for package name in saved package names
+                                            StatusBarNotification activeNotification = isNotificationActive(profile,
+                                                    statusBarNotification,
+                                                    packageName,
+                                                    contactList);
+                                            if (activeNotification != null) {
+                                                if (!activeNotification.isOngoing()) {
+                                                    String key = activeNotification.getKey();
+                                                    try {
+                                                        service.cancelNotification(key);
+                                                    } catch (Exception e) {
+                                                        PPApplicationStatic.recordException(e);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+
+                                    if (contactList != null)
+                                        contactList.clear();
                                 }
-
-                                if (contactList != null)
-                                    contactList.clear();
                             }
-                        }
-                    } catch (Exception e) {
-                        //Log.e("ActivateProfileHelper.isNotificationVisible", Log.getStackTraceString(e));
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.isNotificationVisible", Log.getStackTraceString(e));
 
-                        // Hm: java.lang.RuntimeException: Could not read bitmap blob.
-                        //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
-                        //PPApplicationStatic.recordException(e);
+                            // Hm: java.lang.RuntimeException: Could not read bitmap blob.
+                            //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                            //PPApplicationStatic.recordException(e);
+                        }
                     }
                 }
             }
