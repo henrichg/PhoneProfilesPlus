@@ -544,7 +544,65 @@ Alebo v One UI. Že je tam zlý downloader.
 
 ------------
 
-Takze zatial kazdy mobil ma spriahnute ringing a system volume. Teda taky, co system nema v Settings.
+- _restartEvents() loguje, ak je jeho parameter manualRestart = true:
+  PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
+
+- volany je z restartEvents()
+- a ten je volany z _restartEventsWithRescan()
+- a ten je volany z restartEventsWithRescan()
+
+- a nakoniec restartEventsWithRescan() je volany z vela miest:
+  - ActionForExternalApplicationActivity.onStart() - nie manual restart
+  - DatabaseHandler.onUpgrade() - nie manual restart
+
+  Tieto su jasne, toto urcite Zajicek nerobil:
+  - DataWrapper.stopEventForProfile() - MANUAL ***
+    - DataWrapper.stopEventForProfileFromMainThread()
+      - EditorProfileListFragment.deleteProfile()
+  - DataWrapper.restartEventsWithAlert() - MANUAL ***
+    - ActivatorActivity.onOptionsItemSelected()
+    - EditorActivity.onOptionsItemSelected()
+    - GeneratrNotificationAfterClickDialog()
+    - RestartEventsFromGUIActivity.onStart()
+    - ActivatorListFragment.activateProfile()
+    - BackgroundActivateProfileActivity.activateProfile()
+      - DataWrapperStatic.createShortcutInfo()
+      - OneRowProfileListWidgetPtovider.setProfileIcon()
+      - PPTileService.onClick()
+      - ProfileListNotification.setProfileIcon()
+      - ProfileListWidgetProvider.buildLayout()
+      - SamsungEdgeProvider.buildLayout()
+      - ShortcutCreatorListFragment.onPreExecute()
+  - EditorEventListFragment.deleteEvent() - MANUAL ***
+  - EditorProfileListFragment.deleteProfile() - MANUAL ***
+  - EventsPrefsActivity.savePreferences() - MANUAL ***
+  - EventsPrefsActivity.saveUpdateOfPreferences() - MANUAL ***
+  - EventStatic.runStopEvent() - MANUAL ***
+    - EditorEventListFragment.showEditMenu()
+    - EventStatusPopupWindow()
+  - ProfilePrefsActivity.savePreferences() - MANUAL ***
+
+  - DataWrapper.startEventsAtFirstStart() - AKO PARAMETER - najdi kde je volane
+    - DataWrapper.firstStartEvents() - AKO PARAMETER - najdi kde je volane
+  - DataWrapper.restartEventsWithDelay() - AKO PARAMETER - najdi kde je volane
+    - Event.doActivateEndProfile() - nie je manual restart
+    - GrantPermissionActivity.finishGrant()
+    - MainWorker.doWork().ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
+    - PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED
+    - ProfileDurationAlarmBroadcastReceiver._doWork() - nie je manual restart
+
+  - RestartEventsWithDelayWork.doWork() - AKO PARAMETER - najdi kde je volane
+    - RestartEventsWithDelayWorker.doWork() - AKO EXTRA - najdi kde je volane
+      - DataWrapper.restartEventsWithDelay() - pre longDelay
+      - MainWorker.doWork() - nie je manual restart
+      - ProfileDurationAlarmBroadcastReceiver.onReceive() - nie je manual restart
+      - ProfileDurationAlarmBroadcastReceiver.setAlarm() - troska zlozite
+
+  - EventStatic.runStopEvent() - MANUAL ***
+    - ActionForExternalApplicationActivity.onStart() !!!!
+- TimeChangedReceiver.doWork() - MANUAL *** !!!!
+
+Je teda vela manual restartov :-)
 
 -----------------
 
@@ -558,14 +616,3 @@ Fixed appcompat 1.7.0 dependencies problem.
 Fix: Fixed download link of InstallWithOptions.pak in docs.
 
 --------------
-
-Tieto retazce zmen:
-    <string name="important_info_profile_activation_text9">Green: events can be started.</string>
-    <string name="important_info_profile_activation_text10">Orange: events cannot start - profile was activated manually.</string>
-Tieto da j prepozitn nanovo (najprv si ho uprav tu), hlavne o tom povoleni behu udalsoti, uz nie je v menu, je v top bare.
-    <string name="important_info_profile_activation_text11">Red: events are stopped - events run can be enabled through Editor menu item \"Enable events run\".</string>
-    <string name="info_notification_event_not_started_2">You disable global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".</string>
-
----
-
-Pokusxxx
