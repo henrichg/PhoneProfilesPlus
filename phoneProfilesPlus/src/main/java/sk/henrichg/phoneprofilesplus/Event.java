@@ -1914,6 +1914,7 @@ class Event {
         eventTimelineList.add(eventTimeline);
     }
 
+    // !!! WARNING: call it olny from EventsHandler.doHandleEvent() !!!
     void startEvent(DataWrapper dataWrapper,
                             //boolean ignoreGlobalPref,
                             //boolean interactive,
@@ -1922,19 +1923,29 @@ class Event {
                             //boolean log,
                             Profile mergedProfile)
     {
-        // remove delay alarm
-        removeDelayStartAlarm(dataWrapper); // for start delay
-        removeDelayEndAlarm(dataWrapper); // for end delay
-        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
-
         if ((!EventStatic.getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
             return;
 
         if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true))) {
-            // event is not runnable, no start it
+            // event is not runnable, no start it, but pause it
+
+            // parameters as from EventsHandler.doHandleEvent()
+            //pauseEvent(dataWrapper, true, false, false,
+            //        true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
+
+            // parameters as from DataWrapper._activateProfile() but:
+            // do not allow restart events, do not activate return profile, do not call system event,
+            // do npt merge to mergedProfile
+            pauseEvent(dataWrapper, false, true, true,
+                    true, null, false, forRestartEvents, manualRestart, true);
             return;
         }
+
+        // remove delay alarm
+        removeDelayStartAlarm(dataWrapper); // for start delay
+        removeDelayEndAlarm(dataWrapper); // for end delay
+        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
         //if (ApplicationPreferences.prefEventsBlocked)
         if (EventStatic.getEventsBlocked(dataWrapper.context))
