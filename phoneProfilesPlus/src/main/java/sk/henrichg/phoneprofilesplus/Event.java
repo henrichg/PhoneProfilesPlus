@@ -2360,9 +2360,10 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
+        // !!! Pause event even if is when not good configured !!!
+        //if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
             // event is not runnable, no pause it
-            return;
+        //    return;
 
 /*		if (PPApplication.getEventsBlocked(dataWrapper.context))
         {

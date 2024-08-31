@@ -981,15 +981,19 @@ class DataWrapper {
                 Event event = it.next();
                 if (event != null) {
                     int status = event.getStatusFromDB(context);
+//                    Log.e("DataWrapper.pauseAllEvents", "event._name="+event._name);
+//                    Log.e("DataWrapper.pauseAllEvents", "status="+status);
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
+//                            Log.e("DataWrapper.pauseAllEvents", "pause event");
                             event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false, false, true);
                         }
                     }
 
                     setEventBlocked(event, false);
                     if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._ignoreManualActivation) {
+//                        Log.e("DataWrapper.pauseAllEvents", "block event");
                         // block only running forceRun events
                         if (!event._noPauseByManualActivation) // do not pause event, even when is running
                             setEventBlocked(event, true);
@@ -997,6 +1001,7 @@ class DataWrapper {
 
                     if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
                         // for "push" events, set startTime to 0
+//                        Log.e("DataWrapper.pauseAllEvents", "clearSensorsStartTime");
                         clearSensorsStartTime(event, true);
                     }
                 }

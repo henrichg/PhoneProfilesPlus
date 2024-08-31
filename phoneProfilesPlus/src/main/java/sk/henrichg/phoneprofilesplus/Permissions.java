@@ -1449,10 +1449,13 @@ class Permissions {
 
         if (event != null) {
             try {
+                // location must be enabled for Wifi sensor, for get proper connected SSID
+                // locaiton is required also for connected/not connected
+
                 //noinspection DuplicateExpressions
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
-//                        (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION) ||
+                        (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_TIME) ||
@@ -1465,20 +1468,33 @@ class Permissions {
                         grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
-                            (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) /*||
-                            (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION)*/) {
-                        if ((event._eventPreferencesWifi._enabled &&
-                            (/*(event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED) ||*/
-                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
-                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
-                            if (permissions != null) {
-                                if (!grantedAccessFineLocation)
-                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-                                if (!grantedAccessCoarseLocation)
-                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                // only for API 29 add also background location For 30+ must be granted separatelly
-                                if (Build.VERSION.SDK_INT >= 29) {
+                            (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
+                            (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION)) {
+                        if (Build.VERSION.SDK_INT < 29) {
+                            if (ApplicationPreferences.applicationEventWifiEnableScanning &&
+                                (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) &&
+                                (event._eventPreferencesWifi._enabled &&
+                                ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
+                                if (permissions != null) {
+                                    if (!grantedAccessFineLocation)
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    if (!grantedAccessCoarseLocation)
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                }
+                            }
+                        } else {
+                            if ((event._eventPreferencesWifi._enabled &&
+                                ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED) ||
+                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
+                                if (permissions != null) {
+                                    if (!grantedAccessFineLocation)
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                    if (!grantedAccessCoarseLocation)
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                    // only for API 29 add also background location For 30+ must be granted separatelly
                                     if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                         permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
@@ -1487,7 +1503,9 @@ class Permissions {
                     }
 
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
-                        if (event._eventPreferencesBluetooth._enabled &&
+                        if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                            (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) &&
+                            event._eventPreferencesBluetooth._enabled &&
                             ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                              (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                             if (permissions != null) {
@@ -1505,7 +1523,9 @@ class Permissions {
                     }
 
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
-                        if (event._eventPreferencesMobileCells._enabled) {
+                        if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                            (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) &&
+                            event._eventPreferencesMobileCells._enabled) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
                                     permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
@@ -1538,7 +1558,9 @@ class Permissions {
                     }
 
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
-                        if (event._eventPreferencesLocation._enabled) {
+                        if (ApplicationPreferences.applicationEventLocationEnableScanning &&
+                            (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile) &&
+                            event._eventPreferencesLocation._enabled) {
                             if (permissions != null) {
                                 if (!grantedAccessFineLocation)
                                     permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
@@ -1561,6 +1583,7 @@ class Permissions {
             //noinspection DuplicateExpressions
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_TIME) ||
@@ -1572,17 +1595,34 @@ class Permissions {
                 if (Build.VERSION.SDK_INT >= 29)
                     grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
-                    if ((preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
-                        ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NEARBY) ||
-                         (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
-                        if (permissions != null) {
-                            if (!grantedAccessFineLocation)
-                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-                            if (!grantedAccessCoarseLocation)
-                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            // only for API 29 add also background location For 30+ must be granted separatelly
-                            if (Build.VERSION.SDK_INT >= 29) {
+                if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER)  ||
+                    (sensorType == EventsHandler.SENSOR_TYPE_WIFI_CONNECTION)) {
+                    if (Build.VERSION.SDK_INT < 29) {
+                        if (ApplicationPreferences.applicationEventWifiEnableScanning &&
+                            (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) &&
+                            (preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
+                            ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NEARBY) ||
+                             (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
+                            if (permissions != null) {
+                                if (!grantedAccessFineLocation)
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                if (!grantedAccessCoarseLocation)
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            }
+                        }
+                    } else {
+                        if ((preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
+                            ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                             (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NOT_CONNECTED) ||
+                             (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NEARBY) ||
+                             (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "1")) == EventPreferencesWifi.CTYPE_NOT_NEARBY)))) {
+                            if (permissions != null) {
+                                if (!grantedAccessFineLocation)
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                                if (!grantedAccessCoarseLocation)
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                     permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
@@ -1591,7 +1631,9 @@ class Permissions {
                 }
 
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
-                    if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
+                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                        (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) &&
+                        preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
                         ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                          (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                         if (permissions != null) {
@@ -1609,7 +1651,9 @@ class Permissions {
                 }
 
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
-                    if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
+                    if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                        (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) &&
+                        preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
                                 permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
@@ -1642,7 +1686,9 @@ class Permissions {
                 }
 
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
-                    if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
+                    if (ApplicationPreferences.applicationEventLocationEnableScanning &&
+                        (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile) &&
+                        preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
                         if (permissions != null) {
                             if (!grantedAccessFineLocation)
                                 permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
@@ -1669,9 +1715,11 @@ class Permissions {
         if (event != null) {
             try {
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
-                    if (event._eventPreferencesBluetooth._enabled &&
-                            ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                                    (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                        (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) &&
+                        event._eventPreferencesBluetooth._enabled &&
+                        ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                         boolean granted = checkBluetoothForEMUI(context);
                         if (permissions != null) {
                             if (!granted)
@@ -1683,9 +1731,11 @@ class Permissions {
             }
         } else {
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
-                if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
-                        ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                         (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                    (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) &&
+                    preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
+                    ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                     (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
                     boolean granted = checkBluetoothForEMUI(context);
                     if (permissions != null) {
                         if (!granted)
