@@ -36,6 +36,12 @@ class DatabaseHandlerImportExport {
     static final String PREF_MAXIMUM_VOLUME_DTMF = "maximumVolume_dtmf";
     static final String PREF_MAXIMUM_VOLUME_ACCESSIBILITY = "maximumVolume_accessibility";
     static final String PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO = "maximumVolume_bluetoothSCO";
+    static final String PREF_MINIMUM_VIBRATION_INTENSITY_RINGING = "minimumVibrationIntensity_ringing";
+    static final String PREF_MINIMUM_VIBRATION_INTENSITY_NOTIFICATION = "minimumVibrationIntensity_notificaitons";
+    static final String PREF_MINIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION = "minimumVibrationIntensity_touchInteraction";
+    static final String PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING = "maximumVibrationIntensity_ringing";
+    static final String PREF_MAXIMUM_VIBRATION_INTENSITY_NOTIFICATION = "maximumVibrationIntensity_notificaitons";
+    static final String PREF_MAXIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION = "maximumVibrationIntensity_touchInteraction";
 
     static private boolean tableExists(String tableName, SQLiteDatabase db)
     {
@@ -1159,8 +1165,9 @@ class DatabaseHandlerImportExport {
         }
     }
 
-    static private void recalculateVibrationIntensity(Cursor cursorImportDB, String vibrationIntensityField,
-                                          ContentValues values, int minimumVibrationIntensity, int maximumVibrationIntensity) {
+    static private void recalculateVibrationIntensity(Cursor cursorImportDB, String vibrationIntensityField, ContentValues values,
+                                                      int minimumVibrationIntensityFromPref, int maximumVibrationIntensityFromPref,
+                                                      int minimumVibrationIntensity, int maximumVibrationIntensity) {
         try {
             String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(vibrationIntensityField));
             if (value != null) {
@@ -1170,9 +1177,9 @@ class DatabaseHandlerImportExport {
 
                 // get percentage of value from imported data
                 float percentage;
-                //if (maximumVolumeFromSharedPrefs > 0)
-                //    percentage = fVibrationIntensity / maximumVolumeFromSharedPrefs * 100f;
-                //else
+                if (maximumVibrationIntensityFromPref > 0)
+                    percentage = fVibrationIntensity / (maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) * 100f;
+                else
                     percentage = fVibrationIntensity / (maximumVibrationIntensity - minimumVibrationIntensity);
                 if (percentage > 100f)
                     percentage = 100f;
@@ -1195,11 +1202,19 @@ class DatabaseHandlerImportExport {
         }
     }
 
-    static private void afterImportDbVibrationIntensity(/*DatabaseHandler instance,*/ SQLiteDatabase db) {
+    static private void afterImportDbVibrationIntensity(DatabaseHandler instance, SQLiteDatabase db) {
         Cursor cursorImportDB = null;
 
         // update volumes by device max value
         try {
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
+            int maximumRingingVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING, 0);
+            int maximumNotificationsVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_NOTIFICATION, 0);
+            int maximumTouchInteractionVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, 0);
+            int minimumRingingVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING, 0);
+            int minimumNotificaitonsVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MINIMUM_VIBRATION_INTENSITY_NOTIFICATION, 0);
+            int minimumTouchInteractionVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MINIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, 0);
+
             int maximumRingingVibrationIntensity = VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE);
             int maximumNotificationsVibrationIntensity = VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE);
             int maximumTouchInteractionVibrationIntensity = VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE);
@@ -1221,14 +1236,17 @@ class DatabaseHandlerImportExport {
 
                     ContentValues values = new ContentValues();
 
-                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
-                            values, minimumRingingVibrationIntensity, maximumRingingVibrationIntensity);
+                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, values,
+                            minimumRingingVibrationIntensityFromSharedPref, maximumRingingVibrationIntensityFromSharedPref,
+                            minimumRingingVibrationIntensity, maximumRingingVibrationIntensity);
 
-                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
-                            values, minimumNotificaitonsVibrationIntensity, maximumNotificationsVibrationIntensity);
+                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, values,
+                            minimumNotificaitonsVibrationIntensityFromSharedPref, maximumNotificationsVibrationIntensityFromSharedPref,
+                            minimumNotificaitonsVibrationIntensity, maximumNotificationsVibrationIntensity);
 
-                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION,
-                            values, minimumTouchInteractionVibrationIntensity, maximumTouchInteractionVibrationIntensity);
+                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, values,
+                            minimumTouchInteractionVibrationIntensityFromSharedPref, maximumTouchInteractionVibrationIntensityFromSharedPref,
+                            minimumTouchInteractionVibrationIntensity, maximumTouchInteractionVibrationIntensity);
 
                     // updating row
                     //noinspection SizeReplaceableByIsEmpty
@@ -1417,7 +1435,7 @@ class DatabaseHandlerImportExport {
             }
         }
 
-        afterImportDbVibrationIntensity(/*instance,*/ db);
+        afterImportDbVibrationIntensity(instance, db);
 
         // remove all not used non-named mobile cells
         DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);

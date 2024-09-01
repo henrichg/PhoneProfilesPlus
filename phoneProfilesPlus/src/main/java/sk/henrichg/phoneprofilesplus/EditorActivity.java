@@ -2860,6 +2860,25 @@ public class EditorActivity extends AppCompatActivity
                     } catch (Exception ignored) {}
                 }
 
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_RINGING, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_NOTIFICATION, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING, VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VIBRATION_INTENSITY_NOTIFICATION, VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+
                 editor.commit();
                 output.writeObject(pref.getAll());
 
