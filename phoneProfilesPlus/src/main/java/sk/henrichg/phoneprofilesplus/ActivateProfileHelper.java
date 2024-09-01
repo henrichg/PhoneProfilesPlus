@@ -129,14 +129,15 @@ class ActivateProfileHelper {
     private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
     private static final String SETTINGS_PREF_VIBRATE_IN_SILENT = "vibrate_in_silent";
-    private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
     private static final String SETTINGS_PREF_VIBRATE_ON = "vibrate_on";
-    private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
     private static final String SETTINGS_AUDIO_SAFE_VOLUME_STATE = "audio_safe_volume_state";
     private static final String SETTINGS_HEADSUP_NOTIFICATION_ENABLED = "heads_up_notifications_enabled";
     private static final String SETTINGS_LOW_POWER = "low_power";
     private static final String SETTINGS_DOZE_ALWAYS_ON = "doze_always_on";
     private static final String SETTINGS_UI_NIGHT_MODE = "ui_night_mode";
+    private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
+    private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
+    private static final String SETTINGS_PREF_HAPTIC_FEEDBACK_VIBRATION_INTENSITY = "haptic_feedback_intensity";
 
 //    private static final String PPPPS_SETTINGS_TYPE_SPECIAL = "setting_type_special";
 //    private static final String SETTINGS_SET_WIFI_ENABLED = "setWifiEnabled";
@@ -1811,6 +1812,8 @@ class ActivateProfileHelper {
                             }
                             else
                             if (PPApplication.deviceIsOnePlus) {
+                                // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                 switch (lValue) {
                                     case 1:
                                         if (Settings.System.getInt(appContext.getContentResolver(),
@@ -1835,6 +1838,8 @@ class ActivateProfileHelper {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_SILENT, String.valueOf(lValue));
                                 } else if (PPApplication.deviceIsOnePlus) {
+                                    // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                    // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     switch (lValue) {
                                         case 1:
@@ -1861,6 +1866,8 @@ class ActivateProfileHelper {
                                         }
                                         else
                                         if (PPApplication.deviceIsOnePlus) {
+                                            // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                            // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                             command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                             command2 = "";
                                             switch (lValue) {
@@ -1901,6 +1908,8 @@ class ActivateProfileHelper {
                                         }
                                         else
                                         if (PPApplication.deviceIsOnePlus) {
+                                            // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                            // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                             command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                             String command2 = "";
                                             switch (lValue) {
@@ -2252,7 +2261,7 @@ class ActivateProfileHelper {
                 lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
-                        "haptic_feedback_intensity",
+                        SETTINGS_PREF_HAPTIC_FEEDBACK_VIBRATION_INTENSITY,
                         lValueTouchIntensity,
                         executedProfileSharedPreferences
                 );

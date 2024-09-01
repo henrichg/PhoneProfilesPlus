@@ -39,10 +39,10 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        SwitchCompat noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        SwitchCompat noChangeChBox = view.findViewById(R.id.vibrationIntensityPrefDialogNoChange);
 
-        seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
-        valueText = view.findViewById(R.id.volumePrefDialogValueText);
+        seekBar = view.findViewById(R.id.vibrationIntensityPrefDialogSeekbar);
+        valueText = view.findViewById(R.id.vibrationIntensityPrefDialogValueText);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
         seekBar.setMax(preference.maximumValue);
@@ -77,7 +77,7 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.volumePrefDialogNoChange) {
+        if (buttonView.getId() == R.id.vibrationIntensityPrefDialogNoChange) {
             preference.noChange = (isChecked) ? 1 : 0;
 
             valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/volumePrefDialogRoot"
+    android:id="@+id/vibrationIntensityPrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <View
-        android:id="@+id/volumePrefDialogNoChange_titleBarDivider"
+        android:id="@+id/vibrationIntensityPrefDialogNoChange_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
@@ -26,7 +26,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/volumePrefDialogNoChange"
+            android:id="@+id/vibrationIntensityPrefDialogNoChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -35,7 +35,7 @@
             app:switchPadding="@dimen/switch_padding" />
 
         <TextView
-            android:id="@+id/volumePrefDialogValueText"
+            android:id="@+id/vibrationIntensityPrefDialogValueText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -44,7 +44,7 @@
             tools:ignore="HardcodedText" />
 
         <SeekBar
-            android:id="@+id/volumePrefDialogSeekbar"
+            android:id="@+id/vibrationIntensityPrefDialogSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:splitTrack="false" />
