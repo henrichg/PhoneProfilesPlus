@@ -3046,7 +3046,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING));
 
-                value = ProfileStatic.getVolumeValue(value) + "/" + VibrationIntensityPreference.getMaxValue("RINGING");
+                value = ProfileStatic.getVolumeValue(value) + "/" + VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE);
 
                 _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                         .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VIBRATION_INTENSITY_CATTEGORY_ROOT, context))
@@ -3060,7 +3060,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS));
 
-                value = ProfileStatic.getVolumeValue(value) + "/" + VibrationIntensityPreference.getMaxValue("NOTIFICATIONS");
+                value = ProfileStatic.getVolumeValue(value) + "/" + VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE);
 
                 _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                         .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VIBRATION_INTENSITY_CATTEGORY_ROOT, context))
@@ -3074,7 +3074,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION));
 
-                value = ProfileStatic.getVolumeValue(value) + "/" + VibrationIntensityPreference.getMaxValue("TOUCHINTERACTION");
+                value = ProfileStatic.getVolumeValue(value) + "/" + VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE);
 
                 _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
                         .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_VIBRATION_INTENSITY_CATTEGORY_ROOT, context))

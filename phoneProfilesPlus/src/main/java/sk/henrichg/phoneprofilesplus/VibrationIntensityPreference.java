@@ -28,6 +28,10 @@ public class VibrationIntensityPreference extends DialogPreference {
 
     int value = 0;
 
+    static final String RINGING_VYBRATION_INTENSITY_TYPE = "RINGING";
+    static final String NOTIFICATIONS_VYBRATION_INTENSITY_TYPE = "NOTIFICATIONS";
+    static final String TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE = "TOUCHINTERACTION";
+
     public VibrationIntensityPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -67,33 +71,33 @@ public class VibrationIntensityPreference extends DialogPreference {
             {
                 //if (Build.VERSION.SDK_INT < 33) {
                     if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                        if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                        if (vibrationIntensityType.equalsIgnoreCase(RINGING_VYBRATION_INTENSITY_TYPE))
                             value = 3;
-                        else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                        else if (vibrationIntensityType.equalsIgnoreCase(NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
                             value = 3;
-                        else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                        else if (vibrationIntensityType.equalsIgnoreCase(TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
                             value = 1;
                     } else if (PPApplication.deviceIsOnePlus) {
-                        if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                        if (vibrationIntensityType.equalsIgnoreCase(RINGING_VYBRATION_INTENSITY_TYPE))
                             value = 1060;
-                        else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                        else if (vibrationIntensityType.equalsIgnoreCase(NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
                             value = 1060;
-                        else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                        else if (vibrationIntensityType.equalsIgnoreCase(TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
                             value = 430;
                     } else {
-                        if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                        if (vibrationIntensityType.equalsIgnoreCase(RINGING_VYBRATION_INTENSITY_TYPE))
                             value = 3;
-                        else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                        else if (vibrationIntensityType.equalsIgnoreCase(NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
                             value = 3;
-                        else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                        else if (vibrationIntensityType.equalsIgnoreCase(TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
                             value = 1;
                     }
                 /*} else {
-                    if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                    if (vibrationIntensityType.equalsIgnoreCase(RINGING_VYBRATION_INTENSITY_TYPE))
                         value = 2;
-                    else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                    else if (vibrationIntensityType.equalsIgnoreCase(NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
                         value = 2;
-                    else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                    else if (vibrationIntensityType.equalsIgnoreCase(TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
                         value = 1;
                 }*/
             }
@@ -263,11 +267,11 @@ public class VibrationIntensityPreference extends DialogPreference {
             if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
                 minValue = 0;
             else if (PPApplication.deviceIsOnePlus) {
-                if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                if (vibrationIntensityType.equalsIgnoreCase(RINGING_VYBRATION_INTENSITY_TYPE))
                     minValue = 800;
-                else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                else if (vibrationIntensityType.equalsIgnoreCase(NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
                     minValue = 800;
-                else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                else if (vibrationIntensityType.equalsIgnoreCase(TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
                     minValue = 1100;
                 else
                     minValue = 800;

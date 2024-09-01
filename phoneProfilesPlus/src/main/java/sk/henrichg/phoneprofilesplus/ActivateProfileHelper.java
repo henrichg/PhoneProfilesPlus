@@ -2202,7 +2202,7 @@ class ActivateProfileHelper {
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
                         "ring_stepless_vibration_intensity",
-                        lValueRinging + VibrationIntensityPreference.getMinValue("RINGING"),
+                        lValueRinging + VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE),
                         executedProfileSharedPreferences
                 );
             }
@@ -2211,7 +2211,7 @@ class ActivateProfileHelper {
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
                         "notification_stepless_vibration_intensity",
-                        lValueNotificaitons + VibrationIntensityPreference.getMinValue("NOTIFICATIONS"),
+                        lValueNotificaitons + VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE),
                         executedProfileSharedPreferences
                 );
             }
@@ -2220,7 +2220,7 @@ class ActivateProfileHelper {
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
                         "touch_stepless_vibration_intensity",
-                        lValueTouchIntensity + VibrationIntensityPreference.getMinValue("TOUCHINTERACTION"),
+                        lValueTouchIntensity + VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE),
                         executedProfileSharedPreferences
                 );
             }

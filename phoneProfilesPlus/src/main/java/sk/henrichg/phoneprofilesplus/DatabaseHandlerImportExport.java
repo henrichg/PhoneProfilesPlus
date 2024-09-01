@@ -1159,6 +1159,92 @@ class DatabaseHandlerImportExport {
         }
     }
 
+    static private void recalculateVibrationIntensity(Cursor cursorImportDB, String vibrationIntensityField,
+                                          ContentValues values, int minimumVibrationIntensity, int maximumVibrationIntensity) {
+        try {
+            String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(vibrationIntensityField));
+            if (value != null) {
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                int vibrationIntensity = Integer.parseInt(splits[0]);
+                float fVibrationIntensity = vibrationIntensity;
+
+                // get percentage of value from imported data
+                float percentage;
+                //if (maximumVolumeFromSharedPrefs > 0)
+                //    percentage = fVibrationIntensity / maximumVolumeFromSharedPrefs * 100f;
+                //else
+                    percentage = fVibrationIntensity / (maximumVibrationIntensity - minimumVibrationIntensity);
+                if (percentage > 100f)
+                    percentage = 100f;
+
+                // get value from percentage for actual system max volume
+                fVibrationIntensity = (maximumVibrationIntensity - minimumVibrationIntensity) / 100f * percentage;
+                vibrationIntensity = Math.round(fVibrationIntensity);
+
+                if (splits.length == 3)
+                    values.put(vibrationIntensityField, vibrationIntensity + "|" + splits[1] + "|" + splits[2]);
+                else
+                    values.put(vibrationIntensityField, vibrationIntensity + "|" + splits[1]);
+            }
+        } catch (IllegalArgumentException e) {
+            // java.lang.IllegalArgumentException: Bad stream type X
+            //PPApplicationStatic.recordException(e);
+        } catch (Exception e) {
+            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
+    }
+
+    static private void afterImportDbVibrationIntensity(/*DatabaseHandler instance,*/ SQLiteDatabase db) {
+        Cursor cursorImportDB = null;
+
+        // update volumes by device max value
+        try {
+            int maximumRingingVibrationIntensity = VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE);
+            int maximumNotificationsVibrationIntensity = VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE);
+            int maximumTouchInteractionVibrationIntensity = VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE);
+            int minimumRingingVibrationIntensity = VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE);
+            int minimumNotificaitonsVibrationIntensity = VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE);
+            int minimumTouchInteractionVibrationIntensity = VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE);
+
+            cursorImportDB = db.rawQuery("SELECT " +
+                    DatabaseHandler.KEY_ID + ","+
+                    DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + ","+
+                    DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + ","+
+                    DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION +
+                    " FROM " + DatabaseHandler.TABLE_PROFILES, null);
+
+            if (cursorImportDB.moveToFirst()) {
+                do {
+
+                    long profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
+
+                    ContentValues values = new ContentValues();
+
+                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
+                            values, minimumRingingVibrationIntensity, maximumRingingVibrationIntensity);
+
+                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
+                            values, minimumNotificaitonsVibrationIntensity, maximumNotificationsVibrationIntensity);
+
+                    recalculateVibrationIntensity(cursorImportDB, DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                            values, minimumTouchInteractionVibrationIntensity, maximumTouchInteractionVibrationIntensity);
+
+                    // updating row
+                    //noinspection SizeReplaceableByIsEmpty
+                    if (values.size() > 0)
+                        db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                new String[]{String.valueOf(profileId)});
+                } while (cursorImportDB.moveToNext());
+            }
+            cursorImportDB.close();
+
+        } finally {
+            if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                cursorImportDB.close();
+        }
+    }
+
     static private void afterImportDb(DatabaseHandler instance, SQLiteDatabase db) {
         afterImportDbVolumes(instance, db);
 
@@ -1330,6 +1416,8 @@ class DatabaseHandlerImportExport {
                     cursorImportDB.close();
             }
         }
+
+        afterImportDbVibrationIntensity(/*instance,*/ db);
 
         // remove all not used non-named mobile cells
         DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);
