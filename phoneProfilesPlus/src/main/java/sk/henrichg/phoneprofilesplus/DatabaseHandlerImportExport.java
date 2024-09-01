@@ -1177,7 +1177,7 @@ class DatabaseHandlerImportExport {
 
                 // get percentage of value from imported data
                 float percentage;
-                if (maximumVibrationIntensityFromPref > 0)
+                if ((maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) > 0)
                     percentage = fVibrationIntensity / (maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) * 100f;
                 else
                     percentage = fVibrationIntensity / (maximumVibrationIntensity - minimumVibrationIntensity);
