@@ -1175,25 +1175,18 @@ class DatabaseHandlerImportExport {
                 int vibrationIntensity = Integer.parseInt(splits[0]);
                 if (vibrationIntensity > 0) { // default value -1
                     float fVibrationIntensity = vibrationIntensity;
-//                    Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "fVibrationIntensity (1)=" + fVibrationIntensity);
 
                     // get percentage of value from imported data
                     float percentage;
-                    if ((maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) > 0) {
+                    if ((maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) > 0)
                         percentage = fVibrationIntensity / (maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) * 100f;
-//                        Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "percentage (1)=" + percentage);
-                    } else {
+                    else
                         percentage = fVibrationIntensity / (maximumVibrationIntensity - minimumVibrationIntensity) * 100f;
-//                        Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "percentage (2)=" + percentage);
-                    }
-                    if (percentage > 100f) {
+                    if (percentage > 100f)
                         percentage = 100f;
-//                        Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "percentage (3)=" + percentage);
-                    }
 
                     // get value from percentage for actual system max volume
                     fVibrationIntensity = (maximumVibrationIntensity - minimumVibrationIntensity) / 100f * percentage;
-//                    Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "fVibrationIntensity (2)=" + fVibrationIntensity);
                     vibrationIntensity = Math.round(fVibrationIntensity);
 
                     if (splits.length == 3)
