@@ -90,7 +90,7 @@ class DatabaseHandlerImportExport {
                 if (maximumVolumeFromSharedPrefs > 0)
                     percentage = fVolume / maximumVolumeFromSharedPrefs * 100f;
                 else
-                    percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream);
+                    percentage = fVolume / audioManager.getStreamMaxVolume(volumeStream) * 100f;
                 if (percentage > 100f)
                     percentage = 100f;
 
@@ -1173,25 +1173,34 @@ class DatabaseHandlerImportExport {
             if (value != null) {
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 int vibrationIntensity = Integer.parseInt(splits[0]);
-                float fVibrationIntensity = vibrationIntensity;
+                if (vibrationIntensity > 0) { // default value -1
+                    float fVibrationIntensity = vibrationIntensity;
+//                    Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "fVibrationIntensity (1)=" + fVibrationIntensity);
 
-                // get percentage of value from imported data
-                float percentage;
-                if ((maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) > 0)
-                    percentage = fVibrationIntensity / (maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) * 100f;
-                else
-                    percentage = fVibrationIntensity / (maximumVibrationIntensity - minimumVibrationIntensity);
-                if (percentage > 100f)
-                    percentage = 100f;
+                    // get percentage of value from imported data
+                    float percentage;
+                    if ((maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) > 0) {
+                        percentage = fVibrationIntensity / (maximumVibrationIntensityFromPref - minimumVibrationIntensityFromPref) * 100f;
+//                        Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "percentage (1)=" + percentage);
+                    } else {
+                        percentage = fVibrationIntensity / (maximumVibrationIntensity - minimumVibrationIntensity) * 100f;
+//                        Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "percentage (2)=" + percentage);
+                    }
+                    if (percentage > 100f) {
+                        percentage = 100f;
+//                        Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "percentage (3)=" + percentage);
+                    }
 
-                // get value from percentage for actual system max volume
-                fVibrationIntensity = (maximumVibrationIntensity - minimumVibrationIntensity) / 100f * percentage;
-                vibrationIntensity = Math.round(fVibrationIntensity);
+                    // get value from percentage for actual system max volume
+                    fVibrationIntensity = (maximumVibrationIntensity - minimumVibrationIntensity) / 100f * percentage;
+//                    Log.e("DatabaseHandlerImportExport.recalculateVibrationIntensity", "fVibrationIntensity (2)=" + fVibrationIntensity);
+                    vibrationIntensity = Math.round(fVibrationIntensity);
 
-                if (splits.length == 3)
-                    values.put(vibrationIntensityField, vibrationIntensity + "|" + splits[1] + "|" + splits[2]);
-                else
-                    values.put(vibrationIntensityField, vibrationIntensity + "|" + splits[1]);
+                    if (splits.length == 3)
+                        values.put(vibrationIntensityField, vibrationIntensity + "|" + splits[1] + "|" + splits[2]);
+                    else
+                        values.put(vibrationIntensityField, vibrationIntensity + "|" + splits[1]);
+                }
             }
         } catch (IllegalArgumentException e) {
             // java.lang.IllegalArgumentException: Bad stream type X
