@@ -1205,13 +1205,17 @@ class DatabaseHandlerImportExport {
     static private void afterImportDbVibrationIntensity(DatabaseHandler instance, SQLiteDatabase db) {
         Cursor cursorImportDB = null;
 
-        // update volumes by device max value
+        // update vibration intensity by device min, max value
         try {
+            // these shared preferences are put during export of data, values are from:
+            // - VibrationIntensityPreference.getMinValue()
+            // - VibrationIntensityPreference.getMaxValue()
+            // for import, these data are values from source of imported data (may be from another device)
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
             int maximumRingingVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING, 0);
             int maximumNotificationsVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_NOTIFICATION, 0);
             int maximumTouchInteractionVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, 0);
-            int minimumRingingVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING, 0);
+            int minimumRingingVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MINIMUM_VIBRATION_INTENSITY_RINGING, 0);
             int minimumNotificaitonsVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MINIMUM_VIBRATION_INTENSITY_NOTIFICATION, 0);
             int minimumTouchInteractionVibrationIntensityFromSharedPref = sharedPreferences.getInt(PREF_MINIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, 0);
 

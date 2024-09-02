@@ -2829,6 +2829,8 @@ public class EditorActivity extends AppCompatActivity
 
                 editor.putBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, runStopEvents);
 
+                // these shared preferences are put during export of data, values are from AudioManager
+                // for import, these data are values from source of imported data (may be from another device)
                 AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
                     try {
@@ -2860,6 +2862,10 @@ public class EditorActivity extends AppCompatActivity
                     } catch (Exception ignored) {}
                 }
 
+                // these shared preferences are put during export of data, values are from:
+                // - VibrationIntensityPreference.getMinValue()
+                // - VibrationIntensityPreference.getMaxValue()
+                // for import, these data are values from source of imported data (may be from another device)
                 try {
                     editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_RINGING, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE));
                 } catch (Exception ignored) {}
