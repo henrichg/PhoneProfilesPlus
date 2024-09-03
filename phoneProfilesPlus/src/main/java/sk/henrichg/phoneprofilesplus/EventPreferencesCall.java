@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -557,7 +556,6 @@ class EventPreferencesCall extends EventPreferences {
                 if (preferences != null) {
                     String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
                     int contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
-                    Log.e("EventPreferencesCall.checkPreferences", "callEvent="+callEvent);
                     preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
                     if (preference != null)
                         preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));

@@ -40,6 +40,12 @@
         app:layout="@layout/mp_preference_material_widget"
         app:dependency="eventCallScreeningEnabled"
         app:withoutNumbers="false"/>
+    <SwitchPreferenceCompat
+        app:key="eventCallScreeningNotInContacts"
+        app:title="@string/event_preference_callScreeningNotInContacts"
+        app:defaultValue="false"
+        app:dependency="eventCallScreeningEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
 
     <!--
     <sk.henrichg.phoneprofilesplus.PPListPreference

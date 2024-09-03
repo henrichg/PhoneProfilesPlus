@@ -69,6 +69,7 @@ public class PPCallScreeningService extends CallScreeningService {
                                 String contacts = event._eventPreferencesCallScreening._contacts;
                                 String contactGroups = event._eventPreferencesCallScreening._contactGroups;
                                 //int contactListType = event._eventPreferencesCallScreening._contactListType;
+                                boolean notInContacts = event._eventPreferencesCallScreening._notInContacts;
                                 int direction = event._eventPreferencesCallScreening._callDirection;
                                 boolean blockCalls = event._eventPreferencesCallScreening._blockCalls;
                                 sendSMS = event._eventPreferencesCallScreening._sendSMS;
@@ -76,6 +77,7 @@ public class PPCallScreeningService extends CallScreeningService {
 
                                 if ((
                                         /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                        notInContacts ||
                                         ((contacts != null) && (!contacts.isEmpty())) ||
                                         ((contactGroups != null) && (!contactGroups.isEmpty()))
                                     ) && (direction != EventPreferencesCallScreening.CALL_DIRECTION_OUTGOING)

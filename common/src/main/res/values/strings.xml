@@ -2271,6 +2271,8 @@
     <string name="profile_preferences_clearNotification_text_summary_text">Text</string>
     <string name="export_settings_delete_contacts_data_clear_notification">Contacts for profile parameter \"Clear notifications\"</string>
 
+    <string name="event_preference_callScreeningNotInContacts">Tel. numbers not in contacts</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

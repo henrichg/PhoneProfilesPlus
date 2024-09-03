@@ -1515,6 +1515,7 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS,
                         //DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE,
                         DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS,
                         DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS,
                         DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS,
                         DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT,
@@ -1538,6 +1539,7 @@ class DatabaseHandlerEvents {
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS));
                 //eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE));
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS));
+                eventPreferences._notInContacts = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS)) == 1);
                 eventPreferences._blockCalls = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS)) == 1);
                 eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS)) == 1);
                 eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT));
@@ -2075,6 +2077,7 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, eventPreferences._contacts);
         //values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, eventPreferences._contactGroups);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS, (eventPreferences._notInContacts) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS, (eventPreferences._blockCalls) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT, eventPreferences._smsText);

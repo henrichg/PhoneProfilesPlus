@@ -28,6 +28,7 @@ class EventPreferencesCallScreening extends EventPreferences {
     String _contacts; // contactId#phoneId|...
     String _contactGroups; // groupId|...
     //int _contactListType;  // !!! enabled are ony configured contacts
+    boolean _notInContacts;
     boolean _blockCalls;
     boolean _sendSMS;
     String _smsText;
@@ -46,6 +47,7 @@ class EventPreferencesCallScreening extends EventPreferences {
     static final String PREF_EVENT_CALL_SCREENING_SMS_TEXT = "eventCallScreeningSMSText";
     static final String PREF_EVENT_CALL_SCREENING_PERMANENT_RUN = "eventCallScreeningPermanentRun";
     private static final String PREF_EVENT_CALL_SCREENING_DURATION = "eventCallScreeningDuration";
+    static final String PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS = "eventCallScreeningNotInContacts";
 
     static final String PREF_EVENT_CALL_SCREENING_SET_CALL_SCREENING_ROLE = "eventCallScreeningSetCallScreeningRole";
 
@@ -70,6 +72,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                                   String contacts,
                                   String contactGroups,
                                   //int contactListType,
+                                  boolean notInContacts,
                                   boolean blockCalls,
                                   boolean sendSMS,
                                   String smsText,
@@ -81,6 +84,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         this._contacts = contacts;
         this._contactGroups = contactGroups;
         //this._contactListType = contactListType;
+        this._notInContacts = notInContacts;
         this._blockCalls = blockCalls;
         this._sendSMS = sendSMS;
         this._smsText = smsText;
@@ -96,6 +100,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         this._contacts = fromEvent._eventPreferencesCallScreening._contacts;
         this._contactGroups = fromEvent._eventPreferencesCallScreening._contactGroups;
         //this._contactListType = fromEvent._eventPreferencesCallScreening._contactListType;
+        this._notInContacts = fromEvent._eventPreferencesCallScreening._notInContacts;
         this._blockCalls = fromEvent._eventPreferencesCallScreening._blockCalls;
         this._sendSMS = fromEvent._eventPreferencesCallScreening._sendSMS;
         this._smsText = fromEvent._eventPreferencesCallScreening._smsText;
@@ -113,6 +118,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         editor.putString(PREF_EVENT_CALL_SCREENING_CONTACTS, this._contacts);
         editor.putString(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS, this._contactGroups);
         //editor.putString(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
+        editor.putBoolean(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS, this._notInContacts);
         editor.putBoolean(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS, this._blockCalls);
         editor.putBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, this._sendSMS);
         editor.putString(PREF_EVENT_CALL_SCREENING_SMS_TEXT, this._smsText);
@@ -127,6 +133,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         this._contacts = preferences.getString(PREF_EVENT_CALL_SCREENING_CONTACTS, "");
         this._contactGroups = preferences.getString(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS, "");
         //this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE, "0"));
+        this._notInContacts = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS, false);
         this._blockCalls = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS, false);
         this._sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, false);
         this._smsText = preferences.getString(PREF_EVENT_CALL_SCREENING_SMS_TEXT, "");
@@ -158,15 +165,19 @@ class EventPreferencesCallScreening extends EventPreferences {
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallScreeningCallDirecitonArray);
                     _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(callEvents[this._callDirection], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
-                    _value.append(context.getString(R.string.event_preferences_call_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    if (!_notInContacts) {
+                        _value.append(context.getString(R.string.event_preferences_call_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
-                    _value.append(context.getString(R.string.event_preferences_call_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(context.getString(R.string.event_preferences_call_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
-                    //_value.append(context.getString(R.string.event_preferences_contactListType));
-                    //String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                    //_value.append(StringConstants.STR_BULLET).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        //_value.append(context.getString(R.string.event_preferences_contactListType));
+                        //String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
+                        //_value.append(StringConstants.STR_BULLET).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    } else {
+                        _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preference_callScreeningNotInContacts));
+                    }
 
                     if (_blockCalls) {
                         _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preference_callScreeningBlockCalls));
@@ -233,10 +244,11 @@ class EventPreferencesCallScreening extends EventPreferences {
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesCallScreening.saveSharedPreferences(prefMng.getSharedPreferences());
-        //boolean isRunnable = event._eventPreferencesCallScreening.isRunnable(context);
+        boolean isRunnable = event._eventPreferencesCallScreening.isRunnable(context);
         //boolean isAllConfigured = event._eventPreferencesCall.isAllConfigured(context);
-        boolean isAllConfigured = (/*(_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                    (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+        //boolean isAllConfigured = (/*(_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||*/
+        //                            (_notInContacts) ||
+        //                            (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
         boolean roleHeld = isIsCallScreeningHeld(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false) &&
                     roleHeld;
@@ -247,16 +259,21 @@ class EventPreferencesCallScreening extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isAllConfigured, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACTS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SCREENING_CONTACTS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isAllConfigured, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         //preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE);
         //if (preference != null)
-        //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !isAllConfigured, false);
+        //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS);
+        if (preference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
+        }
 
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS);
         if (preference != null) {
@@ -294,7 +311,8 @@ class EventPreferencesCallScreening extends EventPreferences {
                 key.equals(PREF_EVENT_CALL_SCREENING_SMS_TEXT)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
-        if (key.equals(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS) ||
+        if (key.equals(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS) ||
+                key.equals(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS) ||
                 key.equals(PREF_EVENT_CALL_SCREENING_SEND_SMS)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
@@ -321,6 +339,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         //setSummary(prefMng, PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SCREENING_CONTACTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SCREENING_SET_CALL_SCREENING_ROLE, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SCREENING_BLOCK_CALLS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SCREENING_SEND_SMS, preferences, context);
@@ -329,7 +348,7 @@ class EventPreferencesCallScreening extends EventPreferences {
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         EventPreferencesCallScreening tmp = new EventPreferencesCallScreening(this._event, this._enabled, this._callDirection, this._contacts,
-                this._contactGroups,/*this._contactListType,*/ this._blockCalls, this._sendSMS, this._smsText, this._permanentRun, this._duration);
+                this._contactGroups,/*this._contactListType,*/ this._notInContacts, this._blockCalls, this._sendSMS, this._smsText, this._permanentRun, this._duration);
         if (preferences != null)
             tmp.saveSharedPreferences(preferences);
 
@@ -356,7 +375,8 @@ class EventPreferencesCallScreening extends EventPreferences {
 
         runnable = runnable && isIsCallScreeningHeld(context) &&
                 (/*(_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||*/
-                (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+                (_notInContacts ||
+                 (!(_contacts.isEmpty() && _contactGroups.isEmpty()))));
 
         return runnable;
     }
@@ -382,17 +402,21 @@ class EventPreferencesCallScreening extends EventPreferences {
                 if (preferences != null) {
                     boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false);
                     int direction = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_SCREENING_CALL_DIRECTION, "0"));
+                    boolean notInContacts = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS, false);
 
                     if (enabled) {
                         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACTS);
                         if (preference != null)
-                            preference.setEnabled(isRoleHeld);
+                            preference.setEnabled(isRoleHeld && (!notInContacts));
                         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS);
                         if (preference != null)
-                            preference.setEnabled(isRoleHeld);
+                            preference.setEnabled(isRoleHeld && (!notInContacts));
                         //preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE);
                         //if (preference != null)
                         //    preference.setEnabled(isRoleHeld);
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld);
                         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS);
                         if (preference != null)
                             preference.setEnabled(isRoleHeld && (direction != CALL_DIRECTION_OUTGOING));
@@ -533,7 +557,10 @@ class EventPreferencesCallScreening extends EventPreferences {
         //} else
         //    phoneNumberFound = true;
 
-        return phoneNumberFound;
+        if (this._notInContacts && (!phoneNumberFound))
+            return true;
+        else
+            return phoneNumberFound;
     }
 
     /*
@@ -722,17 +749,29 @@ class EventPreferencesCallScreening extends EventPreferences {
                 //} else
                 //    phoneNumberFound = true;
 
-                if (phoneNumberFound) {
-                    this._startTime = startTime;// + (10 * 1000);
+                boolean callSystemEvent = false;
+                if (this._notInContacts) {
+                    if (!phoneNumberFound) {
+                        this._startTime = startTime;// + (10 * 1000);
+                        callSystemEvent = true;
+                    }
+                    else {
+                        this._startTime = 0;
+                    }
                 }
                 else {
-                    //Log.e("EventPreferencesCallScreening.saveStartTime", "*** (1) _startTime = 0");
-                    this._startTime = 0;
+                    if (phoneNumberFound) {
+                        this._startTime = startTime;// + (10 * 1000);
+                        callSystemEvent = true;
+                    } else {
+                        //Log.e("EventPreferencesCallScreening.saveStartTime", "*** (1) _startTime = 0");
+                        this._startTime = 0;
+                    }
                 }
 
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallScreeningStartTime(_event);
 
-                if (phoneNumberFound) {
+                if (callSystemEvent) {
                     //if (_event.getStatus() == Event.ESTATUS_RUNNING)
                     setSystemEventForPause(dataWrapper.context);
                 }
