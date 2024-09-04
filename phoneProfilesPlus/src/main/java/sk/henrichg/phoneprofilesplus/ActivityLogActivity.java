@@ -430,7 +430,7 @@ public class ActivityLogActivity extends AppCompatActivity
         private final WeakReference<Context> contextWeakReference;
         private final WeakReference<ActivityLogActivity> activityWeakReference;
 
-        int selectedFilter;
+        final int _selectedFilter;
         Cursor activityLogCursor = null;
 
         public SetAdapterAsyncTask(final int selectedFilter,
@@ -438,7 +438,7 @@ public class ActivityLogActivity extends AppCompatActivity
                                    final Context context) {
             this.contextWeakReference = new WeakReference<>(context);
             this.activityWeakReference = new WeakReference<>(activity);
-            this.selectedFilter = selectedFilter;
+            this._selectedFilter = selectedFilter;
         }
 
         @Override
@@ -447,7 +447,7 @@ public class ActivityLogActivity extends AppCompatActivity
 
             if (context != null) {
                 activityLogCursor =
-                        DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor(selectedFilter);
+                        DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor(_selectedFilter);
             }
 
             return null;
@@ -471,27 +471,24 @@ public class ActivityLogActivity extends AppCompatActivity
                     activity.progressLinearLayout.setVisibility(View.GONE);
                     activity.listView.setVisibility(View.VISIBLE);
 
-                    activity.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ActivityLogAdapter adapter = (ActivityLogAdapter) parent.getAdapter();
-                            Cursor cursor = adapter.getCursor();
-                            cursor.moveToPosition(position);
-                            int logTypeIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
-                            int logType = cursor.getInt(logTypeIndex);
+                    activity.listView.setOnItemClickListener((parent, view, position, id) -> {
+                        ActivityLogAdapter adapter = (ActivityLogAdapter) parent.getAdapter();
+                        Cursor cursor = adapter.getCursor();
+                        cursor.moveToPosition(position);
+                        int logTypeIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
+                        int logType = cursor.getInt(logTypeIndex);
 
-                            if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+                        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
 //                                Log.e("ActivityLogActivity.onItemClick", "blocked call");
-                                int telNumberIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
-                                String telNumber = cursor.getString(telNumberIndex);
+                            int telNumberIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
+                            String telNumber = cursor.getString(telNumberIndex);
 //                                Log.e("ActivityLogActivity.onItemClick", "telNumber="+telNumber);
-                                if (!telNumber.isEmpty()) {
-                                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                                    intent.setData(Uri.parse("tel:" + telNumber));
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    parent.getContext().startActivity(intent);
+                            if (!telNumber.isEmpty()) {
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                intent.setData(Uri.parse("tel:" + telNumber));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                parent.getContext().startActivity(intent);
 //                                    Log.e("ActivityLogActivity.onItemClick", "dialer started");
-                                }
                             }
                         }
                     });
