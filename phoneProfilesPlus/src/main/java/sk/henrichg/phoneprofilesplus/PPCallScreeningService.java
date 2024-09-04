@@ -66,6 +66,7 @@ public class PPCallScreeningService extends CallScreeningService {
                         for (Event event : eventList) {
                             if (event._eventPreferencesCallScreening._enabled &&
                                 event._eventPreferencesCallScreening.isRunnable(appContext)) {
+
                                 String contacts = event._eventPreferencesCallScreening._contacts;
                                 String contactGroups = event._eventPreferencesCallScreening._contactGroups;
                                 //int contactListType = event._eventPreferencesCallScreening._contactListType;
@@ -75,14 +76,17 @@ public class PPCallScreeningService extends CallScreeningService {
                                 sendSMS = event._eventPreferencesCallScreening._sendSMS;
                                 smsText = event._eventPreferencesCallScreening._smsText;
 
-                                if ((
-                                        /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                        notInContacts ||
-                                        ((contacts != null) && (!contacts.isEmpty())) ||
-                                        ((contactGroups != null) && (!contactGroups.isEmpty()))
+                                if (notInContacts) {
+                                    blockCallingPhoneNumber = !isPhoneNumberInContacts(contactList, callingPhoneNumber);
+                                } else {
+                                    if ((
+                                            /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                            ((contacts != null) && (!contacts.isEmpty())) ||
+                                                    ((contactGroups != null) && (!contactGroups.isEmpty()))
                                     ) && (direction != EventPreferencesCallScreening.CALL_DIRECTION_OUTGOING)
-                                      && blockCalls) {
-                                    blockCallingPhoneNumber = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
+                                            && blockCalls) {
+                                        blockCallingPhoneNumber = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
+                                    }
                                 }
                             }
                             if (blockCallingPhoneNumber)
@@ -96,6 +100,10 @@ public class PPCallScreeningService extends CallScreeningService {
 
                     if (blockCallingPhoneNumber) {
                         //block call
+
+                        // blocked call to Activity log
+                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, null, callingPhoneNumber, "");
+
                         response.setDisallowCall(true);
                         response.setRejectCall(true);
 
@@ -208,6 +216,29 @@ public class PPCallScreeningService extends CallScreeningService {
         //   phoneNumberFound = true;
 
         return phoneNumberFound;
+    }
+
+    private boolean isPhoneNumberInContacts(List<Contact> contactList, String phoneNumber) {
+//        Log.e("PPCallScreeningService.isPhoneNumberInContacts", "phoneNumber="+phoneNumber);
+
+        boolean phoneNumberInContacts = false;
+
+        synchronized (PPApplication.contactsCacheMutex) {
+            if (contactList != null) {
+                for (Contact contact : contactList) {
+                    if (contact.phoneId != 0) {
+                        String _phoneNumber = contact.phoneNumber;
+//                        Log.e("PPCallScreeningService.isPhoneNumberInContacts", "_phoneNumber="+_phoneNumber);
+                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                            phoneNumberInContacts = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return phoneNumberInContacts;
     }
 
 }

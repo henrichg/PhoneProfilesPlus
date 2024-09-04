@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -382,6 +384,31 @@ public class ActivityLogActivity extends AppCompatActivity
 
                     activity.progressLinearLayout.setVisibility(View.GONE);
                     activity.listView.setVisibility(View.VISIBLE);
+
+                    activity.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            ActivityLogAdapter adapter = (ActivityLogAdapter) parent.getAdapter();
+                            Cursor cursor = adapter.getCursor();
+                            cursor.moveToPosition(position);
+                            int logTypeIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
+                            int logType = cursor.getInt(logTypeIndex);
+
+                            if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+//                                Log.e("ActivityLogActivity.onItemClick", "blocked call");
+                                int telNumberIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
+                                String telNumber = cursor.getString(telNumberIndex);
+//                                Log.e("ActivityLogActivity.onItemClick", "telNumber="+telNumber);
+                                if (!telNumber.isEmpty()) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:" + telNumber));
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    parent.getContext().startActivity(intent);
+//                                    Log.e("ActivityLogActivity.onItemClick", "dialer started");
+                                }
+                            }
+                        }
+                    });
                 }
             }
 

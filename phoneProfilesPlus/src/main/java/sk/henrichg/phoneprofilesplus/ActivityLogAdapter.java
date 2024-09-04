@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,6 +107,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, R.string.altype_extender_accessibility_service_enabled);
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, R.string.altype_extender_accessibility_service_not_enabled);
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, R.string.altype_extender_accessibility_service_unbind);
+        activityTypeStrings.put(PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, R.string.altype_callScreening_blockedCall);
 
         //int otherColor = R.color.altype_other;
         /*
@@ -193,9 +195,22 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, color);
         activityTypeColors.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, color);
     }
 
     private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
+        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
+
+        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+            rowData.logDateTime.setTypeface(null, Typeface.BOLD);
+            rowData.logType.setTypeface(null, Typeface.BOLD);
+            rowData.logData.setTypeface(null, Typeface.BOLD);
+        } else {
+            rowData.logDateTime.setTypeface(null, Typeface.NORMAL);
+            rowData.logType.setTypeface(null, Typeface.NORMAL);
+            rowData.logData.setTypeface(null, Typeface.NORMAL);
+        }
+
         if (cursor.getInt(KEY_AL_ID) == -1) {
             //Log.e("ActivityLogAdapter.setRowData", "KEY_AL_ID=-1");
             rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
@@ -209,12 +224,14 @@ class ActivityLogAdapter extends CursorAdapter {
             rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         }
 
-        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         String logTypeText;
         if (cursor.getInt(KEY_AL_ID) == -1) {
             logTypeText = "---";
         } else {
             logTypeText = context.getString(activityTypeStrings.get(logType));
+            if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+                logTypeText = "*** " + logTypeText + " ***";
+            }
             if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
                 String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
                 if (profileEventCount != null)
@@ -224,14 +241,19 @@ class ActivityLogAdapter extends CursorAdapter {
         rowData.logType.setText(logTypeText);
 
         String logData = "";
-        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
-        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
-        if (event_name != null)
-            logData = logData + event_name;
-        if (profile_name != null) {
-            if (!logData.isEmpty())
-                logData = logData + " ";
-            logData = logData + profile_name;
+        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+            logData = context.getString(R.string.activityLog_blockedCall_telNumber) + " " +
+                    cursor.getString(KEY_AL_PROFILE_NAME); // in profile name is blocked tel. number
+        } else {
+            String event_name = cursor.getString(KEY_AL_EVENT_NAME);
+            String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
+            if (event_name != null)
+                logData = logData + event_name;
+            if (profile_name != null) {
+                if (!logData.isEmpty())
+                    logData = logData + " ";
+                logData = logData + profile_name;
+            }
         }
         rowData.logData.setText(logData);
         //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
