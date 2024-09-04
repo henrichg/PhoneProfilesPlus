@@ -386,8 +386,10 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED = 111;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
-
     static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+
+    static final int ALFILTER_ALL = 0;
+    static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;
 
     static final String MODEL_NEXUS = "Nexus";
     static final String MANUFACTURER_HMD_GLOBAL = "HMD Global";

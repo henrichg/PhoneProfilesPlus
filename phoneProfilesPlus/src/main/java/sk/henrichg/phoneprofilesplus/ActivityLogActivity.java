@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
 
 import java.lang.ref.WeakReference;
@@ -35,6 +37,9 @@ public class ActivityLogActivity extends AppCompatActivity
     private LinearLayout progressLinearLayout;
     private ActivityLogAdapter activityLogAdapter;
     private TextView addedNewLogsText;
+    AppCompatSpinner filterSpinner;
+
+    private int selectedFilter = 0;
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
@@ -62,6 +67,7 @@ public class ActivityLogActivity extends AppCompatActivity
     }
     private AddedActivityLogBroadcastReceiver addedActivityLogBroadcastReceiver;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
@@ -78,6 +84,71 @@ public class ActivityLogActivity extends AppCompatActivity
             getSupportActionBar().setTitle(R.string.title_activity_activity_log);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+
+        filterSpinner = findViewById(R.id.activity_log_filter_spinner);
+        String[] filterItems = new String[] {
+                getString(R.string.activity_log_filter_all),
+                getString(R.string.activity_log_filter_blocked_calls)
+        };
+        HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                this,
+                R.layout.spinner_highlighted_filter,
+                filterItems);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all_editor));
+/*        switch (appTheme) {
+            case "dark":
+                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
+                //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+                break;
+            case "white":
+                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
+                //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                break;
+//            case "dlight":
+//                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+//                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+//                break;
+            default:
+                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+                //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                break;
+        }*/
+        //filterInitialized = false;
+        filterSpinner.setAdapter(filterSpinnerAdapter);
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //if (!filterInitialized) {
+                //    filterInitialized = true;
+                //    return;
+                //}
+                if (filterSpinner.getAdapter() != null) {
+                    //if (filterSpinner.getAdapter().getCount() <= position)
+                    //    position = 0;
+                    ((HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                }
+
+                int selectedFilter;
+                switch (position) {
+                    case 0:
+                        //noinspection DuplicateBranchesInSwitch
+                        selectedFilter = PPApplication.ALFILTER_ALL;
+                        break;
+                    case 1:
+                        selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
+                        break;
+                    default:
+                        selectedFilter = PPApplication.ALFILTER_ALL;
+                }
+                selectFilterItem(selectedFilter);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
 
         //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
@@ -110,7 +181,7 @@ public class ActivityLogActivity extends AppCompatActivity
         super.onStart();
 
         setAdapterAsyncTask =
-                new SetAdapterAsyncTask(this, getApplicationContext());
+                new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
         setAdapterAsyncTask.execute();
     }
 
@@ -155,7 +226,7 @@ public class ActivityLogActivity extends AppCompatActivity
         if (itemId == R.id.menu_activity_log_reload) {
             //addedNewLogs = false;
             addedNewLogsText.setVisibility(View.GONE);
-            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
+            activityLogAdapter.reload(getApplicationContext(), selectedFilter);
             listView.setSelection(0);
             return true;
         }
@@ -171,7 +242,7 @@ public class ActivityLogActivity extends AppCompatActivity
                         //addedNewLogs = false;
                         addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
+                        activityLogAdapter.reload(getApplicationContext(), selectedFilter);
                     },
                     null,
                     null,
@@ -195,7 +266,7 @@ public class ActivityLogActivity extends AppCompatActivity
             PPApplicationStatic.setActivityLogEnabled(getApplicationContext(), !enabled);
             if (!enabled)
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, "");
-            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
+            activityLogAdapter.reload(getApplicationContext(), selectedFilter);
             listView.setSelection(0);
             invalidateOptionsMenu();
             return true;
@@ -344,17 +415,30 @@ public class ActivityLogActivity extends AppCompatActivity
         */
     }
 
+    private void selectFilterItem(int selectedFilter) {
+        this.selectedFilter = selectedFilter;
+
+        setAdapterAsyncTask =
+                new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
+        setAdapterAsyncTask.execute();
+
+        filterSpinner.setSelection(selectedFilter);
+    }
+
     private static class SetAdapterAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         private final WeakReference<Context> contextWeakReference;
         private final WeakReference<ActivityLogActivity> activityWeakReference;
 
+        int selectedFilter;
         Cursor activityLogCursor = null;
 
-        public SetAdapterAsyncTask(final ActivityLogActivity activity,
+        public SetAdapterAsyncTask(final int selectedFilter,
+                                   final ActivityLogActivity activity,
                                    final Context context) {
             this.contextWeakReference = new WeakReference<>(context);
             this.activityWeakReference = new WeakReference<>(activity);
+            this.selectedFilter = selectedFilter;
         }
 
         @Override
@@ -362,7 +446,8 @@ public class ActivityLogActivity extends AppCompatActivity
             Context context = contextWeakReference.get();
 
             if (context != null) {
-                activityLogCursor =  DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor();
+                activityLogCursor =
+                        DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor(selectedFilter);
             }
 
             return null;
@@ -381,6 +466,7 @@ public class ActivityLogActivity extends AppCompatActivity
 
                     // Attach cursor adapter to the ListView
                     activity.listView.setAdapter(activity.activityLogAdapter);
+                    activity.activityLogAdapter.notifyDataSetChanged();
 
                     activity.progressLinearLayout.setVisibility(View.GONE);
                     activity.listView.setVisibility(View.VISIBLE);

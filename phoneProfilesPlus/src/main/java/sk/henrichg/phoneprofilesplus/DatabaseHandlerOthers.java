@@ -89,7 +89,7 @@ class DatabaseHandlerOthers {
         }
     }
 
-    static Cursor getActivityLogCursor(DatabaseHandler instance) {
+    static Cursor getActivityLogCursor(DatabaseHandler instance, int selectedFilter) {
         instance.importExportLock.lock();
         try {
             Cursor cursor = null;
@@ -100,6 +100,11 @@ class DatabaseHandlerOthers {
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 String countQuery = "SELECT COUNT(0) FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG;
+
+                if (selectedFilter == PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL)
+                    countQuery = countQuery + " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
+                            PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
+
                 cursor = db.rawQuery(countQuery, null);
 
                 int count = 0;
@@ -120,6 +125,12 @@ class DatabaseHandlerOthers {
                                 //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
                                 "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                                 " UNION ALL ";
+
+                String whereString = "";
+                if (selectedFilter == PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL)
+                    whereString = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
+                            PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
+
                 selectQuery = selectQuery +
                         "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
                                 DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
@@ -130,6 +141,7 @@ class DatabaseHandlerOthers {
                                 //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
                             DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG +
+                        whereString +
                         " ORDER BY " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + " DESC";
 
                 cursor = db.rawQuery(selectQuery, null);

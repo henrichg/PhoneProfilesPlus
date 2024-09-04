@@ -10,6 +10,25 @@
     android:orientation="vertical"
     tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity" >
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_log_subToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="37dp">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/activity_log_filter_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_gravity="center_vertical"
+            android:entries="@array/emptyArray"
+            android:clickable="true"
+            android:focusable="true"
+            android:popupElevation="0dp"
+            style="@style/Base.Widget.AppCompat.Spinner" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/activity_log_liLa1"
         android:orientation="vertical"

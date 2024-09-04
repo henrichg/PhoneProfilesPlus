@@ -1433,8 +1433,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerOthers.clearActivityLog(this);
     }
 
-    Cursor getActivityLogCursor() {
-        return DatabaseHandlerOthers.getActivityLogCursor(this);
+    Cursor getActivityLogCursor(int selectedFilter) {
+        return DatabaseHandlerOthers.getActivityLogCursor(this, selectedFilter);
     }
 
 // OTHERS -------------------------------------------------------------------------

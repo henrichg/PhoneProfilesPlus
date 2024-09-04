@@ -18,14 +18,14 @@ import androidx.cursoradapter.widget.CursorAdapter;
 
 class ActivityLogAdapter extends CursorAdapter {
 
-    private final int KEY_AL_ID;
-    private final int KEY_AL_LOG_DATE_TIME;
-    private final int KEY_AL_LOG_TYPE;
-    private final int KEY_AL_EVENT_NAME;
-    private final int KEY_AL_PROFILE_NAME;
-    //private final int KEY_AL_PROFILE_ICON;
-    //private final int KEY_AL_DURATION_DELAY;
-    private final int KEY_AL_PROFILE_EVENT_COUNT;
+    private final int KEY_AL_ID_COLUMN_IDX;
+    private final int KEY_AL_LOG_DATE_TIME_COLUMN_IDX;
+    private final int KEY_AL_LOG_TYPE_COLUMN_IDX;
+    private final int KEY_AL_EVENT_NAME_COLUMN_IDX;
+    private final int KEY_AL_PROFILE_NAME_COLUMN_IDX;
+    //private final int KEY_AL_PROFILE_ICON_COLUMN_IDX;
+    //private final int KEY_AL_DURATION_DELAY_COLUMN_IDX;
+    private final int KEY_AL_PROFILE_EVENT_COUNT_COLUMN_IDX;
 
     private final SparseIntArray activityTypeStrings = new SparseIntArray();
     private final SparseIntArray activityTypeColors = new SparseIntArray();
@@ -33,14 +33,14 @@ class ActivityLogAdapter extends CursorAdapter {
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
-        KEY_AL_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_ID);
-        KEY_AL_LOG_DATE_TIME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
-        KEY_AL_LOG_TYPE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
-        KEY_AL_EVENT_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
-        KEY_AL_PROFILE_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
+        KEY_AL_ID_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_ID);
+        KEY_AL_LOG_DATE_TIME_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
+        KEY_AL_LOG_TYPE_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
+        KEY_AL_EVENT_NAME_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
+        KEY_AL_PROFILE_NAME_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
         //KEY_AL_PROFILE_ICON = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_ICON);
         //KEY_AL_DURATION_DELAY = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_DURATION_DELAY);
-        KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
+        KEY_AL_PROFILE_EVENT_COUNT_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
         //activityTypeStrings.put(PPApplication.ALTYPE_LOG_TOP, R.string.altype_logTop);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
@@ -199,7 +199,7 @@ class ActivityLogAdapter extends CursorAdapter {
     }
 
     private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
-        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
+        int logType = cursor.getInt(KEY_AL_LOG_TYPE_COLUMN_IDX);
 
         if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
             rowData.logDateTime.setTypeface(null, Typeface.BOLD);
@@ -211,7 +211,7 @@ class ActivityLogAdapter extends CursorAdapter {
             rowData.logData.setTypeface(null, Typeface.NORMAL);
         }
 
-        if (cursor.getInt(KEY_AL_ID) == -1) {
+        if (cursor.getInt(KEY_AL_ID_COLUMN_IDX) == -1) {
             //Log.e("ActivityLogAdapter.setRowData", "KEY_AL_ID=-1");
             rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
             rowData.logTypeColor.setAlpha(0);
@@ -219,13 +219,13 @@ class ActivityLogAdapter extends CursorAdapter {
         }
         else {
             //Log.e("ActivityLogAdapter.setRowData", "color="+activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE_COLUMN_IDX)));
             rowData.logTypeColor.setAlpha(1);
-            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME_COLUMN_IDX)));
         }
 
         String logTypeText;
-        if (cursor.getInt(KEY_AL_ID) == -1) {
+        if (cursor.getInt(KEY_AL_ID_COLUMN_IDX) == -1) {
             logTypeText = "---";
         } else {
             logTypeText = context.getString(activityTypeStrings.get(logType));
@@ -233,7 +233,7 @@ class ActivityLogAdapter extends CursorAdapter {
                 logTypeText = "*** " + logTypeText + " ***";
             }
             if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT_COLUMN_IDX);
                 if (profileEventCount != null)
                     logTypeText = logTypeText + " " + profileEventCount;
             }
@@ -243,10 +243,10 @@ class ActivityLogAdapter extends CursorAdapter {
         String logData = "";
         if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
             logData = context.getString(R.string.activityLog_blockedCall_telNumber) + " " +
-                    cursor.getString(KEY_AL_PROFILE_NAME); // in profile name is blocked tel. number
+                    cursor.getString(KEY_AL_PROFILE_NAME_COLUMN_IDX); // in profile name is blocked tel. number
         } else {
-            String event_name = cursor.getString(KEY_AL_EVENT_NAME);
-            String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
+            String event_name = cursor.getString(KEY_AL_EVENT_NAME_COLUMN_IDX);
+            String profile_name = cursor.getString(KEY_AL_PROFILE_NAME_COLUMN_IDX);
             if (event_name != null)
                 logData = logData + event_name;
             if (profile_name != null) {
@@ -298,8 +298,9 @@ class ActivityLogAdapter extends CursorAdapter {
         //TextView profileName;
     }
 
-    void reload(Context context/*DataWrapper dataWrapper*/) {
-        changeCursor(DatabaseHandler.getInstance(/*dataWrapper.*/context.getApplicationContext()).getActivityLogCursor());
+    void reload(Context context, int selectedFilter) {
+        changeCursor(DatabaseHandler.getInstance(
+                /*dataWrapper.*/context.getApplicationContext()).getActivityLogCursor(selectedFilter));
     }
 
     private int shiftColor(int color, Context context) {
