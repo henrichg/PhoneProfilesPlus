@@ -101,10 +101,83 @@ class DatabaseHandlerOthers {
 
                 String countQuery = "SELECT COUNT(0) FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG;
 
-                if (selectedFilter == PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL)
-                    countQuery = countQuery + " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
-                            PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
-
+                String whereStr = "";
+                switch (selectedFilter) {
+                    case PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
+                                PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
+                        break;
+                    case PPApplication.ALFITER_ERRORS:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_WIFI + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS + ", " +
+                                PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS + ", " +
+                                PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED + ", " +
+                                PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND +
+                        ")";
+                        break;
+                    case PPApplication.ALFILTER_EVENT_START:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_EVENT_START + ", " +
+                                PPApplication.ALTYPE_EVENT_START_DELAY +
+                                ")";
+                        break;
+                    case PPApplication.ALFILTER_EVENT_END:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_EVENT_END_NONE + ", " +
+                                PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE + ", " +
+                                PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE + ", " +
+                                PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE + ", " +
+                                PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE + ", " +
+                                PPApplication.ALTYPE_EVENT_END_DELAY + ", " +
+                                PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT +
+                                ")";
+                        break;
+                    case PPApplication.ALFILTER_EVENT_STOP:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_EVENT_STOP + ", " +
+                                PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT +
+                                ")";
+                        break;
+                    case PPApplication.ALFILTER_RESTART_EVENTS:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_MANUAL_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS + ", " +
+                                PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS +
+                                ")";
+                        break;
+                    case PPApplication.ALFITER_PROFILE_ACTIVATION:
+                        whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION + ", " +
+                                PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE + ", " +
+                                PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE + ", " +
+                                PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION +
+                                ")";
+                        break;
+                }
+                countQuery = countQuery + whereStr;
                 cursor = db.rawQuery(countQuery, null);
 
                 int count = 0;
@@ -126,11 +199,6 @@ class DatabaseHandlerOthers {
                                 "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                                 " UNION ALL ";
 
-                String whereString = "";
-                if (selectedFilter == PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL)
-                    whereString = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
-                            PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
-
                 selectQuery = selectQuery +
                         "SELECT " + DatabaseHandler.KEY_AL_ID + "," +
                                 DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
@@ -141,7 +209,7 @@ class DatabaseHandlerOthers {
                                 //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
                             DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + DatabaseHandler.TABLE_ACTIVITY_LOG +
-                        whereString +
+                        whereStr +
                         " ORDER BY " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + " DESC";
 
                 cursor = db.rawQuery(selectQuery, null);

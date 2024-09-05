@@ -88,7 +88,13 @@ public class ActivityLogActivity extends AppCompatActivity
         filterSpinner = findViewById(R.id.activity_log_filter_spinner);
         String[] filterItems = new String[] {
                 getString(R.string.activity_log_filter_all),
-                getString(R.string.activity_log_filter_blocked_calls)
+                getString(R.string.activity_log_filter_blocked_calls),
+                getString(R.string.activity_log_filter_errors),
+                getString(R.string.activity_log_filter_event_start),
+                getString(R.string.activity_log_filter_event_end),
+                getString(R.string.activity_log_filter_event_stop),
+                getString(R.string.activity_log_filter_restart_events),
+                getString(R.string.activity_log_filter_profile_activations),
         };
         HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
@@ -138,6 +144,24 @@ public class ActivityLogActivity extends AppCompatActivity
                         break;
                     case 1:
                         selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
+                        break;
+                    case 2:
+                        selectedFilter = PPApplication.ALFITER_ERRORS;
+                        break;
+                    case 3:
+                        selectedFilter = PPApplication.ALFILTER_EVENT_START;
+                        break;
+                    case 4:
+                        selectedFilter = PPApplication.ALFILTER_EVENT_END;
+                        break;
+                    case 5:
+                        selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
+                        break;
+                    case 6:
+                        selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
+                        break;
+                    case 7:
+                        selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
                         break;
                     default:
                         selectedFilter = PPApplication.ALFILTER_ALL;

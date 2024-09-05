@@ -617,4 +617,10 @@ Fix: Fixed download link of InstallWithOptions.pak in docs.
 
 --------------
 
-...
+Reginer/aosp-android-jar - uz je tam API 35
+Ale asi pockam este:
+"The default compiled file will report an error in r8. The corresponding file of Android14 is used
+directly without comparing the contents. Be careful when using this file"
+
+---------
+
