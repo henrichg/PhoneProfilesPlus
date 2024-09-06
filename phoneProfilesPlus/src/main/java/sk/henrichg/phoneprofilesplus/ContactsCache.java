@@ -91,6 +91,7 @@ class ContactsCache {
 
                         if ((name != null) && (rawAccountType != null)) {
                             //if (hasPhone > 0) {
+                            try {
                                 projection = new String[]{
                                         ContactsContract.CommonDataKinds.Phone._ID,
                                         ContactsContract.CommonDataKinds.Phone.NUMBER//,
@@ -98,7 +99,7 @@ class ContactsCache {
                                 };
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,
                                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId + " AND " +
-                                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "=\"" + rawAccountType + "\"",
+                                                ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "=\"" + rawAccountType + "\"",
                                         null, null);
                                 if (phones != null) {
                                     if (phones.getCount() > 0) {
@@ -127,8 +128,7 @@ class ContactsCache {
                                             _contactList.add(aContact);
                                             //}
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         Contact aContact = new Contact();
                                         aContact.contactId = contactId;
                                         aContact.name = name;
@@ -146,6 +146,14 @@ class ContactsCache {
                                     }
                                     phones.close();
                                 }
+                            } catch (Exception ignored) {
+                                // example of crash when contact is from WhatsApp:
+                                // android.database.sqlite.SQLiteException: unrecognized token: ""whatsapp" (code 1 SQLITE_ERROR): ,
+                                // while compiling: SELECT _id, data1 FROM view_data data LEFT OUTER JOIN (SELECT 0 as STAT_DATA_ID,0 as x_times_used, 0 as x_last_time_used,
+                                // 0 as times_used, 0 as last_time_used where 0) as data_usage_stat ON (STAT_DATA_ID=data._id) WHERE (1 AND mimetype_id=5 AND (1=1)) AND
+                                // (contact_id=135200 AND account_type_and_data_set="whatsapp e")
+                            }
+
                             //}
                             /*else {
                                 Contact aContact = new Contact();
