@@ -2282,6 +2282,7 @@
     <string name="activity_log_filter_event_stop">Stop of events</string>
     <string name="activity_log_filter_restart_events">Restart of events</string>
     <string name="activity_log_filter_profile_activations">Profile activations</string>
+    <string name="altype_applicationInstallation">application installation</string>
 
     <!-- **************************************************************************************** -->
 

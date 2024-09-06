@@ -321,6 +321,7 @@ public class PPApplication extends Application
     static final int ALTYPE_APPLICATION_START = 9;
     static final int ALTYPE_APPLICATION_START_ON_BOOT = 16;
     static final int ALTYPE_APPLICATION_EXIT = 10;
+    static final int ALTYPE_APPLICATION_INSTALLATION = 115;
     static final int ALTYPE_APPLICATION_UPGRADE = 34;
     static final int ALTYPE_APPLICATION_SYSTEM_RESTART = 107;
     static final int ALTYPE_DATA_IMPORT = 11;
@@ -395,6 +396,7 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
     static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+    // TODO actual max. value = 115;
 
     static final int ALFILTER_ALL = 0;
     static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;

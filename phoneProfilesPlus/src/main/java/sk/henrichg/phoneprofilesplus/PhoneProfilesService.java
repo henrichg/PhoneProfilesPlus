@@ -739,6 +739,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.firstStartAfterInstallation = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
 
                 // this save actual version
+                boolean applicationJustInstalled = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
                 boolean newVersion = doForPackageReplaced(appContext);
                 if (newVersion) {
                     __activateProfiles = true;
@@ -976,7 +977,10 @@ public class PhoneProfilesService extends Service
                         try {
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             String version = pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
-                            PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, "");
+                            if (applicationJustInstalled)
+                                PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_INSTALLATION, version, null, "");
+                            else
+                                PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, "");
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }

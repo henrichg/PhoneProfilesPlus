@@ -108,6 +108,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, R.string.altype_extender_accessibility_service_not_enabled);
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, R.string.altype_extender_accessibility_service_unbind);
         activityTypeStrings.put(PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, R.string.altype_callScreening_blockedCall);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_INSTALLATION, R.string.altype_applicationInstallation);
 
         //int otherColor = R.color.altype_other;
         /*
@@ -196,6 +197,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, color);
         activityTypeColors.put(PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, color);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_INSTALLATION, color);
     }
 
     private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
