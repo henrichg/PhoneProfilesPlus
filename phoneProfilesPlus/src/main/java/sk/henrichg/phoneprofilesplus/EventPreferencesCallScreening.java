@@ -42,6 +42,7 @@ class EventPreferencesCallScreening extends EventPreferences {
     static final String PREF_EVENT_CALL_SCREENING_CONTACTS = "eventCallScreeningContacts";
     static final String PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS = "eventCallScreeningContactGroups";
     //private static final String PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE = "eventCallScreeningContactListType";
+    static final String PREF_EVENT_CALL_SCREENING_BLOCK_CALLS_INFO = "eventCallScreeningBlockCallsInfo";
     static final String PREF_EVENT_CALL_SCREENING_BLOCK_CALLS = "eventCallScreeningBlockCalls";
     static final String PREF_EVENT_CALL_SCREENING_SEND_SMS = "eventCallScreeningSendSMS";
     static final String PREF_EVENT_CALL_SCREENING_SMS_TEXT = "eventCallScreeningSMSText";
@@ -417,6 +418,9 @@ class EventPreferencesCallScreening extends EventPreferences {
                         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS);
                         if (preference != null)
                             preference.setEnabled(isRoleHeld);
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS_INFO);
+                        if (preference != null)
+                            preference.setEnabled(isRoleHeld && (direction != CALL_DIRECTION_OUTGOING));
                         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS);
                         if (preference != null)
                             preference.setEnabled(isRoleHeld && (direction != CALL_DIRECTION_OUTGOING));

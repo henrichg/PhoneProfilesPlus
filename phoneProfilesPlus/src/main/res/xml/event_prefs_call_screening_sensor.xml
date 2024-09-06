@@ -76,10 +76,16 @@
         app:dependency="eventCallScreeningEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.ExclamationPreference
+        app:key="eventCallScreeningBlockCallsInfo"
+        app:title="@string/event_preference_callScreeningBlockCalls"
+        app:summary="@string/event_preference_callScreeningBlockCalls_summary"
+        app:dependency="eventCallScreeningEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="eventCallScreeningBlockCalls"
         app:title="@string/event_preference_callScreeningBlockCalls"
-        app:summary="@string/event_preference_callScreeningBlockCalls_summary"
         app:defaultValue="false"
         app:dependency="eventCallScreeningEnabled"
         app:layout="@layout/mp_preference_material_widget" />
