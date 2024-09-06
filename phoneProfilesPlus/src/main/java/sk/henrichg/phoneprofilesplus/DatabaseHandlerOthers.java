@@ -192,11 +192,11 @@ class DatabaseHandlerOthers {
                         "SELECT -1 AS " + DatabaseHandler.KEY_AL_ID + "," +
                                 "CURRENT_TIMESTAMP AS " + DatabaseHandler.KEY_AL_LOG_DATE_TIME + "," +
                                 PPApplication.ALTYPE_LOG_TOP + " AS " + DatabaseHandler.KEY_AL_LOG_TYPE + "," +
-                                "\"\" AS " + DatabaseHandler.KEY_AL_EVENT_NAME + "," +
-                                "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
+                                "'' AS " + DatabaseHandler.KEY_AL_EVENT_NAME + "," +
+                                "'' AS " + DatabaseHandler.KEY_AL_PROFILE_NAME + "," +
                                 //DatabaseHandler.KEY_AL_PROFILE_ICON + "," +
                                 //DatabaseHandler.KEY_AL_DURATION_DELAY + "," +
-                                "\"\" AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
+                                "'' AS " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT +
                                 " UNION ALL ";
 
                 selectQuery = selectQuery +

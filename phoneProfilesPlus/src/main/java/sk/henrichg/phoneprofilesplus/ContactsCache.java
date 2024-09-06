@@ -99,7 +99,7 @@ class ContactsCache {
                                 };
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,
                                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId + " AND " +
-                                                ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "=\"" + rawAccountType + "\"",
+                                                ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "='" + rawAccountType + "'",
                                         null, null);
                                 if (phones != null) {
                                     if (phones.getCount() > 0) {

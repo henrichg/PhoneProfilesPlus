@@ -5564,7 +5564,7 @@ class DatabaseHandlerEvents {
                 // Select All Query
                 final String selectQuery = "SELECT COUNT(*) " +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
-                        " WHERE " + DatabaseHandler.KEY_MC_NAME + "=\"" + cellName + "\"";
+                        " WHERE " + DatabaseHandler.KEY_MC_NAME + "='" + cellName + "'";
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
