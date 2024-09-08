@@ -314,22 +314,27 @@ fun Context.writeSecure(key: String?, value: Any?): Boolean {
     }
 }
 
-const val TWILIGHT_MODE = "twilight_mode"
+//const val TWILIGHT_MODE = "twilight_mode"
 const val NIGHT_DISPLAY_ACTIVATED = "night_display_activated"
+- pouzijem toto len, chcem len zapnut/vypnut
 const val NIGHT_DISPLAY_AUTO_MODE = "night_display_auto_mode"
 const val NIGHT_DISPLAY_COLOR_TEMPERATURE = "night_display_color_temperature"
-// tiet dve este musim zistit, ci vobec vie nastavit.
+// tieto dve este musim zistit, ci vobec vie nastavit.
 // v aplikacii to nie je
 const val NIGHT_DISPLAY_CUSTOM_START_TIME = "night_display_custom_start_time"
 const val NIGHT_DISPLAY_CUSTOM_END_TIME = "night_display_custom_end_time"
 
 // pre API 24
-writeSecure(NightModeView.TWILIGHT_MODE, info.twilightMode)
+//writeSecure(NightModeView.TWILIGHT_MODE, info.twilightMode)
 
 // pre API 25+
 writeSecure(NightModeView.NIGHT_DISPLAY_ACTIVATED, info.nightModeActivated)
+- Funguje na Pixeli
+
 writeSecure(NightModeView.NIGHT_DISPLAY_AUTO_MODE, info.nightModeAuto)
-writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
+- Toto mozno bude treba na inych mobiloch ako Pixel. K tomu NIGHT_DISPLAY_ACTIVATED
+
+//writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
 
 Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
 
@@ -354,9 +359,16 @@ https://github.com/farmerbb/Night-Light/blob/master/app/src/main/java/com/farmer
 
 Ale mam toto:
 https://github.com/zacharee/Tweaker/issues/120
+
 Pre Samsung: https://www.macrodroidforum.com/index.php?threads/samsung-s21-eye-comfort-shield-setting-key.2962/
-Funguje na S10, S21, S23 = supeeer!!! a je to Setting.System, takze tu netreba G1 pravo !
-Ostatne mobily uvidime.
+Funguje na S10, S21, S23 = supeeer!!! a je to Setting.System "blue_light_filter", takze netreba G1 pravo.
+Xiaomi Settings.System, ale parameter "screen_paper_mode_enabled" Takze netreba G1 pravo.
+Huawei: Settings.System "eyes_protection_mode", netreba G1 pravo. - tu je to trocha cudne (dava tma aj ine hodnoty), ale funguje 0/1
+Toto dam default pre vsetky ostatne mobily, napr. Oppo je vraj to iste co OnePlus:
+Pixel: Settings.Secure "night_display_activated", treba G1 pravo.
+OnePlus: Settings.Secure "night_display_activated", treba G1 pravo.
+
+Kde netreba G1, sksu ci nebude treba PPPPS.
 
 ---
 Toto asi nie:
