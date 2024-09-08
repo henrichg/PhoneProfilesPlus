@@ -287,21 +287,21 @@ Night light (blue light filter):
 Vypada to, ze takto sa to robi:
 
 if (isActive) {
-    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
-        prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 0)
-        writeSecure("twilight_mode", 0)
-    } else {
+    //if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
+    //    prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 0)
+    //    writeSecure("twilight_mode", 0)
+    //} else {
         prefManager.saveOption(SettingsType.SECURE, "night_display_activated", 0)
         writeSecure("night_display_activated", 0)
-    }
+    //}
 } else {
-    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
-        prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 1)
-        writeSecure("twilight_mode", 1)
-    } else {
+    //if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
+    //    prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 1)
+    //    writeSecure("twilight_mode", 1)
+    //} else {
         prefManager.saveOption(SettingsType.SECURE, "night_display_activated", 1)
         writeSecure("night_display_activated", 1)
-    }
+    //}
 }
 
 fun Context.writeSecure(key: String?, value: Any?): Boolean {
@@ -336,7 +336,6 @@ Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zac
 Bude potrebovat WRITE_SECURE_SETTINGS.
 Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS na Pixel 3a.
 
----
 Testni to potom este na Samsungu, ci to ide. Neviem, niekde som cital, ze to zhasne obrazovku
 a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
 !!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazovku.
@@ -345,6 +344,22 @@ a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
 !!! Ale? Mozno System UI tuner zapise len pri zmene automatiky aj to zapnutie. A to je mozno problem.
 !!! Testni, testni testni.
 
+!!! Mozno treba len writeSecure(NightModeView.NIGHT_DISPLAY_ACTIVATED, info.nightModeActivated)
+!!! Lebo som sa rozhodol, ze to budem len zapinat/vypinat, nebudem menit parametre
+!!! Lebo toto asi je pre sunrise/sunset - ak teda toto blbne na Samsungu:
+!!!    writeSecure(NightModeView.NIGHT_DISPLAY_AUTO_MODE, info.nightModeAuto)
+
+Mam ine, uvidime - ktohovie ci pojde na Samsungoch. Asi prd pomoze, ta apka je natvrdo pre API 24.
+https://github.com/farmerbb/Night-Light/blob/master/app/src/main/java/com/farmerbb/nightlight/util/U.java
+
+Ale mam toto:
+https://github.com/zacharee/Tweaker/issues/120
+Pre Samsung: https://www.macrodroidforum.com/index.php?threads/samsung-s21-eye-comfort-shield-setting-key.2962/
+Funguje na S10, S21, S23 = supeeer!!! a je to Setting.System, takze tu netreba G1 pravo !
+Ostatne mobily uvidime.
+
+---
+Toto asi nie:
 Mozno taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
 Vyskusaj aj to. Testuj na Galaxy S10.
 Ak to vrati, tak potom to sprav tak, ze uzivatel musi cez test dako prejst. A len ak potvrdi
@@ -359,6 +374,7 @@ Cize sprav na to dialog s tymi 3 parametrami:
    S pouiztim public Dialog onCreateDialog(Bundle savedInstanceState)
 ---
 
+Zavolanie Settings = (I) parameter:
 Toto je, ked to hore nepojde. Cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
 
 ACTION_NIGHT_DISPLAY_SETTINGS
