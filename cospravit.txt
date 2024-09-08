@@ -366,7 +366,7 @@ Xiaomi Settings.System "screen_paper_mode_enabled" Takze netreba G1 pravo.
 Huawei: Settings.System "eyes_protection_mode", netreba G1 pravo. - tu je to trocha cudne (dava tam aj ine hodnoty), ale funguje 0/1
 Toto dam default pre vsetky ostatne mobily, napr. Oppo je vraj to iste co OnePlus:
 Pixel: Settings.Secure "night_display_activated", treba G1 pravo.
-OnePlus: Settings.Secure "night_display_activated", treba G1 pravo.
+OnePlus: Settings.Secure "night_display_activated", treba G1 pravo. Musel som si ho ale pridat, lebo ho tam nemal.
 
 Kde netreba G1, skus, ci nebude treba PPPPS.
 
