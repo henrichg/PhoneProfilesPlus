@@ -725,7 +725,8 @@ class ProfileStatic {
                     profile._clearNotificationContacts,
                     profile._clearNotificationContactGroups,
                     profile._clearNotificationCheckText,
-                    profile._clearNotificationText
+                    profile._clearNotificationText,
+                    profile._screenNightLight
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1018,6 +1019,9 @@ class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS(preferenceAllowed);
                 case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED(preferenceAllowed);
+                case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1069,6 +1073,7 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, profile, sharedPreferences);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, "-", profile, sharedPreferences/*, fromUIThread, context*/);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||
@@ -1241,6 +1246,21 @@ class ProfileStatic {
                     (!defaultAssistantEnabled) ||
                     (!installedPPPPS) ||
                     (!grantedShizukuPermission);
+    }
+
+    static int getNightLightStringId() {
+//        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+//            return R.string.profile_preferences_screenNightLight_Samsung;
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            return R.string.profile_preferences_screenNightLight_Xiaomi;
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+            return R.string.profile_preferences_screenNightLight_Huawei;
+        if (PPApplication.deviceIsOnePlus)
+            return R.string.profile_preferences_screenNightLight_OnePlus;
+        return R.string.profile_preferences_screenNightLight;
+    }
+    static String getNightLightStringString(Context context) {
+        return context.getString(getNightLightStringId());
     }
 
 }

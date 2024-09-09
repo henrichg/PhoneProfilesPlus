@@ -1869,6 +1869,37 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // screen night light
+            if (profile._screenNightLight != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenNightLight == 1) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = ProfileStatic.getNightLightStringString(appContext) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nli:1";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_light;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                    if (profile._screenNightLight == 2) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = ProfileStatic.getNightLightStringString(appContext) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nli:0";
+                        else {
+                            disabled[countDrawables] = true;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_light;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
 
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
@@ -2010,6 +2041,27 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
+                }
+            }
+            // send sms
+            if (
+                    (
+                            /*(profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                            ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
+                                    ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))
+                    ) &&
+                            profile._sendSMSSendSMS) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_category_send_sms);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ssms";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_send_sms;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
                 }
             }
 
@@ -2228,27 +2280,6 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                }
-            }
-            // send sms
-            if (
-                (
-                 /*(profile._phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                 ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
-                 ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))
-                ) &&
-                profile._sendSMSSendSMS) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_category_send_sms);
-                    if (fillStrings)
-                        strings[countDrawables++] = "ssms";
-                    else {
-                        disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_send_sms;
-                    }
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
                 }
             }
             // disable global events run

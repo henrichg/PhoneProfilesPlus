@@ -2284,6 +2284,13 @@
     <string name="activity_log_filter_profile_activations">Profile activations</string>
     <string name="altype_applicationInstallation">application installation</string>
 
+    <string name="profile_preferences_screenNightLight">(G1)(R) Night light</string>
+<!--    <string name="profile_preferences_screenNightLight_Samsung">Eye comfort shield</string>-->
+    <string name="profile_preferences_screenNightLight_Xiaomi">(Z)(R) Reading mode</string>
+    <string name="profile_preferences_screenNightLight_Huawei">Eye comfort</string>
+    <string name="profile_preferences_screenNightLight_OnePlus">(G1)(R) Eye comfort</string>
+    <string name="permission_why_profile_screen_night_huawei">for enable/disable Eye comfort</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

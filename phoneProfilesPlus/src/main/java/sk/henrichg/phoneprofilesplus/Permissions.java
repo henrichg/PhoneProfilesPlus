@@ -88,6 +88,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_SEND_SMS = 58;
     static final int PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES = 59;
     static final int PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS = 60;
+    static final int PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT = 61;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -265,6 +266,7 @@ class Permissions {
         checkProfileSendSMS(context, profile, permissions);
         checkProfilePPPPutSettings(context, profile, permissions);
         checkProfileClearNotifications(context, profile, permissions);
+        checkProfileScreenNightLight(context, profile, permissions);
 
         return permissions;
     }
@@ -1254,6 +1256,29 @@ class Permissions {
         }
     }
 
+    static boolean checkProfileScreenNightLight(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        if (/*(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||*/
+            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+            try {
+                if (profile._screenNightLight != 0) {
+                    boolean granted = Settings.System.canWrite(context);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    if (!granted) {
+                        if (permissions != null)
+                            permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT, permission.WRITE_SETTINGS));
+                    }
+                    return granted;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        } else
+            return true;
+    }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
                                                            int sensorType) {

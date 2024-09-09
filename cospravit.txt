@@ -362,7 +362,11 @@ https://github.com/zacharee/Tweaker/issues/120
 
 Pre Samsung: https://www.macrodroidforum.com/index.php?threads/samsung-s21-eye-comfort-shield-setting-key.2962/
 Funguje na S10, S21, S23 = supeeer!!! a je to Setting.System "blue_light_filter", takze netreba G1 pravo.
-Xiaomi Settings.System "screen_paper_mode_enabled" Takze netreba G1 pravo.
+Nefunguje. Meni switch v Nastavenia ale filter nenhadzuje.
+
+Xiaomi Settings.System "screen_paper_mode_enabled" Rreba root!!! PPPPSaj G1 je tu nanic.
+
+
 Huawei: Settings.System "eyes_protection_mode", netreba G1 pravo. - tu je to trocha cudne (dava tam aj ine hodnoty), ale funguje 0/1
 Toto dam default pre vsetky ostatne mobily, napr. Oppo je vraj to iste co OnePlus:
 Pixel: Settings.Secure "night_display_activated", treba G1 pravo.

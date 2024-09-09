@@ -144,6 +144,7 @@ class Profile {
     String _clearNotificationContactGroups; // groupId|...
     boolean _clearNotificationCheckText;
     String _clearNotificationText;
+    int _screenNightLight;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -285,6 +286,7 @@ class Profile {
     static final String PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS = "prf_pref_clearNotificationContactGroups";
     static final String PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS = "prf_pref_clearNotificationContacts";
     static final String PREF_PROFILE_CLEAR_NOTIFICATION_TEXT = "prf_pref_clearNotificationText";
+    static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT = "prf_pref_screenNightLight";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
@@ -454,6 +456,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
         defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
         defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT, "0");
     }
 
     static final int[] profileIconId = {
@@ -1126,7 +1129,8 @@ class Profile {
                    String clearNotificationContacts,
                    String clearNotificationContactGroups,
                    boolean clearNotificationCheckText,
-                   String clearNotificationText
+                   String clearNotificationText,
+                   int screenNightLight
             )
     {
         this._id = id;
@@ -1255,6 +1259,7 @@ class Profile {
         this._clearNotificationContactGroups = clearNotificationContactGroups;
         this._clearNotificationCheckText = clearNotificationCheckText;
         this._clearNotificationText = clearNotificationText;
+        this._screenNightLight = screenNightLight;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1387,7 +1392,8 @@ class Profile {
             String clearNotificationContacts,
             String clearNotificationContactGroups,
             boolean clearNotificationCheckText,
-            String clearNotificationText
+            String clearNotificationText,
+            int screenNightLight
     )
     {
         this._name = name;
@@ -1515,6 +1521,7 @@ class Profile {
         this._clearNotificationContactGroups = clearNotificationContactGroups;
         this._clearNotificationCheckText = clearNotificationCheckText;
         this._clearNotificationText = clearNotificationText;
+        this._screenNightLight = screenNightLight;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1649,6 +1656,7 @@ class Profile {
         this._clearNotificationContactGroups = profile._clearNotificationContactGroups;
         this._clearNotificationCheckText = profile._clearNotificationCheckText;
         this._clearNotificationText = profile._clearNotificationText;
+        this._screenNightLight = profile._screenNightLight;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -2030,6 +2038,8 @@ class Profile {
                     this._clearNotificationCheckText = true;
                 if (!withProfile._clearNotificationText.isEmpty())
                     this._clearNotificationText = withProfile._clearNotificationText;
+                if (withProfile._screenNightLight != 0)
+                    this._screenNightLight = withProfile._screenNightLight;
             }
 
             // set merged profile as activated
@@ -2447,6 +2457,9 @@ class Profile {
                 return false;
             }
             if (!this._clearNotificationText.equals(withProfile._clearNotificationText)) {
+                return false;
+            }
+            if (this._screenNightLight != withProfile._screenNightLight) {
                 return false;
             }
 
@@ -3513,6 +3526,7 @@ class Profile {
         editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, this._clearNotificationContactGroups);
         editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, this._clearNotificationContacts);
         editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, this._clearNotificationText);
+        editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT, Integer.toString(this._screenNightLight));
 
         editor.apply();
     }

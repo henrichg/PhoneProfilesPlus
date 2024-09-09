@@ -138,6 +138,10 @@ class ActivateProfileHelper {
     private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
     private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
     private static final String SETTINGS_PREF_HAPTIC_FEEDBACK_VIBRATION_INTENSITY = "haptic_feedback_intensity";
+    private static final String SETTINGS_BLUE_LIGHT_FILTER = "blue_light_filter";
+    private static final String SETTINGS_SCREEN_PAPER_MODE_ENABLED = "screen_paper_mode_enabled";
+    private static final String SETTINGS_EYES_PROTECTION_MODE = "eyes_protection_mode";
+    private static final String SETTINGS_NIGHT_DISPLAY_ACTIVATED = "night_display_activated";
 
 //    private static final String PPPPS_SETTINGS_TYPE_SPECIAL = "setting_type_special";
 //    private static final String SETTINGS_SET_WIFI_ENABLED = "setWifiEnabled";
@@ -5743,17 +5747,17 @@ class ActivateProfileHelper {
             setScreenDarkMode(context, profile._screenDarkMode, executedProfileSharedPreferences);
         }
 
-            // set always on display
-            if (profile._alwaysOnDisplay != 0) {
-                switch (profile._alwaysOnDisplay) {
-                    case 1:
-                        setAlwaysOnDisplay(appContext, 1, executedProfileSharedPreferences);
-                        break;
-                    case 2:
-                        setAlwaysOnDisplay(appContext, 0, executedProfileSharedPreferences);
-                        break;
-                }
+        // set always on display
+        if (profile._alwaysOnDisplay != 0) {
+            switch (profile._alwaysOnDisplay) {
+                case 1:
+                    setAlwaysOnDisplay(appContext, 1, executedProfileSharedPreferences);
+                    break;
+                case 2:
+                    setAlwaysOnDisplay(appContext, 0, executedProfileSharedPreferences);
+                    break;
             }
+        }
 
         // close all applications
 
@@ -5866,6 +5870,11 @@ class ActivateProfileHelper {
         sendSMS(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
 
         clearNotificaitons(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
+
+        // set screen dark mode
+        if (profile._screenNightLight != 0) {
+            setScreenNightLight(context, profile, executedProfileSharedPreferences);
+        }
 
         if (profile._applicationDisableGloabalEventsRun != 0) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0);
@@ -9149,6 +9158,193 @@ class ActivateProfileHelper {
         }
 
         return phoneNumberFound;
+    }
+
+    private static void setScreenNightLight(Context appContext, final Profile profile, SharedPreferences executedProfileSharedPreferences) {
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, null, executedProfileSharedPreferences, false, appContext).allowed
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            /*if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                // NOT WORKING :-(, value is set, switch is changed in Settings, but filter is not changed
+                try {
+                    if (value == 1) {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                SETTINGS_BLUE_LIGHT_FILTER, -1) != 1)
+                            Settings.System.putInt(appContext.getContentResolver(), SETTINGS_BLUE_LIGHT_FILTER, 1);
+                    } else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                SETTINGS_BLUE_LIGHT_FILTER, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), SETTINGS_BLUE_LIGHT_FILTER, 0);
+                    }
+                } catch (Exception ee) {
+                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                        if (value == 1)
+                            putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "1");
+                        else
+                            putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "0");
+                    }
+                    else if (ShizukuUtils.hasShizukuPermission()) {
+                        synchronized (PPApplication.rootMutex) {
+                            try {
+                                String command1;
+                                if (value == 1)
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 1";
+                                else
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 0";
+                                ShizukuUtils.executeCommand(command1);
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+                            }
+                        }
+                    } else {
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenNightLight", "PPApplication.rootMutex");
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                if (value == 1)
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 1";
+                                else
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 0";
+
+                                Command command = new Command(0, command1); //, command2);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SCREEN_NIGHT_LIGHT);
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                    //PPApplicationStatic.recordException(e);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else*/
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                // Shizuku, root is required !!!
+                /*boolean OK = false;
+                if (Permissions.checkProfileScreenNightLight(appContext, profile, null)) {
+                    Log.e("ActivateProfileHelper.setScreenNightLight", "WRITE_SETTINGS granted");
+                    try {
+                        if (profile._screenNightLight == 1) {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    SETTINGS_SCREEN_PAPER_MODE_ENABLED, -1) != 1)
+                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_SCREEN_PAPER_MODE_ENABLED, 1);
+                        } else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    SETTINGS_SCREEN_PAPER_MODE_ENABLED, -1) != 0)
+                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_SCREEN_PAPER_MODE_ENABLED, 0);
+                        }
+                        OK = true;
+                    } catch (Exception e) {
+                        //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+                    }
+                }
+                if (!OK) {*/
+                    if (ShizukuUtils.hasShizukuPermission()) {
+                        synchronized (PPApplication.rootMutex) {
+                            try {
+                                String command1;
+                                if (profile._screenNightLight == 1)
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 1";
+                                else
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 0";
+                                ShizukuUtils.executeCommand(command1);
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+                            }
+                        }
+                    } else {
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenNightLight", "PPApplication.rootMutex");
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                if (profile._screenNightLight == 1)
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 1";
+                                else
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 0";
+
+                                Command command = new Command(0, command1); //, command2);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SCREEN_NIGHT_LIGHT);
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                    //PPApplicationStatic.recordException(e);
+                                }
+                            }
+                        }
+                    }
+                //}
+            }
+            else
+            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                if (Permissions.checkProfileScreenNightLight(appContext, profile, null)) {
+                    try {
+                        if (profile._screenNightLight == 1) {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    SETTINGS_EYES_PROTECTION_MODE, -1) != 1) {
+                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_EYES_PROTECTION_MODE, 1);
+                            }
+                        } else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    SETTINGS_EYES_PROTECTION_MODE, -1) != 0) {
+                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_EYES_PROTECTION_MODE, 0);
+                            }
+                        }
+                    } catch (Exception e2) {
+                        //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e2));
+                    }
+                }
+            } else {
+                boolean G1OK = false;
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    try {
+                        if (profile._screenNightLight == 1) {
+                            if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                    SETTINGS_NIGHT_DISPLAY_ACTIVATED, -1) != 1)
+                                Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_NIGHT_DISPLAY_ACTIVATED, 1);
+                        } else {
+                            if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                    SETTINGS_NIGHT_DISPLAY_ACTIVATED, -1) != 0)
+                                Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_NIGHT_DISPLAY_ACTIVATED, 0);
+                        }
+                        G1OK = true;
+                    } catch (Exception e2) {
+                        PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e2));
+                        //PPApplicationStatic.recordException(e2);
+                    }
+                }
+                if (!G1OK) {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (RootUtils.isRooted(/*false*/))) {
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenDarkMode", "PPApplication.rootMutex");
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = COMMAND_SETTINGS_PUT_SECURE + SETTINGS_NIGHT_DISPLAY_ACTIVATED;
+                            if (profile._screenNightLight == 1)
+                                command1 = command1 + " 1";
+                            else
+                                command1 = command1 + " 0";
+                            Command command = new Command(0, /*false,*/ command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_DARK_MODE);
+                            } catch (Exception ee) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(ee));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

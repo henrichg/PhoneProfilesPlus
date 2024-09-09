@@ -2220,6 +2220,105 @@ class PreferenceAllowed {
         }
     }
 
+    static void isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT(PreferenceAllowed preferenceAllowed,
+                            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+        Context appContext = context.getApplicationContext();
+
+        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+        String preferenceKey = Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT;
+
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if (ShizukuUtils.hasShizukuPermission()) {
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else if (RootUtils.isRooted(/*fromUIThread*/)) {
+                // shizuku is not granted but device is rooted
+
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if (applicationNeverAskForGrantRoot) {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                    }
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                        }
+                    }
+                }
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                if ((profile != null) && (profile._screenNightLight != 0)) {
+                    preferenceAllowed.notAllowedShizuku = true;
+                }
+            }
+        }
+        else
+        if (!((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                if (profile != null) {
+                    if (profile._screenNightLight != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else if (RootUtils.isRooted(/*fromUIThread*/)) {
+                // device is rooted
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if (profile._screenNightLight != 0) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
+                        }
+                    }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
+                    }
+                }
+
+                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                    if (profile != null) {
+                        if (profile._screenNightLight != 0)
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                if ((profile != null) && (profile._screenNightLight != 0)) {
+                    //return preferenceAllowed;
+                    preferenceAllowed.notAllowedG1 = true;
+                }
+            }
+        } else {
+            if (profile != null) {
+                if (profile._screenNightLight != 0)
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+        }
+    }
+
     static void isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(PreferenceAllowed preferenceAllowed,
             Context context) {
 

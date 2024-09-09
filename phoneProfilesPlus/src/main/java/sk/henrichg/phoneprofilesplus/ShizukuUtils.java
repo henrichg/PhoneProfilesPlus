@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -35,7 +36,11 @@ class ShizukuUtils {
         if (!shizukuAvailable()) {
             return false;
         }
+//        Log.e("ShizukuUtils.hasShizukuPermission", "available");
 
+//        Log.e("ShizukuUtils.hasShizukuPermission", "getVersion()="+Shizuku.getVersion());
+//        Log.e("ShizukuUtils.hasShizukuPermission", "isPreV11()="+Shizuku.isPreV11());
+//        Log.e("ShizukuUtils.hasShizukuPermission", "permission="+(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED));
         // !!! required is Shizuku v11+
         return (Shizuku.getVersion() >= 11) &&
                 (!Shizuku.isPreV11()) &&

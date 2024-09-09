@@ -827,6 +827,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS:
                         s = getString(R.string.permission_why_profile_clear_notifications);
                         break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT:
+                        //if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+                        //    s = getString(R.string.permission_why_profile_screen_night_light_xiaomi);
+                        //else
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                            s = getString(R.string.permission_why_profile_screen_night_huawei);
+                        break;
                 }
             }
         }
