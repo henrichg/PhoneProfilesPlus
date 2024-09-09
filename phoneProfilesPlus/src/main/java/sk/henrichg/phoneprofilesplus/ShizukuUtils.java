@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

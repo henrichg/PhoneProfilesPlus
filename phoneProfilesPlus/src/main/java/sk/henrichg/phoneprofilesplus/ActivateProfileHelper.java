@@ -138,7 +138,7 @@ class ActivateProfileHelper {
     private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
     private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
     private static final String SETTINGS_PREF_HAPTIC_FEEDBACK_VIBRATION_INTENSITY = "haptic_feedback_intensity";
-    private static final String SETTINGS_BLUE_LIGHT_FILTER = "blue_light_filter";
+    //private static final String SETTINGS_BLUE_LIGHT_FILTER = "blue_light_filter";
     private static final String SETTINGS_SCREEN_PAPER_MODE_ENABLED = "screen_paper_mode_enabled";
     private static final String SETTINGS_EYES_PROTECTION_MODE = "eyes_protection_mode";
     private static final String SETTINGS_NIGHT_DISPLAY_ACTIVATED = "night_display_activated";
