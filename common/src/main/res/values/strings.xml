@@ -2285,7 +2285,6 @@
     <string name="altype_applicationInstallation">application installation</string>
 
     <string name="profile_preferences_screenNightLight">(G1)(R) Night light</string>
-<!--    <string name="profile_preferences_screenNightLight_Samsung">Eye comfort shield</string>-->
     <string name="profile_preferences_screenNightLight_Xiaomi">(Z)(R) Reading mode</string>
     <string name="profile_preferences_screenNightLight_Huawei">Eye comfort</string>
     <string name="profile_preferences_screenNightLight_OnePlus">(G1)(R) Eye comfort</string>
@@ -2293,8 +2292,6 @@
     <string name="profile_preferences_screenNightLightPrefs">(I) Night light settings</string>
     <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Eye comfort shield settings</string>
     <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Reading mode settings</string>
-<!--    <string name="profile_preferences_screenNightLightPrefs_Huawei">(I) Eye comfort settings</string>-->
-<!--    <string name="profile_preferences_screenNightLightPrefs_OnePlus">(I) Eye comfort settings</string>-->
 
     <!-- **************************************************************************************** -->
 
