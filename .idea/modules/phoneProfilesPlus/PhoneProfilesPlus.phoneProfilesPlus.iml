@@ -4,7 +4,7 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="8.5.2" />
-        <option name="LAST_KNOWN_AGP_VERSION" value="8.5.2" />
+        <option name="LAST_KNOWN_AGP_VERSION" value="8.6.0" />
       </configuration>
     </facet>
     <facet type="android" name="Android">
@@ -13,8 +13,6 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="" />
-        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
