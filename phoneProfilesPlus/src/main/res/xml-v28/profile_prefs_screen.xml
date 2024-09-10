@@ -102,6 +102,14 @@
         app:ppEntries="@array/screenNightLightArray"
         app:ppEntryValues="@array/screenNightLightValues"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_screenNightLightPrefs"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_screenNightLightPrefs"
+        app:defaultValue="0"
+        app:ppEntries="@array/screenNightLightPrefsArray"
+        app:ppEntryValues="@array/screenNightLightPrefsValues"
+        app:layout="@layout/mp_preference_material_widget" />
 
 <!--    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference-->
 <!--        app:title="@string/pppps_pref_dialog_title"-->

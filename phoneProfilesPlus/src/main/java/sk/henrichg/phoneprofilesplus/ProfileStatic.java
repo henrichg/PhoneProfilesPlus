@@ -726,7 +726,8 @@ class ProfileStatic {
                     profile._clearNotificationContactGroups,
                     profile._clearNotificationCheckText,
                     profile._clearNotificationText,
-                    profile._screenNightLight
+                    profile._screenNightLight,
+                    profile._screenNightLightPrefs
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1022,6 +1023,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
+                case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS(preferenceAllowed);
+                    break;
                 default:
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1074,6 +1078,7 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, profile, sharedPreferences);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, "-", profile, sharedPreferences/*, fromUIThread, context*/);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS(preferenceAllowed);
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||
@@ -1261,6 +1266,20 @@ class ProfileStatic {
     }
     static String getNightLightStringString(Context context) {
         return context.getString(getNightLightStringId());
+    }
+    static int getNightLightStringPrefsId() {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+            return R.string.profile_preferences_screenNightLightPrefs_Samsung;
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            return R.string.profile_preferences_screenNightLightPrefs_Xiaomi;
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+            return R.string.profile_preferences_screenNightLightPrefs_Huawei;
+        if (PPApplication.deviceIsOnePlus)
+            return R.string.profile_preferences_screenNightLightPrefs_OnePlus;
+        return R.string.profile_preferences_screenNightLightPrefs;
+    }
+    static String getNightLightPrefsStringString(Context context) {
+        return context.getString(getNightLightStringPrefsId());
     }
 
 }

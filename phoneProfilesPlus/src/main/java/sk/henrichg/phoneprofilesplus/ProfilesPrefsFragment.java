@@ -1766,6 +1766,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setTitle(ProfileStatic.getNightLightStringId());
             }
         }
+        if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                PPApplication.deviceIsOnePlus) {
+            preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
+            if (preference != null) {
+                preference.setVisible(false);
+            }
+        } else {
+            preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
+            if (preference != null) {
+                preference.setTitle(ProfileStatic.getNightLightStringPrefsId());
+            }
+        }
 
     }
 
@@ -3707,6 +3719,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, ProfileStatic.getNightLightStringPrefsId(), context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+            String value = StringFormatUtils.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS)),
+                    R.array.screenNightLightPrefsValues, R.array.screenNightLightPrefsArray, context);
+
+            _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                    .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context))
+                    .append(StringConstants.TAG_BOLD_END_HTML);
+        }
 
         cattegorySummaryData.summary = _value.toString();
 
@@ -5618,7 +5644,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_SCREEN_DARK_MODE) ||
                 key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY) ||
                 key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT))
+                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT) ||
+                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS))
         {
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -7051,6 +7078,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT);
         setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT);
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
+        setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);

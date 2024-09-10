@@ -5188,10 +5188,10 @@ class ActivateProfileHelper {
                         PPApplicationStatic.recordException(e);
                     }
                 } else {
-                /*String PACKAGE_PREFIX =
-                        VpnManager.class.getPackage().getName() + ".";
-                String ACTION_VPN_SETTINGS =
-                        PACKAGE_PREFIX + "SETTINGS";*/
+                    /*String PACKAGE_PREFIX =
+                            VpnManager.class.getPackage().getName() + ".";
+                    String ACTION_VPN_SETTINGS =
+                            PACKAGE_PREFIX + "SETTINGS";*/
                     String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
                     Intent intent = new Intent(ACTION_VPN_SETTINGS);
                     if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
@@ -5202,6 +5202,32 @@ class ActivateProfileHelper {
                         showNotificationForInteractiveParameters(appContext, title, text, intent,
                                 PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID,
                                 PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG);
+                    }
+                }
+            }
+
+            if (profile._screenNightLightPrefs == 1) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, null, executedProfileSharedPreferences, false, appContext).allowed
+                        == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_NIGHT_DISPLAY_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    } else {
+                        Intent intent = new Intent(Settings.ACTION_NIGHT_DISPLAY_SETTINGS);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                            String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                    ProfileStatic.getNightLightPrefsStringString(appContext);
+                            showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                    PPApplication.PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION_ID,
+                                    PPApplication.PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION_TAG);
+                        }
                     }
                 }
             }

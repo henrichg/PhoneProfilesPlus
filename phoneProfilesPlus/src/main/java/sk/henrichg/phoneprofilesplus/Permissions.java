@@ -1104,7 +1104,8 @@ class Permissions {
                         (profile._deviceNetworkTypePrefs == 1) ||
                         (profile._deviceLocationServicePrefs == 1) ||
                         (profile._deviceWiFiAPPrefs == 1) ||
-                        (profile._deviceVPNSettingsPrefs == 1)){
+                        (profile._deviceVPNSettingsPrefs == 1) ||
+                        (profile._screenNightLightPrefs == 1)) {
                     boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
                     if (grantedDrawOverlays)
                         setShowRequestDrawOverlaysPermission(context, true);
@@ -1118,8 +1119,7 @@ class Permissions {
             } catch (Exception e) {
                 //return false;
             }
-        } //else
-        //return /*true*/;
+        }
     }
 
     static void checkProfileCloseAllApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {

@@ -2318,6 +2318,15 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
         }
     }
+    static void isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS(PreferenceAllowed preferenceAllowed) {
+        if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                PPApplication.deviceIsOnePlus) {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+    }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(PreferenceAllowed preferenceAllowed,
             Context context) {

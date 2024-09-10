@@ -87,6 +87,9 @@
     <!-- for WireGuard -->
     <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS"/>
 
+    <!-- for "Night light settings" profile parameter in "Samsung devices -->
+    <uses-permission android:name="com.samsung.android.permission.SEC_EYECOMFORT_BROADCAST"/>
+
 <!--    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>-->
 
 

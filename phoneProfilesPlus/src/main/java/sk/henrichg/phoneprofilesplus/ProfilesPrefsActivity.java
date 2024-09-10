@@ -481,7 +481,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._clearNotificationContactGroups,
                         origProfile._clearNotificationCheckText,
                         origProfile._clearNotificationText,
-                        origProfile._screenNightLight
+                        origProfile._screenNightLight,
+                        origProfile._screenNightLightPrefs
                 );
                 showSaveMenu = true;
             }
@@ -703,6 +704,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._clearNotificationCheckText = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, false);
             profile._clearNotificationText = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
             profile._screenNightLight = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, ""));
+            profile._screenNightLightPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, ""));
         }
 
         return profile;

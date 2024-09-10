@@ -2290,6 +2290,11 @@
     <string name="profile_preferences_screenNightLight_Huawei">Eye comfort</string>
     <string name="profile_preferences_screenNightLight_OnePlus">(G1)(R) Eye comfort</string>
     <string name="permission_why_profile_screen_night_huawei">for enable/disable Eye comfort</string>
+    <string name="profile_preferences_screenNightLightPrefs">(I) Night light settings</string>
+    <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Eye comfort shield settings</string>
+    <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Reading mode settings</string>
+    <string name="profile_preferences_screenNightLightPrefs_Huawei">(I) Eye comfort settings</string>
+    <string name="profile_preferences_screenNightLightPrefs_OnePlus">(I) Eye comfort settings</string>
 
     <!-- **************************************************************************************** -->
 

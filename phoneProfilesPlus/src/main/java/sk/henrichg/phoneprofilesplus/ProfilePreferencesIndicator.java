@@ -1900,6 +1900,21 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // screen night light prefereces
+            if (profile._screenNightLightPrefs == 1) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = ProfileStatic.getNightLightPrefsStringString(appContext);
+                    if (fillStrings)
+                        strings[countDrawables++] = "nlis";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_light_pref;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
 
             // power save mode
             if (profile._devicePowerSaveMode != 0) {

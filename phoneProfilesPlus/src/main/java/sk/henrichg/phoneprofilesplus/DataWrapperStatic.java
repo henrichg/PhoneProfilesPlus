@@ -163,7 +163,8 @@ class DataWrapperStatic {
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS),
                 Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS))
                 );
     }
 

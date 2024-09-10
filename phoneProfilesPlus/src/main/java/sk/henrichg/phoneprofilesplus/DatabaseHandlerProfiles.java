@@ -152,6 +152,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT, (profile._clearNotificationCheckText) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT, profile._clearNotificationText);
                 values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, profile._screenNightLight);
+                values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS, profile._screenNightLightPrefs);
 
                 // Insert Row
                 if (!merged) {
@@ -314,7 +315,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS,
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT,
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT,
-                                DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT
+                                DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT,
+                                DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -450,7 +452,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1,
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS))
                         );
                     }
 
@@ -606,7 +609,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS + "," +
                         DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT + "," +
                         DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT + "," +
-                        DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT +
+                        DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + "," +
+                        DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -746,6 +750,8 @@ class DatabaseHandlerProfiles {
                         profile._clearNotificationCheckText = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1;
                         profile._clearNotificationText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT));
                         profile._screenNightLight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT));
+                        profile._screenNightLightPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS));
+
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -903,6 +909,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT, (profile._clearNotificationCheckText) ? 1 : 0);
                 values.put(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT, profile._clearNotificationText);
                 values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, profile._screenNightLight);
+                values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS, profile._screenNightLightPrefs);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1275,7 +1282,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS,
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT,
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT,
-                                DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT
+                                DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT,
+                                DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1413,7 +1421,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT)) == 1,
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS))
                                 );
                     }
 
