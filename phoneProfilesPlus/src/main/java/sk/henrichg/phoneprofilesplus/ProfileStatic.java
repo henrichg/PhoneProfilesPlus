@@ -1272,10 +1272,10 @@ class ProfileStatic {
             return R.string.profile_preferences_screenNightLightPrefs_Samsung;
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             return R.string.profile_preferences_screenNightLightPrefs_Xiaomi;
-        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-            return R.string.profile_preferences_screenNightLightPrefs_Huawei;
-        if (PPApplication.deviceIsOnePlus)
-            return R.string.profile_preferences_screenNightLightPrefs_OnePlus;
+        //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+        //    return R.string.profile_preferences_screenNightLightPrefs_Huawei;
+        //if (PPApplication.deviceIsOnePlus)
+        //    return R.string.profile_preferences_screenNightLightPrefs_OnePlus;
         return R.string.profile_preferences_screenNightLightPrefs;
     }
     static String getNightLightPrefsStringString(Context context) {
