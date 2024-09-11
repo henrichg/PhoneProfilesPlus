@@ -2292,7 +2292,7 @@
     <string name="profile_preferences_screenNightLightPrefs">(I) Night light settings</string>
     <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Eye comfort shield settings</string>
     <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Reading mode settings</string>
-    <string name="profile_preferences_screenNightLight_Samsung">(S)(R) Eye comfort shield</string>
+    <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
 
     <!-- **************************************************************************************** -->
 

@@ -2228,31 +2228,133 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT;
 
-        /*if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            //preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            //preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile._screenNightLight != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && (profile._screenNightLight != 0)) {
+                        preferenceAllowed.notAllowedShizuku = true;
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                }
+            } else
+            if (RootUtils.isRooted(/*fromUIThread*/)) {
+                // device is rooted
+
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if (profile._screenNightLight != 0) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
+                        }
+                    }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
+                    }
+                }
+
+                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                    if (profile != null) {
+                        if (profile._screenNightLight != 0)
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+            }
+            else if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                if (profile != null) {
+                    if (profile._screenNightLight != 0)
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                }
+                else
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else {
+                if ((profile != null) && (profile._screenNightLight != 0)) {
+                    preferenceAllowed.notAllowedPPPPS = true;
+                }
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
+            }
         }
-        else*/
+        else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-            if (ShizukuUtils.hasShizukuPermission()) {
-                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else if (RootUtils.isRooted(/*fromUIThread*/)) {
+            if (ShizukuUtils.shizukuAvailable()) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile._screenNightLight != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                } else {
+                    if ((profile != null) && (profile._screenNightLight != 0)) {
+                        preferenceAllowed.notAllowedShizuku = true;
+                    }
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                }
+            }
+            else if (RootUtils.isRooted(/*fromUIThread*/)) {
                 // shizuku is not granted but device is rooted
 
                 if (profile != null) {
                     // test if grant root is disabled
-                    if (applicationNeverAskForGrantRoot) {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                    }
-                } else {
-                    //noinspection ConstantConditions
-                    if (sharedPreferences != null) {
+                    if (profile._screenNightLight != 0) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
                         }
                     }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
+                    }
+                }
+
+                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                    if (profile != null) {
+                        if (profile._screenNightLight != 0)
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -2263,8 +2365,8 @@ class PreferenceAllowed {
             }
         }
         else
-        if (!((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy))) {
+        if (!((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) /*||
+                (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)*/)) {
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
                     if (profile._screenNightLight != 0)

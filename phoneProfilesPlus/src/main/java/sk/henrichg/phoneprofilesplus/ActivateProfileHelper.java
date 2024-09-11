@@ -1857,7 +1857,7 @@ class ActivateProfileHelper {
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                 }
                             }
-                            else if (ShizukuUtils.hasShizukuPermission()) {
+                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                 synchronized (PPApplication.rootMutex) {
                                     try {
                                         String command1;
@@ -1994,7 +1994,7 @@ class ActivateProfileHelper {
                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                     }
                 }
-                else if (ShizukuUtils.hasShizukuPermission()) {
+                else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                     synchronized (PPApplication.rootMutex) {
                         String command1;
                         String command2 = "";
@@ -2074,7 +2074,7 @@ class ActivateProfileHelper {
 
                         if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                             putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
-                        else if (ShizukuUtils.hasShizukuPermission()) {
+                        else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
                                 try {
@@ -2084,19 +2084,22 @@ class ActivateProfileHelper {
                                 }
                             }
                         } else {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(1) PPApplication.rootMutex");
-                            synchronized (PPApplication.rootMutex) {
-                                String command1;
-                                Command command;
-                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
-                                command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_VIBRATION_INTENSITY);
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper._setVibrationIntensity", Log.getStackTraceString(e));
-                                    //PPApplicationStatic.recordException(e);
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
+                                    command = new Command(0, /*false,*/ command1);
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_VIBRATION_INTENSITY);
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper._setVibrationIntensity", Log.getStackTraceString(e));
+                                        //PPApplicationStatic.recordException(e);
+                                    }
                                 }
                             }
                         }
@@ -2948,7 +2951,7 @@ class ActivateProfileHelper {
                                             if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
                                             }
-                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_SAMSUNG + " " + uri.toString();
                                                     try {
@@ -2989,7 +2992,7 @@ class ActivateProfileHelper {
                                             if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
                                             }
-                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_HUAWEI + " " + uri.toString();
                                                     try {
@@ -3070,7 +3073,7 @@ class ActivateProfileHelper {
                                     if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
                                     }
-                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_SAMSUNG + " \"\"";
                                             try {
@@ -3109,7 +3112,7 @@ class ActivateProfileHelper {
                                     if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
                                     }
-                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_HUAWEI + " \"\"";
                                             try {
@@ -3205,7 +3208,7 @@ class ActivateProfileHelper {
                                             if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                                 putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
                                             }
-                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM2_SAMSUNG + " " + uri.toString();
                                                     try {
@@ -3323,7 +3326,7 @@ class ActivateProfileHelper {
                                     if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                         putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
                                     }
-                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_SAMSUNG + " \"\"";
                                             try {
@@ -3429,7 +3432,7 @@ class ActivateProfileHelper {
                                 else if (PPApplication.deviceIsOnePlus)
                                     putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
                             }
-                            else if (ShizukuUtils.hasShizukuPermission()) {
+                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = null;
                                     if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
@@ -3672,7 +3675,7 @@ class ActivateProfileHelper {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
                         if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
                             putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
-                        else if (ShizukuUtils.hasShizukuPermission()) {
+                        else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = COMMAND_SETTINGS_PUT_SYSTEM + NOTIFICATION_LIGHT_PULSE + " " + value;
                                 try {
@@ -9207,15 +9210,15 @@ class ActivateProfileHelper {
                     //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(ee));*/
 
                     if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                        Log.e("ActivateProfileHelper.setScreenNightLight", "PPPPS");
+//                        Log.e("ActivateProfileHelper.setScreenNightLight", "PPPPS");
                         if (profile._screenNightLight == 1)
                             putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "1");
                         else
                             putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "0");
                         startBLFService = true;
                     }
-                    else if (ShizukuUtils.hasShizukuPermission()) {
-                        Log.e("ActivateProfileHelper.setScreenNightLight", "Shizuku");
+                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
+//                        Log.e("ActivateProfileHelper.setScreenNightLight", "Shizuku");
                         synchronized (PPApplication.rootMutex) {
                             try {
                                 String command1;
@@ -9233,7 +9236,7 @@ class ActivateProfileHelper {
                     } else {
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
-                            Log.e("ActivateProfileHelper.setScreenNightLight", "root");
+//                            Log.e("ActivateProfileHelper.setScreenNightLight", "root");
 
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenNightLight", "PPApplication.rootMutex");
                             synchronized (PPApplication.rootMutex) {
@@ -9267,7 +9270,8 @@ class ActivateProfileHelper {
                             intent.putExtra("BLUE_LIGHT_FILTER_SERVICE_TYPE", (profile._screenNightLight == 1) ? 24 : 25);
                             appContext.startService(intent);
                         } catch (Exception eee) {
-                            Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                            //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                            PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
                         }
                     };
                     PPApplicationStatic.createDelayedProfileActivationExecutor();
@@ -9278,7 +9282,7 @@ class ActivateProfileHelper {
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 // Shizuku, root is required !!!
-                if (ShizukuUtils.hasShizukuPermission()) {
+                if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                     synchronized (PPApplication.rootMutex) {
                         try {
                             String command1;
@@ -9356,7 +9360,7 @@ class ActivateProfileHelper {
                 }
                 if (!G1OK) {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                            (RootUtils.isRooted(/*false*/))) {
+                            (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenDarkMode", "PPApplication.rootMutex");
                         synchronized (PPApplication.rootMutex) {
                             String command1 = COMMAND_SETTINGS_PUT_SECURE + SETTINGS_NIGHT_DISPLAY_ACTIVATED;
