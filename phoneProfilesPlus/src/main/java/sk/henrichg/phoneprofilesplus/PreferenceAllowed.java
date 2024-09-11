@@ -2228,11 +2228,11 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT;
 
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+        /*if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
-        else
+        else*/
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
             if (ShizukuUtils.hasShizukuPermission()) {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -2263,7 +2263,8 @@ class PreferenceAllowed {
             }
         }
         else
-        if (!((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
+        if (!((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy))) {
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
                     if (profile._screenNightLight != 0)

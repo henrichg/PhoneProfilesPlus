@@ -1755,17 +1755,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
         }
 
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+        /*if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
             preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
             if (preference != null) {
                 preference.setVisible(false);
             }
-        } else {
+        } else {*/
             preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
             if (preference != null) {
                 preference.setTitle(ProfileStatic.getNightLightStringId());
             }
-        }
+        //}
         if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                 PPApplication.deviceIsOnePlus) {
             preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);

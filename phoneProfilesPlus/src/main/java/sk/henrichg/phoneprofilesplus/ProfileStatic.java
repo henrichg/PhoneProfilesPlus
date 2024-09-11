@@ -1254,8 +1254,8 @@ class ProfileStatic {
     }
 
     static int getNightLightStringId() {
-//        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
-//            return R.string.profile_preferences_screenNightLight_Samsung;
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+            return R.string.profile_preferences_screenNightLight_Samsung;
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             return R.string.profile_preferences_screenNightLight_Xiaomi;
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)

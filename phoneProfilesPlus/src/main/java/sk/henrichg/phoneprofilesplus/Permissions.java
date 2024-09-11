@@ -1259,7 +1259,7 @@ class Permissions {
     static boolean checkProfileScreenNightLight(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
 
-        if (/*(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||*/
+        if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
             try {
                 if (profile._screenNightLight != 0) {
