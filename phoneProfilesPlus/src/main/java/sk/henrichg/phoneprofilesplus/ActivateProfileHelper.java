@@ -9271,7 +9271,8 @@ class ActivateProfileHelper {
                         }
                     };
                     PPApplicationStatic.createDelayedProfileActivationExecutor();
-                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+                    // 1000 ms, because is delayed change of SETTINGS_BLUE_LIGHT_FILTER in PPPPS, Shizuku root
+                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1000, TimeUnit.MILLISECONDS);
                 }
             }
             else
