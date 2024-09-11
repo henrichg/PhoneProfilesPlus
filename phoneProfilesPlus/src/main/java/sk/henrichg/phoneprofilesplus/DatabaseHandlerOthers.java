@@ -166,6 +166,7 @@ class DatabaseHandlerOthers {
                         break;
                     case PPApplication.ALFITER_PROFILE_ACTIVATION:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
+                                PPApplication.ALTYPE_PROFILE_ACTIVATION + ", " +
                                 PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION + ", " +
                                 PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE + ", " +
                                 PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE + ", " +
