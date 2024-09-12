@@ -3,6 +3,8 @@ apply from: '../dependencies.gradle'
 apply from: '../passwords_keys.gradle'
 
 android {
+    // This is IMORTANT dfor combinig of release and debug versions of PPP, PPPE, PPPPS.
+    // Also in PPPE a PPPPS is this and must be the same!
     signingConfigs {
         debug {
             storeFile file('/home/henrichg/Projekty/AndroidStudio/AndroidReleases/henrichg.keystore')
