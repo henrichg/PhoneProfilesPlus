@@ -3,6 +3,14 @@ apply from: '../dependencies.gradle'
 apply from: '../passwords_keys.gradle'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/henrichg/Projekty/AndroidStudio/AndroidReleases/henrichg.keystore')
+            storePassword 'H3nr1sk0Gr0n6220'
+            keyAlias 'henrichg'
+            keyPassword 'H3nr1sk0Gr0n6220'
+        }
+    }
     namespace 'sk.henrichg.phoneprofilesplus'
 
     compileSdkVersion ppVersions.compileSdk
