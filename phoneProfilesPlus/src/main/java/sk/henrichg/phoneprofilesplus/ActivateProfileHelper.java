@@ -9210,6 +9210,10 @@ class ActivateProfileHelper {
                     //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(ee));*/
 
                     if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                        // WARNING: PPPPS do not change SETTINGS_BLUE_LIGHT_FILTER in Settings.System
+                        // Why? I do not know. Exception is not generated in PPPPS. :-(
+                        // But Shizuku, root working good.
+
 //                        Log.e("ActivateProfileHelper.setScreenNightLight", "PPPPS");
                         if (profile._screenNightLight == 1)
                             putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "1");
@@ -9604,6 +9608,7 @@ class ActivateProfileHelper {
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+            Log.e("ActivateProfileHelper.putSettingsParameter", "xxxxxxxxxx");
             try {
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
