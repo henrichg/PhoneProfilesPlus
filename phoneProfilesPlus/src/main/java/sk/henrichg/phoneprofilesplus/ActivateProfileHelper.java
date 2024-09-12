@@ -9610,9 +9610,9 @@ class ActivateProfileHelper {
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
             Log.e("ActivateProfileHelper.putSettingsParameter", "xxxxxxxxxx");
             try {
-                //Intent intent = new Intent();
-                //intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
-                Intent intent = new Intent("sk.henrichg.pppputsettings.PUT_SETTING");
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
+                //Intent intent = new Intent("sk.henrichg.pppputsettings.PUT_SETTING");
                 intent.putExtra("extra_put_setting_parameter_type", settingsType);
                 intent.putExtra("extra_put_setting_parameter_name", parameterName);
                 intent.putExtra("extra_put_setting_parameter_value", parameterValue);
