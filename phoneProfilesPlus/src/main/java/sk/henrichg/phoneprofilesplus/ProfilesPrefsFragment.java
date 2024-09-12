@@ -4069,6 +4069,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         StringBuilder _value = new StringBuilder(); // must be empty for this cattegory
 
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, context);
+        if (!title.isEmpty()) {
+            _value.append(title).append(": ");
+        }
+
         int index = 0;
         String sValue;
 
@@ -4084,7 +4089,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (index == 0)
             _value.append(ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, PREF_LOCK_DEVICE_CATEGORY_ROOT, context));
         else
-            _value.append(cattegorySummaryData.summary = StringConstants.TAG_BOLD_START_HTML)
+            _value.append(StringConstants.TAG_BOLD_START_HTML)
                     .append(ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, PREF_LOCK_DEVICE_CATEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
 
@@ -4108,10 +4113,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(": ").append(getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined));
             }
-        }
-        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, context);
-        if (!title.isEmpty()) {
-            _value.append(title).append(": ").append(cattegorySummaryData.summary);
         }
 
         cattegorySummaryData.summary = _value.toString();
