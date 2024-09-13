@@ -9608,15 +9608,29 @@ class ActivateProfileHelper {
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
-            Log.e("ActivateProfileHelper.putSettingsParameter", "xxxxxxxxxx");
             try {
-                //Intent intent = new Intent();
-                //intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
-                Intent intent = new Intent("sk.henrichg.pppputsettings.PUT_SETTING");
+                // !!! Activity with action not working good.
+                // Because if is started first PPPPS, closed and then activated profile,
+                // PPPPS MainActivity is started :-(
+                // Must by used activity with android:launchMode="singleInstance".
+
+                // singleIstance -> this activity is in its own task, thus, after finish it,
+                // is not get back MainActivity, because MainActivity is in another task.
+                // Then singleIstance is good launchMode for PutSettingsParameterActivity.
+
+                //PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME_PPPPS, 0);
+                //long verCode = PPApplicationStatic.getVersionCode(pInfo);
+                //Log.e("ActivateProfileHelper.putSettingsParameter", "verCode="+verCode);
+                Intent intent;
+                //if (verCode < 70) {
+                    intent = new Intent();
+                    intent.setComponent(new ComponentName(PPApplication.PACKAGE_NAME_PPPPS, PPApplication.PACKAGE_NAME_PPPPS+".PutSettingsParameterActivity"));
+                //} else
+                //    intent = new Intent(PPApplication.PACKAGE_NAME_PPPPS+".PUT_SETTING");
                 intent.putExtra("extra_put_setting_parameter_type", settingsType);
                 intent.putExtra("extra_put_setting_parameter_name", parameterName);
                 intent.putExtra("extra_put_setting_parameter_value", parameterValue);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK/* | Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK /*| Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
                 context.startActivity(intent);
             } catch (Exception e) {
                 PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
