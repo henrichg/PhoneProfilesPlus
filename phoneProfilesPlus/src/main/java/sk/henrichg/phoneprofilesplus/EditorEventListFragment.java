@@ -1028,6 +1028,7 @@ public class EditorEventListFragment extends Fragment
                 true, true,
                 false, false,
                 true,
+                false,
                 getActivity()
         );
 
@@ -1095,6 +1096,7 @@ public class EditorEventListFragment extends Fragment
                     true, true,
                     false, false,
                     true,
+                    false,
                     getActivity()
             );
 

@@ -1473,6 +1473,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                             true, true,
                                             false, false,
                                             true,
+                                            false,
                                             getActivity()
                                     );
 
@@ -1486,6 +1487,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             true, true,
                             false, false,
+                            false,
                             false,
                             getActivity()
                     );
@@ -1714,6 +1716,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 
@@ -7564,6 +7567,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 
@@ -7598,6 +7602,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         true, true,
                         false, false,
                         true,
+                        false,
                         getActivity()
                 );
 
@@ -7840,6 +7845,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         true, true,
                         false, false,
                         true,
+                        false,
                         getActivity()
                 );
 

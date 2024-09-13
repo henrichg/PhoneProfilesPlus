@@ -211,6 +211,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -320,6 +321,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                                                 true, true,
                                                 false, false,
                                                 false,
+                                                false,
                                                 getActivity()
                                         );
 
@@ -336,6 +338,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

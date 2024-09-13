@@ -205,6 +205,7 @@ public class WallpaperFolderPreference extends Preference {
                         true, true,
                         false, false,
                         true,
+                        false,
                         (Activity) prefContext
                 );
 

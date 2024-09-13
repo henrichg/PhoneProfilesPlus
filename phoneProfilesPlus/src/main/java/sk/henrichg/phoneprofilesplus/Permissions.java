@@ -3106,6 +3106,7 @@ class Permissions {
                                 true, true,
                                 false, false,
                                 false,
+                                false,
                                 activity
                         );
 
@@ -3132,6 +3133,7 @@ class Permissions {
                 },
                 true, true,
                 checkBoxChecked, checkBoxEnabled,
+                false,
                 false,
                 activity
         );
@@ -3182,6 +3184,7 @@ class Permissions {
                 true, true,
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission, true,
                 false,
+                false,
                 activity
         );
 
@@ -3231,6 +3234,7 @@ class Permissions {
                                             true, true,
                                             false, false,
                                             true,
+                                            false,
                                             activity
                                     );
 
@@ -3244,6 +3248,7 @@ class Permissions {
                             null,
                             false, false,
                             false, false,
+                            false,
                             false,
                             activity
                     );
@@ -3288,6 +3293,7 @@ class Permissions {
                     null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     activity
             );

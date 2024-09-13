@@ -704,6 +704,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     this
                             );
 
@@ -719,6 +720,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     this
             );
@@ -1326,6 +1328,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         null,
                         true, true,
                         false, false,
+                        false,
                         false,
                         this
                 );

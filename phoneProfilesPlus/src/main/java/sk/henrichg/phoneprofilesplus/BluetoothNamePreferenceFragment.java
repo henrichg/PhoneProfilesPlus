@@ -452,6 +452,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         getActivity()
                                 );
 
@@ -580,6 +581,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

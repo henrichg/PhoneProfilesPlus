@@ -228,6 +228,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 

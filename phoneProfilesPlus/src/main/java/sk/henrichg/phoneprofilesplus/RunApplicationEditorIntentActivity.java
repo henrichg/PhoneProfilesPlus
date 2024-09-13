@@ -558,6 +558,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         true, true,
                         false, false,
                         true,
+                        false,
                         activity
                 );
 
@@ -583,6 +584,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 
@@ -609,6 +611,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     activity
                             );
 
@@ -667,6 +670,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 

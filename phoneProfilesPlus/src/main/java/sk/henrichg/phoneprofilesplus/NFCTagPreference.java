@@ -155,6 +155,7 @@ public class NFCTagPreference extends DialogPreference {
                         true, true,
                         false, false,
                         false,
+                        false,
                         fragment.getActivity()
                 );
 

@@ -202,6 +202,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 
@@ -245,6 +246,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 
@@ -283,6 +285,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 
@@ -327,6 +330,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 

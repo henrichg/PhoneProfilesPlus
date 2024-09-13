@@ -662,6 +662,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         true, true,
                         false, false,
                         true,
+                        false,
                         getActivity()
                 );
 
@@ -705,6 +706,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     true, true,
                     false, false,
                     true,
+                    false,
                     activity
             );
 

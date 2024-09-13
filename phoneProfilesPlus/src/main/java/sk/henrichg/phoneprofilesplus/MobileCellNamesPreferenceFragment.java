@@ -255,6 +255,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     getActivity()
                             );
 

@@ -476,6 +476,7 @@ class RunApplicationEditorDialog
                         true, true,
                         false, false,
                         true,
+                        false,
                         activity
                 );
 

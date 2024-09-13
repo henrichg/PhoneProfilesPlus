@@ -689,6 +689,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                             true, true,
                             false, false,
                             true,
+                            false,
                             fragment.getActivity()
                     );
 

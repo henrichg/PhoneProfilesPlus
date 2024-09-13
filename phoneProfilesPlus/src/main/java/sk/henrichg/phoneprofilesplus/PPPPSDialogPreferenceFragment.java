@@ -777,6 +777,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         true, true,
                         false, false,
                         true,
+                        false,
                         getActivity()
                 );
 

@@ -444,6 +444,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     getActivity()
                             );
 
@@ -571,6 +572,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

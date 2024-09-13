@@ -2099,7 +2099,6 @@
     <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
     <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
-    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
@@ -2293,6 +2292,8 @@
     <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Eye comfort shield settings</string>
     <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Reading mode settings</string>
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
+
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
 
     <!-- **************************************************************************************** -->
 

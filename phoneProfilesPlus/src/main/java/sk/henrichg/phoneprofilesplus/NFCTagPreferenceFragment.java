@@ -332,6 +332,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

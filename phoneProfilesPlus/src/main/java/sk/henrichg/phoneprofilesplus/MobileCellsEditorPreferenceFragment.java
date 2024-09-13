@@ -599,6 +599,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     getActivity()
                             );
 
@@ -753,6 +754,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 
@@ -806,6 +808,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 
@@ -862,6 +865,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

@@ -94,6 +94,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                         true, true,
                         false, false,
                         true,
+                        false,
                         getActivity()
                 );
 

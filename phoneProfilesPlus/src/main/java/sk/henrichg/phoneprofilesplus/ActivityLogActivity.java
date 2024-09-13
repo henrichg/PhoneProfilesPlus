@@ -275,6 +275,7 @@ public class ActivityLogActivity extends AppCompatActivity
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 

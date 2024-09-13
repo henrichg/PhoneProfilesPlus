@@ -1365,6 +1365,7 @@ public class EditorActivity extends AppCompatActivity
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
@@ -1388,6 +1389,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     this
             );
@@ -2155,6 +2157,7 @@ public class EditorActivity extends AppCompatActivity
                             true, true,
                             false, false,
                             true,
+                            false,
                             this
                     );
 
@@ -2197,6 +2200,7 @@ public class EditorActivity extends AppCompatActivity
                             true, true,
                             false, false,
                             true,
+                            false,
                             this
                     );
 
@@ -2387,6 +2391,7 @@ public class EditorActivity extends AppCompatActivity
                             true, true,
                             false, false,
                             true,
+                            false,
                             this
                     );
 
@@ -2505,6 +2510,7 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 true, true,
                 false, false,
+                false,
                 false,
                 this
         );
@@ -2742,6 +2748,7 @@ public class EditorActivity extends AppCompatActivity
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         EditorActivity.this
                                 );
 
@@ -2789,6 +2796,7 @@ public class EditorActivity extends AppCompatActivity
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         EditorActivity.this
                                 );
 
@@ -2805,6 +2813,7 @@ public class EditorActivity extends AppCompatActivity
                 true, true,
                 false, false,
                 true,
+                false,
                 this
         );
 
@@ -2950,6 +2959,7 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 true, true,
                 false, false,
+                false,
                 false,
                 this
         );
@@ -3260,6 +3270,7 @@ public class EditorActivity extends AppCompatActivity
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
@@ -3922,6 +3933,7 @@ public class EditorActivity extends AppCompatActivity
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 
@@ -4150,6 +4162,7 @@ public class EditorActivity extends AppCompatActivity
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 
@@ -4832,6 +4845,7 @@ public class EditorActivity extends AppCompatActivity
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         activity
                                 );
 

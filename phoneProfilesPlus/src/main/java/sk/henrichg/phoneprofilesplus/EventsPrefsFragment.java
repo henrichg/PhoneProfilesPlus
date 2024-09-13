@@ -560,6 +560,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -613,6 +614,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -654,6 +656,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -705,6 +708,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     getActivity()
                             );
 
@@ -759,6 +763,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -844,6 +849,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -1213,6 +1219,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 getActivity()
                         );
 
@@ -1347,6 +1354,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

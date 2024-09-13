@@ -297,6 +297,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
@@ -511,6 +512,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         },
                         true, true,
                         false, true,
+                        false,
                         false,
                         this
                 );

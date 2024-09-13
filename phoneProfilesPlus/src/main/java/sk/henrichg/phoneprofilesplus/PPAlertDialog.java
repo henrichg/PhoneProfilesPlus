@@ -10,9 +10,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-class PPAlertDialog {
+// added support for click to message links
+// supported is all from InfoDialogPreferencesFragment.onLinkClicked()
+// TODO create static method into InfoDialogPreferencesFragment which will be called both
+//  from InfoDialogPreferencesFragment.onLinkClicked() and PPAlertDialog.onLinkClicked()
+class PPAlertDialog implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
     final AlertDialog mDialog;
     final Activity activity;
+    final TextView messageText;
+    final CharSequence title;
+    final boolean cancelDialogAtLinkClick;
 
     /*
     final DialogInterface.OnClickListener positiveClick;
@@ -34,13 +41,17 @@ class PPAlertDialog {
                   boolean _checBoxChecked,
                   boolean _checkBoxEnabled,
                   boolean _hideButtonBarDivider,
+                  boolean _cancelDialogAtLinkClick,
                   Activity _activity) {
         this.activity = _activity;
+        this.cancelDialogAtLinkClick = _cancelDialogAtLinkClick;
         /*
         this.positiveClick = _positiveClick;
         this.negativeClick = _negativeClick;
         this.neutralClick = _neutralClick;
         */
+
+        this.title = _title;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(_title);
@@ -66,7 +77,7 @@ class PPAlertDialog {
 
         //mDialog.setOnShowListener(dialog -> doShow());
 
-        TextView messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
+        messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
         messageText.setText(_message);
 
         View buttonsDivider = layout.findViewById(R.id.info_pref_dialog_buttonBarDivider);
@@ -98,6 +109,23 @@ class PPAlertDialog {
     void show() {
         if (!activity.isFinishing())
             mDialog.show();
+
+        messageText.setMovementMethod(new PPLinkMovementMethod(this, activity));
+    }
+
+    @Override
+    public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
+                              final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
+        if (cancelDialogAtLinkClick)
+            mDialog.cancel();
+
+        InfoDialogPreferenceFragment.onLinkClickedListener(linkUrl, linkTypeUrl, linkText, linkTypeText,
+                            title, activity, activity);
+    }
+
+    @Override
+    public void onLongClick(String text) {
+
     }
 
 }
