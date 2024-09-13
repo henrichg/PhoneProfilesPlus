@@ -9616,9 +9616,6 @@ class ActivateProfileHelper {
                 intent.putExtra("extra_put_setting_parameter_type", settingsType);
                 intent.putExtra("extra_put_setting_parameter_name", parameterName);
                 intent.putExtra("extra_put_setting_parameter_value", parameterValue);
-                // Intent.FLAG_ACTIVITY_CLEAR_TOP is required to avoind displaing of PPPPS MainActivty
-                // at start of PPPPS activity PutSettingsParameterActivity when is started
-                // with intent.setComponent.
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK/* | Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
                 context.startActivity(intent);
             } catch (Exception e) {
