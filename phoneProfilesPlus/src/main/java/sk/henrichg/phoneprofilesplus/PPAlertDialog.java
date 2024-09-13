@@ -11,9 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 
 // added support for click to message links
-// supported is all from InfoDialogPreferencesFragment.onLinkClicked()
-// TODO create static method into InfoDialogPreferencesFragment which will be called both
-//  from InfoDialogPreferencesFragment.onLinkClicked() and PPAlertDialog.onLinkClicked()
+// supported is all from InfoDialogPreferencesFragment.onLinkClickedListener()
 class PPAlertDialog implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
     final AlertDialog mDialog;
     final Activity activity;
