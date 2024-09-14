@@ -40,10 +40,13 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         super.onBindDialogView(view);
 
         TextView text = view.findViewById(R.id.default_sim_voice_textView);
+        //noinspection DataFlowIssue
         text.setText(getString(R.string.default_sim_pref_dlg_voice)+":");
         text = view.findViewById(R.id.default_sim_sms_textView);
+        //noinspection DataFlowIssue
         text.setText(getString(R.string.default_sim_pref_dlg_sms)+":");
         text = view.findViewById(R.id.default_sim_data_textView);
+        //noinspection DataFlowIssue
         text.setText(getString(R.string.default_sim_pref_dlg_data)+":");
 
         voiceSpinner = view.findViewById(R.id.default_sim_voice_spinner);

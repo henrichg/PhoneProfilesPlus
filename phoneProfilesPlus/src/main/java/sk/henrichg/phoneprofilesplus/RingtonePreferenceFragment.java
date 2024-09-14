@@ -49,6 +49,7 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
 
         listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             RingtonePreferenceViewHolder viewHolder = (RingtonePreferenceViewHolder) item.getTag();
             preference.setRingtone((String)listAdapter.getItem(position), false);

@@ -33,11 +33,13 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
         }
 
         ImageView imageView = findViewById(R.id.github_assets_screenshot_activity_image);
+        //noinspection DataFlowIssue
         imageView.setContentDescription(ASSETS + getString(R.string.github_assets_screenshot_label));
         int image = getIntent().getIntExtra(EXTRA_IMAGE, R.drawable.ic_empty);
         imageView.setImageResource(image);
 
         Button closeButton = findViewById(R.id.github_assets_screenshot_activity_close);
+        //noinspection DataFlowIssue
         closeButton.setOnClickListener(v -> finish());
 
     }

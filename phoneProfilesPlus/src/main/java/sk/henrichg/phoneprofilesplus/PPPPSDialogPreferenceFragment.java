@@ -59,9 +59,11 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         ppppsLaunchText = layout.findViewById(R.id.ppppsPrefDialog_pppps_launch);
 
         Button ppppsInstallButton = layout.findViewById(R.id.ppppsPrefDialog_pppps_install_button);
+        //noinspection DataFlowIssue
         ppppsInstallButton.setOnClickListener(v -> installPPPPutSettings(getActivity(), preference, false));
 
         Button ppppsLaunchButton = layout.findViewById(R.id.ppppsPrefDialog_pppps_launch_button);
+        //noinspection DataFlowIssue
         ppppsLaunchButton.setOnClickListener(v -> launchPPPPutSettings());
 
         mDialog = dialogBuilder.create();
@@ -155,6 +157,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -260,6 +263,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -308,12 +312,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_pppps_text10) + StringConstants.TAG_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_text11) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_text12) + StringConstants.TAG_BREAK_HTML;
+        //noinspection DataFlowIssue
         text0.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         TextView text1 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text1);
         String url = PPApplication.SHIUKU_HOW_TO_START_URL;
         dialogText = activity.getString(R.string.install_pppps_text13) + " " +
                 StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML;
+        //noinspection DataFlowIssue
         text1.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
         text1.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -357,7 +363,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         //Enqueue a new download and same the referenceId
                         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                        /*DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions =*/ downloadManager.enqueue(request);
+                        if (downloadManager != null)
+                            /*DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions =*/ downloadManager.enqueue(request);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -374,6 +381,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             }
         };
         sbt.setSpan(clickableSpanText2, str1Text2.length()+1, str2Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //noinspection DataFlowIssue
         text2.setText(sbt);
         text2.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -421,7 +429,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         //Enqueue a new download and same the referenceId
                         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                        /*DownloadCompletedBroadcastReceiver.downloadReferencePPPPS =*/ downloadManager.enqueue(request);
+                        if (downloadManager != null)
+                            /*DownloadCompletedBroadcastReceiver.downloadReferencePPPPS =*/ downloadManager.enqueue(request);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -438,25 +447,30 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             }
         };
         sbt.setSpan(clickableSpanText3, str1Text3.length()+1, str2Text3.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //noinspection DataFlowIssue
         text3.setText(sbt);
         text3.setMovementMethod(LinkMovementMethod.getInstance());
 
         TextView text4 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text4);
         dialogText = activity.getString(R.string.install_pppps_text16);
+        //noinspection DataFlowIssue
         text4.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         TextView text5 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text5);
         dialogText = activity.getString(R.string.install_pppps_text17);
+        //noinspection DataFlowIssue
         text5.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         TextView text6 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text6);
         dialogText = activity.getString(R.string.install_pppps_text18);
+        //noinspection DataFlowIssue
         text6.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         TextView text7 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text7);
         dialogText =  StringConstants.TAG_BREAK_HTML + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        //noinspection DataFlowIssue
         text7.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         //dialogBuilder.setCancelable(false);
@@ -511,6 +525,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             }
         };
         sbtGitHub.setSpan(clickableSpanGitHub, str1GitHub.length()+1, str2GitHub.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //noinspection DataFlowIssue
         textGitHub.setText(sbtGitHub);
         textGitHub.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -561,6 +576,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
                 " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_REQUIRED + " (" + PPApplication.VERSION_CODE_PPPPS_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_install_droidify_text);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -645,6 +661,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_REQUIRED + " (" + PPApplication.VERSION_CODE_PPPPS_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
                 dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML;
                 dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                //noinspection DataFlowIssue
                 text.setText(StringFormatUtils.fromHtml(dialogText, false, false, 0, 0, true));
 
                 dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {

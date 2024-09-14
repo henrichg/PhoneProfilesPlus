@@ -475,6 +475,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            //noinspection DataFlowIssue
             toolbar.setSubtitle(activity.getString(R.string.title_activity_profile_preferences));
             toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
         }, 200);
@@ -485,6 +486,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         // subtitle
         if (nestedFragment) {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.VISIBLE);
 
             Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
@@ -501,6 +503,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             } else
                 preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
         } else {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.GONE);
         }
 
@@ -1846,8 +1849,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-        if (key.equals(Profile.PREF_PROFILE_NAME)) {
+        if ((key != null) && key.equals(Profile.PREF_PROFILE_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
 
@@ -1864,6 +1866,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + _value);
+                    //noinspection DataFlowIssue
                     toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
@@ -1874,7 +1877,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String value;
 
-        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
+        if ((key != null) &&
+                (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
                 key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
                 key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
                 key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
@@ -1883,16 +1887,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
-                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT)) {
+                key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT))) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
         else
-        if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
+        if ((key != null) && key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
             value = String.valueOf(sharedPreferences.getInt(key, 0));
         }
         else {
-            if (prefMng.findPreference(key) != null)
+            if ((key != null) && prefMng.findPreference(key) != null)
                 value = sharedPreferences.getString(key, "");
             else
                 value = "";
@@ -2250,7 +2254,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     break;
                 case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
                     defaultValueS = Profile.defaultValuesString.get(key);
-                    if (!preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS).equals(defaultValueS)) {
+                    String airplanemode = preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, defaultValueS);
+                    if ((airplanemode != null) && (!airplanemode.equals(defaultValueS))) {
                         title = getString(preferenceTitleId);
                         notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                         notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
@@ -2383,7 +2388,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForDuration, context);
         if (askForDurationTitle.isEmpty()) {
             String value = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
-            if (value.equals(String.valueOf(Profile.AFTER_DURATION_DURATION_TYPE_DURATION))) {
+            if ((value != null) && value.equals(String.valueOf(Profile.AFTER_DURATION_DURATION_TYPE_DURATION))) {
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, R.string.profile_preferences_duration, context);
                 String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, context);
                 if (!title.isEmpty()) {
@@ -3474,9 +3479,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             int vpnApplication;
 
-            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = null;
+            if (value != null)
+                splits = value.split(StringConstants.STR_SPLIT_REGEX);
+
             try {
-                vpnApplication = Integer.parseInt(splits[0]);
+                if (splits != null)
+                    vpnApplication = Integer.parseInt(splits[0]);
+                else
+                    vpnApplication = 0;
             } catch (Exception e) {
                 //Log.e("ProfilesPrefsFragment.setCategorySummaryRadios", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -3497,7 +3508,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             boolean enableVPN = true;
             try {
-                enableVPN = Integer.parseInt(splits[1]) == 0;
+                enableVPN = (splits != null) && Integer.parseInt(splits[1]) == 0;
             } catch (Exception e) {
                 //Log.e("ProfilesPrefsFragment.setCategorySummaryRadios", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -3636,8 +3647,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(sValue, prefMng, PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
 
-            if (wallpaperChangeValue.equals("1") ||
-                    wallpaperChangeValue.equals("3")) {
+            if ((wallpaperChangeValue != null) &&
+                    (wallpaperChangeValue.equals("1") ||
+                     wallpaperChangeValue.equals("3"))) {
                 if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = StringFormatUtils.getListPreferenceString(
@@ -4149,7 +4161,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
-            if (enabledValue.equals("3")) {
+            if ((enabledValue != null) && enabledValue.equals("3")) {
                 String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_WIFI_SCAN_INTERVAL, "");
                 value = value + ": "+interval;
             }
@@ -4167,7 +4179,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
-            if (enabledValue.equals("3")) {
+            if ((enabledValue != null) && enabledValue.equals("3")) {
                 String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_SCAN_INTERVAL, "");
                 String duration = preferences.getString(Profile.PREF_PROFILE_APPLICATION_BLUETOOTH_LE_SCAN_DURATION, "");
                 value = value + ": "+interval+", "+duration;
@@ -4186,7 +4198,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
-            if (enabledValue.equals("3")) {
+            if ((enabledValue != null) && enabledValue.equals("3")) {
                 String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "");
                 value = value + ": "+interval;
             }
@@ -4221,7 +4233,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
-            if (enabledValue.equals("3")) {
+            if ((enabledValue != null) && enabledValue.equals("3")) {
                 String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "");
                 value = value + ": "+interval;
             }
@@ -4256,7 +4268,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = StringFormatUtils.getListPreferenceString(enabledValue,
                     R.array.applicationEnableScanningValues, R.array.applicationEnableScanningArray, context);
 
-            if (enabledValue.equals("3")) {
+            if ((enabledValue != null) && enabledValue.equals("3")) {
                 String interval = preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "");
                 value = value + ": "+interval;
             }
@@ -4338,27 +4350,29 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS));
 
-                        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                         String voiceStr = "";
-                        try {
-                            String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
-                            int index = Integer.parseInt(splits[0]);
-                            voiceStr = arrayStrings[index];
-                        } catch (Exception ignored) {
-                        }
                         String smsStr = "";
-                        try {
-                            String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMSMSArray);
-                            int index = Integer.parseInt(splits[1]);
-                            smsStr = arrayStrings[index];
-                        } catch (Exception ignored) {
-                        }
                         String dataStr = "";
-                        try {
-                            String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMDataArray);
-                            int index = Integer.parseInt(splits[2]);
-                            dataStr = arrayStrings[index];
-                        } catch (Exception ignored) {
+                        if (value != null) {
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
+                                int index = Integer.parseInt(splits[0]);
+                                voiceStr = arrayStrings[index];
+                            } catch (Exception ignored) {
+                            }
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMSMSArray);
+                                int index = Integer.parseInt(splits[1]);
+                                smsStr = arrayStrings[index];
+                            } catch (Exception ignored) {
+                            }
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMDataArray);
+                                int index = Integer.parseInt(splits[2]);
+                                dataStr = arrayStrings[index];
+                            } catch (Exception ignored) {
+                            }
                         }
 
                         _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
@@ -4601,8 +4615,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(sValue, prefMng, PREF_DEVICE_WALLPAPER_CATEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
 
-            if (wallpaperChangeValue.equals("1") ||
-                    wallpaperChangeValue.equals("3")) {
+            if ((wallpaperChangeValue != null) &&
+                    (wallpaperChangeValue.equals("1") ||
+                     wallpaperChangeValue.equals("3"))) {
                 if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
                 String value = StringFormatUtils.getListPreferenceString(
@@ -7475,9 +7490,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //noinspection DataFlowIssue
             boolean clearEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED,
                             Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED));
-            boolean applicationsSet = !preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS))
-                    .equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+            String applicationsSetValue = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
+            boolean applicationsSet = (applicationsSetValue != null) &&
+                    (!applicationsSetValue.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS)));
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
             if (preference != null)
@@ -7983,7 +7999,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 if (subscriptionId != -1) {
-                    telephonyManager = telephonyManager.createForSubscriptionId(subscriptionId);
+                    if (telephonyManager != null)
+                        telephonyManager = telephonyManager.createForSubscriptionId(subscriptionId);
                 }
             }
 

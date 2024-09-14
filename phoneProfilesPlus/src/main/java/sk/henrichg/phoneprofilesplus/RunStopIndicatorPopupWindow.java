@@ -28,6 +28,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         */
 
         TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
+        //noinspection DataFlowIssue
         textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
@@ -54,6 +55,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         });
 
         final SwitchCompat checkBox = popupView.findViewById(R.id.run_stop_indicator_popup_window_checkbox);
+        //noinspection DataFlowIssue
         checkBox.setChecked(EventStatic.getGlobalEventsRunning(activity));
         checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (dataWrapper != null)

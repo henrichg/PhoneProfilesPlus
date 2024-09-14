@@ -214,29 +214,30 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                 break;
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
-                final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
-                final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
-                //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED packageName="+packageName);
-                //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED className="+className);
-
                 try {
-                    ComponentName componentName = new ComponentName(packageName, className);
+                    final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
+                    final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
+                    //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED packageName="+packageName);
+                    //Log.e("PPExtenderBroadcastReceiver.onReceive", "(1) ACTION_FOREGROUND_APPLICATION_CHANGED className="+className);
 
-                    ActivityInfo activityInfo = tryGetActivity(appContext, componentName);
-                    boolean isActivity = activityInfo != null;
-                    if (isActivity) {
-                        setApplicationInForeground(appContext, packageName);
+                    if ((packageName != null) && (className != null)) {
+                        ComponentName componentName = new ComponentName(packageName, className);
 
-                        Calendar now = Calendar.getInstance();
-                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                        final long _time = now.getTimeInMillis() + gmtOffset;
+                        ActivityInfo activityInfo = tryGetActivity(appContext, componentName);
+                        boolean isActivity = activityInfo != null;
+                        if (isActivity) {
+                            setApplicationInForeground(appContext, packageName);
 
-                        if (EventStatic.getGlobalEventsRunning(appContext)) {
-                            Runnable runnable3 = () -> {
+                            Calendar now = Calendar.getInstance();
+                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                            final long _time = now.getTimeInMillis() + gmtOffset;
+
+                            if (EventStatic.getGlobalEventsRunning(appContext)) {
+                                Runnable runnable3 = () -> {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
 
-                                //Context appContext= appContextWeakRef.get();
-                                //if (appContext != null) {
+                                    //Context appContext= appContextWeakRef.get();
+                                    //if (appContext != null) {
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
@@ -279,10 +280,11 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                             }
                                         }
                                     }
-                                //}
-                            };
-                            PPApplicationStatic.createEventsHandlerExecutor();
-                            PPApplication.eventsHandlerExecutor.submit(runnable3);
+                                    //}
+                                };
+                                PPApplicationStatic.createEventsHandlerExecutor();
+                                PPApplication.eventsHandlerExecutor.submit(runnable3);
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -528,7 +530,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (5) *****");
                                     if (Permissions.checkSendSMS(appContext)) {
                                         // send sms
-                                        if (sendSMSFromEvent && (!phoneNumber.isEmpty()) &&
+                                        if (sendSMSFromEvent && ((phoneNumber != null) && (!phoneNumber.isEmpty())) &&
                                                 (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
                                             try {
 //                                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (6) *****");

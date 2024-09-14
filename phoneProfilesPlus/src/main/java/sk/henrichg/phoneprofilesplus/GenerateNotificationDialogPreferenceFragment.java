@@ -117,6 +117,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         showLargeIconChBtn = layout.findViewById(R.id.generateNotificationPrefDialogShowLargeIcon);
 
         notificationTitleEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
+        //noinspection DataFlowIssue
         notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
         notificationTitleEdtText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -138,6 +139,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         });
 
         notificationBodyEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
+        //noinspection DataFlowIssue
         notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
 
         generateChBtn.setOnCheckedChangeListener((buttonView, isChecked) -> enableViews());

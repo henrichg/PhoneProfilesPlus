@@ -36,6 +36,7 @@ public class BetterNumberPickerPreferenceFragment extends PreferenceDialogFragme
         mNumberPicker = view.findViewById(R.id.better_number_picker);
 
         // Initialize state
+        //noinspection DataFlowIssue
         mNumberPicker.setMin(BigDecimal.valueOf(preference.mMin));
         mNumberPicker.setMax(BigDecimal.valueOf(preference.mMax));
         mNumberPicker.setPlusMinusVisibility(View.INVISIBLE);

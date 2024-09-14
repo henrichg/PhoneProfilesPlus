@@ -67,6 +67,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             convertView.setTag(new ContactGroupViewHolder(textViewDisplayName, checkBox, textViewAccountType));
 
             // If CheckBox is toggled, update the ContactGroup it is tagged with.
+            //noinspection DataFlowIssue
             checkBox.setOnClickListener(v -> {
                 CheckBox cb = (CheckBox) v;
                 ContactGroup contactGroup = (ContactGroup) cb.getTag();
@@ -97,6 +98,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             checkBox.setTag(contactGroup);
 
             // Display ContactGroup data
+            //noinspection DataFlowIssue
             textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
             boolean found = false;
@@ -104,10 +106,10 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             PackageManager packageManager = context.getPackageManager();
             try {
                 ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, PackageManager.MATCH_ALL);
-                if (applicationInfo != null) {
+                //if (applicationInfo != null) {
                     accountType = packageManager.getApplicationLabel(applicationInfo).toString();
                     found = true;
-                }
+                //}
             } catch (Exception ignored) {}
             if (!found) {
                 if (contactGroup.accountType != null) {
@@ -133,6 +135,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
                 accountType = contactGroup.accountType;
             contactGroup.displayedAccountType = accountType;
 
+            //noinspection DataFlowIssue
             textViewAccountType.setText(contactGroup.displayedAccountType);
 
             checkBox.setChecked(contactGroup.checked);

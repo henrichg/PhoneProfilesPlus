@@ -66,6 +66,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
         });
 
         final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
             refreshListView(false);

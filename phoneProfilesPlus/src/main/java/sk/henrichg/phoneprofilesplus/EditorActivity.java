@@ -444,6 +444,7 @@ public class EditorActivity extends AppCompatActivity
         */
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
+        //noinspection DataFlowIssue
         bottomNavigationView.setOnItemSelectedListener(
                 (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
                     bottomNavigationView.playSoundEffect(SoundEffectConstants.CLICK);
@@ -515,6 +516,7 @@ public class EditorActivity extends AppCompatActivity
         });
 
         eventsRunStopIndicator = findViewById(R.id.editor_list_run_stop_indicator);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
@@ -2124,21 +2126,24 @@ public class EditorActivity extends AppCompatActivity
             if ((resultCode == RESULT_OK) && (data != null)) {
                 boolean ok = false;
                 try {
-                    Intent intent;
+                    Intent intent = null;
                     if (Build.VERSION.SDK_INT >= 29) {
                         StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                        if (sm != null)
+                            intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
                     }
                     else {
                         intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     }
-                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                    //noinspection deprecation
-                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                    ok = true;
+                    if (intent != null) {
+                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                        //noinspection deprecation
+                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                        ok = true;
+                    }
                 } catch (Exception e) {
                     //PPApplicationStatic.recordException(e);
                 }
@@ -2761,23 +2766,26 @@ public class EditorActivity extends AppCompatActivity
                         if (Permissions.grantImportPermissions(false, getApplicationContext(), EditorActivity.this)) {
                             boolean ok = false;
                             try {
-                                Intent intent;
+                                Intent intent = null;
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                    if (sm != null)
+                                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
                                 } else {
                                     intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                                     intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                 }
-                                // not supported by ACTION_OPEN_DOCUMENT_TREE
-                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                                if (intent != null) {
+                                    // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                    //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
 
-                                //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                                //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                //noinspection deprecation
-                                startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                                ok = true;
+                                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                    //noinspection deprecation
+                                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                                    ok = true;
+                                }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
                             }
@@ -2994,25 +3002,35 @@ public class EditorActivity extends AppCompatActivity
 
             dialogBuilder.setPositiveButton(R.string.alert_button_backup, (dialog, which) -> {
                 CheckBox checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogGeofences);
+                //noinspection DataFlowIssue
                 boolean deleteGeofences = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogWifiSSIDs);
+                //noinspection DataFlowIssue
                 boolean deleteWifiSSIDs = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogBluetoothNames);
+                //noinspection DataFlowIssue
                 boolean deleteBluetoothNames = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogMobileCells);
+                //noinspection DataFlowIssue
                 boolean deleteMobileCells = checkbox.isChecked();
 
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCall);
+                //noinspection DataFlowIssue
                 boolean deleteCall = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSMS);
+                //noinspection DataFlowIssue
                 boolean deleteSMS = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogNotification);
+                //noinspection DataFlowIssue
                 boolean deleteNotification = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSendSMS);
+                //noinspection DataFlowIssue
                 boolean deletePhoneCalls = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallScreening);
+                //noinspection DataFlowIssue
                 boolean deleteCallScreening = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogClearNotifications);
+                //noinspection DataFlowIssue
                 boolean deleteClearNotificaitons = checkbox.isChecked();
 
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
@@ -4056,39 +4074,41 @@ public class EditorActivity extends AppCompatActivity
                     if (pickedFile != null) {
                         if (pickedFile.canRead()) {
                             File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+                            if (applicationDir != null) {
+                                // file name in local storage will be PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION
+                                ok = copySharedFile(pickedFile, applicationDir, activity.getApplicationContext());
 
-                            // file name in local storage will be PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION
-                            ok = copySharedFile(pickedFile, applicationDir, activity.getApplicationContext());
-
-                            if (ok == 1) {
-                                // delete backup files
-                                File importFile = new File(applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME);
-                                if (importFile.exists()) {
-                                    // delete old file
-                                    if (!importFile.delete())
-                                        ok = -10;
-                                }
                                 if (ok == 1) {
-                                    importFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                    // delete backup files
+                                    File importFile = new File(applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME);
                                     if (importFile.exists()) {
                                         // delete old file
                                         if (!importFile.delete())
-                                            ok = -11;
+                                            ok = -10;
+                                    }
+                                    if (ok == 1) {
+                                        importFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                        if (importFile.exists()) {
+                                            // delete old file
+                                            if (!importFile.delete())
+                                                ok = -11;
+                                        }
+                                    }
+
+                                    if (ok == 1) {
+                                        // unzip shared file
+                                        ZipManager zipManager = new ZipManager();
+                                        File zipFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
+                                        String destinationDir = applicationDir.getAbsolutePath();
+                                        if (!destinationDir.endsWith("/"))
+                                            destinationDir = destinationDir + "/";
+                                        if (!zipManager.unzip(zipFile.getAbsolutePath(), destinationDir))
+                                            ok = -12;
                                     }
                                 }
-
-                                if (ok == 1) {
-                                    // unzip shared file
-                                    ZipManager zipManager = new ZipManager();
-                                    File zipFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
-                                    String destinationDir = applicationDir.getAbsolutePath();
-                                    if (!destinationDir.endsWith("/"))
-                                        destinationDir = destinationDir + "/";
-                                    if (!zipManager.unzip(zipFile.getAbsolutePath(), destinationDir))
-                                        ok = -12;
-                                }
                             }
-
+                            else
+                                ok = -18;
                         } else {
                             // pickedDir is not writable
                             ok = -13;
@@ -4234,15 +4254,18 @@ public class EditorActivity extends AppCompatActivity
         private int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
             // delete all zip files in local storage
             File sd = context.getApplicationContext().getExternalFilesDir(null);
-            File[] oldZipFiles = sd.listFiles();
-            if (oldZipFiles != null) {
-                for (File f : oldZipFiles) {
-                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
-                        if (!f.delete())
-                            return -1;
+            if (sd != null) {
+                File[] oldZipFiles = sd.listFiles();
+                if (oldZipFiles != null) {
+                    for (File f : oldZipFiles) {
+                        if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                            if (!f.delete())
+                                return -1;
+                        }
                     }
                 }
-            }
+            } else
+                return -10;
             // copy file
             //DocumentFile inputFile = pickedFile;
             if (pickedFile != null) {
@@ -4607,12 +4630,14 @@ public class EditorActivity extends AppCompatActivity
                         try {
                             // delete all zip files in local storage
                             sd = activity.getApplicationContext().getExternalFilesDir(null);
-                            File[] oldZipFiles = sd.listFiles();
-                            if (oldZipFiles != null) {
-                                for (File f : oldZipFiles) {
-                                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
-                                        //noinspection ResultOfMethodCallIgnored
-                                        f.delete();
+                            if (sd != null) {
+                                File[] oldZipFiles = sd.listFiles();
+                                if (oldZipFiles != null) {
+                                    for (File f : oldZipFiles) {
+                                        if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                                            //noinspection ResultOfMethodCallIgnored
+                                            f.delete();
+                                        }
                                     }
                                 }
                             }
@@ -4791,42 +4816,46 @@ public class EditorActivity extends AppCompatActivity
                         boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
 
                         final TextView rewriteInfo = layout.findViewById(R.id.backup_settings_alert_dialog_rewrite_files_info);
+                        //noinspection DataFlowIssue
                         rewriteInfo.setEnabled(!createPPPSubfolder);
 
                         final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
+                        //noinspection DataFlowIssue
                         checkBox.setChecked(createPPPSubfolder);
 
                         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> rewriteInfo.setEnabled(!isChecked));
                         dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                             boolean ok = false;
                             try {
-
                                 boolean _createPPPSubfolder = checkBox.isChecked();
                                 Editor editor = ApplicationPreferences.getEditor(context);
                                 editor.putBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, _createPPPSubfolder);
                                 editor.apply();
 
-                                Intent intent;
+                                Intent intent = null;
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     StorageManager sm = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
-                                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                    if (sm != null)
+                                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
                                 } else {
                                     intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                                     intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                 }
-                                // not supported by ACTION_OPEN_DOCUMENT_TREE
-                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                                if (intent != null) {
+                                    // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                    //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
 
-                                //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                                //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                if (_createPPPSubfolder)
-                                    //noinspection deprecation
-                                    activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
-                                else
-                                    //noinspection deprecation
-                                    activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
-                                ok = true;
+                                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                    if (_createPPPSubfolder)
+                                        //noinspection deprecation
+                                        activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
+                                    else
+                                        //noinspection deprecation
+                                        activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                    ok = true;
+                                }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
                             }
@@ -4931,7 +4960,7 @@ public class EditorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals(StringConstants.EXTRA_EDITOR)) {
+                if ((what != null) && what.equals(StringConstants.EXTRA_EDITOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

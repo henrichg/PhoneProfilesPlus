@@ -135,6 +135,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
         */
 
         Button button = findViewById(R.id.read_nfc_tag_button);
+        //noinspection DataFlowIssue
         button.setOnClickListener(view -> finish());
 
     }

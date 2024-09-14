@@ -52,13 +52,13 @@ class DatabaseHandlerImportExport {
         {
             String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'";
             try (Cursor cursor = db.rawQuery(query, null)) {
-                if(cursor!=null) {
+                //if(cursor!=null) {
                     if (cursor.getCount()>0) {
                         cursor.close();
                         return true;
                     }
                     cursor.close();
-                }
+                //}
                 return false;
             }
             /*
@@ -977,7 +977,7 @@ class DatabaseHandlerImportExport {
                     }
                     cursorImportDB.close();
                 } finally {
-                    if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                    if (/*(cursorImportDB != null) &&*/ (!cursorImportDB.isClosed()))
                         cursorImportDB.close();
                 }
 
@@ -1436,7 +1436,7 @@ class DatabaseHandlerImportExport {
                 }
                 cursorImportDB.close();
             } finally {
-                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                if (/*(cursorImportDB != null) &&*/ (!cursorImportDB.isClosed()))
                     cursorImportDB.close();
             }
         }

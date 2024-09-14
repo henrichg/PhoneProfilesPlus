@@ -42,8 +42,10 @@ class SingleSelectListDialog
             @SuppressLint("InflateParams")
             View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
             TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
             titleText.setText(_title);
             TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
+            //noinspection DataFlowIssue
             subtitleText.setText(_subtitle);
             dialogBuilder.setCustomTitle(titleView);
         } else
@@ -61,8 +63,10 @@ class SingleSelectListDialog
 
         View buttonsDivider = layout.findViewById(R.id.pp_list_pref_dlg_buttonBarDivider);
         if (hideButtonsDivider)
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.GONE);
         else
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 
         mDialog = dialogBuilder.create();
@@ -71,10 +75,12 @@ class SingleSelectListDialog
 
         listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (itemValue != NOT_USE_RADIO_BUTTONS) {
                 RadioButton rb = item.findViewById(R.id.pp_list_pref_dlg_item_radiobutton);
                 itemValue = position;
+                //noinspection DataFlowIssue
                 rb.setChecked(true);
             }
             itemClick.onClick(mDialog, position);

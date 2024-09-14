@@ -8,13 +8,15 @@ import android.telecom.CallScreeningService;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 
+import androidx.annotation.NonNull;
+
 import java.util.Calendar;
 import java.util.List;
 
 public class PPCallScreeningService extends CallScreeningService {
 
     @Override
-    public void onScreenCall(Call.Details callDetails) {
+    public void onScreenCall(@NonNull Call.Details callDetails) {
         if (Build.VERSION.SDK_INT >= 29) {
 //            Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
 

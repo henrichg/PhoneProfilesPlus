@@ -33,6 +33,7 @@ public class OpaquenessLightingPreferenceFragment extends PreferenceDialogFragme
 
         ListView listView = view.findViewById(R.id.opaqueness_lighting_pref_dlg_listview);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
         OpaquenessLightingPreferenceAdapter opaquenessLightingPreferenceAdapter = new OpaquenessLightingPreferenceAdapter(preference.fragment, prefContext, preference.value);

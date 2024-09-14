@@ -2692,8 +2692,9 @@ class PPApplicationStatic {
                     defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
                     //else
                     //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
-                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                            "com.google.android.apps.nexuslauncher");
+                    return (defaultLauncher == null) ||
+                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                                "com.google.android.apps.nexuslauncher");
                 } catch (Exception e) {
                     return false;
                 }
@@ -2723,7 +2724,8 @@ class PPApplicationStatic {
                     //else
                     //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
-                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                    return (defaultLauncher == null) ||
+                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
                             "com.sec.android.app.launcher");
                 } catch (Exception e) {
                     return false;
@@ -2755,7 +2757,8 @@ class PPApplicationStatic {
                     //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
                     //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
-                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                    return (defaultLauncher == null) ||
+                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
                             "com.miui.home");
                 } catch (Exception e) {
                     return false;

@@ -420,6 +420,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     View dragHandle = listItemView.findViewById(R.id.profile_list_drag_handle);
+                    //noinspection DataFlowIssue
                     profileItemTarget.offset(screenLocation[0] + 100 + dragHandle.getWidth(), screenLocation[1]);
 
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
@@ -444,6 +445,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(1)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
@@ -458,6 +460,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(2)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
@@ -472,6 +475,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(3)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
@@ -504,6 +508,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(1)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
@@ -518,6 +523,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(2)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
@@ -550,6 +556,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(1)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
@@ -564,6 +571,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .drawShadow(true)
                                     .id(2)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
@@ -589,6 +597,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
 
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
@@ -612,6 +621,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
+                //noinspection DataFlowIssue
                 targets.add(
                         TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                 .outerCircleColor(outerCircleColor)

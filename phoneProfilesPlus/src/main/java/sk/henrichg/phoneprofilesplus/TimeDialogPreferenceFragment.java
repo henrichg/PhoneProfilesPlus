@@ -43,6 +43,7 @@ public class TimeDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         super.onBindDialogView(view);
 
         mValue = view.findViewById(R.id.time_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.time_pref_dlg_edit_time_tooltip));
         mSeekBarHours = view.findViewById(R.id.time_pref_dlg_hours);
         mSeekBarMinutes = view.findViewById(R.id.time_pref_dlg_minutes);

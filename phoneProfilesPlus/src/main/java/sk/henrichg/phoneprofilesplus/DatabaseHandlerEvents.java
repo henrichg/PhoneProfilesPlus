@@ -127,7 +127,7 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -165,7 +165,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 if (event != null)
                     getEventPreferences(event, db);
@@ -639,8 +639,7 @@ class DatabaseHandlerEvents {
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
 
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -692,7 +691,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_TIME_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesBattery(Event event, SQLiteDatabase db) {
@@ -707,8 +706,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -724,7 +722,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BATTERY_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesCall(Event event, SQLiteDatabase db) {
@@ -746,8 +744,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -770,7 +767,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesAccessory(Event event, SQLiteDatabase db) {
@@ -781,8 +778,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -794,7 +790,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACCESSORY_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesCalendar(Event event, SQLiteDatabase db) {
@@ -818,8 +814,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -844,7 +839,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesWifi(Event event, SQLiteDatabase db) {
@@ -856,8 +851,7 @@ class DatabaseHandlerEvents {
                                                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -870,7 +864,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesScreen(Event event, SQLiteDatabase db) {
@@ -882,8 +876,7 @@ class DatabaseHandlerEvents {
                                                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -896,7 +889,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SCREEN_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesBluetooth(Event event, SQLiteDatabase db) {
@@ -909,8 +902,7 @@ class DatabaseHandlerEvents {
                                                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -924,7 +916,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesSMS(Event event, SQLiteDatabase db) {
@@ -943,8 +935,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -965,7 +956,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesNotification(Event event, SQLiteDatabase db) {
@@ -988,8 +979,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1013,7 +1003,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesApplication(Event event, SQLiteDatabase db) {
@@ -1026,8 +1016,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1041,7 +1030,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesLocation(Event event, SQLiteDatabase db) {
@@ -1053,8 +1042,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1068,7 +1056,7 @@ class DatabaseHandlerEvents {
 
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesOrientation(Event event, SQLiteDatabase db) {
@@ -1085,8 +1073,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1104,7 +1091,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ORIENTATION_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
@@ -1117,8 +1104,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1133,7 +1119,7 @@ class DatabaseHandlerEvents {
 
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesNFC(Event event, SQLiteDatabase db) {
@@ -1147,8 +1133,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1163,7 +1148,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NFC_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesRadioSwitch(Event event, SQLiteDatabase db) {
@@ -1182,8 +1167,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1203,7 +1187,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesAlarmClock(Event event, SQLiteDatabase db) {
@@ -1218,8 +1202,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1235,7 +1218,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ALARM_CLOCK_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesDeviceBoot(Event event, SQLiteDatabase db) {
@@ -1248,8 +1231,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1263,7 +1245,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_DEVICE_BOOT_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesSoundProfile(Event event, SQLiteDatabase db) {
@@ -1275,8 +1257,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1289,7 +1270,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SOUND_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesPeriodic(Event event, SQLiteDatabase db) {
@@ -1303,8 +1284,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1319,7 +1299,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PERIODIC_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesVolumes(Event event, SQLiteDatabase db) {
@@ -1343,8 +1323,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1369,7 +1348,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesActivatedProfile(Event event, SQLiteDatabase db) {
@@ -1382,8 +1361,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1397,7 +1375,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesRoaming(Event event, SQLiteDatabase db) {
@@ -1410,8 +1388,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1425,7 +1402,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesVPN(Event event, SQLiteDatabase db) {
@@ -1436,8 +1413,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1449,7 +1425,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesBrightness(Event event, SQLiteDatabase db) {
@@ -1463,8 +1439,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1479,7 +1454,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesMusic(Event event, SQLiteDatabase db) {
@@ -1491,8 +1466,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1505,7 +1479,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesCallScreening(Event event, SQLiteDatabase db) {
@@ -1526,8 +1500,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1549,7 +1522,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     // this is called only from getEvent and getAllEvents
@@ -2141,7 +2114,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2149,7 +2122,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2333,7 +2306,7 @@ class DatabaseHandlerEvents {
                         new String[]{DatabaseHandler.KEY_E_ID},
                         "trim(" + DatabaseHandler.KEY_E_NAME + ")=?",
                         new String[]{name}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     int rc = cursor.getCount();
@@ -2343,7 +2316,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2460,7 +2433,7 @@ class DatabaseHandlerEvents {
                             },
                             DatabaseHandler.KEY_E_ID + "=?",
                             new String[]{String.valueOf(eventPreferences._event._id)}, null, null, null, null);
-                    if (cursor != null) {
+                    //if (cursor != null) {
                         cursor.moveToFirst();
 
                         if (cursor.getCount() > 0) {
@@ -2468,7 +2441,7 @@ class DatabaseHandlerEvents {
                         }
 
                         cursor.close();
-                    }
+                    //}
 
                     //db.close();
 
@@ -2876,11 +2849,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2909,11 +2882,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2985,7 +2958,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2995,7 +2968,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3062,7 +3035,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3070,7 +3043,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -3178,7 +3151,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3186,7 +3159,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -3296,7 +3269,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3306,7 +3279,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3372,7 +3345,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3380,7 +3353,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3448,7 +3421,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3457,7 +3430,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3604,7 +3577,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3613,7 +3586,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3679,7 +3652,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3687,7 +3660,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3794,7 +3767,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3810,7 +3783,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3876,7 +3849,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3884,7 +3857,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3950,7 +3923,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3958,7 +3931,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -4027,11 +4000,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4375,7 +4348,7 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_G_ID + "=?",
                         new String[]{String.valueOf(geofenceId)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -4388,7 +4361,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4667,12 +4640,12 @@ class DatabaseHandlerEvents {
                                             " FROM " + DatabaseHandler.TABLE_GEOFENCES +
                                             " WHERE " + DatabaseHandler.KEY_G_ID + "=" + geofence;
                                     Cursor cursor = db.rawQuery(selectQuery, null);
-                                    if (cursor != null) {
+                                    //if (cursor != null) {
                                         if (cursor.moveToFirst())
                                             // switch caeked state in db: 1,2 -> 0, 0 -> 1
                                             _check = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED)) == 0) ? 1 : 0;
                                         cursor.close();
-                                    }
+                                    //}
                                 }
                                 if (_check != 2) {
                                     // save into db only check = 0, 1 = true check
@@ -4748,11 +4721,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         r = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4782,7 +4755,7 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         do {
                             if (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED)) == 1) {
@@ -4796,7 +4769,7 @@ class DatabaseHandlerEvents {
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4824,11 +4797,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4910,11 +4883,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         r = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_TRANSITION));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -5538,11 +5511,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -5571,11 +5544,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -5654,11 +5627,11 @@ class DatabaseHandlerEvents {
 
                     Cursor cursor = db.rawQuery(selectQuery, null);
 
-                    if (cursor != null) {
+                    //if (cursor != null) {
                         cursor.moveToFirst();
                         r = cursor.getInt(0);
                         cursor.close();
-                    }
+                    //}
                 }
 
                 //db.close();
@@ -5696,7 +5669,7 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         do {
                             MobileCellsSensorEvent mobileCellsSensorEvent = new MobileCellsSensorEvent();
@@ -5707,7 +5680,7 @@ class DatabaseHandlerEvents {
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -5732,8 +5705,7 @@ class DatabaseHandlerEvents {
                         new String[]{DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS},
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(eventId)}, null, null, null, null);
-                if (cursor != null)
-                {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0)
@@ -5741,7 +5713,7 @@ class DatabaseHandlerEvents {
                         cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
                     }
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -5834,12 +5806,12 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                int r = 0;
-                if (cursor != null) {
+                int r;// = 0;
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 if (r == 0) {
                     ContentValues values = new ContentValues();
@@ -6006,11 +5978,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -6038,11 +6010,11 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{Long.toString(event_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         priority = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PRIORITY));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -6070,11 +6042,11 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{Long.toString(event_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         ignoreManualActivation = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_FORCE_RUN));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {

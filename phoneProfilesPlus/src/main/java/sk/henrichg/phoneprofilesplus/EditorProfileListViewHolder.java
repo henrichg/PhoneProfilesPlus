@@ -55,6 +55,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         // don't delete this - it is workaround for set this LinearLayout non-clickable
         LinearLayout buttonsLayout = itemView.findViewById(R.id.profile_list_item_buttons_root);
+        //noinspection DataFlowIssue
         buttonsLayout.setOnClickListener(v -> {});
 
         itemView.setOnClickListener(this);

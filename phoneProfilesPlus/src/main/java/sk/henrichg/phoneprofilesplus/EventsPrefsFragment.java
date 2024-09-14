@@ -386,6 +386,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            //noinspection DataFlowIssue
             toolbar.setSubtitle(activity.getString(R.string.title_activity_event_preferences));
             toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
@@ -397,6 +398,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         // subtitle
         if (nestedFragment) {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.VISIBLE);
 
             Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
@@ -416,6 +418,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
 
         } else {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.GONE);
 
             SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
@@ -1477,7 +1480,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(Event.PREF_EVENT_NAME)) {
+        if ((key != null) && key.equals(Event.PREF_EVENT_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
 
@@ -1493,6 +1496,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                     Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
+                    //noinspection DataFlowIssue
                     toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
@@ -1501,7 +1505,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        if (key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
+        if ((key != null) && key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
             // save PREF_EVENT_HIDE_NOT_USED_SENSORS into Application preferences
             boolean hideNotUsedSensors = preferences.getBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, false);
             //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "hideNotUsedSensors="+hideNotUsedSensors);
@@ -1518,13 +1522,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         if (event != null) {
             event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-            //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
-            event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
+            if (key != null)
+                //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
+                event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
         }
 
         setRedTextToPreferences();
 
-        if (!key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
+        if ((key != null) && (!key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS))) {
             EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
             if (activity != null) {
                 activity.showSaveMenu = true;

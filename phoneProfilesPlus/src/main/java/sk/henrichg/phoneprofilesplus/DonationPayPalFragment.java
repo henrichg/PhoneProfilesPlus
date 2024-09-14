@@ -108,6 +108,7 @@ public class DonationPayPalFragment extends Fragment {
         updateGUIAfterBillingConnected();
 
         Button closeButton = view.findViewById(R.id.donation_paypal_activity_close);
+        //noinspection DataFlowIssue
         closeButton.setOnClickListener(v -> {
             if (getActivity() != null)
                 getActivity().finish();

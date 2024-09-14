@@ -60,6 +60,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         FastScrollRecyclerView listView = view.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -67,6 +68,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
 //            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
             preference.value="";
@@ -105,9 +107,11 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             //if (preference.value.isEmpty())
             //    cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
             //else
+            //noinspection DataFlowIssue
             contactsFilter.setText(R.string.contacts_filter_dialog_item_show_all);
         }
         else
+            //noinspection DataFlowIssue
             contactsFilter.setText(preference.contactsFilter.displayName);
         contactsFilter.addTextChangedListener(new TextWatcher() {
             @Override

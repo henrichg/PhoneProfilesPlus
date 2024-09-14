@@ -700,6 +700,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             List<TapTarget> targets = new ArrayList<>();
             int id = 1;
             try {
+                //noinspection DataFlowIssue
                 targets.add(
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
                                 .outerCircleColor(outerCircleColor)

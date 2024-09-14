@@ -102,6 +102,7 @@ public class ChromaColorView extends RelativeLayout {
 
         colorView = root.findViewById(R.id.acch_color_view);
         colorEdit = root.findViewById(R.id.acch_color_edit);
+        //noinspection DataFlowIssue
         colorEdit.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_edittext_all));
         //colorEditButton = root.findViewById(R.id.acch_color_edit_button);
 
@@ -137,6 +138,7 @@ public class ChromaColorView extends RelativeLayout {
         //colorEditButton.setText(String.format("%06X", 0xFFFFFF & currentColor));
 
         ViewGroup channelContainer = findViewById(R.id.acch_channel_container);
+        //noinspection DataFlowIssue
         channelContainer.removeAllViews();
 
         List<Channel> channels = colorMode.getColorMode().getChannels();

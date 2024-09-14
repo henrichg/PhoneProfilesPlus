@@ -30,11 +30,13 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
 
         TextView textView = popupView.findViewById(R.id.dialog_help_popup_window_text);
         if (helpIsHtml) {
+            //noinspection DataFlowIssue
             textView.setText(StringFormatUtils.fromHtml(helpString, true,  false, 0, 0, true));
             textView.setClickable(true);
             textView.setMovementMethod(LinkMovementMethod.getInstance());
         }
         else
+            //noinspection DataFlowIssue
             textView.setText(helpString);
 
 //        setOnDismissListener(() -> {
@@ -67,6 +69,7 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
             int popupHeight = contentView.getMeasuredHeight();
 
             ViewGroup activityView = activity.findViewById(android.R.id.content);
+            //noinspection DataFlowIssue
             int activityHeight = activityView.getHeight();
             //int activityWidth = activityView.getWidth();
 

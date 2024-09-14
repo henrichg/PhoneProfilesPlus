@@ -175,25 +175,31 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         View v4 = findViewById(R.id.fourth);
         mEnteredNumber = findViewById(R.id.number_text);
         mBackspace = findViewById(R.id.backspace);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mBackspace, mContext.getString(R.string.backspace_button_tooltip));
         mBackspace.setOnClickListener(this);
         //mDelete.setOnLongClickListener(this);
         mClear = findViewById(R.id.clear);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mClear, mContext.getString(R.string.clear_button_tooltip));
         mClear.setOnClickListener(this);
 
+        //noinspection DataFlowIssue
         mNumbers[1] = v1.findViewById(R.id.key_left);
         mNumbers[2] = v1.findViewById(R.id.key_middle);
         mNumbers[3] = v1.findViewById(R.id.key_right);
 
+        //noinspection DataFlowIssue
         mNumbers[4] = v2.findViewById(R.id.key_left);
         mNumbers[5] = v2.findViewById(R.id.key_middle);
         mNumbers[6] = v2.findViewById(R.id.key_right);
 
+        //noinspection DataFlowIssue
         mNumbers[7] = v3.findViewById(R.id.key_left);
         mNumbers[8] = v3.findViewById(R.id.key_middle);
         mNumbers[9] = v3.findViewById(R.id.key_right);
 
+        //noinspection DataFlowIssue
         mLeft = v4.findViewById(R.id.key_left);
         mNumbers[0] = v4.findViewById(R.id.key_middle);
         mRight = v4.findViewById(R.id.key_right);

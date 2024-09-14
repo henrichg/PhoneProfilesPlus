@@ -1194,7 +1194,7 @@ class Permissions {
             if ((event == null) && (preferences == null)) return; // true;
 
             RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-            boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+            boolean isHeld = (roleManager != null) && roleManager.isRoleHeld(ROLE_CALL_SCREENING);
 
             if (isHeld) {
                 boolean grantedContacts;

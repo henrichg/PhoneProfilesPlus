@@ -151,6 +151,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
             };
             sbt.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            //noinspection DataFlowIssue
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
         }

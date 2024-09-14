@@ -76,18 +76,22 @@ class PPAlertDialog implements PPLinkMovementMethod.OnPPLinkMovementMethodListen
         //mDialog.setOnShowListener(dialog -> doShow());
 
         messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
+        //noinspection DataFlowIssue
         messageText.setText(_message);
 
         View buttonsDivider = layout.findViewById(R.id.info_pref_dialog_buttonBarDivider);
         if (_hideButtonBarDivider)
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.GONE);
         else
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 
         mDialog.setCanceledOnTouchOutside(_canceledOnTouchOutside);
 
         if (_checkBoxListener != null) {
             CheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
+            //noinspection DataFlowIssue
             checkBox.setText(_checkBoxText);
             checkBox.setEnabled(_checkBoxEnabled);
             checkBox.setChecked(_checBoxChecked);

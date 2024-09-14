@@ -106,12 +106,14 @@ class RunApplicationEditorDialog
         mDialog = dialogBuilder.create();
 
         mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
+        //noinspection DataFlowIssue
         mDelayValue.setText(StringFormatUtils.getDurationString(startApplicationDelay));
 
         mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
         mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
 
         LinearLayout delayValueRoot = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay_root);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(delayValueRoot, activity.getString(R.string.applications_editor_dialog_edit_delay_tooltip));
         mDelayValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
             int iValue = (int) duration / 1000;
@@ -152,6 +154,7 @@ class RunApplicationEditorDialog
                 R.layout.spinner_highlighted,
                 activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        //noinspection DataFlowIssue
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
@@ -198,11 +201,14 @@ class RunApplicationEditorDialog
 
                 selectedFilter = Integer.parseInt(filterValues[position]);
                 if (selectedFilter == 2)
+                    //noinspection DataFlowIssue
                     addButton.setVisibility(View.VISIBLE);
                 else
+                    //noinspection DataFlowIssue
                     addButton.setVisibility(View.GONE);
 
                 fillApplicationList();
+                //noinspection DataFlowIssue
                 listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listView.setAdapter(null);
                 listView.setAdapter(listAdapter);
@@ -224,11 +230,13 @@ class RunApplicationEditorDialog
         });
 
         addButton  = layout.findViewById(R.id.run_applications_editor_dialog_addIntent);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
         addButton.setOnClickListener(view -> startEditor(null));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         listView = layout.findViewById(R.id.run_applications_editor_dialog_listview);
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 

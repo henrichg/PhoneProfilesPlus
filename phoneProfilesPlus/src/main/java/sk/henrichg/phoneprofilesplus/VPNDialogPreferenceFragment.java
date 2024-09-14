@@ -66,17 +66,20 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.highlighted_spinner_all));
 
         enableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
+        //noinspection DataFlowIssue
         enableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = enableVPNRBtn.isChecked();
             //preference.callChangeListener(preference.getSValue());
         });
         disableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
+        //noinspection DataFlowIssue
         disableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = enableVPNRBtn.isChecked();
             //preference.callChangeListener(preference.getSValue());
         });
 
         profileNameEditText = layout.findViewById(R.id.vpnPrefDialogProfileName);
+        //noinspection DataFlowIssue
         profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
         profileNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -96,6 +99,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         });
 
         tunnelNameEditText = layout.findViewById(R.id.vpnPrefDialogTunnelName);
+        //noinspection DataFlowIssue
         tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
         tunnelNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -134,6 +138,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         tunnelNameLabel = layout.findViewById(R.id.vpnPrefDialogTunnelNameLabel);
 
         doNotSwith = layout.findViewById(R.id.vpnPrefDialogNotSetWhenIsInState);
+        //noinspection DataFlowIssue
         doNotSwith.setChecked(preference.doNotSetWhenIsinState);
         doNotSwith.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             preference.doNotSetWhenIsinState = doNotSwith.isChecked();

@@ -185,7 +185,7 @@ class EventPreferencesNotification extends EventPreferences {
                                     ApplicationInfo app;
                                     try {
                                         app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
-                                        if (app != null)
+                                        //if (app != null)
                                             selectedApplications = packageManager.getApplicationLabel(app).toString();
                                     } catch (Exception e) {
                                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;

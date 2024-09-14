@@ -781,6 +781,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             List<TapTarget> targets = new ArrayList<>();
             int id = 1;
             try {
+                //noinspection DataFlowIssue
                 targets.add(
                         TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
                                 .outerCircleColor(outerCircleColor)

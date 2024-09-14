@@ -66,6 +66,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             message = "";
         }
         //message = message + getString(R.string.about_application_package_type_github);
+        //noinspection DataFlowIssue
         text.setText(message);
 
         text = findViewById(R.id.about_application_author);
@@ -73,6 +74,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         CharSequence str2 = str1 + " Henrich Gron";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //noinspection DataFlowIssue
         text.setText(sbt);
 
         /*
@@ -111,6 +113,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
         /*emailMe((TextView) findViewById(R.id.about_application_translations),
@@ -146,6 +149,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -175,6 +179,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -204,6 +209,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -233,6 +239,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -262,6 +269,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -425,6 +433,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         */
 
         Button donateButton = findViewById(R.id.about_application_donate_button);
+        //noinspection DataFlowIssue
         donateButton.setOnClickListener(view -> {
             Intent intent;
             intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
@@ -432,6 +441,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         });
 
         Button closeButton = findViewById(R.id.about_application_close);
+        //noinspection DataFlowIssue
         closeButton.setOnClickListener(view -> finish());
 
     }

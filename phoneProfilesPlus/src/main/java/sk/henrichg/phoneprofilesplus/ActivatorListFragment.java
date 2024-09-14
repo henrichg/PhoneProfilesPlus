@@ -125,6 +125,7 @@ public class ActivatorListFragment extends Fragment {
         else {
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
             try {
+                //noinspection DataFlowIssue
                 gridView.setNumColumns(Integer.parseInt(ApplicationPreferences.applicationActivatorNumColums));
             } catch (Exception e) {
                 gridView.setNumColumns(3);
@@ -160,8 +161,9 @@ public class ActivatorListFragment extends Fragment {
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
         if (activatedProfileHeader != null) {
-            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_activator_list_fragment))
-                    .getLayoutTransition();
+            ViewGroup activateListFragment = view.findViewById(R.id.layout_activator_list_fragment);
+            //noinspection DataFlowIssue
+            final LayoutTransition layoutTransition = activateListFragment.getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
             absListView.setOnScrollListener(new HidingAbsListViewScrollListener() {

@@ -234,6 +234,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         ListView cellNamesListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_names);
 
         listAdapter = new NotUsedMobileCellsDialogAdapter(this);
+        //noinspection DataFlowIssue
         cellNamesListView.setAdapter(listAdapter);
 
         cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
@@ -275,6 +276,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         */
 
         TextView cellNamesLabel = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_names_label);
+        //noinspection DataFlowIssue
         cellNamesLabel.setText(getString(R.string.mobile_cell_names_dialog_title)+":");
 
         cellName.addTextChangedListener(new TextWatcher() {

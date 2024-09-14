@@ -176,11 +176,13 @@ public class ActivityLogActivity extends AppCompatActivity
 
         //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
+        //noinspection DataFlowIssue
         addedNewLogsText.setVisibility(View.GONE);
 
         //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
+        //noinspection DataFlowIssue
         listView.setEmptyView(findViewById(R.id.activity_log_list_empty));
         progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
         listView.setVisibility(View.GONE);
@@ -387,6 +389,7 @@ public class ActivityLogActivity extends AppCompatActivity
             _value.append(getString(R.string.activity_log_help_message_data_otherEventDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
             _value.append(getString(R.string.activity_log_help_message_data_eventName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
+            //noinspection DataFlowIssue
             infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, false, 0, 0, true));
 
             infoTextView.setClickable(true);

@@ -60,6 +60,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
         });
 
         final Button unselectAllButton = view.findViewById(R.id.profile_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
             refreshListView(false);

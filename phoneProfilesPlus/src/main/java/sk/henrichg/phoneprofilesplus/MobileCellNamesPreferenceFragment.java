@@ -98,6 +98,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         locationSystemSettingsRelLa = view.findViewById(R.id.mobile_cell_names_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cell_names_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.mobile_cell_names_pref_dlg_locationSystemSettingsButton);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         connectedCellSIM1 = view.findViewById(R.id.mobile_cell_names_pref_dlg_connectedCell_sim1);
@@ -176,6 +177,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
         }
         else
+            //noinspection DataFlowIssue
             rescanButton.setEnabled(false);
 
         setLocationEnableStatus();

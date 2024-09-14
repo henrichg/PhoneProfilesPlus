@@ -22,6 +22,8 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
+import androidx.annotation.NonNull;
+
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -478,15 +480,15 @@ class TwilightScanner {
     // A LocationListener to initialize the network location provider. The location updates
     // are handled through the passive location provider.
     private final LocationListener mEmptyLocationListener =  new LocationListener() {
-        public void onLocationChanged(Location location) {
+        public void onLocationChanged(@NonNull Location location) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onLocationChanged", "xxx");
         }
 
-        public void onProviderDisabled(String provider) {
+        public void onProviderDisabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onProviderDisabled", "xxx");
         }
 
-        public void onProviderEnabled(String provider) {
+        public void onProviderEnabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onProviderEnabled", "xxx");
         }
 
@@ -496,16 +498,16 @@ class TwilightScanner {
     };
 
     private final LocationListener mLocationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
+        public void onLocationChanged(@NonNull Location location) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onLocationChanged", "xxx");
             mLocationHandler.processNewLocation(location);
         }
 
-        public void onProviderDisabled(String provider) {
+        public void onProviderDisabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onProviderDisabled", "xxx");
         }
 
-        public void onProviderEnabled(String provider) {
+        public void onProviderEnabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onProviderEnabled", "xxx");
         }
 

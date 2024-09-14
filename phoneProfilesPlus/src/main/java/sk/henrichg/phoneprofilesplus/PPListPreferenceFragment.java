@@ -36,6 +36,7 @@ public class PPListPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         PPListPreferenceAdapter listAdapter = new PPListPreferenceAdapter(prefContext, preference);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, v, position, id) -> {
             preference.value = preference.entryValues[position].toString();
             //listAdapter.notifyDataSetChanged();

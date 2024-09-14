@@ -72,6 +72,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
         // don't delete this - it is workaround for set this LinearLayout non-clickable
         LinearLayout buttonsLayout = itemView.findViewById(R.id.event_list_item_buttons_root);
+        //noinspection DataFlowIssue
         buttonsLayout.setOnClickListener(v -> {});
 
         itemView.setOnClickListener(this);
@@ -487,6 +488,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     int x = GlobalGUIRoutines.dpToPx(10);
                     int y = 0;
 
+                    //noinspection DataFlowIssue
                     popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                 }

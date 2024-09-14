@@ -71,8 +71,10 @@ class MobileCellNamesDialog {
                             //}
                         //} else
                         if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                            //noinspection DataFlowIssue
                             ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
                         } else if (preference instanceof MobileCellsEditorPreference) {
+                            //noinspection DataFlowIssue
                             ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                         }
                     }
@@ -105,6 +107,7 @@ class MobileCellNamesDialog {
         cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
         emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
+        //noinspection DataFlowIssue
         cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
         if (!showFilterItems) {
             cellName.addTextChangedListener(new TextWatcher() {
@@ -133,6 +136,7 @@ class MobileCellNamesDialog {
         rellaDialog = layout.findViewById(R.id.mobile_cell_names_dlg_rella_dialog);
 
         listAdapter = new MobileCellNamesDialogAdapter(activity, this);
+        //noinspection DataFlowIssue
         cellNamesListView.setAdapter(listAdapter);
 
         cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {

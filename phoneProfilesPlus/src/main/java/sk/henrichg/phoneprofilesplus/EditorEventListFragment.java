@@ -201,6 +201,7 @@ public class EditorEventListFragment extends Fragment
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_events_activated_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
+            //noinspection DataFlowIssue
             profilePrefIndicatorImageView.setVisibility(GONE);
 
         activeProfileName = view.findViewById(R.id.editor_events_activated_profile_name);
@@ -209,6 +210,7 @@ public class EditorEventListFragment extends Fragment
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -219,8 +221,9 @@ public class EditorEventListFragment extends Fragment
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
             if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
                     getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
-                final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
-                        .getLayoutTransition();
+                ViewGroup eventListFragmnet = view.findViewById(R.id.layout_events_list_fragment);
+                //noinspection DataFlowIssue
+                final LayoutTransition layoutTransition =  eventListFragmnet.getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                 //layoutTransition.setDuration(500);
 
@@ -337,8 +340,10 @@ public class EditorEventListFragment extends Fragment
 
         LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_events_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+            //noinspection DataFlowIssue
             bottomBarOrderRoot.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for showTargetHelps().
         else
+            //noinspection DataFlowIssue
             bottomBarOrderRoot.setVisibility(VISIBLE);
 
         orderSpinner = view.findViewById(R.id.editor_events_list_bottom_bar_order);
@@ -349,6 +354,7 @@ public class EditorEventListFragment extends Fragment
 //            orderSpinner.setVisibility(VISIBLE);
 
         TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
+        //noinspection DataFlowIssue
         orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
 
         String[] orderItems = new String[] {
@@ -2201,8 +2207,10 @@ public class EditorEventListFragment extends Fragment
                         //if (activatedProfileHeader.isVisibleToUser()) {
                         TextView redText = fragment.activatedProfileHeader.findViewById(R.id.editor_events_activated_profile_red_text);
                         if (redTextVisible)
+                            //noinspection DataFlowIssue
                             redText.setVisibility(View.VISIBLE);
                         else
+                            //noinspection DataFlowIssue
                             redText.setVisibility(GONE);
                         //}
                     } catch (Exception e) {

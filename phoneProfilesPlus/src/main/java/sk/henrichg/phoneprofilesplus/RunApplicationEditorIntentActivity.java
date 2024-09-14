@@ -107,6 +107,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         //intentScrollView = findViewById(R.id.application_editor_intent_scroll_view);
 
         intentNameEditText = findViewById(R.id.application_editor_intent_intent_name);
+        //noinspection DataFlowIssue
         intentNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -144,6 +145,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentPackageName = findViewById(R.id.application_editor_intent_package_name);
+        //noinspection DataFlowIssue
         intentPackageName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentPackageName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -161,12 +163,15 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentClassName = findViewById(R.id.application_editor_intent_class_name);
+        //noinspection DataFlowIssue
         intentClassName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentData = findViewById(R.id.application_editor_intent_data);
+        //noinspection DataFlowIssue
         intentData.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentMimeType = findViewById(R.id.application_editor_intent_mime_type);
+        //noinspection DataFlowIssue
         intentMimeType.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
@@ -204,6 +209,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
+        //noinspection DataFlowIssue
         intentActionEdit.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentActionEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -226,6 +232,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         categoryArray = getResources().getStringArray(R.array.runApplicationEditorIntentCategoryArray);
         categoryIndices = new boolean[categoryArray.length];
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(intentCategoryButton, getString(R.string.application_editor_intent_edit_category_button_tooltip));
         intentCategoryButton.setOnClickListener(v -> {
             MultiSelectListDialog dialog = new MultiSelectListDialog(
@@ -265,6 +272,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         flagArray = getResources().getStringArray(R.array.runApplicationEditorIntentFlagArray);
         flagIndices = new boolean[flagArray.length];
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(intentFlagsButton, getString(R.string.application_editor_intent_edit_flags_button_tooltip));
         intentFlagsButton.setOnClickListener(v -> {
             MultiSelectListDialog dialog = new MultiSelectListDialog(
@@ -300,8 +308,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentExtraKeyName1 = findViewById(R.id.application_editor_intent_extra_key_1);
+        //noinspection DataFlowIssue
         intentExtraKeyName1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentExtraKeyValue1 = findViewById(R.id.application_editor_intent_extra_value_1);
+        //noinspection DataFlowIssue
         intentExtraKeyValue1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
@@ -324,8 +334,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentExtraKeyName2 = findViewById(R.id.application_editor_intent_extra_key_2);
+        //noinspection DataFlowIssue
         intentExtraKeyName2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentExtraKeyValue2 = findViewById(R.id.application_editor_intent_extra_value_2);
+        //noinspection DataFlowIssue
         intentExtraKeyValue2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
@@ -348,8 +360,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentExtraKeyName3 = findViewById(R.id.application_editor_intent_extra_key_3);
+        //noinspection DataFlowIssue
         intentExtraKeyName3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentExtraKeyValue3 = findViewById(R.id.application_editor_intent_extra_value_3);
+        //noinspection DataFlowIssue
         intentExtraKeyValue3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
@@ -372,8 +386,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentExtraKeyName4 = findViewById(R.id.application_editor_intent_extra_key_4);
+        //noinspection DataFlowIssue
         intentExtraKeyName4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentExtraKeyValue4 = findViewById(R.id.application_editor_intent_extra_value_4);
+        //noinspection DataFlowIssue
         intentExtraKeyValue4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
@@ -396,8 +412,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentExtraKeyName5 = findViewById(R.id.application_editor_intent_extra_key_5);
+        //noinspection DataFlowIssue
         intentExtraKeyName5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentExtraKeyValue5 = findViewById(R.id.application_editor_intent_extra_value_5);
+        //noinspection DataFlowIssue
         intentExtraKeyValue5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
@@ -535,6 +553,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         Button cancelButton = findViewById(R.id.application_editor_intent_cancel);
+        //noinspection DataFlowIssue
         cancelButton.setOnClickListener(v -> {
             Intent returnIntent = new Intent();
             setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -542,6 +561,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         Button testButton = findViewById(R.id.application_editor_intent_test);
+        //noinspection DataFlowIssue
         testButton.setOnClickListener(v -> {
             if (ppIntent == null) {
                 PPAlertDialog mDialog = new PPAlertDialog(

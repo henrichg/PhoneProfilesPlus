@@ -387,7 +387,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         boolean isHeld = false;
         if (Build.VERSION.SDK_INT >= 29) {
             RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-            isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+            isHeld = (roleManager != null) && roleManager.isRoleHeld(ROLE_CALL_SCREENING);
         }
         return isHeld;
     }

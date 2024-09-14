@@ -54,22 +54,27 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         tagDbId = intent.getLongExtra(EXTRA_TAG_DB_ID, 0);
 
         touchTextView = findViewById(R.id.write_nfc_tag_touch);
+        //noinspection DataFlowIssue
         touchTextView.setText(R.string.nfc_tag_pref_dlg_readNfcTag_touch);
 
         tagDataTextView = findViewById(R.id.write_nfc_tag_data);
         writableTextView = findViewById(R.id.write_nfc_tag_writable);
         addReadedNameButton = findViewById(R.id.write_nfc_tag_addReadedTagName);
+        //noinspection DataFlowIssue
         addReadedNameButton.setEnabled(false);
         writeNameToTagAndAddNameButton = findViewById(R.id.write_nfc_tag_writeNameToTagAndAddName);
+        //noinspection DataFlowIssue
         writeNameToTagAndAddNameButton.setEnabled(false);
 
         TextView tagNameTextView = findViewById(R.id.write_nfc_tag_name);
+        //noinspection DataFlowIssue
         tagNameTextView.setText(getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_tagName) + " " + tagName);
         tagDataTextView.setText(getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_tagData) + " " +
                                 getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_tagData_noData));
 
         if (tagDbId != 0) {
             TextView addUpdateTagTextView = findViewById(R.id.write_nfc_tag_addUpdateName);
+            //noinspection DataFlowIssue
             addUpdateTagTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons);
         }
 
@@ -170,6 +175,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
 
         Button button = findViewById(R.id.write_nfc_tag_button);
+        //noinspection DataFlowIssue
         button.setOnClickListener(view -> {
             setResult(Activity.RESULT_CANCELED);
             finish();

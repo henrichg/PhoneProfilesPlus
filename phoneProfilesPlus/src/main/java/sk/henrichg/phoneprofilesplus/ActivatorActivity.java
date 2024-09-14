@@ -158,6 +158,7 @@ public class ActivatorActivity extends AppCompatActivity
             getSupportActionBar().setTitle(R.string.title_activity_activator);
 
         eventsRunStopIndicator = findViewById(R.id.act_prof_run_stop_indicator);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
@@ -584,6 +585,7 @@ public class ActivatorActivity extends AppCompatActivity
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
+                        //noinspection DataFlowIssue
                         targets.add(
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .outerCircleColor(outerCircleColor)
@@ -604,6 +606,7 @@ public class ActivatorActivity extends AppCompatActivity
                     }
                     try {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
+                        //noinspection DataFlowIssue
                         targets.add(
                                 TapTarget.forView(restartEventsActionView, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                         .outerCircleColor(outerCircleColor)
@@ -629,6 +632,7 @@ public class ActivatorActivity extends AppCompatActivity
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
+                        //noinspection DataFlowIssue
                         targets.add(
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .outerCircleColor(outerCircleColor)
@@ -816,7 +820,7 @@ public class ActivatorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals(StringConstants.EXTRA_ACTIVATOR)) {
+                if ((what != null) && what.equals(StringConstants.EXTRA_ACTIVATOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

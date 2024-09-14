@@ -287,10 +287,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     PackageManager packageManager = _context.getPackageManager();
                     try {
                         ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, PackageManager.MATCH_ALL);
-                        if (applicationInfo != null) {
+                        //if (applicationInfo != null) {
                             accountType = packageManager.getApplicationLabel(applicationInfo).toString();
                             found = true;
-                        }
+                        //}
                     } catch (Exception ignored) {}
                     if (!found) {
                         if (contact.accountType.equals("com.osp.app.signin"))

@@ -321,7 +321,7 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -458,7 +458,7 @@ class DatabaseHandlerProfiles {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -1287,7 +1287,7 @@ class DatabaseHandlerProfiles {
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     int rc = cursor.getCount();
@@ -1427,7 +1427,7 @@ class DatabaseHandlerProfiles {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -1456,7 +1456,7 @@ class DatabaseHandlerProfiles {
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     int rc = cursor.getCount();
@@ -1466,7 +1466,7 @@ class DatabaseHandlerProfiles {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -1494,7 +1494,7 @@ class DatabaseHandlerProfiles {
                         new String[]{DatabaseHandler.KEY_ID},
                         "trim(" + DatabaseHandler.KEY_NAME + ")=?",
                         new String[]{name}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     int rc = cursor.getCount();
@@ -1504,7 +1504,7 @@ class DatabaseHandlerProfiles {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -1575,11 +1575,11 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{Long.toString(profile_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -1606,11 +1606,11 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{Long.toString(profile._id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ICON));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -1668,11 +1668,11 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{Long.toString(profileId)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getLong(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -1989,7 +1989,7 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_S_ID + "=?",
                         new String[]{String.valueOf(shortcutId)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2000,7 +2000,7 @@ class DatabaseHandlerProfiles {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2392,7 +2392,7 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_IN_ID + "=?",
                         new String[]{String.valueOf(intentId)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2443,7 +2443,7 @@ class DatabaseHandlerProfiles {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2509,11 +2509,11 @@ class DatabaseHandlerProfiles {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {

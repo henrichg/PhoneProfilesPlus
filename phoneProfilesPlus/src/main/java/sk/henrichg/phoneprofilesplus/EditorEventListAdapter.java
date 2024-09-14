@@ -409,6 +409,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     View view = listItemView.findViewById(R.id.event_list_drag_handle);
+                    //noinspection DataFlowIssue
                     eventItemTarget.offset(screenLocation[0] + 80 + view.getWidth(), screenLocation[1]);
 
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
@@ -434,6 +435,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(1)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .outerCircleColor(outerCircleColor)
@@ -448,6 +450,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(2)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
                                     .outerCircleColor(outerCircleColor)
@@ -462,6 +465,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(3)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
@@ -476,6 +480,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(4)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                     .outerCircleColor(outerCircleColor)
@@ -508,6 +513,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(1)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .outerCircleColor(outerCircleColor)
@@ -522,6 +528,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(2)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
                                     .outerCircleColor(outerCircleColor)
@@ -536,6 +543,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .drawShadow(true)
                                     .id(3)
                     );
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                     .outerCircleColor(outerCircleColor)
@@ -560,6 +568,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
 
+                    //noinspection DataFlowIssue
                     targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
@@ -583,6 +592,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 editor.apply();
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus= false;
 
+                //noinspection DataFlowIssue
                 targets.add(
                         TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                 .outerCircleColor(outerCircleColor)

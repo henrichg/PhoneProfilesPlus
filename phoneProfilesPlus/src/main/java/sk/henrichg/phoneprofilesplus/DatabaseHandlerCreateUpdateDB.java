@@ -583,14 +583,14 @@ class DatabaseHandlerCreateUpdateDB {
             //cursor = db.rawQuery("PRAGMA phoneProfilesManager.TABLE_info("+ table +")", null);
 
             cursor = db.rawQuery("select * from "+table + " LIMIT 1", null);
-            if (cursor != null) {
+            //if (cursor != null) {
                 String[] _columns = cursor.getColumnNames();
                 Collections.addAll(columns, _columns);
                 //while (cursor.moveToNext()) {
                 //    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 //    columns.add(name);
                 //}
-            }
+            //}
         } finally {
             if (cursor != null && !cursor.isClosed())
                 cursor.close();

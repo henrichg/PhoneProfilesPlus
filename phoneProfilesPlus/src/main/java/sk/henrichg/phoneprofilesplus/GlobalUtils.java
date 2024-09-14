@@ -352,7 +352,7 @@ class GlobalUtils {
         if (treeUri == null)
             return "";
         String path1 = treeUri.getPath();
-        if (path1.startsWith("/tree/"))
+        if ((path1 != null) && path1.startsWith("/tree/"))
         {
             String path2 = path1.substring("/tree/".length());
             if (path2.startsWith("primary:"))

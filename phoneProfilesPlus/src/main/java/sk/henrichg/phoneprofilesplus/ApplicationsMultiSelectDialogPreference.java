@@ -229,7 +229,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                             ApplicationInfo app;
                             try {
                                 app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
-                                if (app != null)
+                                //if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (PackageManager.NameNotFoundException e) {
                                 //PPApplicationStatic.recordException(e);
@@ -349,14 +349,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     if (activityName.isEmpty()) {
                         try {
                             app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
-                            if (app != null) {
+                            //if (app != null) {
                                 Drawable icon = packageManager.getApplicationIcon(app);
                                 //CharSequence name = packageManager.getApplicationLabel(app);
                                 packageIcon.setImageDrawable(icon);
                                 _setEnabled = true;
-                            } else {
-                                packageIcon.setImageResource(R.drawable.ic_empty);
-                            }
+                            //} else {
+                            //    packageIcon.setImageResource(R.drawable.ic_empty);
+                            //}
                         } catch (Exception e) {
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
@@ -411,14 +411,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                             if (activityName.isEmpty()) {
                                 try {
                                     app = packageManager.getApplicationInfo(splits[i], PackageManager.MATCH_ALL);
-                                    if (app != null) {
+                                    //if (app != null) {
                                         Drawable icon = packageManager.getApplicationIcon(app);
                                         //CharSequence name = packageManager.getApplicationLabel(app);
                                         packIcon.setImageDrawable(icon);
                                         _setEnabled = true;
-                                    } else {
-                                        packIcon.setImageResource(R.drawable.ic_empty);
-                                    }
+                                    //} else {
+                                    //    packIcon.setImageResource(R.drawable.ic_empty);
+                                    //}
                                 } catch (Exception e) {
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }

@@ -57,6 +57,7 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
 
         final FrameLayout defaultColorLayout = view.findViewById(R.id.dialog_color_chooser_default_color);
 
+        //noinspection DataFlowIssue
         defaultColorLayout.setTag(-1);
         defaultColorLayout.setOnClickListener(this);
 
@@ -84,6 +85,7 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
         preference.setBackgroundCompat(defaultColorLayout, new RippleDrawable(rippleColors, selector, null));
 
         final TextView defaultColorLabel = view.findViewById(R.id.dialog_color_chooser_default_color_label);
+        //noinspection DataFlowIssue
         defaultColorLabel.setTag(-1);
         defaultColorLabel.setOnClickListener(this);
 
@@ -93,6 +95,7 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
 
         final FrameLayout customColorLayout = view.findViewById(R.id.dialog_color_chooser_custom_color);
 
+        //noinspection DataFlowIssue
         customColorLayout.setTag(-2);
         customColorLayout.setOnClickListener(this);
 
@@ -122,6 +125,7 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
         preference.setBackgroundCompat(customColorLayout, new RippleDrawable(rippleColors, selector, null));
 
         final TextView customColorLabel = view.findViewById(R.id.dialog_color_chooser_custom_color_label);
+        //noinspection DataFlowIssue
         customColorLabel.setTag(-2);
         customColorLabel.setOnClickListener(this);
 
@@ -129,6 +133,7 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
 
         final GridLayout list = view.findViewById(R.id.dialog_color_chooser_grid);
 
+        //noinspection DataFlowIssue
         int count = list.getChildCount();
         for (int i = 0; i < count; i++) {
             FrameLayout child = (FrameLayout) list.getChildAt(i);
@@ -175,6 +180,7 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
                     dialogBuilder.setView(layout);
 
                     final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
+                    //noinspection DataFlowIssue
                     chromaColorView.setCurrentColor(Integer.parseInt(preference.value));
                     chromaColorView.setColorMode(ColorMode.values()[0]);
                     chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);

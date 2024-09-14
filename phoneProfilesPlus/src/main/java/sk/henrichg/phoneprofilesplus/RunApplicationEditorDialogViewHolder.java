@@ -37,6 +37,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
         else
             imageViewMenu = null;
 
+        //noinspection DataFlowIssue
         radioBtn.setOnClickListener(v -> {
             RadioButton rb = (RadioButton) v;
             rb.setChecked(true);

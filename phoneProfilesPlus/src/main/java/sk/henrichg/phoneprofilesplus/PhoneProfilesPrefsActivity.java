@@ -91,8 +91,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         boolean hideBackArrow = intent.getBooleanExtra(EXTRA_HIDE_BACK_ARROW, false);
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+        //noinspection DataFlowIssue
         toolbar.setVisibility(View.GONE);
         toolbar = findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+        //noinspection DataFlowIssue
         toolbar.setVisibility(View.VISIBLE);
         if (hideBackArrow)
             toolbar.setContentInsetsAbsolute(GlobalGUIRoutines.dpToPx(15), 0);

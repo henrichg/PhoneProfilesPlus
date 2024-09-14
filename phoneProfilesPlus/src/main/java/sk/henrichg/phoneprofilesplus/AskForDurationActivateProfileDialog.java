@@ -70,6 +70,7 @@ class AskForDurationActivateProfileDialog
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
         emptyList = layout.findViewById(R.id.profile_pref_dlg_empty);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
 
     }

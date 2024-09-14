@@ -114,32 +114,40 @@ public class ImportantInfoHelpFragment extends Fragment {
         if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
         }
 
         if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setText(getString(R.string.important_info_pppps_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
         }
 
@@ -147,10 +155,12 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
         TextView infoTextnews1 = view.findViewById(R.id.important_info_news_1);
         if (!news) {
+            //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
             if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.GONE);
         } else {
+            //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
             infoTextNews.setText("*** " + getString(R.string.important_info_news) + " ***");
 

@@ -199,21 +199,24 @@ class EventsHandler {
             //oldRingerMode = ApplicationPreferences.prefRingerMode;
             //oldZenMode = ApplicationPreferences.prefZenMode;
             AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-            switch (audioManager.getRingerMode()) {
-                case AudioManager.RINGER_MODE_SILENT:
-                    oldRingerMode = Profile.RINGERMODE_SILENT;
+            if (audioManager != null) {
+                switch (audioManager.getRingerMode()) {
+                    case AudioManager.RINGER_MODE_SILENT:
+                        oldRingerMode = Profile.RINGERMODE_SILENT;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=SILENT");
-                    break;
-                case AudioManager.RINGER_MODE_VIBRATE:
+                        break;
+                    case AudioManager.RINGER_MODE_VIBRATE:
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=VIBRATE");
-                    oldRingerMode = Profile.RINGERMODE_VIBRATE;
-                    break;
-                //case AudioManager.RINGER_MODE_NORMAL:
-                default:
-                    oldRingerMode = Profile.RINGERMODE_RING;
+                        oldRingerMode = Profile.RINGERMODE_VIBRATE;
+                        break;
+                    //case AudioManager.RINGER_MODE_NORMAL:
+                    default:
+                        oldRingerMode = Profile.RINGERMODE_RING;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=RING");
-                    break;
-            }
+                        break;
+                }
+            } else
+                oldRingerMode = Profile.RINGERMODE_RING;
             switch (ActivateProfileHelper.getSystemZenMode(context)) {
                 case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                     oldZenMode = Profile.ZENMODE_ALARMS;

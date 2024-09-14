@@ -84,6 +84,7 @@ class ContactsFilterDialog {
         rellaDialog = layout.findViewById(R.id.contacts_filter_dlg_rella_dialog);
 
         listAdapter = new ContactsFilterDialogAdapter(activity, this);
+        //noinspection DataFlowIssue
         contactsFilterListView.setAdapter(listAdapter);
 
         contactsFilterListView.setOnItemClickListener((parent, v, position, id) -> {
@@ -193,10 +194,10 @@ class ContactsFilterDialog {
                     String newFilterName = "";
                     try {
                         ApplicationInfo applicationInfo = packageManager.getApplicationInfo(filter.data, PackageManager.MATCH_ALL);
-                        if (applicationInfo != null) {
+                        //if (applicationInfo != null) {
                             newFilterName = packageManager.getApplicationLabel(applicationInfo).toString();
                             found = true;
-                        }
+                        //}
                     } catch (Exception ignored) {
                     }
                     if (!found) {

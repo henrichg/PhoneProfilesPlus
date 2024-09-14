@@ -24,37 +24,39 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
         if (mCameraManager == null)
             mCameraManager = (CameraManager) getContext().getSystemService(Context.CAMERA_SERVICE);
 
-        // check for all cameras
-        boolean flashAvailable = false;
-        String[] cameraIds = mCameraManager.getCameraIdList();
-        for (String id : cameraIds) {
-            flashAvailable = isFlashAvailable(id);
-        }
+        if (mCameraManager != null) {
+            // check for all cameras
+            boolean flashAvailable = false;
+            String[] cameraIds = mCameraManager.getCameraIdList();
+            for (String id : cameraIds) {
+                flashAvailable = isFlashAvailable(id);
+            }
 
-        if (flashAvailable /*isFlashAvailable()*/) {
-            mTorchCallback = new CameraManager.TorchCallback() {
-                @Override
-                public void onTorchModeUnavailable(@NonNull String cameraId) {
-                    super.onTorchModeUnavailable(cameraId);
-                    //onCameraTorchModeChanged(TorchMode.Unavailable);
-                }
+            if (flashAvailable /*isFlashAvailable()*/) {
+                mTorchCallback = new CameraManager.TorchCallback() {
+                    @Override
+                    public void onTorchModeUnavailable(@NonNull String cameraId) {
+                        super.onTorchModeUnavailable(cameraId);
+                        //onCameraTorchModeChanged(TorchMode.Unavailable);
+                    }
 
-                @Override
-                public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
-                    super.onTorchModeChanged(cameraId, enabled);
+                    @Override
+                    public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
+                        super.onTorchModeChanged(cameraId, enabled);
                     /*if (enabled)
                         setTorchMode(TorchMode.SwitchedOn);
                     else
                         setTorchMode(TorchMode.SwitchedOff);*/
-                }
-            };
-            mCameraManager.registerTorchCallback(mTorchCallback, null);
+                    }
+                };
+                mCameraManager.registerTorchCallback(mTorchCallback, null);
+            }
         }
     }
 
     private boolean isFlashAvailable(String cameraId) throws CameraAccessException {
         CameraCharacteristics cameraCharacteristics = mCameraManager.getCameraCharacteristics(cameraId /*"0"*/);
-        return cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+        return Boolean.TRUE.equals(cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE));
     }
 
     @Override
@@ -65,7 +67,7 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
             // only log exception, because for all cameras must be set torch
             try {
                 CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
-                if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                if (Boolean.TRUE.equals(characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE))) {
                     // added facing check - allowed is only back flash
                     Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                     if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
@@ -91,7 +93,7 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
             // only log exception, because for all cameras must be set torch
             try {
                 CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
-                if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                if (Boolean.TRUE.equals(characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE))) {
                     // added facing check - allowed is only back flash
                     Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                     if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {

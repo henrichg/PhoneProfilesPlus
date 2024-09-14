@@ -37,22 +37,29 @@ class GenerateNotificationAfterClickDialog
 
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             if (!activity.isFinishing()) {
+                //noinspection DataFlowIssue
                 if (startActivatorRb.isChecked()) {
                     Intent launcherIntent = new Intent(activity.getApplicationContext(), ActivatorActivity.class);
                     launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
                     launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                     activity.startActivity(launcherIntent);
                     activity.finish();
-                } else if (startEditorRb.isChecked()) {
+                } else
+                //noinspection DataFlowIssue
+                if (startEditorRb.isChecked()) {
                     Intent launcherIntent = new Intent(activity.getApplicationContext(), EditorActivity.class);
                     launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
                     launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                     activity.startActivity(launcherIntent);
                     activity.finish();
-                } else if (restartEventsRb.isChecked()) {
+                } else
+                //noinspection DataFlowIssue
+                if (restartEventsRb.isChecked()) {
                     DataWrapper dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     dataWrapper.restartEventsWithAlert(activity);
-                } else if (runStopEventsRunRb.isChecked()) {
+                } else
+                //noinspection DataFlowIssue
+                if (runStopEventsRunRb.isChecked()) {
                     DataWrapper dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     dataWrapper.runStopEventsFronGeneratedNotification(activity);
                 }

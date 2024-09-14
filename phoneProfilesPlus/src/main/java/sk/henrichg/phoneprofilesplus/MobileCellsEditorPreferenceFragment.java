@@ -185,9 +185,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             //if (preference.value.isEmpty())
             //    cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
             //else
+            //noinspection DataFlowIssue
             cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_new);
         }
         else
+            //noinspection DataFlowIssue
             cellFilter.setText(preference.cellFilter);
         cellFilter.addTextChangedListener(new TextWatcher() {
             @Override
@@ -251,6 +253,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         Button editButton = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
         //TooltipCompat.setTooltipText(editButton, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
+        //noinspection DataFlowIssue
         editButton.setOnClickListener(v -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
@@ -307,6 +310,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 }
         });
         AppCompatImageButton changeSelectionIcon = view.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.mobile_cells_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(view13 -> {
             if (getActivity() != null)
@@ -357,6 +361,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 }
         });
         final AppCompatImageButton sortIcon = view.findViewById(R.id.mobile_cells_pref_dlg_sort);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(sortIcon, getString(R.string.mobile_cells_pref_dlg_button_tooltip));
         sortIcon.setOnClickListener(v -> {
             if (getActivity() != null)
@@ -379,6 +384,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         });
 
         final AppCompatImageButton helpIcon = view.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> DialogHelpPopupWindow.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.mobile_cells_pref_dlg_help, false));
 
@@ -429,10 +435,12 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         }
         else
+            //noinspection DataFlowIssue
             rescanButton.setEnabled(false);
 
         if ((phoneCount > 1)) {
             addCellButtonSIM1 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim1);
+            //noinspection DataFlowIssue
             TooltipCompat.setTooltipText(addCellButtonSIM1, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM1.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM1 != null) {
@@ -455,6 +463,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                 }
             });
             addCellButtonSIM2 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim2);
+            //noinspection DataFlowIssue
             TooltipCompat.setTooltipText(addCellButtonSIM2, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM2.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM2 != null) {
@@ -478,6 +487,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             });
         } else {
             addCellButtonDefault = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_simDefault);
+            //noinspection DataFlowIssue
             TooltipCompat.setTooltipText(addCellButtonDefault, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonDefault.setOnClickListener(v -> {
                 if (preference.registeredCellDataDefault != null) {
@@ -518,14 +528,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         if ((phoneCount > 1)) {
             if (!sim1Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
+                //noinspection DataFlowIssue
                 connectedCellRelLa.setVisibility(View.GONE);
             }
             if (!sim2Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim2);
+                //noinspection DataFlowIssue
                 connectedCellRelLa.setVisibility(View.GONE);
             }
 
             connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_simDefault);
+            //noinspection DataFlowIssue
             connectedCellRelLa.setVisibility(View.GONE);
         }
         else {
@@ -541,6 +554,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         locationSystemSettingsRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         setLocationEnableStatus();

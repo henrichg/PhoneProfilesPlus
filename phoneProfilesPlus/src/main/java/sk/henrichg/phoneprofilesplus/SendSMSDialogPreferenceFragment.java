@@ -35,6 +35,7 @@ public class SendSMSDialogPreferenceFragment extends PreferenceDialogFragmentCom
         super.onBindDialogView(view);
 
         sendSMSChBox = view.findViewById(R.id.send_sms_checkBox);
+        //noinspection DataFlowIssue
         sendSMSChBox.setChecked(preference.sendSMS);
     }
 

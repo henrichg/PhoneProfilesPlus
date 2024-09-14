@@ -417,11 +417,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
 
             Toolbar toolbar = _activity.findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+            //noinspection DataFlowIssue
             toolbar.setTitle(activity.getString(R.string.title_activity_phone_profiles_preferences));
         }, 200);
 
         // subtitle
         if (nestedFragment) {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.VISIBLE);
 
             Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
@@ -439,6 +441,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
         }
         else {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.GONE);
             //toolbar.setSubtitle(null);
         }
@@ -2225,14 +2228,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //callScreeningPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 callScreeningPreference.setOnPreferenceClickListener(preference13 -> {
                     RoleManager roleManager = (RoleManager) appContext.getSystemService(ROLE_SERVICE);
-                    if (roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE_SETTINGS);
-                    } else {
-                        Intent intent = roleManager.createRequestRoleIntent(ROLE_CALL_SCREENING);
-                        startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE_SETTINGS);
-                    }
+                    if (roleManager != null) {
+                        if (roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE_SETTINGS);
+                        } else {
+                            Intent intent = roleManager.createRequestRoleIntent(ROLE_CALL_SCREENING);
+                            startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE_SETTINGS);
+                        }
+                    } // TODO sem daj dialog, ze setting neexistuje, mas taky vela krat
                     return false;
                 });
             }
@@ -4136,7 +4141,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 Preference _preference = prefMng.findPreference(key);
                 if (_preference != null) {
                     RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-                    boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+                    boolean isHeld = (roleManager != null) && roleManager.isRoleHeld(ROLE_CALL_SCREENING);
                     if (isHeld) {
                         summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1) +
                                 StringConstants.STR_DOUBLE_NEWLINE + summary;
@@ -4779,7 +4784,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (Build.VERSION.SDK_INT >= 29) {
                 String summary; //= getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
-                boolean isHeld = roleManager.isRoleHeld(ROLE_CALL_SCREENING);
+                boolean isHeld = (roleManager != null) && roleManager.isRoleHeld(ROLE_CALL_SCREENING);
                 if (isHeld) {
                     summary = getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1);// +
                             //StringConstants.STR_DOUBLE_NEWLINE + summary;

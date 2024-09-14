@@ -62,9 +62,11 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             preference.setNegativeButtonText(null);*/
 
         AppCompatImageButton addButton = view.findViewById(R.id.location_pref_dlg_add);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addButton, getString(R.string.location_pref_dlg_add_button_tooltip));
 
         geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
+        //noinspection DataFlowIssue
         geofencesListView.setEmptyView(view.findViewById(R.id.location_pref_dlg_empty));
         //progressLinearLayout = view.findViewById(R.id.location_pref_dlg_linla_progress);
 
@@ -131,6 +133,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
 
         final Button unselectAllButton = view.findViewById(R.id.location_pref_dlg_unselectAll);
         if (preference.onlyEdit == 0) {
+            //noinspection DataFlowIssue
             unselectAllButton.setOnClickListener(v -> {
                 // clear all checks
                 DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0, true);
@@ -138,12 +141,14 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             });
         }
         else {
+            //noinspection DataFlowIssue
             unselectAllButton.setVisibility(View.GONE);
         }
 
         locationSystemSettingsRelLa = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.location_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsButton);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         setLocationEnableStatus();

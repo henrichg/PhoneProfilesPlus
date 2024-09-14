@@ -94,6 +94,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.duration_pref_dlg_edit_duration_tooltip));
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
@@ -203,11 +204,13 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
         mSeekBarSeconds.setOnSeekBarChangeListener(this);
 
+        //noinspection DataFlowIssue
         mTextViewRange.setText(sMin + " - " + sMax);
 
         startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
+        //noinspection DataFlowIssue
         stopButton.setOnClickListener(v -> {
             updateInterface(0, true);
             //PPApplication.phoneProfilesService.mobileCellsScanner.durationForAutoRegistration = 0;

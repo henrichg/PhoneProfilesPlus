@@ -67,12 +67,15 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         extenderAccessibilitySettingsSummary = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings_summary);
 
         Button extenderInstallButton = layout.findViewById(R.id.extenderPrefDialog_extender_install_button);
+        //noinspection DataFlowIssue
         extenderInstallButton.setOnClickListener(v -> installPPPExtender(getActivity(), preference, false));
 
         Button extenderLaunchButton = layout.findViewById(R.id.extenderPrefDialog_extender_launch_button);
+        //noinspection DataFlowIssue
         extenderLaunchButton.setOnClickListener(v -> launchPPPExtender());
 
         Button extenderAccessibilitySettingsButton = layout.findViewById(R.id.extenderPrefDialog_accessibiloty_settings_button);
+        //noinspection DataFlowIssue
         extenderAccessibilitySettingsButton.setOnClickListener(v -> enableExtender(getActivity(), preference));
 
         mDialog = dialogBuilder.create();
@@ -244,6 +247,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
         dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
@@ -280,11 +284,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         if (Build.VERSION.SDK_INT >= 33) {
             TextView text2 = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_apk_installation);
+            //noinspection DataFlowIssue
             text2.setVisibility(View.VISIBLE);
             String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                     " " + activity.getString(R.string.install_ppp_store_droidify) +
@@ -395,6 +401,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
                 " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_install_droidify_text);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -479,6 +486,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML;
             dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+            //noinspection DataFlowIssue
             text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
             /*

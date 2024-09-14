@@ -6823,7 +6823,8 @@ class ActivateProfileHelper {
             //else
 
             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-            wifiManager.setWifiEnabled(enable);
+            if (wifiManager != null)
+                wifiManager.setWifiEnabled(enable);
 
 
             //if (isPPPPutSettingsInstalled(appContext) > 0) {
@@ -9403,12 +9404,14 @@ class ActivateProfileHelper {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            int systemZenMode = getSystemZenMode(context/*, -1*/);
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putInt(PREF_RINGER_VOLUME, volume);
-                editor.apply();
-                ApplicationPreferences.prefRingerVolume = volume;
+            if (audioManager != null) {
+                int systemZenMode = getSystemZenMode(context/*, -1*/);
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putInt(PREF_RINGER_VOLUME, volume);
+                    editor.apply();
+                    ApplicationPreferences.prefRingerVolume = volume;
+                }
             }
         }
     }
@@ -9427,12 +9430,14 @@ class ActivateProfileHelper {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            int systemZenMode = getSystemZenMode(context/*, -1*/);
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
-                editor.apply();
-                ApplicationPreferences.prefNotificationVolume = volume;
+            if (audioManager != null) {
+                int systemZenMode = getSystemZenMode(context/*, -1*/);
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
+                    editor.apply();
+                    ApplicationPreferences.prefNotificationVolume = volume;
+                }
             }
         }
     }

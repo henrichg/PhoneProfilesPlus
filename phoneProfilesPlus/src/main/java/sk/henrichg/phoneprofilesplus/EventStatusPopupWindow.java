@@ -21,6 +21,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.event_status_popup_window_text7);
+        //noinspection DataFlowIssue
         textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
@@ -39,6 +40,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             final Event _event = event;
 
             TextView eventName = popupView.findViewById(R.id.event_status_popup_window_text0);
+            //noinspection DataFlowIssue
             eventName.setText(fragment.getString(R.string.event_string_0)+StringConstants.STR_COLON_WITH_SPACE+event._name);
 
             Context context = fragment.getContext();
@@ -102,18 +104,24 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
                             break;
                     }
                 }
+                //noinspection DataFlowIssue
                 eventStatusImage.setImageResource(imageStatusRes);
                 eventStatusImage.setColorFilter(ContextCompat.getColor(context, colorRes));
 
+                //noinspection DataFlowIssue
                 eventSateDescription.setText(textStatusRes);
             } else {
+                //noinspection DataFlowIssue
                 eventSateText.setVisibility(View.GONE);
+                //noinspection DataFlowIssue
                 eventStatusImage.setVisibility(View.GONE);
+                //noinspection DataFlowIssue
                 eventSateDescription.setVisibility(View.GONE);
             }
 
 
             final SwitchCompat checkBox = popupView.findViewById(R.id.event_status_popup_window_checkbox);
+            //noinspection DataFlowIssue
             checkBox.setChecked(event.getStatus() != Event.ESTATUS_STOP);
             checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
                 //noinspection ConstantConditions

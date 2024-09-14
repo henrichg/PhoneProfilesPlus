@@ -31,7 +31,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../android-betterpickers/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../android-betterpickers/src/main/res" type="java-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 34, extension level 7 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 35, extension level 13 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common.main" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.7.0@aar" level="project" />
