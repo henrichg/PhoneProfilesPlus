@@ -152,8 +152,13 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
             sbt.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             //noinspection DataFlowIssue
+            text.setVisibility(View.VISIBLE);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            TextView text = layout.findViewById(R.id.dialog_draw_over_apps_when_not_possible_text);
+            //noinspection DataFlowIssue
+            text.setVisibility(View.GONE);
         }
 
         mDialog = dialogBuilder.create();
