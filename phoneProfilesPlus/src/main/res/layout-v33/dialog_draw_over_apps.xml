@@ -43,15 +43,15 @@
                 android:text="@string/grant_draw_over_apps_dialog_info_text"
                 android:textSize="16sp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/dialog_draw_over_apps_when_not_possible_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginStart="22dp"-->
-<!--                android:layout_marginEnd="22dp"-->
-<!--                android:text=""-->
-<!--                android:textSize="16sp"/>-->
+            <TextView
+                android:id="@+id/dialog_draw_over_apps_when_not_possible_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text=""
+                android:textSize="16sp"/>
 
         </LinearLayout>
 
