@@ -1767,9 +1767,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setVisible(false);
             }
         } else {*/
-            preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
-            if (preference != null) {
-                preference.setTitle(ProfileStatic.getNightLightStringId());
+            PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
+            if (listPreference != null) {
+                listPreference.setTitle(ProfileStatic.getNightLightStringId());
+                listPreference.setDialogTitle(ProfileStatic.getNightLightStringId());
             }
         //}
         if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
@@ -1779,9 +1780,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setVisible(false);
             }
         } else {
-            preference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
-            if (preference != null) {
-                preference.setTitle(ProfileStatic.getNightLightStringPrefsId());
+            listPreference = findPreference(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
+            if (listPreference != null) {
+                listPreference.setTitle(ProfileStatic.getNightLightStringPrefsId());
+                listPreference.setDialogTitle(ProfileStatic.getNightLightStringPrefsId());
             }
         }
 
