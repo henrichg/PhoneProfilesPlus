@@ -10,7 +10,6 @@ PhoneProfilesPlus (PPP)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)\
 [![GMail](https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white&label=henrich.gron@gmail.com)](mailto:henrich.gron@gmail.com)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white&label=PPP%20server)](https://discord.com/channels/1258733423426670633/1258733424504737936)
 [![XDA-developers](https://img.shields.io/badge/xda%20developers-2DAAE9?logo=xda-developers&logoColor=white&label=PhoneProfilesPlus)](https://xdaforums.com/t/app-phoneprofilesplus.3799429/)
@@ -18,6 +17,8 @@ PhoneProfilesPlus (PPP)
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=white&label=u/henrichg)](https://www.reddit.com/user/henrichg/)
 [![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff&label=@henrichg)](https://bsky.app/profile/henrichg.bsky.social)\
 Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 ### Sources of PhoneProfilesPlus:
 
