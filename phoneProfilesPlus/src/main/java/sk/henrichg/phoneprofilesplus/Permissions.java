@@ -201,6 +201,7 @@ class Permissions {
         for (PermissionType _permission : _permissions) {
             switch (_permission.permission) {
                 case permission.WRITE_SETTINGS:
+                    // required all the time
                     if (!Settings.System.canWrite(context)) {
                         if (getShowRequestWriteSettingsPermission(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
@@ -218,6 +219,7 @@ class Permissions {
                     }
                     break;*/
                 case permission.SYSTEM_ALERT_WINDOW:
+                    // required all the time
                     if (!Settings.canDrawOverlays(context)) {
                         if (getShowRequestDrawOverlaysPermission(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
@@ -289,12 +291,13 @@ class Permissions {
     }
     */
 
+    // SYSTEM_ALERT_WINDOW is not needed
     static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, ArrayList<PermissionType>  permissions) {
         try {
             boolean grantedReadExternalStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-            boolean grantedDrawOverApps = true;
-            if (Build.VERSION.SDK_INT >= 29)
-                grantedDrawOverApps = Settings.canDrawOverlays(context);
+            //boolean grantedDrawOverApps = true;
+            //if ((Build.VERSION.SDK_INT >= 29) && alsoContacts)
+            //    grantedDrawOverApps = Settings.canDrawOverlays(context);
             boolean grantedContacts = true;
             if (alsoContacts)
                 grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
@@ -303,8 +306,8 @@ class Permissions {
                     permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
                 if (!grantedContacts)
                     permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
-                if (!grantedDrawOverApps)
-                    permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, permission.SYSTEM_ALERT_WINDOW));
+                //if (!grantedDrawOverApps)
+                //    permissions.add(new PermissionType(Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION, permission.SYSTEM_ALERT_WINDOW));
             }
             return grantedReadExternalStorage && grantedContacts;
         } catch (Exception e) {
@@ -1149,20 +1152,32 @@ class Permissions {
         if (profile == null) return /*true*/;
 
         if (Build.VERSION.SDK_INT >= 29) {
-            try {
-                //if ((profile._deviceCloseAllApplications == 1)){
-                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
-                    if (grantedDrawOverlays)
-                        setShowRequestDrawOverlaysPermission(context, true);
-                    if (permissions != null) {
-                        if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS, permission.SYSTEM_ALERT_WINDOW));
-                    }
-                    //return grantedDrawOverlays;
-                //} //else
-                //  return true;
-            } catch (Exception e) {
-                //return false;
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                try {
+                    if ((profile._vibrateWhenRinging != 0) ||
+                            (profile._vibrateNotifications != 0) ||
+                            ProfileStatic.getVibrationIntensityChange(profile._vibrationIntensityRinging) ||
+                            ProfileStatic.getVibrationIntensityChange(profile._vibrationIntensityNotifications) ||
+                            ProfileStatic.getVibrationIntensityChange(profile._vibrationIntensityTouchInteraction) ||
+                            (profile._soundNotificationChangeSIM1 != 0) ||
+                            (profile._soundNotificationChangeSIM2 != 0) ||
+                            (profile._soundSameRingtoneForBothSIMCards != 0) ||
+                            (profile._notificationLed != 0) ||
+                            (profile._screenNightLight != 0)
+                    ) {
+                        boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                        if (grantedDrawOverlays)
+                            setShowRequestDrawOverlaysPermission(context, true);
+                        if (permissions != null) {
+                            if (!grantedDrawOverlays)
+                                permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS, permission.SYSTEM_ALERT_WINDOW));
+                        }
+                        //return grantedDrawOverlays;
+                    } //else
+                    //  return true;
+                } catch (Exception e) {
+                    //return false;
+                }
             }
         } //else
         //return /*true*/;
