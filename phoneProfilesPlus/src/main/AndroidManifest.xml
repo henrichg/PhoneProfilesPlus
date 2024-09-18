@@ -331,6 +331,7 @@
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity"
+            android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"/>
