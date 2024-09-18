@@ -89,6 +89,7 @@ class Permissions {
     static final int PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES = 59;
     static final int PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS = 60;
     static final int PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT = 61;
+    static final int PERMISSION_TYPE_PROFILE_VPN = 62;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -269,6 +270,7 @@ class Permissions {
         checkProfilePPPPutSettings(context, profile, permissions);
         checkProfileClearNotifications(context, profile, permissions);
         checkProfileScreenNightLight(context, profile, permissions);
+        checkProfileVPN(context, profile, permissions);
 
         return permissions;
     }
@@ -661,6 +663,27 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_WIREGUARD, PERMISSION_WIREGUARD_CONTROL_TUNNELS));
             }
             return grantedWireGuardPermission;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkProfileVPN(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        try {
+            boolean grantedDrawOverlays = true;
+            String[] splits = profile._deviceVPN.split(StringConstants.STR_SPLIT_REGEX);
+            int vpnApplication = Integer.parseInt(splits[0]);
+            if ((vpnApplication > 0) && (vpnApplication < 4))
+                grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
+            if (permissions != null) {
+                if (!grantedDrawOverlays)
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_VPN, permission.SYSTEM_ALERT_WINDOW));
+            }
+            return grantedDrawOverlays;
         } catch (Exception e) {
             return false;
         }

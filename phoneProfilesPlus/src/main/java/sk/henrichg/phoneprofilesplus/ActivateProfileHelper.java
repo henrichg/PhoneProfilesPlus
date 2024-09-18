@@ -8440,40 +8440,46 @@ class ActivateProfileHelper {
                             Intent intent = null;
                             switch (vpnApplication) {
                                 case 1:
-                                    intent = new Intent();
-                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
-                                    if (enableVPN) {
-                                        intent.setAction("net.openvpn.openvpn.CONNECT");
-                                        String keyValue = "AS " + profileName;
-                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
-                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
-                                    } else {
-                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
-                                        intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                    if (Permissions.checkProfileVPN(context, profile, null)) {
+                                        intent = new Intent();
+                                        intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                        if (enableVPN) {
+                                            intent.setAction("net.openvpn.openvpn.CONNECT");
+                                            String keyValue = "AS " + profileName;
+                                            intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                            intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
+                                        } else {
+                                            intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                            intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                        }
                                     }
                                     break;
                                 case 2:
-                                    intent = new Intent();
-                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
-                                    if (enableVPN) {
-                                        intent.setAction("net.openvpn.openvpn.CONNECT");
-                                        String keyValue = "PC " + profileName;
-                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
-                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
-                                    } else {
-                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
-                                        intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                    if (Permissions.checkProfileVPN(context, profile, null)) {
+                                        intent = new Intent();
+                                        intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                        if (enableVPN) {
+                                            intent.setAction("net.openvpn.openvpn.CONNECT");
+                                            String keyValue = "PC " + profileName;
+                                            intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                            intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
+                                        } else {
+                                            intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                            intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                        }
                                     }
                                     break;
                                 case 3:
-                                    intent = new Intent();
-                                    if (enableVPN) {
-                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
-                                    } else {
-                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
+                                    if (Permissions.checkProfileVPN(context, profile, null)) {
+                                        intent = new Intent();
+                                        if (enableVPN) {
+                                            intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
+                                        } else {
+                                            intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
+                                        }
+                                        intent.setAction("android.intent.action.MAIN");
+                                        intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
                                     }
-                                    intent.setAction("android.intent.action.MAIN");
-                                    intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
                                     break;
                                 case 4:
                                     if (Permissions.checkProfileWireGuard(context, profile, null)) {

@@ -835,6 +835,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
                             s = getString(R.string.permission_why_profile_screen_night_huawei);
                         break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_VPN:
+                        s = getString(R.string.permission_why_profile_vpn);
+                        break;
                 }
             }
         }
