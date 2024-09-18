@@ -8493,8 +8493,10 @@ class ActivateProfileHelper {
                             if (intent != null) {
                                 if (vpnApplication < 4) {
                                     try {
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        context.startActivity(intent);
+                                        if (Settings.canDrawOverlays(context)) {
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            context.startActivity(intent);
+                                        }
                                     } catch (ActivityNotFoundException | SecurityException ee) {
                                         PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
                                                 null, profileName, "");
