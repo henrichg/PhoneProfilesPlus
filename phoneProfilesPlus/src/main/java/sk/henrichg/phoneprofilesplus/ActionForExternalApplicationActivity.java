@@ -131,6 +131,10 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                PPApplicationStatic.logE("[START_PP_SERVICE] ActionForExternalApplicationActivity.onStart", "xxx");
                 PPApplicationStatic.startPPService(this, serviceIntent, true);
+
+                // this permission will be required in MainWorker.doAfterFirstStart()
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+
                 finish();
                 return;
             }
