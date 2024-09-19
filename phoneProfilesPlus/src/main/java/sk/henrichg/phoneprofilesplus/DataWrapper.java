@@ -1505,7 +1505,7 @@ class DataWrapper {
                                   final boolean forRestartEvents, final boolean manualRestart)
     {
         // show notification when battery optimization is not enabled
-        DrawOverAppsPermissionNotification.showNotification(context, false);
+        //DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
         DNDPermissionNotification.showNotification(context, false);
 
@@ -2244,7 +2244,7 @@ class DataWrapper {
             }
         }
 
-        DrawOverAppsPermissionNotification.showNotification(context, false);
+        //DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
         DNDPermissionNotification.showNotification(context, false);
     }

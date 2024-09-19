@@ -417,7 +417,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ImportantInfoNotification.showInfoNotification(appContext);
                 ProfileListNotification.drawNotification(true, appContext);
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                //DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
                 DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);

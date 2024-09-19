@@ -200,6 +200,7 @@ class Permissions {
         if (_permissions == null)
             return permissions;
         for (PermissionType _permission : _permissions) {
+            //noinspection SwitchStatementWithTooFewBranches
             switch (_permission.permission) {
                 case permission.WRITE_SETTINGS:
                     // required all the time
@@ -219,13 +220,13 @@ class Permissions {
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
                     }
                     break;*/
-                case permission.SYSTEM_ALERT_WINDOW:
+                /*case permission.SYSTEM_ALERT_WINDOW:
                     // required all the time
                     if (!Settings.canDrawOverlays(context)) {
                         if (getShowRequestDrawOverlaysPermission(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
                     }
-                    break;
+                    break;*/
                 default:
                     if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
                         permissions.add(new PermissionType(_permission.type, _permission.permission));

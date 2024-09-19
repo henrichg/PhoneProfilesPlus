@@ -419,24 +419,6 @@ Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o
 
 -----------------------
 
-Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
-- doExecuteForRunApplications()
-- PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS
-- PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS
-- profile._deviceLocationServicePrefs
-- profile._deviceWiFiAPPrefs
-- profile._deviceVPNSettingsPrefs
-- profile._deviceWallpaperChange
-- profile._deviceVPN
-- profile._deviceCloseAllApplications
-- Permissions.grantPlayRingtoneNotificationPermissions()
-- ActivateProfileHelper.putSettingsParameter() - cize zavolanie PPPPS
-
-Toto neviem, mozno treba, mozno nie: netreba
-- CustomACRAEmailSender.send()
-
------------------------
-
 6.4:
 - Add: Added support for Shizuku for some profile parameters which requires ROOT.
 - Change: Event priority displayed in Editor as sensor, also with pass status.

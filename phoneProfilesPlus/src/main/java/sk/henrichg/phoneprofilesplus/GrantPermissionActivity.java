@@ -630,15 +630,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             if (permissions != null) {
                 for (PermissionType permissionType : permissions) {
+                    //noinspection IfStatementMissingBreakInLoop
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         showRequestWriteSettings = true;
                     }
                     /*if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                         showRequestAccessNotificationPolicy = true;
                     }*/
-                    if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                    /*if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                         showRequestDrawOverlays = true;
-                    }
+                    }*/
                 }
             }
 
