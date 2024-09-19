@@ -517,14 +517,14 @@
             android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
-        <activity
-            android:name=".AutostartPermissionActivity"
-            android:excludeFromRecents="true"
-            android:label=""
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:launchMode="singleInstance"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".AutostartPermissionActivity"-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:label=""-->
+<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:theme="@style/EmptyAppCompatActivity">-->
+<!--        </activity>-->
         <activity
             android:name=".LaunchWidgetIconConfigurationActivity"
             android:exported="true"

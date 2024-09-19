@@ -1,15 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-//import me.drakeet.support.toast.ToastCompat;
 
 public class AutostartPermissionActivity extends AppCompatActivity
 {
+/*
     private boolean activityStarted = false;
 
     @SuppressLint("MissingPermission")
@@ -104,7 +99,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
 
 //    private boolean showNotStartedToast() {
 //        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
-//        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
+//        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced);
 //        if (!applicationStarted) {
 //            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
 //            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
@@ -133,5 +128,5 @@ public class AutostartPermissionActivity extends AppCompatActivity
         super.finish();
         overridePendingTransition(0, 0);
     }
-
+*/
 }

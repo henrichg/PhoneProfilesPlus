@@ -564,18 +564,6 @@ PPExtenderBroadcastReceiver:
 
 ------------------
 
-Chyba v ACTION_VIEW a aj v Chrome. Download apk, napriklad InstallWithOptions.
-Testni znova.
-
-Samsung, One UI 6. Problem je download apk cez ACTION_VIEW. Stale zobrazuje Downloading a hotovo.
-Cize tuto mam velky problem. Skus pozriet alebo pouzi DownloadManager. S21. Tych Samsungov je veľa.
-Cize to bude daky bug v Samsung One UI asi.
-Sranda, to iste robi Chrome aj ked priamo v nom otvorim InstallWithOtions releases a dam stiahnut.
-Problém je zjavne v Chrome. Keď dam default Samsung internet, žiaden problém s downloadom nie je.
-Alebo v One UI. Že je tam zlý downloader.
-
-------------
-
 - _restartEvents() loguje, ak je jeho parameter manualRestart = true:
   PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
 
