@@ -1,5 +1,5 @@
 Profiles features
-======================
+=================
 
 - Shizuku (Z): for non-rooted devices in parameters that normally require root
 - WRITE_SECUE_SETTNGS permission (G1): for non-rooted devices in parameters that normally require root
