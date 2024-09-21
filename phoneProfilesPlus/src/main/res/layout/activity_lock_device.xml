@@ -5,7 +5,7 @@
     android:id="@+id/activity_lockDevice_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@color/pppColorBlack"
     tools:context="sk.henrichg.phoneprofilesplus.LockDeviceActivity"
     tools:ignore="Overdraw">
 

@@ -55,12 +55,12 @@
         <sk.henrichg.phoneprofilesplus.ColorChooserPreference
             app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOff"
             app:key="applicationWidgetOneRowProfileListBackgroundColorNightModeOff"
-            app:defaultValue="#fffcfcfc"
+            app:defaultValue="@color/widgetLightBackgroundColor"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.ColorChooserPreference
             app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOn"
             app:key="applicationWidgetOneRowProfileListBackgroundColorNightModeOn"
-            app:defaultValue="#ff1b1b1b"
+            app:defaultValue="@color/widgetDarkBackgroundColor"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference

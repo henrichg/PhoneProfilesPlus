@@ -91,7 +91,6 @@
                     android:fontFamily="sans-serif-condensed"
                     tools:ignore="SpUsage" />
 <!--                android:fontFamily="sans-serif-condensed"-->
-<!--                android:textColor="#33b5e5"-->
 
             </LinearLayout>
 

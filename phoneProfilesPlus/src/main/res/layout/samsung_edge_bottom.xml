@@ -90,7 +90,6 @@
                     android:textSize="15dp"
                     android:fontFamily="sans-serif-condensed"
                     tools:ignore="SpUsage" />
-<!--                android:textColor="#33b5e5"-->
 
             </LinearLayout>
 

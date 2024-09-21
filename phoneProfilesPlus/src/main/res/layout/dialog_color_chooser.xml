@@ -65,7 +65,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView1"
@@ -82,7 +82,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView2"
@@ -99,7 +99,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView3"
@@ -116,7 +116,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView4"
@@ -133,7 +133,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView5"
@@ -150,7 +150,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView7"
@@ -167,7 +167,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView8"
@@ -184,7 +184,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView9"
@@ -201,7 +201,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView10"
@@ -218,7 +218,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView11"
@@ -235,7 +235,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView12"
@@ -252,7 +252,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView13"
@@ -269,7 +269,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView14"
@@ -286,7 +286,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView15"
@@ -303,7 +303,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView16"
@@ -320,7 +320,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView17"
@@ -337,7 +337,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView18"
@@ -354,7 +354,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView19"
@@ -371,7 +371,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView20"
@@ -388,7 +388,7 @@
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_margin="4dp"
-                            tools:background="#000">
+                            tools:background="@color/pppColor000">
 
                             <ImageView
                                 android:id="@+id/dialog_color_chooser_imageView21"

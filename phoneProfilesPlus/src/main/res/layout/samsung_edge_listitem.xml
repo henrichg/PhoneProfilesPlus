@@ -27,7 +27,7 @@
         android:layout_gravity="center_vertical"
         android:text="@string/profile_name_default"
         android:textSize="15dp"
-        android:textColor="#ffffffff"
+        android:textColor="@color/pppColorWhiteWithAlpha"
         android:fontFamily="sans-serif-condensed"
         tools:ignore="SpUsage" />
 

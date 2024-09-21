@@ -86,7 +86,7 @@
         <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
             app:key="notificationProfileListBackgroundCustomColor"
             app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
-            app:defaultValue="#FFFFFFFF"
+            app:defaultValue="@color/pppColorWhiteWithAlpha"
             app:chromaColorMode="RGB"
             app:chromaIndicatorMode="HEX"
             app:dependency="notificationProfileListDisplayNotification"

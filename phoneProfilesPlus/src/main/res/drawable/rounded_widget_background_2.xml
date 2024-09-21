@@ -3,7 +3,7 @@
     android:shape="rectangle" android:padding="0dp">
 
     <!-- must be white, used is color filter for change color -->
-    <solid android:color="#FFFFFFFF"/>
+    <solid android:color="@color/pppColorWhiteWithAlpha"/>
 
     <corners
         android:bottomRightRadius="2dp"

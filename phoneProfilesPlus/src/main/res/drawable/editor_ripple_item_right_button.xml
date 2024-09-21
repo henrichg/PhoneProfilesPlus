@@ -4,7 +4,7 @@
     <item android:id="@android:id/mask"
         android:gravity="center" >
         <shape android:shape="oval">
-            <solid android:color="#000000" />
+            <solid android:color="@color/pppColorBlack" />
             <size
                 android:width="40dp"
                 android:height="40dp"/>

@@ -5,6 +5,9 @@
     <color name="notificationDarkBackgroundColor">#1B1B1B</color>
     <color name="notificationBlackBackgroundColor">#000000</color>
 
+    <color name="widgetDarkBackgroundColor">#ff1b1b1b</color>
+    <color name="widgetLightBackgroundColor">#fffcfcfc</color>
+
     <color name="lockDevice_textColor">#FFFFFF</color>
 
 <!--    <color name="notification_background_color_default">#FFFFFF</color>-->
@@ -17,5 +20,17 @@
     <color name="profileindicatorColor_dark">#67ACF8</color>
     <color name="profileindicatorColorDisabled_dark">#c5c5c5</color>
     <color name="profileindicatorColorDisabledDynamic_dark">#c5c5c5</color>
+
+    <color name="pppColor000">#000</color>
+    <color name="pppColorBlack">#000000</color>
+    <color name="pppColorTransparent">#00000000</color>
+    <color name="pppColorSemitransparent">#40000000</color>
+    <color name="pppColorWhiteWithAlpha">#FFFFFFFF</color>
+    <color name="pppColorDarkSemitransparent">#80808080</color>
+    <color name="pppColorRedWithAlpha">#FFFF0000</color>
+
+    <color name="pppColorChooserColor1">#6E6E6E</color>
+    <color name="pppColorChooserColor2">#AEAEAE</color>
+    <color name="pppColorOldBrownBackground">#ff201a18</color>
 
 </resources>

@@ -151,8 +151,8 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 //                break;
 //        }
 
-        final String COLOR1 = "#6E6E6E";
-        final String COLOR2 = "#AEAEAE";
+//        final String COLOR1 = "#6E6E6E";
+//        final String COLOR2 = "#AEAEAE";
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
@@ -162,13 +162,15 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+//            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+            coloredCircle.setStroke(1, context.getColor(R.color.pppColorChooserColor1));
         }
         else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+//                coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+            coloredCircle.setStroke(1, context.getColor(R.color.pppColorChooserColor1));
         }
 
         GradientDrawable darkerCircle = new GradientDrawable();
@@ -178,13 +180,15 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-                coloredCircle.setStroke(2, Color.parseColor(COLOR1));
+//                coloredCircle.setStroke(2, Color.parseColor(COLOR1));
+            coloredCircle.setStroke(2, context.getColor(R.color.pppColorChooserColor1));
         }
         else {
             //if (position == 0) // white color
             //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                darkerCircle.setStroke(2, Color.parseColor(COLOR2));
+//                darkerCircle.setStroke(2, Color.parseColor(COLOR2));
+            darkerCircle.setStroke(2, context.getColor(R.color.pppColorChooserColor2));
         }
 
         StateListDrawable stateListDrawable = new StateListDrawable();

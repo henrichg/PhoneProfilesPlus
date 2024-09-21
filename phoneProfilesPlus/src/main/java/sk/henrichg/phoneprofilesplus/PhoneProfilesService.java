@@ -1497,7 +1497,7 @@ public class PhoneProfilesService extends Service
                     if (Build.VERSION.SDK_INT >= 30) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
 
-                        final String OLD_BROWN_COLOR = "#ff201a18";
+                        final String OLD_BROWN_COLOR = String.valueOf(appContext.getColor(R.color.pppColorOldBrownBackground));
 
                         String backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON,
                                 ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
