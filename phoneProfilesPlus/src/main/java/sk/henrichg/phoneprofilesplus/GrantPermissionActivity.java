@@ -648,8 +648,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 iteration = 1;
             //else if (showRequestAccessNotificationPolicy)
             //    iteration = 2;
-            else if (showRequestDrawOverlays)
-                iteration = 3;
+            //else if (showRequestDrawOverlays)
+            //    iteration = 3;
 
             requestPermissions(iteration, canShowRationale(context, false));
         }
@@ -1468,7 +1468,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (!accessNotificationPolicyFound)
                 requestPermissions(3, withRationale);
         }*/
-        else
+        /*else
         if (iteration == 3) {
             boolean drawOverlaysFound = false;
             for (PermissionType permissionType : permissions) {
@@ -1478,48 +1478,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                     //noinspection deprecation
                     startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
-
-                    //if (!PPApplication.romIsMIUI) {
-                        /*if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
-                            drawOverlaysFound = true;
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
-                            intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                            startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
-                            break;
-                        }
-                        */
-                    /*}
-                    else {
-                        try {
-                            // MIUI 8
-                            Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                            localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                            intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                            startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
-                            drawOverlaysFound = true;
-                            break;
-                        } catch (Exception e) {
-                            try {
-                                // MIUI 5/6/7
-                                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                                intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                                startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
-                                drawOverlaysFound = true;
-                                break;
-                            } catch (Exception e1) {
-                                drawOverlaysFound = false;
-                            }
-                        }
-                    }*/
                 }
             }
             if (!drawOverlaysFound)
                 requestPermissions(4, withRationale);
-        }
+        }*/
         else {
             boolean grantBackgroundLocation = false;
             List<String> permList = new ArrayList<>();

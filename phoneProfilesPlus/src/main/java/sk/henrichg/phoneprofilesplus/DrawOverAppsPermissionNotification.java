@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 
 class DrawOverAppsPermissionNotification {
 
+    /** @noinspection SameParameterValue*/
     static void showNotification(Context context, boolean useHandler) {
         if (Build.VERSION.SDK_INT >= 29) {
             // Must be granted because of:

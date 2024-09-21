@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/divider"
             android:gravity="center_horizontal"
-            android:background="#ffff4444"
-            android:textColor="#ffffffff"
+            android:background="@color/pp_error_background"
+            android:textColor="@color/pp_error_text"
             android:textStyle="bold"/>
 </RelativeLayout>

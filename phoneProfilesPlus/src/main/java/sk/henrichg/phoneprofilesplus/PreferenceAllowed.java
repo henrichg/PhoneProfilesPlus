@@ -1615,7 +1615,7 @@ class PreferenceAllowed {
                             return;
                         }
 
-                        boolean sim0Exists = false;
+                        boolean sim0Exists;
 //                        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE", "called hasSIMCard");
 //                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
 //                        sim0Exists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
