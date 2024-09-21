@@ -56,7 +56,7 @@ class EventPreferencesVPN extends EventPreferences {
                 _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
-            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, false, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(context.getString(R.string.pref_event_vpn_connection_status)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
@@ -132,7 +132,7 @@ class EventPreferencesVPN extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, false, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesVPN tmp = new EventPreferencesVPN(this._event, this._enabled, this._connectionStatus);
             if (preferences != null)
@@ -204,7 +204,7 @@ class EventPreferencesVPN extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (_connectionStatus == 0)
                     eventsHandler.vpnPassed = PPApplication.vpnNetworkConnected;
                 else

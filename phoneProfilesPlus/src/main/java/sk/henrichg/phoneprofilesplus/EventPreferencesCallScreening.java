@@ -155,7 +155,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                 _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
-            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isHeld = isIsCallScreeningHeld(context);
                 if (!isHeld) {
@@ -348,24 +348,34 @@ class EventPreferencesCallScreening extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        EventPreferencesCallScreening tmp = new EventPreferencesCallScreening(this._event, this._enabled, this._callDirection, this._contacts,
-                this._contactGroups,/*this._contactListType,*/ this._notInContacts, this._blockCalls, this._sendSMS, this._smsText, this._permanentRun, this._duration);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, context);
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            EventPreferencesCallScreening tmp = new EventPreferencesCallScreening(this._event, this._enabled, this._callDirection, this._contacts,
+                    this._contactGroups,/*this._contactListType,*/ this._notInContacts, this._blockCalls, this._sendSMS, this._smsText, this._permanentRun, this._duration);
+            if (preferences != null)
+                tmp.saveSharedPreferences(preferences);
 
-        Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CATEGORY);
-        if (preference != null) {
-            boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
-            boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
-                                    tmp.isIsCallScreeningHeld(context);
-            boolean permissionGranted = true;
-            if (enabled)
-                permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALL_SCREENING).isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), true);
-            if (enabled)
-                preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false,  false, 0, 0, true));
-            else
-                preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CATEGORY);
+            if (preference != null) {
+                boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
+                boolean runnable = tmp.isRunnable(context) && tmp.isAllConfigured(context) &&
+                        tmp.isIsCallScreeningHeld(context);
+                boolean permissionGranted = true;
+                if (enabled)
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALL_SCREENING).isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), true);
+                if (enabled)
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0, true));
+                else
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
+            }
+        } else {
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CATEGORY);
+            if (preference != null) {
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                preference.setEnabled(false);
+            }
         }
     }
 
@@ -790,7 +800,7 @@ class EventPreferencesCallScreening extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
 
                 if (isIsCallScreeningHeld(eventsHandler.context)) {
 

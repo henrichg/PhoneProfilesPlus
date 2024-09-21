@@ -30,7 +30,7 @@ class EventStatic {
         // private constructor to prevent instantiation
     }
 
-    static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, Context context)
+    static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, boolean notCheckPreferences, Context context)
     {
         Context appContext = context.getApplicationContext();
 
@@ -68,12 +68,16 @@ class EventStatic {
                 // device has bluetooth
                 BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetooth != null) {
-                    if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH) &&
-                            (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH_ADMIN)))
+                    if (notCheckPreferences)
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_bluetooth_permission);
+                        if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH) &&
+                                Permissions.hasPermission(context, Manifest.permission.BLUETOOTH_ADMIN))
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else {
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_bluetooth_permission);
+                        }
                     }
                 } else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -146,12 +150,15 @@ class EventStatic {
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            if (notCheckPreferences)
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else {
+                                if (!Permissions.checkPhone(appContext)) {
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                                } else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     }
                     else
@@ -198,12 +205,15 @@ class EventStatic {
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            if (notCheckPreferences)
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else {
+                                if (!Permissions.checkPhone(appContext)) {
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                                } else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     }
                     else
@@ -233,12 +243,15 @@ class EventStatic {
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            if (notCheckPreferences)
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else {
+                                if (!Permissions.checkPhone(appContext)) {
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                                } else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     }
                     else
@@ -295,12 +308,15 @@ class EventStatic {
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            if (notCheckPreferences)
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else {
+                                if (!Permissions.checkPhone(appContext)) {
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                                } else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     }
                     else
@@ -369,11 +385,15 @@ class EventStatic {
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
-                            } else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            if (notCheckPreferences)
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else {
+                                if (!Permissions.checkPhone(appContext)) {
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                                } else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
                         }
                         //}
                         //else

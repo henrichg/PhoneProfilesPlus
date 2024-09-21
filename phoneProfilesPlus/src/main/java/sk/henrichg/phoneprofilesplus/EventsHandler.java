@@ -341,7 +341,7 @@ class EventsHandler {
 // ---- Special for sensors which requires calendar data - START -----------
             boolean saveCalendarStartEndTime = false;
             if (isRestart) {
-                if (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
+                if (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, context.getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED) {
                     for (Event _event : dataWrapper.eventList) {
                         if ((_event.getStatus() != Event.ESTATUS_STOP) &&
