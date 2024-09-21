@@ -15,6 +15,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.PowerManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -145,13 +146,15 @@ class EventStatic {
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+//                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+//                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = telephonyManager.getPhoneCount() > 0;
+                        Log.e("EventStatic.isEventPreferenceAllowed", "simExists="+simExists);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -200,13 +203,14 @@ class EventStatic {
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+//                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+//                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = telephonyManager.getPhoneCount() > 0;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -238,8 +242,9 @@ class EventStatic {
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+//                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+//                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = telephonyManager.getPhoneCount() > 0;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -303,13 +308,14 @@ class EventStatic {
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+//                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+//                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean simExists = telephonyManager.getPhoneCount() > 0;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -375,18 +381,20 @@ class EventStatic {
                     TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         //if (!preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM)) {
-//                    Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
-                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean simExists;
                         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM)) {
+//                            Log.e("EventStatic.isEventPreferenceAllowed", "("+preferenceKey+") called hasSIMCard");
+                            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                             simExists = hasSIMCardData.hasSIM1 && hasSIMCardData.hasSIM2;
-                        } else
-                            simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        } else {
+//                            simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                            simExists = telephonyManager.getPhoneCount() > 0;
+                        }
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
