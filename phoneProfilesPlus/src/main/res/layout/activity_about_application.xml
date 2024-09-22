@@ -133,7 +133,7 @@
                     android:textColor="@color/action_button_text_color"
                     android:textStyle="bold"
                     android:background="@drawable/pp_button_background_selector"
-                    android:minHeight="40dp"
+                    android:minHeight="45dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/about_application_donate_button"
