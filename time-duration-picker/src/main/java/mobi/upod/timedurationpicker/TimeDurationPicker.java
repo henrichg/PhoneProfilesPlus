@@ -124,9 +124,9 @@ public class TimeDurationPicker extends FrameLayout {
             applyIcon(attributes, R.styleable.TimeDurationPicker_backspaceIcon, backspaceButton);
             applyIcon(attributes, R.styleable.TimeDurationPicker_clearIcon, clearButton);
 
-            applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_separatorColor, separatorView);
-            applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_separatorColor, buttonDividerView);
-            applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_durationDisplayBackground, displayRow);
+            applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_displaySeparatorColor, separatorView);
+            applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_buttonsSeparatorColor, buttonDividerView);
+            //applyBackgroundColor(attributes, R.styleable.TimeDurationPicker_durationDisplayBackground, displayRow);
 
             applyUnits(attributes, R.styleable.TimeDurationPicker_timeUnits);
         } finally {
@@ -252,8 +252,10 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the color of the separator line between the duration display and the number pad.
      * @param color color value
      */
-    public void setSeparatorColor(int color) {
+    public void setDisplaySeparatorColor(int color) {
         separatorView.setBackgroundColor(color);
+    }
+    public void setButtonsSeparatorColor(int color) {
         buttonDividerView.setBackgroundColor(color);
     }
 
