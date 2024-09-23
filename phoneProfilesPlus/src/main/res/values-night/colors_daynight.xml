@@ -19,7 +19,8 @@
 <!--    <color name="activityCommandBackgroundColor">#303030</color>-->
     <color name="activityCommandBackgroundColor">#332d2a</color>
 <!--    <color name="activityPopupMenuBackgroundColor">#151515</color>-->
-    <color name="activityPopupMenuBackgroundColor">#181413</color>
+<!--    <color name="activityPopupMenuBackgroundColor">#181413</color>-->
+    <color name="activityPopupMenuBackgroundColor">#161210</color>
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
 
@@ -108,7 +109,8 @@
     <!--    <color name="buttonBorderColor">#735c55</color>-->
 
 <!--    <color name="buttonBackgroundColor">#151515</color>-->
-    <color name="buttonBackgroundColor">#181413</color>
+<!--    <color name="buttonBackgroundColor">#181413</color>-->
+    <color name="buttonBackgroundColor">#161210</color>
 <!--    <color name="buttonClickedBackgroundColor">#303030</color>-->
     <color name="buttonClickedBackgroundColor">#332d2a</color>
 <!--    <color name="popupMenuBorderColor">#3f3f3f</color>-->
