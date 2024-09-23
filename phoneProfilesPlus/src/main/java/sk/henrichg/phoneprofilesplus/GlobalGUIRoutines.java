@@ -708,7 +708,8 @@ class GlobalGUIRoutines {
         //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
         timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
-        timeDurationPicker.setSeparatorColor(ContextCompat.getColor(context, R.color.dialog_divider));
+        timeDurationPicker.setDisplaySeparatorColor(ContextCompat.getColor(context, R.color.time_duration_picker_display_divider));
+        timeDurationPicker.setButtonsSeparatorColor(ContextCompat.getColor(context, R.color.dialog_divider));
     }
     /*
     static int getThemeSecondaryTextColor(final Context context) {

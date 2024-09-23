@@ -29,8 +29,10 @@
     <color name="pppColorDarkSemitransparent">#80808080</color>
     <color name="pppColorRedWithAlpha">#FFFF0000</color>
 
-    <color name="pppColorChooserColor1">#6E6E6E</color>
-    <color name="pppColorChooserColor2">#AEAEAE</color>
+<!--    <color name="pppColorChooserColor1">#6E6E6E</color>-->
+    <color name="pppColorChooserColor1">#706966</color>
+<!--    <color name="pppColorChooserColor2">#AEAEAE</color>-->
+    <color name="pppColorChooserColor2">#afa6a4</color>
     <color name="pppColorOldBrownBackground">#ff201a18</color>
 
 </resources>

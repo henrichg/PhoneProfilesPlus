@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1B1B1B</color>
-    <color name="primaryDark">#1B1B1B</color>
+<!--    <color name="primary">#1B1B1B</color>-->
+<!--    <color name="primaryDark">#1B1B1B</color>-->
+<!--    <color name="primary">#201a18</color>-->
+<!--    <color name="primaryDark">#201a18</color>-->
+    <color name="primary">#1c1614</color>
+    <color name="primaryDark">#1c1614</color>
 
     <color name="navigationBar">#000000</color>
 
-    <color name="activityBackgroundColor">#1B1B1B</color>
-    <!--    <color name="activityBackgroundColor">#FF201a18</color>-->
+<!--    <color name="activityBackgroundColor">#1B1B1B</color>-->
+    <color name="activityBackgroundColor">#1c1614</color>
 
     <color name="activityNormalTextColor">#efefef</color>
     <color name="activitySecondaryTextColor">#C9C9C9</color>
-    <color name="activityDisabledTextColor">#707070</color>
-    <color name="activityCommandBackgroundColor">#303030</color>
-    <color name="activityPopupMenuBackgroundColor">#151515</color>
+<!--    <color name="activityDisabledTextColor">#707070</color>-->
+    <color name="activityDisabledTextColor">#736b69</color>
+<!--    <color name="activityCommandBackgroundColor">#303030</color>-->
+    <color name="activityCommandBackgroundColor">#332d2a</color>
+<!--    <color name="activityPopupMenuBackgroundColor">#151515</color>-->
+    <color name="activityPopupMenuBackgroundColor">#181413</color>
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
 
-    <color name="rippleRectangeleItemBackgroundColor">#606060</color>
-    <color name="rippleOvalItemBackgroundColor">#707070</color>
-    <color name="noRippleRectangeleItemBackgroundColor">#404040</color>
-<!--    <color name="noRippleOvalItemBackgroundColor">#808080</color>-->
+<!--    <color name="rippleRectangeleItemBackgroundColor">#606060</color>-->
+    <color name="rippleRectangeleItemBackgroundColor">#645c5a</color>
+<!--    <color name="rippleOvalItemBackgroundColor">#707070</color>-->
+    <color name="rippleOvalItemBackgroundColor">#736b69</color>
+<!--    <color name="noRippleRectangeleItemBackgroundColor">#404040</color>-->
+    <color name="noRippleRectangeleItemBackgroundColor">#433c3a</color>
+
+    <!--    <color name="noRippleOvalItemBackgroundColor">#808080</color>-->
 
     <!--    <color name="activityDisabledTextColor">#4Dffdad3</color>-->
     <!--    <color name="activityCommandBackgroundColor">#1Fffdad3</color>-->
@@ -35,20 +46,30 @@
     <color name="smoothBottomBarIconTint">#FFFFFF</color>
     <color name="smoothBottomBarTextColor">#E0E0E0</color>
 
-    <color name="dialog_divider">#3f3f3f</color>
-    <color name="popup_window_divider">#3f3f3f</color>
-    <color name="scrollbar_color">#404040</color>
+<!--    <color name="dialog_divider">#3f3f3f</color>-->
+<!--    <color name="dialog_divider">#403a37</color>-->
+    <color name="dialog_divider">#423b39</color>
+<!--    <color name="popup_window_divider">#3f3f3f</color>-->
+<!--    <color name="popup_window_divider">#403a37</color>-->
+    <color name="popup_window_divider">#423b39</color>
+<!--    <color name="scrollbar_color">#404040</color>-->
+    <color name="scrollbar_color">#433c3a</color>
+
+    <color name="time_duration_picker_display_divider">#534c49</color>
+
 
     <!--    <color name="editorFilterTitleColor">#FFFFFF</color>-->
 <!--    <color name="editorFilterBackgroundColor">#303030</color>-->
 
     <color name="tabTargetHelpOuterCircleColor">#b37761</color>
-    <color name="tabTargetHelpTargetCircleColor">#1B1B1B</color>
+<!--    <color name="tabTargetHelpTargetCircleColor">#1B1B1B</color>-->
+    <color name="tabTargetHelpTargetCircleColor">#1c1614</color>
     <color name="tabTargetHelpTitleTextColor">#000000</color>
     <color name="tabTargetHelpDescriptionTextColor">#000000</color>
     <color name="tabTargetHelpDimColor">#000000</color>
 
-    <color name="fastScrollTrackPP">#303030</color>
+<!--    <color name="fastScrollTrackPP">#303030</color>-->
+    <color name="fastScrollTrackPP">#332d2a</color>
     <color name="fastScrollThumbInactivePP">#f8b367</color>
     <color name="fastScrollThumbPP">#f8b367</color>
     <color name="fastScrollPopupBackgroundPP">#f8b367</color>
@@ -69,20 +90,30 @@
     <!-- this must be with aplha -->
     <color name="map_last_location_marker_fill">#7784d2ef</color>
 
-    <color name="toastBackgroundColor">#3a3a3a</color>
+<!--    <color name="toastBackgroundColor">#3a3a3a</color>-->
+    <color name="toastBackgroundColor">#3c3533</color>
     <color name="toastTextColor">#FFFFFF</color>
-    <color name="toastBorderColor">#707070</color>
+<!--    <color name="toastBorderColor">#707070</color>-->
+    <color name="toastBorderColor">#736b69</color>
 
-    <color name="dokiHeaderBackgroundColor">#303030</color>
+<!--    <color name="dokiHeaderBackgroundColor">#303030</color>-->
+    <color name="dokiHeaderBackgroundColor">#332d2a</color>
 
-    <color name="dialogBorderColor">#3f3f3f</color>
-    <color name="buttonBorderColor">#656565</color>
+<!--    <color name="dialogBorderColor">#3f3f3f</color>-->
+    <color name="dialogBorderColor">#403a37</color>
+<!--    <color name="buttonBorderColor">#656565</color>-->
+    <color name="buttonBorderColor">#665f5c</color>
+
     <!--    <color name="dialogBorderColor">#423c3a</color>-->
     <!--    <color name="buttonBorderColor">#735c55</color>-->
 
-    <color name="buttonBackgroundColor">#151515</color>
-    <color name="buttonClickedBackgroundColor">#303030</color>
-    <color name="popupMenuBorderColor">#3f3f3f</color>
+<!--    <color name="buttonBackgroundColor">#151515</color>-->
+    <color name="buttonBackgroundColor">#181413</color>
+<!--    <color name="buttonClickedBackgroundColor">#303030</color>-->
+    <color name="buttonClickedBackgroundColor">#332d2a</color>
+<!--    <color name="popupMenuBorderColor">#3f3f3f</color>-->
+    <color name="popupMenuBorderColor">#403a37</color>
+
     <!--    <color name="buttonBackgroundColor">#1a1513</color>-->
     <!--    <color name="buttonClickedBackgroundColor">#403430</color>-->
     <!--    <color name="popupMenuBorderColor">#423c3a</color>-->
