@@ -251,21 +251,22 @@ class EventPreferencesCallScreening extends EventPreferences {
         //                            (_notInContacts) ||
         //                            (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
         boolean roleHeld = isIsCallScreeningHeld(context);
-        boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false) &&
+        boolean enabledAndHeld = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false) &&
                     roleHeld;
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SET_CALL_SCREENING_ROLE);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, true, !roleHeld, true);
+            boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_SCREENING_ENABLED, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, roleHeld, false, true, !roleHeld, true);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SCREENING_CONTACT_GROUPS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACTS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SCREENING_CONTACTS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, true, !isRunnable, false);
         }
         //preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_CONTACT_LIST_TYPE);
         //if (preference != null)
@@ -273,23 +274,28 @@ class EventPreferencesCallScreening extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SCREENING_NOT_IN_CONTACTS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, true, !isRunnable, false);
         }
 
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SCREENING_BLOCK_CALLS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, false, false, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SEND_SMS);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SCREENING_SEND_SMS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, false, false, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_SMS_TEXT);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SCREENING_SMS_TEXT, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_CALL_SCREENING_PERMANENT_RUN);
+        if (preference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SCREENING_PERMANENT_RUN, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabledAndHeld, bold, false, false, false, false);
         }
     }
 
