@@ -112,7 +112,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 [[12]](art/phoneScreenshots/12.png),
 [[13]](art/phoneScreenshots/13.png)
 
-##### History of UI changes
+##### History of UI changes :wink:
 - __[Show it](docs/history_of_ui_changes.md)__
 
 ##### Supported Android versions
