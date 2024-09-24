@@ -6,13 +6,18 @@
 <!--    <color name="primaryDark">#201a18</color>-->
 <!--    <color name="primary">#1c1614</color>-->
 <!--    <color name="primaryDark">#1c1614</color>-->
-    <color name="primary">#191413</color>
-    <color name="primaryDark">#191413</color>
+<!--    <color name="primary">#191413</color>-->
+<!--    <color name="primaryDark">#191413</color>-->
+<!--    <color name="primary">#191716</color>-->
+<!--    <color name="primaryDark">#191716</color>-->
+    <color name="primary">#1a1715</color>
+    <color name="primaryDark">#1a1715</color>
+
 
     <color name="navigationBar">#000000</color>
 
 <!--    <color name="activityBackgroundColor">#1B1B1B</color>-->
-    <color name="activityBackgroundColor">#191413</color>
+    <color name="activityBackgroundColor">#1a1715</color>
 
     <color name="activityNormalTextColor">#efefef</color>
     <color name="activitySecondaryTextColor">#C9C9C9</color>
