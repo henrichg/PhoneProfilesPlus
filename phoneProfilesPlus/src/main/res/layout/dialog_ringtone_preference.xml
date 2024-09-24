@@ -35,7 +35,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <ListView
             android:id="@+id/ringtone_pref_dlg_listview"
@@ -60,7 +60,7 @@
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
             android:layout_marginBottom="3dp"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
     </LinearLayout>
 

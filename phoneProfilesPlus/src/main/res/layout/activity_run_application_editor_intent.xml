@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_alignParentTop="true"
-            android:background="@color/dialog_divider"/>
+            android:background="@color/dialogDividerColor"/>
 
         <Button
             android:id="@+id/application_editor_intent_ok"
@@ -81,7 +81,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider"
+        android:background="@color/dialogDividerColor"
         android:layout_alignParentTop="true" />
 
     <ScrollView
@@ -127,7 +127,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -157,7 +157,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -187,7 +187,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -218,7 +218,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -258,7 +258,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -288,7 +288,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -319,7 +319,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -370,7 +370,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView
@@ -421,7 +421,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider"
+                android:background="@color/dialogDividerColor"
                 android:visibility="invisible" />
 
             <TextView

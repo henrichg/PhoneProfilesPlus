@@ -36,7 +36,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_height="@dimen/divider_height"
-                    android:background="@color/dialog_divider" />
+                    android:background="@color/dialogDividerColor" />
     <!--            android:layout_marginStart="@dimen/divider_margin"-->
     <!--            android:layout_marginEnd="@dimen/divider_margin"-->
 

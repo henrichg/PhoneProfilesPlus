@@ -217,7 +217,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         if ((connectionType == 1) || (connectionType == 3)) {
                             summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
-                            titleColor = ContextCompat.getColor(context, R.color.error_color);
+                            titleColor = ContextCompat.getColor(context, R.color.errorColor);
                         } else {
                             summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
@@ -273,7 +273,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     if ((connectionType == 1) || (connectionType == 3)) {
                         summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
                                 summary;
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE +

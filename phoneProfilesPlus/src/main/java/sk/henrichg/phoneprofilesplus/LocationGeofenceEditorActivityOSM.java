@@ -598,8 +598,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     //mMap.invalidate();
                 }
                 currentLocationOverlay = new LocationGeofenceEditorCurrentLocationOverlayOSM(new GeoPoint(mLastLocation), mLastLocation.getAccuracy(),
-                        ContextCompat.getColor(this, R.color.map_last_location_marker_fill),
-                        ContextCompat.getColor(this, R.color.map_last_location_marker_stroke));
+                        ContextCompat.getColor(this, R.color.mapLastLocationMarkerFillColor),
+                        ContextCompat.getColor(this, R.color.mapLastLocationMarkerStrokeColor));
                 mMap.getOverlays().add(currentLocationOverlay);
                 mMap.invalidate();
             }
@@ -610,8 +610,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     //mMap.invalidate();
                 }
                 geofenceOverlay = new LocationGeofenceEditorGeofenceOverlayOSM(new GeoPoint(mLocation), geofence._radius,
-                        ContextCompat.getColor(this, R.color.map_edited_location_marker_fill),
-                        ContextCompat.getColor(this, R.color.map_edited_location_marker_stroke));
+                        ContextCompat.getColor(this, R.color.mapEditedLocationMarkerFillColor),
+                        ContextCompat.getColor(this, R.color.mapEditedLocationMarkerStrokeColor));
                 mMap.getOverlays().add(geofenceOverlay);
 
                 if (editedMarker != null) {

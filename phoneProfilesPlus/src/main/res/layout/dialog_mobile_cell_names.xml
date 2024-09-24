@@ -37,7 +37,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <RelativeLayout
             android:id="@+id/mobile_cell_names_dlg_empty"
@@ -89,7 +89,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialogDividerColor" />
 
             <EditText
                 android:id="@+id/mobile_cell_names_dlg_name"

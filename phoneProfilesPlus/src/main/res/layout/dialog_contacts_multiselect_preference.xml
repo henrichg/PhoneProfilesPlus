@@ -56,7 +56,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
             android:id="@+id/contacts_multiselect_pref_dlg_listview"
@@ -73,11 +73,11 @@
             app:fastScrollTrackWidth="@dimen/fastScrollTrackWidth"
             app:fastScrollPopupTextSize="44sp"
             app:fastScrollPopupBackgroundSize="70dp"
-            app:fastScrollPopupBgColor="@color/fastScrollPopupBackgroundPP"
-            app:fastScrollPopupTextColor="@color/fastScrollPopupTextPP"
-            app:fastScrollThumbColor="@color/fastScrollThumbPP"
-            app:fastScrollTrackColor="@color/fastScrollTrackPP"
-            app:fastScrollThumbInactiveColor="@color/fastScrollThumbInactivePP" />
+            app:fastScrollPopupBgColor="@color/fastScrollPopupBackgroundPPColor"
+            app:fastScrollPopupTextColor="@color/fastScrollPopupTextPPColor"
+            app:fastScrollThumbColor="@color/fastScrollThumbPPColor"
+            app:fastScrollTrackColor="@color/fastScrollTrackPPColor"
+            app:fastScrollThumbInactiveColor="@color/fastScrollThumbInactivePPColor" />
 
         <View
             android:id="@+id/contacts_multiselect_pref_dlg_buttonBarDivider"
@@ -86,7 +86,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <Button
             android:id="@+id/contacts_multiselect_pref_dlg_unselect_all"

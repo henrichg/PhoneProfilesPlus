@@ -384,7 +384,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     private void showNotification(String title, String text) {
         PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.error_color))
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.errorColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification

@@ -125,7 +125,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                         writeNameToTagAndAddNameButton.setEnabled(nfcManager.intentForWrite != null);
                     }
                     else {
-                        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.error_color));
+                        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.errorColor));
                         writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable);
                         touchTextView.setText(R.string.nfc_tag_pref_dlg_readNfcTag_touch);
                         writeNameToTagAndAddNameButton.setEnabled(false);
@@ -193,7 +193,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 text = text + " (" + getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable) + ")";
             }
         }
-        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.error_color));
+        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.errorColor));
         writableTextView.setText(text);
         //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
         //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();

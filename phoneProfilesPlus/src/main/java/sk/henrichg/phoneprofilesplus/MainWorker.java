@@ -185,7 +185,7 @@ public class MainWorker extends Worker {
 
                                     PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext(), false);
                                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                            .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                                            .setColor(ContextCompat.getColor(appContext, R.color.errorColor))
                                             .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                                             .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                                             .setContentTitle(nTitle) // title for notification

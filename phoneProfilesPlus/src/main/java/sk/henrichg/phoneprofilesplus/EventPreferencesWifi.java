@@ -193,7 +193,7 @@ class EventPreferencesWifi extends EventPreferences {
                         if ((connectionType == 1) || (connectionType == 3)) {
                             summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
-                            titleColor = ContextCompat.getColor(context, R.color.error_color);
+                            titleColor = ContextCompat.getColor(context, R.color.errorColor);
                         } else {
                             summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
@@ -251,7 +251,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
-                    titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+

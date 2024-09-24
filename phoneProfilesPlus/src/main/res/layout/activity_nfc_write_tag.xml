@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <RelativeLayout
         android:id="@+id/write_nfc_tag_root2"
@@ -86,7 +86,7 @@
                         android:id="@+id/write_nfc_tag_buttonsDivider0"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/divider_height"
-                        android:background="@color/dialog_divider" />
+                        android:background="@color/dialogDividerColor" />
 
                     <TextView
                         android:id="@+id/write_nfc_tag_addUpdateName"
@@ -146,7 +146,7 @@
                 android:id="@+id/write_nfc_tag_buttonsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialogDividerColor" />
 
             <Button
                 android:id="@+id/write_nfc_tag_button"

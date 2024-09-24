@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <RelativeLayout
         android:id="@+id/read_nfc_tag_root2"
@@ -57,7 +57,7 @@
                 android:id="@+id/read_nfc_tag_buttonsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialogDividerColor" />
 
             <Button
                 android:id="@+id/read_nfc_tag_button"

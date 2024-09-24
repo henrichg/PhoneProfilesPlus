@@ -15,7 +15,7 @@
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/donation_paypal_activity_container"

@@ -15,7 +15,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/ask_for_duration_dlg_root"
@@ -210,7 +210,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="0dp"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialogDividerColor" />
 
             <TextView
                 android:id="@+id/ask_for_duration_dlg_after_do_label"
@@ -329,6 +329,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

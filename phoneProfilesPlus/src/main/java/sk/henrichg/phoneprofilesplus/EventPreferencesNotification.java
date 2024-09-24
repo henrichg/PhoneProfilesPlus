@@ -258,7 +258,7 @@ class EventPreferencesNotification extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
@@ -306,7 +306,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
                     summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
-                    titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
                     summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+

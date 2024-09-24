@@ -17,7 +17,7 @@
         app:backgroundColor="@android:color/transparent"
         app:indicatorColor="@android:color/transparent"
         app:textColor="@color/smoothBottomBarTextColor"
-        app:iconTint="@color/smoothBottomBarIconTint"
+        app:iconTint="@color/smoothBottomBarIconTintColor"
         app:iconTintActive="@color/accent_color"
         app:iconSize="28dp"
         app:textSize="14sp"

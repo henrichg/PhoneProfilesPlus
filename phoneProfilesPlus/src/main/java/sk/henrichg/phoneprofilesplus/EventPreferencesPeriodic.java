@@ -149,7 +149,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +

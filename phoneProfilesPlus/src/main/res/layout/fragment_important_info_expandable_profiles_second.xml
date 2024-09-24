@@ -133,7 +133,7 @@
             android:layout_marginEnd="10dp"
             android:text="@string/run_stop_indicator_light"
             android:textSize="@dimen/gui_info_popup_text_size"
-            android:textColor="@color/traffic_light_green"
+            android:textColor="@color/trafficLightGreenColor"
             android:id="@+id/activity_info_profile_activation_light1" />
         <TextView
             android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
             android:layout_marginEnd="10dp"
             android:text="@string/run_stop_indicator_light"
             android:textSize="@dimen/gui_info_popup_text_size"
-            android:textColor="@color/traffic_light_orange"
+            android:textColor="@color/trafficLightOrangeColor"
             android:id="@+id/activity_info_profile_activation_light2" />
         <TextView
             android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
             android:layout_marginEnd="10dp"
             android:text="@string/run_stop_indicator_light"
             android:textSize="@dimen/gui_info_popup_text_size"
-            android:textColor="@color/traffic_light_red"
+            android:textColor="@color/trafficLightRedColor"
             android:id="@+id/activity_info_profile_activation_light3" />
         <TextView
             android:layout_width="wrap_content"

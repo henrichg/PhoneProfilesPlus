@@ -14,7 +14,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <LinearLayout
         android:layout_width="match_parent"

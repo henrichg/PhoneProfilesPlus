@@ -3183,7 +3183,7 @@ class Event {
                 nText = nText + ". " + context.getString(R.string.start_event_notification_text2);
                 PPApplicationStatic.createNotifyEventStartNotificationChannel(context.getApplicationContext(), false);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.informationColor))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                         .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                         .setContentTitle(nTitle) // title for notification

@@ -9,7 +9,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="@color/popupMenuBorderColor" />
+            <solid android:color="@color/popupAndMenuBorderColor" />
 
             <corners android:radius="@dimen/popup_menu_corner_radius" />
         </shape>

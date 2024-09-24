@@ -54,7 +54,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
                 boolean manualProfileActivation = DataWrapperStatic.getIsManualProfileActivation(false, context.getApplicationContext());
 
                 int imageStatusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-                int colorRes = R.color.event_status_stop;
+                int colorRes = R.color.eventStatusStopColor;
                 int textStatusRes = R.string.popup_event_states_stopped;
 
                 /*if (!Event.getGlobalEventsRunning()) {
@@ -67,26 +67,26 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
                         case Event.ESTATUS_RUNNING:
                             if (event._isInDelayEnd) {
                                 imageStatusRes = R.drawable.ic_event_status_running_delay;
-                                colorRes = R.color.altype_eventDelayStartEnd;
+                                colorRes = R.color.altypeEventDelayStartEndColor;
                                 textStatusRes = R.string.popup_event_states_running_delay;
                             } else {
                                 imageStatusRes = R.drawable.ic_event_status_running;
-                                colorRes = R.color.altype_eventStart;
+                                colorRes = R.color.altypeEventStartColor;
                                 textStatusRes = R.string.popup_event_states_running;
                             }
                             break;
                         case Event.ESTATUS_PAUSE:
                             if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation)) {
                                 imageStatusRes = R.drawable.ic_event_status_pause_manual_activation;
-                                colorRes = R.color.altype_eventEnd;
+                                colorRes = R.color.altypeEventEndColor;
                                 textStatusRes = R.string.popup_event_states_paused;
                             } else if (event._isInDelayStart) {
                                 imageStatusRes = R.drawable.ic_event_status_pause_delay;
-                                colorRes = R.color.altype_eventDelayStartEnd;
+                                colorRes = R.color.altypeEventDelayStartEndColor;
                                 textStatusRes = R.string.popup_event_states_paused_delay;
                             } else {
                                 imageStatusRes = R.drawable.ic_event_status_pause;
-                                colorRes = R.color.altype_eventEnd;
+                                colorRes = R.color.altypeEventEndColor;
                                 textStatusRes = R.string.popup_event_states_paused;
                             }
                             break;
@@ -95,7 +95,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
                             //noinspection ConstantConditions
                             imageStatusRes = R.drawable.ic_event_status_stop;
                             //noinspection ConstantConditions
-                            colorRes = R.color.event_status_stop;
+                            colorRes = R.color.eventStatusStopColor;
                             //statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                             //else
                             //    statusRes = R.drawable.ic_event_status_stop_not_runnable;

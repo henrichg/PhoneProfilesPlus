@@ -758,7 +758,7 @@ class MobileCellsListener extends PhoneStateListener {
                         nText = nText + context.getString(R.string.notification_not_used_mobile_cell_text2);
 
                         mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
-                                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.informationColor))
                                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/)
                                 .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                                 .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))

@@ -183,7 +183,7 @@
             android:id="@+id/donation_paypal_activity_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <Button
             android:id="@+id/donation_paypal_activity_close"

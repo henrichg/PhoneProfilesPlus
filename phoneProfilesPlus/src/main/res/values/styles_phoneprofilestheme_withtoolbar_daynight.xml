@@ -14,7 +14,7 @@
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
-        <item name="android:navigationBarColor">@color/navigationBar</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
 
 </resources>

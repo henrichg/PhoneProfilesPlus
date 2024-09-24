@@ -8,7 +8,7 @@
     <color name="widgetDarkBackgroundColor">#ff1b1b1b</color>
     <color name="widgetLightBackgroundColor">#fffcfcfc</color>
 
-    <color name="lockDevice_textColor">#FFFFFF</color>
+    <color name="lockDeviceTextColor">#FFFFFF</color>
 
 <!--    <color name="notification_background_color_default">#FFFFFF</color>-->
 

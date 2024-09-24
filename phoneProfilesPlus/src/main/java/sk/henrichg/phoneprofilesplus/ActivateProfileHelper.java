@@ -5270,7 +5270,7 @@ class ActivateProfileHelper {
 
         PPApplicationStatic.createInformationNotificationChannel(appContext, false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(title) // title for notification
@@ -6294,7 +6294,7 @@ class ActivateProfileHelper {
 
         PPApplicationStatic.createKeepScreenOnNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification
@@ -8553,7 +8553,7 @@ class ActivateProfileHelper {
                         mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
                     else
                         mBuilder.setSmallIcon(R.drawable.ic_information_notify);
-                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.information_color));
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.informationColor));
                     if (showLargeIcon)
                         mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification));
                     break;
@@ -8562,7 +8562,7 @@ class ActivateProfileHelper {
                         mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
                     else
                         mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
-                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.error_color));
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.errorColor));
                     if (showLargeIcon)
                         mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification));
                     break;

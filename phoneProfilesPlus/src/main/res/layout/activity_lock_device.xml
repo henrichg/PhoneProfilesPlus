@@ -18,7 +18,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingBottom="200dp"
-        android:textColor="@color/lockDevice_textColor"
+        android:textColor="@color/lockDeviceTextColor"
         android:textSize="75sp" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/lockDevice_textColor"
+        android:textColor="@color/lockDeviceTextColor"
         android:text="@string/lockDevice_screenOff_text"/>
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/activity_lockDevice_screenOff"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/lockDevice_textColor"
+        android:textColor="@color/lockDeviceTextColor"
         android:text="@string/ppp_app_name"/>
 
 </RelativeLayout>

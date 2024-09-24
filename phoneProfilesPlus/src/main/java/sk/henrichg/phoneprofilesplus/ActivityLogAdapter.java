@@ -124,7 +124,7 @@ class ActivityLogAdapter extends CursorAdapter {
                 break;
         }*/
 
-        int color = shiftColor(ContextCompat.getColor(context, R.color.altype_profile), context);
+        int color = shiftColor(ContextCompat.getColor(context, R.color.altypeProfileColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, color);
@@ -135,12 +135,12 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE, color);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_eventStart), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeEventStartColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_START, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_eventDelayStartEnd), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeEventDelayStartEndColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_START_DELAY, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_DELAY, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_eventEnd), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeEventEndColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_NONE, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE, color);
@@ -148,10 +148,10 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_STOP, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_restartEvents), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeRestartEventsColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, color);
-        color = ContextCompat.getColor(context, R.color.altype_error);
+        color = ContextCompat.getColor(context, R.color.altypeErrorColor);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, color);
@@ -167,7 +167,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_other), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeOtherColor), context);
         //activityTypeColors.put(PPApplication.ALTYPE_LOG_TOP, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, color);

@@ -210,7 +210,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
         nText = appContext.getString(R.string.latest_pppps_release_notification);
 
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification

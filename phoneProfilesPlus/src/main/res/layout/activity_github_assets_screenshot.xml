@@ -12,7 +12,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/github_assets_screenshot_activity_scrollView"
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_marginTop="20dp"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <Button
             android:id="@+id/github_assets_screenshot_activity_close"

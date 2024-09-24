@@ -350,7 +350,7 @@ class GlobalGUIRoutines {
 //                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "enabled="+enabled);
 //                    }
                     if (errorColor && enabled)
-                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.error_color)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.errorColor)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 preference.setTitle(sbt);
             }
@@ -635,11 +635,11 @@ class GlobalGUIRoutines {
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusWaiting, value, true);
         return value.data;*/
         if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
-            return ContextCompat.getColor(context, R.color.sensor_pass_status_passed);
+            return ContextCompat.getColor(context, R.color.sensorPassStatusPassedColor);
         else if (passStatus == EventPreferences.SENSOR_PASSED_NOT_PASSED)
-            return ContextCompat.getColor(context, R.color.sensor_pass_status_not_passed);
+            return ContextCompat.getColor(context, R.color.sensorPassStatusNotPassedColor);
         else
-            return ContextCompat.getColor(context, R.color.sensor_pass_status_waiting);
+            return ContextCompat.getColor(context, R.color.sensorPassStatusWaitingColor);
     }
 
     /*
@@ -708,8 +708,8 @@ class GlobalGUIRoutines {
         //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
         timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
-        timeDurationPicker.setDisplaySeparatorColor(ContextCompat.getColor(context, R.color.time_duration_picker_display_divider));
-        timeDurationPicker.setButtonsSeparatorColor(ContextCompat.getColor(context, R.color.dialog_divider));
+        timeDurationPicker.setDisplaySeparatorColor(ContextCompat.getColor(context, R.color.timeDurationPickerDisplayDividerColor));
+        timeDurationPicker.setButtonsSeparatorColor(ContextCompat.getColor(context, R.color.dialogDividerColor));
     }
     /*
     static int getThemeSecondaryTextColor(final Context context) {

@@ -2489,7 +2489,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if ((context != null) && (activity != null) && (fragment != null) && (prefMng != null)) {
 
                 String rootScreen = PPApplication.PREF_ROOT_SCREEN;
-                int errorColor = ContextCompat.getColor(context, R.color.error_color);
+                int errorColor = ContextCompat.getColor(context, R.color.errorColor);
 
                 if (event != null) {
                     int order = 1;
