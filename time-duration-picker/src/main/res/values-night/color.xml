@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    <color name="display_divider">#525252</color>-->
-    <color name="display_divider">#534c49</color>
+    <color name="display_divider">#605348</color>
 <!--    <color name="pp_rippleRectangeleItemBackgroundColor">#606060</color>-->
-    <color name="pp_rippleRectangeleItemBackgroundColor">#645c5a</color>
+    <color name="pp_rippleRectangeleItemBackgroundColor">#5e524c</color>
     <color name="pp_dialpad_textColor">#DFDFDF</color>
     <color name="pp_display_textColor">#FFFFFF</color>
-    <color name="pp_buttons_divider">#423b39</color>
+    <color name="pp_buttons_divider">#48382a</color>
 </resources>
