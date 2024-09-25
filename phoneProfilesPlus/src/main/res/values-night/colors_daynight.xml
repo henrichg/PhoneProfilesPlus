@@ -20,7 +20,8 @@
     <color name="activityCommandBackgroundColor">#332d2a</color>
 <!--    <color name="activityPopupMenuBackgroundColor">#151515</color>-->
 <!--    <color name="activityPopupMenuBackgroundColor">#161310</color>-->
-    <color name="activityPopupMenuBackgroundColor">#15120f</color>
+<!--    <color name="activityPopupMenuBackgroundColor">#15120f</color>-->
+    <color name="activityPopupMenuBackgroundColor">#14110e</color>
 
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
