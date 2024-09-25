@@ -4,6 +4,9 @@
         <item name="listViewItemBackground">@drawable/listview_item_background</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
 
+        <item name="android:selectableItemBackground">@drawable/listview_item_background</item>
+        <item name="selectableItemBackground">@drawable/listview_item_background</item>
+
         <item name="windowFixedWidthMajor">@dimen/activator_fixed_width_major</item>
         <item name="windowFixedWidthMinor">@dimen/activator_fixed_width_minor</item>
 <!--        <item name="android:windowMinWidthMinor">@dimen/activator_min_width_minor</item>-->

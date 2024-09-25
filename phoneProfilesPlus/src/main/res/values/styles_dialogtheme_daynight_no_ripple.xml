@@ -3,6 +3,8 @@
     <style name="DialogTheme_dayNight_noRipple" parent="@style/Base.Theme.PhoneProfilesTheme_dialog_dayNight">
         <item name="listViewItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector_no_ripple</item>
+        <item name="android:selectableItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
+        <item name="selectableItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
 
 <!--        <item name="windowFixedWidthMajor">65%</item>-->
 <!--        <item name="windowFixedWidthMinor">85%</item>-->

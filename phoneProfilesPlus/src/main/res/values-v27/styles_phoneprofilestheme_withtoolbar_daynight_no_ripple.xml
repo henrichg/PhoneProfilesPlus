@@ -6,6 +6,8 @@
 
         <item name="listViewItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector_no_ripple</item>
+        <item name="android:selectableItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
+        <item name="selectableItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
 
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>
