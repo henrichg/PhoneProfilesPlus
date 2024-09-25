@@ -8,5 +8,6 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:selectableItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
         <item name="selectableItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
+        <item name="android:actionBarItemBackground">@drawable/actionbar_item_background_selector_no_ripple</item>
     </style>
 </resources>
