@@ -78,7 +78,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:src="@drawable/ic_backspace_bp"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="@drawable/button_background"
             android:contentDescription="@string/backspace_button_tooltip"/>
         <ImageButton
             android:id="@+id/clear"
@@ -87,7 +87,7 @@
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:src="@drawable/ic_clear"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="@drawable/button_background"
             android:contentDescription="@string/clear_button_tooltip"/>
     </LinearLayout>
     <View
