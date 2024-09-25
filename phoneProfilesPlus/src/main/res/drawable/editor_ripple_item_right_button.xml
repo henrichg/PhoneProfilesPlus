@@ -3,7 +3,8 @@
     android:color="@color/rippleOvalItemBackgroundColor">
     <item android:id="@android:id/mask"
         android:gravity="center" >
-        <shape android:shape="oval">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/popup_window_corner_radius" />
             <solid android:color="@color/pppColorBlack" />
             <size
                 android:width="40dp"
