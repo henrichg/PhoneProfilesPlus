@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    <color name="primary">#1B1B1B</color>-->
-<!--    <color name="primaryDark">#1B1B1B</color>-->
-<!--    <color name="primary">#201a18</color>-->
-<!--    <color name="primaryDark">#201a18</color>-->
-<!--    <color name="primary">#1c1614</color>-->
-<!--    <color name="primaryDark">#1c1614</color>-->
-<!--    <color name="primary">#191413</color>-->
-<!--    <color name="primaryDark">#191413</color>-->
-<!--    <color name="primary">#191716</color>-->
-<!--    <color name="primaryDark">#191716</color>-->
-    <color name="primary">#1a1715</color>
-    <color name="primaryDark">#1a1715</color>
+<!--    <color name="primary">#1a1715</color>-->
+<!--    <color name="primaryDark">#1a1715</color>-->
+    <color name="primary">#191614</color>
+    <color name="primaryDark">#191614</color>
 
     <color name="navigationBarColor">#000000</color>
 
 <!--    <color name="activityBackgroundColor">#1B1B1B</color>-->
-    <color name="activityBackgroundColor">#1a1715</color>
+    <color name="activityBackgroundColor">#191614</color>
 
     <color name="activityNormalTextColor">#efefef</color>
     <color name="activitySecondaryTextColor">#C9C9C9</color>
@@ -26,7 +19,8 @@
 <!--    <color name="activityCommandBackgroundColor">#303030</color>-->
     <color name="activityCommandBackgroundColor">#332d2a</color>
 <!--    <color name="activityPopupMenuBackgroundColor">#151515</color>-->
-    <color name="activityPopupMenuBackgroundColor">#161310</color>
+<!--    <color name="activityPopupMenuBackgroundColor">#161310</color>-->
+    <color name="activityPopupMenuBackgroundColor">#15120f</color>
 
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
@@ -38,15 +32,6 @@
 <!--    <color name="noRippleRectangeleItemBackgroundColor">#404040</color>-->
     <color name="noRippleRectangeleItemBackgroundColor">#433c3a</color>
 
-<!--    <color name="noRippleOvalItemBackgroundColor">#808080</color>-->
-
-<!--    <color name="activityDisabledTextColor">#4Dffdad3</color>-->
-<!--    <color name="activityCommandBackgroundColor">#1Fffdad3</color>-->
-<!--    <color name="activityPopupMenuBackgroundColor">#1a1513</color>-->
-<!--    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>-->
-<!--    <color name="activityPreferenceTitleTextColor">#d5d5d5</color>-->
-<!--    <color name="activityPreferenceSummaryTextColor">#a5a5a5</color>-->
-
 <!--    <color name="changedPreferenceValueTextColor">#FFd4d4d4</color>-->
 
 <!--    <color name="notificationDecorationColor">#cc893e</color>-->
@@ -54,14 +39,18 @@
     <color name="smoothBottomBarIconTintColor">#FFFFFF</color>
     <color name="smoothBottomBarTextColor">#E0E0E0</color>
 
-<!--    <color name="dialog_divider">#3f3f3f</color>-->
-    <color name="dialogDividerColor">#47382b</color>
-<!--    <color name="popup_window_divider">#3f3f3f</color>-->
-    <color name="popupWindowDividerColor">#47382b</color>
-<!--    <color name="popupMenuBorderColor">#3f3f3f</color>-->
-    <color name="popupAndMenuBorderColor">#47382b</color>
-<!--    <color name="scrollbar_color">#404040</color>-->
-    <color name="scrollbarColor">#47382b</color>
+<!--    <color name="dialogDividerColor">#3f3f3f</color>-->
+<!--    <color name="dialogDividerColor">#47382b</color>-->
+    <color name="dialogDividerColor">#48382a</color>
+<!--    <color name="popupWindowDividerColor">#3f3f3f</color>-->
+<!--    <color name="popupWindowDividerColor">#47382b</color>-->
+    <color name="popupWindowDividerColor">#48382a</color>
+<!--    <color name="popupAndMenuBorderColor">#3f3f3f</color>-->
+<!--    <color name="popupAndMenuBorderColor">#47382b</color>-->
+    <color name="popupAndMenuBorderColor">#48382a</color>
+<!--    <color name="scrollbarColor">#404040</color>-->
+<!--    <color name="scrollbarColor">#47382b</color>-->
+    <color name="scrollbarColor">#48382a</color>
 
 <!--    <color name="dialogBorderColor">#3f3f3f</color>-->
     <color name="dialogBorderColor">#36302c</color>
@@ -71,7 +60,8 @@
 <!--    <color name="buttonClickedBackgroundColor">#303030</color>-->
     <color name="buttonClickedBackgroundColor">#332d2a</color>
 <!--    <color name="buttonBorderColor">#656565</color>-->
-    <color name="buttonBorderColor">#5d4e41</color>
+<!--    <color name="buttonBorderColor">#5d4e41</color>-->
+    <color name="buttonBorderColor">#605348</color>
 
 <!--    <color name="toastBackgroundColor">#3a3a3a</color>-->
     <color name="toastBackgroundColor">#3c3533</color>
