@@ -35,9 +35,9 @@
 <!--    <color name="noRippleRectangeleItemBackgroundColor">#404040</color>-->
     <color name="noRippleRectangeleItemBackgroundColor">#493d39</color>
 
-    <color name="widgetBackgroundColor">#40FFFFFF</color>
-    <color name="widgetListItemColor">#40FFFFFF</color>
-    <color name="widgetRestartEventsColor">#40FFFFFF</color>
+    <color name="widgetBackgroundColor">#35FFFFFF</color>
+    <color name="widgetListItemColor">#35FFFFFF</color>
+    <color name="widgetRestartEventsColor">#35FFFFFF</color>
 
 <!--    <color name="changedPreferenceValueTextColor">#FFd4d4d4</color>-->
 

@@ -19,9 +19,9 @@
     <color name="noRippleRectangeleItemBackgroundColor">#DFDFDF</color>
 <!--    <color name="noRippleOvalItemBackgroundColor">#AFAFAF</color>-->
 
-    <color name="widgetBackgroundColor">#40000000</color>
-    <color name="widgetListItemColor">#40000000</color>
-    <color name="widgetRestartEventsColor">#40000000</color>
+    <color name="widgetBackgroundColor">#35000000</color>
+    <color name="widgetListItemColor">#35000000</color>
+    <color name="widgetRestartEventsColor">#35000000</color>
 
     <!--    <color name="activityPreferenceTitleTextColor">#171717</color>-->
     <!--    <color name="activityPreferenceSummaryTextColor">#4E4E4E</color>-->
