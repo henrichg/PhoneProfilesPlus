@@ -33,18 +33,18 @@
             android:orientation="horizontal"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_ripple_list_item" >
+            android:background="@drawable/widget_list_item_selector" >
 
             <RelativeLayout
                 android:id="@+id/widget_profile_list_header_restart_events_click"
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/widget_ripple_restart_events" >
+                android:background="@drawable/widget_restart_events_selector" >
 
                 <ImageView
                     android:id="@+id/widget_profile_list_header_restart_events"

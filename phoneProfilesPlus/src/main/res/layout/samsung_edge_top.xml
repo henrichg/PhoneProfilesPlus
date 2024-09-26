@@ -67,7 +67,7 @@
                 android:orientation="horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/widget_ripple_list_item">
+                android:background="@drawable/widget_list_item_selector">
 
                 <ImageView
                     android:id="@+id/widget_samsung_edge_header_profile_icon"
@@ -115,7 +115,7 @@
                 android:divider="@android:color/transparent"
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay"
-                android:listSelector="@drawable/widget_ripple_list_item" />
+                android:listSelector="@drawable/widget_list_item_selector" />
 
             <TextView
                 android:id="@+id/widget_samsung_edge_empty"

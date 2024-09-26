@@ -20,25 +20,26 @@
     <RelativeLayout
         android:id="@+id/widget_one_row_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:layout_gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/widget_ripple_list_item">
+        android:background="@drawable/widget_list_item_selector">
 
         <!-- must be RelativeLayout for best vertical center -->
         <RelativeLayout
             android:id="@+id/widget_one_row_header_restart_events_click"
-            android:layout_width="55dp"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_ripple_restart_events" >
+            android:background="@drawable/widget_restart_events_selector" >
 
             <ImageView
                 android:id="@+id/widget_one_row_header_restart_events"

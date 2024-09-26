@@ -27,7 +27,7 @@
         android:gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/widget_ripple_background" >
+        android:background="@drawable/widget_background_selector" >
 
         <ImageView
             android:id="@+id/icon_widget_icon"
