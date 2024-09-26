@@ -268,10 +268,7 @@ class Permissions {
         checkProfileInteractivePreferences(context, profile, permissions);
         checkProfileCloseAllApplications(context, profile, permissions);
         checkProfileSendSMS(context, profile, permissions);
-
-        // not needed "Draw over apps" because used is PPPPS service
-        //checkProfilePPPPutSettings(context, profile, permissions);
-
+        checkProfilePPPPutSettings(context, profile, permissions);
         checkProfileClearNotifications(context, profile, permissions);
         checkProfileScreenNightLight(context, profile, permissions);
         checkProfileVPN(context, profile, permissions);
@@ -1175,12 +1172,15 @@ class Permissions {
         //return /*true*/;
     }
 
-    /*
     static void checkProfilePPPPutSettings(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
         if (Build.VERSION.SDK_INT >= 29) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+            int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
+            if ((ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) &&
+                    (ppppsVersion <= PPApplication.VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE)) {
+                // in version <= 70 service not exists in PPPPS
+                // and for this reason reguired is "Draw over apps"
                 try {
                     if ((profile._vibrateWhenRinging != 0) ||
                             (profile._vibrateNotifications != 0) ||
@@ -1209,7 +1209,6 @@ class Permissions {
             }
         }
     }
-    */
 
     static void checkProfileSendSMS(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;

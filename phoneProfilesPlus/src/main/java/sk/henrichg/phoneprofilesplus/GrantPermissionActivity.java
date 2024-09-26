@@ -637,9 +637,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     /*if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                         showRequestAccessNotificationPolicy = true;
                     }*/
-                    /*if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                    if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                         showRequestDrawOverlays = true;
-                    }*/
+                    }
                 }
             }
 
@@ -1468,7 +1468,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (!accessNotificationPolicyFound)
                 requestPermissions(3, withRationale);
         }*/
-        /*else
+        else
         if (iteration == 3) {
             boolean drawOverlaysFound = false;
             for (PermissionType permissionType : permissions) {
@@ -1482,7 +1482,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (!drawOverlaysFound)
                 requestPermissions(4, withRationale);
-        }*/
+        }
         else {
             boolean grantBackgroundLocation = false;
             List<String> permList = new ArrayList<>();

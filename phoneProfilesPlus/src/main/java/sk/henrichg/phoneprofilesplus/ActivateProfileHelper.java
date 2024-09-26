@@ -9634,7 +9634,7 @@ class ActivateProfileHelper {
                                      @SuppressWarnings("SameParameterValue") String settingsType,
                                      String parameterName,
                                      String parameterValue) {
-        if (ppppsVersion <= 70) {
+        if (ppppsVersion <= PPApplication.VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE) {
             // in version <= 70 service not exists in PPPPS
 
             // startActivity from background: Android 10 (API level 29)

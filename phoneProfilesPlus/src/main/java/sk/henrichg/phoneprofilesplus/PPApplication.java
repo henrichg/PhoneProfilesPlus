@@ -82,6 +82,7 @@ public class PPApplication extends Application
     static final int VERSION_CODE_PPPPS_LATEST = 70;
     //static final String VERSION_NAME_PPPPS_LATEST = "1.0.9";
     ///////
+    static final int VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE = 71;
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
