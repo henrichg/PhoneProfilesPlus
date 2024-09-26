@@ -118,7 +118,8 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:popupElevation="0dp"
-                            style="@style/Base.Widget.AppCompat.Spinner" />
+                            android:background="@drawable/spinner_background"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
                     </LinearLayout>
 

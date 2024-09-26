@@ -121,6 +121,7 @@
                 android:layout_weight="1"
                 android:prompt="@string/donation_google_android_market_text"
                 android:popupElevation="0dp"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <Button

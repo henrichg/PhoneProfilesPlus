@@ -25,6 +25,7 @@
             android:clickable="true"
             android:focusable="true"
             android:popupElevation="0dp"
+            android:background="@drawable/spinner_background"
             style="@style/Base.Widget.AppCompat.Spinner" />
 
     </androidx.appcompat.widget.Toolbar>

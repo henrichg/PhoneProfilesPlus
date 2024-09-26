@@ -229,12 +229,13 @@
                 android:id="@+id/editor_events_list_bottom_bar_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginStart="1dp"
                 android:entries="@array/emptyArray"
                 android:clickable="true"
                 android:focusable="true"
                 android:popupElevation="0dp"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner" />
 
         </LinearLayout>

@@ -53,6 +53,7 @@
                 android:layout_marginBottom="15dp"
                 android:popupElevation="0dp"
                 android:entries="@array/defaultSIMVoiceArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <TextView
@@ -72,6 +73,7 @@
                 android:layout_marginBottom="15dp"
                 android:popupElevation="0dp"
                 android:entries="@array/defaultSIMSMSArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <TextView
@@ -90,6 +92,7 @@
                 android:layout_marginStart="15dp"
                 android:popupElevation="0dp"
                 android:entries="@array/defaultSIMDataArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         </LinearLayout>

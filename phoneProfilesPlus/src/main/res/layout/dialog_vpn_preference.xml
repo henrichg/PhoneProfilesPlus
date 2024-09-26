@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:popupElevation="0dp"
                 android:entries="@array/vpnApplicationArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
             <RadioGroup

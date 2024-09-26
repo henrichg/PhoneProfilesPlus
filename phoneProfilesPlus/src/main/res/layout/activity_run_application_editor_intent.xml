@@ -147,6 +147,7 @@
                 android:layout_marginTop="5dp"
                 android:popupElevation="0dp"
                 android:entries="@array/runApplicationEditorIntentIntentTypeArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <View
@@ -238,6 +239,7 @@
                 android:layout_marginTop="5dp"
                 android:popupElevation="0dp"
                 android:entries="@array/runApplicationEditorIntentActionArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
             <EditText
                 android:id="@+id/application_editor_intent_action_edit"
@@ -488,6 +490,7 @@
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
                         android:entries="@array/runApplicationEditorIntentExtraTypeArray"
+                        android:background="@drawable/spinner_background"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -546,6 +549,7 @@
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
                         android:entries="@array/runApplicationEditorIntentExtraTypeArray"
+                        android:background="@drawable/spinner_background"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -604,6 +608,7 @@
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
                         android:entries="@array/runApplicationEditorIntentExtraTypeArray"
+                        android:background="@drawable/spinner_background"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -662,6 +667,7 @@
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
                         android:entries="@array/runApplicationEditorIntentExtraTypeArray"
+                        android:background="@drawable/spinner_background"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -720,6 +726,7 @@
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
                         android:entries="@array/runApplicationEditorIntentExtraTypeArray"
+                        android:background="@drawable/spinner_background"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
