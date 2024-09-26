@@ -3555,6 +3555,9 @@ class ActivateProfileHelper {
     }
 
     static void executeForVolumes(Profile _profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences _executedProfileSharedPreferences) {
+//        PPApplicationStatic.recordException(new Exception("test"));
+
+
         final Context appContext = context.getApplicationContext();
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);

@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="phoneProfilesPlus">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-08-25T18:57:53.584482247Z">
+        <DropdownSelection timestamp="2024-09-26T13:56:22.318934132Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=03KAY1VF8R" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/home/henrichg/.android/avd/Pixel_3a_API_26.avd" />
             </handle>
           </Target>
         </DropdownSelection>

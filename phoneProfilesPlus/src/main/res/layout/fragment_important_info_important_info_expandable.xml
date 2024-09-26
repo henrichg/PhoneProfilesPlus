@@ -72,12 +72,39 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
+                android:paddingBottom="15dp"
                 android:text="@string/important_info_phone_call_to_call_screening"
                 android:textSize="@dimen/important_info_text_size"
                 android:id="@+id/important_info_news_1"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/important_info_draw_over_apps_not_needed_permanently1"
+                android:textSize="@dimen/important_info_text_size"
+                android:id="@+id/important_info_news_2"
+                android:textStyle="bold"
+                android:visibility="visible"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/important_info_draw_over_apps_not_needed_permanently2"
+                android:textSize="@dimen/important_info_text_size"
+                android:id="@+id/important_info_news_3"
+                android:textStyle="bold"
+                android:visibility="visible"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:text="@string/important_info_draw_over_apps_not_needed_permanently3"
+                android:textSize="@dimen/important_info_text_size"
+                android:id="@+id/important_info_news_4"
+                android:textStyle="bold"
+                android:visibility="visible"/>
 
 <!--        <TextView-->
 <!--            android:layout_width="wrap_content"-->

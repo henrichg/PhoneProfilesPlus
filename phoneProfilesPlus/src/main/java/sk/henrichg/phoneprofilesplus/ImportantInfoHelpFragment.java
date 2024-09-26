@@ -154,20 +154,34 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
         TextView infoTextnews1 = view.findViewById(R.id.important_info_news_1);
+        TextView infoTextnews2 = view.findViewById(R.id.important_info_news_2);
+        TextView infoTextnews3 = view.findViewById(R.id.important_info_news_3);
+        TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);
         if (!news) {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
             if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.GONE);
+            if (infoTextnews2 != null)
+                infoTextnews2.setVisibility(View.GONE);
+            if (infoTextnews3 != null)
+                infoTextnews3.setVisibility(View.GONE);
+            if (infoTextnews4 != null)
+                infoTextnews4.setVisibility(View.GONE);
         } else {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
             infoTextNews.setText("*** " + getString(R.string.important_info_news) + " ***");
 
             //TODO add textVews of News
-            if (infoTextnews1 != null) {
+            if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.VISIBLE);
-            }
+            if (infoTextnews2 != null)
+                infoTextnews2.setVisibility(View.VISIBLE);
+            if (infoTextnews3 != null)
+                infoTextnews3.setVisibility(View.VISIBLE);
+            if (infoTextnews4 != null)
+                infoTextnews4.setVisibility(View.VISIBLE);
         }
 
     }
