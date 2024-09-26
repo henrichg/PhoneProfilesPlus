@@ -3992,10 +3992,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.summary = _value.toString();
 
         Profile profile = new Profile();
+        profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0"));
+        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
         profile._sendSMSContacts = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS, "");
         profile._sendSMSContactGroups = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
         profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
         ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileCloseAllApplications(context, profile, permissions);
+        Permissions.checkProfileRunApplications(context, profile, permissions);
         Permissions.checkProfileSendSMS(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.isEmpty();
 
@@ -6310,6 +6314,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted, false);
                 }
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
+        {
+            String sValue = value.toString();
+            PPListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+
+                Profile profile = new Profile();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0"));
+                profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
+                Permissions.checkProfileCloseAllApplications(context, profile, permissions);
+                Permissions.checkProfileRunApplications(context, profile, permissions);
+                boolean _permissionGranted = permissions.isEmpty();
+
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted, false);
             }
         }
 
