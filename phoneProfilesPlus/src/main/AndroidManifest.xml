@@ -165,6 +165,9 @@
             <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
             <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
         </intent>
+
+        <!-- PPPPutSettings -->
+        <package android:name="sk.henrichg.pppputsettings" />
     </queries>
 
     <application
