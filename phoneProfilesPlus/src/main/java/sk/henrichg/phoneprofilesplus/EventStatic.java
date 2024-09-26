@@ -15,7 +15,6 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.PowerManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -149,7 +148,7 @@ class EventStatic {
 //                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
 //                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         boolean simExists = telephonyManager.getPhoneCount() > 0;
-                        Log.e("EventStatic.isEventPreferenceAllowed", "simExists="+simExists);
+//                        Log.e("EventStatic.isEventPreferenceAllowed", "simExists="+simExists);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
