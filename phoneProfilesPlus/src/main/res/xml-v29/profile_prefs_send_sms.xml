@@ -31,7 +31,7 @@
 <!--        app:ppEntryValues="@array/phoneCallsContactListTypeValues"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
 
-    <EditTextPreference
+    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
         app:key="prf_pref_sendSMS_SMSText"
         app:title="@string/profile_preference_sendSMSSMSText"
         android:selectAllOnFocus="true"

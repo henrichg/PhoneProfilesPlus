@@ -8,7 +8,7 @@
     <PreferenceCategory
         app:title="@string/profile_preferences_category_profileIdentification"
         app:layout="@layout/mp_preference_category" >
-        <EditTextPreference
+        <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
             app:key="prf_pref_profileName"
             app:summary="@string/profile_preferences_profileName"
             app:title="@string/profile_preferences_profileName"

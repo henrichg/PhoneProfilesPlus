@@ -13,7 +13,7 @@
             app:title="@string/event_preferences_eventEnabled"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
-        <EditTextPreference
+        <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
             app:key="eventName"
             app:summary="@string/event_preferences_eventName"
             app:title="@string/event_preferences_eventName"

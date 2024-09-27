@@ -36,6 +36,7 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
@@ -343,6 +344,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         {
             ((SendSMSDialogPreference)preference).fragment = new SendSMSDialogPreferenceFragment();
             dialogFragment = ((SendSMSDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof PPEditTextDialogPreference)
+        {
+            ((PPEditTextDialogPreference)preference).fragment = new PPEditTextDialogPreferenceFragment();
+            dialogFragment = ((PPEditTextDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);

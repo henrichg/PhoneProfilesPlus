@@ -75,7 +75,7 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <EditTextPreference
+    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
         app:key="eventCallSMSText"
         app:title="@string/event_preference_callSMSText"
         android:selectAllOnFocus="true"

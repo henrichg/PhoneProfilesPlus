@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_edittext_preference_root2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <View
+        android:id="@+id/dialog_edittext_preference_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialogDividerColor" />
+
+<!--<ScrollView android:id="@+id/dialog_edittext_preference_root"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="0dp"-->
+<!--    android:layout_weight="1"-->
+<!--    android:paddingStart="10dp"-->
+<!--    android:paddingEnd="10dp"-->
+<!--    android:scrollbarStyle="outsideOverlay"-->
+<!--    android:fadeScrollbars="false"-->
+<!--    tools:ignore="UselessParent">-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/dialog_edittext_preference_liLa1"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginEnd="15dp"-->
+<!--        android:paddingBottom="10dp">-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="15dp" >
+            <EditText
+                android:id="@+id/dialog_edittext_preference_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edit_text_border"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:selectAllOnFocus="true"
+                android:inputType="textNoSuggestions"
+                android:importantForAutofill="no"
+                android:clickable="true"
+                android:focusable="true"
+                android:hint="@string/application_editor_intent_hint_not_set"
+                style="@style/IntentEditorEditTextStyle"
+                tools:ignore="LabelFor" />
+            <TextView
+                android:id="@+id/dialog_edittext_preference_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:background="@color/activityBackgroundColor"
+                android:text="" />
+        </RelativeLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/dialog_with_edittext_label"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:text=""-->
+<!--            android:textSize="16sp" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/dialog_with_edittext_edit"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:importantForAutofill="no"-->
+<!--            android:inputType="textNoSuggestions"-->
+<!--            android:textSize="18sp"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            tools:ignore="LabelFor" />-->
+
+<!--    </LinearLayout>-->
+
+<!--</ScrollView>-->
+
+<!--    <View-->
+<!--        android:id="@+id/dialog_edittext_preference_buttonBarDivider"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/divider_height"-->
+<!--        android:layout_marginStart="@dimen/divider_margin"-->
+<!--        android:layout_marginEnd="@dimen/divider_margin"-->
+<!--        android:layout_marginBottom="3dp"-->
+<!--        android:background="@color/dialogDividerColor" />-->
+
+</LinearLayout>

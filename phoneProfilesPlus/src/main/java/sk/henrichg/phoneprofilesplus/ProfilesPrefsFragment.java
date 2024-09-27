@@ -435,6 +435,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof PPEditTextDialogPreference)
+        {
+            ((PPEditTextDialogPreference)preference).fragment = new PPEditTextDialogPreferenceFragment();
+            dialogFragment = ((PPEditTextDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
