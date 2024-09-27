@@ -45,6 +45,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
     private EditText intentClassName;
     private AppCompatSpinner intentActionSpinner;
     private EditText intentActionEdit;
+    private TextView intentActionLabel;
     private EditText intentData;
     private EditText intentMimeType;
     private TextView categoryTextView;
@@ -191,14 +192,17 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 if (position == 0) {
                     intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
+                    intentActionLabel.setEnabled(false);
                 }
                 else
                 if (position == 1) {
                     intentActionEdit.setEnabled(true);
+                    intentActionLabel.setEnabled(true);
                 }
                 else {
                     intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
+                    intentActionLabel.setEnabled(false);
                 }
 
                 enableOKButton();
@@ -209,6 +213,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
+        intentActionLabel = findViewById(R.id.application_editor_intent_action_label);
         //noinspection DataFlowIssue
         intentActionEdit.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
         intentActionEdit.addTextChangedListener(new TextWatcher() {
@@ -474,6 +479,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 }
             }
             intentActionEdit.setEnabled(false);
+            intentActionLabel.setEnabled(false);
 
             if (ppIntent._categories != null) {
                 String categoryValue = ppIntent._categories.replaceAll(StringConstants.STR_SPLIT_REGEX, StringConstants.CHAR_NEW_LINE);
@@ -539,6 +545,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         }
         else {
             intentActionEdit.setEnabled(false);
+            intentActionLabel.setEnabled(false);
         }
 
         enableOKButton();

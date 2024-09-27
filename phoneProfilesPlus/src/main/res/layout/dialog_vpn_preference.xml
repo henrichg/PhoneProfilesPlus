@@ -74,42 +74,101 @@
                     android:text="@string/vpn_profile_pref_dlg_disable_vpn"/>
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/vpnPrefDialogProfileNameLabel"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/vpn_profile_name_pref_dlg_label"
-                android:textSize="16sp"
-                tools:ignore="HardcodedText"/>
-            <EditText
-                android:id="@+id/vpnPrefDialogProfileName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/application_editor_intent_hint_not_set"
-                android:textSize="16sp"
-                android:textColorHint="@color/activityDisabledTextColor"
-                android:selectAllOnFocus="true"
-                android:inputType="textNoSuggestions"
-                android:importantForAutofill="no" />
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp">
+                <EditText
+                    android:id="@+id/vpnPrefDialogProfileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/IntentEditorEditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:id="@+id/vpnPrefDialogProfileNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/vpn_profile_name_pref_dlg_label" />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/vpnPrefDialogTunnelNameLabel"
+<!--            <TextView-->
+<!--                android:id="@+id/vpnPrefDialogProfileNameLabel"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/vpn_profile_name_pref_dlg_label"-->
+<!--                android:textSize="16sp"-->
+<!--                tools:ignore="HardcodedText"/>-->
+<!--            <EditText-->
+<!--                android:id="@+id/vpnPrefDialogProfileName"-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:hint="@string/application_editor_intent_hint_not_set"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColorHint="@color/activityDisabledTextColor"-->
+<!--                android:selectAllOnFocus="true"-->
+<!--                android:inputType="textNoSuggestions"-->
+<!--                android:importantForAutofill="no" />-->
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/vpn_tunnel_name_pref_dlg_label"
-                android:textSize="16sp"
-                tools:ignore="HardcodedText"/>
-            <EditText
-                android:id="@+id/vpnPrefDialogTunnelName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/application_editor_intent_hint_not_set"
-                android:textSize="16sp"
-                android:textColorHint="@color/activityDisabledTextColor"
-                android:selectAllOnFocus="true"
-                android:inputType="textNoSuggestions"
-                android:importantForAutofill="no" />
+                android:layout_height="60dp">
+                <EditText
+                    android:id="@+id/vpnPrefDialogTunnelName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/IntentEditorEditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:id="@+id/vpnPrefDialogTunnelNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/vpn_tunnel_name_pref_dlg_label" />
+            </RelativeLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/vpnPrefDialogTunnelNameLabel"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/vpn_tunnel_name_pref_dlg_label"-->
+<!--                android:textSize="16sp"-->
+<!--                tools:ignore="HardcodedText"/>-->
+<!--            <EditText-->
+<!--                android:id="@+id/vpnPrefDialogTunnelName"-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/application_editor_intent_hint_not_set"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColorHint="@color/activityDisabledTextColor"-->
+<!--                android:selectAllOnFocus="true"-->
+<!--                android:inputType="textNoSuggestions"-->
+<!--                android:importantForAutofill="no" />-->
 
             <CheckBox
                 android:id="@+id/vpnPrefDialogNotSetWhenIsInState"

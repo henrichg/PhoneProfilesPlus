@@ -3,4 +3,5 @@
     <color name="accent_color">#f8b367</color>
     <color name="accent_color_disabled">#59f8b367</color>
     <color name="notification_color">#f8b367</color>
+    <color name="activity_background_color">#191614</color>
 </resources>

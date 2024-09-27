@@ -150,7 +150,7 @@
     <!--</style>-->
 
     <style name="TextViewTheme" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_view_color_secondary</item>
+        <item name="android:textColor">@color/text_view_color_primary</item>
     </style>
 
     <style name="popup_window_animation">

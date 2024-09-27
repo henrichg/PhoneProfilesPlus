@@ -131,17 +131,48 @@
                 android:background="@drawable/editor_ripple_item_right_button"
                 android:contentDescription="@string/nfc_tag_pref_dlg_add_button_tooltip"/>
 
-            <EditText
-                android:id="@+id/nfc_tag_pref_dlg_bt_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon"
-                android:selectAllOnFocus="true"
-                android:hint="@string/nfc_tag_pref_dlg_hint"
-                android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon">
+                <EditText
+                    android:id="@+id/nfc_tag_pref_dlg_bt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/IntentEditorEditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/nfc_tag_pref_dlg_hint" />
+            </RelativeLayout>
+
+<!--            <EditText-->
+<!--                android:id="@+id/nfc_tag_pref_dlg_bt_name"-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon"-->
+<!--                android:selectAllOnFocus="true"-->
+<!--                android:hint="@string/nfc_tag_pref_dlg_hint"-->
+<!--                android:inputType="textNoSuggestions"-->
+<!--                android:importantForAutofill="no"/>-->
 
         </RelativeLayout>
 
