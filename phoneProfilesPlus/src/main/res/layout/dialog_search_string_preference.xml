@@ -31,11 +31,12 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_button_help"
             app:tint="@color/accent_color"
             android:background="@drawable/editor_ripple_item_right_button"
             android:contentDescription="@string/help_button_tooltip"/>
+<!--        android:layout_centerVertical="true"-->
 
         <RelativeLayout
             android:layout_width="match_parent"
