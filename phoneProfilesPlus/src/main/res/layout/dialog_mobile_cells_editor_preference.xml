@@ -43,7 +43,7 @@
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
                 android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_connectedCell_simDefault"
@@ -74,7 +74,7 @@
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
                 android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_connectedCell_sim1"
@@ -106,7 +106,7 @@
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
                 android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_connectedCell_sim2"
@@ -139,7 +139,7 @@
                 android:src="@drawable/ic_button_settings"
                 app:tint="@color/accent_color"
                 android:contentDescription="@string/location_settings_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_locationEnableStatus"
@@ -181,7 +181,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_help"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
                 android:contentDescription="@string/help_button_tooltip"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
@@ -194,7 +194,7 @@
                 android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                 android:src="@drawable/ic_button_select"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
                 android:contentDescription="@string/mobile_cells_pref_dlg_select_button_tooltip"/>
 
 <!--
@@ -209,7 +209,7 @@
                 android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                 android:src="@drawable/ic_button_edit"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
                 android:contentDescription="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"/>
 -->
 
@@ -287,7 +287,7 @@
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_sort"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
                 android:contentDescription="@string/mobile_cells_pref_dlg_button_tooltip"/>
 
             <TextView

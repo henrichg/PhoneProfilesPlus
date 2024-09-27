@@ -135,7 +135,7 @@
                 android:src="@drawable/ic_button_settings"
                 app:tint="@color/accent_color"
                 android:contentDescription="@string/location_settings_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cell_names_pref_dlg_locationEnableStatus"

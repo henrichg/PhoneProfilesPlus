@@ -131,7 +131,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/run_stop_indicator_popup_window_important_info"
                     android:textColor="@color/accent_color"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="@drawable/editor_ripple_item_right_button" />
 
             </LinearLayout>
 

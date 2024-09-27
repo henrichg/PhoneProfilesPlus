@@ -96,7 +96,7 @@
                             android:contentDescription="@string/run_stop_events_indicator"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_traffic_light_stopped"
-                            android:background="?attr/selectableItemBackground" />
+                            android:background="@drawable/actionbar_item_background" />
 
                     </androidx.cardview.widget.CardView>
 

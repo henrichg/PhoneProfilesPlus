@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/editor_ripple_item_right_button"
                         android:contentDescription="@string/profile_icon_preference_custumIconFromIconPack_help"
                         android:padding="5dp"
                         android:src="@drawable/ic_button_help"
