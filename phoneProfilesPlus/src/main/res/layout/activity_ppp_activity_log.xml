@@ -19,7 +19,7 @@
             android:id="@+id/activity_log_filter_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="21dp"
             android:layout_gravity="center_vertical"
             android:entries="@array/emptyArray"
             android:clickable="true"
