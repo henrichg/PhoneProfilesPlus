@@ -140,7 +140,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:layout_width="wrap_content"

@@ -56,7 +56,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:hint="@string/application_editor_intent_hint_not_set"
-                style="@style/IntentEditorEditTextStyle"
+                style="@style/EditTextStyle"
                 tools:ignore="LabelFor" />
             <TextView
                 android:id="@+id/dialog_edittext_preference_label"

@@ -117,7 +117,7 @@
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     android:hint="@string/application_editor_intent_hint_not_set"
-                    style="@style/IntentEditorEditTextStyle"
+                    style="@style/EditTextStyle"
                     tools:ignore="LabelFor" />
                 <TextView
                     android:id="@+id/application_editor_intent_textView1"
@@ -210,7 +210,7 @@
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     android:hint="@string/application_editor_intent_hint_not_set"
-                    style="@style/IntentEditorEditTextStyle"
+                    style="@style/EditTextStyle"
                     tools:ignore="LabelFor" />
                 <TextView
                     android:id="@+id/application_editor_intent_textView3"
@@ -272,7 +272,7 @@
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     android:hint="@string/application_editor_intent_hint_not_set"
-                    style="@style/IntentEditorEditTextStyle"
+                    style="@style/EditTextStyle"
                     tools:ignore="LabelFor" />
                 <TextView
                     android:id="@+id/application_editor_intent_textView4"
@@ -355,7 +355,7 @@
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     android:hint="@string/application_editor_intent_hint_not_set"
-                    style="@style/IntentEditorEditTextStyle"
+                    style="@style/EditTextStyle"
                     tools:ignore="LabelFor" />
                 <TextView
                     android:id="@+id/application_editor_intent_action_label"
@@ -409,7 +409,7 @@
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     android:hint="@string/application_editor_intent_hint_not_set"
-                    style="@style/IntentEditorEditTextStyle"
+                    style="@style/EditTextStyle"
                     tools:ignore="LabelFor" />
                 <TextView
                     android:id="@+id/application_editor_intent_textView6"
@@ -471,7 +471,7 @@
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     android:hint="@string/application_editor_intent_hint_not_set"
-                    style="@style/IntentEditorEditTextStyle"
+                    style="@style/EditTextStyle"
                     tools:ignore="LabelFor" />
                 <TextView
                     android:id="@+id/application_editor_intent_textView7"
@@ -660,7 +660,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_key_1_label"
@@ -691,7 +691,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_value_1_label"
@@ -782,7 +782,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_key_2_label"
@@ -813,7 +813,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_value_2_label"
@@ -904,7 +904,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_key_3_label"
@@ -935,7 +935,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_value_3_label"
@@ -1026,7 +1026,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_key_4_label"
@@ -1057,7 +1057,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_value_4_label"
@@ -1148,7 +1148,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_key_5_label"
@@ -1179,7 +1179,7 @@
                         android:inputType="textNoSuggestions"
                         android:importantForAutofill="no"
                         android:hint="@string/application_editor_intent_hint_not_set"
-                        style="@style/IntentEditorEditTextStyle"
+                        style="@style/EditTextStyle"
                         tools:ignore="LabelFor" />
                     <TextView
                         android:id="@+id/application_editor_intent_extra_value_5_label"
