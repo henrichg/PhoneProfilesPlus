@@ -29,6 +29,7 @@
     <color name="switchUncheckedThumbColor">#FFa78c6e</color>
     <color name="switchUncheckedTrackColor">#FFa1a09f</color>
     <color name="switchCheckedTrackColor">#FF996e3f</color>
+    <color name="switchDisabledTrackColor">#595250</color>
 
 <!--    <color name="rippleRectangeleItemBackgroundColor">#606060</color>-->
 <!--    <color name="rippleRectangeleItemBackgroundColor">#645c5a</color>-->
