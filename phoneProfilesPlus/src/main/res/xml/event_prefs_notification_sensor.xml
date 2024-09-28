@@ -4,11 +4,12 @@
     app:key="eventNotificationCategory"
     app:title="@string/event_preferences_category_eventNotificationsParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventEnableNotificationScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_notification_scanning"
@@ -22,18 +23,20 @@
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationInCall"
         app:title="@string/event_preferences_notifications_inCall"
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationMissedCall"
         app:title="@string/event_preferences_notifications_missedCall"
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
@@ -44,12 +47,13 @@
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationCheckContacts"
         app:title="@string/event_preferences_notifications_checkContacts"
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="eventNotificationContactGroups"
         app:defaultValue=""
@@ -73,12 +77,13 @@
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationCheckText"
         app:title="@string/event_preferences_notifications_checkText"
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.SearchStringPreference
         app:key="eventNotificationText"
         app:summary="@string/event_preferences_notifications_text"
@@ -86,19 +91,21 @@
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <!--<SwitchPreferenceCompat
+    <!--<sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationEndWhenRemoved"
         app:title="@string/event_preferences_notifications_end_when_removed"
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+        app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventNotificationPermanentRun"
         app:title="@string/pref_event_permanentRun"
         app:summary="@string/pref_event_permanentRun_summary"
         app:defaultValue="true"
         app:dependency="eventNotificationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />-->
+        app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />-->
     <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventNotificationDuration"
         app:summary="@string/event_preferences_notifications_duration"

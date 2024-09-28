@@ -4,16 +4,18 @@
     app:key="eventRunCategory"
     app:title="@string/phone_profiles_pref_category_eventRun">
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventUsePriority"
         app:title="@string/phone_profiles_pref_eventRunUsePriority"
         app:summary="@string/event_preferences_event_priorityInfo_summary"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationRestartEventsAlert"
         app:title="@string/phone_profiles_pref_applicationRestartEventsAlert"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     
 </androidx.preference.PreferenceScreen>

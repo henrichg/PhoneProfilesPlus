@@ -4,27 +4,30 @@
     app:key="categoryApplicationStart"
     app:title="@string/phone_profiles_pref_category_start">
 
-<!--    <SwitchPreferenceCompat-->
+<!--    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference-->
 <!--        app:key="applicationStartOnBoot"-->
 <!--        app:title="@string/phone_profiles_pref_applicationStartOnBoot"-->
 <!--        app:defaultValue="true"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
+<!--        app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />-->
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="applicationAutoStartManager"
         app:title="@string/phone_profiles_pref_systemAutoStartManager"
         app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
         app:layout="@layout/mp_preference_material_widget"/>
 
-     <SwitchPreferenceCompat
+     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationActivate"
         app:title="@string/phone_profiles_pref_applicationActivate"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+        app:layout="@layout/mp_preference_material_widget"
+         app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationStartEvents"
         app:title="@string/phone_profiles_pref_applicationStartEvents"
         app:defaultValue="true"
         app:dependency="applicationActivate"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
 </androidx.preference.PreferenceScreen>

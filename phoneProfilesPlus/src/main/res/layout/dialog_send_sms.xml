@@ -33,7 +33,9 @@
             android:focusable="false"
             android:text="@string/profile_preference_sendSMSSendSMS"
             android:textSize="@dimen/gui_info_popup_text_size"
-            app:switchPadding="@dimen/switch_padding"/>
+            app:switchPadding="@dimen/switch_padding"
+            app:trackTint="@color/switch_track_color"
+            app:thumbTint="@color/switch_thumb_color"/>
 
         <TextView
             android:id="@+id/send_sms_text"

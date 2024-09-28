@@ -28,23 +28,25 @@
         app:ppEntryValues="@array/widgetOneRowLayoutHeightValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationWidgetOneRowChangeColorsByNightMode"
         app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
         app:summary="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <PreferenceCategory
         app:key="applicationWidgetOneRowBackgroundCategory"
         app:title="@string/phone_profiles_pref_applicationWidgetBackgroundCategory"
         app:layout="@layout/mp_preference_category" >
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowFillBackground"
             app:title="@string/phone_profiles_pref_applicationWidgetFillBackground"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
         <sk.henrichg.phoneprofilesplus.ColorChooserPreference
             app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOff"
@@ -64,11 +66,12 @@
             app:defaultValue="25"
             app:showLighting="false"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowBackgroundType"
             app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             app:summary="0%%"
@@ -81,11 +84,12 @@
             app:key="applicationWidgetOneRowBackgroundColor"
             app:defaultValue="-1"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowShowBorder"
             app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
             app:summary="100%%"
@@ -94,11 +98,12 @@
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
 
-    <!--    <SwitchPreferenceCompat-->
+    <!--    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference-->
     <!--        app:key="applicationWidgetOneRowRoundedCorners"-->
     <!--        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"-->
     <!--        app:defaultValue="true"-->
-    <!--        app:layout="@layout/mp_preference_material_widget" />-->
+    <!--        app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />-->
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationWidgetOneRowRoundedCornersRadius"
             app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"
@@ -145,18 +150,20 @@
             app:defaultValue="100"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowCustomIconLightness"
             app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowPrefIndicator"
             app:title="@string/phone_profiles_pref_applicationPrefIndicator"
             app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
             app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"

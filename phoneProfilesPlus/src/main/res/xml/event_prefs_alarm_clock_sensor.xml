@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventAlarmClockParameters"
     app:key="eventAlarmClockCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventAlarmClockEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.InfoDialogPreference
         app:key="eventAlarmClockSupportedAppsInfo"
@@ -27,13 +28,14 @@
         app:dependency="eventAlarmClockEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventAlarmClockPermanentRun"
         app:title="@string/pref_event_permanentRun"
         app:summary="@string/pref_event_permanentRun_summary"
         app:defaultValue="true"
         app:dependency="eventAlarmClockEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventAlarmClockDuration"
         app:summary="@string/event_preferences_duration"

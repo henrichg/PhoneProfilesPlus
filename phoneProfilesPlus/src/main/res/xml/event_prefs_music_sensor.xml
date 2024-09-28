@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventMusicParameters"
     app:key="eventMusicCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventMusicEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:key="eventMusicMusicState"
         app:title="@string/event_preferences_music_state"

@@ -16,11 +16,12 @@
         app:summary="@string/phone_profiles_pref_createMobileCellShortcut_summary"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventMobileCellEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.MobileCellsEditorPreference
         app:defaultValue=""
@@ -46,12 +47,13 @@
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"
         app:defaultValue="true"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
         app:dependency="applicationEventMobileCellEnableScannig"
@@ -102,12 +104,13 @@
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
             app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             app:defaultValue="false"
             app:dependency="applicationEventMobileCellEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

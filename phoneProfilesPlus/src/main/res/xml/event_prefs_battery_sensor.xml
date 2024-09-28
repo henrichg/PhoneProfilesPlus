@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventBatteryParameters"
     app:key="eventBatteryCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventBatteryEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="eventBatteryLevelInfo"
@@ -52,12 +53,13 @@
         app:ppEntryValues="@array/eventBatteryPluggedValues"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventBatteryPowerSaveMode"
         app:title="@string/event_preferences_battery_power_save_mode"
         app:defaultValue="false"
         app:dependency="eventBatteryEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventBatteryBatterySaver"
         app:title="@string/phone_profiles_pref_applicationBatterySaver"

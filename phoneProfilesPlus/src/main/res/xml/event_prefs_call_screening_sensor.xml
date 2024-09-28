@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventCallScreeningParameters"
     app:key="eventCallScreeningCategory">
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventCallScreeningEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventCallScreeningSetCallScreeningRole"
@@ -40,12 +41,13 @@
         app:layout="@layout/mp_preference_material_widget"
         app:dependency="eventCallScreeningEnabled"
         app:withoutNumbers="false"/>
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventCallScreeningNotInContacts"
         app:title="@string/event_preference_callScreeningNotInContacts"
         app:defaultValue="false"
         app:dependency="eventCallScreeningEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <!--
     <sk.henrichg.phoneprofilesplus.PPListPreference
@@ -59,13 +61,14 @@
         app:layout="@layout/mp_preference_material_widget" />
     -->
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventCallScreeningPermanentRun"
         app:title="@string/pref_event_permanentRun"
         app:summary="@string/pref_event_permanentRun_summary"
         app:defaultValue="true"
         app:dependency="eventCallScreeningEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventCallScreeningDuration"
         app:summary="@string/event_preferences_duration"
@@ -83,12 +86,13 @@
         app:dependency="eventCallScreeningEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventCallScreeningBlockCalls"
         app:title="@string/event_preference_callScreeningBlockCalls"
         app:defaultValue="false"
         app:dependency="eventCallScreeningEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
         app:title="@string/event_preference_callScreeningSendSMS"

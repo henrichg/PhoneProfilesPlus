@@ -4,11 +4,12 @@
     app:key="eventBluetoothCategory"
     app:title="@string/event_preferences_category_eventBluetoothParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventBluetoothEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventEnableBluetoothScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_bluetooth_scanning"

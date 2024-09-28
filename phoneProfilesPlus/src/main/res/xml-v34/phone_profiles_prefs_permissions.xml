@@ -68,11 +68,12 @@
 <!--        app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"-->
 <!--        app:summary="@string/phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationHyperOsWifiBluetoothDialogs"
         app:title="@string/phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs"
         app:summary="@string/phone_profiles_pref_applicationHyperOsWifiBluetoothDialogs_summary"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
 </androidx.preference.PreferenceScreen>

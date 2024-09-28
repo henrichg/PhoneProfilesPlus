@@ -4,11 +4,12 @@
     app:title="@string/profile_preferences_category_clear_notifications"
     app:key="prf_pref_clearNotificationsCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="prf_pref_clearNotificationEnbaled"
         app:title="@string/profile_preferences_clearNotificationEnabled"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="prf_pref_clearNotificationNotificationsAccessSettings"
@@ -31,12 +32,13 @@
         app:systemSettings="notifications"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="prf_pref_clearNotificationCheckContacts"
         app:title="@string/event_preferences_notifications_checkContacts"
         app:defaultValue="false"
         app:dependency="prf_pref_clearNotificationEnbaled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="prf_pref_clearNotificationContactGroups"
         app:defaultValue=""
@@ -51,12 +53,13 @@
         app:layout="@layout/mp_preference_material_widget"
         app:withoutNumbers="false" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="prf_pref_clearNotificationCheckText"
         app:title="@string/event_preferences_notifications_checkText"
         app:defaultValue="false"
         app:dependency="prf_pref_clearNotificationEnbaled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.SearchStringPreference
         app:key="prf_pref_clearNotificationText"
         app:summary="@string/event_preferences_notifications_text"

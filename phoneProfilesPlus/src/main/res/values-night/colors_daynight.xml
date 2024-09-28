@@ -26,6 +26,10 @@
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
 
+    <color name="switchUncheckedThumbColor">#FFa78c6e</color>
+    <color name="switchUncheckedTrackColor">#FFa1a09f</color>
+    <color name="switchCheckedTrackColor">#FF996e3f</color>
+
 <!--    <color name="rippleRectangeleItemBackgroundColor">#606060</color>-->
 <!--    <color name="rippleRectangeleItemBackgroundColor">#645c5a</color>-->
     <color name="rippleRectangeleItemBackgroundColor">#5e524c</color>

@@ -218,4 +218,11 @@
 <!--        <item name="widgetLayout">@layout/preference_switch</item>-->
 <!--    </style>-->
 
+<!--    <style name="my_preference_theme" parent="@style/PreferenceThemeOverlay">-->
+<!--        <item name="switchPreferenceCompatStyle">@style/preference_switch_compat</item>-->
+<!--    </style>-->
+<!--    <style name="preference_switch_compat">-->
+<!--        <item name="android:layout">@layout/mp_preference_switch</item>-->
+<!--    </style>-->
+
 </resources>

@@ -4,11 +4,12 @@
     app:key="eventMobileCellsCategory"
     app:title="@string/event_preferences_category_eventMobileCellsParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventMobileCellsEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventMobileCellsScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
@@ -43,12 +44,13 @@
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventMobileCellsStartWhenOutside"
         app:title="@string/event_preferences_mobile_cells_when_outside_pref_name"
         app:defaultValue="false"
         app:dependency="eventMobileCellsEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_mobile_cells_forSimCard"

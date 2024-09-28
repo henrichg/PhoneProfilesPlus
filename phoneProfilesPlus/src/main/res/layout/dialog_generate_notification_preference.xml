@@ -42,7 +42,9 @@
                 android:textSize="16sp"
                 android:text="@string/generate_notification_pref_dialog_generate_chb"
                 android:layout_marginBottom="15dp"
-                app:switchPadding="@dimen/switch_padding" />
+                app:switchPadding="@dimen/switch_padding"
+                app:trackTint="@color/switch_track_color"
+                app:thumbTint="@color/switch_thumb_color" />
 
             <TextView
                 android:id="@+id/generateNotificationPrefDialogIconTypeLabel"

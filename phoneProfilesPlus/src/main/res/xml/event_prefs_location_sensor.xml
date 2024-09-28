@@ -4,11 +4,12 @@
     app:key="eventLocationCategory"
     app:title="@string/event_preferences_category_eventLocationsParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventLocationEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="eventLocationScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_location"
@@ -28,11 +29,12 @@
         app:onlyEdit="0"
         app:dependency="eventLocationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventLocationStartWhenOutside"
         app:title="@string/event_preferences_location_when_outside_pref_name"
         app:defaultValue="false"
         app:dependency="eventLocationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
 </androidx.preference.PreferenceScreen>

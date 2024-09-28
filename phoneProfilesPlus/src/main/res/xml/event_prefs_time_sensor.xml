@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventTimeParameters"
     app:key="eventTimeCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventTimeEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
         app:key="eventTimeDays"
         app:defaultValue=""
@@ -31,12 +32,13 @@
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <!--
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventTimeUseEndTime"
         app:title="@string/event_preferences_time_useEndTime"
         app:defaultValue="false"
         app:dependency="eventTimeEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
     -->
     <sk.henrichg.phoneprofilesplus.TimeDialogPreference
         app:key="eventTimeEndTime"

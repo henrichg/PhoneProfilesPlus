@@ -11,6 +11,8 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent_color</item>
 <!--        <item name="colorAccentDisabled">@color/accent_disabled</item>-->
+<!--        Not working good. In disabled stae of switch is thumb transparent :-(-->
+<!--        <item name="colorSwitchThumbNormal">@color/switchUncheckedColor</item>-->
 
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
