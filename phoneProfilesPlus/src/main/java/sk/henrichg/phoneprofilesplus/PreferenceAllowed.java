@@ -11,6 +11,7 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 class PreferenceAllowed {
     int allowed;
@@ -151,6 +152,7 @@ class PreferenceAllowed {
             } else {
                 if (profile != null) {
                     if (profile._deviceAirplaneMode != 0) {
+                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "(1) Shizuku not granted");
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                         preferenceAllowed.notAllowedShizuku = true;
@@ -160,6 +162,7 @@ class PreferenceAllowed {
                     //noinspection ConstantConditions
                     if (sharedPreferences != null) {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE", "(2) Shizuku not granted");
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                             preferenceAllowed.notAllowedShizuku = true;
@@ -223,10 +226,25 @@ class PreferenceAllowed {
                             //}
                         }
                 } else {
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                    if ((profile != null) && (profile._deviceWiFi != 0)) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile._deviceWiFi != 0) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
                 }
             }
@@ -428,10 +446,25 @@ class PreferenceAllowed {
                 }
             }
             else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                if ((profile != null) && (profile._deviceMobileData != 0)) {
-                    preferenceAllowed.notAllowedShizuku = true;
+                if (profile != null) {
+                    if (profile._deviceMobileData != 0) {
+                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "(1) Shizuku not granted");
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        preferenceAllowed.notAllowedShizuku = true;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "(2) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
                 }
             }
         }
@@ -912,11 +945,26 @@ class PreferenceAllowed {
                             }
 
                         } else {
-                            if ((profile != null) && (profile._deviceWiFiAP != 0)) {
-                                preferenceAllowed.notAllowedShizuku = true;
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0) {
+                                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP", "(1) Shizuku not granted");
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                } else
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else {
+                                //noinspection ConstantConditions
+                                if (sharedPreferences != null) {
+                                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP", "(2) Shizuku not granted");
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                        preferenceAllowed.notAllowedShizuku = true;
+                                    } else
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                }
                             }
-                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1014,20 +1062,49 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
-                        boolean enabled = false;
-                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 4))
-                            enabled = true;
-                        if (profile._volumeRingerMode == 5) {
-                            if ((profile._volumeZenMode == 1) || (profile._volumeZenMode == 2))
+                    if (profile != null) {
+                        if (profile._vibrateWhenRinging != 0) {
+                            boolean enabled = false;
+                            if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 4))
                                 enabled = true;
-                        }
-                        if (enabled) {
-                            preferenceAllowed.notAllowedShizuku = true;
+                            if (profile._volumeRingerMode == 5) {
+                                if ((profile._volumeZenMode == 1) || (profile._volumeZenMode == 2))
+                                    enabled = true;
+                            }
+                            if (enabled) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING", "(1) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            String value = sharedPreferences.getString(preferenceKey, "0");
+                            if (!value.equals("0")) {
+                                String ringerMode = sharedPreferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+                                boolean enabled = false;
+                                if (ringerMode.equals("1") || ringerMode.equals("4"))
+                                    enabled = true;
+                                if (ringerMode.equals("5")) {
+                                    String zenMode = sharedPreferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
+                                    if (zenMode.equals("1") || zenMode.equals("2"))
+                                        enabled = true;
+                                }
+                                if (enabled) {
+                                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING", "(2) Shizuku not granted");
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                } else
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -1124,7 +1201,7 @@ class PreferenceAllowed {
                     if (ShizukuUtils.hasShizukuPermission()) {
                         if (RootUtils.settingsBinaryExists(fromUIThread)) {
                             if (profile != null) {
-                                if (profile._vibrateWhenRinging != 0)
+                                if (profile._vibrateNotifications != 0)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                             } else
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1133,11 +1210,26 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                         }
                     } else {
-                        if ((profile != null) && (profile._vibrateNotifications != 0)) {
-                            preferenceAllowed.notAllowedShizuku = true;
+                        if (profile != null) {
+                            if (profile._vibrateNotifications != 0) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS", "(1) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            //noinspection ConstantConditions
+                            if (sharedPreferences != null) {
+                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS", "(2) Shizuku not granted");
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                } else
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            }
                         }
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                     }
                 } else
                 if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -1243,11 +1335,28 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityRingingChange()) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING;
+                            String value = sharedPreferences.getString(preferenceKey, "0");
+                            if (ProfileStatic.getVibrationIntensityChange(value)) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -1329,11 +1438,28 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityNotificationsChange()) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS;
+                            String value = sharedPreferences.getString(preferenceKey, "0");
+                            if (ProfileStatic.getVibrationIntensityChange(value)) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -1415,11 +1541,28 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityTouchInteractionChange()) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION;
+                            String value = sharedPreferences.getString(preferenceKey, "0");
+                            if (ProfileStatic.getVibrationIntensityChange(value)) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -1681,11 +1824,26 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     } else {
-                        if ((profile != null) && (profile._deviceNetworkType != 0)) {
-                            preferenceAllowed.notAllowedShizuku = true;
+                        if (profile != null) {
+                            if (profile._deviceNetworkType != 0) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE", "(1) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            //noinspection ConstantConditions
+                            if (sharedPreferences != null) {
+                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE", "(2) Shizuku not granted");
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                } else
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            }
                         }
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                     }
                 } else {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1804,13 +1962,27 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
                         } else {
-                            if ((profile != null) &&
-                                    ((profile._deviceNetworkTypeSIM1 != 0) ||
-                                     (profile._deviceNetworkTypeSIM2 != 0))) {
-                                preferenceAllowed.notAllowedShizuku = true;
+                            if (profile != null) {
+                                if ((profile._deviceNetworkTypeSIM1 != 0) ||
+                                        (profile._deviceNetworkTypeSIM2 != 0)) {
+                                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM", "(1) Shizuku not granted");
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                    preferenceAllowed.notAllowedShizuku = true;
+                                } else
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else {
+                                //noinspection ConstantConditions
+                                if (sharedPreferences != null) {
+                                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM", "(2) Shizuku not granted");
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                        preferenceAllowed.notAllowedShizuku = true;
+                                    } else
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                }
                             }
-                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1854,11 +2026,26 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && (profile._notificationLed != 0)) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile._notificationLed != 0) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2262,11 +2449,26 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && (profile._screenNightLight != 0)) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile._screenNightLight != 0) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else
             if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2333,11 +2535,26 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
                 } else {
-                    if ((profile != null) && (profile._screenNightLight != 0)) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (profile._screenNightLight != 0) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT", "(3) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT", "(4) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             }
             else if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -2374,10 +2591,25 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                if ((profile != null) && (profile._screenNightLight != 0)) {
-                    preferenceAllowed.notAllowedShizuku = true;
+                if (profile != null) {
+                    if (profile._screenNightLight != 0) {
+                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT", "(5) Shizuku not granted");
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        preferenceAllowed.notAllowedShizuku = true;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT", "(6) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
                 }
             }
         }
@@ -2594,11 +2826,26 @@ class PreferenceAllowed {
                     }
 
                 } else {
-                    if ((profile != null) && (!profile._deviceDefaultSIMCards.equals("0|0|0"))) {
-                        preferenceAllowed.notAllowedShizuku = true;
+                    if (profile != null) {
+                        if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS", "(1) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        //noinspection ConstantConditions
+                        if (sharedPreferences != null) {
+                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0|0|0")) {
+                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS", "(2) Shizuku not granted");
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                preferenceAllowed.notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
                     }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                 }
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -2721,13 +2968,26 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                 }
             } else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(4) PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED");
-                if ((profile != null) &&
-                        ((profile._deviceOnOffSIM1 != 0) ||
-                         (profile._deviceOnOffSIM2 != 0))) {
-                    preferenceAllowed.notAllowedShizuku = true;
+                if (profile != null) {
+                    if ((profile._deviceOnOffSIM1 != 0) ||
+                            (profile._deviceOnOffSIM2 != 0)) {
+                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(1) Shizuku not granted");
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        preferenceAllowed.notAllowedShizuku = true;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(2) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
                 }
             }
         } else {
@@ -2811,36 +3071,30 @@ class PreferenceAllowed {
                                 }
                             } else {
                                 if (profile != null) {
-                                    preferenceAllowed.notAllowedShizuku = true;
+                                    if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                            (profile._soundNotificationChangeSIM2 != 0)) {
+                                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM", "(1) Shizuku not granted");
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                        preferenceAllowed.notAllowedShizuku = true;
+                                    } else
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else {
+                                    //noinspection ConstantConditions
+                                    if (sharedPreferences != null) {
+                                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM", "(2) Shizuku not granted");
+                                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                            preferenceAllowed.notAllowedShizuku = true;
+                                        } else
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    }
                                 }
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                             }
                         } else
                         if (RootUtils.isRooted(/*fromUIThread*/)) {
                             // device is rooted
-
-                            if (profile != null) {
-                                // test if grant root is disabled
-                                if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                        (profile._soundNotificationChangeSIM2 != 0)) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        return;
-                                    }
-                                }
-                            } else if (sharedPreferences != null) {
-                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        // not needed to test all parameters
-                                        return;
-                                    }
-                                }
-                            }
-
                             if (RootUtils.settingsBinaryExists(fromUIThread)) {
                                 if (profile != null) {
                                     if ((profile._soundNotificationChangeSIM1 != 0) ||
@@ -2929,11 +3183,26 @@ class PreferenceAllowed {
                                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                                 }
                             } else {
-                                if ((profile != null) && (profile._soundSameRingtoneForBothSIMCards != 0)) {
-                                    preferenceAllowed.notAllowedShizuku = true;
+                                if (profile != null) {
+                                    if (profile._soundSameRingtoneForBothSIMCards != 0) {
+                                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS", "(1) Shizuku not granted");
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                        preferenceAllowed.notAllowedShizuku = true;
+                                    } else
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                } else {
+                                    //noinspection ConstantConditions
+                                    if (sharedPreferences != null) {
+                                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS", "(2) Shizuku not granted");
+                                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                            preferenceAllowed.notAllowedShizuku = true;
+                                        } else
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    }
                                 }
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
                             }
                         } else
                         if (RootUtils.isRooted(/*fromUIThread*/)) {
@@ -3087,10 +3356,25 @@ class PreferenceAllowed {
                 } else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                if ((profile != null) && (profile._deviceScreenTimeout != 0)) {
-                    preferenceAllowed.notAllowedShizuku = true;
+                if (profile != null) {
+                    if (profile._deviceScreenTimeout != 0) {
+                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "(1) Shizuku not granted");
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        preferenceAllowed.notAllowedShizuku = true;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "(2) Shizuku not granted");
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            preferenceAllowed.notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
                 }
             }
         } else {
