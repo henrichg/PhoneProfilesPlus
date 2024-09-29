@@ -974,7 +974,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="TooManyViews">
                     <TextView
                         android:id="@+id/application_editor_intent_extra_3_textView1"
                         android:layout_width="wrap_content"
