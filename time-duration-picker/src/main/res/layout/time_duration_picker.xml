@@ -92,9 +92,10 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:layout_toEndOf="@id/duration">
+<!--            android:layout_centerVertical="true"-->
 
             <ImageButton
                 android:layout_centerVertical="true"
