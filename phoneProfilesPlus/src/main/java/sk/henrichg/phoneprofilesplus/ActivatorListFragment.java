@@ -160,7 +160,7 @@ public class ActivatorListFragment extends Fragment {
         //absListView.setRemoveListener(onRemove);
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
-        if (activatedProfileHeader != null) {
+        if ((activatedProfileHeader != null) && (!applicationActivatorGridLayout)) {
             ViewGroup activateListFragment = view.findViewById(R.id.layout_activator_list_fragment);
             //noinspection DataFlowIssue
             final LayoutTransition layoutTransition = activateListFragment.getLayoutTransition();
