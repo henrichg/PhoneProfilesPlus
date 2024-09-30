@@ -156,7 +156,7 @@ class EventPreferencesCallScreening extends EventPreferences {
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, context);
-            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isHeld = isIsCallScreeningHeld(context);
                 if (!isHeld) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
@@ -355,7 +355,7 @@ class EventPreferencesCallScreening extends EventPreferences {
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCallScreening tmp = new EventPreferencesCallScreening(this._event, this._enabled, this._callDirection, this._contacts,
                     this._contactGroups,/*this._contactListType,*/ this._notInContacts, this._blockCalls, this._sendSMS, this._smsText, this._permanentRun, this._duration);
             if (preferences != null)
@@ -806,7 +806,7 @@ class EventPreferencesCallScreening extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
 
                 if (isIsCallScreeningHeld(eventsHandler.context)) {
 

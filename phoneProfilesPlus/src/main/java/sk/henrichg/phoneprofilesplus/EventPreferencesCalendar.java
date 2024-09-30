@@ -173,7 +173,7 @@ class EventPreferencesCalendar extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_calendar_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, DatabaseHandler.ETYPE_CALENDAR, context));
@@ -463,7 +463,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, false, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._allEvents,
                     this._searchField, this._searchString, this._availability, this._status, /*this._ignoreAllDayEvents,*/ this._startBeforeEvent,
                     this._dayContainsEvent, this._allDayEvents);
@@ -1164,7 +1164,7 @@ class EventPreferencesCalendar extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
 

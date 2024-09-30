@@ -36,12 +36,12 @@ class EventStatic {
 
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
 
-        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
         //boolean checked = false;
 
         if (preferenceKey.equals(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED)) {
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
 
@@ -51,9 +51,9 @@ class EventStatic {
                 // device has Wifi
                 WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if (wifiManager == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -69,11 +69,11 @@ class EventStatic {
                 BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetooth != null) {
                     if (notCheckPreferences)
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else {
                         if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH) &&
                                 Permissions.hasPermission(context, Manifest.permission.BLUETOOTH_ADMIN))
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_bluetooth_permission);
@@ -92,7 +92,7 @@ class EventStatic {
         if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
         {
             //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             /*else {
                 PPApplication.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
@@ -105,7 +105,7 @@ class EventStatic {
         if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
         {
             //if (PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
             return preferenceAllowed;
@@ -125,7 +125,7 @@ class EventStatic {
 
             if (enabled) {
                 //if (PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 //else
                 //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
             }
@@ -150,10 +150,10 @@ class EventStatic {
                         boolean simExists = telephonyManager.getPhoneCount() > 0;
 //                        Log.e("EventStatic.isEventPreferenceAllowed", "simExists="+simExists);
                         if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -164,7 +164,7 @@ class EventStatic {
                         }
                     }
                     else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -182,9 +182,9 @@ class EventStatic {
                 // device has nfc
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
                 if (nfcAdapter == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -206,10 +206,10 @@ class EventStatic {
 //                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         boolean simExists = telephonyManager.getPhoneCount() > 0;
                         if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -220,7 +220,7 @@ class EventStatic {
                         }
                     }
                     else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -245,10 +245,10 @@ class EventStatic {
 //                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         boolean simExists = telephonyManager.getPhoneCount() > 0;
                         if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -259,7 +259,7 @@ class EventStatic {
                         }
                     }
                     else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -277,9 +277,9 @@ class EventStatic {
                 // device has location
                 LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 if (locationManager == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -311,10 +311,10 @@ class EventStatic {
 //                        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         boolean simExists = telephonyManager.getPhoneCount() > 0;
                         if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -325,7 +325,7 @@ class EventStatic {
                         }
                     }
                     else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -341,9 +341,9 @@ class EventStatic {
             if (PPApplication.HAS_FEATURE_WIFI) {
                 WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if (wifiManager == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -353,9 +353,9 @@ class EventStatic {
             if (PPApplication.HAS_FEATURE_BLUETOOTH) {
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -372,10 +372,10 @@ class EventStatic {
                 try {
                     connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 } catch (Exception e) {
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 }
                 if (connManager == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else {
                     TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -390,10 +390,10 @@ class EventStatic {
                             simExists = telephonyManager.getPhoneCount() > 0;
                         }
                         if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
                                 if (!Permissions.checkPhone(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
@@ -417,9 +417,9 @@ class EventStatic {
             if (PPApplication.HAS_FEATURE_LOCATION_GPS) {
                 LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 if (locationManager == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -429,9 +429,9 @@ class EventStatic {
             if (PPApplication.HAS_FEATURE_NFC) {
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
                 if (nfcAdapter == null)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -439,36 +439,36 @@ class EventStatic {
         }
         //noinspection IfStatementWithIdenticalBranches
         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE)) {
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
         if (preferenceKey.equals(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED)) {
             AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager == null)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             else
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
         if (preferenceKey.equals(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED)) {
             KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             if (kgMgr == null)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             else
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
         if (preferenceKey.equals(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED))
         {
             if (PPApplication.HAS_FEATURE_TELEPHONY) {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             return preferenceAllowed;
         }
 
-        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
         return preferenceAllowed;
     }
 

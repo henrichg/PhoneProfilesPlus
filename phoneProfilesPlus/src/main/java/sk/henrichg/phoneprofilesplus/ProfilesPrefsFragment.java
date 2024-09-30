@@ -676,7 +676,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
             PPListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
-            if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+            if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)||
@@ -700,8 +700,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
-        PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
-        if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        _preferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY( context);
+        if (_preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             VibrationIntensityPreference vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING);
             if (vibrationIntensityPreference != null) {
                 vibrationIntensityPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityRinging));
@@ -1025,7 +1025,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         preference = findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
         if (preference != null) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, preferences, true, context);
-            preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+            preference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1047,7 +1047,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
             //setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, value);
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, preferences, true, context);
-            preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+            preference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1057,7 +1057,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         preference = findPreference(PREF_ALWAYS_ON_DISPLAY_INFO);
         if (preference != null) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, preferences, true, context);
-            preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+            preference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1067,7 +1067,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         preference = findPreference(PREF_SCREEN_DARK_MODE_INFO);
         if (preference != null) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, preferences, true, context);
-            preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+            preference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1082,7 +1082,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1);
                 if (preference != null) {
                     PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, preferences, true, context);
-                    preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    preference.setEnabled((preferenceAllowedSIM1.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                          (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                          (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1092,7 +1092,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2);
                 if (preference != null) {
                     PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, preferences, true, context);
-                    preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    preference.setEnabled((preferenceAllowedSIM2.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                             ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                              (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                              (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1123,7 +1123,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
                 if (preference != null) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, preferences, true, context);
-                    preference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    preference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                             ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                              (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                              (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1140,7 +1140,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "");
                     setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, value);
 
-                    listPreference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    listPreference.setEnabled((preferenceAllowedSIM1.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                             ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                              (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                              (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1156,7 +1156,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "");
                     setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, value);
 
-                    listPreference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    listPreference.setEnabled((preferenceAllowedSIM2.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                             ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                              (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                              (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1171,7 +1171,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, preferences, true, context);
-                        preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        preference.setEnabled((preferenceAllowedSIM1.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1182,7 +1182,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, null, preferences, true, context);
-                        preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        preference.setEnabled((preferenceAllowedSIM1.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1194,7 +1194,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, preferences, true, context);
-                        preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        preference.setEnabled((preferenceAllowedSIM2.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1205,7 +1205,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, null, preferences, true, context);
-                        preference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        preference.setEnabled((preferenceAllowedSIM2.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1223,7 +1223,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "");
                         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, value);
 
-                        listPreference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        listPreference.setEnabled((preferenceAllowedSIM1.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1240,7 +1240,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
                         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, value);
 
-                        ringtonePreference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        ringtonePreference.setEnabled((preferenceAllowedSIM1.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM1.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1263,7 +1263,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "");
                         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, value);
 
-                        listPreference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        listPreference.setEnabled((preferenceAllowedSIM2.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1285,7 +1285,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
                         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, value);
 
-                        ringtonePreference.setEnabled((preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        ringtonePreference.setEnabled((preferenceAllowedSIM2.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                 ((preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -1673,7 +1673,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "");
                 setSummary(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, value);
 
-                listPreference.setEnabled((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                listPreference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                                 (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                                 (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -2209,22 +2209,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String title = "";
         PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
         boolean _notGrantedG1Permission =
-                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                 (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION);
         boolean _notRootedOrGrantedRoot =
-                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED));
         boolean _notDefaultAssistant =
-                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                 (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT);
         boolean _notInstalledPPPS =
-                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS);
         boolean _notGrantedShizuku =
-                (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED);
-        if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+        if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                 _notGrantedG1Permission ||
                 _notRootedOrGrantedRoot ||
                 _notGrantedShizuku ||
@@ -3075,11 +3075,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean setCategorySummaryVibrationIntensity(Context context,
                                                          CattegorySummaryData cattegorySummaryData) {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
-        PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
+        _preferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY( context);
 
         StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
 
-        if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        if (_preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, R.string.profile_preferences_vibrationIntensityRinging, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
@@ -5402,7 +5402,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -5412,7 +5412,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         listPreference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, errorColor, true);
@@ -5429,7 +5429,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
@@ -5442,7 +5442,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
@@ -5509,14 +5509,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     preferenceAllowed = new PreferenceAllowed();
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                 }
             }
             else {
                 preferenceAllowed = new PreferenceAllowed();
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
@@ -5529,7 +5529,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -5588,12 +5588,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION))
         {
             PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
-            PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
-            if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            _preferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY( context);
+            if (_preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 String sValue = value.toString();
                 PreferenceAllowed preferenceAllowed =
                         ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
                 {
                     Preference preference = prefMng.findPreference(key);
                     if (preference != null) {
@@ -5606,7 +5606,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setEnabled(false);
                         else
                             errorColor = ProfileStatic.getVibrationIntensityChange(sValue);
-                        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                             preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                     ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                         GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -5644,7 +5644,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -5654,7 +5654,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         listPreference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, errorColor, true);
@@ -5684,7 +5684,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -5694,7 +5694,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         listPreference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, errorColor, true);
@@ -5788,7 +5788,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean enabled = true;
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
@@ -5801,7 +5801,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, errorColor, true);
@@ -6173,7 +6173,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_CAMERA_FLASH))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
@@ -6186,7 +6186,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6289,7 +6289,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
@@ -6302,7 +6302,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6390,7 +6390,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6402,7 +6402,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setEnabled(false);
                             else
                                 errorColor = !value.toString().equals("0");
-                            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                 preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6418,7 +6418,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                         preference.setEnabled(false);
                                     else
                                         errorColor = !value.toString().equals("0");
-                                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6435,7 +6435,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                         preference.setEnabled(false);
                                     else
                                         errorColor = !value.toString().equals("0");
-                                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6466,7 +6466,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (key.equals(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6478,7 +6478,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setEnabled(false);
                             else
                                 errorColor = !value.toString().equals("0");
-                            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                 preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6499,7 +6499,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6511,7 +6511,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setEnabled(false);
                             else
                                 errorColor = !value.toString().equals("0");
-                            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                 preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6527,7 +6527,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                         preference.setEnabled(false);
                                     else
                                         errorColor = !value.toString().equals("0");
-                                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6544,7 +6544,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                         preference.setEnabled(false);
                                     else
                                         errorColor = !value.toString().equals("0");
-                                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6595,7 +6595,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
 //                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
 //                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "network type  not allowed");
@@ -6610,7 +6610,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
@@ -6653,7 +6653,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor; // = false;
                     /*if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -6707,7 +6707,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -6717,7 +6717,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6741,7 +6741,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean errorColor = false;
                     if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
                             (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
@@ -6751,7 +6751,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(false);
                     else
                         errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6821,7 +6821,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6833,7 +6833,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setEnabled(false);
                             else
                                 errorColor = !value.toString().equals("0");
-                            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                 preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6862,7 +6862,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6874,7 +6874,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setEnabled(false);
                             else
                                 errorColor = !value.toString().equals("0|0|0");
-                            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                 preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -6903,7 +6903,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
                             boolean errorColor = false;
@@ -6915,7 +6915,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setEnabled(false);
                             else
                                 errorColor = !value.toString().equals("0");
-                            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                                 preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
@@ -7304,7 +7304,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
                 if (preference != null) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                         int iValue = Integer.parseInt(sValue);
                         if (iValue > 0)
                             preference.setValue(Profile.NO_CHANGE_VALUE_STR);
@@ -7321,7 +7321,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean enabled = false;
 
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context);
-            if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+            if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
@@ -7344,7 +7344,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
                 enabled = false;
                 preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
-                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                          (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)||

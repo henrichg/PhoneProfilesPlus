@@ -600,75 +600,75 @@ class Event {
     boolean isEnabledSomeSensor(Context context) {
         Context appContext = context.getApplicationContext();
         return  (this._eventPreferencesTime._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBattery._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCall._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesAccessories._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCalendar._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesWifi._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesScreen._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBrightness._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBluetooth._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSMS._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesNotification._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesApplication._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesLocation._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesOrientation._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesMobileCells._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesNFC._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._wifi != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._bluetooth != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._simOnOff != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._defaultSIMForCalls != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._defaultSIMForSMS != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._mobileData != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._gps != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._nfc != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._airplaneMode != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesAlarmClock._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesDeviceBoot._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSoundProfile._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesPeriodic._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVolumes._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesActivatedProfile._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRoaming._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVPN._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesMusic._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCallScreening._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED))
                 ;
     }
 

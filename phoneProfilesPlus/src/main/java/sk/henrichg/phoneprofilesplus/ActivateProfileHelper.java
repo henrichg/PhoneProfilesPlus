@@ -168,7 +168,7 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
 
                     if (profile._deviceOnOffSIM1 != 0) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                             //noinspection ConstantConditions
                             if (!firstSleepCalled) {
@@ -197,7 +197,7 @@ class ActivateProfileHelper {
                         }
                     }
                     if (profile._deviceOnOffSIM2 != 0) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -231,7 +231,7 @@ class ActivateProfileHelper {
 
         // change default SIM
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -277,7 +277,7 @@ class ActivateProfileHelper {
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -293,7 +293,7 @@ class ActivateProfileHelper {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -305,7 +305,7 @@ class ActivateProfileHelper {
                         }
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -321,7 +321,7 @@ class ActivateProfileHelper {
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -443,7 +443,7 @@ class ActivateProfileHelper {
         // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -542,7 +542,7 @@ class ActivateProfileHelper {
         if (canChangeWifi) {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -612,7 +612,7 @@ class ActivateProfileHelper {
             }
 
             // connect to SSID
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
@@ -710,7 +710,7 @@ class ActivateProfileHelper {
 
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -768,7 +768,7 @@ class ActivateProfileHelper {
 
         // setup location mode
         if (profile._deviceLocationMode != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -828,7 +828,7 @@ class ActivateProfileHelper {
 
         // setup GPS
         if (profile._deviceGPS != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -867,7 +867,7 @@ class ActivateProfileHelper {
 
         // setup NFC
         if (profile._deviceNFC != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     //noinspection UnusedAssignment
@@ -952,7 +952,7 @@ class ActivateProfileHelper {
                     boolean _setAirplaneMode = false;
                     boolean _useAssistant = false;
                     if (profile._deviceAirplaneMode != 0) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             _isAirplaneMode = isAirplaneMode(appContext);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
@@ -1798,7 +1798,7 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
                      {
@@ -1981,7 +1981,7 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int ppppsVersion = isPPPPutSettingsInstalled(appContext);
                 if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
@@ -2065,7 +2065,7 @@ class ActivateProfileHelper {
                                                SharedPreferences executedProfileSharedPreferences) {
         if (value != -1) {
             Context appContext = context.getApplicationContext();
-            if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 {
 //                    Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
@@ -2601,7 +2601,7 @@ class ActivateProfileHelper {
             }
 
             if (profile._soundRingtoneChangeSIM1 == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim1Exists = hasSIMCardData.hasSIM1;
                     if (sim1Exists) {
@@ -2763,7 +2763,7 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundRingtoneChangeSIM2 == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim2Exists = hasSIMCardData.hasSIM2;
 
@@ -2916,7 +2916,7 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChangeSIM1 == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     int ppppsVersion = isPPPPutSettingsInstalled(appContext);
 
@@ -3174,7 +3174,7 @@ class ActivateProfileHelper {
             }
             if (profile._soundNotificationChangeSIM2 == 1) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2");
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     int ppppsVersion = isPPPPutSettingsInstalled(appContext);
 
@@ -3423,7 +3423,7 @@ class ActivateProfileHelper {
             }
 
             if (profile._soundSameRingtoneForBothSIMCards != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     int ppppsVersion = isPPPPutSettingsInstalled(appContext);
 
@@ -3686,7 +3686,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
                         int ppppsVersion = isPPPPutSettingsInstalled(appContext);
@@ -3759,7 +3759,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -3830,7 +3830,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
                         //if (PPApplication.deviceIsOnePlus) {
@@ -4969,7 +4969,7 @@ class ActivateProfileHelper {
 
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (profile._deviceMobileDataPrefs == 1) {
                     final String SETTINGS_DATA_USAGE_CLASS_NAME = "com.android.settings.Settings$DataUsageSummaryActivity";
                     final String SETTINGS_PHONE_CLASS_NAME = "com.android.phone.Settings";
@@ -5059,7 +5059,7 @@ class ActivateProfileHelper {
                 }
             }
 
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (profile._deviceNetworkTypePrefs == 1) {
                     if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
                         try {
@@ -5227,7 +5227,7 @@ class ActivateProfileHelper {
             }
 
             if (profile._screenNightLightPrefs == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, null, executedProfileSharedPreferences, false, appContext).allowed
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
                         try {
@@ -7455,7 +7455,7 @@ class ActivateProfileHelper {
 
                 if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -7658,7 +7658,7 @@ class ActivateProfileHelper {
 
     @SuppressLint("WrongConstant")
     private static void setScreenDarkMode(Context appContext, final int value, SharedPreferences executedProfileSharedPreferences) {
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT >= 29) {
                 boolean G1OK = false;
@@ -8315,7 +8315,7 @@ class ActivateProfileHelper {
 
     private static void setCameraFlash(Context appContext, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         if (profile._cameraFlash != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkProfileCameraFlash(appContext, profile, null)) {
                     switch (profile._cameraFlash) {
@@ -8419,7 +8419,7 @@ class ActivateProfileHelper {
             try {
                 int vpnApplication = Integer.parseInt(splits[0]);
                 if (vpnApplication > 0) {
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, executedProfileSharedPreferences, true, context).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, executedProfileSharedPreferences, true, context).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean enableVPN = splits[1].equals("0");
 
@@ -8759,7 +8759,7 @@ class ActivateProfileHelper {
             return;
 //        Log.e("ActivateProfileHelper.sendSMS", "222222222222222");
 
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
             long oldActivatedProfileId = PPApplication.prefProfileBeforeActivation;
@@ -8867,7 +8867,7 @@ class ActivateProfileHelper {
             // do not clear notifications for restart events
             return;
 
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, null, executedProfileSharedPreferences, true, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, true)) {
@@ -9216,7 +9216,7 @@ class ActivateProfileHelper {
     }
 
     private static void setScreenNightLight(Context appContext, final Profile profile, SharedPreferences executedProfileSharedPreferences) {
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, null, executedProfileSharedPreferences, false, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
             if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {

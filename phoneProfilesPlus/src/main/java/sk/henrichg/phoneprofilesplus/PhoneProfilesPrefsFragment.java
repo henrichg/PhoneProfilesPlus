@@ -2881,7 +2881,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
 
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, true, getActivity().getApplicationContext());
-        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI).setEnabled(false);
@@ -2897,7 +2897,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, true, getActivity().getApplicationContext());
-        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);
@@ -2915,7 +2915,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, true, getActivity().getApplicationContext());
-        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             // this disables the entire preferences screen
             Preference preference = prefMng.findPreference(PREF_ORIENTATION_SCANNING_CATEGORY);
@@ -2924,7 +2924,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, true, getActivity().getApplicationContext());
-        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             // this disables the entire preferences screen
             Preference preference = prefMng.findPreference(PREF_MOBILE_CELLS_SCANNING_CATEGORY);
@@ -4388,7 +4388,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_WIFI_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                         .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
@@ -4455,7 +4455,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                         .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
@@ -4509,7 +4509,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                         .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
@@ -4554,7 +4554,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                         .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
@@ -4592,7 +4592,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, true, context);
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(getString(R.string.profile_preferences_device_not_allowed))
                         .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                         .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
