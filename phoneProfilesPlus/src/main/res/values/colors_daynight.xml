@@ -46,11 +46,6 @@
     <color name="dialogDividerColor">#CCCCCC</color>
     <color name="popupWindowDividerColor">#CCCCCC</color>
 
-    <color name="switchUncheckedThumbColor">#FFc1a387</color>
-    <color name="switchUncheckedTrackColor">#FF978e84</color>
-    <color name="switchCheckedTrackColor">#FF7b4713</color>
-    <color name="switchDisabledTrackColor">#FFB0B0B0</color>
-
     <color name="scrollbarColor">#C8C8C8</color>
     <color name="timeDurationPickerDisplayDividerColor">#D0D0D0</color>
 

@@ -144,6 +144,11 @@
                     android:layout_height="30dp"
                     android:layout_below="@id/location_pref_dlg_radius_seekbar_label"
                     android:max="1000"
+                    android:minHeight="3dp"
+                    android:maxHeight="3dp"
+                    android:progressDrawable="@drawable/seek_bar_drawable"
+                    android:thumb="@drawable/seek_bar_thumb"
+                    android:thumbTint="@color/accent_color"
                     android:splitTrack="false"
                     tools:ignore="UnusedAttribute"/>
 

@@ -88,7 +88,13 @@
                         android:layout_height="30dp"
                         android:max="24"
                         android:rotation="180"
-                        android:splitTrack="false"/>
+                        android:minHeight="3dp"
+                        android:maxHeight="3dp"
+                        android:progressDrawable="@drawable/seek_bar_drawable"
+                        android:thumb="@drawable/seek_bar_thumb"
+                        android:thumbTint="@color/accent_color"
+                        android:splitTrack="false"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,7 +116,13 @@
                         android:layout_height="30dp"
                         android:max="59"
                         android:rotation="180"
-                        android:splitTrack="false"/>
+                        android:minHeight="3dp"
+                        android:maxHeight="3dp"
+                        android:progressDrawable="@drawable/seek_bar_drawable"
+                        android:thumb="@drawable/seek_bar_thumb"
+                        android:thumbTint="@color/accent_color"
+                        android:splitTrack="false"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -132,7 +144,13 @@
                         android:layout_height="30dp"
                         android:max="59"
                         android:rotation="180"
-                        android:splitTrack="false" />
+                        android:minHeight="3dp"
+                        android:maxHeight="3dp"
+                        android:progressDrawable="@drawable/seek_bar_drawable"
+                        android:thumb="@drawable/seek_bar_thumb"
+                        android:thumbTint="@color/accent_color"
+                        android:splitTrack="false"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
