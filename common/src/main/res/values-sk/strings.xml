@@ -1798,12 +1798,10 @@
     <string name="menu_run_events">Povoliť beh udalostí</string>
     <string name="menu_stop_events">Zakázať beh udalostí</string>
     <string name="application_editor_intent_hint_not_set">Nenastavené</string>
-    <string name="application_editor_intent_hint_custom_not_set">Vlastné nenastavené</string>
     <string name="application_editor_intent_hint_not_selected">Nevybraté</string>
     <string name="application_editor_intent_action_none">[ Nič ]</string>
     <string name="application_editor_intent_action_custom">[ Vlastné ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) aplikácia, (S) odkaz, (I) intent.</string>
-    <string name="generated_notification_intent_hint_not_set">Nenastavené</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Žiadne nainštalované</string>
     <string name="location_scanner_location_not_working_notification_title">Poloha nefunguje</string>
     <string name="location_scanner_location_not_working_notification_text">Prepáčte, ale nie je možné zistiť polohu. Skontrolujte Nastavenia Polohy v zariadení.</string>
@@ -2083,7 +2081,6 @@
     <string name="export_settings_delete0_contacts_data_sms">Kontakty pre Senzor SMS/MMS</string>
     <string name="export_settings_delete_contacts_data_notification">Kontakty pre Senzor notifikácií</string>
     <string name="grant_draw_over_apps_dialog_info_text">Musíte udeliť povolenie \"Vykresliť cez ďalšie aplikácie\". Je vyžadované pre štart aktivít keď je PhoneProfilesPlus na pozadí. Kliknite na tlačítko \"Udeliť\" pre udelenie tohoto povolenia.</string>
-    <string name="grant_draw_over_apps_dialog_when_not_possible_text">Ak toto povolenie nie je možné udeliť, kliknite na tento odkaz. Možno na tejto webovej stránke je riešenie pre vaše zariadenie:</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Nepoužívať</string>
     <string name="contacts_filter_dialog_filter_title">Filter kontaktov</string>
     <string name="contacts_filter_dialog_item_show_all">[ Všetko ]</string>
@@ -2264,4 +2261,13 @@
     <string name="profile_preferences_screenNightLightPrefs">(I) Nastavenia pre Nočný režim</string>
     <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Nastavenia pre Štít pre pohodlie očí</string>
     <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Nastavenia pre Režim čítania</string>
+    <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Štít pre pohodlie očí</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">Ak nie je možné udeliť toto povolenie, možno nie sú povolené obmedzené nastavenia pre PhoneProfilesPlus. Kliknutím sem to povolíte.</string>
+    <string name="permission_why_profile_vpn">pre zapnutie/vypnutie VPN</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently1">Potreba mať natrvalo povolené \"Vykresliť cez ďalšie aplikácie\" bola odstránená. Pretože toto právo sa nachádza v časti \"Obmedzené nastavenia\" a ak je povolené, bankové aplikácie a webové stránky, platby za tovar, služby atď. môžu byť zablokované alebo môžu vyžadovať vypnutie funkcie \"Vykresliť cez ďalšie aplikácie\" v PhoneProfilesPlus.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently2">Odporúča sa nainštalovať novú verziu PPPPutSettings (1.1), kde je zmena, ktorá si nevyžaduje \"Vykresliť cez ďalšie aplikácie\". Pre verzie staršie ako 1.1 budú parametre označené (S) stále vyžadovať toto právo.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently3">Pre niektoré parametre profilu sa stále vyžaduje \"Vykresliť cez ďalšie aplikácie\", napríklad pre \"Spustiť aplikácie, odkazy, intenty\".</string>
+    <string name="color_value">Hodnota farby</string>
+    <string name="location_geofence_editor_location_name">Názov polohy</string>
+    <string name="application_editor_intent_action_custom_label">Vlastná akcia</string>
 </resources>

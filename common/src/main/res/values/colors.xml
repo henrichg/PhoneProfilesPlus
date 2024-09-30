@@ -4,4 +4,10 @@
     <color name="accent_color_disabled">#59A35E19</color>
     <color name="notification_color">#A35E19</color>
     <color name="activity_background_color">#FFFFFF</color>
+
+    <color name="switchUncheckedThumbColor">#FFc1a387</color>
+    <color name="switchUncheckedTrackColor">#FF978e84</color>
+    <color name="switchCheckedTrackColor">#FF7b4713</color>
+    <color name="switchDisabledThumbColor">#C0C0C0</color>
+    <color name="switchDisabledTrackColor">#FFB0B0B0</color>
 </resources>

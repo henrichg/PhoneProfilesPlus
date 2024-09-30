@@ -582,9 +582,9 @@
     <string name="donation_activity_title">Spenden</string>
     <string name="donation_description">Finden Sie diese Anwendung nützlich?\nUnterstützen Sie die Entwicklung durch eine Spende an den Entwickler.</string>
     <string name="about_application_releases">Versionen:</string>
-    <string name="permission_group_name_draw_overlays">Über andere Apps legen</string>
-    <string name="permissions_draw_overlays_not_allowed_confirm">Sie haben \"Über andere Apps zeichnen\" nicht erlaubt. Nicht mehr nachfragen?</string>
-    <string name="phone_profiles_pref_drawOverlaysPermissions">Über andere Apps legen</string>
+    <string name="permission_group_name_draw_overlays">Über andere Apps ziehen</string>
+    <string name="permissions_draw_overlays_not_allowed_confirm">Sie haben \"Über andere Apps ziehen\" nicht erlaubt. Nicht mehr nachfragen?</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions">Über andere Apps ziehen</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Bitte suche nach der App \"PhoneProfilesPlus\" und aktiviere sie.</string>
     <string name="preference_not_allowed_reason_not_configured_in_system_settings">nicht in den System-Einstellungen konfiguriert</string>
     <string name="mobile_cells_pref_dlg_last_connected">Verbunden:</string>
@@ -1255,15 +1255,15 @@
     <string name="profile_preferences_category_volumeTypes">Laufwerkstypen</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Bitte nicht stören (Aus)</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Bitte nicht stören (Ein)</string>
-    <string name="draw_over_apps_permission_notification_title">Berechtigung „Zeichnen über Apps”</string>
-    <string name="draw_over_apps_permission_notification_text">Sie müssen die Berechtigung \"Über Apps ziehen\" erteilen. Es ist erforderlich, um Aktivitäten zu starten, wenn PhoneProfilesPlus im Hintergrund ist. Klicken Sie hier, um diese Berechtigung zu erteilen.</string>
+    <string name="draw_over_apps_permission_notification_title">Berechtigung „Über andere Apps ziehen”</string>
+    <string name="draw_over_apps_permission_notification_text">Sie müssen die Berechtigung \"Über andere Apps ziehen\" erteilen. Es ist erforderlich, um Aktivitäten zu starten, wenn PhoneProfilesPlus im Hintergrund ist. Klicken Sie hier, um diese Berechtigung zu erteilen.</string>
     <string name="profile_preferences_types_G1_permission">G1-Einstellungen zulassen</string>
     <string name="preferences_grantG1Preferences_title">Erlaubnis für (G1)-Präferenzen nicht erteilt</string>
     <string name="preferences_grantG1Preferences_summary">Erlaubnis für (G1)-Präferenzen nicht erteilt. Hier klicken, um sie zu gewähren.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Bitte erteilen Sie WRITE_SECURE_SETTINGS die Erlaubnis für PhoneProfilesPlus. Wird für Profil- und Ereignisparameter benötigt, die mit (G1) gekennzeichnet sind. Dadurch wird ROOT-Zugriff nicht benötigt.</string>
     <string name="profile_preferences_profile_not_found">Profil nicht gefunden. Wurde es gelöscht?</string>
     <string name="event_preferences_event_not_found">Ereignis nicht gefunden. Wurde es gelöscht?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">Sie haben die Berechtigung \"Über Apps ziehen\" nicht erteilt. Diese Berechtigung ist jedoch für Android 10 erforderlich. Bitte erteilen Sie sie.</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Sie haben die Berechtigung \"Über andere Apps ziehen\" nicht erteilt. Diese Berechtigung ist jedoch für Android 10 erforderlich. Bitte erteilen Sie sie.</string>
     <string name="event_preferences_battery_level_info">Warnung zum Batteriestatus</string>
     <string name="event_preferences_battery_level_info_summary" formatted="false" tools:ignore="StringFormatCount,StringFormatInvalid">Unterer Füllstand &gt; 0% oder oberer Füllstand &lt; 100% Akku verbraucht!</string>
     <string name="event_preference_sensor_device_boot_summary">Dieser Sensor startet das Ereignis unmittelbar nach dem Booten des Geräts. Parameter: Dauerhaft ausführen, Dauer (Dauer des Ereignisses).</string>
@@ -1798,12 +1798,10 @@
     <string name="menu_run_events">„Ereignisse ausführen” aktivieren</string>
     <string name="menu_stop_events">„Ereignisse ausführen” deaktivieren</string>
     <string name="application_editor_intent_hint_not_set">Nicht festgelegt</string>
-    <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
     <string name="application_editor_intent_hint_not_selected">Nicht ausgewählt</string>
     <string name="application_editor_intent_action_none">[ Keine ]</string>
     <string name="application_editor_intent_action_custom">[ Benutzerdefiniert ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) Anwendung, (S) Tastaturküürzel, (I) Absicht.</string>
-    <string name="generated_notification_intent_hint_not_set">Nicht festgelegt</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Keine installiert</string>
     <string name="location_scanner_location_not_working_notification_title">Standortbestimmung funktioniert nicht</string>
     <string name="location_scanner_location_not_working_notification_text">Leider ist es nicht möglich, den Standort zu ermitteln. Bitte überprüfen Sie die Ortsbestimmungs-Einstellungen Ihres Geräts.</string>
@@ -1882,7 +1880,7 @@
     <string name="vpn_profile_name_pref_dlg_label">Name des OpenVPN-Profils:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Name des WireGuard-Tunnels:</string>
     <string name="altype_profileError_setVPN">Profil - Fehler beim Festlegen des VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN for OpenVPN is moved from \"Others\"/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">VPN für OpenVPN verbinden/trennen wurde von „Andere“/„Anwendungen, Tastaturkürzel und Absichten ausführen“ in den Parameter „VPN“ verschoben.</string>
     <string name="permission_why_profile_wireguard">zum Auf- und Abbau des Tunnels durch die WireGuard-Anwendung</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard ist nicht installiert oder liegt in einer nicht unterstützten Version vor.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect ist nicht installiert.</string>
@@ -2041,7 +2039,7 @@
     <string name="phone_profiles_pref_applicationEventScanningPaused">Scanning paused</string>
     <string name="error_code">error code</string>
     <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."</string>
-    <string name="event_preferences_category_eventBrightnessParameters">Brightness sensor</string>
+    <string name="event_preferences_category_eventBrightnessParameters">Helligkeitssensor</string>
     <string name="event_preference_brightness_summary">This sensor will start an event by brightness level change. Parameters: Operator from\/to, Brightness level from\/to.</string>
     <string name="event_preferences_brightness_level_from">Brightness level from</string>
     <string name="event_preferences_brightness_operator_from">Operator from</string>
@@ -2083,7 +2081,6 @@
     <string name="export_settings_delete0_contacts_data_sms">Contacts for SMS/MMS sensor</string>
     <string name="export_settings_delete_contacts_data_notification">Contacts for Notification sensor</string>
     <string name="grant_draw_over_apps_dialog_info_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click button \"Grant\" to grant this permission.</string>
-    <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, click this link. Maybe in this web page is solution for your device:</string>
     <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Do not use</string>
     <string name="contacts_filter_dialog_filter_title">Contacts filter</string>
     <string name="contacts_filter_dialog_item_show_all">[ All ]</string>
@@ -2245,7 +2242,7 @@
     <string name="export_settings_delete_contacts_data_clear_notification">Contacts for profile parameter \"Clear notifications\"</string>
     <string name="event_preference_callScreeningNotInContacts">Rufnummern nicht in Kontakten</string>
     <string name="altype_callScreening_blockedCall">Gesperrter Anruf</string>
-    <string name="activityLog_blockedCall_telNumber">tel. number:</string>
+    <string name="activityLog_blockedCall_telNumber">Rufnummer:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">Warnhinweis: Dieser Parameter ermöglicht das Sperren von Anrufen. Eine Benachrichtigung über gesperrte Anrufe wird nicht angezeigt!\nDie gesperrten Rufnummern werden jedoch im „Aktivitätsprotokoll“ protokolliert, das einen Rückruf an die gesperrte Rufnummer ermöglicht, wenn Sie auf diese Protokollzeile klicken.</string>
     <string name="activity_log_filter_all">Ausführliches Protokoll</string>
     <string name="activity_log_filter_blocked_calls">Gesperrte Anrufe</string>
@@ -2264,4 +2261,13 @@
     <string name="profile_preferences_screenNightLightPrefs">(I) Einstellungen für Nachtbeleuchtung</string>
     <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Einstellungen des Augenschonungsschutzes</string>
     <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Einstellungen des Lesemodus</string>
+    <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
+    <string name="grant_draw_over_apps_dialog_when_not_possible_text">Wenn es nicht möglich ist, diese Berechtigung zu erteilen, sind eingeschränkte Einstellungen für PhoneProfilesPlus möglicherweise nicht zulässig. Klicken Sie hier, um es zuzulassen.</string>
+    <string name="permission_why_profile_vpn">zum Aktivieren/Deaktivieren von VPN</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently1">Die Notwendigkeit, „Über andere Apps ziehen“ dauerhaft zu aktivieren, wurde entfernt. Da sich dieses Recht in den „Eingeschränkten Einstellungen“ befindet und wenn es aktiviert ist, können Banking-Anwendungen und -Websites, Zahlungen für Waren, Dienstleistungen usw. gesperrt werden oder erfordern die Deaktivierung von „Über andere Apps ziehen“ in PhoneProfilesPlus.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently2">Es wird empfohlen, die neue Version von PPPPutSettings (1.1) zu installieren, in der es eine Änderung gibt, die „Über andere Apps ziehen“ nicht erfordert. Bei Versionen vor 1.1 erfordern die mit (S) gekennzeichneten Parameter weiterhin dieses Recht.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently3">Für einige Profilparameter ist „Über andere Apps ziehen“ weiterhin erforderlich, zum Beispiel für „Anwendungen, Tastaturkürzel und Absichten ausführen“.</string>
+    <string name="color_value">Farbwert</string>
+    <string name="location_geofence_editor_location_name">Standortname</string>
+    <string name="application_editor_intent_action_custom_label">Benutzerdefinierte Aktion</string>
 </resources>
