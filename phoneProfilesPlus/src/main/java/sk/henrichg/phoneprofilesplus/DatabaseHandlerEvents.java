@@ -5260,37 +5260,39 @@ class DatabaseHandlerEvents {
                                 // change selected
                                 String[] splits = selectedIds.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
-                                    boolean updateCell = false;
-                                    long _valueCell = Long.parseLong(valueCell);
-                                    if (cell.cellId != Integer.MAX_VALUE) {
-                                        if (_valueCell == cell.cellId)
-                                            updateCell = true;
-                                    } else if (cell.cellIdLong != Long.MAX_VALUE) {
-                                        if (_valueCell == cell.cellIdLong)
-                                            updateCell = true;
-                                    }
-                                    if (updateCell) {
-                                        String oldCellName = cell.name;
-
-                                        cell.name = toCellName;
-                                        MobileCell mobileCell = new MobileCell();
-                                        mobileCell._id = foundedDbId;
-                                        mobileCell._cellId = cell.cellId;
-                                        mobileCell._cellIdLong = cell.cellIdLong;
-                                        mobileCell._name = cell.name;
-                                        mobileCell._new = cell._new;
-                                        mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                        //mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                                        //mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                                        //mobileCell._doNotDetect = cell.doNotDetect;
-                                        updateMobileCell(instance, mobileCell);
-
-                                        if ((oldCellName != null) && (!oldCellName.isEmpty())) {
-                                            if (renamedCells.length() > 0)
-                                                renamedCells.append("|");
-                                            renamedCells.append(oldCellName);
+                                    if (!valueCell.isEmpty()) {
+                                        boolean updateCell = false;
+                                        long _valueCell = Long.parseLong(valueCell);
+                                        if (cell.cellId != Integer.MAX_VALUE) {
+                                            if (_valueCell == cell.cellId)
+                                                updateCell = true;
+                                        } else if (cell.cellIdLong != Long.MAX_VALUE) {
+                                            if (_valueCell == cell.cellIdLong)
+                                                updateCell = true;
                                         }
+                                        if (updateCell) {
+                                            String oldCellName = cell.name;
 
+                                            cell.name = toCellName;
+                                            MobileCell mobileCell = new MobileCell();
+                                            mobileCell._id = foundedDbId;
+                                            mobileCell._cellId = cell.cellId;
+                                            mobileCell._cellIdLong = cell.cellIdLong;
+                                            mobileCell._name = cell.name;
+                                            mobileCell._new = cell._new;
+                                            mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                                            //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                            //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                                            //mobileCell._doNotDetect = cell.doNotDetect;
+                                            updateMobileCell(instance, mobileCell);
+
+                                            if ((oldCellName != null) && (!oldCellName.isEmpty())) {
+                                                if (renamedCells.length() > 0)
+                                                    renamedCells.append("|");
+                                                renamedCells.append(oldCellName);
+                                            }
+
+                                        }
                                     }
                                 }
                             }
