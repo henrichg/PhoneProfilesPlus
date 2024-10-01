@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.service.quicksettings.TileService;
@@ -308,7 +309,7 @@ public class PPApplication extends Application
                                                 //+"|CheckCriticalPPPReleasesBroadcastReceiver"
 
                                                 //+"|[LOCATION_SCAN_TEST]"
-                                                +"|PreferenceAllowed"
+                                                //+"|PreferenceAllowed"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -474,7 +475,8 @@ public class PPApplication extends Application
     static final boolean deviceIsMotorola = isMotorola();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
-    static final boolean romIsGalaxy = isGalaxyROM();
+    static boolean romIsGalaxy = false;
+    static boolean romIsGalaxy611 = false;
 
     static volatile boolean HAS_FEATURE_BLUETOOTH_LE = false;
     static volatile boolean HAS_FEATURE_WIFI = false;
@@ -1224,6 +1226,7 @@ public class PPApplication extends Application
             }
         }*/
 
+
         super.onCreate();
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
@@ -1231,6 +1234,17 @@ public class PPApplication extends Application
             Log.e("################# PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
         }
+
+        romIsGalaxy = isGalaxyROM(getApplicationContext());
+        romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
+
+        // do not used because some dynamic notification, widgets has its own laypouts and in it
+        // are colors configured = keep material componets lib to 1.10.0
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            DynamicTonalPaletteSamsung dynamicTonalPaletteSamsung = new DynamicTonalPaletteSamsung();
+            GlobalGUIRoutines.lightColorScheme = dynamicTonalPaletteSamsung.dynamicLightColorSchemeSamsung(getApplicationContext());
+            GlobalGUIRoutines.darkColorScheme = dynamicTonalPaletteSamsung.dynamicDarkColorSchemeSamsung(getApplicationContext());
+        }*/
 
         RootUtils.initRoot();
 
@@ -2121,27 +2135,60 @@ public class PPApplication extends Application
     }
     */
 
-    /*
     private static boolean isSemAvailable(Context context) {
         return context != null &&
                 (context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile") ||
-                        context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
+                 context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
     }
-    */
 
+    private static boolean isGalaxyROM(Context appContext) {
+        try {
+            if (isSemAvailable(appContext)) {
+                String systemProperty = SystemProperties.get("ro.build.version.oneui");
+                int oneUIVersion = Integer.parseInt(systemProperty);
+                if (oneUIVersion != 0)
+                    return true;
+                else {
+                    return deviceIsSamsung;
+                }
+            }
+        } catch (Exception e) {
+            return deviceIsSamsung;
+        }
+        return deviceIsSamsung;
+    }
+
+    /*
     private static boolean isGalaxyROM() {
         try {
             //String romName = getOneUiVersion();
-            /*
-            if (romName.isEmpty())
-                return true; // old, non-OneUI ROM
-            else
-                return true; // OneUI ROM
-            */
+            //if (romName.isEmpty())
+            //    return true; // old, non-OneUI ROM
+            //else
+            //    return true; // OneUI ROM
             return isSamsung();
         } catch (Exception e) {
             return false;
         }
+    }
+    */
+
+    private static boolean isGalaxyROM611(Context appContext) {
+        try {
+            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && isSemAvailable(appContext)) {
+                // OneUi is since Android SDK 28
+                String systemProperty = SystemProperties.get("ro.build.version.oneui");
+                Log.e("PPApplication.isGalaxyROM611", "systemProperty="+systemProperty);
+                boolean isOneUI611 = false;
+                try {
+                    isOneUI611 = (Integer.parseInt(systemProperty) >= 60101);
+                } catch (Exception ignored) {}
+                return isOneUI611;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
     }
 
     private static boolean isLG() {

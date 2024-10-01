@@ -116,7 +116,7 @@
     <orderEntry type="library" name="Gradle: dev.rikka.shizuku:shared:13.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.rikka.shizuku:provider:13.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.auto.service:auto-service-annotations:1.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.guava:guava:33.3.0-android" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:33.3.1-android" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
