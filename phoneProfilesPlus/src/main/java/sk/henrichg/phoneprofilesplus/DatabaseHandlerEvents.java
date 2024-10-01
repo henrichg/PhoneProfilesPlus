@@ -463,11 +463,13 @@ class DatabaseHandlerEvents {
                                 String[] splits = oldFkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                                 StringBuilder newFkProfiles = new StringBuilder();
                                 for (String split : splits) {
-                                    long fkProfile = Long.parseLong(split);
-                                    if (fkProfile != profile._id) {
-                                        if (newFkProfiles.length() > 0)
-                                            newFkProfiles.append("|");
-                                        newFkProfiles.append(split);
+                                    if (!split.isEmpty()) {
+                                        long fkProfile = Long.parseLong(split);
+                                        if (fkProfile != profile._id) {
+                                            if (newFkProfiles.length() > 0)
+                                                newFkProfiles.append("|");
+                                            newFkProfiles.append(split);
+                                        }
                                     }
                                 }
                                 values = new ContentValues();
