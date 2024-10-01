@@ -1294,16 +1294,18 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             // add only cell in _value = selected for edited event
                             String[] splits = _value.split(StringConstants.STR_SPLIT_REGEX);
                             for (String cell : splits) {
-                                boolean cellIdEquals = false;
-                                long vCellId = Long.parseLong(cell);
-                                if (vCellId <= Integer.MAX_VALUE)
-                                    cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cellData.cellId);
-                                else if (vCellId != Long.MAX_VALUE)
-                                    cellIdEquals = vCellId == cellData.cellIdLong;
+                                if (!cell.isEmpty()) {
+                                    boolean cellIdEquals = false;
+                                    long vCellId = Long.parseLong(cell);
+                                    if (vCellId <= Integer.MAX_VALUE)
+                                        cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cellData.cellId);
+                                    else if (vCellId != Long.MAX_VALUE)
+                                        cellIdEquals = vCellId == cellData.cellIdLong;
 
-                                if (cellIdEquals) {
-                                    _filteredCellsList.add(cellData);
-                                    break;
+                                    if (cellIdEquals) {
+                                        _filteredCellsList.add(cellData);
+                                        break;
+                                    }
                                 }
                             }
                         } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
