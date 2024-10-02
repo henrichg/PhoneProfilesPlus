@@ -10,6 +10,7 @@
         <item name="android:selectableItemBackground">@drawable/listview_item_background</item>
         <item name="selectableItemBackground">@drawable/listview_item_background</item>
         <item name="android:actionBarItemBackground">@drawable/actionbar_item_background</item>
+        <item name="actionBarItemBackground">@drawable/actionbar_item_background</item>
 
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>

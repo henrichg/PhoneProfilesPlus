@@ -24,9 +24,12 @@
         <item name="actionBarStyle">@style/PPPActionbar</item>
         <item name="android:actionBarStyle">@style/PPPActionbar</item>
 
-        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="actionBarTheme">@style/PPActionBarThemeDark</item>
+        <item name="toolbarTheme">@style/PPActionBarThemeDark</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+
+        <item name="homeAsUpIndicator">@drawable/ic_title_back</item>
 
         <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@color/activityBackgroundColor</item>

@@ -181,6 +181,14 @@
 <!--        <item name="contentInsetStart">@dimen/activity_horizontal_margin</item>-->
 <!--        <item name="contentInsetEnd">0dp</item>-->
     </style>
+    <style name="PPActionBarThemeLight" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlHighlight">@color/rippleRectangeleItemBackgroundColor</item>
+<!--        <item name="android:background">@drawable/actionbar_item_background</item>-->
+    </style>
+    <style name="PPActionBarThemeDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlHighlight">@color/rippleRectangeleItemBackgroundColor</item>
+<!--        <item name="android:background">@drawable/actionbar_item_background</item>-->
+    </style>
 
     <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">18sp</item>
