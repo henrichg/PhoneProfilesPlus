@@ -1557,7 +1557,7 @@ public class EditorActivity extends AppCompatActivity
         //int itemId = item.getItemId();
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
-            editorToolbar.setTitle(getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
+            editorToolbar.setTitle(StringConstants.CHAR_HARD_SPACE + getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
             //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
@@ -1586,7 +1586,7 @@ public class EditorActivity extends AppCompatActivity
             return true;
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
-            editorToolbar.setTitle(getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
+            editorToolbar.setTitle(StringConstants.CHAR_HARD_SPACE + getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
             //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
