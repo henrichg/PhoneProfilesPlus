@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Base.Theme.PhoneProfilesTheme_locationeditor_dayNight" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Base.Theme.PhoneProfilesTheme_locationeditor_dayNight" parent="Theme.AppCompat.DayNight.NoActionBar">
 
         <!-- disable initial empty screen - useful for dark theme -->
         <item name="android:windowDisablePreview">true</item>

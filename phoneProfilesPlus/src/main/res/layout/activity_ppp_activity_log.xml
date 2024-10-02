@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_log_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +9,27 @@
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
-    tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity" >
+    tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_log_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_log_subToolbar"
         android:layout_width="match_parent"
-        android:layout_height="37dp">
+        android:layout_height="37dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="15dp"
+        app:contentInsetStartWithNavigation="15dp">
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/activity_log_filter_spinner"

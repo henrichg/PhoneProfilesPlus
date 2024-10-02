@@ -66,7 +66,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

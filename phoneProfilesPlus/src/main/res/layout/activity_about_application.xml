@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/about_application_application_root3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/about_application_application_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"/>
 
     <View
         android:id="@+id/about_application_application_divider"

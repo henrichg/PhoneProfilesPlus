@@ -18,8 +18,9 @@
         app:popupTheme="?attr/toolbarPopupMenu"
         app:titleTextAppearance="@style/PreferenceToolbarTitleText"
         app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="72dp"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp" />
 <!--    android:background="@color/primary"-->
@@ -30,8 +31,9 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="72dp"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp"
         android:visibility="gone"/>
