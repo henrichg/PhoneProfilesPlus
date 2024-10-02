@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -82,9 +81,11 @@ public class ImportantInfoActivity extends AppCompatActivity {
             }
         });
 
+        /*
         Button closeButton = findViewById(R.id.activity_important_info_close);
         //noinspection DataFlowIssue
         closeButton.setOnClickListener(v -> finish());
+        */
 
         Intent intent = getIntent();
         boolean firstInstallation = intent.getBooleanExtra(ImportantInfoNotification.EXTRA_FIRST_INSTALLATION, false);

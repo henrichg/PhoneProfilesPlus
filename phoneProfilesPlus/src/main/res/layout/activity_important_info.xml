@@ -52,8 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/activity_important_info_tab_layout"
-        android:layout_above="@id/activity_important_info_liLa2">
+        android:layout_below="@id/activity_important_info_tab_layout">
+<!--        android:layout_above="@id/activity_important_info_liLa2">-->
 
         <View
             android:id="@+id/activity_important_info_divider"
@@ -79,6 +79,7 @@
 
     </LinearLayout>
 
+<!--
     <LinearLayout
         android:id="@+id/activity_important_info_liLa2"
         android:layout_width="match_parent"
@@ -111,6 +112,7 @@
             style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>
+-->
 
 </RelativeLayout>
 
