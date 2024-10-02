@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/donation_paypal_fragment_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp" >
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/donation_paypal_fragment_liLa1"
@@ -177,8 +179,8 @@
         android:id="@+id/donation_paypal_fragment_liLa2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical" >
+<!--        android:layout_alignParentBottom="true">-->
 
         <View
             android:id="@+id/donation_paypal_activity_divider"
@@ -190,8 +192,9 @@
             android:id="@+id/donation_paypal_activity_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|end"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
@@ -203,5 +206,5 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
 

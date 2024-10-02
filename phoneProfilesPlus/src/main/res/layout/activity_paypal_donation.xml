@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/donation_paypal_activity_container_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
@@ -14,13 +14,14 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginTop="@dimen/alert_dialog_top_padding"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
         android:background="@color/dialogDividerColor" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/donation_paypal_activity_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:name="sk.henrichg.phoneprofilesplus.DonationPayPalFragment"
         android:tag="donationPayPalFragment" />
 

@@ -24,6 +24,7 @@
 <!--        android:layout_marginStart="@dimen/activity_margin_start"-->
 <!--        android:layout_marginEnd="@dimen/activity_margin_end"-->
 
+<!--
         <LinearLayout
             android:id="@+id/about_application_liLa2"
             android:layout_width="match_parent"
@@ -39,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
                 android:background="@color/dialogDividerColor" />
-            <!--        android:layout_marginTop="20dp"-->
 
             <Button
                 android:id="@+id/about_application_close"
@@ -57,6 +57,7 @@
                 style="?android:attr/borderlessButtonStyle" />
 
         </LinearLayout>
+-->
 
         <ScrollView
             android:id="@+id/about_application_application_scroll_view"
@@ -65,8 +66,8 @@
             android:scrollbarStyle="outsideOverlay"
             android:fadeScrollbars="false"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/about_application_liLa2"
             tools:ignore="UselessParent">
+<!--            android:layout_above="@id/about_application_liLa2"-->
 
             <LinearLayout
                 android:id="@+id/about_application_application_root"

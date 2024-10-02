@@ -14,7 +14,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -22,12 +22,14 @@ public class DonationPayPalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paypal_donation);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        /*
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.ppp_app_name);
-            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
+            getSupportActionBar().setElevation(0);
         }
+        */
 
     }
 

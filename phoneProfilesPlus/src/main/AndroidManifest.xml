@@ -481,7 +481,9 @@
         </activity>
         <activity
             android:name=".DonationPayPalActivity"
-            android:label="@string/donation_activity_title">
+            android:label="@string/donation_activity_title"
+            android:theme="@style/DialogTheme_dayNight"
+            >
         </activity>
         <activity
             android:name=".CheckCriticalPPPReleasesDisableActivity"

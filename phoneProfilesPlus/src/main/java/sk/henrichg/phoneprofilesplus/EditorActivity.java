@@ -1420,6 +1420,8 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_donation) {
+
+
             intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
             startActivity(intent);
             return true;

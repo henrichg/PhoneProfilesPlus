@@ -440,9 +440,11 @@ public class AboutApplicationActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        /*
         Button closeButton = findViewById(R.id.about_application_close);
         //noinspection DataFlowIssue
         closeButton.setOnClickListener(view -> finish());
+        */
 
     }
 
