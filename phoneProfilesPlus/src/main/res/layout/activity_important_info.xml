@@ -35,7 +35,7 @@
         app:tabIndicator="@drawable/tab_indicator"
         app:tabMode="scrollable"
         app:tabMinWidth="1dp"
-        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorFullWidth="true"
         />
     <!--    android:minHeight="?attr/actionBarSize"-->
     <!--    app:tabPaddingTop="10dp"-->
