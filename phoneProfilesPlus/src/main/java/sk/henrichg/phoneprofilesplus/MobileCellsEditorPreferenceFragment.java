@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -21,8 +23,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -72,7 +76,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
     private RelativeLayout emptyList;
-    private AlertDialog progressDialog = null;
+    //private AlertDialog progressDialog = null;
+    private PopupWindow popupWindow = null;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
 
@@ -104,8 +109,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             preference.resetSummary();
         }*/
 
-        if ((progressDialog != null) && progressDialog.isShowing())
-            progressDialog.dismiss();
+        if ((popupWindow != null) && popupWindow.isShowing())
+            popupWindow.dismiss();
+        //if ((progressDialog != null) && progressDialog.isShowing())
+        //    progressDialog.dismiss();
         if ((mRenameDialog != null) && mRenameDialog.mDialog.isShowing())
             mRenameDialog.mDialog.dismiss();
         if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
@@ -390,49 +397,44 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
-            TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
-            boolean simIsReady = false;
-            if (telephonyManager != null) {
-                if (Permissions.checkPhone(prefContext.getApplicationContext())) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
-                    if (mSubscriptionManager != null) {
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException e) {
-                            PPApplicationStatic.recordException(e);
-                            //Log.e("MobileCellsEditorPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
-                        }
-                        if (subscriptionList != null) {
-                            int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
-                            for (int i = 0; i < size; i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                        // sim card is ready
-                                        simIsReady = true;
-                                        break;
+            //noinspection DataFlowIssue
+            rescanButton.setOnClickListener(v -> {
+                if (Permissions.grantMobileCellsDialogPermissions(prefContext, true)) {
+                    boolean simIsReady = false;
+                    TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(context);
+                        if (mSubscriptionManager != null) {
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            } catch (SecurityException e) {
+                                PPApplicationStatic.recordException(e);
+                                //Log.e("MobileCellsEditorPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
+                            }
+                            if (subscriptionList != null) {
+                                int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
+                                for (int i = 0; i < size; i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    if (subscriptionInfo != null) {
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                            // sim card is ready
+                                            simIsReady = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            }
-            if (simIsReady) {
-                rescanButton.setOnClickListener(v -> {
-                    if (Permissions.grantMobileCellsDialogPermissions(prefContext, true)) {
+                    if (simIsReady)
                         refreshListView(true, true/*, Integer.MAX_VALUE*/);
-                    }
-                });
-            }
-            else
-                rescanButton.setEnabled(false);
-
+                }
+            });
         }
         else
             //noinspection DataFlowIssue
@@ -989,6 +991,19 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (prefContext != null)) {
                 if (showProgress) {
+
+                    LayoutInflater inflater = (LayoutInflater)
+                            prefContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                    //noinspection DataFlowIssue
+                    @SuppressLint("InflateParams")
+                    View popupView = inflater.inflate(R.layout.dialog_progress_bar, null);
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // lets taps outside the popup also dismiss it
+                    fragment.popupWindow = new PopupWindow(popupView, width, height, focusable);
+                    fragment.popupWindow.showAtLocation(fragment.cellsListView, Gravity.CENTER, 0, 0);
+
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
                     dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationEventMobileCellConfigureCells);
 
@@ -998,6 +1013,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                     fragment.progressDialog = dialogBuilder.create();
                     fragment.progressDialog.show();
+                    */
                 }
             }
         }
@@ -1510,8 +1526,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
-                        fragment.progressDialog.dismiss();
+                    if ((fragment.popupWindow != null) && fragment.popupWindow.isShowing())
+                        fragment.popupWindow.dismiss();
+                    //if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
+                    //    fragment.progressDialog.dismiss();
                 });
 
             }
