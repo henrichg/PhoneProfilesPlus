@@ -23,6 +23,8 @@
     <color name="widgetListItemColor">#35000000</color>
     <color name="widgetRestartEventsColor">#35000000</color>
 
+    <color name="tabTextColor">#FF978e84</color>
+
     <!--    <color name="activityPreferenceTitleTextColor">#171717</color>-->
     <!--    <color name="activityPreferenceSummaryTextColor">#4E4E4E</color>-->
 

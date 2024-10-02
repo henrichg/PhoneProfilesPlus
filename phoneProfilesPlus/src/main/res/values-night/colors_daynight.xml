@@ -39,6 +39,8 @@
     <color name="widgetListItemColor">#35FFFFFF</color>
     <color name="widgetRestartEventsColor">#35FFFFFF</color>
 
+    <color name="tabTextColor">#FFa1a09f</color>
+
 <!--    <color name="changedPreferenceValueTextColor">#FFd4d4d4</color>-->
 
 <!--    <color name="notificationDecorationColor">#cc893e</color>-->

@@ -22,24 +22,30 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_important_info_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@id/activity_important_info_toolbar"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
         app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
+        app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/activityNormalTextColor"
-        app:tabTextColor="@color/activitySecondaryTextColor"
+        app:tabTextColor="@color/tabTextColor"
+        app:tabIndicator="@drawable/tab_indicator"
         app:tabMode="scrollable"
         app:tabMinWidth="1dp"
         app:tabIndicatorFullWidth="false"
-        app:tabPaddingStart="5dp"
-        app:tabPaddingEnd="5dp" />
+        />
     <!--    android:minHeight="?attr/actionBarSize"-->
     <!--    app:tabPaddingTop="10dp"-->
 <!--    android:background="@color/primary"-->
+
+<!--    android:layout_marginBottom="10dp"-->
+<!--    android:layout_height="40dp"-->
+<!--    app:tabRippleColor="@color/rippleRectangeleItemBackgroundColor"-->
+<!--    app:tabPaddingStart="10dp"-->
+<!--    app:tabPaddingEnd="10dp"-->
 
     <LinearLayout
         android:id="@+id/activity_important_info_frLa1"
