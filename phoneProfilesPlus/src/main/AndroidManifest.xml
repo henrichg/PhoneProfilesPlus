@@ -284,13 +284,13 @@
         </activity>
 
         <activity
-            android:name=".ProfilesPrefsActivity"
-            android:label="@string/title_activity_profile_preferences">
+            android:name=".ProfilesPrefsActivity">
         </activity>
+<!--    android:label="@string/title_activity_profile_preferences">-->
         <activity
-            android:name=".EventsPrefsActivity"
-            android:label="@string/title_activity_event_preferences">
+            android:name=".EventsPrefsActivity">
         </activity>
+<!--    android:label="@string/title_activity_event_preferences">-->
         <activity
             android:name=".PhoneProfilesPrefsActivity"
             android:label="@string/title_activity_phone_profiles_preferences"

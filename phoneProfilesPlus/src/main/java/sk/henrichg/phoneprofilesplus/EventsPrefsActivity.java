@@ -92,12 +92,13 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+        toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
+        toolbar.setTitle(getString(R.string.event_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
         progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);

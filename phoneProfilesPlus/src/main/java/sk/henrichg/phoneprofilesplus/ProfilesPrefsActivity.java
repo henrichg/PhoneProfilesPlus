@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -71,6 +72,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+        //noinspection DataFlowIssue
+        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
+        toolbar.setTitle(getString(R.string.profile_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
         progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
