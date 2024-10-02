@@ -47,7 +47,7 @@
         android:layout_marginEnd="@dimen/divider_margin"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="@string/title_activity_phone_profiles_preferences"
+        android:text=""
         style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:textSize="17sp"/>
 
