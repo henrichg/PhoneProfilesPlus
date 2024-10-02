@@ -4090,6 +4090,7 @@ class ActivateProfileHelper {
 
             // for lock screen no double width
             if (profile._deviceWallpaperFor != 2)
+                // TODO - ze by toto som nerobil? Toto by mohlo pokazit wallppaer
                 width = width << 1; // best wallpaper width is twice screen width
 
             if (fromFolder) {
@@ -4477,10 +4478,18 @@ class ActivateProfileHelper {
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
 
+        boolean canChangeWallpaper = true;
         // startActivity from background: Android 10 (API level 29)
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
-        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            if ((_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
+                    (_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
+                canChangeWallpaper = Settings.canDrawOverlays(context);
+            }
+        }
+
+        if (canChangeWallpaper) {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
