@@ -65,8 +65,8 @@
                 app:popupTheme="?attr/toolbarPopupMenu"
                 app:titleTextAppearance="@style/EditorToolbarTitleText"
                 app:contentInsetEnd="@dimen/content_inset_end"
-                app:contentInsetStart="@dimen/content_inset_start"
-                app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+                app:contentInsetStart="20dp"
+                app:contentInsetStartWithNavigation="20dp"
                 />
 
             <androidx.appcompat.widget.Toolbar
