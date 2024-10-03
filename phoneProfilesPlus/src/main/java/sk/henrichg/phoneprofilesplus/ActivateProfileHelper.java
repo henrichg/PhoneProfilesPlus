@@ -4161,8 +4161,8 @@ class ActivateProfileHelper {
                             ImageDecoder.Source source = ImageDecoder.createSource(appContext.getContentResolver(), uri);
                             decodedSampleBitmapHome = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
                                 //decoder.setTargetSampleSize(1);
-                                decoder.setMutableRequired(true);
-                                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+                                //decoder.setMutableRequired(true);
+                                //decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
                             });
                         } else
                             decodedSampleBitmapHome = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
@@ -4178,8 +4178,8 @@ class ActivateProfileHelper {
                             ImageDecoder.Source source = ImageDecoder.createSource(appContext.getContentResolver(), uri);
                             decodedSampleBitmapLock = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
                                 //decoder.setTargetSampleSize(1);
-                                decoder.setMutableRequired(true);
-                                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+                                //decoder.setMutableRequired(true);
+                                //decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
                             });
                         } else
                             decodedSampleBitmapLock = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
