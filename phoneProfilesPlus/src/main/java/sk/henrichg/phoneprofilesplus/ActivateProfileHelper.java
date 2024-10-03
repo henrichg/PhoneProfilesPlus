@@ -4101,8 +4101,14 @@ class ActivateProfileHelper {
                 Uri uri = Uri.parse(wallpaperUri);
                 if (uri != null) {
                     try {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-                            decodedSampleBitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(appContext.getContentResolver(), uri));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            ImageDecoder.Source source = ImageDecoder.createSource(appContext.getContentResolver(), uri);
+                            decodedSampleBitmap = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
+                                //decoder.setTargetSampleSize(1);
+                                decoder.setMutableRequired(true);
+                                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+                            });
+                        }
                         else
                             decodedSampleBitmap = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
                     } catch (Exception ignored) {}
@@ -4149,12 +4155,46 @@ class ActivateProfileHelper {
             } else {
                 Bitmap decodedSampleBitmapHome = null;
                 Bitmap decodedSampleBitmapLock = null;
+                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1)) {
+                    try {
+                        Uri uri = Uri.parse(wallpaperUri);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            ImageDecoder.Source source = ImageDecoder.createSource(appContext.getContentResolver(), uri);
+                            decodedSampleBitmapHome = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
+                                //decoder.setTargetSampleSize(1);
+                                decoder.setMutableRequired(true);
+                                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+                            });
+                        } else
+                            decodedSampleBitmapHome = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
+                    } catch (Exception ignored) {
+                    }
+                }
+                if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
+                        (!lockScreenWallpaperUri.equals("-")) &&
+                        (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2)) {
+                    try {
+                        Uri uri = Uri.parse(lockScreenWallpaperUri);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            ImageDecoder.Source source = ImageDecoder.createSource(appContext.getContentResolver(), uri);
+                            decodedSampleBitmapLock = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
+                                //decoder.setTargetSampleSize(1);
+                                decoder.setMutableRequired(true);
+                                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+                            });
+                        } else
+                            decodedSampleBitmapLock = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
+                    } catch (Exception ignored) {
+                    }
+                }
+                /*
                 if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1))
                     decodedSampleBitmapHome = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
                 if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
                         (!lockScreenWallpaperUri.equals("-")) &&
                         (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2))
                     decodedSampleBitmapLock = BitmapManipulator.resampleBitmapUri(lockScreenWallpaperUri, width, height, false, true, appContext);
+                */
 
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
                 try {
@@ -4173,6 +4213,7 @@ class ActivateProfileHelper {
                             int flags = WallpaperManager.FLAG_LOCK;
                             int left = 0;
                             int right = decodedSampleBitmapLock.getWidth();
+                            width = width >> 1; // best wallpaper width is twice screen width
                             if (decodedSampleBitmapLock.getWidth() > width) {
                                 left = (decodedSampleBitmapLock.getWidth() / 2) - (width / 2);
                                 right = (decodedSampleBitmapLock.getWidth() / 2) + (width / 2);
@@ -4517,7 +4558,6 @@ class ActivateProfileHelper {
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForWallpaper);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
-
                         _changeImageWallpapers(profile, profile._deviceWallpaper, profile._deviceWallpaperLockScreen, false, appContext);
                     } catch (Exception e) {
     //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
