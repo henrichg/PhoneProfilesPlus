@@ -1300,13 +1300,13 @@ class Event {
                             String profileName = dataWrapper.getProfileName(Long.parseLong(startWhenActivatedProfile));
                             if (profileName != null) {
                                 _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                        .append(getColorForChangedPreferenceValue(profileName, !preference.isEnabled(), context))
+                                        .append(EventPreferences.getColorForChangedPreferenceValue(profileName, !preference.isEnabled(), false, context))
                                         .append(StringConstants.TAG_BOLD_END_HTML);
                             }
                         }
                         else {
                             _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                    .append(getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context))
+                                    .append(EventPreferences.getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), false, context))
                                     .append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         dataWrapper.invalidateDataWrapper();
@@ -1315,7 +1315,7 @@ class Event {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context))
+                                .append(EventPreferences.getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), false, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundStartChanged) {
@@ -1330,7 +1330,7 @@ class Event {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationRepeat)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context))
+                                .append(EventPreferences.getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), false, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
 
                     }
@@ -1357,7 +1357,7 @@ class Event {
                         /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context))
+                                .append(EventPreferences.getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), false, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundEndChanged) {
@@ -3254,15 +3254,6 @@ class Event {
             //return true;
         }
         //return false;
-    }
-
-    String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
-        if (!disabled) {
-            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
-            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
-        } else
-            return preferenceValue;
     }
 
 }

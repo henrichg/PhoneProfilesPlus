@@ -15,6 +15,7 @@
     <color name="dialogTitleTextColor">#212121</color>
 
     <color name="preferenceSummaryTextColor">#6e6152</color>
+    <color name="preferenceSummaryValueColor">#5c5145</color>
 
     <color name="rippleRectangeleItemBackgroundColor">#BFBFBF</color>
     <color name="rippleOvalItemBackgroundColor">#AFAFAF</color>
