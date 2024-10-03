@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.hardware.camera2.CameraAccessException;
@@ -44,6 +45,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.telephony.SmsManager;
@@ -4094,7 +4096,17 @@ class ActivateProfileHelper {
                 width = width << 1; // best wallpaper width is twice screen width
 
             if (fromFolder) {
-                Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+                //Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+                Bitmap decodedSampleBitmap = null;
+                Uri uri = Uri.parse(wallpaperUri);
+                if (uri != null) {
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+                            decodedSampleBitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(appContext.getContentResolver(), uri));
+                        else
+                            decodedSampleBitmap = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
+                    } catch (Exception ignored) {}
+                }
                 if (decodedSampleBitmap != null) {
                     // set wallpaper
                     WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
