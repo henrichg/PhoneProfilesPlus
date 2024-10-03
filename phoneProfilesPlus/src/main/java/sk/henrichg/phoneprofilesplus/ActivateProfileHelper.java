@@ -58,7 +58,6 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -4096,7 +4095,7 @@ class ActivateProfileHelper {
         return bitmap;
     }
 
-    private static Exception _changeWallpaperForLockscreen(WallpaperManager wallpaperManager, Bitmap bitmap, int height, int width, Context appContext) {
+    private static Exception _changeWallpaperForLockscreen(WallpaperManager wallpaperManager, Bitmap bitmap, int height, int width) {
         // calculates sizes to maintain aspect ratio
         int scaleToUse = 100; // this will be our percentage
         int sizeY = height * scaleToUse / 100;
@@ -4107,18 +4106,10 @@ class ActivateProfileHelper {
         int flags = WallpaperManager.FLAG_LOCK;
         int left = 0;
         int right = resizedBitmap.getWidth();
-        Log.e("ActivateProfileHelper.+_changeImageWallpapers", "crop of bitmap - left(1)="+left);
-        Log.e("ActivateProfileHelper.+_changeImageWallpapers", "crop of bitmap - right(1)="+right);
-        Log.e("ActivateProfileHelper.+_changeImageWallpapers", "width of screen="+width);
-        //width = width >> 1; // best wallpaper width is twice screen width
         if (resizedBitmap.getWidth() > width) {
-            Log.e("ActivateProfileHelper.+_changeImageWallpapers", "width of bitmap is greather then width of screen = crop bitmap");
             left = (resizedBitmap.getWidth() / 2) - (width / 2);
             right = (resizedBitmap.getWidth() / 2) + (width / 2);
-        } else
-            Log.e("ActivateProfileHelper.+_changeImageWallpapers", "width of screen is greather then width of bitmap = do not crop bitmap");
-        Log.e("ActivateProfileHelper.+_changeImageWallpapers", "crop of bitmap - left(2)="+left);
-        Log.e("ActivateProfileHelper.+_changeImageWallpapers", "crop of bitmap - right(2)="+right);
+        }
         Rect visibleCropHint = new Rect(left, 0, right, resizedBitmap.getHeight());
 
         try {
@@ -4158,7 +4149,7 @@ class ActivateProfileHelper {
                             // home+lock
                             int flags = WallpaperManager.FLAG_SYSTEM;
                             wallpaperManager.setBitmap(decodedSampleBitmap, null, true, flags);
-                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width, appContext);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width);
                             if (ee != null)
                                 throw(ee);
                         }
@@ -4171,7 +4162,7 @@ class ActivateProfileHelper {
                         else
                         if (profile._deviceWallpaperFor == 2) {
                             // lock only
-                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width, appContext);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width);
                             if (ee != null)
                                 throw(ee);
                         }
@@ -4215,7 +4206,7 @@ class ActivateProfileHelper {
                             wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
                         }
                         if (decodedSampleBitmapLock != null) {
-                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmapLock, height, width, appContext);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmapLock, height, width);
                             if (ee != null)
                                 throw(ee);
                         }
@@ -4236,7 +4227,7 @@ class ActivateProfileHelper {
                             decodedSampleBitmap = decodedSampleBitmapLock;
 
                         if (decodedSampleBitmap != null) {
-                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width, appContext);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width);
                             if (ee != null)
                                 throw(ee);
                         }
