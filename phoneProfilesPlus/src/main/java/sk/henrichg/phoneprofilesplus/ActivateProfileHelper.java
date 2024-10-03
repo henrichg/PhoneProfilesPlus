@@ -4096,7 +4096,6 @@ class ActivateProfileHelper {
                 width = width << 1; // best wallpaper width is twice screen width
 
             if (fromFolder) {
-                //Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
                 Bitmap decodedSampleBitmap = null;
                 Uri uri = Uri.parse(wallpaperUri);
                 if (uri != null) {
@@ -4187,14 +4186,6 @@ class ActivateProfileHelper {
                     } catch (Exception ignored) {
                     }
                 }
-                /*
-                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1))
-                    decodedSampleBitmapHome = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
-                if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
-                        (!lockScreenWallpaperUri.equals("-")) &&
-                        (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2))
-                    decodedSampleBitmapLock = BitmapManipulator.resampleBitmapUri(lockScreenWallpaperUri, width, height, false, true, appContext);
-                */
 
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
                 try {
