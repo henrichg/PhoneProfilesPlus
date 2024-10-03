@@ -122,7 +122,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     }
                     selectedValues = __value.toString();
                 }
-                _value.append(context.getString(R.string.event_preferences_soundProfile_ringerModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_soundProfile_ringerModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (dndChecked) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -142,7 +142,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         }
                         selectedValues = __value.toString();
                     }
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_soundProfile_zenModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_soundProfile_zenModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }

@@ -104,12 +104,12 @@ class EventPreferencesRoaming extends EventPreferences {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, false, context);
             if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (this._checkNetwork) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 if (this._checkData) {
                     if (this._checkNetwork)
                         _value.append(StringConstants.STR_BULLET);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                     boolean hasSIMCard = false;
@@ -132,7 +132,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (hasSIMCard) {
                         _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_roaming_forSimCard));
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
-                        _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
             }
             else {

@@ -126,7 +126,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (index != -1) {
                     _value.append(context.getString(R.string.event_preferences_wifi_connection_type));
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
                 }
 
                 _value.append(context.getString(R.string.pref_event_wifi_ssid)).append(StringConstants.STR_COLON_WITH_SPACE);
@@ -161,7 +161,7 @@ class EventPreferencesWifi extends EventPreferences {
                     }
                 }
                 selectedSSIDs = value.toString();
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedSSIDs, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedSSIDs, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 

@@ -216,7 +216,7 @@ class EventPreferencesTime extends EventPreferences {
                             value.append(namesOfDay[dayOfWeek + 1]).append(" ");
                     }
                     _descr = value.toString();
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 _value.append(StringConstants.CHAR_BULLET).append(" ").append(context.getString(R.string.event_preferences_time_timeType)).append(StringConstants.STR_COLON_WITH_SPACE);
@@ -232,7 +232,7 @@ class EventPreferencesTime extends EventPreferences {
                         _descr = _descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
                         break;
                 }
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (_timeType == TIME_TYPE_EXACT) {
                     _value.append(StringConstants.STR_BULLET);
@@ -251,7 +251,7 @@ class EventPreferencesTime extends EventPreferences {
                     _descr = _descr + "-";
                     _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                     //}
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     if (addBullet) {
                         if (EventStatic.getGlobalEventsRunning(context)) {
@@ -298,7 +298,7 @@ class EventPreferencesTime extends EventPreferences {
                                     calendar.setTimeInMillis(endTime);
                                     _descr = _descr + "-";
                                     _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-                                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_descr, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                                     if (addBullet) {
                                         if (EventStatic.getGlobalEventsRunning(context)) {

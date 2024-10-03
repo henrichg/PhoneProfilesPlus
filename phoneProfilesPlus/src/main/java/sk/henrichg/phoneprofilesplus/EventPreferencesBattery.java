@@ -135,14 +135,14 @@ class EventPreferencesBattery extends EventPreferences {
                 }
 
                 _value.append(context.getString(R.string.pref_event_battery_level));
-                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._powerSaveMode)
-                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
                     _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_battery_charging));
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(charging[this._charging], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(charging[this._charging], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
@@ -164,7 +164,7 @@ class EventPreferencesBattery extends EventPreferences {
                         }
                         selectedPlugged = value.toString();
                     }
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }

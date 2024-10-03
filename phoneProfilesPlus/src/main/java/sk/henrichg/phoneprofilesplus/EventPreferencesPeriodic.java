@@ -109,17 +109,17 @@ class EventPreferencesPeriodic extends EventPreferences {
                         _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
                     } else {
                         _value.append(context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval)).append(StringConstants.STR_COLON_WITH_SPACE)
-                                .append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                .append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _value.append(StringConstants.STR_BULLET);
                     }
                 }
 
-                _value.append(context.getString(R.string.pref_event_periodic_multiple_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.pref_event_periodic_multiple_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 _value.append(StringConstants.STR_BULLET);
                 int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
-                _value.append(context.getString(R.string.pref_event_periodic_resulting_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.pref_event_periodic_resulting_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 _value.append(StringConstants.STR_BULLET);
-                _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 

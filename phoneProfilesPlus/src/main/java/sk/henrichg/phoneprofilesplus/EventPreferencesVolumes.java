@@ -179,10 +179,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeRingtone)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
@@ -208,10 +208,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeNotification)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
@@ -237,10 +237,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeMedia)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
@@ -266,10 +266,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeAlarm)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
@@ -295,10 +295,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeSystem)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
@@ -324,10 +324,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeVoiceCall)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     _addBullet = true;
@@ -353,10 +353,10 @@ class EventPreferencesVolumes extends EventPreferences {
                     _value.append(context.getString(R.string.profile_preferences_volumeBluetoothSCO)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
-                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, context));
+                    _value.append(getColorForChangedPreferenceValue(fields[operatorFrom] + " " + splitsFrom[0], disabled, addBullet, context));
                     if (operatorTo != 0) {
                         _value.append(StringConstants.STR_HARD_SPACE_DASH);
-                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, context));
+                        _value.append(getColorForChangedPreferenceValue(fields[operatorTo] + " " + splitsTo[0], disabled, addBullet, context));
                     }
                     _value.append(StringConstants.TAG_BOLD_END_HTML);
                     //_addBullet = true;

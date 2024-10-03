@@ -117,7 +117,7 @@ class EventPreferencesAccessories extends EventPreferences {
                     selectedAccessory = value.toString();
                 }
                 _value.append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(getColorForChangedPreferenceValue(selectedAccessory, disabled, context))
+                        .append(getColorForChangedPreferenceValue(selectedAccessory, disabled, addBullet, context))
                         .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }

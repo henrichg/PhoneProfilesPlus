@@ -26,6 +26,8 @@
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
 
+    <color name="preferenceSummaryTextColor">#c6b9ac</color>
+
 <!--    <color name="rippleRectangeleItemBackgroundColor">#606060</color>-->
 <!--    <color name="rippleRectangeleItemBackgroundColor">#645c5a</color>-->
     <color name="rippleRectangeleItemBackgroundColor">#5e524c</color>

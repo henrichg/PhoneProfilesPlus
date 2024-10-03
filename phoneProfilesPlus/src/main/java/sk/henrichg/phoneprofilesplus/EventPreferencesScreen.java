@@ -79,14 +79,14 @@ class EventPreferencesScreen extends EventPreferences {
                 if (index != -1) {
                     _value.append(context.getString(R.string.event_preferences_screen_event_type)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 if (this._whenUnlocked) {
                     if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }

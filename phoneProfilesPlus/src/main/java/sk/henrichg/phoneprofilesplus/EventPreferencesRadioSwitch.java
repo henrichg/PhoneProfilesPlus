@@ -141,7 +141,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         _value.append(context.getString(R.string.event_preferences_radioSwitch_wifi)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._wifi], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._wifi], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -152,7 +152,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_radioSwitch_bluetooth)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._bluetooth], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._bluetooth], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -181,7 +181,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     _value.append(StringConstants.STR_BULLET);
                                 String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchSIMOnOffArray);
                                 _value.append(context.getString(R.string.event_preferences_radioSwitch_simOnOff)).append(StringConstants.STR_COLON_WITH_SPACE);
-                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._simOnOff], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._simOnOff], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _addBullet = true;
                             }
                         }
@@ -194,7 +194,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     _value.append(StringConstants.STR_BULLET);
                                 _value.append(context.getString(R.string.event_preferences_radioSwitch_defaultSIMForCalls)).append(StringConstants.STR_COLON_WITH_SPACE);
                                 String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
-                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._defaultSIMForCalls], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._defaultSIMForCalls], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _addBullet = true;
                             }
                         }
@@ -204,7 +204,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     _value.append(StringConstants.STR_BULLET);
                                 _value.append(context.getString(R.string.event_preferences_radioSwitch_defaultSIMForSMS)).append(StringConstants.STR_COLON_WITH_SPACE);
                                 String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
-                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._defaultSIMForSMS], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._defaultSIMForSMS], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                                 _addBullet = true;
                             }
                         }
@@ -238,7 +238,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                         }
                         if (index != -1)
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fieldArray[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fieldArray[index], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -248,7 +248,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_radioSwitch_gps)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._gps], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._gps], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -259,7 +259,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_radioSwitch_nfc)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._nfc], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._nfc], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _addBullet = true;
                     }
                 }
@@ -270,7 +270,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_radioSwitch_airplaneMode)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 }
             }

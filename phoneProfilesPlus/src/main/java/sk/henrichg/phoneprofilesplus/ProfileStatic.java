@@ -1186,7 +1186,7 @@ class ProfileStatic {
                                                     Context context) {
         Preference preference = prefMng.findPreference(preferenceKey);
         if ((preference != null) && preference.isEnabled()) {
-            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            int labelColor = ContextCompat.getColor(context, R.color.preferenceSummaryTextColor);
             String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
             return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else

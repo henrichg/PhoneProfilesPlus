@@ -60,7 +60,7 @@ class EventPreferencesVPN extends EventPreferences {
             if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 _value.append(context.getString(R.string.pref_event_vpn_connection_status)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
             }
             else {

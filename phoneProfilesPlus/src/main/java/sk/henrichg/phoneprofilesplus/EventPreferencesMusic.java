@@ -82,7 +82,7 @@ class EventPreferencesMusic extends EventPreferences {
 
                 _value.append(context.getString(R.string.event_preferences_music_state));
                 String[] musicSate = context.getResources().getStringArray(R.array.eventMusicStatesArray);
-                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(musicSate[this._musicState], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(musicSate[this._musicState], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -110,7 +110,7 @@ class EventPreferencesMusic extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 

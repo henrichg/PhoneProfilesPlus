@@ -85,17 +85,17 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
                 String profileName = dataWrapper.getProfileName(this._startProfile);
                 if (profileName != null) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 profileName = dataWrapper.getProfileName(this._endProfile);
                 if (profileName != null) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 dataWrapper.invalidateDataWrapper();
             }

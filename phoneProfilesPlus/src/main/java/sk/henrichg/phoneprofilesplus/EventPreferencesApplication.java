@@ -139,18 +139,18 @@ class EventPreferencesApplication extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_duration)).append(StringConstants.STR_COLON_WITH_SPACE);
                 if (this._duration == 0)
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, this._duration / 60);
                     calendar.set(Calendar.MINUTE, this._duration % 60);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(
                             DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis())),
-                                disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
