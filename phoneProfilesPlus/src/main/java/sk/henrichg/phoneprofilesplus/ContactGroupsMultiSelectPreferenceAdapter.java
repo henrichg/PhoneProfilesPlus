@@ -98,6 +98,12 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             checkBox.setTag(contactGroup);
 
             // Display ContactGroup data
+            if (contactGroup.count == 0)
+                //noinspection DataFlowIssue
+                textViewDisplayName.setTextColor(convertView.getContext().getColor(R.color.preferenceSummaryTextColor));
+            else
+                //noinspection DataFlowIssue
+                textViewDisplayName.setTextColor(convertView.getContext().getColor(R.color.activityNormalTextColor));
             //noinspection DataFlowIssue
             textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
@@ -135,6 +141,12 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
                 accountType = contactGroup.accountType;
             contactGroup.displayedAccountType = accountType;
 
+            if (contactGroup.count == 0)
+                //noinspection DataFlowIssue
+                textViewAccountType.setTextColor(convertView.getContext().getColor(R.color.preferenceSummaryTextColor));
+            else
+                //noinspection DataFlowIssue
+                textViewAccountType.setTextColor(convertView.getContext().getColor(R.color.activityNormalTextColor));
             //noinspection DataFlowIssue
             textViewAccountType.setText(contactGroup.displayedAccountType);
 
