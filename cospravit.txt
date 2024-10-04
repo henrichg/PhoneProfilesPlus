@@ -626,5 +626,23 @@ directly without comparing the contents. Be careful when using this file"
 
 ---------
 
-...
+Kontact groups, vypada, ze konecne funguje:
+2024-10-04 23:37:57.425 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  (2) name=Rodina
+2024-10-04 23:37:57.425 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  (2) contactGroupId=19
+2024-10-04 23:37:57.425 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  (2) accountType=com.google
+* Lida -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=177 phone=++421905434368 to contactGroupId=19
+2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=1
+* Tatko -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=203 phone=++421915795249 to contactGroupId=19
+2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=2
+* Manina -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=179 phone=++421905340850 to contactGroupId=19
+2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=3
+* Krsna -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=94 phone=++421905530412 to contactGroupId=19
+2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=4
+* Karin -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=184 phone=++421908989980 to contactGroupId=19
+* Karin -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=184 phone=++421918440100 to contactGroupId=19
+2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=6
+* Ja -> 2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=195 phone=++421907977871 to contactGroupId=19
+* Ja -> 2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=195 phone=++421917994279 to contactGroupId=19
+* Ja -> 2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=195 phone=++421915931555 to contactGroupId=19
+2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=9
 

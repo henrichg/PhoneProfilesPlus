@@ -192,7 +192,7 @@ class ContactGroupsCache {
                                 ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "= ?" + " AND "
                                         + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                                         + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'",
-                                new String[] { String.valueOf(contactGroup.groupId) }, null /*ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID*/);
+                                new String[] { String.valueOf(contactGroup.groupId) }, /*null*/ ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID);
 
                         if (groupCursor != null) {
                             while (groupCursor.moveToNext()) {
@@ -201,19 +201,26 @@ class ContactGroupsCache {
                                 long contactGroupId = groupCursor.getLong(groupCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID));
                                 //Log.e("ContactGroupsCache.getContactGroupList", "found contactGroupId="+contactGroupId);
 
+                                List<String> _contactPhoneNumberInGroup = new ArrayList<>();
                                 for (Contact contact : _contactList) {
                                     //Log.e("ContactGroupsCache.getContactGroupList", "inside query contact.contactId="+contact.contactId);
                                     if (contact.contactId == contactId) {
-//                                        Log.e("ContactGroupsCache.getContactGroupList", "added contactId="+contactId+" to contactGroupId="+contactGroupId);
-                                        if (contact.groups == null)
-                                            contact.groups = new ArrayList<>();
-                                        if (!contact.groups.contains(contactGroupId)) {
-                                            contact.groups.add(contactGroupId);
-                                            ++contactGroup.count;
+                                        if (!contact.phoneNumber.isEmpty()) {
+                                            if (contact.groups == null)
+                                                contact.groups = new ArrayList<>();
+                                            if (!contact.groups.contains(contactGroupId)) {
+                                                if (!_contactPhoneNumberInGroup.contains(contact.phoneNumber)) {
+//                                                    Log.e("ContactGroupsCache.getContactGroupList", "added contactId="+contactId+" phone=+"+contact.phoneNumber+" to contactGroupId="+contactGroupId);
+                                                    contact.groups.add(contactGroupId);
+                                                    _contactPhoneNumberInGroup.add(contact.phoneNumber);
+                                                    ++contactGroup.count;
+                                                }
+                                            }
                                         }
                                     }
                                 }
 //                                Log.e("ContactGroupsCache.getContactGroupList", "count of contacts in group="+contactGroup.count);
+                                //_contactListInGroup = null;
                             }
 
                             groupCursor.close();
