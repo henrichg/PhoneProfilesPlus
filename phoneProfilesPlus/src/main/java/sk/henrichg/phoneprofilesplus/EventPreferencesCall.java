@@ -681,7 +681,7 @@ class EventPreferencesCall extends EventPreferences {
                                         // group found in contact
                                         if (contact.phoneId != 0) {
                                             String _phoneNumber = contact.phoneNumber;
-                                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "_phoneNumber="+_phoneNumber);
+                                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "found in group _phoneNumber="+_phoneNumber);
                                             if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                                 phoneNumberFound = true;
                                                 break;
