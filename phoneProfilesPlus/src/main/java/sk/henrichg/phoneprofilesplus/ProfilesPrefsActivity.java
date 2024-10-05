@@ -91,7 +91,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
                         Toast.LENGTH_SHORT);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] ProfilesPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
+                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
                 PPApplication.blockContactContentObserver = false;
                 ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
@@ -101,7 +101,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             PPApplication.blockContactContentObserver = true;
-            PPApplicationStatic.logE("[CONTACTS_CACHE] ProfilesPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
+            PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
 
             startPreferencesActivityAsyncTask =
                     new StartPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
@@ -130,14 +130,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        PPApplicationStatic.logE("[CONTACTS_CACHE] ProfilesPrefsActivity.onPause", "PPApplication.blockContactContentObserver=false");
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onPause", "PPApplication.blockContactContentObserver=false");
         PPApplication.blockContactContentObserver = false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        PPApplicationStatic.logE("[CONTACTS_CACHE] ProfilesPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
         PPApplication.blockContactContentObserver = true;
 
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
@@ -317,7 +317,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        PPApplicationStatic.logE("[CONTACTS_CACHE] ProfilesPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
         PPApplication.blockContactContentObserver = false;
         ContactsContentObserver.enqueueContactsContentObserverWorker();
 

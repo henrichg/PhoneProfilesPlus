@@ -68,6 +68,7 @@ class ContactsContentObserver extends ContentObserver {
                                     .build();
                 }
 //                PPApplicationStatic.logE("[WORKER_CALL] ContactsContentObserver.enqueueContactsContentObserverWorker", "xxx");
+                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.enqueueContactsContentObserverWorker", "call of workManager.enqueueUniqueWork()");
                 workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
         }
@@ -75,6 +76,8 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(2) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
+
 //        if (PPApplicationStatic.logEnabled()) {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "uri=" + uri);
 //
@@ -84,16 +87,17 @@ class ContactsContentObserver extends ContentObserver {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
 //        }
 
-        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsContentObserver.onChange", "test of PPApplication.blockContactContentObserver");
         if (PPApplication.blockContactContentObserver)
             // observwer is blocked (for exmple by profile/event preferences activity)
             return;
 
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "call of enqueueContactsContentObserverWorker()");
         enqueueContactsContentObserverWorker();
     }
 
     @Override
     public void onChange(boolean selfChange) {
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(1) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
         onChange(selfChange, null);
     }
 

@@ -117,7 +117,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
+                PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
                 PPApplication.blockContactContentObserver = false;
                 ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
@@ -126,7 +126,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
 
         if (savedInstanceState == null) {
-            PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
+            PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
             PPApplication.blockContactContentObserver = true;
 
             startPreferencesActivityAsyncTask =
@@ -183,7 +183,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
         PPApplication.blockContactContentObserver = true;
 
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
@@ -374,7 +374,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void finish() {
-        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
         PPApplication.blockContactContentObserver = false;
         ContactsContentObserver.enqueueContactsContentObserverWorker();
 

@@ -208,7 +208,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -298,7 +298,6 @@ public class PPApplication extends Application
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
-                                                +"|[CONTACTS_CACHE]"
                                                 //+"|[SYNCHRONIZED]"
                                                 //+"|[DEFAULT_SIM]"
                                                 //+"|[RESTART_WIFI_SCANNER]"
@@ -307,9 +306,11 @@ public class PPApplication extends Application
                                                 //+"|BluetoothConnectionBroadcastReceiver"
                                                 //+"|EventPreferencesBluetooth"
                                                 //+"|CheckCriticalPPPReleasesBroadcastReceiver"
-
                                                 //+"|[LOCATION_SCAN_TEST]"
                                                 //+"|PreferenceAllowed"
+
+                                                //+"|[CONTACTS_CACHE]"
+                                                +"|[CONTACTS_OBSERVER]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
