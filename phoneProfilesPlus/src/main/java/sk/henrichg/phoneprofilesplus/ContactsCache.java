@@ -11,8 +11,8 @@ class ContactsCache {
 
     private final ArrayList<Contact> contactList;
     //private final ArrayList<Contact> contactListWithoutNumber;
-    private boolean cached;
-    private boolean caching;
+    private volatile boolean cached;
+    private volatile boolean caching;
     //private boolean cancelled;
 
     ContactsCache()
@@ -470,8 +470,8 @@ class ContactsCache {
             contactListWithoutNumber.addAll(_contactList);
         }
         else {*/
-            contactList.clear();
-            contactList.addAll(_contactList);
+        contactList.clear();
+        contactList.addAll(_contactList);
         //}
     }
 

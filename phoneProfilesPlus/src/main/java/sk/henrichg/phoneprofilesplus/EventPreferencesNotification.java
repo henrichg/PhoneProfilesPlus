@@ -950,14 +950,14 @@ class EventPreferencesNotification extends EventPreferences {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                     //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache == null)
                             return false;
                         List<Contact> contactList;
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isNotificationVisible", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
 
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
@@ -1153,14 +1153,14 @@ class EventPreferencesNotification extends EventPreferences {
                 StatusBarNotification newestNotification = null;
                 StatusBarNotification activeNotification;
 
+                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null)
                     return null;
                 List<Contact> contactList;
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.getNewestVisibleNotification", "PPApplication.contactsCacheMutex");
-                synchronized (PPApplication.contactsCacheMutex) {
-                    contactList = contactsCache.getList(/*false*/);
-                }
+                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "contactsCache.getList()");
+                contactList = contactsCache.getList(/*false*/);
 
                 for (StatusBarNotification statusBarNotification : statusBarNotifications) {
                     if (this._inCall) {

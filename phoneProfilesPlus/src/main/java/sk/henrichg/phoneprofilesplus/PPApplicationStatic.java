@@ -2194,6 +2194,7 @@ class PPApplicationStatic {
                     }
                     PPApplication.contactGroupsCache = null;
                     if (PPApplication.contactsCache != null) {
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic._exitApp", "(in contactsCacheMutex) contactsCache.clearCache()");
                         PPApplication.contactsCache.clearCache();
                     }
                     PPApplication.contactsCache = null;
@@ -2649,11 +2650,14 @@ class PPApplicationStatic {
     static void createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/)
     {
         if (clear) {
-            if (PPApplication.contactsCache != null)
+            if (PPApplication.contactsCache != null) {
+                PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactsCache", "contactsCache.clearCache()");
                 PPApplication.contactsCache.clearCache();
+            }
         }
         if (PPApplication.contactsCache == null)
             PPApplication.contactsCache = new ContactsCache();
+        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactsCache", "contactsCache.getContactList()");
         PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/);
     }
 
@@ -2665,11 +2669,14 @@ class PPApplicationStatic {
     static void createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
     {
         if (clear) {
-            if (PPApplication.contactGroupsCache != null)
+            if (PPApplication.contactGroupsCache != null) {
+                PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactGroupsCache", "contactGroupsCache.clearCache()");
                 PPApplication.contactGroupsCache.clearCache();
+                }
         }
         if (PPApplication.contactGroupsCache == null)
             PPApplication.contactGroupsCache = new ContactGroupsCache();
+        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactGroupsCache", "contactGroupsCache.getContactGroupList()");
         PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/);
     }
 

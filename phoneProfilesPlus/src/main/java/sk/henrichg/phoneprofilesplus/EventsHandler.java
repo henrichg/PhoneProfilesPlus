@@ -380,13 +380,13 @@ class EventsHandler {
                         (i == SENSOR_TYPE_SMS) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesSMS._enabled) {
@@ -423,13 +423,13 @@ class EventsHandler {
                         (i == SENSOR_TYPE_PHONE_CALL) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call events, save start time
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesCall._enabled) {
@@ -489,13 +489,13 @@ class EventsHandler {
                         (i == SENSOR_TYPE_CALL_SCREENING) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesCallScreening._enabled) {
@@ -1045,13 +1045,13 @@ class EventsHandler {
                     boolean simulateRingingCall = false;
                     String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.doEndHandler", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
                                 if (_event._eventPreferencesCall.isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/)) {

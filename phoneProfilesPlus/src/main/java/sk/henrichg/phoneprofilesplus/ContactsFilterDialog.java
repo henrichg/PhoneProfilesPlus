@@ -132,19 +132,24 @@ class ContactsFilterDialog {
             ContactsFilterDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
+                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null) {
                     // cache not created, create it
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getCaching()");
                     if (!contactsCache.getCaching()) {
                         // caching not performed
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getList()");
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
+                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
                             PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
@@ -154,6 +159,7 @@ class ContactsFilterDialog {
                             contactList.clear();
                     } else {
                         // wait for cache end
+                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getCaching()");
                         while (contactsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
@@ -164,6 +170,7 @@ class ContactsFilterDialog {
 
 //                PPApplicationStatic.logE("[SYNCHRONIZED] ContactsFilterDialog.ShowDialogAsyncTask", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
+                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getList()");
                     List<Contact> localContactList = contactsCache.getList(/*withoutNumbers*/);
                     if (localContactList != null) {
                         for (Contact contact : localContactList) {

@@ -22,6 +22,7 @@ public class ContactsContentObserverWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsContentObserverWorker.doWork", "test of PPApplication.blockContactContentObserver");
         if (PPApplication.blockContactContentObserver)
             // observwer is blocked (for exmple by profile/event preferences activity)
             return Result.success();
@@ -33,8 +34,10 @@ public class ContactsContentObserverWorker extends Worker {
             Context appContext = context.getApplicationContext();
 
             // must be first
+            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsContentObserverWorker.doWork", "PPApplicationStatic.createContactsCache()");
             PPApplicationStatic.createContactsCache(appContext, false, true/*, true*/);
             //must be seconds, this ads groups into contacts
+            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsContentObserverWorker.doWork", "PPApplicationStatic.createContactGroupsCache()");
             PPApplicationStatic.createContactGroupsCache(appContext, false/*, true*//*, true*/);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);

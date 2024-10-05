@@ -84,6 +84,7 @@ class ContactsContentObserver extends ContentObserver {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
 //        }
 
+        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsContentObserver.onChange", "test of PPApplication.blockContactContentObserver");
         if (PPApplication.blockContactContentObserver)
             // observwer is blocked (for exmple by profile/event preferences activity)
             return;

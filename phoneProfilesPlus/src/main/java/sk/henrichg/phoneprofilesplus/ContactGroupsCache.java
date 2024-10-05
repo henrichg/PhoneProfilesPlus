@@ -12,8 +12,8 @@ class ContactGroupsCache {
 
     private final ArrayList<ContactGroup> contactGroupList;
 
-    private boolean cached;
-    private boolean caching;
+    private volatile boolean cached;
+    private volatile boolean caching;
     //private boolean cancelled;
 
     ContactGroupsCache()
@@ -45,6 +45,7 @@ class ContactGroupsCache {
         caching = true;
         //cancelled = false;
 
+        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsCache.getContactGroupList", "PPApplicationStatic.getContactsCache()");
         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null) {
             caching = false;
@@ -59,11 +60,10 @@ class ContactGroupsCache {
 
         List<Contact> _contactList;
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(1) PPApplication.contactsCacheMutex");
-        synchronized (PPApplication.contactsCacheMutex) {
-            _contactList = contactsCache.getList(/*false*/);
-            if (_contactList == null)
-                _contactList = new ArrayList<>();
-        }
+        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsCache.getContactGroupList", "contactsCache.getList()");
+        _contactList = contactsCache.getList(/*false*/);
+        if (_contactList == null)
+            _contactList = new ArrayList<>();
 
 //        long kolegoviaGroupId = 0;
 
@@ -380,7 +380,7 @@ class ContactGroupsCache {
     }
     */
 
-    void updateContactGroups(List<ContactGroup> _contactGroupList) {
+    private void updateContactGroups(List<ContactGroup> _contactGroupList) {
         contactGroupList.clear();
         contactGroupList.addAll(_contactGroupList);
     }
@@ -421,7 +421,7 @@ class ContactGroupsCache {
  */
 
     // called only from ContactGroupsCache
-    void clearGroups(List<Contact> _contactList) {
+    private void clearGroups(List<Contact> _contactList) {
         if (_contactList == null)
             return;
 

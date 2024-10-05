@@ -846,13 +846,13 @@ class EventPreferencesCallScreening extends EventPreferences {
                             boolean phoneNumberFound = false;
 
                             if ((_callDirection == CALL_DIRECTION_ALL) || (_callDirection == callDirection)) {
+                                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCallScreening.doHandleEvent", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache != null) {
                                     List<Contact> contactList;
 //                                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                                    synchronized (PPApplication.contactsCacheMutex) {
-                                        contactList = contactsCache.getList();
-                                    }
+                                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCallScreening.doHandleEvent", "contactsCache.getList()");
+                                    contactList = contactsCache.getList();
                                     phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber);
                                     if (contactList != null)
                                         contactList.clear();
