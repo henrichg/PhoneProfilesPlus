@@ -59,6 +59,7 @@
         android:layout_marginEnd="@dimen/divider_margin"
         android:background="@color/dialogDividerColor" />
 
+    <!--
     <LinearLayout
         android:id="@+id/activity_preferences_settings_linla_progress"
         android:layout_width="match_parent"
@@ -75,6 +76,7 @@
             android:indeterminateDrawable="@drawable/ic_progressbar" />
 
     </LinearLayout>
+    -->
 
     <LinearLayout
         android:id="@+id/activity_preferences_settings"

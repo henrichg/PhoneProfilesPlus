@@ -52,7 +52,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     private Toolbar toolbar;
 
     LinearLayout settingsLinearLayout;
-    LinearLayout progressLinearLayout;
+    //LinearLayout progressLinearLayout;
 
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
@@ -101,7 +101,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         toolbar.setTitle(getString(R.string.event_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
-        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
+        //progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);

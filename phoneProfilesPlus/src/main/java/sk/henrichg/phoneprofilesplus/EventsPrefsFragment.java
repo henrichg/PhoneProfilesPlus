@@ -449,7 +449,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             (!ApplicationPreferences.applicationEventHideNotUsedSensors));
         }
 
-        activity.progressLinearLayout.setVisibility(View.GONE);
+        //activity.progressLinearLayout.setVisibility(View.GONE);
         activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
         setDivider(null); // this remove dividers for categories

@@ -42,7 +42,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     LinearLayout settingsLinearLayout;
-    LinearLayout progressLinearLayout;
+    //LinearLayout progressLinearLayout;
 
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
@@ -76,7 +76,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         toolbar.setTitle(getString(R.string.profile_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
-        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
+        //progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);

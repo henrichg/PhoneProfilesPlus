@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ActivatorTheme_dayNight_samsung" parent="@style/Base.Theme.PhoneProfilesTheme_activator_dayNight">
-        <item name="listViewItemBackground">@drawable/listview_item_background</item>
+        <item name="listViewItemBackground">@drawable/listview_item_background_selector</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
 
-        <item name="android:selectableItemBackground">@drawable/listview_item_background</item>
-        <item name="selectableItemBackground">@drawable/listview_item_background</item>
+        <item name="android:selectableItemBackground">@drawable/listview_item_background_selector</item>
+        <item name="selectableItemBackground">@drawable/listview_item_background_selector</item>
         <item name="android:actionBarItemBackground">@drawable/actionbar_item_background</item>
         <item name="actionBarItemBackground">@drawable/actionbar_item_background</item>
 
