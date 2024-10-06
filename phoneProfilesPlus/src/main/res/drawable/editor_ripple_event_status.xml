@@ -3,12 +3,12 @@
     android:color="@color/rippleOvalItemBackgroundColor">
     <item android:id="@android:id/mask"
         android:gravity="center" >
-        <shape android:shape="rectangle">
+        <shape android:shape="oval">
             <solid android:color="@color/pppColorBlack" />
-            <corners android:radius="@dimen/popup_window_corner_radius" />
-            <size
-                android:width="35dp"
-                android:height="35dp"/>
+            <corners android:radius="@dimen/icon_selector_radius" />
+<!--            <size-->
+<!--                android:width="40dp"-->
+<!--                android:height="40dp"/>-->
         </shape>
     </item>
 </ripple>

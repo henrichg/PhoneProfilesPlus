@@ -187,6 +187,7 @@
     </style>
     <style name="PPActionBarThemeDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlHighlight">@color/rippleRectangeleItemBackgroundColor</item>
+<!--        <item name="android:actionOverflowButtonStyle">?selectableItemBackgroundBorderless</item>-->
 <!--        <item name="android:background">@drawable/actionbar_item_background</item>-->
     </style>
 
@@ -232,5 +233,10 @@
 <!--    <style name="preference_switch_compat">-->
 <!--        <item name="android:layout">@layout/mp_preference_switch</item>-->
 <!--    </style>-->
+
+    <style name="CustomOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:background">@drawable/actionbar_item_background</item>
+<!--        <item name="android:src">@drawable/ic_list_item_edit_menu</item>-->
+    </style>
 
 </resources>

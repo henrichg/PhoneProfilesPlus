@@ -38,6 +38,7 @@
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
 
         <item name="homeAsUpIndicator">@drawable/ic_title_back</item>
+        <item name="actionOverflowButtonStyle">@style/CustomOverflowButtonStyle</item>
 
         <!--        <item name="actionNewProfileIcon">@drawable/ic_action_new_profile</item>-->
         <!--        <item name="actionDeleteAllIcon">@drawable/ic_action_delete_all</item>-->

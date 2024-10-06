@@ -71,15 +71,17 @@
 
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/profileicon_pref_dlg_custom_icon_helpIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
+                        android:padding="@dimen/image_button_padding"
+                        android:layout_marginTop="-1dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
                         android:background="@drawable/editor_ripple_item_right_button"
                         android:contentDescription="@string/profile_icon_preference_custumIconFromIconPack_help"
-                        android:padding="5dp"
                         android:src="@drawable/ic_button_help"
+                        android:scaleType="fitCenter"
                         app:tint="@color/accent_color" />
+<!--                    android:layout_centerVertical="true"-->
 
                     <Button
                         android:id="@+id/profileicon_pref_dlg_custom_icon"

@@ -27,14 +27,15 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/search_string_pref_dlg_helpIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
+            android:padding="@dimen/image_button_padding"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:src="@drawable/ic_button_help"
             app:tint="@color/accent_color"
             android:background="@drawable/editor_ripple_item_right_button"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/help_button_tooltip"/>
 <!--        android:layout_centerVertical="true"-->
 

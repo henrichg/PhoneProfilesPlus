@@ -48,6 +48,10 @@
     <dimen name="popup_menu_corner_radius">10dp</dimen>
     <dimen name="button_corner_radius">7dp</dimen>
 
+    <dimen name="icon_selector_radius">50dp</dimen>
+    <dimen name="image_button_size">42dp</dimen>
+    <dimen name="image_button_padding">9dp</dimen>
+
     <dimen name="alert_dialog_top_padding">10dp</dimen>
 
     <dimen name="important_info_top_margin">15dp</dimen>

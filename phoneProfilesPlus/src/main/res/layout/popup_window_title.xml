@@ -31,16 +31,17 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/popup_window_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="2dp"
-            android:padding="7dp"
+            android:padding="@dimen/image_button_padding"
             android:layout_gravity="end"
             android:background="@drawable/actionbar_item_background"
             android:src="@drawable/ic_button_close"
             app:tint="@color/accent_color"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/popup_window_close_button_name"
             app:textAllCaps="true" />
 

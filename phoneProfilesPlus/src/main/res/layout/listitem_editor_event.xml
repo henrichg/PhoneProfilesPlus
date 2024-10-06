@@ -63,13 +63,13 @@
 
         <ImageView
             android:id="@+id/event_list_item_status"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="3dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="0dp"
             android:adjustViewBounds="true"
             android:background="@drawable/editor_ripple_event_status"
             android:contentDescription="@string/editor_event_list_item_event_status"
-            android:padding="5dp"
+            android:padding="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_event_status_stop" />
 

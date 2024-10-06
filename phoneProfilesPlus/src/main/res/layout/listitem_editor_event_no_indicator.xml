@@ -63,10 +63,10 @@
 
         <ImageView
             android:id="@+id/event_list_item_status"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:padding="5dp"
-            android:layout_marginStart="3dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:layout_marginStart="0dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/editor_event_list_item_event_status"
             android:scaleType="centerCrop"

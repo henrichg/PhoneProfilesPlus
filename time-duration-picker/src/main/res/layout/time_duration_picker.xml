@@ -106,7 +106,7 @@
                 android:minWidth="@dimen/touchable"
                 android:minHeight="@dimen/touchable"
                 android:src="@drawable/ic_backspace"
-                android:background="@drawable/numpad_ripple_background"
+                android:background="@drawable/icon_ripple_background"
                 android:contentDescription="@string/backspace_button_tooltip"/>
 
             <ImageButton
@@ -118,7 +118,7 @@
                 android:minWidth="@dimen/touchable"
                 android:minHeight="@dimen/touchable"
                 android:src="@drawable/ic_clear"
-                android:background="@drawable/numpad_ripple_background"
+                android:background="@drawable/icon_ripple_background"
                 android:contentDescription="@string/clear_button_tooltip"/>
 
         </RelativeLayout>

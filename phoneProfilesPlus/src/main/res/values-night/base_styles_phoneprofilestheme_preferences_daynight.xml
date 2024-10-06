@@ -30,6 +30,7 @@
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
 
         <item name="homeAsUpIndicator">@drawable/ic_title_back</item>
+        <item name="actionOverflowButtonStyle">@style/CustomOverflowButtonStyle</item>
 
         <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@color/activityBackgroundColor</item>

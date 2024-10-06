@@ -187,27 +187,29 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_my_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_my_location"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/location_editor_change_location_dialog_title"
                 android:background="@drawable/editor_ripple_item_right_button" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_address_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_address"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/location_editor_rename_with_address_button_tooltip"
                 android:background="@drawable/editor_ripple_item_right_button" />
 

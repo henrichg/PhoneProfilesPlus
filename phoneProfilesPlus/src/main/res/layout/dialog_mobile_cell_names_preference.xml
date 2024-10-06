@@ -126,14 +126,15 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cell_names_pref_dlg_locationSystemSettingsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_settings"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/location_settings_button_tooltip"
                 android:background="@drawable/editor_ripple_item_right_button" />
 
