@@ -119,7 +119,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         Toast.LENGTH_SHORT);
 //                PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
 //                PPApplication.blockContactContentObserver = false;
-                ContactsContentObserver.enqueueContactsContentObserverWorker();
+//                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
@@ -376,7 +376,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     public void finish() {
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
 //        PPApplication.blockContactContentObserver = false;
-        ContactsContentObserver.enqueueContactsContentObserverWorker();
+//        ContactsContentObserver.enqueueContactsContentObserverWorker();
 
         // for startActivityForResult
         Intent returnIntent = new Intent();

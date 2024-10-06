@@ -93,7 +93,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT);
 //                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
 //                PPApplication.blockContactContentObserver = false;
-                ContactsContentObserver.enqueueContactsContentObserverWorker();
+//                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
@@ -319,7 +319,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     public void finish() {
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
 //        PPApplication.blockContactContentObserver = false;
-        ContactsContentObserver.enqueueContactsContentObserverWorker();
+//        ContactsContentObserver.enqueueContactsContentObserverWorker();
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
