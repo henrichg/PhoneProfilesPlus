@@ -117,8 +117,8 @@ public class EventsPrefsActivity extends AppCompatActivity
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);
-                PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
-                PPApplication.blockContactContentObserver = false;
+//                PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
+//                PPApplication.blockContactContentObserver = false;
                 ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
@@ -126,8 +126,8 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
 
         if (savedInstanceState == null) {
-            PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
-            PPApplication.blockContactContentObserver = true;
+//            PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
+//            PPApplication.blockContactContentObserver = true;
 
             startPreferencesActivityAsyncTask =
                     new StartPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
@@ -163,12 +163,12 @@ public class EventsPrefsActivity extends AppCompatActivity
                 new IntentFilter(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.onPause", "PPApplication.blockContactContentObserver=false");
-        PPApplication.blockContactContentObserver = false;
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.onPause", "PPApplication.blockContactContentObserver=false");
+//        PPApplication.blockContactContentObserver = false;
+//    }
 
     @Override
     protected void onStop() {
@@ -183,8 +183,8 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
-        PPApplication.blockContactContentObserver = true;
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
+//        PPApplication.blockContactContentObserver = true;
 
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)
@@ -374,8 +374,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void finish() {
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
-        PPApplication.blockContactContentObserver = false;
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
+//        PPApplication.blockContactContentObserver = false;
         ContactsContentObserver.enqueueContactsContentObserverWorker();
 
         // for startActivityForResult

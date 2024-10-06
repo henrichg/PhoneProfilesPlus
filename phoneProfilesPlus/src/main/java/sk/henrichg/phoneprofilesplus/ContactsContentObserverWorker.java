@@ -22,10 +22,10 @@ public class ContactsContentObserverWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserverWorker.doWork", "PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
-        if (PPApplication.blockContactContentObserver)
-            // observwer is blocked (for exmple by profile/event preferences activity)
-            return Result.success();
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserverWorker.doWork", "PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
+//        if (PPApplication.blockContactContentObserver)
+//            // observwer is blocked (for exmple by profile/event preferences activity)
+//            return Result.success();
 
         try {
 //            long start = System.currentTimeMillis();

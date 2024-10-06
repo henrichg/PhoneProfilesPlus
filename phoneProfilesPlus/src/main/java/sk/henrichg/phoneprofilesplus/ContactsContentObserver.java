@@ -76,7 +76,7 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(2) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(2) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
 
 //        if (PPApplicationStatic.logEnabled()) {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "uri=" + uri);
@@ -87,9 +87,9 @@ class ContactsContentObserver extends ContentObserver {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
 //        }
 
-        if (PPApplication.blockContactContentObserver)
-            // observwer is blocked (for exmple by profile/event preferences activity)
-            return;
+//        if (PPApplication.blockContactContentObserver)
+//            // observwer is blocked (for exmple by profile/event preferences activity)
+//            return;
 
         PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "call of enqueueContactsContentObserverWorker()");
         enqueueContactsContentObserverWorker();
@@ -97,7 +97,7 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(1) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(1) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
         onChange(selfChange, null);
     }
 

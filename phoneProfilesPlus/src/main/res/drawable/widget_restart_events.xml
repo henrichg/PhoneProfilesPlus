@@ -15,12 +15,12 @@
 <!--</ripple>-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@android:id/mask">
-        <shape android:shape="rectangle">
+        <shape android:shape="oval">
             <solid android:color="@color/widgetRestartEventsColor" />
-            <corners android:radius="@dimen/popup_window_corner_radius" />
+            <corners android:radius="60dp" />
             <size
-                android:width="40dp"
-                android:height="40dp" />
+                android:width="60dp"
+                android:height="60dp" />
         </shape>
     </item>
 </layer-list>

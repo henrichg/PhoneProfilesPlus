@@ -109,7 +109,7 @@
                 android:layout_width="@dimen/image_button_size"
                 android:layout_height="@dimen/image_button_size"
                 android:padding="@dimen/image_button_padding"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="7dp"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/run_applications_pref_dlg_helpIcon"
                 android:src="@drawable/ic_button_add"

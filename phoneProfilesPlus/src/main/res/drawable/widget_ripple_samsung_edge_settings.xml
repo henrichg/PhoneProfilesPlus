@@ -4,8 +4,8 @@
     <item
         android:id="@android:id/mask"
         android:gravity="center">
-        <shape android:shape="rectangle">
-            <corners android:radius="@dimen/popup_window_corner_radius" />
+        <shape android:shape="oval">
+            <corners android:radius="60dp" />
             <solid android:color="@android:color/white" />
             <size
                 android:width="40dp"

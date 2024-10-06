@@ -36,8 +36,8 @@
 
             <RelativeLayout
                 android:id="@+id/widget_profile_list_header_restart_events_click"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/widget_restart_events_selector_radius"
+                android:layout_height="@dimen/widget_restart_events_selector_radius"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
