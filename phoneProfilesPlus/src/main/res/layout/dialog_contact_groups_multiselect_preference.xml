@@ -26,7 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/contact_groups_multiselect_pref_dlg_rella_data"
+        android:id="@+id/contact_groups_multiselect_pref_dlg_linla_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

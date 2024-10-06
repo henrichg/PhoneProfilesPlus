@@ -44,9 +44,9 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
-    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect) {
         if (fragment != null)
-            fragment.refreshListView(notForUnselect);
+            fragment.refreshListView(forUnselect);
     }
 
     void getValueCMSDP()
@@ -210,7 +210,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
         //getValueCMSDP();
         setSummaryCMSDP();
-        refreshListView(true);
+        refreshListView(false);
         //notifyChanged();
     }
 

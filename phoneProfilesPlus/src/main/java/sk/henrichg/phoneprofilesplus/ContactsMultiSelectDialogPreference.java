@@ -68,9 +68,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
     }
 
-    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect) {
         if (fragment != null)
-            fragment.refreshListView(notForUnselect);
+            fragment.refreshListView(forUnselect);
     }
 
     void setContactsFilter(ContactFilter filter) {
@@ -294,24 +294,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                             found = true;
                         //}
                     } catch (Exception ignored) {}
-                    if (!found) {
-                        if (contact.accountType.equals("com.osp.app.signin"))
-                            accountType = _context.getString(R.string.contact_account_type_samsung_account);
-                        if (contact.accountType.equals("com.google"))
-                            accountType = _context.getString(R.string.contact_account_type_google_account);
-                        if (contact.accountType.equals("vnd.sec.contact.sim"))
-                            accountType = _context.getString(R.string.contact_account_type_sim_card);
-                        if (contact.accountType.equals("vnd.sec.contact.sim2"))
-                            accountType = _context.getString(R.string.contact_account_type_sim_card);
-                        if (contact.accountType.equals("vnd.sec.contact.phone"))
-                            accountType = _context.getString(R.string.contact_account_type_phone_application);
-                        if (contact.accountType.equals("org.thoughtcrime.securesms"))
-                            accountType = "Signal";
-                        if (contact.accountType.equals("com.google.android.apps.tachyon"))
-                            accountType = "Duo";
-                        if (contact.accountType.equals("com.whatsapp"))
-                            accountType = "WhatsApp";
-                    }
+                    if (!found)
+                        accountType = ContactsCache.getAccountName(contact.accountType, _context);
                     if ((!accountType.isEmpty()) &&
                             (!contact.accountType.equals("vnd.sec.contact.sim")) &&
                             (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
@@ -448,7 +432,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         //getValueCMSDP();
         setSummaryCMSDP();
-        refreshListView(true);
+        refreshListView(false);
         //notifyChanged();
     }
 

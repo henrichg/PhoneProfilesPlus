@@ -208,24 +208,8 @@ class ContactsFilterDialog {
                     } catch (Exception ignored) {
                     }
                     if (!found) {
-                        if (filter.data != null) {
-                            if (filter.data.equals("com.osp.app.signin"))
-                                newFilterName = activity.getString(R.string.contact_account_type_samsung_account);
-                            if (filter.data.equals("com.google"))
-                                newFilterName = activity.getString(R.string.contact_account_type_google_account);
-                            if (filter.data.equals("vnd.sec.contact.sim"))
-                                newFilterName = activity.getString(R.string.contact_account_type_sim_card);
-                            if (filter.data.equals("vnd.sec.contact.sim2"))
-                                newFilterName = activity.getString(R.string.contact_account_type_sim_card);
-                            if (filter.data.equals("vnd.sec.contact.phone"))
-                                newFilterName = activity.getString(R.string.contact_account_type_phone_application);
-                            if (filter.data.equals("org.thoughtcrime.securesms"))
-                                newFilterName = "Signal";
-                            if (filter.data.equals("com.google.android.apps.tachyon"))
-                                newFilterName = "Duo";
-                            if (filter.data.equals("com.whatsapp"))
-                                newFilterName = "WhatsApp";
-                        }
+                        if (filter.data != null)
+                            newFilterName = ContactsCache.getAccountName(filter.data, activity);
                     }
                     if (newFilterName.isEmpty())
                         newFilterName = filter.data;

@@ -618,4 +618,27 @@ class ContactsCache {
     }
     */
 
+    static String getAccountName(String accountType, Context context) {
+        String accountName = "";
+
+        if (accountType.equals("com.osp.app.signin"))
+            accountName = context.getString(R.string.contact_account_type_samsung_account);
+        if (accountType.equals("com.google"))
+            accountName = context.getString(R.string.contact_account_type_google_account);
+        if (accountType.equals("vnd.sec.contact.sim"))
+            accountName = context.getString(R.string.contact_account_type_sim_card);
+        if (accountType.equals("vnd.sec.contact.sim2"))
+            accountName = context.getString(R.string.contact_account_type_sim_card);
+        if (accountType.equals("vnd.sec.contact.phone"))
+            accountName = context.getString(R.string.contact_account_type_phone_application);
+        if (accountType.equals("org.thoughtcrime.securesms"))
+            accountName = "Signal";
+        if (accountType.equals("com.google.android.apps.tachyon"))
+            accountName = "Duo";
+        if (accountType.equals("com.whatsapp"))
+            accountName = "WhatsApp";
+
+        return accountName;
+    }
+
 }
