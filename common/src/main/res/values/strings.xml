@@ -2271,7 +2271,7 @@
     <string name="altype_callScreening_blockedCall">Blocked call</string>
     <string name="activityLog_blockedCall_telNumber">tel. number:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">WARNING: This parameter allows block of calls. Notification about blocked calls will not be displayed!\nBut the blocked tel. numbers are logged in the \"Activity log\", which enables calling back to blocked tel. number by clicking on this log line.</string>
-    <string name="activity_log_filter_all">Full log</string>
+    <string name="activity_log_filter_all">Entire log</string>
     <string name="activity_log_filter_blocked_calls">Blocked calls</string>
     <string name="activity_log_filter_errors">Errors</string>
     <string name="activity_log_filter_event_start">Start of events</string>
