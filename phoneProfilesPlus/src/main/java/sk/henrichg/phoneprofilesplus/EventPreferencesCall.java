@@ -706,11 +706,11 @@ class EventPreferencesCall extends EventPreferences {
                 splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
-                    if (!split.isEmpty()) {
+//                    if (!split.isEmpty()) {
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone numbe[0]r="+splits2[0]);
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[1]="+splits2[1]);
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[2]="+splits2[2]);
-                    }
+//                    }
 
                     if ((!split.isEmpty()) &&
                             (splits2.length == 3) &&

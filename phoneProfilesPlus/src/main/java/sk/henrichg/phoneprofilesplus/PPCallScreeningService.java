@@ -44,7 +44,8 @@ public class PPCallScreeningService extends CallScreeningService {
 
                 CallResponse.Builder response = new CallResponse.Builder();
 
-                if (callDirection ==  Call.Details.DIRECTION_INCOMING) {
+                if (callDirection ==  Call.Details.DIRECTION_INCOMING) //noinspection ExtractMethodRecommender
+                {
                     // blok call only for incoming call
 
 //                    Log.e("PPCallScreeningService.onScreenCall", "***** (1) *****");

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,7 +24,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -427,9 +425,9 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final int slotIndex = intent.getIntExtra(EXTRA_SIM_SLOT, 0);
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-                String _time = sdf.format(Calendar.getInstance().getTimeInMillis());
+//                @SuppressLint("SimpleDateFormat")
+//                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+//                String _time = sdf.format(Calendar.getInstance().getTimeInMillis());
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "eventTime="+_time);
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
 
