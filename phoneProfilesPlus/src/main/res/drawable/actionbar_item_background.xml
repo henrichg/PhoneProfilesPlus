@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/rippleRectangeleItemBackgroundColor">
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:inset="2dp">
+
+<ripple android:color="@color/rippleRectangeleItemBackgroundColor">
 
     <item android:id="@android:id/mask">
         <shape android:shape="oval">
@@ -26,3 +28,5 @@
     </item>
 
 </ripple>
+
+</inset>

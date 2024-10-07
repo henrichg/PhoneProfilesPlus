@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/pppColorDarkSemitransparent">
+
+    <item
+        android:id="@android:id/mask"
+        android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/white" />
+            <size
+                android:width="@dimen/samsung_edge_settings_icon_size"
+                android:height="@dimen/samsung_edge_settings_icon_size" />
+        </shape>
+    </item>
+
+    <item>
+        <selector>
+            <item android:state_selected="true">
+                <color android:color="@color/pppColorDarkSemitransparent"/>
+            </item>
+
+            <item android:state_activated="true">
+                <color android:color="@color/pppColorDarkSemitransparent"/>
+            </item>
+
+            <item>
+                <color android:color="@android:color/transparent"/>
+            </item>
+        </selector>
+    </item>
+
+</ripple>

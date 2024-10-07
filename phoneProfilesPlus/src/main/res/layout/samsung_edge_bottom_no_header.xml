@@ -25,16 +25,16 @@
 
         <ImageView
             android:id="@+id/widget_samsung_edge_settings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/samsung_edge_settings_icon_size"
+            android:layout_height="@dimen/samsung_edge_settings_icon_size"
             android:layout_marginBottom="5dp"
             android:padding="10dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_widget_settings"
             android:contentDescription="@string/samsung_edge_panel_settings_description"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_ripple_samsung_edge_selector" />
+            android:background="@drawable/widget_ripple_samsung_edge_settings" />
 
     </LinearLayout>
 
