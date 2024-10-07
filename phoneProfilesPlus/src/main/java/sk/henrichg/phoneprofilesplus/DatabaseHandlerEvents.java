@@ -5614,6 +5614,7 @@ class DatabaseHandlerEvents {
                 instance.startRunningCommand();
 
                 // Select All Query
+                //noinspection Annotator
                 String selectQuery = "";
                 if (mobileCell != Integer.MAX_VALUE)
                     selectQuery = "SELECT COUNT(*) " +

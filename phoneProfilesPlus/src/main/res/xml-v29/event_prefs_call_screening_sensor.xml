@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     app:title="@string/event_preferences_category_eventCallScreeningParameters"
     app:key="eventCallScreeningCategory">
 
@@ -93,19 +94,19 @@
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
 
-<!--    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference-->
-<!--        app:title="@string/event_preference_callScreeningSendSMS"-->
-<!--        app:key="eventCallScreeningSendSMS"-->
-<!--        app:defaultValue="false"-->
-<!--        app:dependency="eventCallScreeningEnabled"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
+    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
+        app:title="@string/event_preference_callScreeningSendSMS"
+        app:key="eventCallScreeningSendSMS"
+        app:defaultValue="false"
+        app:dependency="eventCallScreeningEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
 
-<!--    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference-->
-<!--        app:key="eventCallScreeningSMSText"-->
-<!--        app:title="@string/event_preference_callScreeningSMSText"-->
-<!--        android:selectAllOnFocus="true"-->
-<!--        app:defaultValue=""-->
-<!--        app:dependency="eventCallScreeningSendSMS"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
+    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
+        app:key="eventCallScreeningSMSText"
+        app:title="@string/event_preference_callScreeningSMSText"
+        android:selectAllOnFocus="true"
+        app:defaultValue=""
+        app:dependency="eventCallScreeningSendSMS"
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

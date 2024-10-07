@@ -101,7 +101,8 @@
     <!--  Only devices with touchscreen - maybe this exclude TV-->
     <uses-feature
         android:name="android.hardware.touchscreen"
-        android:required="true"/>
+        android:required="true"
+        tools:ignore="UnnecessaryRequiredFeature" />
     <uses-feature
         android:name="android.hardware.faketouch"
         android:required="true"/>
