@@ -1,26 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ripple xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:color="@color/pppColorDarkSemitransparent">-->
-<!--    <item-->
-<!--        android:id="@android:id/mask"-->
-<!--        android:gravity="center">-->
-<!--        <shape android:shape="rectangle">-->
-<!--            <solid android:color="@android:color/white" />-->
-<!--            <corners android:radius="@dimen/popup_window_corner_radius" />-->
-<!--            <size-->
-<!--                android:width="40dp"-->
-<!--                android:height="40dp" />-->
-<!--        </shape>-->
-<!--    </item>-->
-<!--</ripple>-->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@android:id/mask">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/pppColorDarkSemitransparent">
+
+    <item
+        android:id="@android:id/mask"
+        android:gravity="center">
         <shape android:shape="oval">
-            <solid android:color="@color/widgetRestartEventsColor" />
-            <corners android:radius="60dp" />
+            <solid android:color="@android:color/white" />
+            <corners android:radius="50dp" />
             <size
-                android:width="60dp"
-                android:height="60dp" />
+                android:width="50dp"
+                android:height="50dp" />
         </shape>
     </item>
-</layer-list>
+
+    <item>
+        <selector>
+            <item android:state_selected="true">
+                <color android:color="@color/pppColorDarkSemitransparent"/>
+            </item>
+
+            <item android:state_activated="true">
+                <color android:color="@color/pppColorDarkSemitransparent"/>
+            </item>
+
+            <item>
+                <color android:color="@android:color/transparent"/>
+            </item>
+        </selector>
+    </item>
+
+</ripple>
+
+
+<!--<corners android:radius="@dimen/icon_selector_radius" />-->
+<!--<item-->
+<!--android:id="@android:id/mask"-->
+<!--android:gravity="center">-->
+<!--<shape android:shape="oval">-->
+<!--    <solid android:color="@android:color/white" />-->
+<!--    <corners android:radius="@dimen/widget_restart_events_selector_radius" />-->
+<!--</shape>-->
+<!--</item>-->
+
+<!--<size-->
+<!--android:width="40dp"-->
+<!--android:height="40dp" />-->
+
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >-->
+<!--    <item android:id="@android:id/mask">-->
+<!--        <shape android:shape="oval">-->
+<!--            <solid android:color="@color/widgetRestartEventsColor" />-->
+<!--            <corners android:radius="60dp" />-->
+<!--            <size-->
+<!--                android:width="60dp"-->
+<!--                android:height="60dp" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--</layer-list>-->

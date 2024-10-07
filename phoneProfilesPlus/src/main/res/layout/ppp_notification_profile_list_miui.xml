@@ -22,7 +22,7 @@
         android:src="@drawable/ic_widget_profile_list_scroll_right"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/widget_list_item_selector"
+        android:background="@drawable/widget_list_item"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
@@ -47,7 +47,7 @@
             android:src="@drawable/ic_widget_profile_list_scroll_left"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector"
+            android:background="@drawable/widget_list_item"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
@@ -60,7 +60,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_1"
@@ -97,7 +97,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_2"
@@ -135,7 +135,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_3"
@@ -173,7 +173,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_4"
@@ -212,7 +212,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_5"
@@ -250,7 +250,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_6"
@@ -288,7 +288,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_7"
@@ -326,7 +326,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_8"
@@ -364,7 +364,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_9"
@@ -402,7 +402,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_10"
@@ -440,7 +440,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_11"
@@ -478,7 +478,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_12"
@@ -516,7 +516,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_13"
@@ -554,7 +554,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_14"
@@ -592,7 +592,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector">
+            android:background="@drawable/widget_list_item">
 
             <ImageView
                 android:id="@+id/notification_profile_list_profile_icon_15"

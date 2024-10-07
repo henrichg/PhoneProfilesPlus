@@ -34,7 +34,7 @@
             android:orientation="horizontal"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item_selector" >
+            android:background="@drawable/widget_list_item" >
 
             <RelativeLayout
                 android:id="@+id/widget_profile_list_header_restart_events_click"
@@ -45,7 +45,7 @@
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/widget_restart_events_selector" >
+                android:background="@drawable/widget_restart_events" >
 
                 <ImageView
                     android:id="@+id/widget_profile_list_header_restart_events"
@@ -129,7 +129,7 @@
             android:divider="@android:color/transparent"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:listSelector="@drawable/widget_list_item_selector" />
+            android:listSelector="@drawable/widget_list_item" />
 
         <TextView
             android:id="@+id/widget_profiles_list_empty"

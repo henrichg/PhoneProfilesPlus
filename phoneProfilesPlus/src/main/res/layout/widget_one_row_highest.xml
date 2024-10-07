@@ -26,7 +26,7 @@
         android:layout_gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/widget_list_item_selector" >
+        android:background="@drawable/widget_list_item" >
 
         <!-- must be RelativeLayout for best vertical center -->
         <RelativeLayout
@@ -39,7 +39,7 @@
             android:layout_alignParentEnd="true"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_restart_events_selector" >
+            android:background="@drawable/widget_restart_events" >
 
             <ImageView
                 android:id="@+id/widget_one_row_header_restart_events"

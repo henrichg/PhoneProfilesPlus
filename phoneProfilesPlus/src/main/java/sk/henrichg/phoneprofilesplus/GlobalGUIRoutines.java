@@ -80,6 +80,7 @@ class GlobalGUIRoutines {
 //        if (forEditor)
 //            Log.e("GlobalGUIRoutines.getTheme", "applicationTheme="+applicationTheme);
 
+        /*
         int miuiVersion = -1;
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
 //            Log.e("GlobalGUIRoutines.getTheme", "Build.VERSION.INCREMENTAL="+Build.VERSION.INCREMENTAL);
@@ -91,9 +92,10 @@ class GlobalGUIRoutines {
             }
             catch (Exception ignored) {}
         }
+        */
 
         if (forActivator) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.ActivatorTheme_dayNight;
                 else
@@ -109,11 +111,12 @@ class GlobalGUIRoutines {
                     return R.style.ActivatorTheme_dayNight_samsung;
                 else
                     return R.style.ActivatorTheme_dayNight;
-            }
+            }*/
+            return R.style.ActivatorTheme_dayNight;
         }
         else
         if (forDialog) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.DialogTheme_dayNight;
                 else
@@ -129,11 +132,12 @@ class GlobalGUIRoutines {
                     return R.style.DialogTheme_dayNight_samsung;
                 else
                     return R.style.DialogTheme_dayNight;
-            }
+            }*/
+            return R.style.DialogTheme_dayNight;
         }
         else
         if (forLocationEditor) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
                 else
@@ -143,12 +147,12 @@ class GlobalGUIRoutines {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
             }
-            else
+            else*/
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
         }
         else
         if (forPreferences) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
                 else
@@ -158,12 +162,12 @@ class GlobalGUIRoutines {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
                 return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
             }
-            else
+            else*/
                 return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
         }
         else
         if (forPopup) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight;
@@ -183,15 +187,15 @@ class GlobalGUIRoutines {
                 else
                     return R.style.PopupTheme_dayNight_noRipple;
             }
-            else {
+            else {*/
                 if (withToolbar)
                     return R.style.PopupTheme_withToolbar_dayNight;
                 else
                     return R.style.PopupTheme_dayNight;
-            }
+            //}
         }
         else {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar) {
                         return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
@@ -211,12 +215,12 @@ class GlobalGUIRoutines {
                 } else
                     return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
             }
-            else {
+            else {*/
                 if (withToolbar) {
                     return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
                 } else
                     return R.style.Theme_PhoneProfilesTheme_dayNight;
-            }
+            //}
         }
     }
 

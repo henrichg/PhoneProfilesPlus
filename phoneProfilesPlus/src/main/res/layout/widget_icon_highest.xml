@@ -28,7 +28,7 @@
         android:gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/widget_background_selector"
+        android:background="@drawable/widget_background"
         android:weightSum = "2"
         android:orientation="vertical" >
 

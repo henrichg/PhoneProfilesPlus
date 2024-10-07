@@ -30,7 +30,7 @@
             android:divider="@android:color/transparent"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:listSelector="@drawable/widget_list_item_selector" />
+            android:listSelector="@drawable/widget_list_item" />
 
         <TextView
             android:id="@+id/widget_profiles_list_empty"

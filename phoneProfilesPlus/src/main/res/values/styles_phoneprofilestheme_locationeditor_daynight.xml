@@ -2,11 +2,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.PhoneProfilesTheme_locationeditor_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_locationeditor_dayNight">
-        <item name="listViewItemBackground">@drawable/listview_item_background_selector</item>
+        <item name="listViewItemBackground">@drawable/listview_item_background</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
 
-        <item name="android:selectableItemBackground">@drawable/listview_item_background_selector</item>
-        <item name="selectableItemBackground">@drawable/listview_item_background_selector</item>
+        <item name="android:selectableItemBackground">@drawable/listview_item_background</item>
+        <item name="selectableItemBackground">@drawable/listview_item_background</item>
         <item name="android:actionBarItemBackground">@drawable/actionbar_item_background</item>
         <item name="actionBarItemBackground">@drawable/actionbar_item_background</item>
 

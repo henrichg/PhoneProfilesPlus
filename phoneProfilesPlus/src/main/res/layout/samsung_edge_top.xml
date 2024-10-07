@@ -34,7 +34,7 @@
             android:contentDescription="@string/samsung_edge_panel_settings_description"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_ripple_samsung_edge_settings" />
+            android:background="@drawable/widget_ripple_samsung_edge_selector" />
 
     </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:orientation="horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/widget_list_item_selector">
+                android:background="@drawable/widget_list_item">
 
                 <ImageView
                     android:id="@+id/widget_samsung_edge_header_profile_icon"
@@ -115,7 +115,7 @@
                 android:divider="@android:color/transparent"
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay"
-                android:listSelector="@drawable/widget_list_item_selector" />
+                android:listSelector="@drawable/widget_list_item" />
 
             <TextView
                 android:id="@+id/widget_samsung_edge_empty"
