@@ -4,9 +4,9 @@
     <item android:id="@+id/menu_profile_icon_help_icon_color"
         android:title="@string/profile_icon_preference_iconColor_help"
         android:orderInCategory="150"
-        app:showAsAction="never|withText" />
+        app:showAsAction="never" />
     <item android:id="@+id/menu_profile_icon_help_menu_custom_icon_pack"
         android:title="@string/profile_icon_preference_custumIconFromIconPack_help"
         android:orderInCategory="200"
-        app:showAsAction="never|withText" />
+        app:showAsAction="never" />
 </menu>
