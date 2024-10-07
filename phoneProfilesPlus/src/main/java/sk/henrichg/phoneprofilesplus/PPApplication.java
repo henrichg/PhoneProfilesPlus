@@ -310,7 +310,7 @@ public class PPApplication extends Application
                                                 //+"|PreferenceAllowed"
 
                                                 //+"|[CONTACTS_CACHE]"
-                                                +"|[CONTACTS_OBSERVER]"
+                                                //+"|[CONTACTS_OBSERVER]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

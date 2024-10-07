@@ -68,7 +68,7 @@ class ContactsContentObserver extends ContentObserver {
                                     .build();
                 }
 //                PPApplicationStatic.logE("[WORKER_CALL] ContactsContentObserver.enqueueContactsContentObserverWorker", "xxx");
-                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.enqueueContactsContentObserverWorker", "call of workManager.enqueueUniqueWork()");
+//                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.enqueueContactsContentObserverWorker", "call of workManager.enqueueUniqueWork()");
                 workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
         }
@@ -89,7 +89,7 @@ class ContactsContentObserver extends ContentObserver {
 //            // observwer is blocked (for exmple by profile/event preferences activity)
 //            return;
 
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "call of enqueueContactsContentObserverWorker()");
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "call of enqueueContactsContentObserverWorker()");
         enqueueContactsContentObserverWorker();
     }
 
