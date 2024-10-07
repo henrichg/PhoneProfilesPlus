@@ -98,14 +98,14 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreference.getValueCMSDP", "PPApplicationStatic.getContactsCache()");
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreference.getValueCMSDP", "PPApplicationStatic.getContactsCache()");
         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null)
             return;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactsMultiSelectDialogPreference.getValueCMSDP", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
-            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreference.getValueCMSDP", "contactsCache.getList()");
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreference.getValueCMSDP", "contactsCache.getList()");
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
 //                PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreference.getValueCMSDP", "localContactList.size()="+localContactList.size());

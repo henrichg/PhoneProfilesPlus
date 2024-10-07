@@ -622,22 +622,22 @@ class DatabaseHandlerImportExport {
 
         boolean contactsConverted = false;
 //        Log.e("DatabaseHandlerImportExport.afterImportDb", "(1) convert contacts data to new format");
-        PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "(1) PPApplicationStatic.getContactsCache()");
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "(1) PPApplicationStatic.getContactsCache()");
         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
 //        Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.1) convert contacts data to new format");
         if (contactsCache == null) {
 //            Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.2) convert contacts data to new format");
-            PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "PPApplicationStatic.createContactsCache()");
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "PPApplicationStatic.createContactsCache()");
             PPApplicationStatic.createContactsCache(instance.context, false, false);
-            PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "PPApplicationStatic.createContactGroupsCache()");
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "PPApplicationStatic.createContactGroupsCache()");
             PPApplicationStatic.createContactGroupsCache(instance.context, false/*, true*//*, true*/);
 //            Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.3) convert contacts data to new format");
-            PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "(2) PPApplicationStatic.getContactsCache()");
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "(2) PPApplicationStatic.getContactsCache()");
             contactsCache = PPApplicationStatic.getContactsCache();
 //            Log.e("DatabaseHandlerImportExport.afterImportDb", "(1.4) convert contacts data to new format");
         }
 //        Log.e("DatabaseHandlerImportExport.afterImportDb", "(2) convert contacts data to new format");
-        PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "contactsCache.getList()");
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] DatabaseHandlerImportExport.afterImportDbNonGrantedUri", "contactsCache.getList()");
         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
 //        Log.e("DatabaseHandlerImportExport.afterImportDb", "(3) convert contacts data to new format");
         if (contactList != null) {

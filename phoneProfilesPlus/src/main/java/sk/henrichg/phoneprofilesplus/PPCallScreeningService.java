@@ -50,12 +50,12 @@ public class PPCallScreeningService extends CallScreeningService {
 //                    Log.e("PPCallScreeningService.onScreenCall", "***** (1) *****");
 
                     //noinspection ExtractMethodRecommender
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "PPApplicationStatic.getContactsCache()");
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     List<Contact> contactList = null;
                     if (contactsCache != null) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "contactsCache.getList()");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "contactsCache.getList()");
                         contactList = contactsCache.getList(/*false*/);
                     }
 

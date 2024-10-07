@@ -425,13 +425,13 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
                 final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
                 final int slotIndex = intent.getIntExtra(EXTRA_SIM_SLOT, 0);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
                 String _time = sdf.format(Calendar.getInstance().getTimeInMillis());
-                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "eventTime="+_time);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "eventTime="+_time);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
 
 //                Log.e("PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
 
@@ -459,17 +459,17 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                             //}
 
                             if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) {
-                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PHONE_CALL_EVENT_MISSED_CALL");
+//                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PHONE_CALL_EVENT_MISSED_CALL");
 
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (1) *****");
 
                                 //noinspection ExtractMethodRecommender
-                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PPApplicationStatic.getContactsCache()");
+//                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 List<Contact> contactList = null;
                                 if (contactsCache != null) {
 //                                    PPApplicationStatic.logE("[SYNCHRONIZED] PPExtenderBroadcastReceiver.doHandleEvent", "PPApplication.contactsCacheMutex");
-                                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "contactsCache.getList()");
+//                                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "contactsCache.getList()");
                                     contactList = contactsCache.getList(/*false*/);
                                 }
 

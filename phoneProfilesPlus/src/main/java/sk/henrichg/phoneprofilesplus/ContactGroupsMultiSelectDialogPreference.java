@@ -52,14 +52,14 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "PPApplicationStatic.getContactGroupsCache()");
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "PPApplicationStatic.getContactGroupsCache()");
         ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache == null)
             return;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
-            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "contactGroupsCache.getList()");
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "contactGroupsCache.getList()");
             List<ContactGroup> localContactGroupList = contactGroupsCache.getList();
             if (localContactGroupList != null) {
                 contactGroupList = new ArrayList<>();

@@ -151,24 +151,24 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 //    EditorActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 // must be first
-                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactsCache()");
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null) {
                     // cache not created, create it
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
                     if (!contactsCache.getCaching()) {
                         // caching not performed
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getList()");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getList()");
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
-                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                             PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
@@ -177,30 +177,30 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                             contactList.clear();
                     } else {
                         // wait for cache end
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
                         while (contactsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
                 }
                 //must be seconds, this ads groups into contacts
-                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactGroupsCache()");
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactGroupsCache()");
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                 if (contactGroupsCache == null) {
                     // cache not created, create it
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                     PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
-                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
                     if (!contactGroupsCache.getCaching()) {
                         // caching not performed
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getList()");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getList()");
                         List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
                         if (contactGroupList == null) {
                             // not cached, cache it
-                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                             PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                             /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                             while (contactGroupsCache.getCaching())
@@ -208,7 +208,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         }
                     } else {
                         // wait for cache end
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
                         while (contactGroupsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }

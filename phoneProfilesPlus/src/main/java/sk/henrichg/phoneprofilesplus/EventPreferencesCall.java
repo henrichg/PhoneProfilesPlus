@@ -669,7 +669,7 @@ class EventPreferencesCall extends EventPreferences {
             // find phone number in groups
             String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured group="+split);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured group="+split);
                 if (!split.isEmpty()) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
                     synchronized (PPApplication.contactsCacheMutex) {
@@ -681,7 +681,7 @@ class EventPreferencesCall extends EventPreferences {
                                         // group found in contact
                                         if (contact.phoneId != 0) {
                                             String _phoneNumber = contact.phoneNumber;
-                                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "found in group _phoneNumber="+_phoneNumber);
+//                                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "found in group _phoneNumber="+_phoneNumber);
                                             if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                                 phoneNumberFound = true;
                                                 break;
@@ -698,7 +698,7 @@ class EventPreferencesCall extends EventPreferences {
                     break;
             }
 
-            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "(1) phoneNumberFound="+phoneNumberFound);
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "(1) phoneNumberFound="+phoneNumberFound);
 
             if (!phoneNumberFound) {
                 // find phone number in contacts
@@ -707,9 +707,9 @@ class EventPreferencesCall extends EventPreferences {
                 for (String split : splits) {
                     String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
                     if (!split.isEmpty()) {
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone numbe[0]r="+splits2[0]);
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[1]="+splits2[1]);
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[2]="+splits2[2]);
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone numbe[0]r="+splits2[0]);
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[1]="+splits2[1]);
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[2]="+splits2[2]);
                     }
 
                     if ((!split.isEmpty()) &&
@@ -727,7 +727,7 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
 
-            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "(2) phoneNumberFound="+phoneNumberFound);
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "(2) phoneNumberFound="+phoneNumberFound);
 
             if (this._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
                 phoneNumberFound = !phoneNumberFound;
@@ -875,9 +875,9 @@ class EventPreferencesCall extends EventPreferences {
                 //Log.e("EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
                 //Log.e("EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
                 //Log.e("EventPreferencesCall.doHandleEvent", "simSlot="+simSlot);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "runAfterCallEndSIMSlot="+runAfterCallEndSIMSlot);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "runAfterCallEndSIMSlot="+runAfterCallEndSIMSlot);
 
                 boolean phoneNumberFound = false;
 
@@ -885,15 +885,15 @@ class EventPreferencesCall extends EventPreferences {
                     if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
                         eventsHandler.callPassed = false;
                     else {
-                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "PPApplicationStatic.getContactsCache()");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache != null) {
                             List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "contactsCache.getList()");
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "contactsCache.getList()");
                             contactList = contactsCache.getList(/*false*/);
                             phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, this*/);
-                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "phoneNumberFound="+phoneNumberFound);
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "phoneNumberFound="+phoneNumberFound);
                             if (contactList != null)
                                 contactList.clear();
                         }
@@ -1013,8 +1013,8 @@ class EventPreferencesCall extends EventPreferences {
                         eventsHandler.notAllowedCall = true;
                 }
 
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "eventsHandler.notAllowedCall="+eventsHandler.notAllowedCall);
-                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "eventsHandler.callPassed="+eventsHandler.callPassed);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "eventsHandler.notAllowedCall="+eventsHandler.notAllowedCall);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "eventsHandler.callPassed="+eventsHandler.callPassed);
 
                 if (!eventsHandler.notAllowedCall) {
                     if (eventsHandler.callPassed)

@@ -8821,11 +8821,11 @@ class ActivateProfileHelper {
                                     ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
                                             ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))) {
 
-                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "PPApplicationStatic.getContactsCache()");
+//                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 List<Contact> contactList = null;
                                 if (contactsCache != null) {
-                                    PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "contactsCache.getList()");
+//                                    PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "contactsCache.getList()");
                                     contactList = contactsCache.getList(/*false*/);
                                 }
 
@@ -8921,12 +8921,12 @@ class ActivateProfileHelper {
                             StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                             //noinspection RedundantLengthCheck
                             if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
-                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "PPApplicationStatic.getContactsCache()");
+//                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache != null) {
                                     List<Contact> contactList;
 //                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.isNotificationVisible", "PPApplication.contactsCacheMutex");
-                                    PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "contactCache.getList()");
+//                                    PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "contactCache.getList()");
                                     contactList = contactsCache.getList(/*false*/);
 
                                     for (StatusBarNotification statusBarNotification : statusBarNotifications) {

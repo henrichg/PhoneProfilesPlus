@@ -477,11 +477,11 @@ public class MainWorker extends Worker {
 
         // must be first
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (1)");
-        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactsCache()");
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactsCache()");
         PPApplicationStatic.createContactsCache(appContext, true, true/*, true*/);
         //must be seconds, this ads groups into contacts
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (2)");
-        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactGroupsCache()");
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactGroupsCache()");
         PPApplicationStatic.createContactGroupsCache(appContext, true/*, true*//*, true*/);
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (3)");
         EventsHandler eventsHandler = new EventsHandler(appContext);
