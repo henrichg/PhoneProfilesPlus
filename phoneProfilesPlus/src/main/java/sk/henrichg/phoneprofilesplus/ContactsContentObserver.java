@@ -76,8 +76,6 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(2) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
-
 //        if (PPApplicationStatic.logEnabled()) {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "uri=" + uri);
 //
@@ -97,7 +95,7 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
-//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "(1) PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
+        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "onChange(boolean selfChange)");
         onChange(selfChange, null);
     }
 
