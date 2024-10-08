@@ -406,7 +406,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 if (connectedDevices != null) {
-                    if (deviceData != null) {
+                    if ((deviceData != null) && sensorDeviceName.isEmpty()) {
                         // is device connected to deviceData ???
 
                         String deviceDataName = deviceData.getName().trim();
@@ -449,15 +449,44 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                     else {
                         // is device connected to sensorDeviceName ???
-                        // for this do not check for address
 
-                        String sensorName = sensorDeviceName.trim().toUpperCase();
-                        if (!sensorName.isEmpty()) {
-                            for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                        BluetoothDeviceData connectedDevice = null;
+                        if (deviceData != null) {
+                            String deviceDataAddress = deviceData.getAddress();
+                            if (!deviceDataAddress.isEmpty()) {
+                                for (BluetoothDeviceData _connectedDevice : connectedDevices) {
+                                    if ((!_connectedDevice.getAddress().isEmpty()) &&
+                                            _connectedDevice.getAddress().equals(deviceDataAddress)) {
+                                        connectedDevice = _connectedDevice;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        //noinspection IfStatementWithIdenticalBranches
+                        if (connectedDevice != null) {
+                            // configured device in system is connected
+                            String sensorName = sensorDeviceName.trim().toUpperCase();
+                            if (!sensorName.isEmpty()) {
                                 String connectedName = connectedDevice.getName().trim().toUpperCase();
                                 if ((!connectedName.isEmpty()) &&
                                         Wildcard.match(connectedName, sensorName, '_', '%', true)) {
+                                    // configured connected device in system is sensorDeviceName
                                     return true;
+                                }
+                            }
+                        } else {
+                            // check only by device name
+                            String sensorName = sensorDeviceName.trim().toUpperCase();
+                            if (!sensorName.isEmpty()) {
+                                for (BluetoothDeviceData _connectedDevice : connectedDevices) {
+                                    String connectedName = _connectedDevice.getName().trim().toUpperCase();
+                                    if ((!connectedName.isEmpty()) &&
+                                            Wildcard.match(connectedName, sensorName, '_', '%', true)) {
+                                        // connected device in system is sensorDeviceName
+                                        return true;
+                                    }
                                 }
                             }
                         }
