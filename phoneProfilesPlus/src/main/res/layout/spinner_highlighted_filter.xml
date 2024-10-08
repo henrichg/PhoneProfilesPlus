@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:padding="2dp"
     android:textColor="@color/spinner_control_color"
-    android:textSize="17dp"
+    android:textSize="18dp"
     android:textStyle="bold"
     android:ellipsize="marquee"
     android:singleLine="true"
