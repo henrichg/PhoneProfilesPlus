@@ -651,10 +651,11 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(eventsHandler.context);
 
                                         if (scanResults != null) {
-                                            for (BluetoothDeviceData device : scanResults) {
+                                            for (BluetoothDeviceData deviceFromScan : scanResults) {
                                                 String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
                                                 boolean[] nearby = new boolean[splits.length];
                                                 int i = 0;
+                                                String _deviceFromScanAddress;
                                                 for (String _bluetoothName : splits) {
                                                     nearby[i] = false;
                                                     switch (_bluetoothName) {
@@ -662,45 +663,71 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                             nearby[i] = true;
                                                             break;
                                                         case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                                            for (BluetoothDeviceData data : boundedDevicesList) {
-                                                                String _device = device.getName().toUpperCase();
-                                                                String _adapterName = data.getName().toUpperCase();
-                                                                if ((!_device.isEmpty()) &&
-                                                                        (!_adapterName.isEmpty()) &&
-                                                                        Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                                    nearby[i] = true;
-                                                                    break;
-                                                                }
-                                                            }
-                                                            break;
-                                                        default:
-                                                        /* Removed, hidden BT are not supported
-                                                        if ((device.getName() == null) || device.getName().isEmpty()) {
-                                                            // scanned device has not name (hidden BT?)
-                                                            String deviceAddress = device.getAddress();
-                                                            if ((deviceAddress != null) && (!deviceAddress.isEmpty())) {
-                                                                // device has address
-                                                                for (BluetoothDeviceData data : boundedDevicesList) {
-                                                                    String dataAddress = data.getAddress();
-                                                                    if ((dataAddress != null) &&
-                                                                            (!dataAddress.isEmpty()) &&
-                                                                            dataAddress.equals(deviceAddress)) {
+                                                            _deviceFromScanAddress = deviceFromScan.getAddress();
+                                                            if (!_deviceFromScanAddress.isEmpty()) {
+                                                                for (BluetoothDeviceData boundedDevice : boundedDevicesList) {
+                                                                    String _boundedDeviceAddress = boundedDevice.getAddress();
+                                                                    if ((!_boundedDeviceAddress.isEmpty()) &&
+                                                                            _deviceFromScanAddress.equals(_boundedDeviceAddress)) {
                                                                         nearby[i] = true;
                                                                         break;
                                                                     }
                                                                 }
                                                             }
-                                                        } else*/
-                                                        {
-                                                            String _deviceName = device.getName().toUpperCase();
-                                                            String _adapterName = _bluetoothName.toUpperCase();
-                                                            if ((!_adapterName.isEmpty()) &&
-                                                                    (!_deviceName.isEmpty()) &&
-                                                                    Wildcard.match(_deviceName, _adapterName, '_', '%', true)) {
-                                                                nearby[i] = true;
+                                                            break;
+                                                        default:
+                                                            /* Removed, hidden BT are not supported
+                                                            if ((device.getName() == null) || device.getName().isEmpty()) {
+                                                                // scanned device has not name (hidden BT?)
+                                                                String deviceAddress = device.getAddress();
+                                                                if ((deviceAddress != null) && (!deviceAddress.isEmpty())) {
+                                                                    // device has address
+                                                                    for (BluetoothDeviceData data : boundedDevicesList) {
+                                                                        String dataAddress = data.getAddress();
+                                                                        if ((dataAddress != null) &&
+                                                                                (!dataAddress.isEmpty()) &&
+                                                                                dataAddress.equals(deviceAddress)) {
+                                                                            nearby[i] = true;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            } else
+                                                            {*/
+                                                            BluetoothDeviceData configuredDevice = null;
+                                                            _deviceFromScanAddress = deviceFromScan.getAddress();
+                                                            if (!_deviceFromScanAddress.isEmpty()) {
+                                                                for (BluetoothDeviceData boundedDevice : boundedDevicesList) {
+                                                                    String _boundedDeviceAddress = boundedDevice.getAddress();
+                                                                    if ((!_boundedDeviceAddress.isEmpty()) &&
+                                                                            _deviceFromScanAddress.equals(_boundedDeviceAddress)) {
+                                                                        // found configured device in system by its address
+                                                                        configuredDevice = boundedDevice;
+                                                                        break;
+                                                                    }
+                                                                }
                                                             }
-                                                        }
-                                                        break;
+
+                                                            //noinspection IfStatementWithIdenticalBranches
+                                                            if (configuredDevice != null) {
+                                                                String _deviceName = configuredDevice.getName().toUpperCase();
+                                                                String _sensorName = _bluetoothName.toUpperCase();
+                                                                if ((!_sensorName.isEmpty()) &&
+                                                                        (!_deviceName.isEmpty()) &&
+                                                                        Wildcard.match(_deviceName, _sensorName, '_', '%', true)) {
+                                                                    // found nearby sensot BT name
+                                                                    nearby[i] = true;
+                                                                }
+                                                            } else {
+                                                                String _deviceName = deviceFromScan.getName().toUpperCase();
+                                                                String _sensorName = _bluetoothName.toUpperCase();
+                                                                if ((!_sensorName.isEmpty()) &&
+                                                                        (!_deviceName.isEmpty()) &&
+                                                                        Wildcard.match(_deviceName, _sensorName, '_', '%', true)) {
+                                                                    nearby[i] = true;
+                                                                }
+                                                            }
+                                                            //}
                                                     }
                                                     i++;
                                                 }
