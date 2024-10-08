@@ -669,8 +669,18 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                                     String _boundedDeviceAddress = boundedDevice.getAddress();
                                                                     if ((!_boundedDeviceAddress.isEmpty()) &&
                                                                             _deviceFromScanAddress.equals(_boundedDeviceAddress)) {
+                                                                        // found address
                                                                         nearby[i] = true;
                                                                         break;
+                                                                    }
+                                                                    // address not found, search by name
+                                                                    String _deviceName = deviceFromScan.getName().toUpperCase();
+                                                                    String _sensorName = _bluetoothName.toUpperCase();
+                                                                    if ((!_sensorName.isEmpty()) &&
+                                                                            (!_deviceName.isEmpty()) &&
+                                                                            Wildcard.match(_deviceName, _sensorName, '_', '%', true)) {
+                                                                        // found name
+                                                                        nearby[i] = true;
                                                                     }
                                                                 }
                                                             }
