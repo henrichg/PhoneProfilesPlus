@@ -426,10 +426,18 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                             if (!found) {
-                                for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                                /*for (BluetoothDeviceData connectedDevice : connectedDevices) {
                                     String connectedName = connectedDevice.getName().trim();
                                     if ((!connectedName.isEmpty()) &&
                                             connectedName.equalsIgnoreCase(deviceDataName)) {
+                                        found = true;
+                                        break;
+                                    }
+                                }*/
+                                for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                                    String connectedName = connectedDevice.getName().trim().toUpperCase();
+                                    if ((!connectedName.isEmpty()) &&
+                                            Wildcard.match(connectedName, deviceDataName, '_', '%', true)) {
                                         found = true;
                                         break;
                                     }
