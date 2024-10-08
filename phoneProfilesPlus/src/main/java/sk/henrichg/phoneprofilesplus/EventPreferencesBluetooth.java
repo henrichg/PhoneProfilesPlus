@@ -553,12 +553,20 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         connected[i] = true;
                                         break;
                                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                    default:
                                         for (BluetoothDeviceData data : boundedDevicesList) {
                                             connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
                                             if (connected[i])
                                                 break;
                                         }
+                                        break;
+                                    default:
+                                        // check in system configured devices
+                                        for (BluetoothDeviceData data : boundedDevicesList) {
+                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, _bluetoothName);
+                                            if (connected[i])
+                                                break;
+                                        }
+                                        // check by name
                                         connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, _bluetoothName);
                                         break;
                                 }
