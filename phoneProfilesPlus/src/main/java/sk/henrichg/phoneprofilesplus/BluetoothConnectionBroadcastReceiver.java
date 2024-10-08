@@ -419,8 +419,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             String deviceDataAddress = deviceData.getAddress();
                             if (!deviceDataAddress.isEmpty()) {
                                 for (BluetoothDeviceData connectedDevice : connectedDevices) {
-                                    if ((!connectedDevice.getAddress().isEmpty()) &&
-                                            connectedDevice.getAddress().equals(deviceDataAddress)) {
+                                    String connectedDeviceAddress = connectedDevice.getAddress();
+                                    if ((!connectedDeviceAddress.isEmpty()) &&
+                                            connectedDeviceAddress.equals(deviceDataAddress)) {
                                         found = true;
                                         break;
                                     }
@@ -458,8 +459,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             String deviceDataAddress = deviceData.getAddress();
                             if (!deviceDataAddress.isEmpty()) {
                                 for (BluetoothDeviceData _connectedDevice : connectedDevices) {
-                                    if ((!_connectedDevice.getAddress().isEmpty()) &&
-                                            _connectedDevice.getAddress().equals(deviceDataAddress)) {
+                                    String _connectedDeviceAddress = _connectedDevice.getAddress();
+                                    if ((!_connectedDeviceAddress.isEmpty()) &&
+                                            _connectedDeviceAddress.equals(deviceDataAddress)) {
                                         connectedDevice = _connectedDevice;
                                         break;
                                     }
