@@ -410,7 +410,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         // is deviceData connected ???
 
                         // deviceData is from bounded devices and bounded devices are with address
-                        String deviceDataName = deviceData.getName().trim();
+                        String deviceDataName = deviceData.getName().trim().toUpperCase();
                         if (!deviceDataName.isEmpty()) {
                             // device without empty name is not supported
 
@@ -429,7 +429,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             }
                             if (!found) {
                                 /*for (BluetoothDeviceData connectedDevice : connectedDevices) {
-                                    String connectedName = connectedDevice.getName().trim();
+                                    String connectedName = connectedDevice.getName().trim().toUpperCase();
                                     if ((!connectedName.isEmpty()) &&
                                             connectedName.equalsIgnoreCase(deviceDataName)) {
                                         found = true;
