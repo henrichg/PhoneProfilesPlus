@@ -681,6 +681,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                                             Wildcard.match(_deviceName, _sensorName, '_', '%', true)) {
                                                                         // found name
                                                                         nearby[i] = true;
+                                                                        break;
                                                                     }
                                                                 }
                                                             }
@@ -738,6 +739,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                                 }
                                                             }
                                                             //}
+                                                            break;
                                                     }
                                                     i++;
                                                 }
