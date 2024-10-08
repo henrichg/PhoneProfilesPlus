@@ -407,8 +407,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             else {
                 if (connectedDevices != null) {
                     if ((deviceData != null) && sensorDeviceName.isEmpty()) {
-                        // is device connected to deviceData ???
+                        // is deviceData connected ???
 
+                        // deviceData is from bounded devices and bounded devices are with address
                         String deviceDataName = deviceData.getName().trim();
                         if (!deviceDataName.isEmpty()) {
                             // device without empty name is not supported
@@ -448,8 +449,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                     else {
-                        // is device connected to sensorDeviceName ???
+                        // is sensorDeviceName connected ???
 
+                        // get connected device by address
+                        // deviceData is from bounded devices and bounded devices are with address
                         BluetoothDeviceData connectedDevice = null;
                         if (deviceData != null) {
                             String deviceDataAddress = deviceData.getAddress();
