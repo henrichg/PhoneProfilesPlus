@@ -112,7 +112,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentNameEditText = findViewById(R.id.application_editor_intent_intent_name);
         //noinspection DataFlowIssue
-        intentNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -136,7 +136,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
         intentIntentTypeSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentIntentTypeSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentIntentTypeSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentIntentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -150,7 +150,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentPackageName = findViewById(R.id.application_editor_intent_package_name);
         //noinspection DataFlowIssue
-        intentPackageName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentPackageName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentPackageName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -168,15 +168,15 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentClassName = findViewById(R.id.application_editor_intent_class_name);
         //noinspection DataFlowIssue
-        intentClassName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentClassName.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentData = findViewById(R.id.application_editor_intent_data);
         //noinspection DataFlowIssue
-        intentData.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentData.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentMimeType = findViewById(R.id.application_editor_intent_mime_type);
         //noinspection DataFlowIssue
-        intentMimeType.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentMimeType.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
         spinnerAdapter = new HighlightedSpinnerAdapter(
@@ -186,7 +186,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
         intentActionSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentActionSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentActionSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -218,7 +218,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
         intentActionLabel = findViewById(R.id.application_editor_intent_action_label);
         //noinspection DataFlowIssue
-        intentActionEdit.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentActionEdit.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentActionEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -317,10 +317,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentExtraKeyName1 = findViewById(R.id.application_editor_intent_extra_key_1);
         //noinspection DataFlowIssue
-        intentExtraKeyName1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyName1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentExtraKeyValue1 = findViewById(R.id.application_editor_intent_extra_value_1);
         //noinspection DataFlowIssue
-        intentExtraKeyValue1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyValue1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
         spinnerAdapter = new HighlightedSpinnerAdapter(
@@ -330,7 +330,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
         intentExtraSpinner1.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner1.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentExtraSpinner1.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -343,10 +343,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentExtraKeyName2 = findViewById(R.id.application_editor_intent_extra_key_2);
         //noinspection DataFlowIssue
-        intentExtraKeyName2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyName2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentExtraKeyValue2 = findViewById(R.id.application_editor_intent_extra_value_2);
         //noinspection DataFlowIssue
-        intentExtraKeyValue2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyValue2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
         spinnerAdapter = new HighlightedSpinnerAdapter(
@@ -356,7 +356,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
         intentExtraSpinner2.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner2.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentExtraSpinner2.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -369,10 +369,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentExtraKeyName3 = findViewById(R.id.application_editor_intent_extra_key_3);
         //noinspection DataFlowIssue
-        intentExtraKeyName3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyName3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentExtraKeyValue3 = findViewById(R.id.application_editor_intent_extra_value_3);
         //noinspection DataFlowIssue
-        intentExtraKeyValue3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyValue3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
         spinnerAdapter = new HighlightedSpinnerAdapter(
@@ -382,7 +382,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
         intentExtraSpinner3.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner3.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentExtraSpinner3.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -395,10 +395,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentExtraKeyName4 = findViewById(R.id.application_editor_intent_extra_key_4);
         //noinspection DataFlowIssue
-        intentExtraKeyName4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyName4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentExtraKeyValue4 = findViewById(R.id.application_editor_intent_extra_value_4);
         //noinspection DataFlowIssue
-        intentExtraKeyValue4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyValue4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
         spinnerAdapter = new HighlightedSpinnerAdapter(
@@ -408,7 +408,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
         intentExtraSpinner4.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner4.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentExtraSpinner4.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -421,10 +421,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
         intentExtraKeyName5 = findViewById(R.id.application_editor_intent_extra_key_5);
         //noinspection DataFlowIssue
-        intentExtraKeyName5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyName5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         intentExtraKeyValue5 = findViewById(R.id.application_editor_intent_extra_value_5);
         //noinspection DataFlowIssue
-        intentExtraKeyValue5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        intentExtraKeyValue5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
         spinnerAdapter = new HighlightedSpinnerAdapter(
@@ -434,7 +434,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);
         intentExtraSpinner5.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        intentExtraSpinner5.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        intentExtraSpinner5.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

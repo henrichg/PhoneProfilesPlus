@@ -38,7 +38,7 @@ public class SearchStringPreferenceFragment extends PreferenceDialogFragmentComp
 
         editText = view.findViewById(R.id.search_string_pref_dlg_editText);
         //noinspection DataFlowIssue
-        editText.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        editText.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         editText.setText(preference.value);
 
         final ImageView helpIcon = view.findViewById(R.id.search_string_pref_dlg_helpIcon);

@@ -305,7 +305,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         //noinspection DataFlowIssue
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+//        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.spinner_control_color));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
             case "dark":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);

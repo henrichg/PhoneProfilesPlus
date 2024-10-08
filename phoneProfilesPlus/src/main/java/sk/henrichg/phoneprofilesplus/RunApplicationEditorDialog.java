@@ -156,7 +156,7 @@ class RunApplicationEditorDialog
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         //noinspection DataFlowIssue
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+//        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.spinner_control_color));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);

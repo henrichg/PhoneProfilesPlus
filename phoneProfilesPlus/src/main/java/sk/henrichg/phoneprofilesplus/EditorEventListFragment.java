@@ -371,7 +371,7 @@ public class EditorEventListFragment extends Fragment
                 orderItems);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
+        //orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

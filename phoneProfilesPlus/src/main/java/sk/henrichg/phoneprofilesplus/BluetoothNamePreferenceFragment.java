@@ -110,7 +110,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
         bluetoothName = layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
         //noinspection DataFlowIssue
-        bluetoothName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        bluetoothName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         bluetoothName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

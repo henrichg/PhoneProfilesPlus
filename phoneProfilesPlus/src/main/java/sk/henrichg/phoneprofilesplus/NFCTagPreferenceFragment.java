@@ -85,7 +85,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         nfcTagName = view.findViewById(R.id.nfc_tag_pref_dlg_bt_name);
         //noinspection DataFlowIssue
-        nfcTagName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        nfcTagName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         nfcTagName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

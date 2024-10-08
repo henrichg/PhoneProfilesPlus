@@ -63,7 +63,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.spinner_control_color));
 
         enableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
         //noinspection DataFlowIssue
@@ -80,7 +80,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         profileNameEditText = layout.findViewById(R.id.vpnPrefDialogProfileName);
         //noinspection DataFlowIssue
-        profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
         profileNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,7 +100,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         tunnelNameEditText = layout.findViewById(R.id.vpnPrefDialogTunnelName);
         //noinspection DataFlowIssue
-        tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
         tunnelNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

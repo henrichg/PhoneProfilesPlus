@@ -108,7 +108,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         SSIDName = layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
         //noinspection DataFlowIssue
-        SSIDName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        SSIDName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         SSIDName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

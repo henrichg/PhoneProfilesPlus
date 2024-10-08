@@ -82,7 +82,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             voiceSpinner.setAdapter(voiceSpinnerAdapter);
             voiceSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
             voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -112,7 +112,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
             smsSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             smsSpinner.setAdapter(smsSpinnerAdapter);
             smsSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
             smsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -142,7 +142,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
             dataSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             dataSpinner.setAdapter(dataSpinnerAdapter);
             dataSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
             dataSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

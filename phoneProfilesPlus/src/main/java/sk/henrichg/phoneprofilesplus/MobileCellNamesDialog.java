@@ -108,7 +108,7 @@ class MobileCellNamesDialog {
         emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
         //noinspection DataFlowIssue
-        cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
+        cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.edit_text_color));
         if (!showFilterItems) {
             cellName.addTextChangedListener(new TextWatcher() {
                 @Override
