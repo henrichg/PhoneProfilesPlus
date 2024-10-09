@@ -18,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -63,11 +62,11 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {
-            HighlightedSpinnerAdapter voiceSpinnerAdapter = new HighlightedSpinnerAdapter(
+            PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (EventsPrefsActivity) context,
-                    R.layout.spinner_highlighted,
+                    R.layout.ppp_spinner,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
-            voiceSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);
             operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
@@ -424,7 +423,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (preference.forVolumesSensor == 1) {
-            ((HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
+            ((PPSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
 
             preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
 

@@ -9,12 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
+class PPSpinnerAdapter extends ArrayAdapter<String> {
 
     private int mSelectedIndex = -1;
     private final Activity activity;
 
-    HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
+    PPSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
         super(activity, textViewResourceId, objects);
         this.activity = activity;
     }

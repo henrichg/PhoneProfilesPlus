@@ -129,18 +129,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
-        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
         intentIntentTypeSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentIntentTypeSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentIntentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
                 enableOKButton();
             }
 
@@ -179,18 +179,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentMimeType.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
-        spinnerAdapter = new HighlightedSpinnerAdapter(
+        spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
         intentActionSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentActionSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
 
                 if (position == 0) {
                     intentActionEdit.setText("");
@@ -323,18 +323,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
-        spinnerAdapter = new HighlightedSpinnerAdapter(
+        spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
         intentExtraSpinner1.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentExtraSpinner1.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentExtraSpinner1.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentExtraSpinner1.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -349,18 +349,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
-        spinnerAdapter = new HighlightedSpinnerAdapter(
+        spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
         intentExtraSpinner2.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentExtraSpinner2.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentExtraSpinner2.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentExtraSpinner2.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -375,18 +375,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
-        spinnerAdapter = new HighlightedSpinnerAdapter(
+        spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
         intentExtraSpinner3.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentExtraSpinner3.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentExtraSpinner3.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentExtraSpinner3.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -401,18 +401,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
-        spinnerAdapter = new HighlightedSpinnerAdapter(
+        spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
         intentExtraSpinner4.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentExtraSpinner4.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentExtraSpinner4.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentExtraSpinner4.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -427,18 +427,18 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
 
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
-        spinnerAdapter = new HighlightedSpinnerAdapter(
+        spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);
         intentExtraSpinner5.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        intentExtraSpinner5.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
         intentExtraSpinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)intentExtraSpinner5.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)intentExtraSpinner5.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {

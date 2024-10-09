@@ -298,11 +298,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mTextViewRange.setText(sMin + " - " + sMax);
 
         afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
-        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                 mActivity,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         //noinspection DataFlowIssue
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.spinner_control_color));
@@ -329,7 +329,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
                 mAfterDo = Integer.parseInt(afterDoValues[position]);
 
                 updateProfileView();

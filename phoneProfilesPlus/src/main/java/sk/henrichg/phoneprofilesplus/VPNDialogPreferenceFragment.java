@@ -56,11 +56,11 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         vpnApplicationSpinner = layout.findViewById(R.id.vpnPrefDialogVPNApplication);
 
-        HighlightedSpinnerAdapter vpnApplicationSpinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter vpnApplicationSpinnerAdapter = new PPSpinnerAdapter(
                 (ProfilesPrefsActivity) preference._context,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.vpnApplicationArray));
-        vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.spinner_control_color));
@@ -217,7 +217,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
+        ((PPSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
 
         String[] vpnApplicationValues = preference._context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);

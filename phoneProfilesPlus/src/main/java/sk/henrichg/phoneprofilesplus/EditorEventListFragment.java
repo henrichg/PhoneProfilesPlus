@@ -34,7 +34,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -365,11 +364,11 @@ public class EditorEventListFragment extends Fragment
                 getString(R.string.editor_drawer_order_priority)
         };
 
-        HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter orderSpinnerAdapter = new PPSpinnerAdapter(
                 activity,
-                R.layout.spinner_highlighted_order,
+                R.layout.ppp_spinner_order,
                 orderItems);
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         //orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
         orderSpinner.setAdapter(orderSpinnerAdapter);
@@ -379,7 +378,7 @@ public class EditorEventListFragment extends Fragment
                 if (orderSpinner.getAdapter() != null) {
                     //if (orderSpinner.getAdapter().getCount() <= position)
                     //    position = 0;
-                    ((HighlightedSpinnerAdapter) orderSpinner.getAdapter()).setSelection(position);
+                    ((PPSpinnerAdapter) orderSpinner.getAdapter()).setSelection(position);
                 }
                 if (position != orderSelectedItem)
                     changeEventOrder(position, false);

@@ -468,11 +468,11 @@ public class EditorActivity extends AppCompatActivity
                 /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                 /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
         };
-        HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted_filter,
+                R.layout.ppp_spinner_filter,
                 filterItems);
-        filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         //filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all_editor));
 /*        switch (appTheme) {
@@ -505,7 +505,7 @@ public class EditorActivity extends AppCompatActivity
                 if (filterSpinner.getAdapter() != null) {
                     //if (filterSpinner.getAdapter().getCount() <= position)
                     //    position = 0;
-                    ((HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                    ((PPSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
@@ -1572,11 +1572,11 @@ public class EditorActivity extends AppCompatActivity
                         /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                         /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                 };
-                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
                         activity,
-                        R.layout.spinner_highlighted_filter,
+                        R.layout.ppp_spinner_filter,
                         filterItems);
-                filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
                 activity.filterSpinner.setAdapter(filterSpinnerAdapter);
                 activity.selectFilterItem(0, activity.filterProfilesSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1604,11 +1604,11 @@ public class EditorActivity extends AppCompatActivity
                         /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
                         /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
                 };
-                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
                         activity,
-                        R.layout.spinner_highlighted_filter,
+                        R.layout.ppp_spinner_filter,
                         filterItems);
-                filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
                 activity.filterSpinner.setAdapter(filterSpinnerAdapter);
                 activity.selectFilterItem(1, activity.filterEventsSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -3177,7 +3177,7 @@ public class EditorActivity extends AppCompatActivity
                         }
                         if (changeFilter) {
                             fragment.scrollToProfile = _profile;
-                            ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                            ((PPSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                     .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
                             editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                         }
@@ -3361,7 +3361,7 @@ public class EditorActivity extends AppCompatActivity
                         }
                         if (changeFilter) {
                             fragment.scrollToEvent = _event;
-                            ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                            ((PPSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                     .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
                             editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                         }

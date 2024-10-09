@@ -21,7 +21,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -149,11 +148,11 @@ class RunApplicationEditorDialog
         });
 
         filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
-        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                 activity,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         //noinspection DataFlowIssue
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.spinner_control_color));
@@ -197,7 +196,7 @@ class RunApplicationEditorDialog
 
             @SuppressLint("NotifyDataSetChanged")
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
                 selectedFilter = Integer.parseInt(filterValues[position]);
                 if (selectedFilter == 2)
