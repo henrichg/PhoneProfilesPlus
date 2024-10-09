@@ -221,7 +221,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         if (device == null)
             return;
 
-        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             if (device.getAddress() != null) {
                 for (BluetoothDeviceData _device : connectedDevices) {
@@ -250,7 +250,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
                         BluetoothScanWorker.getBluetoothType(device), false, timestamp, false, false));
             }
-        }
+        //}
     }
 
     @SuppressLint("MissingPermission")
@@ -260,7 +260,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         if (device == null)
             return;
 
-        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             //int index = 0;
             BluetoothDeviceData deviceToRemove = null;
             boolean found = false;
@@ -293,7 +293,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             if (found)
                 //connectedDevices.remove(index);
                 connectedDevices.remove(deviceToRemove);
-        }
+        //}
     }
 
     static void clearConnectedDevices(List<BluetoothDeviceData> connectedDevices/*Context context, boolean onlyOld*/)
@@ -303,7 +303,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         //}
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "PPApplication.bluetoothConnectionChangeStateMutex");
-        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (connectedDevices != null) {
                 /*if (onlyOld) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -320,7 +320,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 else*/
                     connectedDevices.clear();
             }
-        }
+        //}
     }
 
 
@@ -331,7 +331,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         if (device == null)
             return;
 
-        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             if (device.getAddress() != null) {
                 for (BluetoothDeviceData _device : connectedDevices) {
@@ -356,13 +356,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
-        }
+        //}
     }
 
     static void addConnectedDeviceData(List<BluetoothDeviceData> connectedDevices, List<BluetoothDeviceData> connectedDevicesToAdd)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "PPApplication.bluetoothConnectionChangeStateMutex");
-        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDeviceData newDevice : connectedDevicesToAdd) {
                 boolean found = false;
 
@@ -395,13 +395,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
-        }
+        //}
     }
 
     static boolean isBluetoothConnected(List<BluetoothDeviceData> connectedDevices, BluetoothDeviceData deviceData, String sensorDeviceName)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "PPApplication.bluetoothConnectionChangeStateMutex");
-        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty()) {
                 // is device connected to any external bluetooth device ???
 
@@ -502,7 +502,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
                 return false;
             }
-        }
+        //}
     }
 
     private void callEventHandler(final Context appContext) {
