@@ -16,6 +16,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.List;
+
 class EventPreferencesRadioSwitch extends EventPreferences {
 
     int _wifi;
@@ -894,8 +896,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                             boolean connected = false;
                             if ((_bluetooth == 3) || (_bluetooth == 4)) {
-                                BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
-                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
+                                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
+                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, "");
                             }
                             tested = true;
                             if (_bluetooth == 1)

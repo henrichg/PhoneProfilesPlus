@@ -336,8 +336,9 @@ class EventPreferencesAccessories extends EventPreferences {
                             if (bluetooth != null) {
                                 boolean isBluetoothEnabled = bluetooth.isEnabled();
                                 boolean isHeadsetConnected = false;
+                                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
                                 if (isBluetoothEnabled) {
-                                    boolean isBluetoothConnected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
+                                    boolean isBluetoothConnected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, "");
                                     if (isBluetoothConnected)
                                         isHeadsetConnected = BluetoothAdapter.STATE_CONNECTED == bluetooth.getProfileConnectionState(BluetoothProfile.HEADSET);
                                 }

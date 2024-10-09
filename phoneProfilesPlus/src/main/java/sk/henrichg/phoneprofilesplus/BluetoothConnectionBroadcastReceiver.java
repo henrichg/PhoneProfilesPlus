@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
-    private static volatile List<BluetoothDeviceData> connectedDevices = null;
+    //private static volatile List<BluetoothDeviceData> connectedDevices = null;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -101,28 +101,28 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
-                            getConnectedDevices(appContext);
+                            List<BluetoothDeviceData> connectedDevices = getConnectedDevices(appContext);
 
                             try {
                                 switch (action) {
                                     case BluetoothDevice.ACTION_ACL_CONNECTED:
-                                        addConnectedDevice(device);
+                                        addConnectedDevice(connectedDevices, device);
                                         break;
                                     case BluetoothDevice.ACTION_NAME_CHANGED:
                                         //noinspection ConstantConditions
                                         if (newName != null) {
-                                            changeDeviceName(device, newName);
+                                            changeDeviceName(connectedDevices, device, newName);
                                         }
                                         break;
                                     default:
-                                        removeConnectedDevice(device);
+                                        removeConnectedDevice(connectedDevices, device);
                                         break;
                                 }
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }
 
-                            saveConnectedDevices(appContext);
+                            saveConnectedDevices(connectedDevices, appContext);
 
                             callEventHandler(appContext);
                         }
@@ -150,14 +150,15 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     private static final String PREF_CONNECTED_DEVICES_DEVICE = "device";
 
     @SuppressLint("MissingPermission")
-    static void getConnectedDevices(Context context)
+    static List<BluetoothDeviceData> getConnectedDevices(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.getConnectedDevices", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            if (connectedDevices == null)
-                connectedDevices = new ArrayList<>();
+            //if (connectedDevices == null)
+            //    connectedDevices = new ArrayList<>();
+            //connectedDevices.clear();
 
-            connectedDevices.clear();
+            List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -180,10 +181,12 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
+
+            return connectedDevices;
         }
     }
 
-    static void saveConnectedDevices(Context context)
+    static void saveConnectedDevices(List<BluetoothDeviceData> connectedDevices, Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.saveConnectedDevices", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
@@ -212,7 +215,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
 
     @SuppressLint("MissingPermission")
-    private static void addConnectedDevice(BluetoothDevice device)
+    private static void addConnectedDevice(List<BluetoothDeviceData> connectedDevices, BluetoothDevice device)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.addConnectedDevice", "PPApplication.bluetoothConnectionChangeStateMutex");
         if (device == null)
@@ -251,7 +254,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("MissingPermission")
-    private static void removeConnectedDevice(BluetoothDevice device)
+    private static void removeConnectedDevice(List<BluetoothDeviceData> connectedDevices, BluetoothDevice device)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "PPApplication.bluetoothConnectionChangeStateMutex");
         if (device == null)
@@ -293,7 +296,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static void clearConnectedDevices(/*Context context, boolean onlyOld*/)
+    static void clearConnectedDevices(List<BluetoothDeviceData> connectedDevices/*Context context, boolean onlyOld*/)
     {
         //if (onlyOld) {
         //    getConnectedDevices(context);
@@ -322,7 +325,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
 
     @SuppressLint("MissingPermission")
-    private static void changeDeviceName(BluetoothDevice device, String deviceName)
+    private static void changeDeviceName(List<BluetoothDeviceData> connectedDevices, BluetoothDevice device, String deviceName)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.changeDeviceName", "PPApplication.bluetoothConnectionChangeStateMutex");
         if (device == null)
@@ -356,11 +359,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static void addConnectedDeviceData(List<BluetoothDeviceData> newConnectedDevices)
+    static void addConnectedDeviceData(List<BluetoothDeviceData> connectedDevices, List<BluetoothDeviceData> connectedDevicesToAdd)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            for (BluetoothDeviceData newDevice : newConnectedDevices) {
+            for (BluetoothDeviceData newDevice : connectedDevicesToAdd) {
                 boolean found = false;
 
                 String newName = newDevice.getName();
@@ -395,7 +398,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isBluetoothConnected(BluetoothDeviceData deviceData, String sensorDeviceName)
+    static boolean isBluetoothConnected(List<BluetoothDeviceData> connectedDevices, BluetoothDeviceData deviceData, String sensorDeviceName)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "PPApplication.bluetoothConnectionChangeStateMutex");
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {

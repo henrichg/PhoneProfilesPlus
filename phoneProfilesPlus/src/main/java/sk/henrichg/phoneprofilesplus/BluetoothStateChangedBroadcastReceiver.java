@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
+import java.util.List;
+
 public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -42,9 +44,10 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
-                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
+                            List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
                             // this also clears shared preferences
-                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                         }
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {

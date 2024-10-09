@@ -537,9 +537,9 @@ class EventPreferencesBluetooth extends EventPreferences {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
                     if (isBluetoothEnabled) {
-                        BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
+                        List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
 
-                        if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
+                        if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, "")) {
 //                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is connected  event="+_event._name);
 
                             String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
@@ -554,7 +554,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         break;
                                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
                                         for (BluetoothDeviceData data : boundedDevicesList) {
-                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
+                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, data, "");
                                             if (connected[i])
                                                 break;
                                         }
@@ -562,12 +562,12 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     default:
                                         // check in system configured devices
                                         for (BluetoothDeviceData data : boundedDevicesList) {
-                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, _bluetoothName);
+                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, data, _bluetoothName);
                                             if (connected[i])
                                                 break;
                                         }
                                         // check by name
-                                        connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, _bluetoothName);
+                                        connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, _bluetoothName);
                                         break;
                                 }
                                 i++;
