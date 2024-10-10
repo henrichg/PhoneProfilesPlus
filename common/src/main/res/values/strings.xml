@@ -2303,6 +2303,11 @@
     <string name="location_geofence_editor_location_name">Location name</string>
     <string name="application_editor_intent_action_custom_label">Custom action</string>
 
+    <string name="empty_list_content_description">Empty list</string>
+    <string name="tone_content_description">Tone</string>
+    <string name="profile_list_notification_right_arrow">Right arrow</string>
+    <string name="profile_list_notification_left_arrow">Left arrow</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -17,13 +17,12 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:contentDescription=""
+        android:contentDescription="@string/profile_list_notification_right_arrow"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_widget_profile_list_scroll_right"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/widget_list_item"
-        tools:ignore="ContentDescription" />
+        android:background="@drawable/widget_list_item" />
 
     <LinearLayout
         android:id="@+id/notification_profile_list_profiles"
@@ -42,13 +41,12 @@
             android:padding="5dp"
             android:layout_gravity="center_vertical"
             android:adjustViewBounds="true"
-            android:contentDescription=""
+            android:contentDescription="@string/profile_list_notification_left_arrow"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_widget_profile_list_scroll_left"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item"
-            tools:ignore="ContentDescription" />
+            android:background="@drawable/widget_list_item" />
 
         <LinearLayout
             android:id="@+id/notification_profile_list_profile_icon_1_root"

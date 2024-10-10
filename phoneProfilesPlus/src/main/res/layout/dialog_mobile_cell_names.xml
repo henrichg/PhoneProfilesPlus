@@ -55,8 +55,7 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:contentDescription=""
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/empty_list_content_description" />
 
         </RelativeLayout>
 
