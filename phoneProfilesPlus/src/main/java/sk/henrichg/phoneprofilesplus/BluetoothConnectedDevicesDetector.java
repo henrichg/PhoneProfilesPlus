@@ -59,7 +59,7 @@ class BluetoothConnectedDevicesDetector {
 
 //                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "[1] start of onServiceConnected");
 
-                        final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);;
+                        final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                         BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
 
                         if (profile == BluetoothProfile.HEADSET) {
@@ -271,6 +271,8 @@ class BluetoothConnectedDevicesDetector {
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT);
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT_SERVER);
 
+                // workaround for check connection status of bounded devices
+                // working also for BLE devices
                 if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                     if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
                         @SuppressLint("MissingPermission")
