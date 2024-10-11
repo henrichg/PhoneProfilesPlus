@@ -1,75 +1,7 @@
---------------------------------
-Hadanie warningov v kode:
-Toto hladaj:
-@SuppressLint
-@SuppressWarnings
-//noinspection
-
-------------------
-
-Ked nejde git push, skus v terminaly AS:
-git config credential.helper store
-
---------------------------------
-
-Preco uz nie je PPP v GPlay:
-
-Google restrictions:
-1. Android - All Wi-Fi related functions not working since Android 10.
-2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:
-    targetSdkVersion targetSdk
-  and in PPP must be target sdk = 28. Android 10 is 29.
-
-In stores, in which is currently deployed PPP, restriction about target sdk not exists.
-
-----------------------------------------
-
-indicator color and its complementary color:
-dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
-light tema: indicator:4289d8 -> accent:cc893e -> event delay:#D842D4
-
-https://www.canva.com/colors/color-wheel/
-
-------------------------
-
 Widget Preview Builder:
 https://play.google.com/store/apps/details?id=lav.widgetpreviewbuilder.free&hl=en_US&gl=US
 
 ------------------------
-
-Ulohy, ktore su spravene [x] a ktore nie [ ]:
-[ ] Priority Notification Event
-[x] Normal media volume, headphone media volume, Bluetooth media volume
-[ ] Sony's "Stamina" mode as profile preference - skor Power save change senzor
-[ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
-[ ] option to hide PPP from Launcher
-[ ] Set min and max CPU frequency
-[ ] Open a website with profile
-[ ] profile/event search
-[x] Persistent profile/event: sets its options every x minutes - asi periodic sensor
-[ ] Android Wear support?
-[ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
-[ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
-
-------------------------
-
-System.Settings:
-notifications_use_ring_volume ---+--> ze by na odlinkovanie zvonenia a notifikacii?
-unlink_volumes_together ---------+
-mute_streams_affected
-mode_ringer_streams_affected
-
-System.Global:
-heads_up_notifications_enabled
-
-Ako disablovat lockscreen, 2 kroky:
-1. nastavit, ze power tlacitko nema lockovat
-  /data/system/locksettings.db - lockscreen.power_button_instantly_locks (0,1)
-  len je otazka, ci toto existuje aj na starsich androidoch ako 5.0
-2. nastavit lockscreen timeout 
-  Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
-
----------- PIN/password
 
 1. ako zrusim pin/heslo
 
@@ -619,30 +551,23 @@ Fix: Fixed download link of InstallWithOptions.pak in docs.
 
 --------------
 
-Reginer/aosp-android-jar - uz je tam API 35
-Ale asi pockam este:
-"The default compiled file will report an error in r8. The corresponding file of Android14 is used
-directly without comparing the contents. Be careful when using this file"
+PPApplication.updateGUI()
+- EventsHandler dava: PPApplication.updateGUI(false, false, context);
+  Cize neupdatovat hned, nie dlhy interval
+- PPApplication robi na to toto:
+  - delay = 5;
+  - vola PPApplication.forceUpdateGUI(appContext, true, false, false); cez executor s tym delay:
+    cize Editor ano, !!! nie notifikacie (pozri ci sa toto tyka aj widgetov) !!!
+  - potom mimo excutora reloaduje notifikacie
 
----------
+  Takze PPApplication.forceUpdateGUI() updatuje VZDY widgety.
+  Vola OneRowWidgetProvider.updateWidgets(). Takze jedine, ze by bol problem tam.
 
-Kontact groups, vypada, ze konecne funguje:
-2024-10-04 23:37:57.425 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  (2) name=Rodina
-2024-10-04 23:37:57.425 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  (2) contactGroupId=19
-2024-10-04 23:37:57.425 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  (2) accountType=com.google
-* Lida -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=177 phone=++421905434368 to contactGroupId=19
-2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=1
-* Tatko -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=203 phone=++421915795249 to contactGroupId=19
-2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=2
-* Manina -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=179 phone=++421905340850 to contactGroupId=19
-2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=3
-* Krsna -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=94 phone=++421905530412 to contactGroupId=19
-2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=4
-* Karin -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=184 phone=++421908989980 to contactGroupId=19
-* Karin -> 2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=184 phone=++421918440100 to contactGroupId=19
-2024-10-04 23:37:57.428 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=6
-* Ja -> 2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=195 phone=++421907977871 to contactGroupId=19
-* Ja -> 2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=195 phone=++421917994279 to contactGroupId=19
-* Ja -> 2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  added contactId=195 phone=++421915931555 to contactGroupId=19
-2024-10-04 23:37:57.429 31060-31151 ContactGro...tGroupList sk.henrichg.phoneprofilesplus        E  count of contacts in group=9
+Takze takto ziskavam posledne spusteny hovor:
+List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size() - 1);
+
+Proste to vypada, ze je vsetko ako ma byt. Takze nechapem, preco sa widget neupdatol.
+
+
 

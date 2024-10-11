@@ -311,8 +311,8 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-                                                +"|[BLUETOOTH_CONNECT]"
-                                                +"|EventPreferencesBluetooth.doHandleEvent"
+//                                                +"|[BLUETOOTH_CONNECT]"
+//                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

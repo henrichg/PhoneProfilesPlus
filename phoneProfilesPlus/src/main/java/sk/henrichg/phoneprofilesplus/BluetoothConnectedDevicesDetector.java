@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
@@ -9,14 +10,16 @@ import android.bluetooth.BluetoothGattServer;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothHealth;
 import android.bluetooth.BluetoothHearingAid;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 class BluetoothConnectedDevicesDetector {
 
@@ -27,17 +30,17 @@ class BluetoothConnectedDevicesDetector {
     private static volatile BluetoothGatt bluetoothGatt = null;
     private static volatile BluetoothGattServer bluetoothGattServer = null;
 
-
     private static volatile BluetoothProfile.ServiceListener profileListener = null;
+
+    private static Context appContext = null;
 
     @SuppressLint("MissingPermission")
     static void getConnectedDevices(final Context context/*, final boolean _callEventHandler*/) {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
+            appContext = context.getApplicationContext();
+
             if (!bluetoothAdapter.isEnabled()) {
-
-                final Context appContext = context.getApplicationContext();
-
                 List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
                 // this also clears shared preferences
@@ -46,8 +49,6 @@ class BluetoothConnectedDevicesDetector {
                 //    callEventHandler(appContext);
 
 //                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(xxx) END of getConnectedDevices");
-
-                return;
             }
 
 // HandlerThread is not needed, this method is already called from it in PhoneProfilesService.doFirstStart()
@@ -58,21 +59,22 @@ class BluetoothConnectedDevicesDetector {
 
 //                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "[1] start of onServiceConnected");
 
-                        final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
+                        final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);;
+                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
 
                         if (profile == BluetoothProfile.HEADSET) {
 //                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "BluetoothProfile.HEADSET");
                             bluetoothHeadset = (BluetoothHeadset) proxy;
 //                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "bluetoothHeadset="+bluetoothHeadset);
 
-                            final Context appContext = context.getApplicationContext();
+                            //final Context appContext = context.getApplicationContext();
 
                             if (bluetoothHeadset != null) {
                                 try {
-                                    List<BluetoothDevice> devices = bluetoothHeadset.getConnectedDevices();
+                                    List<BluetoothDevice> detectedDevices = bluetoothHeadset.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+devices);
-                                    addConnectedDevices(devices, connectedDevicesToAdd);
+//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "detectedDevices="+detectedDevices);
+                                    addConnectedDevices(detectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                     //if (_callEventHandler)
@@ -90,15 +92,15 @@ class BluetoothConnectedDevicesDetector {
                             bluetoothHealth = (BluetoothHealth) proxy;
 //                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "bluetoothHealth="+bluetoothHealth);
 
-                            final Context appContext = context.getApplicationContext();
+                            //final Context appContext = context.getApplicationContext();
 
                             if (bluetoothHealth != null) {
                                 try {
                                     @SuppressWarnings("deprecation")
-                                    List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
+                                    List<BluetoothDevice> detectedDevices = bluetoothHealth.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+devices);
-                                    addConnectedDevices(devices, connectedDevicesToAdd);
+//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "detectedDevices="+detectedDevices);
+                                    addConnectedDevices(detectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                     //if (_callEventHandler)
@@ -116,14 +118,14 @@ class BluetoothConnectedDevicesDetector {
                             bluetoothA2dp = (BluetoothA2dp) proxy;
 //                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "bluetoothA2dp="+bluetoothA2dp);
 
-                            final Context appContext = context.getApplicationContext();
+                            //final Context appContext = context.getApplicationContext();
 
                             if (bluetoothA2dp != null) {
                                 try {
-                                    List<BluetoothDevice> devices = bluetoothA2dp.getConnectedDevices();
+                                    List<BluetoothDevice> detectedDevices = bluetoothA2dp.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+devices);
-                                    addConnectedDevices(devices, connectedDevicesToAdd);
+//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "detectedDevices="+detectedDevices);
+                                    addConnectedDevices(detectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                     //if (_callEventHandler)
@@ -142,14 +144,14 @@ class BluetoothConnectedDevicesDetector {
                                 bluetoothHearingAid = (BluetoothHearingAid) proxy;
 //                                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "bluetoothHearingAid=" + bluetoothHearingAid);
 
-                                final Context appContext = context.getApplicationContext();
+                                //final Context appContext = context.getApplicationContext();
 
                                 if (bluetoothHearingAid != null) {
                                     try {
-                                        List<BluetoothDevice> devices = bluetoothHearingAid.getConnectedDevices();
+                                        List<BluetoothDevice> detectedDevices = bluetoothHearingAid.getConnectedDevices();
                                         final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+devices);
-                                        addConnectedDevices(devices, connectedDevicesToAdd);
+//                                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+detectedDevices);
+                                        addConnectedDevices(detectedDevices, connectedDevicesToAdd);
                                         BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                         BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                         //if (_callEventHandler)
@@ -168,15 +170,15 @@ class BluetoothConnectedDevicesDetector {
                             bluetoothGatt = (BluetoothGatt) proxy;
 //                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "bluetoothGatt=" + bluetoothGatt);
 
-                            final Context appContext = context.getApplicationContext();
+                            //final Context appContext = context.getApplicationContext();
 
                             if (bluetoothGatt != null) {
                                 try {
                                     //noinspection deprecation
-                                    List<BluetoothDevice> devices = bluetoothGatt.getConnectedDevices();
+                                    List<BluetoothDevice> detectedDevices = bluetoothGatt.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+devices);
-                                    addConnectedDevices(devices, connectedDevicesToAdd);
+//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+detectedDevices);
+                                    addConnectedDevices(detectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                     //if (_callEventHandler)
@@ -194,14 +196,14 @@ class BluetoothConnectedDevicesDetector {
                             bluetoothGattServer = (BluetoothGattServer) proxy;
 //                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "bluetoothGattServer=" + bluetoothGattServer);
 
-                            final Context appContext = context.getApplicationContext();
+                            //final Context appContext = context.getApplicationContext();
 
                             if (bluetoothGattServer != null) {
                                 try {
-                                    List<BluetoothDevice> devices = bluetoothGattServer.getConnectedDevices();
+                                    List<BluetoothDevice> detectedDevices = bluetoothGattServer.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+devices);
-                                    addConnectedDevices(devices, connectedDevicesToAdd);
+//                                    PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "devices="+detectedDevices);
+                                    addConnectedDevices(detectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                     //if (_callEventHandler)
@@ -247,7 +249,7 @@ class BluetoothConnectedDevicesDetector {
                 bluetoothGatt = null;
                 bluetoothGattServer = null;
 
-                final Context appContext = context.getApplicationContext();
+                //final Context appContext = context.getApplicationContext();
 
                 List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
@@ -255,6 +257,8 @@ class BluetoothConnectedDevicesDetector {
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                 //if (_callEventHandler)
                 //    callEventHandler(appContext);
+
+//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "*** start of profilelisener ***");
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
@@ -267,25 +271,30 @@ class BluetoothConnectedDevicesDetector {
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT);
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT_SERVER);
 
-                final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
-                if (bluetoothManager != null) {
-                    final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-                    //final Context appContext = context.getApplicationContext();
-                    List<BluetoothDevice> devices;
-
-                    devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT);
-                    addConnectedDevices(devices, connectedDevicesToAdd);
-
-                    devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT_SERVER);
-                    addConnectedDevices(devices, connectedDevicesToAdd);
-
-//                    devices = bluetoothManager.getConnectedDevices(BluetoothProfile.SAP);
-//                    addConnectedDevices(devices, connectedDevicesToAdd);
-
-                    BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
-                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
-                    //if (_callEventHandler)
-                    //    callEventHandler(appContext);
+                if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
+                    if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
+                        @SuppressLint("MissingPermission")
+                        Set<BluetoothDevice> boundedDevices = bluetoothAdapter.getBondedDevices();
+                        if (boundedDevices != null) {
+                            for (BluetoothDevice boundedDevice : boundedDevices) {
+                                try {
+                                    Method m = BluetoothDevice.class.getMethod("isConnected");
+                                    Boolean o = (Boolean) m.invoke(boundedDevice);
+                                    if ((o != null) && o) {
+//                                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "device connected="+boundedDevice.getName());
+                                        final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
+                                        List<BluetoothDevice> detectedDevices = new ArrayList<>();
+                                        detectedDevices.add(boundedDevice);
+                                        addConnectedDevices(detectedDevices, connectedDevicesToAdd);
+                                        BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
+                                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
+                                }
+                            }
+                        }
+                    }
                 }
 
 //                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "[1] END of getConnectedDevices");
@@ -301,29 +310,23 @@ class BluetoothConnectedDevicesDetector {
     private static void addConnectedDevices(List<BluetoothDevice> detectedDevices, List<BluetoothDeviceData> connectedDevices)
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            for (BluetoothDevice detecedDevice : detectedDevices) {
-//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "detecedDevice.name="+detecedDevice.getName());
-//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "detecedDevice.address="+detecedDevice.getAddress());
-//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] detecedDevice.name="+detecedDevice.getName());
-//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] detecedDevice.address="+detecedDevice.getAddress());
-
+            for (BluetoothDevice detectedDevice : detectedDevices) {
                 boolean found = false;
 
-                String detectedName = detecedDevice.getAddress();
-                if (!detectedName.isEmpty()) {
+                String detectedName = detectedDevice.getName();
+                String detectedAddress = detectedDevice.getAddress();
+                if (!detectedAddress.isEmpty()) {
                     // do not add device without name
 
-                    String detectedAddress = detecedDevice.getAddress();
-                    if (!detectedAddress.isEmpty()) {
-                        for (BluetoothDeviceData connectedDevice : connectedDevices) {
-                            if ((!connectedDevice.getAddress().isEmpty()) &&
-                                    connectedDevice.getAddress().equals(detectedAddress)) {
-                                found = true;
-                                break;
-                            }
+                    //String detectedAddress = detecedDevice.getAddress();
+                    for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                        if ((!connectedDevice.getAddress().isEmpty()) &&
+                                connectedDevice.getAddress().equals(detectedAddress)) {
+                            found = true;
+                            break;
                         }
                     }
-                    if (!found) {
+                    if ((!found) && (detectedName != null) && (!detectedName.isEmpty())){
                         for (BluetoothDeviceData connectedDevice : connectedDevices) {
                             String connectedName = connectedDevice.getName();
                             if ((!connectedName.isEmpty()) &&
@@ -337,54 +340,12 @@ class BluetoothConnectedDevicesDetector {
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         Calendar now = Calendar.getInstance();
                         long timestamp = now.getTimeInMillis() - gmtOffset;
-                        connectedDevices.add(new BluetoothDeviceData(detecedDevice.getName(), detecedDevice.getAddress(),
-                                BluetoothScanWorker.getBluetoothType(detecedDevice), false, timestamp, false, false));
+                        connectedDevices.add(new BluetoothDeviceData(detectedName, detectedAddress,
+                                BluetoothScanWorker.getBluetoothType(detectedDevice), false, timestamp, false, false));
                     }
                 }
             }
         //}
     }
-
-    /*
-    static boolean isBluetoothConnected(List<BluetoothDeviceData> connectedDevices, BluetoothDeviceData deviceData, String sensorDeviceName)
-    {
-        //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            if ((deviceData == null) && sensorDeviceName.isEmpty())
-                return (connectedDevices != null) && (connectedDevices.size() > 0);
-            else {
-                if (connectedDevices != null) {
-                    if (deviceData != null) {
-                        boolean found = false;
-                        for (BluetoothDeviceData _device : connectedDevices) {
-                            if (_device.address.equals(deviceData.getAddress())) {
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            for (BluetoothDeviceData _device : connectedDevices) {
-                                if (_device.getName().equalsIgnoreCase(deviceData.getName())) {
-                                    found = true;
-                                    break;
-                                }
-                            }
-                        }
-                        return found;
-                    }
-                    else {
-                        for (BluetoothDeviceData _device : connectedDevices) {
-                            String device = _device.getName().toUpperCase();
-                            String _adapterName = sensorDeviceName.toUpperCase();
-                            if (Wildcard.match(device, _adapterName, '_', '%', true)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }
-        //}
-    }
-    */
 
 }
