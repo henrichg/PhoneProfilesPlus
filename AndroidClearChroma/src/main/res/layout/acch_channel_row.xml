@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="24dp"
         android:gravity="center"
         tools:text="255"/>
@@ -45,7 +46,6 @@
         android:saveEnabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/acch_label"
         android:layout_toStartOf="@id/acch_progress_text"
