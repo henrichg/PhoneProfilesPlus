@@ -137,7 +137,7 @@ public class ChromaColorView extends RelativeLayout {
             colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
         //colorEditButton.setText(String.format("%06X", 0xFFFFFF & currentColor));
 
-        ViewGroup channelContainer = findViewById(R.id.acch_channel_container);
+        LinearLayout channelContainer = findViewById(R.id.acch_channel_container);
         //noinspection DataFlowIssue
         channelContainer.removeAllViews();
 
@@ -262,6 +262,7 @@ public class ChromaColorView extends RelativeLayout {
                     getResources().getDimensionPixelSize(R.dimen.acch_channel_view_margin_top);
             params.bottomMargin =
                     getResources().getDimensionPixelSize(R.dimen.acch_channel_view_margin_bottom);
+            //currentChannelView.requestLayout();
         }
     }
 

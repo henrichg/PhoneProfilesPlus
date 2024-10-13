@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/acch_label"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
@@ -45,9 +45,8 @@
         android:saveEnabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
         android:layout_toEndOf="@id/acch_label"
         android:layout_toStartOf="@id/acch_progress_text"
         android:minHeight="3dp"
@@ -57,4 +56,5 @@
         android:thumbTint="@color/accent_color"
         android:splitTrack="false"
         />
+<!--    android:layout_marginStart="16dp"-->
 </merge>
