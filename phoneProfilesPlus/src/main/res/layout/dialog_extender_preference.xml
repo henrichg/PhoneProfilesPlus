@@ -53,13 +53,22 @@
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold" />
 
+            <View
+                android:id="@+id/extenderPrefDialog_divider1"
+                android:layout_width="30dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/dialogDividerColor" />
+
             <TextView
                 android:id="@+id/extenderPrefDialog_accessibility_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:text="@string/event_preferences_applications_AccessibilitySettings_title"
                 android:textSize="16sp" />
+<!--            android:layout_marginTop="15dp"-->
             <TextView
                 android:id="@+id/extenderPrefDialog_accessibility_settings_value"
                 android:layout_width="wrap_content"
@@ -89,18 +98,27 @@
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold" />
 
+            <View
+                android:id="@+id/extenderPrefDialog_divider2"
+                android:layout_width="30dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/dialogDividerColor" />
+
             <TextView
                 android:id="@+id/extenderPrefDialog_extender_launch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:text=""
                 android:textSize="16sp" />
-            <View
-                android:id="@+id/extenderPrefDialog_extender_launch_divider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+<!--            android:layout_marginTop="15dp"-->
+<!--            <View-->
+<!--                android:id="@+id/extenderPrefDialog_extender_launch_divider"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp" />-->
             <Button
                 android:id="@+id/extenderPrefDialog_extender_launch_button"
                 style="?android:attr/borderlessButtonStyle"

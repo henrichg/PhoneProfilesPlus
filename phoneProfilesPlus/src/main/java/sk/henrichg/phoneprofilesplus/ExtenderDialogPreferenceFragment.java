@@ -34,7 +34,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     private AlertDialog mDialog;
     private TextView extenderVersionText = null;
     private TextView extenderLaunchText = null;
-    private View extenderLaunchDivider = null;
+//    private View extenderLaunchDivider = null;
     private TextView extenderAccessibilitySettings = null;
     private TextView extenderAccessibilitySettingsValue = null;
     private TextView extenderAccessibilitySettingsSummary = null;
@@ -61,7 +61,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         extenderVersionText = layout.findViewById(R.id.extenderPrefDialog_extender_version);
         extenderLaunchText = layout.findViewById(R.id.extenderPrefDialog_extender_launch);
-        extenderLaunchDivider = layout.findViewById(R.id.extenderPrefDialog_extender_launch_divider);
+//        extenderLaunchDivider = layout.findViewById(R.id.extenderPrefDialog_extender_launch_divider);
         extenderAccessibilitySettings = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings);
         extenderAccessibilitySettingsValue = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings_value);
         extenderAccessibilitySettingsSummary = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings_summary);
@@ -97,19 +97,19 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML;
                 if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
                     prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                else
-                  prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                //else
+                //  prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
             extenderVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
 
             if ((preference.lauchSummary != null) && (!preference.lauchSummary.isEmpty())) {
                 prefVolumeDataSummary = preference.lauchSummary;
-                extenderLaunchDivider.setVisibility(View.GONE);
+                //extenderLaunchDivider.setVisibility(View.GONE);
                 extenderLaunchText.setVisibility(View.VISIBLE);
                 extenderLaunchText.setText(prefVolumeDataSummary);
             } else {
                 extenderLaunchText.setVisibility(View.GONE);
-                extenderLaunchDivider.setVisibility(View.VISIBLE);
+                //extenderLaunchDivider.setVisibility(View.VISIBLE);
             }
 
             //-----
