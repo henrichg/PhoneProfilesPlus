@@ -57,7 +57,7 @@
                 android:id="@+id/extenderPrefDialog_divider1"
                 android:layout_width="30dp"
                 android:layout_height="@dimen/divider_height"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginBottom="15dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/dialogDividerColor" />
@@ -102,7 +102,7 @@
                 android:id="@+id/extenderPrefDialog_divider2"
                 android:layout_width="30dp"
                 android:layout_height="@dimen/divider_height"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginBottom="15dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/dialogDividerColor" />
