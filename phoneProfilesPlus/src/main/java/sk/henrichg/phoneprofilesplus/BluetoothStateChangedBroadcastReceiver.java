@@ -68,6 +68,9 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                     }
                                     //}
+
+                                    PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call od Detector");
+                                    BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
                                 }
 
                                 if (ApplicationPreferences.prefEventBluetoothScanRequest ||
