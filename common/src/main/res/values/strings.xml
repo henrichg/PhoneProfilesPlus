@@ -1948,8 +1948,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Note: Not all Clock applications use the system alarm volume because they use their own volume configured in their settings.</string>
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Install\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Launch\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Install PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Launch PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Close</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Launch PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is not installed.</string>
@@ -1965,9 +1965,9 @@
     <string name="latest_pppps_release">New PPPPutSettings version</string>
     <string name="latest_pppps_release_notification">Click this notification to install new PPPPutSettings release.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Install\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Launch\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable\nAccessibility settings</string>
+    <string name="pppextender_pref_dialog_install_button">Install PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Launch PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable</string>
     <string name="pppextender_pref_dialog_close_button">Close</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here for install/upgrade, enable/disable Accessibility settings, launch PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
@@ -2312,20 +2312,21 @@
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
     <string name="extender_title_activity_pppe" translatable="false">PPPE</string>
+    <string name="extender_accessibility_service_name" translatable="false">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">Accessibility service for profile parameter \"Force stop applications\"</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">Accessibility service for event parameters \"Application sensor\" and \"Orientation sensor\"</string>
     <string name="extender_accessibility_service_enabled">Enabled</string>
     <string name="extender_accessibility_service_disabled">Disabled</string>
-    <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
+    <string name="extender_accessibility_service_button">Enable/Disable Accessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
     <string name="extender_accessibility_service_event_sensor_sms_mms">Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.</string>
     <string name="extender_permissions_event_sensor_sms_mms">Permissions for event parameter \"SMS/MMS sensor\" - permission SMS</string>
     <string name="extender_permissions_not_granted">Not granted</string>
     <string name="extender_permissions_granted">Granted</string>
-    <string name="extender_permissions_button">Grant/deny\npermissions</string>
+    <string name="extender_permissions_button">Grant/deny permissions</string>
     <string name="extender_accessibility_service_event_sensor_call">Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.</string>
     <string name="extender_permissions_event_sensor_call">Permissions for event parameter \"Call sensor\" - permission Phone</string>
     <string name="extender_permissions_event_sensor_call_28">Permissions for event parameter \"Call sensor\" - permission Phone, Call logs</string>
@@ -2342,11 +2343,11 @@
     <string name="extender_battery_optimization_text">Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group</string>
     <string name="extender_battery_optimization_optimized">Optimized</string>
     <string name="extender_battery_optimization_not_optimized">Not optimized</string>
-    <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
+    <string name="extender_battery_optimization_button">Open Battery optimization</string>
     <string name="extender_acra_email_body_device">Device:</string>
     <string name="extender_acra_email_body_android_version">Android version:</string>
     <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
-    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
+    <string name="extender_popup_windows_in_background_button">Open Other permissions (MIUI)</string>
     <string name="extender_notification_channel_grant_permission">Grant permission</string>
     <string name="extender_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
     <string name="extender_notification_permission_title">Permission not granted</string>
