@@ -52,7 +52,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             BluetoothDevice _device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "device="+_device);
-//            if (_device != null)
+            if (_device != null)
                 PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "device="+_device.getName());
 
             //if (device == null)
@@ -68,7 +68,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     return;
                 }
                 try {
-                    if (/*(_device != null) &&*/ newName.equals(_device.getName())) {
+                    if ((_device != null) && newName.equals(_device.getName())) {
                         return;
                     }
                 } catch (SecurityException e) {
@@ -76,10 +76,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            //if (_device != null) {
+            if (_device != null) {
                 PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.name=" + _device.getName());
                 PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.address=" + _device.getAddress());
-            //}
+            }
 
             final Context appContext = context.getApplicationContext();
             final WeakReference<BluetoothDevice> deviceWeakRef = new WeakReference<>(_device);
