@@ -1300,41 +1300,72 @@ public class EditorActivity extends AppCompatActivity
 
             if (!uris.isEmpty()) {
                 String emailAddress = StringConstants.AUTHOR_EMAIL;
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
-                String packageVersion = "";
-                try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
-                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                if (Build.VERSION.SDK_INT >= 35) {
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+                    emailIntent.setType("message/rfc822"); // only email apps should handle this
+                    //emailIntent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON));
 
-                List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
-                List<LabeledIntent> intents = new ArrayList<>();
-                for (ResolveInfo info : resolveInfo) {
-                    intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                    intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                    intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
-                    intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
-                    intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
-                }
-                if (!intents.isEmpty()) {
+                    emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+
+                    String packageVersion = "";
                     try {
-                        Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
-                        chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
-                        startActivity(chooser);
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                        packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
+                    }
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
+                    emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    try {
+                        Intent chooser = Intent.createChooser(emailIntent, getString(R.string.email_chooser));
+                        //chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                        //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                        startActivity(chooser);
+                    } catch (Exception e) {
+                        //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    }
+                } else {
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
+
+                    String packageVersion = "";
+                    try {
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                        packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
+                    emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
+                    List<LabeledIntent> intents = new ArrayList<>();
+                    for (ResolveInfo info : resolveInfo) {
+                        intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                        intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                        intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
+                        intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                        intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
+                    }
+                    if (!intents.isEmpty()) {
+                        try {
+                            Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
+                            chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                            startActivity(chooser);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
                     }
                 }
             } else {
@@ -4746,47 +4777,80 @@ public class EditorActivity extends AppCompatActivity
                         String emailAddress = "";
                         if (toAuthor)
                             emailAddress = StringConstants.AUTHOR_EMAIL;
-                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
-                        String packageVersion = "";
-                        try {
-                            PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
-                        } catch (Exception e) {
-                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        }
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
-                        emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
-                        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        if (Build.VERSION.SDK_INT >= 35) {
+                            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+                            emailIntent.setType("message/rfc822"); // only email apps should handle this
+                            //emailIntent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON));
 
-                        List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
-                        List<LabeledIntent> intents = new ArrayList<>();
-                        for (ResolveInfo info : resolveInfo) {
-                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "packageName="+info.activityInfo.packageName);
-                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "name="+info.activityInfo.name);
-                            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                            intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                            if (!emailAddress.isEmpty())
-                                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
-                            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
-                            intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
-                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
-                            intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
-                        }
-                        //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
-                        if (!intents.isEmpty()) {
+                            emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+                            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+
+                            String packageVersion = "";
                             try {
-                                Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), context.getString(R.string.email_chooser));
-                                chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
-                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            try {
+                                Intent chooser = Intent.createChooser(emailIntent, context.getString(R.string.email_chooser));
+                                //chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                                 activity.startActivity(chooser);
                             } catch (Exception e) {
                                 //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
                                 PPApplicationStatic.recordException(e);
+                            }
+                        } else {
+                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                    StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
+
+                            String packageVersion = "";
+                            try {
+                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
+                            List<LabeledIntent> intents = new ArrayList<>();
+                            for (ResolveInfo info : resolveInfo) {
+//                                Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "packageName=" + info.activityInfo.packageName);
+//                                Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "name=" + info.activityInfo.name);
+                                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                                if (!emailAddress.isEmpty())
+                                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                                intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                                intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
+                                intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                                intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
+                            }
+//                            Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()=" + intents.size());
+                            if (!intents.isEmpty()) {
+                                try {
+                                    Intent chooser = Intent.createChooser(emailIntent, context.getString(R.string.email_chooser));
+                                    chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                    //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                                    activity.startActivity(chooser);
+//                                    Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "email app opened");
+                                } catch (Exception e) {
+                                    //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                    PPApplicationStatic.recordException(e);
+                                }
                             }
                         }
                     } else
