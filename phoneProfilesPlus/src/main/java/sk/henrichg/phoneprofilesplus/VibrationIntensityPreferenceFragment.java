@@ -58,6 +58,8 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
         valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
         seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
 
+        //setVibrationIntensityFromSeekBar(preference.value);
+
         seekBar.setOnSeekBarChangeListener(this);
         if (noChangeChBox != null)
             noChangeChBox.setOnCheckedChangeListener(this);
@@ -103,7 +105,9 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
             valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
 
             preference.callChangeListener(preference.getSValue());
-        }
+        }// else {
+        //    setVibrationIntensityFromSeekBar(preference.value);
+        //}
     }
 
     @Override
@@ -113,7 +117,62 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        //setVibrationIntensityFromSeekBar(preference.value);
     }
+
+    /*
+    private void setVibrationIntensityFromSeekBar(int value) {
+        if (Build.VERSION.SDK_INT >= 33) {
+            //noinspection deprecation
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            if ((vibrator != null) && vibrator.hasVibrator()) {
+                try {
+                    // Vibration intensity is also used
+
+                    //if (Build.VERSION.SDK_INT >= 33) {
+                        //noinspection ExtractMethodRecommender
+                        int attribute = VibrationAttributes.USAGE_NOTIFICATION;
+                        if (preference.vibrationIntensityType != null) {
+                            if (preference.vibrationIntensityType.equalsIgnoreCase(
+                                    VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE))
+                                attribute = VibrationAttributes.USAGE_RINGTONE;
+                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+                                    VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
+                                //noinspection DataFlowIssue
+                                attribute = VibrationAttributes.USAGE_NOTIFICATION;
+                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+                                    VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
+                                attribute = VibrationAttributes.USAGE_TOUCH;
+                        }
+                        vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+                                VibrationAttributes.createForUsage(attribute));
+//                    } else {
+//                        //noinspection ExtractMethodRecommender
+//                        int attribute = AudioAttributes.USAGE_NOTIFICATION;
+//                        if (preference.vibrationIntensityType != null) {
+//                            if (preference.vibrationIntensityType.equalsIgnoreCase(
+//                                    VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE))
+//                                attribute = AudioAttributes.USAGE_NOTIFICATION_RINGTONE;
+//                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+//                                    VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
+//                                //noinspection DataFlowIssue
+//                                attribute = AudioAttributes.USAGE_NOTIFICATION;
+//                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+//                                    VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
+//                                //noinspection DataFlowIssue
+//                                attribute = AudioAttributes.USAGE_NOTIFICATION;
+//                        }
+//                        vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+//                                new AudioAttributes.Builder()
+//                                        .setUsage(attribute)
+//                                        .build());
+//                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+        }
+    }
+    */
 
 }
