@@ -36,6 +36,7 @@
 
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_margin">15dp</dimen>
+    <dimen name="small_divider_height">2dp</dimen>
 
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
