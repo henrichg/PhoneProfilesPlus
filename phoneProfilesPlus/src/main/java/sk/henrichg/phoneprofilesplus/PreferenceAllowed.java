@@ -1408,6 +1408,13 @@ class PreferenceAllowed {
         _preferenceAllowed.copyFrom(this);
         _preferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY( context);
         if (_preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (isPPPPSInstalled(context) == 1) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityRingingChange())
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+            } else
             if (isShiuzkuAvailable() == 1) {
                 if (isShiuzkuGranted() == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
@@ -1482,13 +1489,6 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                     notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            } else
-            if (isPPPPSInstalled(context) == 1) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityRingingChange())
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
                     notAllowedPPPPS = true;
@@ -1510,6 +1510,13 @@ class PreferenceAllowed {
         _preferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY( context);
 //        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "_preferenceAllowed.allowed="+_preferenceAllowed.allowed);
         if (_preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (isPPPPSInstalled(context) == 1) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityNotificationsChange())
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+            } else
             if (isShiuzkuAvailable() == 1) {
                 if (isShiuzkuGranted() == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
@@ -1584,13 +1591,6 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                     notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            } else
-            if (isPPPPSInstalled(context) == 1) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityNotificationsChange())
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
                     notAllowedPPPPS = true;
@@ -1612,6 +1612,13 @@ class PreferenceAllowed {
         _preferenceAllowed.copyFrom(this);
         _preferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY( context);
         if (_preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (isPPPPSInstalled(context) == 1) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityTouchInteractionChange())
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+            } else
             if (isShiuzkuAvailable() == 1) {
                 if (isShiuzkuGranted() == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
@@ -1686,13 +1693,6 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                     notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            } else
-            if (isPPPPSInstalled(context) == 1) {
-                if (profile != null) {
-                    if (profile.getVibrationIntensityTouchInteractionChange())
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
                     notAllowedPPPPS = true;
@@ -2097,6 +2097,14 @@ class PreferenceAllowed {
 
         int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
         if (value != -10) {
+            if (isPPPPSInstalled(context) == 1) {
+//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
+                if (profile != null) {
+                    if (profile._notificationLed != 0)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+            } else
             if (isShiuzkuAvailable() == 1) {
                 if (isShiuzkuGranted() == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
@@ -2165,14 +2173,6 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                     notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            } else
-            if (isPPPPSInstalled(context) == 1) {
-//                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
-                if (profile != null) {
-                    if (profile._notificationLed != 0)
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed = PREFERENCE_ALLOWED;
             } else {
 //                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "(2)");
                 if ((profile != null) && (profile._notificationLed != 0)) {
@@ -2520,6 +2520,14 @@ class PreferenceAllowed {
             //allowed = PREFERENCE_NOT_ALLOWED;
             //notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
 
+            if (isPPPPSInstalled(context) == 1) {
+                if (profile != null) {
+                    if (profile._screenNightLight != 0)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                }
+                else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+            } else
             if (isShiuzkuAvailable() == 1) {
                 if (isShiuzkuGranted() == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
@@ -2588,14 +2596,6 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                     notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-            }
-            else if (isPPPPSInstalled(context) == 1) {
-                if (profile != null) {
-                    if (profile._screenNightLight != 0)
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed = PREFERENCE_ALLOWED;
             } else {
                 if ((profile != null) && (profile._screenNightLight != 0)) {
                     notAllowedPPPPS = true;
@@ -3276,6 +3276,13 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
+                        if (isPPPPSInstalled(context) == 1) {
+                            if (profile != null) {
+                                if (profile._soundSameRingtoneForBothSIMCards != 0)
+                                    preferenceAllowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed = PREFERENCE_ALLOWED;
+                        } else
                         if (isShiuzkuAvailable() == 1) {
                             if (isShiuzkuGranted() == 1) {
                                 if (settingsBinaryExists(fromUIThread) == 1) {
@@ -3344,13 +3351,6 @@ class PreferenceAllowed {
                                 preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                                 notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
-                        } else
-                        if (isPPPPSInstalled(context) == 1) {
-                            if (profile != null) {
-                                if (profile._soundSameRingtoneForBothSIMCards != 0)
-                                    preferenceAllowed = PREFERENCE_ALLOWED;
-                            } else
-                                preferenceAllowed = PREFERENCE_ALLOWED;
                         } else {
                             if ((profile != null) && (profile._soundSameRingtoneForBothSIMCards != 0)) {
                                 notAllowedPPPPS = true;
