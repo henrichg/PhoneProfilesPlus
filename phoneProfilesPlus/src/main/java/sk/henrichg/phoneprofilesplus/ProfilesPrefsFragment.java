@@ -503,9 +503,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
                 SpannableString headerTitle = new SpannableString("    " +
                         fragment.getPreferenceScreen().getTitle());
-                triangle.setBounds(0,
+                triangle.setBounds(
+                        GlobalGUIRoutines.sip(2),
                         GlobalGUIRoutines.sip(1),
-                        GlobalGUIRoutines.sip(11),
+                        GlobalGUIRoutines.sip(13),
                         GlobalGUIRoutines.sip(10));
                 headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 preferenceSubTitle.setText(headerTitle);
