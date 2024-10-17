@@ -49,29 +49,28 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             // this also clears shared preferences
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                         }
+                        if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                            //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
+                            //{
+                            //if (ApplicationPreferences.prefEventBluetoothScanRequest) {
+                            //    BluetoothScanWorker.startCLScan(appContext);
+                            //} else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
+                            //    BluetoothScanWorker.startLEScan(appContext);
+                            //} else
+                            if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                                    ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
+                                // refresh bounded devices
+                                BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                            }
+                            //}
+
+                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call od Detector");
+                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
+                        }
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
                             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
-
-                                if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                    //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
-                                    //{
-                                    //if (ApplicationPreferences.prefEventBluetoothScanRequest) {
-                                    //    BluetoothScanWorker.startCLScan(appContext);
-                                    //} else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
-                                    //    BluetoothScanWorker.startLEScan(appContext);
-                                    //} else
-                                    if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
-                                            ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
-                                        // refresh bounded devices
-                                        BluetoothScanWorker.fillBoundedDevicesList(appContext);
-                                    }
-                                    //}
-
-                                    PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call od Detector");
-                                    BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
-                                }
 
                                 if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothLEScanRequest ||
