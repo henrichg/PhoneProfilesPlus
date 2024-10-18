@@ -97,13 +97,13 @@
     <color name="dokiHeaderBackgroundColor">#F7F7F7</color>
 
     <color name="dialogBorderColor">#CCCCCC</color>
-    <color name="buttonBorderColor">#AAAAAA</color>
-<!--    <color name="alertButtonBorderColor">#AAAAAA</color>-->
-    <color name="buttonBackgroundColor">#F7F7F7</color>
-    <color name="buttonClickedBackgroundColor">#DADADA</color>
     <color name="popupAndMenuBorderColor">#CCCCCC</color>
 <!--    <color name="profileIconBorderColor">#CCCCCC</color>-->
 <!--    <color name="cardViewBorderColor">#FFFFFF</color>-->
+    <color name="buttonBorderColor">#e2d0bc</color>
+    <!--    <color name="alertButtonBorderColor">#AAAAAA</color>-->
+    <color name="buttonBackgroundColor">#f4e4d2</color>
+    <color name="buttonClickedBackgroundColor">#ddc5aa</color>
 
     <color name="altypeProfileColor">#2A845B</color>
     <color name="altypeEventStartColor">#A35E19</color>
