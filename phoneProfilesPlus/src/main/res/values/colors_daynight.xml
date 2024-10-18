@@ -102,7 +102,8 @@
 <!--    <color name="cardViewBorderColor">#FFFFFF</color>-->
     <color name="buttonBorderColor">#e2d0bc</color>
     <!--    <color name="alertButtonBorderColor">#AAAAAA</color>-->
-    <color name="buttonBackgroundColor">#f4e4d2</color>
+<!--    <color name="buttonBackgroundColor">#f4e4d2</color>-->
+    <color name="buttonBackgroundColor">#FFFFFF</color>
     <color name="buttonClickedBackgroundColor">#ddc5aa</color>
 
     <color name="altypeProfileColor">#2A845B</color>
