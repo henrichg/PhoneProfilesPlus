@@ -17,8 +17,8 @@
     <color name="preferenceSummaryTextColor">#6e6152</color>
     <color name="preferenceSummaryValueColor">#5c5145</color>
 
-    <color name="rippleRectangeleItemBackgroundColor">#BFBFBF</color>
-    <color name="rippleOvalItemBackgroundColor">#AFAFAF</color>
+    <color name="rippleRectangeleItemBackgroundColor">#e2d0bc</color>
+    <color name="rippleOvalItemBackgroundColor">#e2d0bc</color>
 <!--    <color name="noRippleRectangeleItemBackgroundColor">#DFDFDF</color>-->
 <!--    <color name="noRippleOvalItemBackgroundColor">#AFAFAF</color>-->
 
@@ -48,10 +48,10 @@
     <!--<color name="navigationDrawerItemBackgroundPressed">#0F000000</color>-->
     <!--    <color name="preferenceDialogBackground">#FFFFFF</color>-->
     <!--    <color name="editorDrawerListHeaderTitleColor">#000000</color>-->
-    <color name="dialogDividerColor">#CCCCCC</color>
-    <color name="popupWindowDividerColor">#CCCCCC</color>
+    <color name="dialogDividerColor">#e2d0bc</color>
+    <color name="popupWindowDividerColor">#e2d0bc</color>
 
-    <color name="scrollbarColor">#C8C8C8</color>
+    <color name="scrollbarColor">#e2d0bc</color>
     <color name="timeDurationPickerDisplayDividerColor">#D0D0D0</color>
 
 <!--    <color name="editorFilterTitleColor">#000000</color>-->

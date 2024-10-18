@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="display_divider">#D0D0D0</color>
-    <color name="pp_rippleRectangeleItemBackgroundColor">#BFBFBF</color>
+    <color name="display_divider">#e2d0bc</color>
+    <color name="pp_rippleRectangeleItemBackgroundColor">#e2d0bc</color>
     <color name="pp_dialpad_textColor">#303030</color>
     <color name="pp_display_textColor">#000000</color>
-    <color name="pp_buttons_divider">#CCCCCC</color>
+    <color name="pp_buttons_divider">#e2d0bc</color>
 </resources>
