@@ -14,8 +14,8 @@
     <color name="activityTitleTextColor">#000000</color>
     <color name="dialogTitleTextColor">#212121</color>
 
-    <color name="preferenceSummaryTextColor">#6e6152</color>
-    <color name="preferenceSummaryValueColor">#5c5145</color>
+    <color name="preferenceSummaryTextColor">#6b553c</color>
+    <color name="preferenceSummaryValueColor">#5e462b</color>
 
     <color name="rippleRectangeleItemBackgroundColor">#e2d0bc</color>
     <color name="rippleOvalItemBackgroundColor">#e2d0bc</color>
