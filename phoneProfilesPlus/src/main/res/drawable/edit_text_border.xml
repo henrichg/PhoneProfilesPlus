@@ -5,7 +5,7 @@
         android:width="1dp"
         android:color="@color/accent_color" />
 
-    <corners android:radius="@dimen/button_corner_radius" />
+    <corners android:radius="@dimen/edit_text_corner_radius" />
     <solid android:color="@android:color/transparent" />
 
 </shape>
