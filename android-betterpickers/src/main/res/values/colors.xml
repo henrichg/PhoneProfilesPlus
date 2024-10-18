@@ -12,7 +12,7 @@
 
     <color name="default_text_color_holo_light">#000000</color>
     <color name="default_text_color_holo_light_disabled">#b2b2b2</color>
-    <color name="default_divider_color_light">#D0D0D0</color>
+    <color name="default_divider_color_light">#e2d0bc</color>
 <!--    <color name="default_button_background_light">#000000</color>-->
 <!--    <color name="default_button_background_pressed_light">#00ddff</color>-->
 <!--    <color name="default_keyboard_indicator_color_light">#00ddff</color>-->
