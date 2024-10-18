@@ -50,6 +50,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/alert_button_install_extender_from_github"
                 android:minHeight="40dp"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"

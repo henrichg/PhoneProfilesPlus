@@ -127,6 +127,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:minHeight="40dp"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"

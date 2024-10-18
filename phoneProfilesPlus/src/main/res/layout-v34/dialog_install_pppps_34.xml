@@ -119,6 +119,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/install_extender_where_is_assets_button"
                 android:minHeight="40dp"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"
