@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Remarque : toutes les applications Horloge n\'utilisent pas le volume d\'alarme du système car elles utilisent leur propre volume configuré dans leurs paramètres.</string>
     <string name="connect_to_ssid_dialog_help">Cette boîte de dialogue affiche la liste des SSID Wi-Fi configurés.\nCliquez ici pour voir les paramètres Wi-Fi. Il sera possible de configurer les réseaux Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Installer\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Lancer\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Installer PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Lancer PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Fermer</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Lancer PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings n\'est pas installé.</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">Nouvelle version de PPPPutSettings</string>
     <string name="latest_pppps_release_notification">Cliquez sur cette notification pour installer la nouvelle version de PPPPutSettings.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Installer\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Lancer\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Activer/désactiver\nParamètres d\'accessibilité</string>
+    <string name="pppextender_pref_dialog_install_button">Installer PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Lancer PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Activer/désactiver</string>
     <string name="pppextender_pref_dialog_close_button">Fermer</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Cliquez ici pour installer/mettre à niveau, activer/désactiver les paramètres d\'accessibilité, lancer PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Une nouvelle version de PhoneProfilesPlusExtender est nécessaire. Cliquez ici pour le mettre à jour.</string>
@@ -2264,10 +2264,14 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Protection pour le confort des yeux</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">S\'il n\'est pas possible d\'accorder cette autorisation, il se peut que les paramètres restreints de PhoneProfilesPlus ne soient pas autorisés. Cliquez ici pour l\'autoriser.</string>
     <string name="permission_why_profile_vpn">pour activer/désactiver le VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">It is recommended to install the new version of PPPPutSettings (1.1), where there is a change that does not require \"Draw over apps\". For versions earlier than 1.1, parameters marked with (S) will still require this right.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
-    <string name="color_value">Color value</string>
-    <string name="location_geofence_editor_location_name">Location name</string>
-    <string name="application_editor_intent_action_custom_label">Custom action</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently1">Le besoin d\'avoir activé « Dessiner sur les applications » de façon permanente a été supprimé. Parce que ce droit est dans les « paramètres restreints » et s\'il est activé, les applications bancaires et les sites Web, les paiements pour les biens, les services, etc. peut être bloqué ou avoir besoin de désactiver « Dessiner sur les applications » dans PhoneProfilesPlus.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently2">Il est recommandé d\'installer la nouvelle version de PPPPutSettings (1.1), où il y a un changement qui ne nécessite pas « Dessiner sur les applications ». Pour les versions antérieures à 1.1, les paramètres marqués avec (S) exigeront toujours ce droit.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently3">Pour certains paramètres de profil, « Dessiner sur les applications » est toujours nécessaire, par exemple pour « Exécuter des applications, des raccourcis, des intentions ».</string>
+    <string name="color_value">Valeur de la couleur</string>
+    <string name="location_geofence_editor_location_name">Nom du lieu</string>
+    <string name="application_editor_intent_action_custom_label">Action personnalisée</string>
+    <string name="empty_list_content_description">Vider la liste</string>
+    <string name="tone_content_description">Tonalité</string>
+    <string name="profile_list_notification_right_arrow">Flèche droite</string>
+    <string name="profile_list_notification_left_arrow">Flèche gauche</string>
 </resources>

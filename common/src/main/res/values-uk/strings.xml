@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Примітка: Не всі програми \"Годинник\" використовують гучність системного будильника, оскільки вони використовують свою власну налаштовану гучність.</string>
     <string name="connect_to_ssid_dialog_help">У цьому діалозі показується список налаштованих Wi-Fi SSIDs.\nНатисніть тут, щоб переглянути екран налаштувань Wi-Fi. Він містить параметр для налаштування мереж Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Встановіть\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Запустить\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Встановіть PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Запустить PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Закрити</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Запустити PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings не встановлено.</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">Нова версія PPPPutSettings</string>
     <string name="latest_pppps_release_notification">Натисніть на це сповіщення, щоб встановити нову версію PPPPutsettings.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Встановити\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Запустити\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Увімкнути/вимкнути\nНалаштування Спеціальних можливостей</string>
+    <string name="pppextender_pref_dialog_install_button">Встановити PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Запустити PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Увімкнути/вимкнути</string>
     <string name="pppextender_pref_dialog_close_button">Закрити</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Натисніть тут для встановлення/оновлення. Ввімкнення/вимкнення налаштувань Спеціальних можливостей, запуску PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Необхідна нова версія PhoneProfilesPlusExtender. Натисніть тут для оновлення.</string>
@@ -2244,7 +2244,7 @@
     <string name="altype_callScreening_blockedCall">Заблокований виклик</string>
     <string name="activityLog_blockedCall_telNumber">тел. номер:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">WARNING: This parameter allows block of calls. Notification about blocked calls will not be displayed!\nBut the blocked tel. numbers are logged in the \"Activity log\", which enables calling back to blocked tel. number by clicking on this log line.</string>
-    <string name="activity_log_filter_all">Повний журнал</string>
+    <string name="activity_log_filter_all">Entire log</string>
     <string name="activity_log_filter_blocked_calls">Заблоковані виклики</string>
     <string name="activity_log_filter_errors">Помилки</string>
     <string name="activity_log_filter_event_start">Початок подій</string>
@@ -2270,4 +2270,8 @@
     <string name="color_value">Color value</string>
     <string name="location_geofence_editor_location_name">Location name</string>
     <string name="application_editor_intent_action_custom_label">Custom action</string>
+    <string name="empty_list_content_description">Порожній список</string>
+    <string name="tone_content_description">Тон</string>
+    <string name="profile_list_notification_right_arrow">Стрілка вправо</string>
+    <string name="profile_list_notification_left_arrow">Стрілка вліво</string>
 </resources>

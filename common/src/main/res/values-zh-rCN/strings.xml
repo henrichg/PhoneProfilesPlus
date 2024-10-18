@@ -19,7 +19,7 @@
     <string name="event_string_0">事件</string>
     <string name="delete_profile_alert_message">确定要删除情景吗？</string>
     <string name="delete_event_alert_message">确定要删除事件？</string>
-    <string name="toast_profile_activated_0">情景</string>
+    <string name="toast_profile_activated_0">情景情景</string>
     <string name="toast_profile_activated_1">已激活</string>
     <string name="preference_profile_no_change">未做更改</string>
     <string name="title_activity_phone_profiles_preferences">应用设置</string>
@@ -41,7 +41,7 @@
     <string name="phone_profiles_pref_notificationsToast">显示Toast通知</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">通知图标样式</string>
     <string name="profile_preferences_category_profileIdentification">情景标记</string>
-    <string name="profile_preferences_category_volumes">音量</string>
+    <string name="profile_preferences_category_volumes">音量音量</string>
     <string name="profile_preferences_category_sounds">声音</string>
     <string name="profile_preferences_profileName">情景名称</string>
     <string name="profile_preferences_profileIcon">情景图标</string>
@@ -1583,7 +1583,7 @@
     <string name="check_ppp_releases_notification">点击此通知以检查 PhoneProfilesPlus 版本。也许会发布更新版本。</string>
     <string name="check_github_releases_install_info_app_stores_release">"应用程序商店将很快有新版本。"</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">显示情景设置</string>
-    <string name="array_pref_change_image_wallpaper">更改为图片</string>
+    <string name="array_pref_change_image_wallpaper">更改为图片图片</string>
     <string name="array_pref_change_live_wallpaper">(I) 更改为动态壁纸</string>
     <string name="profile_preferences_deviceImageWallpaper">图片壁纸</string>
     <string name="profile_preferences_deviceLiveWallpaper">(I) 动态壁纸</string>
@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">注意：并非所有时钟应用程序都使用系统报警音量，因为它们使用自己在设置中配置的音量。</string>
     <string name="connect_to_ssid_dialog_help">在此对话框中显示已配置的 Wi-Fi SSID 列表。\n点击这里查看Wi-Fi设置屏幕。它包含配置Wi-Fi网络的参数。</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">安装\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">启动\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">安装 PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">启动 PPPPS</string>
     <string name="pppps_pref_dialog_close_button">关闭</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">启动PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings 未安装 ！</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">最新 PPPPutSettings 版本</string>
     <string name="latest_pppps_release_notification">点击此通知安装新发布的 PPPPutSetting。</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">安装\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">启动\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">启用/禁用\n辅助功能设置</string>
+    <string name="pppextender_pref_dialog_install_button">安装 PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">启动 PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">启用/禁用</string>
     <string name="pppextender_pref_dialog_close_button">关闭</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">点击这里安装/升级，启用/禁用辅助功能设置，启动 PhoneProfilesPlusExtender。</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">需要新版本的PhoneProfilesPlusExtender。点击这里升级它。</string>
@@ -2044,7 +2044,7 @@
     <string name="event_preferences_brightness_level_from">亮度级别从</string>
     <string name="event_preferences_brightness_operator_from">运算符从</string>
     <string name="event_preferences_brightness_level_to">亮度级别到</string>
-    <string name="event_preferences_brightness_operator_to">运算符到</string>
+    <string name="event_preferences_brightness_operator_to">运算符</string>
     <string name="event_type_brightness">亮度</string>
     <string name="event_preferences_volumes_volume_from">音量从</string>
     <string name="event_preferences_volumes_volume_to">音量到</string>
@@ -2244,7 +2244,7 @@
     <string name="altype_callScreening_blockedCall">骚扰拦截</string>
     <string name="activityLog_blockedCall_telNumber">电话号码：</string>
     <string name="event_preference_callScreeningBlockCalls_summary">警告：此参数允许通话拦截。拦截通话的通知将不会显示！\n但被拦截的电话号码会记录在“活动日志”中，通过点击此日志行可以回拨被阻止的电话号码。</string>
-    <string name="activity_log_filter_all">完整日志</string>
+    <string name="activity_log_filter_all">全部日志</string>
     <string name="activity_log_filter_blocked_calls">骚扰拦截</string>
     <string name="activity_log_filter_errors">错误</string>
     <string name="activity_log_filter_event_start">事件启动</string>
@@ -2264,10 +2264,14 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) 护眼护盾</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">若未授予此权限，PhoneProfilesPlus 将无法设置。点此授权。</string>
     <string name="permission_why_profile_vpn">启用/禁用 VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">It is recommended to install the new version of PPPPutSettings (1.1), where there is a change that does not require \"Draw over apps\". For versions earlier than 1.1, parameters marked with (S) will still require this right.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
-    <string name="color_value">Color value</string>
-    <string name="location_geofence_editor_location_name">Location name</string>
-    <string name="application_editor_intent_action_custom_label">Custom action</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently1">\"在其他应用上绘制/显示\"权限被移除，由于此权限位于“受限设置”中，如果启用，一些银行类应用和网站支付可能会被阻止，需要 PhoneProfilesPlus 关闭“在其他应用上绘制/显示”。</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently2">建议安装新版本的PPPutSetting(1.1)，其不需要“在其他应用上绘制/显示”。 对于早于1.1的版本，用(S) 标记的参数仍然需要此权限。</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently3">对于某些情景参数，仍然需要\"在其他应用上绘制/显示\"，例如\"运行应用，快捷方式，intents\"。</string>
+    <string name="color_value">颜色值</string>
+    <string name="location_geofence_editor_location_name">位置名称</string>
+    <string name="application_editor_intent_action_custom_label">自定义操作</string>
+    <string name="empty_list_content_description">空列表</string>
+    <string name="tone_content_description">Tone</string>
+    <string name="profile_list_notification_right_arrow">右箭头</string>
+    <string name="profile_list_notification_left_arrow">左箭头</string>
 </resources>

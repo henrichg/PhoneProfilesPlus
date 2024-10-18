@@ -580,7 +580,7 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag nie je zapisovateľný</string>
     <string name="about_application_donate_button">Prosím prispejte</string>
     <string name="donation_activity_title">Príspevok</string>
-    <string name="donation_description">Je tato aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
+    <string name="donation_description">Je táto aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
     <string name="about_application_releases">Vydania:</string>
     <string name="permission_group_name_draw_overlays">Vykresliť cez ďalšie aplikácie</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolili ste \"Vykresliť cez ďalšie aplikácie\". Nabudúce sa už nepýtať?</string>
@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Poznámka: Nie všetky aplikácie Hodiny používajú systémovú hlasitosť alarmov, pretože používajú svoju vlastnú hlasitosť nakonfigurovanú vo svojich nastaveniach.</string>
     <string name="connect_to_ssid_dialog_help">V tomto dialógu sa zobrazí zoznam nakonfigurovaných Wi-Fi SSID.\nKliknutím sem zobrazíte obrazovku nastavení Wi-Fi. Obsahuje parameter pre konfiguráciu Wi-Fi sietí.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Nainštaluj\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Spusti\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Nainštaluj PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Spusti PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Zavrieť</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Spusti PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings nie je nainštalované.</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">Nová verzia PPPPutSettings</string>
     <string name="latest_pppps_release_notification">Kliknite na túto notifikáciu pre nainštalovanie nového vydania PPPPutSettings.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Nainštaluj\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Spusti\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Povoľ/Zakáž\nslužbu Dostupnosť</string>
+    <string name="pppextender_pref_dialog_install_button">Nainštaluj PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Spusti PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Povoľ/Zakáž</string>
     <string name="pppextender_pref_dialog_close_button">Zavrieť</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Kliknite sem pre inštaláciu/inováciu, zapnutie/vypnutie nastavení dostupnosti, spustenie PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Je potrebná nová verzia PhoneProfilesPlusExtender. Kliknutím sem ho môžete aktualizovať.</string>
@@ -2244,7 +2244,7 @@
     <string name="altype_callScreening_blockedCall">Blokované hovory</string>
     <string name="activityLog_blockedCall_telNumber">tel. číslo:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">UPOZORNENIE: Tento parameter umožňuje blokovanie hovorov. Notifikácia o zablokovaných hovoroch sa nezobrazí!\nAle zablokované tel. čísla sa zaznamenávajú do \"Záznamu aktivity\", ktorý umožňuje spätné volanie na zablokované tel. číslo kliknutím na tento riadok záznamu.</string>
-    <string name="activity_log_filter_all">Úplný záznam</string>
+    <string name="activity_log_filter_all">Celý záznam</string>
     <string name="activity_log_filter_blocked_calls">Blokované hovory</string>
     <string name="activity_log_filter_errors">Chyby</string>
     <string name="activity_log_filter_event_start">Štart udalostí</string>
@@ -2270,4 +2270,8 @@
     <string name="color_value">Hodnota farby</string>
     <string name="location_geofence_editor_location_name">Názov polohy</string>
     <string name="application_editor_intent_action_custom_label">Vlastná akcia</string>
+    <string name="empty_list_content_description">Prázdny zoznam</string>
+    <string name="tone_content_description">Tón</string>
+    <string name="profile_list_notification_right_arrow">Šípka vpravo</string>
+    <string name="profile_list_notification_left_arrow">Šípka vľavo</string>
 </resources>

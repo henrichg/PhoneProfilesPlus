@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Poznámka: Ne všechny aplikace Hodiny používají systémovou hlasitost alarmů, protože používají svou vlastní hlasitost nakonfigurovanou ve svých nastaveních.</string>
     <string name="connect_to_ssid_dialog_help">V tomto dialogu se zobrazí seznam nakonfigurovaných Wi-Fi SSID.\nKlepnutím sem zobrazíte obrazovku nastavení Wi-Fi. Obsahuje parametr pro konfiguraci Wi-Fi sítí.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Nainstaluj\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Spusti\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Nainstaluj PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Spusti PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Zavřít</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Spusti PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings není nainstalován.</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">Nová verze PPPPPPutSettings</string>
     <string name="latest_pppps_release_notification">Klepněte na tuto notifikaci pro nainstalování nového vydání PPPPutSettings.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Nainstaluj\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Spusti\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Povol/Zakáž\nslužbu Dostupnost</string>
+    <string name="pppextender_pref_dialog_install_button">Nainstaluj PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Spusti PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Povol/Zakáž</string>
     <string name="pppextender_pref_dialog_close_button">Zavřít</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Klikněte sem pro instalaci/inovaci, zapnutí/vypnutí nastavení dostupnosti, spuštění PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Je nutná nová verze PhoneProfilesPlusExtender. Kliknutím zde, jej můžete aktualizovat.</string>
@@ -2244,7 +2244,7 @@
     <string name="altype_callScreening_blockedCall">Blokované hovory</string>
     <string name="activityLog_blockedCall_telNumber">tel. číslo:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">UPOZORNĚNÍ: Tento parametr umožňuje blokování hovorů. Notifikace o zablokovaných hovorech se nezobrazí!\nAle zablokováno tel. čísla se zaznamenávají do \"Záznamu aktivity\", který umožňuje zpětné volání na zablokované tel. číslo klepnutím na tento řádek záznamu.</string>
-    <string name="activity_log_filter_all">Úplný záznam</string>
+    <string name="activity_log_filter_all">Celý záznam</string>
     <string name="activity_log_filter_blocked_calls">Blokované hovory</string>
     <string name="activity_log_filter_errors">Chyby</string>
     <string name="activity_log_filter_event_start">Start událostí</string>
@@ -2270,4 +2270,8 @@
     <string name="color_value">Hodnota barvy</string>
     <string name="location_geofence_editor_location_name">Název polohy</string>
     <string name="application_editor_intent_action_custom_label">Vlastní akce</string>
+    <string name="empty_list_content_description">Prázdný seznam</string>
+    <string name="tone_content_description">Tón</string>
+    <string name="profile_list_notification_right_arrow">Šipka doprava</string>
+    <string name="profile_list_notification_left_arrow">Šipka doleva</string>
 </resources>

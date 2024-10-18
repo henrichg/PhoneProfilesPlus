@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Примечание: не все приложения-будильники используют системный уровень громкости будильника - они могут использовать и собственный уровень громкости, заданный в настройках этих приложений.</string>
     <string name="connect_to_ssid_dialog_help">В этом диалоговом окне отображается список настроенных Wi-Fi SSID.\nНажмите сюда, чтобы открыть экран настроек Wi-Fi. Он содержит параметры для настройки сетей Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Установить\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Запустить\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Установить PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Запустить PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Закрыть</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Запустить PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings не установлено.</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">Новая версия PPPPPPutSettings</string>
     <string name="latest_pppps_release_notification">Нажмите на это уведомление, чтобы установить новую версию PPPPutSettings.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Установить\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Запустить\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Включить/отключить\nнастройки спец. возможностей</string>
+    <string name="pppextender_pref_dialog_install_button">Установить PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Запустить PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Включить/отключить</string>
     <string name="pppextender_pref_dialog_close_button">Закрыть</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Нажмите сюда, чтобы установить, обновить или запустить PhoneProfilesPlusExtender, а также включить/отключить настройки спец. возможностей.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Требуется новая версия PhoneProfilesPlusExtender. Нажмите сюда для обновления.</string>
@@ -2244,7 +2244,7 @@
     <string name="altype_callScreening_blockedCall">Заблокированный вызов</string>
     <string name="activityLog_blockedCall_telNumber">тел. номер:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">ВНИМАНИЕ: Этот параметр позволяет блокировать вызовы, но уведомление о блокировке при этом не отображается!\nОднако заблокированные номера сохраняются в \"Журнале событий\", и на них можно перезвонить, нажав на строку с нужным номером.</string>
-    <string name="activity_log_filter_all">Полный журнал</string>
+    <string name="activity_log_filter_all">Весь журнал</string>
     <string name="activity_log_filter_blocked_calls">Заблокированные вызовы</string>
     <string name="activity_log_filter_errors">Ошибки</string>
     <string name="activity_log_filter_event_start">Начало событий</string>
@@ -2264,10 +2264,14 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Комфорт для глаз</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Если предоставить это разрешение не получается, возможно, приложению PhoneProfilesPlus не разрешён доступ к настройкам. Чтобы разрешить его, нажмите сюда.</string>
     <string name="permission_why_profile_vpn">для включения/отключения VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently1">Необходимость в предоставлении разрешения \"Поверх других приложений\" удалена. Так как оно является частью \"Настроек с ограниченным доступом\", банковские приложения и сайты, платёжные системы и т.д. могут стать недоступны или требовать отзыва разрешения \"Поверх других приложений\" для PhoneProfilesPlus.</string>
     <string name="important_info_draw_over_apps_not_needed_permanently2">Рекомендуется установить новую версию PPPPutSettings (1.1), которая больше не требует разрешения \"Поверх других приложений\". Для более ранних, чем 1.1, версий параметры, отмеченные буквой (S), всё ещё будут требовать наличие этого разрешения.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
+    <string name="important_info_draw_over_apps_not_needed_permanently3">Однако для некоторых параметров профиля, например, для \"Запуска приложений, ярлыков, intent\'ов\" разрешение \"Поверх других приложений\" всё ещё необходимо.</string>
     <string name="color_value">Значение цвета</string>
     <string name="location_geofence_editor_location_name">Название местоположения</string>
     <string name="application_editor_intent_action_custom_label">Пользовательское действие</string>
+    <string name="empty_list_content_description">Пустой список</string>
+    <string name="tone_content_description">Мелодия</string>
+    <string name="profile_list_notification_right_arrow">Стрелка вправо</string>
+    <string name="profile_list_notification_left_arrow">Стрелка влево</string>
 </resources>

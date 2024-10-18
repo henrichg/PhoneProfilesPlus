@@ -1935,8 +1935,8 @@
     <string name="profile_preferences_volumeAlarmInfo_summary">Note: Not all Clock applications use the system alarm volume because they use their own volume configured in their settings.</string>
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Install\nPPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Launch\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Install PPPPS</string>
+    <string name="pppps_pref_dialog_launch_button">Launch PPPPS</string>
     <string name="pppps_pref_dialog_close_button">Close</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Launch PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is not installed.</string>
@@ -1952,9 +1952,9 @@
     <string name="latest_pppps_release">New PPPPutSettings version</string>
     <string name="latest_pppps_release_notification">Click this notification to install new PPPPutSettings release.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Install\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Launch\nPhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable\nAccessibility settings</string>
+    <string name="pppextender_pref_dialog_install_button">Install PPPE</string>
+    <string name="pppextender_pref_dialog_launch_button">Launch PPPE</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable</string>
     <string name="pppextender_pref_dialog_close_button">Close</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here for install/upgrade, enable/disable Accessibility settings, launch PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
@@ -2244,7 +2244,7 @@
     <string name="altype_callScreening_blockedCall">Blocked call</string>
     <string name="activityLog_blockedCall_telNumber">tel. number:</string>
     <string name="event_preference_callScreeningBlockCalls_summary">WARNING: This parameter allows block of calls. Notification about blocked calls will not be displayed!\nBut the blocked tel. numbers are logged in the \"Activity log\", which enables calling back to blocked tel. number by clicking on this log line.</string>
-    <string name="activity_log_filter_all">Full log</string>
+    <string name="activity_log_filter_all">Entire log</string>
     <string name="activity_log_filter_blocked_calls">Blocked calls</string>
     <string name="activity_log_filter_errors">Errors</string>
     <string name="activity_log_filter_event_start">Start of events</string>
@@ -2270,4 +2270,8 @@
     <string name="color_value">Color value</string>
     <string name="location_geofence_editor_location_name">Location name</string>
     <string name="application_editor_intent_action_custom_label">Custom action</string>
+    <string name="empty_list_content_description">Empty list</string>
+    <string name="tone_content_description">Tone</string>
+    <string name="profile_list_notification_right_arrow">Right arrow</string>
+    <string name="profile_list_notification_left_arrow">Left arrow</string>
 </resources>
