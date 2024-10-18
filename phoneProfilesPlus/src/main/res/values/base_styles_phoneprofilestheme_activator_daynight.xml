@@ -33,7 +33,7 @@
         <!--        <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>-->
 
         <item name="actionBarTheme">@style/PPActionBarThemeLight</item>
-        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="toolbarTheme">@style/PPActionBarThemeLight</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
 
