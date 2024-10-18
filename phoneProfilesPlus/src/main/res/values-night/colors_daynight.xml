@@ -68,9 +68,9 @@
     <color name="dialogBorderColor">#36302c</color>
 
 <!--    <color name="buttonBackgroundColor">#151515</color>-->
-    <color name="buttonBackgroundColor">#161310</color>
+    <color name="buttonBackgroundColor">#2e241c</color>
 <!--    <color name="buttonClickedBackgroundColor">#303030</color>-->
-    <color name="buttonClickedBackgroundColor">#3d312b</color>
+    <color name="buttonClickedBackgroundColor">#4a3a2c</color>
 <!--    <color name="buttonBorderColor">#656565</color>-->
 <!--    <color name="buttonBorderColor">#5d4e41</color>-->
     <color name="buttonBorderColor">#66513f</color>
