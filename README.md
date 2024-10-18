@@ -158,4 +158,4 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Required external libs - not open-source
 
-- Samsung Look - http://developer.samsung.com/galaxy/edge
+- Samsung Look
