@@ -96,8 +96,8 @@
 
     <color name="dokiHeaderBackgroundColor">#F7F7F7</color>
 
-    <color name="dialogBorderColor">#CCCCCC</color>
-    <color name="popupAndMenuBorderColor">#CCCCCC</color>
+    <color name="dialogBorderColor">#e3d8cc</color>
+    <color name="popupAndMenuBorderColor">#e2d0bc</color>
 <!--    <color name="profileIconBorderColor">#CCCCCC</color>-->
 <!--    <color name="cardViewBorderColor">#FFFFFF</color>-->
     <color name="buttonBorderColor">#e2d0bc</color>
