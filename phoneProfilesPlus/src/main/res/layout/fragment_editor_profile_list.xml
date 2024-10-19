@@ -15,8 +15,8 @@
         android:orientation="vertical"
         android:layout_marginTop="-6dp"
         android:layout_marginBottom="5dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_alignParentTop="true">

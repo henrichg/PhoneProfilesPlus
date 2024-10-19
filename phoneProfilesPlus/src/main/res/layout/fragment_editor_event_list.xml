@@ -15,8 +15,8 @@
         android:orientation="vertical"
         android:layout_marginTop="-6dp"
         android:layout_marginBottom="5dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_alignParentTop="true" >
@@ -198,7 +198,8 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:theme="?attr/bottomToolbarTheme"
-        app:popupTheme="?attr/toolbarPopupMenu" >
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetStart="0dp">
 
         <LinearLayout
             android:id="@+id/editor_events_list_bottom_bar_order_root"
@@ -213,8 +214,8 @@
                 android:id="@+id/editor_events_list_bottom_bar_order_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="17dp"
                 android:ellipsize="end"
                 android:textSize="16dp"
                 android:clickable="true"
@@ -229,13 +230,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:entries="@array/emptyArray"
                 android:clickable="true"
                 android:focusable="true"
                 android:popupElevation="0dp"
                 android:background="@drawable/spinner_background"
-                style="@style/Base.Widget.AppCompat.Spinner" />
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         </LinearLayout>
 
