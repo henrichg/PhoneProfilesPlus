@@ -121,12 +121,12 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
-                        addIcon, prefContext.getApplicationContext());
+                        addIcon, prefContext);
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
-                addIcon, prefContext.getApplicationContext());
+                addIcon, prefContext);
 
         SSIDListView = layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         emptyList = layout.findViewById(R.id.wifi_ssid_pref_dlg_empty);

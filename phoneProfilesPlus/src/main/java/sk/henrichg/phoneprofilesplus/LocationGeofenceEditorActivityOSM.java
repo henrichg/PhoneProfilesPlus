@@ -663,7 +663,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                 }
             //}
             if (addressButton.isEnabled())
-                GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
+                GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, this);
 
             if (updateEditedMarker) {
                 radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
@@ -916,7 +916,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                         enableAddressButton = true;
                                     }
 
-                                    GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
+                                    GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, this);
                                 }
                             });
                 }

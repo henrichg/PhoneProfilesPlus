@@ -103,7 +103,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                addIcon, prefContext.getApplicationContext());
+                addIcon, prefContext);
 
         nfcTagListView = view.findViewById(R.id.nfc_tag_pref_dlg_listview);
         emptyList = view.findViewById(R.id.nfc_tag_pref_dlg_empty);

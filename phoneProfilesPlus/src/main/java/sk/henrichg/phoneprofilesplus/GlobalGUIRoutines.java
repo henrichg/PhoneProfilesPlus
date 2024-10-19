@@ -365,6 +365,7 @@ class GlobalGUIRoutines {
         }
     }
 
+    // WARNING: DO NOT CALL IT WITH APPLICATION CONTEXT, LINGT/DARK COLOR NOT WORKING WITH IT
     static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, /*int iconResId,*/ Context context) {
         item.setEnabled(enabled);
         //Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
@@ -373,7 +374,7 @@ class GlobalGUIRoutines {
         if (enabled)
             item.setColorFilter(null);
         else
-            item.setColorFilter(context.getColor(R.color.activityDisabledTextColor), PorterDuff.Mode.SRC_IN);
+            item.setColorFilter(ContextCompat.getColor(context, R.color.activityDisabledTextColor), PorterDuff.Mode.SRC_IN);
     }
 
 /*    private static Drawable convertDrawableToGrayScale(Drawable drawable) {
