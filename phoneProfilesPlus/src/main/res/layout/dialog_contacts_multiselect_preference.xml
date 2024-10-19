@@ -125,6 +125,7 @@
                 android:minHeight="40dp"
                 android:paddingStart="@dimen/button_padding"
                 android:paddingEnd="@dimen/button_padding"
+                android:minWidth="@dimen/button_min_width"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"

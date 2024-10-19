@@ -8,7 +8,7 @@
     <color name="activityBackgroundColor">#FFFFFF</color>
     <color name="activityNormalTextColor">#000000</color>
     <color name="activitySecondaryTextColor">#303030</color>
-    <color name="activityDisabledTextColor">#C0C0C0</color>
+    <color name="activityDisabledTextColor">#B0B0B0</color>
     <color name="activityCommandBackgroundColor">#F0F0F0</color>
     <color name="activityPopupMenuBackgroundColor">#F7F7F7</color>
     <color name="activityTitleTextColor">#000000</color>
