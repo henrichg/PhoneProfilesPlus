@@ -28,14 +28,18 @@
         android:layout_width="match_parent"
         android:layout_height="37dp"
         app:contentInsetEnd="0dp"
-        app:contentInsetStart="15dp"
+        app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="15dp">
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/activity_log_filter_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
+            android:layout_marginStart="17dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:layout_gravity="center_vertical"
             android:entries="@array/emptyArray"
             android:clickable="true"
