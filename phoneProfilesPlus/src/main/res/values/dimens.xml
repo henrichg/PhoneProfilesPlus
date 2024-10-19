@@ -138,4 +138,7 @@
 
     <dimen name="switch_padding">10dp</dimen>
 
+    <dimen name="spinner_padding_horizontal">4dp</dimen>
+    <dimen name="spinner_padding_vertical">2dp</dimen>
+
 </resources>
