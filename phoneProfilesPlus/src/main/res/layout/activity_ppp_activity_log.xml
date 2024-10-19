@@ -26,7 +26,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_log_subToolbar"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_height="45dp"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="15dp">
