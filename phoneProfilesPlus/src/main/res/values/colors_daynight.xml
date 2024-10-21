@@ -52,7 +52,7 @@
     <color name="popupWindowDividerColor">#e2d0bc</color>
 
     <color name="scrollbarColor">#e2d0bc</color>
-    <color name="timeDurationPickerDisplayDividerColor">#e2d0bc</color>
+    <color name="timeDurationPickerDisplayDividerColor">@color/accent_color</color>
 
 <!--    <color name="editorFilterTitleColor">#000000</color>-->
 <!--    <color name="editorFilterBackgroundColor">#F7F7F7</color>-->

@@ -4,7 +4,7 @@
 <!--    <color name="default_text_color_holo_dark_disabled">#4c4c4c</color>-->
     <color name="default_text_color_holo_dark_disabled">#736b69</color>
 <!--    <color name="default_divider_color_dark">#525252</color>-->
-    <color name="default_divider_color_dark">#605348</color>
+    <color name="default_divider_color_dark">@color/accent_color</color>
 
     <!--    <color name="default_button_background_dark">#000000</color>-->
 <!--    <color name="default_button_background_pressed_dark">#46c5c1ff</color>-->

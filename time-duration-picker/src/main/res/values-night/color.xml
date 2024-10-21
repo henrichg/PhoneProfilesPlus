@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    <color name="display_divider">#525252</color>-->
-    <color name="display_divider">#605348</color>
+    <color name="display_divider">@color/accent_color</color>
 <!--    <color name="pp_rippleRectangeleItemBackgroundColor">#606060</color>-->
     <color name="pp_rippleRectangeleItemBackgroundColor">#5e524c</color>
     <color name="pp_dialpad_textColor">#DFDFDF</color>

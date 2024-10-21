@@ -82,7 +82,7 @@
 <!--    <color name="toastBorderColor">#707070</color>-->
     <color name="toastBorderColor">#5d4e41</color>
 
-    <color name="timeDurationPickerDisplayDividerColor">#534c49</color>
+    <color name="timeDurationPickerDisplayDividerColor">@color/accent_color</color>
 
 
 <!--    <color name="editorFilterTitleColor">#FFFFFF</color>-->
