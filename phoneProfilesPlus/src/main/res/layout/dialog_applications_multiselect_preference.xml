@@ -78,7 +78,7 @@
             android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/pref_dlg_change_selection_button_unselect_all"
-            android:minHeight="40dp"
+            android:minHeight="@dimen/button_min_height"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:minWidth="@dimen/button_min_width"

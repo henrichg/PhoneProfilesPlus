@@ -52,6 +52,7 @@
     <dimen name="button_padding">20dp</dimen>
     <dimen name="layout_as_button_padding">15dp</dimen>
     <dimen name="button_min_width">70dp</dimen>
+    <dimen name="button_min_height">40dp</dimen>
 
     <dimen name="edit_text_corner_radius">7dp</dimen>
 

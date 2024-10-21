@@ -53,7 +53,7 @@
             android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/days_of_week_pref_dialog_button_all_nothing"
-            android:minHeight="40dp"
+            android:minHeight="@dimen/button_min_height"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:minWidth="@dimen/button_min_width"

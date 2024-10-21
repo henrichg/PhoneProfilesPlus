@@ -201,7 +201,7 @@
         android:text="@string/mobile_cells_registration_pref_dlg_stop_button"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:minHeight="40dp"
+        android:minHeight="@dimen/button_min_height"
         android:paddingStart="@dimen/button_padding"
         android:paddingEnd="@dimen/button_padding"
         android:minWidth="@dimen/button_min_width"

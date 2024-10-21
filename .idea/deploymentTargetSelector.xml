@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="phoneProfilesPlus">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-10-18T19:38:16.084517284Z">
+        <DropdownSelection timestamp="2024-10-21T11:46:54.857640891Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=RFCW91EDE0F" />
