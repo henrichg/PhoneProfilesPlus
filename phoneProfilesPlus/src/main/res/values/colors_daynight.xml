@@ -105,6 +105,7 @@
 <!--    <color name="buttonBackgroundColor">#f4e4d2</color>-->
     <color name="buttonBackgroundColor">#FFFFFF</color>
     <color name="buttonClickedBackgroundColor">#ddc5aa</color>
+    <color name="buttonDisabledBorderColor">#B0B0B0</color>
 
     <color name="altypeProfileColor">#2A845B</color>
     <color name="altypeEventStartColor">#A35E19</color>
