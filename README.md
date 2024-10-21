@@ -24,6 +24,7 @@ Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3
 
 NOTE: Google Play Protect may display dialog box with title "Unsafe app blocked" and description "This app was build for an older version of Android and doesn`t include the latest privacy protection."
 Please click in this dialog "More details" and then "Install anyway".
+
 Dialog is displayed, because PPP has target SDK vesion 28 (Android 9). Must be, because of functionalities in PPP.
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
