@@ -126,6 +126,7 @@ public class ActivityLogActivity extends AppCompatActivity
         }*/
         //filterInitialized = false;
         filterSpinner.setAdapter(filterSpinnerAdapter);
+//        filterSpinner.setEnabled(false);
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

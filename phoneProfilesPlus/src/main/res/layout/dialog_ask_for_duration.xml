@@ -252,7 +252,7 @@
                 android:popupElevation="0dp"
                 android:entries="@array/afterProfileDurationDoArray"
                 android:background="@drawable/spinner_background"
-                style="@style/Base.Widget.AppCompat.Spinner" />
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <TextView
                 android:id="@+id/ask_for_duration_dlg_profile_label"

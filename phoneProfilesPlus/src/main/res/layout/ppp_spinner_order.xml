@@ -13,6 +13,6 @@
     android:singleLine="true"
     app:drawableLeftCompat="@drawable/ic_spinner_small"
     android:drawablePadding="10dp"
-    app:drawableTint="@color/accent_color"
+    app:drawableTint="@color/spinner_control_color"
     tools:ignore="SpUsage" />
 <!--    android:textColor="@color/editorFilterTitleColor"-->

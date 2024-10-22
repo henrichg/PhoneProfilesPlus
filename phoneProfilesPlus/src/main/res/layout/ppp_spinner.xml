@@ -11,5 +11,5 @@
     android:singleLine="false"
     app:drawableLeftCompat="@drawable/ic_spinner"
     android:drawablePadding="10dp"
-    app:drawableTint="@color/accent_color" />
+    app:drawableTint="@color/spinner_control_color" />
 <!--    android:textColor="@color/editorFilterTitleColor"-->
