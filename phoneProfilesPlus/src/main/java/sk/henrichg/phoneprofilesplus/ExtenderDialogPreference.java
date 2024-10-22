@@ -226,8 +226,8 @@ public class ExtenderDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<ExtenderDialogPreference.SavedState>() {
+        public static final Creator<ExtenderDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public ExtenderDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ExtenderDialogPreference.SavedState(in);

@@ -232,8 +232,8 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<GenerateNotificationDialogPreference.SavedState>() {
+        public static final Creator<GenerateNotificationDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public GenerateNotificationDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new GenerateNotificationDialogPreference.SavedState(in);

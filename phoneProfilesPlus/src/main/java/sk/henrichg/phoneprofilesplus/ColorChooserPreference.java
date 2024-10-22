@@ -241,7 +241,7 @@ public class ColorChooserPreference extends DialogPreference {
         }
 
         public static final Creator<ColorChooserPreference.SavedState> CREATOR =
-                new Creator<ColorChooserPreference.SavedState>() {
+                new Creator<>() {
                     public ColorChooserPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ColorChooserPreference.SavedState(in);

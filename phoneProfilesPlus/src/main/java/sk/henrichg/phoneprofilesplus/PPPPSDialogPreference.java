@@ -155,8 +155,8 @@ public class PPPPSDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<PPPPSDialogPreference.SavedState>() {
+        public static final Creator<PPPPSDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public PPPPSDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new PPPPSDialogPreference.SavedState(in);

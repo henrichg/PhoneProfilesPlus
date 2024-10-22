@@ -168,7 +168,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
         }
 
         public static final Creator<MobileCellsRegistrationDialogPreference.SavedState> CREATOR =
-                new Creator<MobileCellsRegistrationDialogPreference.SavedState>() {
+                new Creator<>() {
                     public MobileCellsRegistrationDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new MobileCellsRegistrationDialogPreference.SavedState(in);

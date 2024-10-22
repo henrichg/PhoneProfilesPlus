@@ -249,7 +249,7 @@ public class PPMultiSelectListPreference extends DialogPreference {
         }
 
         public static final Creator<PPMultiSelectListPreference.SavedState> CREATOR =
-                new Creator<PPMultiSelectListPreference.SavedState>() {
+                new Creator<>() {
                     public PPMultiSelectListPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new PPMultiSelectListPreference.SavedState(in);

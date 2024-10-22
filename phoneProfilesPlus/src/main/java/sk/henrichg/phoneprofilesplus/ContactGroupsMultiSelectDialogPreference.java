@@ -243,7 +243,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         }
 
         public static final Creator<ContactGroupsMultiSelectDialogPreference.SavedState> CREATOR =
-                new Creator<ContactGroupsMultiSelectDialogPreference.SavedState>() {
+                new Creator<>() {
                     public ContactGroupsMultiSelectDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ContactGroupsMultiSelectDialogPreference.SavedState(in);

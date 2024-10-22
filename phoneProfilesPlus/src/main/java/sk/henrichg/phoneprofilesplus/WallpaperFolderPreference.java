@@ -248,8 +248,8 @@ public class WallpaperFolderPreference extends Preference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<WallpaperFolderPreference.SavedState>() {
+        public static final Creator<WallpaperFolderPreference.SavedState> CREATOR =
+                new Creator<>() {
             public WallpaperFolderPreference.SavedState createFromParcel(Parcel in)
             {
                 return new WallpaperFolderPreference.SavedState(in);

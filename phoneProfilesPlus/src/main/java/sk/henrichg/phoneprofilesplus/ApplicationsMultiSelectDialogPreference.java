@@ -522,7 +522,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
 
         public static final Creator<ApplicationsMultiSelectDialogPreference.SavedState> CREATOR =
-                new Creator<ApplicationsMultiSelectDialogPreference.SavedState>() {
+                new Creator<>() {
                     public ApplicationsMultiSelectDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ApplicationsMultiSelectDialogPreference.SavedState(in);

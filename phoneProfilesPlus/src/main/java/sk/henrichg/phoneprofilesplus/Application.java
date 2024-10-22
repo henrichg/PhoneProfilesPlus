@@ -259,7 +259,7 @@ class Application  implements Parcelable {
         dest.writeInt(this.startApplicationDelay);
     }
 
-    public static final Parcelable.Creator<Application> CREATOR = new Parcelable.Creator<Application>() {
+    public static final Parcelable.Creator<Application> CREATOR = new Parcelable.Creator<>() {
         public Application createFromParcel(Parcel source) {
             return new Application(source);
         }

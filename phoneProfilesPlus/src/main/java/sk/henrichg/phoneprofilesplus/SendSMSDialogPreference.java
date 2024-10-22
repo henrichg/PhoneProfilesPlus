@@ -134,8 +134,8 @@ public class SendSMSDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<SendSMSDialogPreference.SavedState>() {
+        public static final Creator<SendSMSDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public SendSMSDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new SendSMSDialogPreference.SavedState(in);

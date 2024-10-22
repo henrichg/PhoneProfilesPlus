@@ -127,8 +127,8 @@ public class PPEditTextDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<PPEditTextDialogPreference.SavedState>() {
+        public static final Creator<PPEditTextDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public PPEditTextDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new PPEditTextDialogPreference.SavedState(in);

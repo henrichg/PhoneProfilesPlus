@@ -59,6 +59,7 @@ class MobileCellNamesDialog {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         if (!showFilterItems) {
+            //noinspection ReplaceNullCheck
             if (_positiveClick != null)
                 dialogBuilder.setPositiveButton(android.R.string.ok, _positiveClick);
             else {

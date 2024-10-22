@@ -239,7 +239,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
         }
 
         public static final Creator<RestartEventsIconColorChooserPreference.SavedState> CREATOR =
-                new Creator<RestartEventsIconColorChooserPreference.SavedState>() {
+                new Creator<>() {
                     public RestartEventsIconColorChooserPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new RestartEventsIconColorChooserPreference.SavedState(in);

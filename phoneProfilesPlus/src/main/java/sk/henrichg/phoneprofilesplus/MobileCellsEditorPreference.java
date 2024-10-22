@@ -300,7 +300,7 @@ public class MobileCellsEditorPreference extends DialogPreference {
         }
 
         public static final Creator<MobileCellsEditorPreference.SavedState> CREATOR =
-                new Creator<MobileCellsEditorPreference.SavedState>() {
+                new Creator<>() {
                     public MobileCellsEditorPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new MobileCellsEditorPreference.SavedState(in);

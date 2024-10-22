@@ -270,7 +270,7 @@ public class NFCTagPreference extends DialogPreference {
         }
 
         public static final Creator<NFCTagPreference.SavedState> CREATOR =
-                new Creator<NFCTagPreference.SavedState>() {
+                new Creator<>() {
                     public NFCTagPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new NFCTagPreference.SavedState(in);

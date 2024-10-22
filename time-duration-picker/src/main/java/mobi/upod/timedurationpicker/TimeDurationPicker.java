@@ -624,8 +624,8 @@ public class TimeDurationPicker extends FrameLayout {
             out.writeString(durationInput);
         }
         
-        public static final Parcelable.Creator<SavedState> CREATOR
-                = new Parcelable.Creator<SavedState>() {
+        public static final Parcelable.Creator<TimeDurationPicker.SavedState> CREATOR
+                = new Parcelable.Creator<>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }

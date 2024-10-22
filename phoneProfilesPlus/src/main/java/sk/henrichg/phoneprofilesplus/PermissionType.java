@@ -28,7 +28,7 @@ class PermissionType implements Parcelable {
         this.permission = in.readString();
     }
 
-    public static final Parcelable.Creator<PermissionType> CREATOR = new Parcelable.Creator<PermissionType>() {
+    public static final Parcelable.Creator<PermissionType> CREATOR = new Parcelable.Creator<>() {
         public PermissionType createFromParcel(Parcel source) {
             return new PermissionType(source);
         }

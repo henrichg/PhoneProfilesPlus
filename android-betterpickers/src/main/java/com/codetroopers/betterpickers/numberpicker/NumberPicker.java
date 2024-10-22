@@ -597,6 +597,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     public void setNumber(Integer integerPart, Double decimalPart, Integer mCurrentSign) {
+        //noinspection ReplaceNullCheck
         if (mCurrentSign != null) {
             mSign = mCurrentSign;
         } else {
@@ -673,8 +674,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             dest.writeInt(mSign);
         }
 
-        public static final Creator<SavedState> CREATOR
-                = new Creator<SavedState>() {
+        public static final Creator<NumberPicker.SavedState> CREATOR
+                = new Creator<>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }

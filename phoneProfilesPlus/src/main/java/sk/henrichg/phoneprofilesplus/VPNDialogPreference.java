@@ -203,8 +203,8 @@ public class VPNDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<VPNDialogPreference.SavedState>() {
+        public static final Creator<VPNDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public VPNDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new VPNDialogPreference.SavedState(in);

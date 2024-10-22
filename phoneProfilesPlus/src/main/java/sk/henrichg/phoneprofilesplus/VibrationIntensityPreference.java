@@ -230,8 +230,8 @@ public class VibrationIntensityPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<VibrationIntensityPreference.SavedState>() {
+        public static final Creator<VibrationIntensityPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public VibrationIntensityPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new VibrationIntensityPreference.SavedState(in);

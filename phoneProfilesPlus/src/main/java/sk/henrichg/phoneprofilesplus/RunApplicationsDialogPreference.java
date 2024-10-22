@@ -942,7 +942,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         }
 
         public static final Creator<RunApplicationsDialogPreference.SavedState> CREATOR =
-                new Creator<RunApplicationsDialogPreference.SavedState>() {
+                new Creator<>() {
                     public RunApplicationsDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new RunApplicationsDialogPreference.SavedState(in);
