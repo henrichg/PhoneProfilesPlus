@@ -296,12 +296,15 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             mSeekBarMinutes.setEnabled(!started);
             mSeekBarSeconds.setEnabled(!started);
             mCellsName.setEnabled(!started);
+            /*
             if (started) {
-                ColorStateList colors = mCellsName.getHintTextColors();
-                mCellsName.setTextColor(colors);
+                //ColorStateList colors = mCellsName.getHintTextColors();
+                //mCellsName.setTextColor(colors);
+                mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.buttonDisabledBorderColor));
             } else
                 //mCellsName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
                 mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.accent_color));
+            */
 
             String value = mCellsName.getText().toString();
             boolean enable = !value.isEmpty();

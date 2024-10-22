@@ -571,18 +571,20 @@ Proste to vypada, ze je vsetko ako ma byt. Takze nechapem, preco sa widget neupd
 
 ------------------------
 
-** activity_location_geofence_editor_osm -> location_pref_dlg_radius_value
+activity_location_geofence_editor_osm -> location_pref_dlg_radius_value
  - vola Number picker dialog
-** dialog_ask_for_duration -> duration_pref_dlg_value
+dialog_ask_for_duration -> duration_pref_dlg_value
  - vola time duration picker
-** dialog_duration_preference -> duration_pref_dlg_value
+dialog_duration_preference -> duration_pref_dlg_value
  - vola time duration picker
-** dialog_mobile_cells_registration_preference -> duration_pref_dlg_value
+dialog_mobile_cells_registration_preference -> duration_pref_dlg_value
  - vola time duration picker
-** dialog_run_applications_editor -> run_applications_editor_startApplicationDelay
+dialog_run_applications_editor -> run_applications_editor_startApplicationDelay
  - vola time duration picker
-** dialog_time_preference -> time_pref_dlg_value
+dialog_time_preference -> time_pref_dlg_value
  - vola time duration picker
+HOTOVO:
+   pouzite je uz existujuce dimen/time_duration_value_button_top_bottom_padding
 
 dialog_color_chooser -> dialog_color_chooser_custom_color_label
  - vola android clear chroma dialog
@@ -590,11 +592,16 @@ dialog_profile_icon_color_chooser -> dialog_color_chooser_custom_color_label
  - vola android clear chroma dialog
 dialog_restart_events_color_chooser -> dialog_color_chooser_custom_color_label
  - vola android clear chroma dialog
+HOTOVO:
+   pouzite je uz existujuce dimen/custom_color_dialog_button_top_bottom_padding
 
-dialog_contacts_multiselect_preference -> contacts_multiselect_pref_dlg_contacts_filter
+** dialog_contacts_multiselect_preference -> contacts_multiselect_pref_dlg_contacts_filter
  - vola dialog na vyber filtra
-dialog_mobile_cells_editor_preference -> mobile_cells_pref_dlg_cells_filter_name
+** dialog_mobile_cells_editor_preference -> mobile_cells_pref_dlg_cells_filter_name
  - vola dialog na vyber filtra
+HOTOVO:
+   pouzite je uz existujuce dimen/filter_button_top_bottom_padding
+
 
 !!!
 dialog_mobile_cells_registration_preference -> mobile_cells_registration_cells_name
@@ -602,6 +609,7 @@ dialog_mobile_cells_registration_preference -> mobile_cells_registration_cells_n
    potom sa prepise na zadany nazov
    PREROB
    Asi tam dam TextView: "Nazov bunky:" pod tym tento TextView button s "[ nezadane ]" alebo so zadanym nazvom.
+HOTOVO
 
 
 

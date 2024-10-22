@@ -154,6 +154,16 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/mobile_cells_registration_cells_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:text="@string/mobile_cells_pref_dlg_cell_name_hint"
+        android:textStyle="bold"
+        />
+
+    <TextView
         android:id="@+id/mobile_cells_registration_cells_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -161,15 +171,15 @@
         android:gravity="center"
         android:paddingStart="@dimen/layout_as_button_padding"
         android:paddingEnd="@dimen/layout_as_button_padding"
-        android:paddingTop="7dp"
-        android:paddingBottom="8dp"
+        android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
+        android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        android:hint="@string/mobile_cells_registration_cell_name_hint"
+        android:hint="@string/mobile_cells_registration_cell_name_not_set"
         android:textColor="@color/accent_color"
         android:textStyle="bold"
         android:textColorHint="@color/accent_color"

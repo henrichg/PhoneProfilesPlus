@@ -838,7 +838,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Enable orientation scanning</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
     <string name="profileicon_pref_dlg_customIconButton">Custom icon</string>
-    <string name="mobile_cells_registration_cell_name_hint">Click to set cell name</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">May not working connection into hotspot from another devices.</string>
     <string name="array_event_pref_battery_charging_not_use">Do not use</string>
     <string name="array_event_pref_battery_charging_start_when_charging">Start when charging</string>
@@ -2307,6 +2306,8 @@
     <string name="tone_content_description">Tone</string>
     <string name="profile_list_notification_right_arrow">Right arrow</string>
     <string name="profile_list_notification_left_arrow">Left arrow</string>
+
+    <string name="mobile_cells_registration_cell_name_not_set">[ Not set ]</string>
 
     <!-- **************************************************************************************** -->
 
