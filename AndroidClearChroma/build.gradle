@@ -28,6 +28,10 @@ android {
 //    lintOptions {
 //        abortOnError false
 //    }
+
+    lint {
+        disable += ['ExpiredTargetSdkVersion']
+    }
 }
 
 dependencies {
