@@ -55,6 +55,10 @@
     <dimen name="button_min_height">42dp</dimen>
     <dimen name="dialog_button_min_height">56dp</dimen>
 
+    <dimen name="time_duration_value_button_top_bottom_padding">8dp</dimen>
+    <dimen name="custom_color_dialog_button_top_bottom_padding">10dp</dimen>
+    <dimen name="filter_button_top_bottom_padding">8dp</dimen>
+
     <dimen name="edit_text_corner_radius">7dp</dimen>
 
     <dimen name="icon_selector_radius">50dp</dimen>
@@ -106,10 +110,6 @@
 
     <dimen name="profile_preferences_indicator_height">15dp</dimen>
     <dimen name="profile_preferences_indicator_in_event_height">13dp</dimen>
-
-    <dimen name="time_duration_value_button_top_bottom_padding">7dp</dimen>
-    <dimen name="custom_color_dialog_button_top_bottom_padding">10dp</dimen>
-    <dimen name="filter_button_top_bottom_padding">5dp</dimen>
 
     <dimen name="icon_widget_height_more_compact">60dp</dimen>
     <dimen name="icon_widget_height">70dp</dimen>
