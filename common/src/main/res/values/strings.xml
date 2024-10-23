@@ -1308,7 +1308,6 @@
     <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
     <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
     <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Option \"On (do not disable Wi-Fi)\" must be supported by system</string>
