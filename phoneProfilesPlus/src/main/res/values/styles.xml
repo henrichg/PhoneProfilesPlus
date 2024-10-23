@@ -119,6 +119,7 @@
         <item name="android:paddingStart">@dimen/button_padding</item>
         <item name="android:paddingEnd">@dimen/button_padding</item>
         <item name="android:minWidth">@dimen/button_min_width</item>
+        <item name="android:layout_height">@dimen/button_min_height</item>
     </style>
 <!--    <item name="android:textColor">@color/alert_button_color</item>-->
 
