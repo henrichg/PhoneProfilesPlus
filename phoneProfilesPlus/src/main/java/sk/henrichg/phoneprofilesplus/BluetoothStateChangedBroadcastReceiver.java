@@ -64,7 +64,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                             //}
 
-                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call od Detector");
+//                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call od Detector");
                             BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
                         }
 
