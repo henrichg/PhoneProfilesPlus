@@ -379,40 +379,41 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
 //        PPApplication.forceStartOrientationScanner(context);
 //        forceStart = true;
 
         // must be used handler for rewrite toolbar title/subtitle
-        final Handler handler = new Handler(getActivity().getMainLooper());
-        final WeakReference<EventsPrefsActivity> activityWeakRef = new WeakReference<>((EventsPrefsActivity) getActivity());
+        final Handler handler = new Handler(activity.getMainLooper());
+        final WeakReference<EventsPrefsActivity> activityWeakRef = new WeakReference<>(activity);
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
-            EventsPrefsActivity activity = activityWeakRef.get();
-            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+            EventsPrefsActivity __activity = activityWeakRef.get();
+            if ((__activity == null) || __activity.isFinishing() || __activity.isDestroyed())
                 return;
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(__activity.getApplicationContext());
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
-            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
             //noinspection DataFlowIssue
-            toolbar.setSubtitle(activity.getString(R.string.title_activity_event_preferences));
-            toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
+            toolbar.setSubtitle(__activity.getString(R.string.title_activity_event_preferences));
+            toolbar.setTitle(__activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
 
-        final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
+        //final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
         final Context context = activity.getBaseContext();
         final EventsPrefsFragment fragment = this;
-        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
+        final TextView preferenceSubTitle = activity.findViewById(R.id.activity_preferences_subtitle);
 
         // subtitle
         if (nestedFragment) {
             //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.VISIBLE);
 
-            Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
+            Drawable triangle = ContextCompat.getDrawable(activity, R.drawable.ic_submenu_triangle);
             if (triangle != null) {
-                triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
+                triangle.setTint(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
                 SpannableString headerTitle = new SpannableString("    " +
                         fragment.getPreferenceScreen().getTitle());
                 triangle.setBounds(
@@ -458,8 +459,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         //setRedTextToPreferences();
 
         // update preference summary and also category summary
-        //event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-        //event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+        //event.checkSensorsPreferences(prefMng, !nestedFragment, activity.getBaseContext());
+        //event.setAllSummary(prefMng, preferences, activity.getBaseContext());
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -484,7 +485,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -499,12 +500,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 */
                 return false;
@@ -515,7 +516,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -558,7 +559,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference12.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -574,12 +575,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -612,7 +613,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference14.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -628,12 +629,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -654,7 +655,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference15.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -670,12 +671,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -706,7 +707,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        if (getActivity() != null) {
+                        //if (getActivity() != null) {
                             PPAlertDialog dialog = new PPAlertDialog(
                                     preference16.getTitle(),
                                     getString(R.string.setting_screen_not_found_alert),
@@ -722,12 +723,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     false, false,
                                     true,
                                     false,
-                                    getActivity()
+                                    activity
                             );
 
-                            if (!getActivity().isFinishing())
+                            if (!activity.isFinishing())
                                 dialog.show();
-                        }
+                        //}
                     }
                     return false;
                 });
@@ -761,7 +762,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference18.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -777,12 +778,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -804,7 +805,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference110 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -847,7 +848,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference113.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -863,12 +864,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -976,7 +977,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference118 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -1010,7 +1011,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference120.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1025,12 +1026,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1041,7 +1042,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference121 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -1075,7 +1076,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference123.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1090,12 +1091,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1120,7 +1121,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference124.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1135,12 +1136,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1165,7 +1166,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference125.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1180,12 +1181,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1217,7 +1218,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!activityExists) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference126.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -1233,12 +1234,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1272,7 +1273,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutToReadNFCTagAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        activity.registerReceiver(shortcutToReadNFCTagAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
@@ -1314,7 +1315,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                                         ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
                                         ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                        //activity.setResult(Activity.RESULT_OK, intent);
                                     } catch (Exception e) {
                                         // show dialog about this crash
                                         // for Microsft laucher it is:
@@ -1343,7 +1344,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 boolean ok = false;
                 String action;
                 action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-                if (GlobalGUIRoutines.activityActionExists(action, getActivity().getApplicationContext())) {
+                if (GlobalGUIRoutines.activityActionExists(action, activity.getApplicationContext())) {
                     try {
                         Intent intent = new Intent(action);
                         startActivityForResult(intent, RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
@@ -1368,10 +1369,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            activity
                     );
 
-                    if (!getActivity().isFinishing())
+                    if (!activity.isFinishing())
                         dialog.show();
                 }
                 return false;
@@ -1407,11 +1408,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference1 -> {
                     // start preferences activity for default profile
-                    if (getActivity() != null) {
-                        Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
+                    //if (getActivity() != null) {
+                        Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
                         intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT);
                         getActivity().startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
-                    }
+                    //}
                     return false;
                 });
             }
@@ -1556,6 +1557,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
 
         final Context context = getActivity().getBaseContext();
+
+        //EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT)) {
             setRedTextToPreferences();

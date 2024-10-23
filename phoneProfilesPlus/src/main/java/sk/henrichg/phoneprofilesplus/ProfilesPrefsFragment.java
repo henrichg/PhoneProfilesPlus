@@ -471,36 +471,38 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
+
         // must be used handler for rewrite toolbar title/subtitle
-        final Handler handler = new Handler(getActivity().getMainLooper());
+        final Handler handler = new Handler(activity.getMainLooper());
         final WeakReference<ProfilesPrefsActivity> activityWeakRef
-                = new WeakReference<>((ProfilesPrefsActivity) getActivity());
+                = new WeakReference<>(activity);
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
-            ProfilesPrefsActivity activity = activityWeakRef.get();
-            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+            ProfilesPrefsActivity __activity = activityWeakRef.get();
+            if ((__activity == null) || __activity.isFinishing() || __activity.isDestroyed())
                 return;
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(__activity.getApplicationContext());
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
-            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+            Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
             //noinspection DataFlowIssue
-            toolbar.setSubtitle(activity.getString(R.string.title_activity_profile_preferences));
-            toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
+            toolbar.setSubtitle(__activity.getString(R.string.title_activity_profile_preferences));
+            toolbar.setTitle(__activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
         }, 200);
 
-        final Context context = getActivity().getBaseContext();
+        final Context context = activity.getBaseContext();
         final ProfilesPrefsFragment fragment = this;
-        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
+        final TextView preferenceSubTitle = activity.findViewById(R.id.activity_preferences_subtitle);
 
         // subtitle
         if (nestedFragment) {
             //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.VISIBLE);
 
-            Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
+            Drawable triangle = ContextCompat.getDrawable(activity, R.drawable.ic_submenu_triangle);
             if (triangle != null) {
-                triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
+                triangle.setTint(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
                 SpannableString headerTitle = new SpannableString("    " +
                         fragment.getPreferenceScreen().getTitle());
                 triangle.setBounds(
@@ -517,7 +519,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceSubTitle.setVisibility(View.GONE);
         }
 
-        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
+        //ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
         //activity.progressLinearLayout.setVisibility(View.GONE);
         activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
@@ -769,12 +771,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference1 -> {
                 // start preferences activity for default profile
-                if (getActivity() != null) {
-                    Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
+                //if (activity != null) {
+                    Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
                     intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_SYSTEM_CATEGORY_ROOT);
                     //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
-                }
+                    activity.startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
+                //}
                 return false;
             });
         }
@@ -845,7 +847,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference12 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -861,7 +863,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         */
         /*
-        boolean toneInstalled = TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getActivity().getApplicationContext());
+        boolean toneInstalled = TonesHandler.isToneInstalled(TonesHandler.TONE_ID, activity.getApplicationContext());
         if (!toneInstalled) {
             Preference installTonePreference = prefMng.findPreference(PREF_INSTALL_SILENT_TONE);
             if (installTonePreference != null) {
@@ -897,7 +899,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference14 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -931,7 +933,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 getString(R.string.event_preferences_applications_LaunchExtender_title),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -946,12 +948,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -974,7 +976,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 getString(R.string.event_preferences_applications_LaunchExtender_title),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -989,12 +991,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1463,7 +1465,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 intent.setClassName("com.miui.securitycenter",
                                         "com.miui.permcenter.permissions.PermissionsEditorActivity");
                                 intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                                if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                                if (GlobalGUIRoutines.activityIntentExists(intent, activity.getApplicationContext())) {
                                     try {
                                         startActivity(intent);
                                         ok = true;
@@ -1487,10 +1489,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                             false, false,
                                             true,
                                             false,
-                                            getActivity()
+                                            activity
                                     );
 
-                                    if (!getActivity().isFinishing())
+                                    if (!activity.isFinishing())
                                         dialog2.show();
                                 }
                             },
@@ -1502,10 +1504,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             false, false,
                             false,
                             false,
-                            getActivity()
+                            activity
                     );
 
-                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                    if (!activity.isFinishing())
                         dialog.show();
                     return false;
                 });
@@ -1705,7 +1707,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean ok = false;
                 String action;
                 action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-                if (GlobalGUIRoutines.activityActionExists(action, getActivity().getApplicationContext())) {
+                if (GlobalGUIRoutines.activityActionExists(action, activity.getApplicationContext())) {
                     try {
                         Intent intent = new Intent(action);
                         startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
@@ -1730,10 +1732,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            activity
                     );
 
-                    if (!getActivity().isFinishing())
+                    if (!activity.isFinishing())
                         dialog.show();
                 }
                 return false;
@@ -1861,31 +1863,34 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (getActivity() == null)
+            return;
+
+        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
+
         if ((key != null) && key.equals(Profile.PREF_PROFILE_NAME)) {
+            //noinspection UnnecessaryLocalVariable
             String value = sharedPreferences.getString(key, "");
-            if (getActivity() != null) {
+            //if (getActivity() != null) {
 
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
-                final Handler handler = new Handler(getActivity().getMainLooper());
+                final Handler handler = new Handler(activity.getMainLooper());
                 final WeakReference<ProfilesPrefsActivity> activityWeakRef
-                        = new WeakReference<>((ProfilesPrefsActivity) getActivity());
+                        = new WeakReference<>(activity);
                 handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
-                    ProfilesPrefsActivity activity = activityWeakRef.get();
-                    if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+                    ProfilesPrefsActivity __activity = activityWeakRef.get();
+                    if ((__activity == null) || __activity.isFinishing() || __activity.isDestroyed())
                         return;
 
-                    Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
+                    Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + _value);
                     //noinspection DataFlowIssue
-                    toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
+                    toolbar.setTitle(__activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
-            }
+            //}
         }
-
-        if (getActivity() == null)
-            return;
 
         String value;
 
@@ -1920,11 +1925,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         setRedTextToPreferences();
 
-        ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
-        if (activity != null) {
+        //ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
+        //if (activity != null) {
             activity.showSaveMenu = true;
             activity.invalidateOptionsMenu();
-        }
+        //}
 
     }
 
@@ -1933,6 +1938,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
 
         final Context context = getActivity().getBaseContext();
+
+        ProfilesPrefsActivity activity = (ProfilesPrefsActivity) getActivity();
 
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE)) {
             setRedTextToPreferences();
@@ -1952,7 +1959,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 /*//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     try {
                         final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                        ContentResolver resolver = getActivity().getContentResolver();
+                        ContentResolver resolver = activity.getContentResolver();
                         resolver.takePersistableUriPermission(selectedImage, takeFlags);
                     } catch (Exception e) {
                         Log.e("ProfilesPrefsFragment.doOnActivityResult", Log.getStackTraceString(e));
@@ -1996,7 +2003,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 /*//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     try {
                         final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                        ContentResolver resolver = getActivity().getContentResolver();
+                        ContentResolver resolver = activity.getContentResolver();
                         resolver.takePersistableUriPermission(selectedImage, takeFlags);
                     } catch (Exception e) {
                         Log.e("ProfilesPrefsFragment.doOnActivityResult", Log.getStackTraceString(e));
@@ -2020,12 +2027,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }*/
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         String text = getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
                         text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
                         text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
-                        PPApplication.showToast(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
-                    }
+                        PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
+                    //}
                 }
             }
         }
@@ -2089,11 +2096,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPApplication.updateGUI(true, false, context);
 
             // show save menu
-            ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
-            if (activity != null) {
+            //ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
+            //if (activity != null) {
                 activity.showSaveMenu = true;
                 activity.invalidateOptionsMenu();
-            }
+            //}
         }
         if ((requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER)) ||
             (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER_LOCKSCREEN))) {
@@ -2144,11 +2151,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
             setSummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
             // show save menu
-            ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
-            if (activity != null) {
+            //ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
+            //if (activity != null) {
                 activity.showSaveMenu = true;
                 activity.invalidateOptionsMenu();
-            }
+            //}
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
             setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
