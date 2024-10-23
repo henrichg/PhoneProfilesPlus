@@ -74,7 +74,13 @@ public class LockDeviceActivity extends AppCompatActivity
             */
 
             WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-            params.flags = 1808;
+            //params.flags = 1808;
+            params.flags =
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN |
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+            //Log.e("LockDeviceActivity.onCreate", "params.flags="+params.flags);
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.gravity = Gravity.TOP;
             params.width = -1;
@@ -85,8 +91,32 @@ public class LockDeviceActivity extends AppCompatActivity
             //LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //if (layoutInflater != null) {
                 view = getLayoutInflater().inflate(R.layout.activity_lock_device, null);
-                view.setSystemUiVisibility(5894);
-                view.setOnSystemUiVisibilityChangeListener(i -> view.setSystemUiVisibility(5894));
+                //view.setSystemUiVisibility(5894);
+                view.setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            /*Log.e("LockDeviceActivity.onCreate", "uiVisibiloty="+
+                    (
+                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    ));*/
+                //view.setOnSystemUiVisibilityChangeListener(i -> view.setSystemUiVisibility(5894));
+                view.setOnSystemUiVisibilityChangeListener(i -> view.setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                ));
 
                 WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null)
