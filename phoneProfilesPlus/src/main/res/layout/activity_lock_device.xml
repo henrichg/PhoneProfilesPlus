@@ -19,7 +19,8 @@
         android:maxLines="1"
         android:paddingBottom="200dp"
         android:textColor="@color/lockDeviceTextColor"
-        android:textSize="75sp" />
+        android:textSize="75dp"
+        tools:ignore="SpUsage" />
 
     <TextView
         android:id="@+id/activity_lockDevice_screenOff"
