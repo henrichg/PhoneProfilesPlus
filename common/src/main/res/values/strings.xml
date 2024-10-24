@@ -2308,7 +2308,7 @@
     <string name="mobile_cells_registration_cell_name_not_set">[ Not set ]</string>
 
     <string name="profile_preferences_deviceKeyguard">Device lock screen</string>
-    <string name="profile_preferences_deviceKeyguard_info_summary">This parameter switch On/Off device lock screen. When set to Off, the lock screen will not appear when the screen is turned on.</string>
+    <string name="profile_preferences_deviceKeyguard_info_summary">This parameter switches On/Off the device lock screen. When set to Off, the lock screen will not appear when the screen is turned on.</string>
 
     <!-- **************************************************************************************** -->
 
