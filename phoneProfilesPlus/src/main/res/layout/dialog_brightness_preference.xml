@@ -41,6 +41,7 @@
                 android:id="@+id/brightnessPrefDialogNoChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:textSize="16sp"
                 android:text="@string/brightness_pref_dialog_no_change_chb"
                 android:layout_marginBottom="15dp"
