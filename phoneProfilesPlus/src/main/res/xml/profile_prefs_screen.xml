@@ -56,6 +56,11 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsWallpaper" />
 
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_deviceKeyguardInfo"
+        app:title="@string/profile_preferences_deviceKeyguard"
+        app:summary="@string/profile_preferences_deviceKeyguard_info_summary"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceKeyguard"
         app:summary="@string/array_pref_no_change"
@@ -64,6 +69,7 @@
         app:ppEntries="@array/keyguardArray"
         app:ppEntryValues="@array/keyguardValues"
         app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_lockDevice"
         app:summary="@string/array_pref_no_change"
