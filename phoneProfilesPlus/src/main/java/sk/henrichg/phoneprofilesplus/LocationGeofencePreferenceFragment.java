@@ -153,7 +153,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
-        //setLocationEnableStatus();
+        setLocationEnableStatus();
 
         preference.resetSummary();
         preference.refreshListView();
