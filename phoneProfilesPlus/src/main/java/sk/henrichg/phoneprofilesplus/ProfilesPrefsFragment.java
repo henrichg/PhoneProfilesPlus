@@ -3771,6 +3771,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
         profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
         profile._screenNightLight = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, "0"));
+        // TODO screenOnOff - permissions
         ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileScreenTimeout(context, profile, permissions);
         Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
@@ -5715,6 +5716,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
                         profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
                         profile._screenNightLight = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, "0"));
+                        // TODO screenOnOff - permissions
                         Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
                         Permissions.checkProfileAlwaysOnDisplay(context, profile, permissions);
                         Permissions.checkProfileScreenNightLight(context, profile, permissions);

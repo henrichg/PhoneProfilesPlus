@@ -727,7 +727,8 @@ class ProfileStatic {
                     profile._clearNotificationCheckText,
                     profile._clearNotificationText,
                     profile._screenNightLight,
-                    profile._screenNightLightPrefs
+                    profile._screenNightLightPrefs,
+                    profile._screenOnOff
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)

@@ -2308,6 +2308,7 @@
     <string name="profile_preferences_deviceKeyguard_info_summary">This parameter switches On/Off the device lock screen. When set to Off, the lock screen will not appear when the screen is turned on.</string>
 
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
 
     <!-- **************************************************************************************** -->
 

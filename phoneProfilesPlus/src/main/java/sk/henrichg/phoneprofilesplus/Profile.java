@@ -146,6 +146,7 @@ class Profile {
     String _clearNotificationText;
     int _screenNightLight;
     int _screenNightLightPrefs;
+    int _screenOnOff;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -289,6 +290,7 @@ class Profile {
     static final String PREF_PROFILE_CLEAR_NOTIFICATION_TEXT = "prf_pref_clearNotificationText";
     static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT = "prf_pref_screenNightLight";
     static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS = "prf_pref_screenNightLightPrefs";
+    static final String PREF_PROFILE_SCREEN_ON_OFF = "prf_pref_screenOn";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
@@ -1134,7 +1136,8 @@ class Profile {
                    boolean clearNotificationCheckText,
                    String clearNotificationText,
                    int screenNightLight,
-                   int screenNightLightPrefs
+                   int screenNightLightPrefs,
+                   int screenOnOff
             )
     {
         this._id = id;
@@ -1265,6 +1268,7 @@ class Profile {
         this._clearNotificationText = clearNotificationText;
         this._screenNightLight = screenNightLight;
         this._screenNightLightPrefs = screenNightLightPrefs;
+        this._screenOnOff = screenOnOff;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1399,7 +1403,8 @@ class Profile {
             boolean clearNotificationCheckText,
             String clearNotificationText,
             int screenNightLight,
-            int screenNightLightPrefs
+            int screenNightLightPrefs,
+            int screenOnOff
     )
     {
         this._name = name;
@@ -1529,6 +1534,7 @@ class Profile {
         this._clearNotificationText = clearNotificationText;
         this._screenNightLight = screenNightLight;
         this._screenNightLightPrefs = screenNightLightPrefs;
+        this._screenOnOff = screenOnOff;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1665,6 +1671,7 @@ class Profile {
         this._clearNotificationText = profile._clearNotificationText;
         this._screenNightLight = profile._screenNightLight;
         this._screenNightLightPrefs = profile._screenNightLightPrefs;
+        this._screenOnOff = profile._screenOnOff;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -2050,6 +2057,8 @@ class Profile {
                     this._screenNightLight = withProfile._screenNightLight;
                 if (withProfile._screenNightLightPrefs != 0)
                     this._screenNightLightPrefs = withProfile._screenNightLightPrefs;
+                if (withProfile._screenOnOff != 0)
+                    this._screenOnOff = withProfile._screenOnOff;
             }
 
             // set merged profile as activated

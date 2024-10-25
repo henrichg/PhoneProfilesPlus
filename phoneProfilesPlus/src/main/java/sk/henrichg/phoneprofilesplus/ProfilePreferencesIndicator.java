@@ -1666,6 +1666,37 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // screen on permanent
+            if (profile._screenOnOff != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_OFF, null, sharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._screenOnOff == 1) || (profile._screenOnOff == 3)) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnOff) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "sof:1";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                    if (profile._screenOnPermanent == 2) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnOff) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "sof:0";
+                        else {
+                            disabled[countDrawables] = true;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
             // wallpaper
             if (profile._deviceWallpaperChange != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, profile,null,  true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
