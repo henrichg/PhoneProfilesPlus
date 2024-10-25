@@ -462,6 +462,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
         defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT, "0");
         defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_ON_OFF, "0");
     }
 
     static final int[] profileIconId = {
@@ -3547,6 +3548,7 @@ class Profile {
         editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, this._clearNotificationText);
         editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT, Integer.toString(this._screenNightLight));
         editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, Integer.toString(this._screenNightLightPrefs));
+        editor.putString(PREF_PROFILE_SCREEN_ON_OFF, Integer.toString(this._screenOnOff));
 
         editor.apply();
     }

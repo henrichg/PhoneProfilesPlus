@@ -3630,6 +3630,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_ON_OFF, R.string.profile_preferences_deviceScreenOnOff, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+            String value = StringFormatUtils.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_OFF)),
+                    R.array.screenOnOffValues, R.array.screenOnOffArray, context);
+
+            _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                    .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_SCREEN_CATTEGORY_ROOT, context))
+                    .append(StringConstants.TAG_BOLD_END_HTML);
+        }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, R.string.profile_preferences_deviceKeyguard, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
@@ -5681,7 +5695,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY) ||
                 key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT) ||
                 key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS))
+                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS) ||
+                key.equals(Profile.PREF_PROFILE_SCREEN_ON_OFF))
         {
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -5710,7 +5725,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     if (key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT) ||
                             key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY) ||
-                            key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT)) {
+                            key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT) ||
+                            key.equals(Profile.PREF_PROFILE_SCREEN_ON_OFF)) {
                         Profile profile = new Profile();
                         ArrayList<PermissionType> permissions = new ArrayList<>();
                         profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
@@ -7138,6 +7154,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT);
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
+        setSummary(Profile.PREF_PROFILE_SCREEN_ON_OFF);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
