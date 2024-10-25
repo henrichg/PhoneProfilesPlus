@@ -960,8 +960,10 @@ public class PPApplication extends Application
     // LockDeviceActivity
     //static volatile LockDeviceActivity lockDeviceActivity = null;
     static volatile boolean lockDeviceActivityDisplayed = false;
+    static volatile boolean lockDeviceActivityOnlyScreenOff = false;
 
-    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
+    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 0;
+    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 0;
 
 //    static int brightnessBeforeScreenOff;
 //    static float adaptiveBrightnessBeforeScreenOff;

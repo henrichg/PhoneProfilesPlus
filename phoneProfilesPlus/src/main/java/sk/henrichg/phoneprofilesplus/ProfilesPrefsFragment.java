@@ -1559,14 +1559,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
                 summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off);
             summary = summary + StringConstants.STR_DOUBLE_NEWLINE;
-            summary = summary + "\"" + getString(R.string.profile_preferences_deviceScreenTimeout) + "\" " +
-                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1) +
-                    " \"" + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\" " +
-                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2) +
-                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\". " +
-                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3) +
-                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
-                    "\"" + getString(R.string.array_pref_hardwareModeArray_off) + "\".";
+            summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary);
             preference.setSummary(summary);
         }
 

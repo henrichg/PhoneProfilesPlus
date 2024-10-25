@@ -10,6 +10,8 @@ import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextClock;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -20,6 +22,8 @@ public class LockDeviceActivity extends AppCompatActivity
 
     private View view = null;
     private boolean displayed = false;
+
+    static final String EXTRA_ONLY_SCREEN_OFF = "only_screen_off";
 
     static final String ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver";
 
@@ -45,6 +49,9 @@ public class LockDeviceActivity extends AppCompatActivity
         overridePendingTransition(0, 0);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
+
+        Intent intent = getIntent();
+        PPApplication.lockDeviceActivityOnlyScreenOff = intent.getBooleanExtra(EXTRA_ONLY_SCREEN_OFF, false);
 
         boolean canWriteSettings;// = true;
         canWriteSettings = Settings.System.canWrite(getApplicationContext());
@@ -118,6 +125,18 @@ public class LockDeviceActivity extends AppCompatActivity
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 ));
 
+                if (PPApplication.lockDeviceActivityOnlyScreenOff) {
+                    TextClock clock = view.findViewById(R.id.activity_lockDevice_clock);
+                    //noinspection DataFlowIssue
+                    clock.setVisibility(View.GONE);
+                    TextView text = view.findViewById(R.id.activity_lockDevice_screenOff);
+                    //noinspection DataFlowIssue
+                    text.setVisibility(View.GONE);
+                    text = view.findViewById(R.id.activity_lockDevice_textView1);
+                    //noinspection DataFlowIssue
+                    text.setVisibility(View.GONE);
+                }
+
                 WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null)
                     windowManager.addView(view, params);
@@ -131,7 +150,11 @@ public class LockDeviceActivity extends AppCompatActivity
 
                 displayed = true;
 
-                PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff  = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                else
+                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+
                 //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
                 /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
@@ -154,7 +177,8 @@ public class LockDeviceActivity extends AppCompatActivity
                         });
                     }
                 } else*/
-                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+                if (!PPApplication.lockDeviceActivityOnlyScreenOff)
+                    Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
             //}
@@ -214,10 +238,18 @@ public class LockDeviceActivity extends AppCompatActivity
                         });
                     }
                 } else*/
-                if (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0)
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+
+                if (PPApplication.lockDeviceActivityOnlyScreenOff) {
+                    if (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff != 0)
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff);
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                } else {
+                    if (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock != 0)
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock);
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                }
 
                 // set screen timeout from ApplicationPreferences.prefActivatedProfileScreenTimeoutWhenScreenOff
                 // this replaces screen timeout set in this activity

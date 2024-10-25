@@ -1667,9 +1667,6 @@
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not set</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">for parameter</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
     <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
     <string name="keep_screen_on_active_notification_title_1">is</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
@@ -2309,6 +2306,8 @@
 
     <string name="profile_preferences_deviceKeyguard">Device lock screen</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">This parameter switches On/Off the device lock screen. When set to Off, the lock screen will not appear when the screen is turned on.</string>
+
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
 
     <!-- **************************************************************************************** -->
 

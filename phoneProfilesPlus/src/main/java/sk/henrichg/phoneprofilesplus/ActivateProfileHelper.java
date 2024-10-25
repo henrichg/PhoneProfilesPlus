@@ -6005,9 +6005,13 @@ class ActivateProfileHelper {
             case 1: // 15 seconds
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 15000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 15000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 15000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6047,9 +6051,13 @@ class ActivateProfileHelper {
             case 2: // 30 seconds
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 30000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 30000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 30000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6090,9 +6098,13 @@ class ActivateProfileHelper {
             case 3: // 1 minute
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 60000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 60000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 60000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6133,9 +6145,13 @@ class ActivateProfileHelper {
             case 4: // 2 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 120000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 120000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 120000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6176,9 +6192,13 @@ class ActivateProfileHelper {
             case 5: // 10 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 600000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 600000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 600000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6231,9 +6251,13 @@ class ActivateProfileHelper {
             case 7: // 5 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 300000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 300000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 300000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6282,9 +6306,13 @@ class ActivateProfileHelper {
             case 9: // 30 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 1800000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 1800000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 1800000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -7613,6 +7641,7 @@ class ActivateProfileHelper {
                                 if (Permissions.checkLockDevice(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
                                     try {
                                         Intent intent = new Intent(appContext, LockDeviceActivity.class);
+                                        intent.putExtra(LockDeviceActivity.EXTRA_ONLY_SCREEN_OFF, false);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
