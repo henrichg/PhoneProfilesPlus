@@ -241,7 +241,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             //locationEnabledStatusTextView.setVisibility(View.GONE);
             //locationSystemSettingsButton.setVisibility(View.GONE);
         }
-        if (locationEnabled && (preference.onlyEdit == 0)) {
+        if (locationEnabled && (preference.onlyEdit == 1)) {
             //noinspection DataFlowIssue
             divider2.setVisibility(View.GONE);
         }
