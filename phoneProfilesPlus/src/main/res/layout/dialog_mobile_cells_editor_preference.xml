@@ -314,8 +314,8 @@
                 android:layout_marginEnd="15dp"
                 android:paddingStart="@dimen/layout_as_button_padding"
                 android:paddingEnd="@dimen/layout_as_button_padding"
-                android:paddingTop="@dimen/filter_button_top_bottom_padding"
-                android:paddingBottom="@dimen/filter_button_top_bottom_padding"
+                android:minHeight="@dimen/filter_button_min_height"
+                android:gravity="center_vertical"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
@@ -325,6 +325,8 @@
                 android:background="@drawable/pp_button_background_selector"
                 android:clickable="true"
                 android:focusable="true"/>
+<!--            android:paddingTop="@dimen/filter_button_top_bottom_padding"-->
+<!--            android:paddingBottom="@dimen/filter_button_top_bottom_padding"-->
 
 
         </RelativeLayout>

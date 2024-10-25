@@ -175,12 +175,14 @@
                     android:layout_marginTop="5dp"
                     android:paddingStart="@dimen/layout_as_button_padding"
                     android:paddingEnd="@dimen/layout_as_button_padding"
-                    android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
-                    android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+                    android:minHeight="@dimen/button_min_height"
+                    android:gravity="center_vertical"
                     android:textColor="@color/accent_color"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:background="@drawable/pp_button_background_selector" />
+<!--                android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
+<!--                android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
 
             </LinearLayout>
 

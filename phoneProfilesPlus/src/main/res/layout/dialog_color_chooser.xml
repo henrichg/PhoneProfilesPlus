@@ -425,10 +425,10 @@
                                 android:layout_height="wrap_content"
                                 android:paddingStart="@dimen/layout_as_button_padding"
                                 android:paddingEnd="@dimen/layout_as_button_padding"
-                                android:paddingTop="@dimen/custom_color_dialog_button_top_bottom_padding"
-                                android:paddingBottom="@dimen/custom_color_dialog_button_top_bottom_padding"
+                                android:minHeight="@dimen/button_min_height"
                                 android:text="@string/colorChooser_pref_dialog_customIconColor"
-                                android:gravity="end"
+                                android:gravity="center_vertical"
+                                android:layout_gravity="end"
                                 android:textAlignment="gravity"
                                 android:textSize="15sp"
                                 android:textColor="@color/accent_color"
@@ -436,6 +436,8 @@
                                 android:background="@drawable/pp_button_background_selector"
                                 android:clickable="true"
                                 android:focusable="true" />
+<!--                            android:paddingTop="@dimen/custom_color_dialog_button_top_bottom_padding"-->
+<!--                            android:paddingBottom="@dimen/custom_color_dialog_button_top_bottom_padding"-->
 
                         </LinearLayout>
 

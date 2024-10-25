@@ -40,16 +40,17 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/layout_as_button_padding"
                 android:paddingEnd="@dimen/layout_as_button_padding"
-                android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
-                android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+                android:minHeight="@dimen/button_min_height"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:textSize="16sp"
                 android:textColor="@color/accent_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"
                 android:clickable="true"
                 android:focusable="true"/>
+<!--            android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
+<!--            android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
 
             <LinearLayout
                 android:id="@+id/time_pref_dlg_liLa1"

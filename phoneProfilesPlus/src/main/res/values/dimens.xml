@@ -54,10 +54,11 @@
     <dimen name="button_min_width">70dp</dimen>
     <dimen name="button_min_height">42dp</dimen>
     <dimen name="dialog_button_min_height">56dp</dimen>
+    <dimen name="filter_button_min_height">38dp</dimen>
 
-    <dimen name="time_duration_value_button_top_bottom_padding">8dp</dimen>
-    <dimen name="custom_color_dialog_button_top_bottom_padding">10dp</dimen>
-    <dimen name="filter_button_top_bottom_padding">8dp</dimen>
+<!--    <dimen name="time_duration_value_button_top_bottom_padding">9dp</dimen>-->
+<!--    <dimen name="custom_color_dialog_button_top_bottom_padding">10dp</dimen>-->
+<!--    <dimen name="filter_button_top_bottom_padding">8dp</dimen>-->
 
     <dimen name="edit_text_corner_radius">7dp</dimen>
 

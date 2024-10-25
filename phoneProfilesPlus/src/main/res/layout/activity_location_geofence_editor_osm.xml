@@ -131,10 +131,10 @@
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/layout_as_button_padding"
                 android:paddingEnd="@dimen/layout_as_button_padding"
-                android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
-                android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+                android:minHeight="@dimen/button_min_height"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="0dp"
+                android:gravity="center_vertical"
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"
                 android:textColor="@color/accent_color"
                 android:textStyle="bold"
@@ -144,6 +144,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 tools:ignore="HardcodedText" />
+<!--            android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
+<!--            android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
             <!--
             <RelativeLayout
                 android:id="@+id/location_editor_et_btn_reLa2"
