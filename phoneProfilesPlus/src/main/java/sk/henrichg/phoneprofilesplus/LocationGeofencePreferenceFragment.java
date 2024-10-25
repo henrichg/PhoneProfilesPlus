@@ -26,6 +26,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
     LocationGeofencePreference preference;
 
     private RelativeLayout locationSystemSettingsRelLa;
+    private View divider2;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     //private LinearLayout progressLinearLayout;
@@ -148,10 +149,11 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         locationSystemSettingsRelLa = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.location_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsButton);
+        divider2 = view.findViewById(R.id.location_pref_dlg_buttonBarDivider2);
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
-        setLocationEnableStatus();
+        //setLocationEnableStatus();
 
         preference.resetSummary();
         preference.refreshListView();
@@ -180,8 +182,11 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
     }
 
     void setLocationEnableStatus() {
+        boolean locationEnabled;
         String statusText;
         if (!GlobalUtils.isLocationEnabled(prefContext)) {
+            locationEnabled = false;
+
             statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + StringConstants.STR_NEWLINE_WITH_COLON +
                     "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 
@@ -231,9 +236,14 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             //locationEnabledStatusTextView.setVisibility(View.VISIBLE);
             //locationSystemSettingsButton.setVisibility(View.VISIBLE);
         } else {
+            locationEnabled = true;
             locationSystemSettingsRelLa.setVisibility(View.GONE);
             //locationEnabledStatusTextView.setVisibility(View.GONE);
             //locationSystemSettingsButton.setVisibility(View.GONE);
+        }
+        if (locationEnabled && (preference.onlyEdit == 0)) {
+            //noinspection DataFlowIssue
+            divider2.setVisibility(View.GONE);
         }
     }
 

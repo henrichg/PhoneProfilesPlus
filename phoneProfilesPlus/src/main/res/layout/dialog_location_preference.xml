@@ -87,15 +87,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp" >
+            android:layout_marginTop="5dp" >
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_pref_dlg_locationSystemSettingsButton"
                 android:layout_width="@dimen/image_button_size"
                 android:layout_height="@dimen/image_button_size"
                 android:padding="@dimen/image_button_padding"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="0dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_settings"
@@ -157,10 +156,10 @@
         <View
             android:id="@+id/location_pref_dlg_buttonBarDivider2"
             android:layout_width="match_parent"
-            android:layout_marginBottom="5dp"
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
+            android:layout_marginBottom="5dp"
             android:background="@color/dialogDividerColor" />
 
     </LinearLayout>
