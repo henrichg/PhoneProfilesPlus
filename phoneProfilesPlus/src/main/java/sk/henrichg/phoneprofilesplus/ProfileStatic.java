@@ -1027,6 +1027,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS();
                     break;
+                case Profile.PREF_PROFILE_SCREEN_ON_OFF:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
+                    break;
                 default:
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1080,6 +1083,7 @@ class ProfileStatic {
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( "-", profile, sharedPreferences/*, fromUIThread, context*/);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( profile, sharedPreferences, fromUIThread, context);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||

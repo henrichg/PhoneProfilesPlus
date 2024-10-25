@@ -1682,7 +1682,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                    if (profile._screenOnPermanent == 2) {
+                    if (profile._screenOnOff == 2) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenOnOff) + StringConstants.STR_COLON_WITH_SPACE +
                                     appContext.getString(R.string.array_pref_hardwareModeArray_off);

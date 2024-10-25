@@ -1668,9 +1668,6 @@
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
     <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
-    <string name="keep_screen_on_active_notification_title_1">is</string>
-    <string name="keep_screen_on_active_notification_decription_1">To set it</string>
-    <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
     <string name="ask_for_duration_without_duration_button">Without duration</string>
     <string name="profile_preferences_endOfActivationType">Type of activation end</string>
     <string name="array_pref_aendOfActivationType_duration">Duration</string>
@@ -2309,6 +2306,8 @@
 
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
     <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
+    <string name="keep_screen_on_active_notification_description">\"Kepp screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
+    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
 
     <!-- **************************************************************************************** -->
 

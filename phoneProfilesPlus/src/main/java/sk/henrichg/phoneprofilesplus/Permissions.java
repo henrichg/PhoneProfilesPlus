@@ -90,6 +90,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS = 60;
     static final int PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT = 61;
     static final int PERMISSION_TYPE_PROFILE_VPN = 62;
+    static final int PERMISSION_TYPE_PROFILE_SCREEN_ON_OFF = 63;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -272,6 +273,7 @@ class Permissions {
         checkProfileClearNotifications(context, profile, permissions);
         checkProfileScreenNightLight(context, profile, permissions);
         checkProfileVPN(context, profile, permissions);
+        checkProfileScreenOnOff(context, profile, permissions);
 
         return permissions;
     }
@@ -1058,6 +1060,46 @@ class Permissions {
                         permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_ON_PERMANENT, permission.SYSTEM_ALERT_WINDOW));
                 }
                 return grantedDrawOverlays;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkScreenOnOff(Context context) {
+        try {
+            boolean grantedWriteSettings = Settings.System.canWrite(context);
+            if (grantedWriteSettings)
+                setShowRequestWriteSettingsPermission(context, true);
+            boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
+            return grantedWriteSettings && grantedDrawOverlays;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkProfileScreenOnOff(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        try {
+            if (profile._screenOnOff == 2) {
+                // only for Screen off
+                boolean grantedWriteSettings = Settings.System.canWrite(context);
+                if (grantedWriteSettings)
+                    setShowRequestWriteSettingsPermission(context, true);
+                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                if (grantedDrawOverlays)
+                    setShowRequestDrawOverlaysPermission(context, true);
+                if (permissions != null) {
+                    if (!grantedWriteSettings)
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_ON_OFF, permission.WRITE_SETTINGS));
+                    if (!grantedDrawOverlays)
+                        permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_SCREEN_ON_OFF, permission.SYSTEM_ALERT_WINDOW));
+                }
+                return grantedWriteSettings && grantedDrawOverlays;
             } else
                 return true;
         } catch (Exception e) {

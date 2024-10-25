@@ -177,8 +177,9 @@ public class LockDeviceActivity extends AppCompatActivity
                         });
                     }
                 } else*/
-                if (!PPApplication.lockDeviceActivityOnlyScreenOff)
-                    Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+
+                //if (!PPApplication.lockDeviceActivityOnlyScreenOff)
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
             //}
@@ -194,6 +195,31 @@ public class LockDeviceActivity extends AppCompatActivity
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.onAttach(base));
     }
+
+    /*
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        Log.e("LockDeviceActivity.onKeyDown", "(1)");
+        if(keyCode==KeyEvent.KEYCODE_POWER) {
+            Log.e("LockDeviceActivity.onKeyDown", "(2)");
+            finish();
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        Log.e("LockDeviceActivity.dispatchKeyEvent", "(1)");
+        if (event.getKeyCode() == KeyEvent.KEYCODE_POWER) {
+            Log.e("LockDeviceActivity.dispatchKeyEvent", "(2)");
+            if (event.getAction() == KeyEvent.ACTION_UP){
+                return true;
+            }}
+        return super.dispatchKeyEvent(event);
+    };
+    */
 
     @Override
     protected void onDestroy() {

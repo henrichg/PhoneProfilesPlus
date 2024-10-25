@@ -3429,6 +3429,10 @@ class PreferenceAllowed {
         }
     }
 
+    void isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF() {
+        preferenceAllowed = PREFERENCE_ALLOWED;
+    }
+
     void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(
             String preferenceKey, Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread, Context context*/) {
 //        PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "*******************");

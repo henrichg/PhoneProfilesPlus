@@ -3898,12 +3898,101 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setScreenOnPermanent(Profile profile, Context context) {
-        if (Permissions.checkProfileScreenOnPermanent(context, profile, null)) {
-            if (profile._screenOnPermanent == 1)
-                createKeepScreenOnView(context);
-            else if (profile._screenOnPermanent == 2)
-                removeKeepScreenOnView(context);
+    private static void setScreenOn(final Context context) {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = null;
+        try {
+            if (powerManager != null) {
+                //noinspection deprecation
+                wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
+                                PowerManager.ACQUIRE_CAUSES_WAKEUP |
+                                PowerManager.ON_AFTER_RELEASE,
+                        WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_screenOn);
+
+                wakeLock.acquire(1000);
+
+                GlobalUtils.sleep(500);
+
+                //release will release the lock from CPU, in case of that,
+                // screen will go back to sleep mode in defined time bt device settings
+                wakeLock.release();
+            }
+
+        } catch (Exception e) {
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        } finally {
+            if ((wakeLock != null) && wakeLock.isHeld()) {
+                try {
+                    wakeLock.release();
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
+
+    private static void setScreenOff(Profile _profile, final Context context) {
+        final Context appContext = context.getApplicationContext();
+        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        Runnable runnable = () -> {
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setScreenOff");
+
+            if (PPApplication.blockProfileEventActions)
+                // not lock device after boot
+                return;
+
+            //Context appContext= appContextWeakRef.get();
+            Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+
+            if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_screenOff);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    if (PhoneProfilesService.getInstance() != null) {
+                        if (Permissions.checkScreenOnOff(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
+                            try {
+                                Intent intent = new Intent(appContext, LockDeviceActivity.class);
+                                intent.putExtra(LockDeviceActivity.EXTRA_ONLY_SCREEN_OFF, true);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                appContext.startActivity(intent);
+                            } catch (Exception e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            }
+        };
+        PPApplicationStatic.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
+    }
+
+    private static void setScreenOnOff(Profile profile, Context context) {
+        if (Permissions.checkProfileScreenOnOff(context, profile, null)) {
+            if (profile._screenOnOff == 1)
+                setScreenOn(context);
+            else if (profile._screenOnOff == 2)
+                setScreenOff(profile, context);
         }
     }
 
@@ -5472,6 +5561,9 @@ class ActivateProfileHelper {
             setScreenOnPermanent(profile, appContext);
         //}
 
+        // screen on/off
+        setScreenOnOff(profile, appContext);
+
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(appContext, profile, null)) {
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
@@ -6370,14 +6462,7 @@ class ActivateProfileHelper {
     static void showKeepScreenOnNotificaiton(Context context) {
         String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
                 "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
-        String nText = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +
-                " " + context.getString(R.string.keep_screen_on_active_notification_title_1) + " " +
-                "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\". " +
-                context.getString(R.string.keep_screen_on_active_notification_decription_1) +
-                " \"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\", " +
-                context.getString(R.string.keep_screen_on_active_notification_decription_2) +
-                " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
-                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
+        String nText = context.getString(R.string.keep_screen_on_active_notification_description);
 
         PPApplicationStatic.createKeepScreenOnNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
@@ -6529,6 +6614,15 @@ class ActivateProfileHelper {
                 }
             }
         //}
+    }
+
+    private static void setScreenOnPermanent(Profile profile, Context context) {
+        if (Permissions.checkProfileScreenOnPermanent(context, profile, null)) {
+            if (profile._screenOnPermanent == 1)
+                createKeepScreenOnView(context);
+            else if (profile._screenOnPermanent == 2)
+                removeKeepScreenOnView(context);
+        }
     }
 
     static boolean isAirplaneMode(Context context)

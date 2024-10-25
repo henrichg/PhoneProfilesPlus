@@ -839,6 +839,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_TYPE_PROFILE_VPN:
                         s = getString(R.string.permission_why_profile_vpn);
                         break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_ON_OFF:
+                        s = getString(R.string.permission_why_profile_screen_on_off);
+                        break;
                 }
             }
         }
