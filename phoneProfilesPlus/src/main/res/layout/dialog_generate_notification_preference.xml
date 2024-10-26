@@ -152,7 +152,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp" >
+                android:layout_height="60dp"
+                android:layout_marginBottom="5dp">
                 <EditText
                     android:id="@+id/generateNotificationPrefDialogNotificationBody"
                     android:layout_width="match_parent"
