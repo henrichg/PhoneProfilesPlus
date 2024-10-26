@@ -3992,7 +3992,7 @@ class ActivateProfileHelper {
             if (profile._screenOnOff == 1)
                 setScreenOn(context);
             else if ((profile._screenOnOff == 2) &&
-                    (profile._lockDevice != 1)) // only when is not configured short version of "Lock device"
+                    (profile._lockDevice != 1)) // only when is not configured "Quick screen" version of "Lock device"
                 setScreenOff(profile, context);
         }
     }
