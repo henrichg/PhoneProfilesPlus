@@ -280,7 +280,9 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "," +
                         DatabaseHandler.KEY_VOLUME_SPEAKER_PHONE + "," +
-                        DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT +
+                        DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + "," +
+                        DatabaseHandler.KEY_DEVICE_KEYGUARD + "," +
+                        DatabaseHandler.KEY_SCREEN_ON_OFF +
                         " FROM " + DatabaseHandler.TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
                         DatabaseHandler.KEY_E_WIFI_ENABLED + "," +
@@ -1145,6 +1147,25 @@ class DatabaseHandlerOthers {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF)) != 0) {
+                                int deviceKeyguard = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_KEYGUARD));
+                                if (deviceKeyguard != 0) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_DEVICE_KEYGUARD, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_KEYGUARD)) != 0) {
+                                int deviceKeyguard = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF));
+                                if (deviceKeyguard != 0) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_SCREEN_ON_OFF, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }

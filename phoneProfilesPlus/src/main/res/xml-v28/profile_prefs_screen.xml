@@ -27,6 +27,11 @@
         app:ppEntryValues="@array/screenOnPermanentValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_deviceKeyguardInfo"
+        app:title="@string/profile_preferences_deviceScreenOnOff"
+        app:summary="@string/profile_preferences_deviceScreenOnOff_info_summary"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceScreenOnOff"
         app:summary="@string/array_pref_no_change"

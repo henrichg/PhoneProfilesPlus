@@ -5562,8 +5562,6 @@ class ActivateProfileHelper {
             setScreenOnPermanent(profile, appContext);
         //}
 
-        //TODO profile._screenOnOff
-
         // screen on/off
         if (profile._deviceKeyguard == 0)
             // only when deviceKeyguard is not configured do screen on/off
@@ -5590,8 +5588,6 @@ class ActivateProfileHelper {
         }
         //else
         //    PPApplication.setActivatedProfileScreenTimeout(context, 0);
-
-        //TODO _deviceKeyguard
 
         // on/off lock screen
         if (profile._screenOnOff == 0) {

@@ -24,7 +24,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7212,23 +7211,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String deviceKeyguardValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, "");
         if ((!screenOnOffValue.equals("0")) && (!deviceKeyguardValue.equals("0"))) {
             // if both are configured, force disable devcieKeyguard
-            Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "both are configured");
             Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
-            if (preference != null) {
+            if (preference != null)
                 preference.setEnabled(false);
-                Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "disable deviceKeuguard");
-            }
         } else {
             if (key.equals(Profile.PREF_PROFILE_SCREEN_ON_OFF)) {
                 //value = sharedPreferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF, "0");
-                Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "screenonoff value=" + value);
                 Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
                 if (preference != null)
                     preference.setEnabled(value.equals("0"));
             }
             if (key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD)) {
                 //value = sharedPreferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, "0");
-                Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "devicekeyguard value=" + value);
                 Preference preference = findPreference(Profile.PREF_PROFILE_SCREEN_ON_OFF);
                 if (preference != null)
                     preference.setEnabled(value.equals("0"));

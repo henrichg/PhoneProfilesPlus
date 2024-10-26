@@ -2308,6 +2308,7 @@
     <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
     <string name="keep_screen_on_active_notification_description">\"Kepp screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
     <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
 
     <!-- **************************************************************************************** -->
 
