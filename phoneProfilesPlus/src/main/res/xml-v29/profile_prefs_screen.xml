@@ -28,14 +28,14 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.InformationPreference
-        app:key="prf_pref_deviceKeyguardInfo"
+        app:key="prf_pref_screenOnOffInfo"
         app:title="@string/profile_preferences_deviceScreenOnOff"
         app:summary="@string/profile_preferences_deviceScreenOnOff_info_summary"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceScreenOnOff"
         app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_screenOn"
+        app:key="prf_pref_screenOnOff"
         app:defaultValue="0"
         app:ppEntries="@array/screenOnOffArray"
         app:ppEntryValues="@array/screenOnOffValues"

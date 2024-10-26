@@ -290,7 +290,7 @@ class Profile {
     static final String PREF_PROFILE_CLEAR_NOTIFICATION_TEXT = "prf_pref_clearNotificationText";
     static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT = "prf_pref_screenNightLight";
     static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS = "prf_pref_screenNightLightPrefs";
-    static final String PREF_PROFILE_SCREEN_ON_OFF = "prf_pref_screenOn";
+    static final String PREF_PROFILE_SCREEN_ON_OFF = "prf_pref_screenOnOff";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
