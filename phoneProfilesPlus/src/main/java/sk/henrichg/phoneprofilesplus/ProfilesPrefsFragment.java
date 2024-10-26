@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1790,6 +1791,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setTitle(ProfileStatic.getNightLightStringPrefsId());
                 listPreference.setDialogTitle(ProfileStatic.getNightLightStringPrefsId());
             }
+        }
+
+        preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+        if (preference != null) {
+            disableDependedPref(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+        }
+        preference = findPreference(Profile.PREF_PROFILE_SCREEN_ON_OFF);
+        if (preference != null) {
+            disableDependedPref(Profile.PREF_PROFILE_SCREEN_ON_OFF);
         }
 
     }
@@ -5431,11 +5441,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, errorColor, true);
                 }
                 else {
-                    listPreference.setEnabled(true);
+                    //listPreference.setEnabled(true);
+                    String sValue = value.toString();
+                    disableDependentPrefsScreenOnOffDeviceKeyguard(Profile.PREF_PROFILE_DEVICE_KEYGUARD, sValue);
                     Preference preference = findPreference(PREF_PROFILE_DEVICE_KEYGUARD_INFO);
                     //noinspection DataFlowIssue
                     preference.setEnabled(true);
-                    String sValue = value.toString();
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
@@ -7196,8 +7207,36 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ProfileStatic.getVolumeChange(notificationValue) && (ProfileStatic.getVolumeValue(notificationValue) == 0);
     }
 
-    private void disableDependedPref(String key, Object value)
-    {
+    private void disableDependentPrefsScreenOnOffDeviceKeyguard(String key, String value) {
+        String screenOnOffValue = preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF, "");
+        String deviceKeyguardValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, "");
+        if ((!screenOnOffValue.equals("0")) && (!deviceKeyguardValue.equals("0"))) {
+            // if both are configured, force disable devcieKeyguard
+            Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "both are configured");
+            Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+            if (preference != null) {
+                preference.setEnabled(false);
+                Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "disable deviceKeuguard");
+            }
+        } else {
+            if (key.equals(Profile.PREF_PROFILE_SCREEN_ON_OFF)) {
+                //value = sharedPreferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF, "0");
+                Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "screenonoff value=" + value);
+                Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+                if (preference != null)
+                    preference.setEnabled(value.equals("0"));
+            }
+            if (key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD)) {
+                //value = sharedPreferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, "0");
+                Log.e("ProfilePreferenceFragment.onSharedPreferenceChanged", "devicekeyguard value=" + value);
+                Preference preference = findPreference(Profile.PREF_PROFILE_SCREEN_ON_OFF);
+                if (preference != null)
+                    preference.setEnabled(value.equals("0"));
+            }
+        }
+    }
+
+    private void disableDependedPref(String key, Object value) {
         if (getActivity() == null)
             return;
 
@@ -7233,8 +7272,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = prefMng.findPreference(PREF_PROFILE_VOLUME_SOUND_MODE_INFO);
                 if (preference != null)
                     preference.setEnabled(enabled);
-            }
-            else {
+            } else {
                 Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGTONE);
                 if (preference != null)
                     preference.setEnabled(false);
@@ -7268,29 +7306,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (_preference != null)
             _preference.setEnabled(!enabledMuteSound);
 
-        if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
-        {
+        if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE)) {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE))
-        {
+        if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE)) {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
-        {
+        if (key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
-        {
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
@@ -7311,8 +7345,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.setEnabled(enabled && sValue.equals("3"));
         }
-        if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
-        {
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE)) {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null)
@@ -7322,19 +7355,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(enabled);
         }
         //if (Build.VERSION.SDK_INT < 30) {
-            if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
-                if (preference != null) {
-                    PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-                    if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        int iValue = Integer.parseInt(sValue);
-                        if (iValue > 0)
-                            preference.setValue(Profile.NO_CHANGE_VALUE_STR);
-                        preference.setEnabled(false);
-                    } else
-                        preference.setEnabled(true);
-                }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+            PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
+            if (preference != null) {
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    int iValue = Integer.parseInt(sValue);
+                    if (iValue > 0)
+                        preference.setValue(Profile.NO_CHANGE_VALUE_STR);
+                    preference.setEnabled(false);
+                } else
+                    preference.setEnabled(true);
             }
+        }
         //}
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE)) {
@@ -7345,10 +7378,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context);
             if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
-                    (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
-                    (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
-                    (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
-                    (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
                 if (ringerMode.equals("1") || ringerMode.equals("4"))
                     enabled = true;
                 if (ringerMode.equals("5")) {
@@ -7368,10 +7401,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
                 if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
-                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
-                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)||
-                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) ||
-                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) ||
+                                (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
                     if (ringerMode.equals("1") || ringerMode.equals("4"))
                         enabled = true;
                     if (ringerMode.equals("5")) {
@@ -7424,9 +7457,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (key.equals(Profile.PREF_PROFILE_DURATION) ||
-            key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
-            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
-            key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
+                key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
+                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+                key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
             String sEndOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
             int endOfActivationType = Integer.parseInt(sEndOfActivationType);
@@ -7455,15 +7488,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String afterDurationDo = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, "0");
                 int afterDurationDoValue = Integer.parseInt(afterDurationDo);
                 preference.setEnabled(enable &&
-                        ((afterDurationDoValue ==  Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) ||
-                         (afterDurationDoValue ==  Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)));
+                        ((afterDurationDoValue == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) ||
+                                (afterDurationDoValue == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)));
             }
         }
 
         if (((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
-                        (PPApplication.deviceIsOnePlus))) {
+                (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                (PPApplication.deviceIsOnePlus))) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
                 boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
                 Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
@@ -7516,7 +7549,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean contactsConfigured =
                     /*(phoneCallsContactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                     ((contactGroupsValue != null) && (!contactGroupsValue.isEmpty())) ||
-                    ((contactsValue != null) && (!contactsValue.isEmpty()));
+                            ((contactsValue != null) && (!contactsValue.isEmpty()));
 
             //Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS);
             //if (preference != null)
@@ -7548,7 +7581,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean listenerEnabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false);
             //noinspection DataFlowIssue
             boolean clearEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED,
-                            Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED));
+                    Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED));
             String applicationsSetValue = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS));
             boolean applicationsSet = (applicationsSetValue != null) &&
@@ -7569,6 +7602,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.setEnabled(listenerEnabled && clearEnabled && applicationsSet);
         }
+
+        disableDependentPrefsScreenOnOffDeviceKeyguard(key, sValue);
     }
 
     private void disableDependedPref(String key) {
@@ -7586,6 +7621,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         else
             value = preferences.getString(key, "");
 
+        /*
         if (key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACTS) ||
             key.equals(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS) ||
             key.equals(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) ||
@@ -7594,6 +7630,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS)) {
             value = preferences.getString(key, "");
         }
+        */
+
         disableDependedPref(key, value);
     }
 

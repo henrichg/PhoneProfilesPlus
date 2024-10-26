@@ -5562,8 +5562,12 @@ class ActivateProfileHelper {
             setScreenOnPermanent(profile, appContext);
         //}
 
+        //TODO profile._screenOnOff
+
         // screen on/off
-        setScreenOnOff(profile, appContext);
+        if (profile._deviceKeyguard == 0)
+            // only when deviceKeyguard is not configured do screen on/off
+            setScreenOnOff(profile, appContext);
 
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(appContext, profile, null)) {
@@ -5587,24 +5591,29 @@ class ActivateProfileHelper {
         //else
         //    PPApplication.setActivatedProfileScreenTimeout(context, 0);
 
+        //TODO _deviceKeyguard
+
         // on/off lock screen
-        boolean setLockScreen = false;
-        switch (profile._deviceKeyguard) {
-            case 1:
-                // enable lock screen
-                setLockScreenDisabled(appContext, false);
-                setLockScreen = true;
-                break;
-            case 2:
-                // disable lock screen
-                setLockScreenDisabled(appContext, true);
-                setLockScreen = true;
-                break;
-        }
-        if (setLockScreen) {
-            //boolean isScreenOn;
-            //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-            //if (pm != null) {
+        if (profile._screenOnOff == 0) {
+            // only when screen on/off is not configured do device keyguard
+
+            boolean setLockScreen = false;
+            switch (profile._deviceKeyguard) {
+                case 1:
+                    // enable lock screen
+                    setLockScreenDisabled(appContext, false);
+                    setLockScreen = true;
+                    break;
+                case 2:
+                    // disable lock screen
+                    setLockScreenDisabled(appContext, true);
+                    setLockScreen = true;
+                    break;
+            }
+            if (setLockScreen) {
+                //boolean isScreenOn;
+                //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
+                //if (pm != null) {
                 boolean keyguardShowing;
                 KeyguardManager kgMgr = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                 if (kgMgr != null) {
@@ -5614,14 +5623,15 @@ class ActivateProfileHelper {
                         try {
                             //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
                             //if (ppService != null) {
-                                GlobalUtils.switchKeyguard(context);
+                            GlobalUtils.switchKeyguard(context);
                             //}
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
                     }
                 }
-            //}
+                //}
+            }
         }
 
         // setup display brightness
