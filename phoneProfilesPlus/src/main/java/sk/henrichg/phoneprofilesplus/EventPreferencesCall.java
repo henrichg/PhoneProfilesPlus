@@ -49,6 +49,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_FOR_SIM_CARD = "eventCallForSimCard";
     static final String PREF_EVENT_CALL_SEND_SMS = "eventCallSendSMS";
     static final String PREF_EVENT_CALL_SMS_TEXT = "eventCallSMSText";
+    static final String PREF_EVENT_CALL_SEND_SMS_INFO = "eventCallSendSMSInfo";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
 
@@ -557,6 +558,9 @@ class EventPreferencesCall extends EventPreferences {
                     String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
                     int contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
                     preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
+                    if (preference != null)
+                        preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS_INFO);
                     if (preference != null)
                         preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
 

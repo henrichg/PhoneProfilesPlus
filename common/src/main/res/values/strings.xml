@@ -2314,6 +2314,8 @@
     <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
 
+    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

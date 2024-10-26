@@ -70,6 +70,13 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="eventCallSendSMSInfo"
+        app:title="@string/event_preference_callSendSMS"
+        app:summary="@string/event_preference_callSendSMS_info_summary"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
         app:title="@string/event_preference_callSendSMS"
         app:key="eventCallSendSMS"
