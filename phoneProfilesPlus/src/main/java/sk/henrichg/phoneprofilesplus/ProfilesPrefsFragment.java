@@ -7207,6 +7207,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     private void disableDependentPrefsScreenOnOffDeviceKeyguard(String key, String value) {
+        if (getActivity() == null)
+            return;
+        Context context = getActivity().getApplicationContext();
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, preferences, true, context).preferenceAllowed
+                != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+            if (preference != null)
+                preference.setEnabled(false);
+        }
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_OFF, null, preferences, true, context).preferenceAllowed
+                != PreferenceAllowed.PREFERENCE_ALLOWED) {
+            Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+            if (preference != null)
+                preference.setEnabled(false);
+        }
+
         String screenOnOffValue = preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF, "");
         String deviceKeyguardValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, "");
         if ((!screenOnOffValue.equals("0")) && (!deviceKeyguardValue.equals("0"))) {

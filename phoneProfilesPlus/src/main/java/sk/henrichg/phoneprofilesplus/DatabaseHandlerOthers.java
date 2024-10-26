@@ -1153,8 +1153,10 @@ class DatabaseHandlerOthers {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_OFF, null, sharedPreferences, false, instance.context);
                                 int deviceKeyguard = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_KEYGUARD));
-                                if (deviceKeyguard != 0) {
+                                if ((deviceKeyguard != 0) ||
+                                        (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)) {
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_DEVICE_KEYGUARD, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1162,8 +1164,10 @@ class DatabaseHandlerOthers {
                                 }
                             }
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_KEYGUARD)) != 0) {
-                                int deviceKeyguard = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF));
-                                if (deviceKeyguard != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, sharedPreferences, false, instance.context);
+                                int deviceScreenOnOff = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF));
+                                if ((deviceScreenOnOff != 0)  ||
+                                        (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)) {
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_SCREEN_ON_OFF, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
