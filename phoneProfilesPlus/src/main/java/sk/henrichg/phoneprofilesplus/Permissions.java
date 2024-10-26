@@ -8,6 +8,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.role.RoleManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -3386,11 +3387,19 @@ class Permissions {
                 dialog.show();
 
         } else {
-            Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
-            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
-            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
-            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
-            activity.startActivity(intentLaunch);
+            if (ShizukuUtils.isShizukuInstalled(activity.getApplicationContext()) > 0) {
+                // TODO tu chcem dialog, z ktoreho moze spustit Shiozuku alebo zobrazit important info, akoby nebolo Shizuku nainstalovane
+                Intent launchIntent = activity.getPackageManager().getLaunchIntentForPackage(ShizukuUtils.SHIZUKU_PACKAGE_NAME);
+                if (launchIntent != null) {
+                    activity.startActivity(launchIntent);//null pointer check in case package name was not found
+                }
+            } else {
+                Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
+                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
+                activity.startActivity(intentLaunch);
+            }
         }
     }
 

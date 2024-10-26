@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import java.io.BufferedReader;
@@ -12,8 +15,29 @@ import rikka.shizuku.Shizuku;
  */
 class ShizukuUtils {
 
+    static final String SHIZUKU_PACKAGE_NAME = "moe.shizuku.privileged.api";
+
     private ShizukuUtils() {
         // private constructor to prevent instantiation
+    }
+
+    static int isShizukuInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(SHIZUKU_PACKAGE_NAME, PackageManager.MATCH_ALL);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                return PPApplicationStatic.getVersionCode(pInfo);
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
+            return 0;
+        }
     }
 
     /**
