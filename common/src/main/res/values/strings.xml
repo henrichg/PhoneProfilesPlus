@@ -2310,6 +2310,10 @@
     <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
     <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
 
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

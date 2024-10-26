@@ -3388,11 +3388,43 @@ class Permissions {
 
         } else {
             if (ShizukuUtils.isShizukuInstalled(activity.getApplicationContext()) > 0) {
-                // TODO tu chcem dialog, z ktoreho moze spustit Shiozuku alebo zobrazit important info, akoby nebolo Shizuku nainstalovane
-                Intent launchIntent = activity.getPackageManager().getLaunchIntentForPackage(ShizukuUtils.SHIZUKU_PACKAGE_NAME);
-                if (launchIntent != null) {
-                    activity.startActivity(launchIntent);//null pointer check in case package name was not found
-                }
+                PPAlertDialog dialog = new PPAlertDialog(
+                        activity.getString(R.string.profile_preferences_types_shizuku_permission),
+                        activity.getString(R.string.profile_preferences_types_shizuku_permission_is_installed),
+                        activity.getString(R.string.profile_preferences_types_shizuku_permission_launch_shizuku),
+                        activity.getString(android.R.string.cancel),
+                        activity.getString(R.string.profile_preferences_types_shizuku_permission_show_help),
+                        null,
+                        (dialog1, which) -> {
+                            Intent launchIntent = activity.getPackageManager().getLaunchIntentForPackage(ShizukuUtils.SHIZUKU_PACKAGE_NAME);
+                            if (launchIntent != null) {
+                                activity.startActivity(launchIntent);
+                            } else {
+                                Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
+                                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+                                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+                                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
+                                activity.startActivity(intentLaunch);
+                            }
+                        },
+                        null,
+                        (dialog1, which) -> {
+                            Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
+                            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+                            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+                            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_shizuku_howTo_1);
+                            activity.startActivity(intentLaunch);
+                        },
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        false,
+                        activity
+                );
+                if ((!activity.isFinishing()))
+                    dialog.show();
             } else {
                 Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
                 intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
