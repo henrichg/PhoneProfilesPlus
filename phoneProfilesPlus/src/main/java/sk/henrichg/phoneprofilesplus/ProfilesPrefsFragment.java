@@ -7218,7 +7218,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_OFF, null, preferences, true, context).preferenceAllowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED) {
-            Preference preference = findPreference(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+            Preference preference = findPreference(Profile.PREF_PROFILE_SCREEN_ON_OFF);
             if (preference != null)
                 preference.setEnabled(false);
         }
