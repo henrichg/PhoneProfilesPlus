@@ -2315,6 +2315,7 @@
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
 
     <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
+    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
 
     <!-- **************************************************************************************** -->
 

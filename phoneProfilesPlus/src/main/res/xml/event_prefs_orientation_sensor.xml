@@ -42,6 +42,12 @@
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="eventOrientationCurrentLightInfo"
+        app:title="@string/event_preferences_orientation_checkLight"
+        app:summary="@string/event_preferences_orientation_checkLight_info"
+        app:dependency="eventOrientationEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventOrientationCheckLight"
         app:title="@string/event_preferences_orientation_checkLight"
