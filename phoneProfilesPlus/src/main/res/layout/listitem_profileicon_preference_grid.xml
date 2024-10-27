@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profileicon_preference_gridview_item_root"
     android:layout_width="50dp"
     android:layout_height="53dp"
     android:orientation="vertical">
+
+    <View
+        android:id="@+id/profileicon_preference_gridview_item_mark"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/profile_icon_mark" />
+    <!--    android:layout_marginStart="3dp"-->
+    <!--    android:layout_marginEnd="3dp"-->
+    <!--    android:layout_marginTop="-18dp"-->
 
     <ImageView
         android:id="@+id/profileicon_preference_gridview_item_icon"
@@ -20,14 +30,4 @@
     <!--    android:layout_centerHorizontal="true"-->
     <!--    android:layout_centerVertical="true"-->
 
-    <View
-        android:id="@+id/profileicon_preference_gridview_item_mark"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="-1dp"
-        android:background="@color/activityNormalTextColor" />
-    <!--    android:layout_marginStart="3dp"-->
-    <!--    android:layout_marginEnd="3dp"-->
-
-
-</LinearLayout>
+</RelativeLayout>
