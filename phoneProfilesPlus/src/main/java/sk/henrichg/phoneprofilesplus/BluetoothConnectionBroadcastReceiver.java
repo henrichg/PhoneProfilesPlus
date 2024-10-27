@@ -9,17 +9,12 @@ import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -551,7 +546,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             PPApplicationStatic.recordException(e);
         }
     }
-     */
+    */
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
