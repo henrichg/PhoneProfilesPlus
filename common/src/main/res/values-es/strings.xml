@@ -263,7 +263,6 @@
     <string name="event_name_background_profile">Perfil predeterminado</string>
     <string name="array_pref_zenModeArray_priority">Prioridad</string>
     <string name="preference_profile_adaptiveBrightness">Adaptativo</string>
-    <string name="profile_preferences_deviceKeyguard">Desbloquear dispositivo</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Ocultar nombre de perfil</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Reiniciar eventos</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">No conectado</string>
@@ -833,7 +832,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Habilitar el escaneo de orientación</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Notificaciones emergentes</string>
     <string name="profileicon_pref_dlg_customIconButton">Icono personalizado</string>
-    <string name="mobile_cells_registration_cell_name_hint">Haz clic para establecer el nombre de la celda</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Puede que la conexión a Punto de Acceso no funcione desde otros dispositivos.</string>
     <string name="array_event_pref_battery_charging_not_use">No utilizar</string>
     <string name="array_event_pref_battery_charging_start_when_charging">Iniciar al cargar</string>
@@ -1300,7 +1298,6 @@
     <string name="array_pref_locationModeArray_batterySaving">Ahorro de batería</string>
     <string name="array_pref_locationModeArray_highAccuracy">Alta precisión</string>
     <string name="colorChooser_pref_dialog_customIconColor">Color de icono personalizado</string>
-    <string name="colorChooser_pref_dialog_customColor">Color personalizado</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Encendido (no deshabilitar Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignorar punto de acceso Wi-Fi</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">La opción \"Encendido (no deshabilitar Wi-Fi)\" debe estar soportada por el sistema</string>
@@ -1659,13 +1656,7 @@
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">y</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Encendido</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Apagado</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">no establecer</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">para el parámetro</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">También debes configurar</string>
     <string name="notification_channel_keep_screen_on_description">Muestra una notificación sobre el estado de</string>
-    <string name="keep_screen_on_active_notification_title_1">es</string>
-    <string name="keep_screen_on_active_notification_decription_1">Para establecerlo</string>
-    <string name="keep_screen_on_active_notification_decription_2">configurar y activar perfil con</string>
     <string name="ask_for_duration_without_duration_button">Sin duración</string>
     <string name="profile_preferences_endOfActivationType">Tipo de fin de activación</string>
     <string name="array_pref_aendOfActivationType_duration">Duración</string>
@@ -2183,7 +2174,7 @@
     <string name="profile_preferences_deviceDualSIMPINCode_title">Activar/desactivar SIM</string>
     <string name="profile_preferences_deviceDualSIMPINCode_summary">ADVERTENCIA: Esto activa la pantalla de entrada de código PIN para la tarjeta SIM que está configurada como «On».</string>
     <string name="menu_discord_server">Servidor PhoneProfilesPlus</string>
-    <string name="menu_discord_invitation">Invitación al servidor PhoneProfilesPlus</string>
+    <string name="menu_discord_invitation">Invitación al servidor</string>
     <string name="check_releases_apkpure_ppp_release">Versión de PhoneProfilesPlus en ApkPure:</string>
     <string name="install_pppps_install_droidify_text">Por favor, instala Droid-ify. Es necesario para la instalación de PPPPutSettings. Después, vuelve a instalar PPPPutSettings.</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_send">Enviar SMS</string>
@@ -2274,4 +2265,17 @@
     <string name="tone_content_description">Tono</string>
     <string name="profile_list_notification_right_arrow">Flecha derecha</string>
     <string name="profile_list_notification_left_arrow">Flecha izquierda</string>
+    <string name="mobile_cells_registration_cell_name_not_set">[ No establecido ]</string>
+    <string name="profile_preferences_deviceKeyguard">Pantalla de bloqueo de dispositivo</string>
+    <string name="profile_preferences_deviceKeyguard_info_summary">Este parámetro activa o desactiva la pantalla de bloqueo del dispositivo. Cuando esté desactivada, la pantalla de bloqueo no aparecerá cuando la pantalla está encendida.</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">La configuración de \"Tiempo de espera de pantalla\" en el sistema (por activación de perfil) no desactiva \"Mantener pantalla encendida\". También necesitarás configurar \"Mantener la pantalla encendida\" comop \"Apagado\" si deseas que \"Tiempo de espera de pantalla\" funcione.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Pantalla encendida/apagada</string>
+    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
+    <string name="permission_why_profile_screen_on_off">para encender/apagar la pantalla</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">Cuando se configura \"Encendido o Apagado\", \"Pantalla de bloqueo de dispositivo\" se desactiva, y viceversa. No es posible configurar ambos.</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku está instalado, pero no se está ejecutando. Por favor, abre Shizuku e inícialo.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Abrir</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Ayuda</string>
+    <string name="event_preference_callSendSMS_info_summary">Este parámetro es para \"Evento de llamada\"=\"Llamada perdida\".</string>
+    <string name="event_preferences_orientation_checkLight_info">\"Luz\" es la luz ambiental detectada por el sensor de luz del dispositivo.</string>
 </resources>

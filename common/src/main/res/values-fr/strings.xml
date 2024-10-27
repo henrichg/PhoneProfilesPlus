@@ -263,7 +263,6 @@
     <string name="event_name_background_profile">Profil par défaut</string>
     <string name="array_pref_zenModeArray_priority">Prioritaire</string>
     <string name="preference_profile_adaptiveBrightness">Adaptatif</string>
-    <string name="profile_preferences_deviceKeyguard">Déverrouiller l\'appareil</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Cacher le nom du profil</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">Redémarrer les événements</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Non connecté</string>
@@ -833,7 +832,6 @@
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Activer l’analyse de l’orientation</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Utiliser des notifications contextuelles (Popup)</string>
     <string name="profileicon_pref_dlg_customIconButton">Icône personnalisée</string>
-    <string name="mobile_cells_registration_cell_name_hint">Cliquez pour définir le nom de l\'antenne-relais</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Il est possible que la connexion ne fonctionne sur ce hotspot à partir d\'un autre appareil.</string>
     <string name="array_event_pref_battery_charging_not_use">Ne pas utiliser</string>
     <string name="array_event_pref_battery_charging_start_when_charging">Démarrer lors de la charge</string>
@@ -1300,7 +1298,6 @@
     <string name="array_pref_locationModeArray_batterySaving">Économie de batterie</string>
     <string name="array_pref_locationModeArray_highAccuracy">Haute précision</string>
     <string name="colorChooser_pref_dialog_customIconColor">Couleur de l\'icône personnalisée</string>
-    <string name="colorChooser_pref_dialog_customColor">Couleur personnalisée</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">Activé (ne pas désactiver le Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignorer le point d\'accès Wi-Fi</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">L\'option \"Activé (ne pas désactiver le Wi-Fi) doit être prise en charge par le système</string>
@@ -1659,13 +1656,7 @@
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">et</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Activé</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Désactivé</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">ne pas définir</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">pour le paramètre</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">Vous devez également configurer</string>
     <string name="notification_channel_keep_screen_on_description">Affiche la notification à propos de l\'état de</string>
-    <string name="keep_screen_on_active_notification_title_1">est</string>
-    <string name="keep_screen_on_active_notification_decription_1">Pour le définir</string>
-    <string name="keep_screen_on_active_notification_decription_2">configurer et activer le profil avec</string>
     <string name="ask_for_duration_without_duration_button">Sans durée</string>
     <string name="profile_preferences_endOfActivationType">Type de fin d\'activation</string>
     <string name="array_pref_aendOfActivationType_duration">Durée</string>
@@ -2183,7 +2174,7 @@
     <string name="profile_preferences_deviceDualSIMPINCode_title">Activer/désactiver la carte SIM</string>
     <string name="profile_preferences_deviceDualSIMPINCode_summary">AVERTISSEMENT : Ceci affiche l\'écran de saisie du code PIN de la carte SIM qui est configuré comme « Activé ».</string>
     <string name="menu_discord_server">Serveur PhoneProfilesPlus</string>
-    <string name="menu_discord_invitation">Invitation du serveur PhoneProfilesPlus</string>
+    <string name="menu_discord_invitation">Invitation du serveur</string>
     <string name="check_releases_apkpure_ppp_release">Version de PhoneProfilesPlus sur ApkPure :</string>
     <string name="install_pppps_install_droidify_text">Veuillez installer Droid-ify. Il est nécessaire à l\'installation de PhoneProfilesPlusExtender. Ensuite, réinstallez PhoneProfilesPlusExtender.</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_send">Envoyer des SMS</string>
@@ -2274,4 +2265,17 @@
     <string name="tone_content_description">Tonalité</string>
     <string name="profile_list_notification_right_arrow">Flèche droite</string>
     <string name="profile_list_notification_left_arrow">Flèche gauche</string>
+    <string name="mobile_cells_registration_cell_name_not_set">[ Non défini ]</string>
+    <string name="profile_preferences_deviceKeyguard">Écran de verrouillage de l\'appareil</string>
+    <string name="profile_preferences_deviceKeyguard_info_summary">Ce paramètre active ou désactive l\'écran de verrouillage de l\'appareil. Lorsque la valeur est désactivée, l\'écran de verrouillage n\'apparaîtra pas lorsque l\'écran est allumé.</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Le réglage « Délai d\'attente de l\'écran » dans le système (par activation du profil) ne désactive pas « Garder l\'écran allumé ». Vous devez également configurer « Garder l\'écran allumé » à « Éteint » si vous voulez que « Délai d\'attente de l\'écran » fonctionne sur le système.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
+    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
+    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
+    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
+    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
 </resources>

@@ -2194,7 +2194,7 @@
     <string name="menu_xda_developers" translatable="false">XDA-developers</string>
     <string name="menu_discord" translatable="false">Discord</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="menu_discord_invitation">Server invitation</string>
     <string name="menu_twitter" translatable="false">Twitter/X</string>
     <string name="menu_reddit" translatable="false">Reddit</string>
     <string name="menu_bluesky" translatable="false">Bluesky</string>
@@ -2306,7 +2306,7 @@
 
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
     <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
-    <string name="keep_screen_on_active_notification_description">\"Kepp screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
+    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
     <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
     <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
 
@@ -2382,7 +2382,7 @@
     <string name="extender_menu_xda_developers" translatable="false">XDA-developers</string>
     <string name="extender_menu_discord" translatable="false">Discord</string>
     <string name="extender_menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="extender_menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="extender_menu_discord_invitation">Server invitation</string>
     <string name="extender_menu_twitter" translatable="false">Twitter/X</string>
     <string name="extender_menu_reddit" translatable="false">Reddit</string>
     <string name="extender_menu_bluesky" translatable="false">Bluesky</string>
@@ -2422,7 +2422,7 @@
     <string name="pppputsettings_menu_xda_developers" translatable="false">XDA-developers</string>
     <string name="pppputsettings_menu_discord" translatable="false">Discord</string>
     <string name="pppputsettings_menu_discord_server">PhoneProfilesPlus server</string>
-    <string name="pppputsettings_menu_discord_invitation">PhoneProfilesPlus server invitation</string>
+    <string name="pppputsettings_menu_discord_invitation">Server invitation</string>
     <string name="pppputsettings_menu_twitter" translatable="false">Twitter/X</string>
     <string name="pppputsettings_menu_reddit" translatable="false">Reddit</string>
     <string name="pppputsettings_menu_bluesky" translatable="false">Bluesky</string>
