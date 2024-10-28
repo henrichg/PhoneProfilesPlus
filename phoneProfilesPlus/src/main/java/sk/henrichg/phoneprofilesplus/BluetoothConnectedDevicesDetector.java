@@ -76,7 +76,7 @@ class BluetoothConnectedDevicesDetector {
                         PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "[1] start of onServiceConnected");
 
                         final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+                        //BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
 
                         if (profile == BluetoothProfile.HEADSET) {
                             PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "BluetoothProfile.HEADSET");
@@ -390,10 +390,10 @@ class BluetoothConnectedDevicesDetector {
 
                 //final Context appContext = context.getApplicationContext();
 
-                List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
+                List<BluetoothDeviceData> _connectedDevices = new ArrayList<>();
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(_connectedDevices/*appContext, false*/);
                 // this also clears shared preferences
-                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(_connectedDevices, appContext);
                 //if (_callEventHandler)
                 //    callEventHandler(appContext);
 
@@ -401,22 +401,6 @@ class BluetoothConnectedDevicesDetector {
 
                 if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                     if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
-
-                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
-                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
-                        //if (Build.VERSION.SDK_INT < 29)
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-                        if (Build.VERSION.SDK_INT >= 29)
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEARING_AID);
-                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT);
-                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT_SERVER);
-                        if (Build.VERSION.SDK_INT >= 33)
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HAP_CLIENT);
-                        if (Build.VERSION.SDK_INT >= 28)
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HID_DEVICE);
-                        if (Build.VERSION.SDK_INT >= 33)
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.LE_AUDIO);
-                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.SAP);
 
                         // workaround for check connection status of bounded devices
                         // working also for BLE devices
@@ -431,10 +415,12 @@ class BluetoothConnectedDevicesDetector {
                                     if ((o != null) && o) {
                                         deviceDetected = true;
                                         PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(****) device connected=" + boundedDevice.getName());
+                                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(****) address=" + boundedDevice.getAddress());
                                         final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
                                         List<BluetoothDevice> detectedDevices = new ArrayList<>();
                                         detectedDevices.add(boundedDevice);
                                         addConnectedDevices(detectedDevices, connectedDevicesToAdd);
+                                        final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                                         BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
                                         BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                     }
@@ -445,6 +431,23 @@ class BluetoothConnectedDevicesDetector {
                             if (_callEventHandler && deviceDetected)
                                 callEventHandler();
                         }
+
+                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
+                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
+                        //if (Build.VERSION.SDK_INT < 29)
+                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+                        if (Build.VERSION.SDK_INT >= 29)
+                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEARING_AID);
+                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT);
+                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT_SERVER);
+                        if (Build.VERSION.SDK_INT >= 33)
+                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HAP_CLIENT);
+                        if (Build.VERSION.SDK_INT >= 28)
+                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HID_DEVICE);
+                        if (Build.VERSION.SDK_INT >= 33)
+                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.LE_AUDIO);
+                        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.SAP);
+
                     }
                 }
 

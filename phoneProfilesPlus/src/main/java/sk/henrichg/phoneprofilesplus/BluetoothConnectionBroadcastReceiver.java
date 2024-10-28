@@ -76,7 +76,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.address=" + _device.getAddress());
             }
 
+            //noinspection ExtractMethodRecommender
             final Context appContext = context.getApplicationContext();
+
             final WeakReference<BluetoothDevice> deviceWeakRef = new WeakReference<>(_device);
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
@@ -96,6 +98,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
+                            /*
                             List<BluetoothDeviceData> connectedDevices = getConnectedDevices(appContext);
 
                             try {
@@ -118,6 +121,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             saveConnectedDevices(connectedDevices, appContext);
+                            */
 
                             //callEventHandler(appContext);
                             BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
