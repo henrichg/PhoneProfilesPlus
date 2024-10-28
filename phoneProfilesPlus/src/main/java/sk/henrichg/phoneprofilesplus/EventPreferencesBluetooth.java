@@ -610,7 +610,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         }
                         PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "eventsHandler.bluetoothPassed="+eventsHandler.bluetoothPassed);
                     } else {
-//                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "*** bluetooth not enabled ***");
+                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "*** bluetooth not enabled ***");
                         if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                             (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                             // not use scanner data
