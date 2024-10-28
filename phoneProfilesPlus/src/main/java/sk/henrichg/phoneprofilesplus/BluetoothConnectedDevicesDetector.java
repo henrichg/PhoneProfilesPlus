@@ -404,7 +404,7 @@ class BluetoothConnectedDevicesDetector {
 
                         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
                         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
-                        if (Build.VERSION.SDK_INT < 29)
+                        //if (Build.VERSION.SDK_INT < 29)
                             bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
                         if (Build.VERSION.SDK_INT >= 29)
                             bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEARING_AID);
