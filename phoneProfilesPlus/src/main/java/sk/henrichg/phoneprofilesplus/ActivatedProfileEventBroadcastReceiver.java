@@ -77,6 +77,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
 
                                         if (oldRunning != _event._eventPreferencesActivatedProfile._running) {
                                             // running was changed, call EventsHandler
+//                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "SENSOR_TYPE_ACTIVATED_PROFILE");
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE});
                                         }

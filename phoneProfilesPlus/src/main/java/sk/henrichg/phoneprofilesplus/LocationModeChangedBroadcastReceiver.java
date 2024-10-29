@@ -36,7 +36,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
 
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationModeChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationModeChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_RADIO_SWITCH");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
 
@@ -56,7 +56,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
                         GlobalUtils.sleep(10000);
 
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.LocationCallback", "SENSOR_TYPE_LOCATION_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_LOCATION_MODE});
 

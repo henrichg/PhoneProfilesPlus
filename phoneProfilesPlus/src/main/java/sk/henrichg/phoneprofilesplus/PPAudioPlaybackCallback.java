@@ -32,7 +32,7 @@ public class PPAudioPlaybackCallback extends  AudioManager.AudioPlaybackCallback
                 //Log.e("PPAudioPlaybackCallback.onPlaybackConfigChanged", "played");
 
                 // start events handler
-//                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MusicBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_IDLE_MODE");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPAudioPlaybackCallback.onPlaybackConfigChanged", "SENSOR_TYPE_MUSIC");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
 
@@ -41,6 +41,7 @@ public class PPAudioPlaybackCallback extends  AudioManager.AudioPlaybackCallback
         }
         // Set is media playing to false since no active playback found
         //Log.e("PPAudioPlaybackCallback.onPlaybackConfigChanged", "not played");
+//        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPAudioPlaybackCallback.onPlaybackConfigChanged", "SENSOR_TYPE_MUSIC");
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
     }

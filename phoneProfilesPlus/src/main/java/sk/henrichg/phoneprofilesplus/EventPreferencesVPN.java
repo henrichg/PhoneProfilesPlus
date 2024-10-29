@@ -213,10 +213,12 @@ class EventPreferencesVPN extends EventPreferences {
                 else
                     eventsHandler.vpnPassed = false;
 
-                if (eventsHandler.vpnPassed)
-                    setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
-                else
-                    setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                if (!eventsHandler.notAllowedVPN) {
+                    if (eventsHandler.vpnPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
             }
             else
                 eventsHandler.notAllowedVPN = true;

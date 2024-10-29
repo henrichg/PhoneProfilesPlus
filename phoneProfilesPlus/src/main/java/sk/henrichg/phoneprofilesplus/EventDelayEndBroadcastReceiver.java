@@ -29,7 +29,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                         new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_END},
                         PPExecutors.SENSOR_NAME_SENSOR_TYPE_EVENT_DELAY_END, 0);
             } else {
-                //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] EventDelayEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_END (2)");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] EventDelayEndBroadcastReceiver.doWork", "SENSOR_TYPE_EVENT_DELAY_END");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_END});
             }

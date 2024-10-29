@@ -878,7 +878,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                     DatabaseHandler.getInstance(eventsHandler.context).updateCallScreeningStartTime(_event);
                 }
 
-                if (!eventsHandler.notAllowedCall) {
+                if (!eventsHandler.notAllowedCallScreening) {
                     if (eventsHandler.callScreeningPassed)
                         setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
