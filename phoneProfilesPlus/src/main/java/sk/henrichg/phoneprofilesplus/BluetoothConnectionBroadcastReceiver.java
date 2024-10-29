@@ -214,7 +214,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-
+    /*
     @SuppressLint("MissingPermission")
     private static void addConnectedDevice(List<BluetoothDeviceData> connectedDevices, BluetoothDevice device)
     {
@@ -253,7 +253,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
         //}
     }
-
+    */
+    /*
     @SuppressLint("MissingPermission")
     private static void removeConnectedDevice(List<BluetoothDeviceData> connectedDevices, BluetoothDevice device)
     {
@@ -296,6 +297,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             connectedDevices.remove(deviceToRemove);
         //}
     }
+    */
 
     static void clearConnectedDevices(List<BluetoothDeviceData> connectedDevices/*Context context, boolean onlyOld*/)
     {
@@ -324,7 +326,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         //}
     }
 
-
+    /*
     @SuppressLint("MissingPermission")
     private static void changeDeviceName(List<BluetoothDeviceData> connectedDevices, BluetoothDevice device, String deviceName)
     {
@@ -359,6 +361,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
         //}
     }
+    */
 
     static void addConnectedDeviceData(List<BluetoothDeviceData> connectedDevices, List<BluetoothDeviceData> connectedDevicesToAdd)
     {
