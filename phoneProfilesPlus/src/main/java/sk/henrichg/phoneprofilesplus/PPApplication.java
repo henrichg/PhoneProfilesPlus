@@ -2184,7 +2184,7 @@ public class PPApplication extends Application
             if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && isSemAvailable(appContext)) {
                 // OneUi is since Android SDK 28
                 String systemProperty = SystemProperties.get("ro.build.version.oneui");
-                Log.e("PPApplication.isGalaxyROM611", "systemProperty="+systemProperty);
+                //Log.e("PPApplication.isGalaxyROM611", "systemProperty="+systemProperty);
                 boolean isOneUI611 = false;
                 try {
                     isOneUI611 = (Integer.parseInt(systemProperty) >= 60101);

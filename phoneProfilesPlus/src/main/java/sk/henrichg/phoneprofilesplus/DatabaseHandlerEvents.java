@@ -5614,8 +5614,7 @@ class DatabaseHandlerEvents {
                 instance.startRunningCommand();
 
                 // Select All Query
-                //noinspection Annotator
-                String selectQuery = "";
+                String selectQuery = null;
                 if (mobileCell != Integer.MAX_VALUE)
                     selectQuery = "SELECT COUNT(*) " +
                             " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
@@ -5626,7 +5625,7 @@ class DatabaseHandlerEvents {
                             " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
                             " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + mobileCellLong;
 
-                if (!selectQuery.isEmpty()) {
+                if (selectQuery != null) {
                     //SQLiteDatabase db = this.getReadableDatabase();
                     SQLiteDatabase db = instance.getMyWritableDatabase();
 

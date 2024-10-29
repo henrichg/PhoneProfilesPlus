@@ -95,7 +95,7 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
-        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "onChange(boolean selfChange)");
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "onChange(boolean selfChange)");
         onChange(selfChange, null);
     }
 
