@@ -186,11 +186,11 @@
 <!--        <item name="contentInsetEnd">0dp</item>-->
     </style>
     <style name="PPActionBarThemeLight" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlHighlight">@color/rippleRectangeleItemBackgroundColor</item>
+        <item name="colorControlHighlight">@color/rippleOvalItemBackgroundColor</item>
 <!--        <item name="android:background">@drawable/actionbar_item_background</item>-->
     </style>
     <style name="PPActionBarThemeDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorControlHighlight">@color/rippleRectangeleItemBackgroundColor</item>
+        <item name="colorControlHighlight">@color/rippleOvalItemBackgroundColor</item>
 <!--        <item name="android:actionOverflowButtonStyle">?selectableItemBackgroundBorderless</item>-->
 <!--        <item name="android:background">@drawable/actionbar_item_background</item>-->
     </style>
