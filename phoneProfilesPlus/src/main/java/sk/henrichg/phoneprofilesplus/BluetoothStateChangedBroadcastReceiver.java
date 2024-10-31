@@ -25,7 +25,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
         if ((action != null) && action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
             // BluetoothStateChangedBroadcastReceiver
 
-            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "action="+action);
+//            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "action="+action);
 
             final int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
@@ -46,7 +46,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
-                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_OFF");
+//                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_OFF");
 
                             List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                             BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
@@ -54,7 +54,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                         }
                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_ON");
+//                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_ON");
 
                             //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
                             //{
@@ -89,7 +89,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // start events handler
 
 //                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_RADIO_SWITCH,SENSOR_TYPE_BLUETOOTH_STATE,SENSOR_TYPE_BLUETOOTH_CONNECTION");
-                                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "call of handle events");
+//                                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "call of handle events");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(new int[]{
                                         EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
