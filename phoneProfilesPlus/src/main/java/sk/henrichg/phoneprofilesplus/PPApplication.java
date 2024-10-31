@@ -67,10 +67,10 @@ public class PPApplication extends Application
     //// Extender versions
     // for this version will be displayed upgrade notification
     //  required must by <= latest
-    static final int VERSION_CODE_EXTENDER_REQUIRED = 900;
-    static final String VERSION_NAME_EXTENDER_REQUIRED = "8.1.6";
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 910;
+    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_EXTENDER_LATEST = 905;
+    static final int VERSION_CODE_EXTENDER_LATEST = 910;
     //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.7";
     ///////
 
@@ -80,7 +80,7 @@ public class PPApplication extends Application
     static final int VERSION_CODE_PPPPS_REQUIRED = 65;
     static final String VERSION_NAME_PPPPS_REQUIRED = "1.0.8";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_PPPPS_LATEST = 70;
+    static final int VERSION_CODE_PPPPS_LATEST = 80;
     //static final String VERSION_NAME_PPPPS_LATEST = "1.0.9";
     ///////
     static final int VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE = 71;
