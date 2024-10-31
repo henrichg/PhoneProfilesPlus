@@ -151,8 +151,8 @@ dependencies {
     /// for DashClock support
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
 
-    // for GUI click help (Editor menu / Help with GUI items
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.14.0' //'1.13.3'
+    // for GUI click help (Editor menu / Help with GUI items)
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.15.0'//1.14.0' //'1.13.3'
 
     /// for DontKillMyApp dialog
     // required for dev.doubledot.doki.views.DokiContentView -
