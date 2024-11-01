@@ -13,8 +13,6 @@ import com.android.dx.Local;
 import com.android.dx.MethodId;
 import com.android.dx.TypeId;
 
-import java.io.IOException;
-
 public final class WifiTetheringCallbackMaker {
 
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
@@ -46,7 +44,8 @@ public final class WifiTetheringCallbackMaker {
             invokeOnStartTetheringCallback(typeIdOfLTetheringCallback, typeIdOfOnStartTetheringCallback);
             try {
                 this.tetheringCallback = this.dexMaker.generateAndLoad(WifiTetheringCallbackMaker.class.getClassLoader(), this.context.getCodeCacheDir()).loadClass("TetheringCallback");
-            } catch (IOException | ClassNotFoundException e2) {
+            //} catch (IOException | ClassNotFoundException e2) {
+            } catch (Exception e2) {
                 Log.e("WifiTetheringCallbackMaker.WifiTetheringCallbackMaker", Log.getStackTraceString(e2));
             }
         }

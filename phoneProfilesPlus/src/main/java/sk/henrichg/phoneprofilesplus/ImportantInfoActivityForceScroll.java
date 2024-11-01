@@ -29,7 +29,6 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.activity_important_info_force_scroll_toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,6 +52,7 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
                 .commitAllowingStateLoss();
 
         Button closeButton = findViewById(R.id.activity_important_info_force_scroll_close);
+        //noinspection DataFlowIssue
         closeButton.setOnClickListener(v -> finish());
 
     }

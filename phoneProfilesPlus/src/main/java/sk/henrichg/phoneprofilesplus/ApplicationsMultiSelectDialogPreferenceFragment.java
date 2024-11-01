@@ -53,6 +53,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         FastScrollRecyclerView listView = view.findViewById(R.id.applications_multiselect_pref_dlg_listview);
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -67,6 +68,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
         */
 
         final Button unselectAllButton = view.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
             refreshListView(false);

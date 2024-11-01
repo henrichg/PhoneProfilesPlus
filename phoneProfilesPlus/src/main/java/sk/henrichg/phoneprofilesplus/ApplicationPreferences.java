@@ -51,6 +51,10 @@ class ApplicationPreferences {
     static volatile boolean prefEventRoamingDataInSIMSlot1;
     static volatile boolean prefEventRoamingNetworkInSIMSlot2;
     static volatile boolean prefEventRoamingDataInSIMSlot2;
+    //static volatile boolean prefEventCallScreeningActive;
+    static volatile long prefEventCallScreeningTime;
+    static volatile String prefEventCallScreeningPhoneNumber;
+    static volatile int prefEventCallScreeningCallDirection;
 
     static volatile boolean applicationEventNeverAskForEnableRun;
     static volatile boolean applicationNeverAskForGrantRoot;
@@ -2030,43 +2034,51 @@ class ApplicationPreferences {
     }
     */
 
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetIconBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetIconBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetIconBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetIconBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetOneRowBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetOneRowBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetOneRowBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetOneRowBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetListBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetListBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationSamsungEdgeBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationSamsungEdgeBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationSamsungEdgeBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationSamsungEdgeBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
@@ -2192,13 +2204,15 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetOneRowProfileListBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetOneRowProfileListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetOneRowProfileListBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetOneRowProfileListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 

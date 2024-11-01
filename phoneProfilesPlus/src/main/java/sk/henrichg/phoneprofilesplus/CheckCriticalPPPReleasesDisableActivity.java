@@ -92,6 +92,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
                     true, true,
                     false, false,
                     false,
+                    false,
                     this
             );
 

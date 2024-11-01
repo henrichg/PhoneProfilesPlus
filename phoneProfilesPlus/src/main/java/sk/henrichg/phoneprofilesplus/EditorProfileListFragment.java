@@ -168,6 +168,7 @@ public class EditorProfileListFragment extends Fragment
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_profiles_activated_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
+            //noinspection DataFlowIssue
             profilePrefIndicatorImageView.setVisibility(GONE);
 
         activeProfileName = view.findViewById(R.id.editor_profiles_activated_profile_name);
@@ -176,6 +177,7 @@ public class EditorProfileListFragment extends Fragment
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_profiles_list);
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -186,8 +188,9 @@ public class EditorProfileListFragment extends Fragment
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
             if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
                     getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
-                final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
-                        .getLayoutTransition();
+                ViewGroup profilesListFragment = view.findViewById(R.id.layout_profiles_list_fragment);
+                //noinspection DataFlowIssue
+                final LayoutTransition layoutTransition = profilesListFragment.getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
                 listView.addOnScrollListener(new HidingRecyclerViewScrollListener(1) {
@@ -819,6 +822,7 @@ public class EditorProfileListFragment extends Fragment
                 true, true,
                 false, false,
                 true,
+                false,
                 getActivity()
         );
 
@@ -890,6 +894,7 @@ public class EditorProfileListFragment extends Fragment
                     true, true,
                     false, false,
                     true,
+                    false,
                     getActivity()
             );
 
@@ -1322,9 +1327,6 @@ public class EditorProfileListFragment extends Fragment
         if (getActivity() == null)
             return;
 
-        //if (((EditorActivity)getActivity()).targetHelpsSequenceStarted)
-        //    return;
-
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
             return;
@@ -1353,18 +1355,10 @@ public class EditorProfileListFragment extends Fragment
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = false;
                 ApplicationPreferences.prefEditorFragmentStartTargetHelpsDefaultProfile = false;
 
-                //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int titleTextColor = R.color.tabTargetHelpTitleTextColor;
                 int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-                //boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -1378,6 +1372,9 @@ public class EditorProfileListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1395,6 +1392,9 @@ public class EditorProfileListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1412,6 +1412,9 @@ public class EditorProfileListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1428,6 +1431,9 @@ public class EditorProfileListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1446,6 +1452,9 @@ public class EditorProfileListFragment extends Fragment
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1457,14 +1466,17 @@ public class EditorProfileListFragment extends Fragment
                     }
                 }
 
+                for (TapTarget target : targets) {
+                    target.setDrawBehindStatusBar(true);
+                    target.setDrawBehindNavigationBar(true);
+                }
+
                 sequence.targets(targets)
                         .listener(new TapTargetSequence.Listener() {
                             // This listener will tell us when interesting(tm) events happen in regards
                             // to the sequence
                             @Override
                             public void onSequenceFinish() {
-                                //targetHelpsSequenceStarted = false;
-
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                                 editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
                                 editor.apply();
@@ -1480,7 +1492,6 @@ public class EditorProfileListFragment extends Fragment
 
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
-                                //targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
 
                                 editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
@@ -1491,7 +1502,6 @@ public class EditorProfileListFragment extends Fragment
                                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
                                 editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                                //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                                 editor.apply();
 
@@ -1503,12 +1513,10 @@ public class EditorProfileListFragment extends Fragment
                                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                                //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
                             }
                         });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, false);
@@ -1551,13 +1559,10 @@ public class EditorProfileListFragment extends Fragment
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
-            //targetHelpsSequenceStarted = false;
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
             editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
-            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
             editor.apply();
             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
-            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
         }
     }
 
@@ -1721,8 +1726,10 @@ public class EditorProfileListFragment extends Fragment
                         //if (activatedProfileHeader.isVisibleToUser()) {
                         TextView redText = fragment.activatedProfileHeader.findViewById(R.id.editor_profiles_activated_profile_red_text);
                         if (redTextVisible)
+                            //noinspection DataFlowIssue
                             redText.setVisibility(View.VISIBLE);
                         else
+                            //noinspection DataFlowIssue
                             redText.setVisibility(GONE);
                         //}
                     } catch (Exception e) {

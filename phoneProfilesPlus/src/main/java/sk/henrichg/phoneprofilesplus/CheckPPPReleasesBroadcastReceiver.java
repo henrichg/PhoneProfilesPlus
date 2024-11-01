@@ -233,7 +233,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         String nTitle = appContext.getString(R.string.ppp_app_name) + StringConstants.STR_COLON_WITH_SPACE + appContext.getString(R.string.menu_check_github_releases);
         String nText = appContext.getString(R.string.check_ppp_releases_notification);
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification

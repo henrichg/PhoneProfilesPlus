@@ -94,6 +94,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.duration_pref_dlg_edit_duration_tooltip));
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
@@ -203,11 +204,13 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
         mSeekBarSeconds.setOnSeekBarChangeListener(this);
 
+        //noinspection DataFlowIssue
         mTextViewRange.setText(sMin + " - " + sMax);
 
         startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
+        //noinspection DataFlowIssue
         stopButton.setOnClickListener(v -> {
             updateInterface(0, true);
             //PPApplication.phoneProfilesService.mobileCellsScanner.durationForAutoRegistration = 0;
@@ -293,12 +296,15 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             mSeekBarMinutes.setEnabled(!started);
             mSeekBarSeconds.setEnabled(!started);
             mCellsName.setEnabled(!started);
+            /*
             if (started) {
-                ColorStateList colors = mCellsName.getHintTextColors();
-                mCellsName.setTextColor(colors);
+                //ColorStateList colors = mCellsName.getHintTextColors();
+                //mCellsName.setTextColor(colors);
+                mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.buttonDisabledBorderColor));
             } else
                 //mCellsName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
                 mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.accent_color));
+            */
 
             String value = mCellsName.getText().toString();
             boolean enable = !value.isEmpty();

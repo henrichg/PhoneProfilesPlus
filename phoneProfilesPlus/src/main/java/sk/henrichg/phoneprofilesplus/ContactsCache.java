@@ -11,8 +11,8 @@ class ContactsCache {
 
     private final ArrayList<Contact> contactList;
     //private final ArrayList<Contact> contactListWithoutNumber;
-    private boolean cached;
-    private boolean caching;
+    private volatile boolean cached;
+    private volatile boolean caching;
     //private boolean cancelled;
 
     ContactsCache()
@@ -91,6 +91,7 @@ class ContactsCache {
 
                         if ((name != null) && (rawAccountType != null)) {
                             //if (hasPhone > 0) {
+                            try {
                                 projection = new String[]{
                                         ContactsContract.CommonDataKinds.Phone._ID,
                                         ContactsContract.CommonDataKinds.Phone.NUMBER//,
@@ -98,7 +99,7 @@ class ContactsCache {
                                 };
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,
                                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId + " AND " +
-                                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "=\"" + rawAccountType + "\"",
+                                                ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "='" + rawAccountType + "'",
                                         null, null);
                                 if (phones != null) {
                                     if (phones.getCount() > 0) {
@@ -127,8 +128,7 @@ class ContactsCache {
                                             _contactList.add(aContact);
                                             //}
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         Contact aContact = new Contact();
                                         aContact.contactId = contactId;
                                         aContact.name = name;
@@ -146,6 +146,14 @@ class ContactsCache {
                                     }
                                     phones.close();
                                 }
+                            } catch (Exception ignored) {
+                                // example of crash when contact is from WhatsApp:
+                                // android.database.sqlite.SQLiteException: unrecognized token: ""whatsapp" (code 1 SQLITE_ERROR): ,
+                                // while compiling: SELECT _id, data1 FROM view_data data LEFT OUTER JOIN (SELECT 0 as STAT_DATA_ID,0 as x_times_used, 0 as x_last_time_used,
+                                // 0 as times_used, 0 as last_time_used where 0) as data_usage_stat ON (STAT_DATA_ID=data._id) WHERE (1 AND mimetype_id=5 AND (1=1)) AND
+                                // (contact_id=135200 AND account_type_and_data_set="whatsapp e")
+                            }
+
                             //}
                             /*else {
                                 Contact aContact = new Contact();
@@ -337,6 +345,57 @@ class ContactsCache {
                                 }
                             }
 
+                            if (!event._eventPreferencesCallScreening._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesCallScreening._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                                String _split = splits[0];
+                                String[] _splits2 = _split.split("#");
+                                boolean oldData = false;
+                                try {
+                                    //noinspection unused
+                                    long l = Long.parseLong(_splits2[0]);
+                                    oldData = true;
+                                } catch (Exception ignored) {
+                                }
+                                if (oldData) {
+                                    StringBuilder newContacts = new StringBuilder();
+                                    for (String split : splits) {
+                                        String[] splits2 = split.split("#");
+                                        if (splits2.length != 3) {
+                                            // old data
+                                            splits2 = split.split("#");
+                                            if (splits2.length != 2)
+                                                continue;
+                                            contactId = Long.parseLong(splits2[0]);
+                                            long phoneId = Long.parseLong(splits2[1]);
+
+                                            boolean found = false;
+                                            for (Contact contact : contactList) {
+                                                if (phoneId != 0) {
+                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
+                                                        found = true;
+                                                } else {
+                                                    if (contact.contactId == contactId)
+                                                        found = true;
+                                                }
+                                                if (found) {
+                                                    if (newContacts.length() > 0)
+                                                        newContacts.append("|");
+                                                    newContacts
+                                                            .append(contact.name)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.phoneNumber)
+                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
+                                                            .append(contact.accountType);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    event._eventPreferencesCallScreening._contacts = newContacts.toString();
+                                    dataChanged = true;
+                                }
+                            }
+
                             if (dataChanged)
                                 DatabaseHandler.getInstance(appContext).updateEvent(event);
                         }
@@ -411,8 +470,8 @@ class ContactsCache {
             contactListWithoutNumber.addAll(_contactList);
         }
         else {*/
-            contactList.clear();
-            contactList.addAll(_contactList);
+        contactList.clear();
+        contactList.addAll(_contactList);
         //}
     }
 
@@ -558,5 +617,28 @@ class ContactsCache {
         //int sensorType = -1;
     }
     */
+
+    static String getAccountName(String accountType, Context context) {
+        String accountName = "";
+
+        if (accountType.equals("com.osp.app.signin"))
+            accountName = context.getString(R.string.contact_account_type_samsung_account);
+        if (accountType.equals("com.google"))
+            accountName = context.getString(R.string.contact_account_type_google_account);
+        if (accountType.equals("vnd.sec.contact.sim"))
+            accountName = context.getString(R.string.contact_account_type_sim_card);
+        if (accountType.equals("vnd.sec.contact.sim2"))
+            accountName = context.getString(R.string.contact_account_type_sim_card);
+        if (accountType.equals("vnd.sec.contact.phone"))
+            accountName = context.getString(R.string.contact_account_type_phone_application);
+        if (accountType.equals("org.thoughtcrime.securesms"))
+            accountName = "Signal";
+        if (accountType.equals("com.google.android.apps.tachyon"))
+            accountName = "Duo";
+        if (accountType.equals("com.whatsapp"))
+            accountName = "WhatsApp";
+
+        return accountName;
+    }
 
 }

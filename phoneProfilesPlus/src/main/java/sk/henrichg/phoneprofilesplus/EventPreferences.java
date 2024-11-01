@@ -106,9 +106,13 @@ abstract class EventPreferences {
         }
     }
 
-    String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
+    static String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, boolean inEventList, Context context) {
         if (!disabled) {
-            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            int labelColor;
+            if (inEventList)
+                labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            else
+                labelColor = ContextCompat.getColor(context, R.color.preferenceSummaryValueColor);
             String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
             return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else

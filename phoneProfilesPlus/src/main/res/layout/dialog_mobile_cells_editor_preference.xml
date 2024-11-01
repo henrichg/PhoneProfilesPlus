@@ -22,7 +22,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <RelativeLayout
             android:id="@+id/mobile_cells_pref_dlg_reLa1_simDefault"
@@ -35,15 +35,16 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_addCellButton_simDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_connectedCell_simDefault"
@@ -66,15 +67,16 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_addCellButton_sim1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_connectedCell_sim1"
@@ -98,15 +100,16 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_addCellButton_sim2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_connectedCell_sim2"
@@ -130,16 +133,17 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_locationSystemSettingsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_settings"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/location_settings_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_locationEnableStatus"
@@ -159,7 +163,10 @@
             android:text="@string/mobile_cells_pref_dlg_rescan_button"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:minHeight="40dp"
+            android:minHeight="@dimen/button_min_height"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
+            android:minWidth="@dimen/button_min_width"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"
@@ -173,43 +180,46 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_helpIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_help"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:background="@drawable/editor_ripple_item_right_button"
                 android:contentDescription="@string/help_button_tooltip"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_changeSelection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                 android:src="@drawable/ic_button_select"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/mobile_cells_pref_dlg_select_button_tooltip"/>
 
 <!--
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_rename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                 android:src="@drawable/ic_button_edit"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"/>
 -->
 
@@ -222,7 +232,10 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_toStartOf="@id/mobile_cells_pref_dlg_changeSelection"
-                android:minHeight="40dp"
+                android:minHeight="@dimen/button_min_height"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
+                android:minWidth="@dimen/button_min_width"
                 android:text="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
@@ -242,9 +255,9 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
-                android:paddingStart="10dp"
+                android:paddingStart="@dimen/layout_as_button_padding"
+                android:paddingEnd="@dimen/layout_as_button_padding"
                 android:paddingTop="5dp"
-                android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 android:textColor="@color/accent_color"
                 android:textStyle="bold"
@@ -260,7 +273,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
     </LinearLayout>
 
@@ -279,15 +292,16 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mobile_cells_pref_dlg_sort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
                 android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_button_sort"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/mobile_cells_pref_dlg_button_tooltip"/>
 
             <TextView
@@ -298,10 +312,10 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:paddingStart="@dimen/layout_as_button_padding"
+                android:paddingEnd="@dimen/layout_as_button_padding"
+                android:minHeight="@dimen/filter_button_min_height"
+                android:gravity="center_vertical"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
@@ -311,6 +325,8 @@
                 android:background="@drawable/pp_button_background_selector"
                 android:clickable="true"
                 android:focusable="true"/>
+<!--            android:paddingTop="@dimen/filter_button_top_bottom_padding"-->
+<!--            android:paddingBottom="@dimen/filter_button_top_bottom_padding"-->
 
 
         </RelativeLayout>
@@ -322,7 +338,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <RelativeLayout
             android:id="@+id/mobile_cells_pref_dlg_empty"
@@ -340,15 +356,14 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:contentDescription=""
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/empty_list_content_description" />
 
         </RelativeLayout>
 
         <ListView
             android:id="@+id/mobile_cells_pref_dlg_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingStart="10dp"

@@ -160,7 +160,7 @@ public class TimeDialogPreference extends DialogPreference {
         }
 
         public static final Creator<TimeDialogPreference.SavedState> CREATOR =
-                new Creator<TimeDialogPreference.SavedState>() {
+                new Creator<>() {
                     public TimeDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new TimeDialogPreference.SavedState(in);

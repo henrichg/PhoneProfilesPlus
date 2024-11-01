@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
@@ -41,7 +42,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     LinearLayout settingsLinearLayout;
-    LinearLayout progressLinearLayout;
+    //LinearLayout progressLinearLayout;
 
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
@@ -54,6 +55,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
+        //if (Build.VERSION.SDK_INT >= 34)
+        //    EdgeToEdge.enable(this);
+        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_profile_events_preferences);
@@ -61,15 +66,17 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+        //noinspection DataFlowIssue
+        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
+        toolbar.setTitle(getString(R.string.profile_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
-        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
+        //progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, PPApplication.EDIT_MODE_UNDEFINED);
@@ -84,15 +91,17 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
                         Toast.LENGTH_SHORT);
-                PPApplication.blockContactContentObserver = false;
-                ContactsContentObserver.enqueueContactsContentObserverWorker();
+//                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
+//                PPApplication.blockContactContentObserver = false;
+//                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
         }
 
         if (savedInstanceState == null) {
-            PPApplication.blockContactContentObserver = true;
+//            PPApplication.blockContactContentObserver = true;
+//            PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
 
             startPreferencesActivityAsyncTask =
                     new StartPreferencesActivityAsyncTask(this, newProfileMode, predefinedProfileIndex);
@@ -118,16 +127,18 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        PPApplication.blockContactContentObserver = false;
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onPause", "PPApplication.blockContactContentObserver=false");
+//        PPApplication.blockContactContentObserver = false;
+//    }
 
     @Override
     public void onResume() {
         super.onResume();
-        PPApplication.blockContactContentObserver = true;
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
+//        PPApplication.blockContactContentObserver = true;
 
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)
@@ -223,6 +234,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
@@ -305,8 +317,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        PPApplication.blockContactContentObserver = false;
-        ContactsContentObserver.enqueueContactsContentObserverWorker();
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
+//        PPApplication.blockContactContentObserver = false;
+//        ContactsContentObserver.enqueueContactsContentObserverWorker();
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
@@ -463,13 +476,22 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._applicationLocationScanInterval,
                         origProfile._applicationOrientationScanInterval,
                         origProfile._applicationPeriodicScanInterval,
-                        origProfile._phoneCallsContacts,
-                        origProfile._phoneCallsContactGroups,
-                        origProfile._phoneCallsContactListType,
-                        origProfile._phoneCallsBlockCalls,
-                        origProfile._phoneCallsSendSMS,
-                        origProfile._phoneCallsSMSText,
-                        origProfile._deviceWallpaperLockScreen
+                        origProfile._sendSMSContacts,
+                        origProfile._sendSMSContactGroups,
+                        //origProfile._sendSMSContactListType,
+                        origProfile._sendSMSSendSMS,
+                        origProfile._sendSMSSMSText,
+                        origProfile._deviceWallpaperLockScreen,
+                        origProfile._clearNotificationEnabled,
+                        origProfile._clearNotificationApplications,
+                        origProfile._clearNotificationCheckContacts,
+                        origProfile._clearNotificationContacts,
+                        origProfile._clearNotificationContactGroups,
+                        origProfile._clearNotificationCheckText,
+                        origProfile._clearNotificationText,
+                        origProfile._screenNightLight,
+                        origProfile._screenNightLightPrefs,
+                        origProfile._screenOnOff
                 );
                 showSaveMenu = true;
             }
@@ -678,12 +700,21 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationLocationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, ""));
             profile._applicationOrientationScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, ""));
             profile._applicationPeriodicScanInterval = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, ""));
-            profile._phoneCallsContacts = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
-            profile._phoneCallsContactGroups = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
-            profile._phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, ""));
-            profile._phoneCallsBlockCalls = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
-            profile._phoneCallsSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
-            profile._phoneCallsSMSText = preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
+            profile._sendSMSContacts = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACTS, "");
+            profile._sendSMSContactGroups = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
+            //profile._phoneCallsContactListType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, ""));
+            profile._sendSMSSendSMS = preferences.getBoolean(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+            profile._sendSMSSMSText = preferences.getString(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT, "");
+            profile._clearNotificationEnabled = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+            profile._clearNotificationApplications = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, "");
+            profile._clearNotificationCheckContacts = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, false);
+            profile._clearNotificationContacts = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
+            profile._clearNotificationContactGroups = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+            profile._clearNotificationCheckText = preferences.getBoolean(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, false);
+            profile._clearNotificationText = preferences.getString(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
+            profile._screenNightLight = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, ""));
+            profile._screenNightLightPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, ""));
+            profile._screenOnOff = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF, ""));
         }
 
         return profile;
@@ -739,8 +770,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
 
     private void showTargetHelps() {
-        //String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
-
         if (!showSaveMenu)
             return;
 
@@ -752,96 +781,47 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
-            //TypedValue tv = new TypedValue();
-            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-
-            //final Display display = getWindowManager().getDefaultDisplay();
-
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !applicationTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
-            /*if (ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps) {
-
-                editor = ApplicationPreferences.getEditor(getApplicationContext());
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.apply();
-                ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = false;
-
-                List<TapTarget> targets = new ArrayList<>();
-                int id = 1;
-                //try {
-                //    targets.add(
-                //            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
-                //                    .outerCircleColor(outerCircleColor)
-                //                    .targetCircleColor(targetCircleColor)
-                //                    .textColor(textColor)
-                //                    .tintTarget(true)
-                //                    .drawShadow(true)
-                //                    .id(id)
-                //    );
-                //    ++id;
-                //} catch (Exception ignored) {} // not in action bar?
-                try {
-                    targets.add(
-                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(id)
-                    );
-                    ++id;
-                } catch (Exception e) {
-                    //PPApplicationStatic.recordException(e);
-                }
-
-                sequence.targets(targets);
+            List<TapTarget> targets = new ArrayList<>();
+            int id = 1;
+            try {
+                //noinspection DataFlowIssue
+                targets.add(
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
+                                .outerCircleColor(outerCircleColor)
+                                .targetCircleColor(targetCircleColor)
+                                .titleTextColor(titleTextColor)
+                                .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .dimColor(R.color.tabTargetHelpDimColor)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
+                                .textTypeface(Typeface.DEFAULT_BOLD)
+                                .tintTarget(true)
+                                .drawShadow(true)
+                                .id(id)
+                );
+                ++id;
+            } catch (Exception e) {
+                //PPApplicationStatic.recordException(e);
             }
-            else {*/
-                List<TapTarget> targets = new ArrayList<>();
-                int id = 1;
-                try {
-                    targets.add(
-                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .titleTextColor(titleTextColor)
-                                    .descriptionTextColor(descriptionTextColor)
-                                    .textTypeface(Typeface.DEFAULT_BOLD)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(id)
-                    );
-                    ++id;
-                } catch (Exception e) {
-                    //PPApplicationStatic.recordException(e);
-                }
 
-                sequence.targets(targets);
-            //}
+            for (TapTarget target : targets) {
+                target.setDrawBehindStatusBar(true);
+                target.setDrawBehindNavigationBar(true);
+            }
+
+            sequence.targets(targets);
+
             sequence.listener(new TapTargetSequence.Listener() {
                 // This listener will tell us when interesting(tm) events happen in regards
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    //targetHelpsSequenceStarted = false;
-
-                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    //editor.apply();
-                    //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -851,17 +831,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
-
-            //editor = ApplicationPreferences.getEditor(getApplicationContext());
-            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }

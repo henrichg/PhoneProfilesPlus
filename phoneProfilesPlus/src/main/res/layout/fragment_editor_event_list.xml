@@ -15,8 +15,8 @@
         android:orientation="vertical"
         android:layout_marginTop="-6dp"
         android:layout_marginBottom="5dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_alignParentTop="true" >
@@ -103,7 +103,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
             android:text="@string/event_preferences_red_texts_in_header"
-            android:textColor="@color/error_color"
+            android:textColor="@color/errorColor"
             android:visibility="gone"/>
 
     </LinearLayout>
@@ -122,7 +122,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="top"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editor_events_list"
@@ -149,8 +149,7 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:contentDescription=""
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/empty_list_content_description" />
 
         </RelativeLayout>
 
@@ -188,7 +187,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/dialog_divider"
+            android:background="@color/dialogDividerColor"
             android:layout_gravity="bottom" />
 
     </FrameLayout>
@@ -199,7 +198,8 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:theme="?attr/bottomToolbarTheme"
-        app:popupTheme="?attr/toolbarPopupMenu" >
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetStart="0dp">
 
         <LinearLayout
             android:id="@+id/editor_events_list_bottom_bar_order_root"
@@ -214,10 +214,10 @@
                 android:id="@+id/editor_events_list_bottom_bar_order_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
-                android:layout_marginStart="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="17dp"
                 android:ellipsize="end"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
                 android:textColor="@color/activityNormalTextColor"
@@ -229,13 +229,18 @@
                 android:id="@+id/editor_events_list_bottom_bar_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginStart="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="@dimen/spinner_padding_horizontal"
+                android:paddingEnd="@dimen/spinner_padding_horizontal"
+                android:paddingTop="@dimen/spinner_padding_vertical"
+                android:paddingBottom="@dimen/spinner_padding_vertical"
                 android:entries="@array/emptyArray"
                 android:clickable="true"
                 android:focusable="true"
                 android:popupElevation="0dp"
-                style="@style/Base.Widget.AppCompat.Spinner" />
+                android:background="@drawable/spinner_background"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         </LinearLayout>
 

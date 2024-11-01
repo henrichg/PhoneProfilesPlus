@@ -87,7 +87,7 @@ class EventPreferencesWifi extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_wifi_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context));
@@ -126,7 +126,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (index != -1) {
                     _value.append(context.getString(R.string.event_preferences_wifi_connection_type));
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
                 }
 
                 _value.append(context.getString(R.string.pref_event_wifi_ssid)).append(StringConstants.STR_COLON_WITH_SPACE);
@@ -161,7 +161,7 @@ class EventPreferencesWifi extends EventPreferences {
                     }
                 }
                 selectedSSIDs = value.toString();
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedSSIDs, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedSSIDs, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -193,7 +193,7 @@ class EventPreferencesWifi extends EventPreferences {
                         if ((connectionType == 1) || (connectionType == 3)) {
                             summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
-                            titleColor = ContextCompat.getColor(context, R.color.error_color);
+                            titleColor = ContextCompat.getColor(context, R.color.errorColor);
                         } else {
                             summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
@@ -251,7 +251,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
-                    titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
@@ -348,7 +348,7 @@ class EventPreferencesWifi extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
 
-        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, context).preferenceAllowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_ENABLED);
@@ -362,8 +362,8 @@ class EventPreferencesWifi extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesWifi tmp = new EventPreferencesWifi(this._event, this._enabled, this._SSID, this._connectionType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -455,7 +455,7 @@ class EventPreferencesWifi extends EventPreferences {
         if (_enabled) {
 
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
 
@@ -20,7 +21,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -32,6 +33,8 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nfc_read_tag);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        Toolbar toolbar = findViewById(R.id.read_nfc_tag__toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -94,7 +97,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
                     //Context appContext= appContextWeakRef.get();
 
                     //if (appContext != null) {
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity,onCreate", "sensorType=SENSOR_TYPE_NFC_TAG");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadForegroundActivity.onCreate", "SENSOR_TYPE_NFC_TAG");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventNFCParameters(_tagData, _time);
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
@@ -135,6 +138,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
         */
 
         Button button = findViewById(R.id.read_nfc_tag_button);
+        //noinspection DataFlowIssue
         button.setOnClickListener(view -> finish());
 
     }
@@ -173,6 +177,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
+    /** @noinspection NullableProblems*/
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);

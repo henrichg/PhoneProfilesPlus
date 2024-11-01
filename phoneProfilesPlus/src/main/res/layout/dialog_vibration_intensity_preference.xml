@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/volumePrefDialogRoot"
+    android:id="@+id/vibrationIntensityPrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <View
-        android:id="@+id/volumePrefDialogNoChange_titleBarDivider"
+        android:id="@+id/vibrationIntensityPrefDialogNoChange_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,16 +26,19 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/volumePrefDialogNoChange"
+            android:id="@+id/vibrationIntensityPrefDialogNoChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:textSize="16sp"
             android:text="@string/volume_pref_dialog_no_change_chb"
             android:layout_marginBottom="15dp"
-            app:switchPadding="@dimen/switch_padding" />
+            app:switchPadding="@dimen/switch_padding"
+            app:trackTint="@color/switch_track_color"
+            app:thumbTint="@color/switch_thumb_color" />
 
         <TextView
-            android:id="@+id/volumePrefDialogValueText"
+            android:id="@+id/vibrationIntensityPrefDialogValueText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -44,10 +47,16 @@
             tools:ignore="HardcodedText" />
 
         <SeekBar
-            android:id="@+id/volumePrefDialogSeekbar"
+            android:id="@+id/vibrationIntensityPrefDialogSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:splitTrack="false" />
+            android:minHeight="3dp"
+            android:maxHeight="3dp"
+            android:progressDrawable="@drawable/seek_bar_drawable"
+            android:thumb="@drawable/seek_bar_thumb"
+            android:thumbTint="@color/accent_color"
+            android:splitTrack="false"
+            />
 
     </LinearLayout>
 </LinearLayout>

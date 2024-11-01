@@ -47,6 +47,7 @@ public class DurationDialogPreferenceFragment extends PreferenceDialogFragmentCo
         TextView mTextViewRange = view.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = view.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.duration_pref_dlg_edit_duration_tooltip));
 
         mSeekBarHours = view.findViewById(R.id.duration_pref_dlg_hours);
@@ -126,6 +127,7 @@ public class DurationDialogPreferenceFragment extends PreferenceDialogFragmentCo
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
         mSeekBarSeconds.setOnSeekBarChangeListener(this);
 
+        //noinspection DataFlowIssue
         mTextViewRange.setText(sMin + " - " + sMax);
 
     }

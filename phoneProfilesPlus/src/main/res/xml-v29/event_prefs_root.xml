@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:key="rootScreen"
+    app:title="@string/title_activity_event_preferences" >
+
+    <PreferenceCategory
+        app:title="@string/event_preferences_category_eventIdentification"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="eventEnabled"
+            app:title="@string/event_preferences_eventEnabled"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+        <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
+            app:key="eventName"
+            app:summary="@string/event_preferences_eventName"
+            app:title="@string/event_preferences_eventName"
+            android:selectAllOnFocus="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventUsePriorityAppSettings"
+            app:title="@string/phone_profiles_pref_eventUsePriorityAppSettings"
+            app:summary="@string/phone_profiles_pref_eventUsePriorityAppSettings_summary"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/event_preferences_priority"
+            app:summary="@string/array_event_pref_priorityMedium"
+            app:key="eventPriority"
+            app:defaultValue="0"
+            app:ppEntries="@array/eventPriorityArray"
+            app:ppEntryValues="@array/eventPriorityValues"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/event_preferences_category_startOfEvent"
+        app:key="eventStartCategory"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
+            app:defaultValue="0"
+            app:key="eventProfileStart"
+            app:title="@string/event_preferences_eventProfileStart"
+            app:addNoActivateItem="1"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="eventForceRun"
+            app:title="@string/event_preferences_ForceRun"
+            app:defaultValue="false"
+            app:summary="@string/event_preferences_ForceRun_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="eventNoPauseByManualActivation"
+            app:title="@string/event_preferences_noPauseByManualActivation"
+            app:defaultValue="false"
+            app:summary="@string/event_preferences_noPauseByManualActivation_summary"
+            app:dependency="eventForceRun"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_startOfEventOthers"
+            app:key="eventStartOthersCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsStartOfEventsOthers" />
+        
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/event_preferences_category_endOfEvent"
+        app:key="eventEndCategory"
+        app:layout="@layout/mp_preference_category">
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
+            app:defaultValue="-999"
+            app:key="eventProfileEnd"
+            app:title="@string/event_preferences_eventProfileEnd"
+            app:addNoActivateItem="1"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/event_preferences_atEndDo"
+            app:summary="@string/array_pref_atEndDo_restartEvents"
+            app:key="eventAtEndDo"
+            app:defaultValue="2"
+            app:ppEntries="@array/eventAtEndDoArray"
+            app:ppEntryValues="@array/eventAtEndDoValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+<!--        <sk.henrichg.phoneprofilesplus.PPListPreference-->
+<!--            app:title="@string/event_preferences_atEndHowUndo"-->
+<!--            app:summary="@string/array_pref_atEndDo_undoByEventsStart"-->
+<!--            app:key="eventAtEndHowUndo"-->
+<!--            app:defaultValue="0"-->
+<!--            app:ppEntries="@array/eventAtEndHowUndoArray"-->
+<!--            app:ppEntryValues="@array/eventAtEndHowUndoValues"-->
+<!--            app:layout="@layout/mp_preference_material_widget" />-->
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_startOfEventOthers"
+            app:key="eventEndOthersCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsEndOfEventsOthers" />
+        
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/event_preferences_category_sensors"
+        app:key="eventEventsCategory"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreference
+            app:key="eventSensorsInfo"
+            app:title="@string/event_preferences_sensorsInfo_title"
+            app:summary="@string/info_preference_click_here"
+            app:infoText="@string/event_preferences_sensorsInfo_summary"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="eventHideNotUsedSensors"
+            app:title="@string/event_preferences_hideNotUsedSensors"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventTimeParameters"
+            app:summary="@string/event_preference_sensor_time_summary"
+            app:key="eventTimeCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsTimeParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventPeriodicParameters"
+            app:summary="@string/event_preference_sensor_periodic_summary"
+            app:key="eventPeriodicCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsPeriodicParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventCalendarParameters"
+            app:summary="@string/event_preference_sensor_calendar_summary"
+            app:key="eventCalendarCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCalendarParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventBatteryParameters"
+            app:summary="@string/event_preference_sensor_battery_summary"
+            app:key="eventBatteryCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsBatteryParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventCallParameters"
+            app:summary="@string/event_preference_sensor_call_summary"
+            app:key="eventCallCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventCallScreeningParameters"
+            app:summary="@string/event_preference_sensor_call_screening_summary"
+            app:key="eventCallScreeningCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallScreeningParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventSMSParameters"
+            app:summary="@string/event_preference_sensor_sms_summary"
+            app:key="eventSMSCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsSMSParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventRoamingParameters"
+            app:summary="@string/event_preference_sensor_roaming_summary"
+            app:key="eventRoamingCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsRoamingParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventRadioSwitchCategoryRoot"
+            app:title="@string/event_preferences_category_eventRadioSwitchParameters"
+            app:summary="@string/event_preference_sensor_radioSwitch_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsRadioSwitchParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventVPNParameters"
+            app:summary="@string/event_preference_sensor_vpn_summary"
+            app:key="eventVPNCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsVPNParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventLocationCategoryRoot"
+            app:title="@string/event_preferences_category_eventLocationsParameters"
+            app:summary="@string/event_preference_sensor_location_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsLocationParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventWifiCategoryRoot"
+            app:title="@string/event_preferences_category_eventWifiParameters"
+            app:summary="@string/event_preference_sensor_wifi_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsWifiParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventBluetoothCategoryRoot"
+            app:title="@string/event_preferences_category_eventBluetoothParameters"
+            app:summary="@string/event_preference_sensor_bluetooth_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsBluetoothParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventMobileCellsCategoryRoot"
+            app:title="@string/event_preferences_category_eventMobileCellsParameters"
+            app:summary="@string/event_preference_sensor_mobile_cells_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsMobileCellsParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventPeripheralParameters"
+            app:summary="@string/event_preference_sensor_accessories_summary"
+            app:key="eventAccessoriesCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsAccessoriesParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventScreenParameters"
+            app:summary="@string/event_preference_sensor_screen_summary"
+            app:key="eventScreenCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsScreenParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventBrightnessParameters"
+            app:summary="@string/event_preference_brightness_summary"
+            app:key="eventBrightnessCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsBrightnessParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventNotificationCategoryRoot"
+            app:title="@string/event_preferences_category_eventNotificationsParameters"
+            app:summary="@string/event_preference_sensor_notification_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsNotificationsParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventSoundProfileCategoryRoot"
+            app:title="@string/event_preferences_category_eventSoundProfileParameters"
+            app:summary="@string/event_preference_sensor_soundProfile_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsSoundProfileParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventVolumesCategoryRoot"
+            app:title="@string/event_preferences_category_eventVolumesParameters"
+            app:summary="@string/event_preference_sensor_volumes_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsVolumesParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventApplicationCategoryRoot"
+            app:title="@string/event_preferences_category_eventApplicationsParameters"
+            app:summary="@string/event_preference_sensor_application_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsApplicationsParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventOrientationCategoryRoot"
+            app:title="@string/event_preferences_category_eventOrientationParameters"
+            app:summary="@string/event_preference_sensor_orientation_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsOrientationParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventNFCCategoryRoot"
+            app:title="@string/event_preferences_category_eventNFCParameters"
+            app:summary="@string/event_preference_sensor_nfc_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsNFCParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventAlarmClockParameters"
+            app:summary="@string/event_preference_sensor_alarm_clock_summary"
+            app:key="eventAlarmClockCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsAlarmClockParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventMusicParameters"
+            app:summary="@string/event_preference_sensor_music_summary"
+            app:key="eventMusicCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsMusicParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/event_preferences_category_eventDeviceBootParameters"
+            app:summary="@string/event_preference_sensor_device_boot_summary"
+            app:key="eventDeviceBootCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsDeviceBootParameters" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="eventActivatedProfileCategoryRoot"
+            app:title="@string/event_preferences_category_eventActivatedProfileParameters"
+            app:summary="@string/event_preference_sensor_activated_profile_summary"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivatedProfileParameters" />
+
+    </PreferenceCategory>
+    
+</androidx.preference.PreferenceScreen>

@@ -56,28 +56,31 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         vpnApplicationSpinner = layout.findViewById(R.id.vpnPrefDialogVPNApplication);
 
-        HighlightedSpinnerAdapter vpnApplicationSpinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter vpnApplicationSpinnerAdapter = new PPSpinnerAdapter(
                 (ProfilesPrefsActivity) preference._context,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.vpnApplicationArray));
-        vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);
         vpnApplicationSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//        vpnApplicationSpinner.setBackgroundTintList(ContextCompat.getColorStateList(preference._context/*getBaseContext()*/, R.color.spinner_control_color));
 
         enableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNEnableRB);
+        //noinspection DataFlowIssue
         enableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = enableVPNRBtn.isChecked();
             //preference.callChangeListener(preference.getSValue());
         });
         disableVPNRBtn = layout.findViewById(R.id.vpnPrefDialogEnableVPNDisableRB);
+        //noinspection DataFlowIssue
         disableVPNRBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preference.enableVPN = enableVPNRBtn.isChecked();
             //preference.callChangeListener(preference.getSValue());
         });
 
         profileNameEditText = layout.findViewById(R.id.vpnPrefDialogProfileName);
-        profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        profileNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
         profileNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -96,7 +99,8 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         });
 
         tunnelNameEditText = layout.findViewById(R.id.vpnPrefDialogTunnelName);
-        tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        tunnelNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
         tunnelNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -134,6 +138,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         tunnelNameLabel = layout.findViewById(R.id.vpnPrefDialogTunnelNameLabel);
 
         doNotSwith = layout.findViewById(R.id.vpnPrefDialogNotSetWhenIsInState);
+        //noinspection DataFlowIssue
         doNotSwith.setChecked(preference.doNotSetWhenIsinState);
         doNotSwith.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             preference.doNotSetWhenIsinState = doNotSwith.isChecked();
@@ -212,7 +217,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
+        ((PPSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
 
         String[] vpnApplicationValues = preference._context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);

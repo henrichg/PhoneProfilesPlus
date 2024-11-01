@@ -14,7 +14,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/duration_pref_dlg_scroll_view"
@@ -54,18 +54,19 @@
             android:id="@+id/duration_pref_dlg_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
-            android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+            android:paddingStart="@dimen/layout_as_button_padding"
+            android:paddingEnd="@dimen/layout_as_button_padding"
+            android:minHeight="@dimen/button_min_height"
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:textColor="@color/accent_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"
             android:clickable="true"
             android:focusable="true"/>
+<!--        android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
+<!--        android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
 
         <LinearLayout
             android:id="@+id/duration_pref_dlg_liLa2"
@@ -87,7 +88,13 @@
                 android:layout_height="30dp"
                 android:max="24"
                 android:rotation="180"
-                android:splitTrack="false"/>
+                android:minHeight="3dp"
+                android:maxHeight="3dp"
+                android:progressDrawable="@drawable/seek_bar_drawable"
+                android:thumb="@drawable/seek_bar_thumb"
+                android:thumbTint="@color/accent_color"
+                android:splitTrack="false"
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/duration_pref_dlg_liLa3"
@@ -108,7 +115,13 @@
                 android:layout_height="30dp"
                 android:max="59"
                 android:rotation="180"
-                android:splitTrack="false"/>
+                android:minHeight="3dp"
+                android:maxHeight="3dp"
+                android:progressDrawable="@drawable/seek_bar_drawable"
+                android:thumb="@drawable/seek_bar_thumb"
+                android:thumbTint="@color/accent_color"
+                android:splitTrack="false"
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/duration_pref_dlg_liLa4"
@@ -130,10 +143,26 @@
                 android:layout_height="30dp"
                 android:max="59"
                 android:rotation="180"
-                android:splitTrack="false"/>
+                android:minHeight="3dp"
+                android:maxHeight="3dp"
+                android:progressDrawable="@drawable/seek_bar_drawable"
+                android:thumb="@drawable/seek_bar_thumb"
+                android:thumbTint="@color/accent_color"
+                android:splitTrack="false"
+                />
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/mobile_cells_registration_cells_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:text="@string/mobile_cells_pref_dlg_cell_name_hint"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/mobile_cells_registration_cells_name"
@@ -141,22 +170,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="8dp"
+        android:paddingStart="@dimen/layout_as_button_padding"
+        android:paddingEnd="@dimen/layout_as_button_padding"
+        android:minHeight="@dimen/button_min_height"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        android:hint="@string/mobile_cells_registration_cell_name_hint"
+        android:hint="@string/mobile_cells_registration_cell_name_not_set"
         android:textColor="@color/accent_color"
         android:textStyle="bold"
         android:textColorHint="@color/accent_color"
         android:background="@drawable/pp_button_background_selector"
         android:textSize="16sp" />
+<!--            android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
+<!--            android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
 
     <TextView
         android:id="@+id/mobile_cells_registration_status"
@@ -183,7 +213,10 @@
         android:text="@string/mobile_cells_registration_pref_dlg_stop_button"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:minHeight="40dp"
+        android:minHeight="@dimen/button_min_height"
+        android:paddingStart="@dimen/button_padding"
+        android:paddingEnd="@dimen/button_padding"
+        android:minWidth="@dimen/button_min_width"
         android:textColor="@color/action_button_text_color"
         android:textStyle="bold"
         android:background="@drawable/pp_button_background_selector"
@@ -201,6 +234,6 @@
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
         android:layout_marginBottom="3dp"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

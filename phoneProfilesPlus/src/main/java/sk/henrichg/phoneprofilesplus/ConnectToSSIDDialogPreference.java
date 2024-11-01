@@ -154,7 +154,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         }
 
         public static final Creator<ConnectToSSIDDialogPreference.SavedState> CREATOR =
-                new Creator<ConnectToSSIDDialogPreference.SavedState>() {
+                new Creator<>() {
                     public ConnectToSSIDDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ConnectToSSIDDialogPreference.SavedState(in);

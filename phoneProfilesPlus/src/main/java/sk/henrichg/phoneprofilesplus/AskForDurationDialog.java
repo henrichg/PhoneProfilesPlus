@@ -88,8 +88,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         @SuppressLint("InflateParams")
         View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
         TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+        //noinspection DataFlowIssue
         titleText.setText(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
         TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
+        //noinspection DataFlowIssue
         subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
         dialogBuilder.setCustomTitle(titleView);
 
@@ -104,8 +106,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             public void onClick(DialogInterface dialog, int which) {
                 updateEndsTimer = null;
 
+                //noinspection DataFlowIssue
                 int hours = mSeekBarHours.getProgress();
+                //noinspection DataFlowIssue
                 int minutes = mSeekBarMinutes.getProgress();
+                //noinspection DataFlowIssue
                 int seconds = mSeekBarSeconds.getProgress();
 
                 int iValue = (hours * 3600 + minutes * 60 + seconds);
@@ -200,11 +205,13 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 //        });
 
         afterDurationLabel = layout.findViewById(R.id.ask_for_duration_dlg_after_do_label);
+        //noinspection DataFlowIssue
         afterDurationLabel.setText(activity.getString(R.string.profile_preferences_afterDurationDo) + ":");
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, activity.getString(R.string.duration_pref_dlg_edit_duration_tooltip));
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
@@ -223,14 +230,17 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //minutes = (mMax % 3600) / 60;
         //seconds = mMax % 60;
         final String sMax = StringFormatUtils.getDurationString(mMax);
+        //noinspection DataFlowIssue
         mSeekBarHours.setMax(hours);
         //if (hours == 0)
         //    mSeekBarMinutes.setMax(minutes);
         //else
+            //noinspection DataFlowIssue
             mSeekBarMinutes.setMax(59);
         //if ((hours == 0) && (minutes == 0))
         //    mSeekBarSeconds.setMax(seconds);
         //else
+            //noinspection DataFlowIssue
             mSeekBarSeconds.setMax(59);
         final String sMin = StringFormatUtils.getDurationString(mMin);
         int iValue = mProfile._duration;
@@ -242,6 +252,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarSeconds.setProgress(seconds);
 
         mValue.setText(StringFormatUtils.getDurationString(iValue));
+        //noinspection DataFlowIssue
         mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
 
         mValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
@@ -283,16 +294,18 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
         mSeekBarSeconds.setOnSeekBarChangeListener(this);
 
+        //noinspection DataFlowIssue
         mTextViewRange.setText(sMin + " - " + sMax);
 
         afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
-        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                 mActivity,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
+        //noinspection DataFlowIssue
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+//        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.spinner_control_color));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
             case "dark":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -316,7 +329,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
                 mAfterDo = Integer.parseInt(afterDoValues[position]);
 
                 updateProfileView();
@@ -350,12 +363,15 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         profileView = layout.findViewById(R.id.ask_for_duration_dlg_profile);
         profileLabel = layout.findViewById(R.id.ask_for_duration_dlg_profile_label);
+        //noinspection DataFlowIssue
         profileLabel.setText(mActivity.getString(R.string.profile_preferences_afterDurationProfile) + ":");
         profileName = layout.findViewById(R.id.ask_for_duration_dlg_profile_name);
         profileIcon = layout.findViewById(R.id.ask_for_duration_dlg_profile_icon);
         profileIndicators = layout.findViewById(R.id.ask_for_duration_dlg_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
+            //noinspection DataFlowIssue
             profileIndicators.setVisibility(View.GONE);
+        //noinspection DataFlowIssue
         profileView.setOnClickListener(v -> {
             AskForDurationActivateProfileDialog dialog = new AskForDurationActivateProfileDialog(mActivity, AskForDurationDialog.this);
             if (!mActivity.isFinishing())

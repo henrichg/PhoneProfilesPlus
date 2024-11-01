@@ -350,10 +350,15 @@ class BitmapManipulator {
         if (bitmap == null)
             return null;
 
-        Bitmap colorBitmap = Bitmap.createBitmap(bitmap.getWidth(),
-                                                        bitmap.getHeight(),
-                                                        bitmap.getConfig());
-                                                        //Config.ARGB_8888);
+        Bitmap colorBitmap;
+        if (bitmap.getConfig() == null)
+            colorBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                                                            bitmap.getHeight(),
+                                                            Bitmap.Config.ARGB_8888);
+        else
+            colorBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                    bitmap.getHeight(),
+                    bitmap.getConfig());
 
         Canvas canvas = new Canvas(colorBitmap);
         Paint paint = new Paint();
@@ -429,9 +434,16 @@ class BitmapManipulator {
         if (bitmap == null)
             return null;
 
-        Bitmap monochromeBitmap = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(),
-                bitmap.getConfig());
+        Bitmap monochromeBitmap;
+        if (bitmap.getConfig() == null)
+            monochromeBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                    bitmap.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+        else
+            monochromeBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                    bitmap.getHeight(),
+                    bitmap.getConfig());
+
         Canvas canvas = new Canvas(monochromeBitmap);
         Paint paint = new Paint();
         ColorMatrix colorMatrix = new ColorMatrix();
@@ -454,9 +466,16 @@ class BitmapManipulator {
                 0, 0, 1f, 0, brightness,
                 0, 0, 0, 1f, 0};
 
-        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(),
-                bitmap.getConfig());
+        Bitmap newBitmap;
+        if (bitmap.getConfig() == null)
+            newBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                    bitmap.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+        else
+            newBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                    bitmap.getHeight(),
+                    bitmap.getConfig());
+
         Canvas canvas = new Canvas(newBitmap);
         Paint paint = new Paint();
         ColorMatrix colorMatrix = new ColorMatrix();

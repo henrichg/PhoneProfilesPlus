@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,8 +30,10 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
     private ContactsMultiSelectDialogPreference preference;
 
     // Layout widgets.
+    FastScrollRecyclerView listView;
     private LinearLayout linlaProgress;
     private LinearLayout linlaData;
+    RelativeLayout emptyList;
     private TextView contactsFilter;
     private ContactsFilterDialog mContactsFilterDialog;
 
@@ -58,8 +61,13 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         linlaProgress = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
         linlaData = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_data);
 
+        linlaProgress = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
+        linlaData = view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_data);
+        emptyList = view.findViewById(R.id.contacts_multiselect_pref_dlg_empty);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        FastScrollRecyclerView listView = view.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        listView = view.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -67,6 +75,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
 //            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
             preference.value="";
@@ -74,7 +83,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 for (Contact contact : preference.contactList)
                     contact.checked = false;
             }
-            refreshListView(false);
+            refreshListView(true);
         });
 
         if (Permissions.grantContactsDialogPermissions(prefContext)) {
@@ -96,7 +105,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             handler.postDelayed(() -> {
                 ContactsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
                 if (fragment != null)
-                    fragment.refreshListView(true);
+                    fragment.refreshListView(false);
             }, 200);
         }
 
@@ -105,9 +114,11 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             //if (preference.value.isEmpty())
             //    cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
             //else
+            //noinspection DataFlowIssue
             contactsFilter.setText(R.string.contacts_filter_dialog_item_show_all);
         }
         else
+            //noinspection DataFlowIssue
             contactsFilter.setText(preference.contactsFilter.displayName);
         contactsFilter.addTextChangedListener(new TextWatcher() {
             @Override
@@ -158,22 +169,22 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         contactsFilter.setText(filter.displayName);
     }
 
-    void refreshListView(final boolean notForUnselect) {
-        asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
+    void refreshListView(final boolean forUnselect) {
+        asyncTask = new RefreshListViewAsyncTask(forUnselect, preference, this, prefContext);
         asyncTask.execute();
     }
 
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
-        final boolean notForUnselect;
+        final boolean forUnselect;
         private final WeakReference<ContactsMultiSelectDialogPreference> preferenceWeakRef;
         private final WeakReference<ContactsMultiSelectDialogPreferenceFragment> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
-        public RefreshListViewAsyncTask(final boolean notForUnselect,
+        public RefreshListViewAsyncTask(final boolean forUnselect,
                                         ContactsMultiSelectDialogPreference preference,
                                         ContactsMultiSelectDialogPreferenceFragment fragment,
                                         Context prefContext) {
-            this.notForUnselect = notForUnselect;
+            this.forUnselect = forUnselect;
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.fragmentWeakRef = new WeakReference<>(fragment);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -185,7 +196,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
 
             ContactsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
-                if (notForUnselect) {
+                if (!forUnselect) {
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
@@ -202,19 +213,24 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 //    PhoneProfilesService.getContactsCache().getContactList(prefContext);
 
                 // must be first
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null) {
                     // cache not created, create it
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
                     if (!contactsCache.getCaching()) {
                         // caching not performed
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getList()");
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                             PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
@@ -223,24 +239,30 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                             contactList.clear();
                     } else {
                         // wait for cache end
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
                         while (contactsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
                 }
                 //must be seconds, this ads groups into contacts
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactGroupsCache()");
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                 if (contactGroupsCache == null) {
                     // cache not created, create it
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                     PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
                     if (!contactGroupsCache.getCaching()) {
                         // caching not performed
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getList()");
                         List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
                         if (contactGroupList == null) {
                             // not cached, cache it
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                             PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                             /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                             while (contactGroupsCache.getCaching())
@@ -248,6 +270,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                         }
                     } else {
                         // wait for cache end
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
                         while (contactGroupsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
@@ -267,15 +290,23 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             ContactsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             ContactsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
+            final boolean _forUnselect = forUnselect;
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //if (!EditorActivity.getContactsCache().cached)
-                //    EditorActivity.getContactsCache().clearCache(false);
-
                 fragment.linlaProgress.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    if (notForUnselect) {
+                    fragment.linlaData.setVisibility(View.VISIBLE);
+
+                    if (!_forUnselect) {
+                        if (preference.contactList.isEmpty()) {
+                            fragment.listView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.listView.setVisibility(View.VISIBLE);
+                        }
+
                         fragment.linlaData.setVisibility(View.VISIBLE);
                     }
 

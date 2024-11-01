@@ -60,6 +60,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
                 true, true,
                 false, false,
                 true,
+                false,
                 this
         );
 

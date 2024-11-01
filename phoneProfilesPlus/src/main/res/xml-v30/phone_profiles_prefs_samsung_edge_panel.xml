@@ -18,18 +18,20 @@
         app:ppEntries="@array/samsungEdgeVerticalPositionArray"
         app:ppEntryValues="@array/samsungEdgeVerticalPositionValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationSamsungEdgeHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationSamsungEdgeChangeColorsByNightMode"
         app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
         app:summary="@string/phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <PreferenceCategory
         app:key="applicationSamsungEdgeBackgroundCategory"
@@ -39,12 +41,12 @@
         <sk.henrichg.phoneprofilesplus.ColorChooserPreference
             app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOff"
             app:key="applicationSamsungEdgeBackgroundColorNightModeOff"
-            app:defaultValue="#fffcfcfc"
+            app:defaultValue="@color/widgetLightBackgroundColor"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.ColorChooserPreference
             app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOn"
             app:key="applicationSamsungEdgeBackgroundColorNightModeOn"
-            app:defaultValue="#ff1b1b1b"
+            app:defaultValue="@color/widgetDarkBackgroundColor"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
@@ -54,11 +56,12 @@
             app:defaultValue="25"
             app:showLighting="false"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationSamsungEdgeBackgroundType"
             app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             app:summary="0%%"
@@ -109,11 +112,12 @@
             app:defaultValue="100"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationSamsungEdgeCustomIconLightness"
             app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
 

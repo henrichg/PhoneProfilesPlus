@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
+import java.util.List;
+
 public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -22,6 +24,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if ((action != null) && action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
             // BluetoothStateChangedBroadcastReceiver
+
+//            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "action="+action);
 
             final int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
@@ -42,30 +46,37 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
-                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
+//                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_OFF");
+
+                            List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
                             // this also clears shared preferences
-                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+                        }
+                        if (bluetoothState == BluetoothAdapter.STATE_ON) {
+//                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_ON");
+
+                            //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
+                            //{
+                            //if (ApplicationPreferences.prefEventBluetoothScanRequest) {
+                            //    BluetoothScanWorker.startCLScan(appContext);
+                            //} else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
+                            //    BluetoothScanWorker.startLEScan(appContext);
+                            //} else
+                            if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                                    ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
+                                // refresh bounded devices
+                                BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                            }
+                            //}
+
+//                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call od Detector");
+                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
                         }
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
                             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
-
-                                if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                    //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
-                                    //{
-                                    //if (ApplicationPreferences.prefEventBluetoothScanRequest) {
-                                    //    BluetoothScanWorker.startCLScan(appContext);
-                                    //} else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
-                                    //    BluetoothScanWorker.startLEScan(appContext);
-                                    //} else
-                                    if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
-                                            ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
-                                        // refresh bounded devices
-                                        BluetoothScanWorker.fillBoundedDevicesList(appContext);
-                                    }
-                                    //}
-                                }
 
                                 if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothLEScanRequest ||
@@ -77,7 +88,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                     // start events handler
 
-//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_RADIO_SWITCH,SENSOR_TYPE_BLUETOOTH_STATE,SENSOR_TYPE_BLUETOOTH_CONNECTION");
+//                                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "call of handle events");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(new int[]{
                                         EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
@@ -85,7 +97,6 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION});
 
                                 PPApplicationStatic.restartBluetoothScanner(appContext);
-
                             }
                         }
 

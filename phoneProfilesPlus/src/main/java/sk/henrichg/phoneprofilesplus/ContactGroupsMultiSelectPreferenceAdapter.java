@@ -30,19 +30,13 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             return preference.contactGroupList.size();
         else
             return 0;
-        /*ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null)
-            return contactGroupsCache.getLength();
-        else
-            return 0;*/
     }
 
     public Object getItem(int position) {
-        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-        if (contactGroupsCache != null)
-            return contactGroupsCache.getContactGroup(position);
+        if (preference.contactGroupList != null)
+            return preference.contactGroupList.get(position);
         else
-           return null;
+            return null;
     }
 
     public long getItemId(int position) {
@@ -73,6 +67,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             convertView.setTag(new ContactGroupViewHolder(textViewDisplayName, checkBox, textViewAccountType));
 
             // If CheckBox is toggled, update the ContactGroup it is tagged with.
+            //noinspection DataFlowIssue
             checkBox.setOnClickListener(v -> {
                 CheckBox cb = (CheckBox) v;
                 ContactGroup contactGroup = (ContactGroup) cb.getTag();
@@ -103,6 +98,13 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             checkBox.setTag(contactGroup);
 
             // Display ContactGroup data
+            if (contactGroup.count == 0)
+                //noinspection DataFlowIssue
+                textViewDisplayName.setTextColor(convertView.getContext().getColor(R.color.preferenceSummaryTextColor));
+            else
+                //noinspection DataFlowIssue
+                textViewDisplayName.setTextColor(convertView.getContext().getColor(R.color.activityNormalTextColor));
+            //noinspection DataFlowIssue
             textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
             boolean found = false;
@@ -110,35 +112,26 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             PackageManager packageManager = context.getPackageManager();
             try {
                 ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, PackageManager.MATCH_ALL);
-                if (applicationInfo != null) {
+                //if (applicationInfo != null) {
                     accountType = packageManager.getApplicationLabel(applicationInfo).toString();
                     found = true;
-                }
+                //}
             } catch (Exception ignored) {}
             if (!found) {
-                if (contactGroup.accountType != null) {
-                    if (contactGroup.accountType.equals("com.osp.app.signin"))
-                        accountType = context.getString(R.string.contact_account_type_samsung_account);
-                    if (contactGroup.accountType.equals("com.google"))
-                        accountType = context.getString(R.string.contact_account_type_google_account);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
-                        accountType = context.getString(R.string.contact_account_type_sim_card);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.sim2"))
-                        accountType = context.getString(R.string.contact_account_type_sim_card);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
-                        accountType = context.getString(R.string.contact_account_type_phone_application);
-                    if (contactGroup.accountType.equals("org.thoughtcrime.securesms"))
-                        accountType = "Signal";
-                    if (contactGroup.accountType.equals("com.google.android.apps.tachyon"))
-                        accountType = "Duo";
-                    if (contactGroup.accountType.equals("com.whatsapp"))
-                        accountType = "WhatsApp";
-                }
+                if (contactGroup.accountType != null)
+                    accountType = ContactsCache.getAccountName(contactGroup.accountType, context);
             }
             if (accountType.isEmpty())
                 accountType = contactGroup.accountType;
             contactGroup.displayedAccountType = accountType;
 
+            if (contactGroup.count == 0)
+                //noinspection DataFlowIssue
+                textViewAccountType.setTextColor(convertView.getContext().getColor(R.color.preferenceSummaryTextColor));
+            else
+                //noinspection DataFlowIssue
+                textViewAccountType.setTextColor(convertView.getContext().getColor(R.color.activityNormalTextColor));
+            //noinspection DataFlowIssue
             textViewAccountType.setText(contactGroup.displayedAccountType);
 
             checkBox.setChecked(contactGroup.checked);

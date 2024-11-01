@@ -48,6 +48,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
                             preference.isImageResourceID,
                             preference.useCustomColor,
                             preference.customColor*/);
+        //noinspection DataFlowIssue
         gridView.setAdapter(adapter);
         gridView.setSelection(ProfileStatic.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
@@ -61,6 +62,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
 
         colorChooserButton = view.findViewById(R.id.profileicon_pref_dlg_change_color);
+        //noinspection DataFlowIssue
         colorChooserButton.setOnClickListener(v -> showCustomColorChooser());
         colorChooserButton.setEnabled(preference.isImageResourceID);
 
@@ -73,6 +75,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         });*/
 
         final Button customIconButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon);
+        //noinspection DataFlowIssue
         customIconButton.setOnClickListener(v -> {
             if (Permissions.grantCustomProfileIconPermissions(prefContext)) {
                 preference.startGallery();
@@ -81,6 +84,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         });
 
         final AppCompatImageButton helpButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpButton, getString(R.string.menu_help));
         helpButton.setOnClickListener(v -> {
 

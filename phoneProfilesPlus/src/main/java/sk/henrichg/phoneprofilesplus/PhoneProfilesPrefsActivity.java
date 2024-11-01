@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 
 /** @noinspection ExtractMethodRecommender*/
@@ -63,6 +64,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
+        //if (Build.VERSION.SDK_INT >= 34)
+        //    EdgeToEdge.enable(this);
+        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_preferences);
@@ -86,8 +91,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         boolean hideBackArrow = intent.getBooleanExtra(EXTRA_HIDE_BACK_ARROW, false);
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+        //noinspection DataFlowIssue
         toolbar.setVisibility(View.GONE);
         toolbar = findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+        //noinspection DataFlowIssue
         toolbar.setVisibility(View.VISIBLE);
         if (hideBackArrow)
             toolbar.setContentInsetsAbsolute(GlobalGUIRoutines.dpToPx(15), 0);
@@ -245,6 +252,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                     break;
                 case PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
+                    break;
+                case PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsCallScreening();
                     break;
             }
             //preferenceFragment.scrollToSet = true;
@@ -407,7 +417,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ImportantInfoNotification.showInfoNotification(appContext);
                 ProfileListNotification.drawNotification(true, appContext);
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                //DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
                 DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);

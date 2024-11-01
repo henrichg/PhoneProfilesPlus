@@ -4,11 +4,12 @@
     app:key="eventApplicationCategory"
     app:title="@string/event_preferences_category_eventApplicationsParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventApplicationEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="eventApplicationApplications"

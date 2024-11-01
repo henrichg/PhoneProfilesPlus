@@ -74,7 +74,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_activated_profile_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_activated_profile), addPassStatus, DatabaseHandler.ETYPE_ACTIVATED_PROFILE, context));
@@ -84,18 +84,20 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 _value.append(context.getString(R.string.event_preferences_activated_profile_startProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
                 String profileName = dataWrapper.getProfileName(this._startProfile);
+                //noinspection ReplaceNullCheck
                 if (profileName != null) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 profileName = dataWrapper.getProfileName(this._endProfile);
+                //noinspection ReplaceNullCheck
                 if (profileName != null) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profileName, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 dataWrapper.invalidateDataWrapper();
             }
@@ -178,8 +180,8 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesActivatedProfile tmp = new EventPreferencesActivatedProfile(this._event, this._enabled, this._startProfile, this._endProfile);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -251,7 +253,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if ((this._startProfile != 0) && (this._endProfile != 0)) {
                     eventsHandler.activatedProfilePassed =
                             this._running == RUNNING_RUNNING;

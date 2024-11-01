@@ -232,7 +232,7 @@ public class LocationGeofencePreference extends DialogPreference {
         }
 
         public static final Creator<LocationGeofencePreference.SavedState> CREATOR =
-                new Creator<LocationGeofencePreference.SavedState>() {
+                new Creator<>() {
                     public LocationGeofencePreference.SavedState createFromParcel(Parcel in)
                     {
                         return new LocationGeofencePreference.SavedState(in);

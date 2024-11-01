@@ -4,5 +4,8 @@
         android:state_pressed="true"
         android:drawable="@drawable/pp_button_background_clicked" />
     <item
+        android:state_enabled="false"
+        android:drawable="@drawable/pp_button_background_disabled" />
+    <item
         android:drawable="@drawable/pp_button_background" />
 </selector>

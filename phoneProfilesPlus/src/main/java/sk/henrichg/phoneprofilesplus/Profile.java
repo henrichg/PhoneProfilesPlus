@@ -131,14 +131,22 @@ class Profile {
     int _applicationLocationScanInterval;
     int _applicationOrientationScanInterval;
     int _applicationPeriodicScanInterval;
-    String _phoneCallsContacts; // contactId#phoneId|...
-    String _phoneCallsContactGroups; // groupId|...
-    int _phoneCallsContactListType;
-    boolean _phoneCallsBlockCalls;
-    boolean _phoneCallsSendSMS;
-    String _phoneCallsSMSText;
+    String _sendSMSContacts; // contactId#phoneId|...
+    String _sendSMSContactGroups; // groupId|...
+    //int _sendSMSContactListType;
+    boolean _sendSMSSendSMS;
+    String _sendSMSSMSText;
     String _deviceWallpaperLockScreen;
-
+    boolean _clearNotificationEnabled;
+    String _clearNotificationApplications;
+    boolean _clearNotificationCheckContacts;
+    String _clearNotificationContacts; // contactId#phoneId|...
+    String _clearNotificationContactGroups; // groupId|...
+    boolean _clearNotificationCheckText;
+    String _clearNotificationText;
+    int _screenNightLight;
+    int _screenNightLightPrefs;
+    int _screenOnOff;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -267,13 +275,22 @@ class Profile {
     static final String PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL = "prf_pref_applicationLocationUpdateInterval";
     static final String PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL = "prf_pref_applicationOrientationScanInterval";
     static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL = "prf_pref_applicationPeriodicScanningScanInterval";
-    static final String PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS = "prf_pref_phoneCalls_blockCalls";
-    static final String PREF_PROFILE_PHONE_CALLS_CONTACTS = "prf_pref_phoneCalls_contacts";
-    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS = "prf_pref_phoneCalls_contactGroups";
-    static final String PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE = "prf_pref_phoneCalls_contactListType";
-    static final String PREF_PROFILE_PHONE_CALLS_SEND_SMS = "prf_pref_phoneCalls_sendSMS";
-    static final String PREF_PROFILE_PHONE_CALLS_SMS_TEXT = "prf_pref_phoneCalls_SMSText";
+    static final String PREF_PROFILE_SEND_SMS_CONTACTS = "prf_pref_sendSMS_contacts";
+    static final String PREF_PROFILE_SEND_SMS_CONTACT_GROUPS = "prf_pref_semdSMS_contactGroups";
+    //static final String PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE = "prf_pref_sendSMS_contactListType";
+    static final String PREF_PROFILE_SEND_SMS_SEND_SMS = "prf_pref_sendSMS_sendSMS";
+    static final String PREF_PROFILE_SEND_SMS_SMS_TEXT = "prf_pref_sendSMS_SMSText";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN = "prf_pref_deviceWallpaperLockScreen";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED = "prf_pref_clearNotificationEnbaled";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS = "prf_pref_clearNotificationApplications";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS = "prf_pref_clearNotificationCheckContacts";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT = "prf_pref_clearNotificationCheckText";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS = "prf_pref_clearNotificationContactGroups";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS = "prf_pref_clearNotificationContacts";
+    static final String PREF_PROFILE_CLEAR_NOTIFICATION_TEXT = "prf_pref_clearNotificationText";
+    static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT = "prf_pref_screenNightLight";
+    static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS = "prf_pref_screenNightLightPrefs";
+    static final String PREF_PROFILE_SCREEN_ON_OFF = "prf_pref_screenOnOff";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
@@ -320,8 +337,10 @@ class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
-        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, false);
-        defaultValuesBoolean.put(PREF_PROFILE_PHONE_CALLS_SEND_SMS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_SEND_SMS_SEND_SMS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, false);
+        defaultValuesBoolean.put(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, false);
+        defaultValuesBoolean.put(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, false);
     }
     static final ArrayMap<String, String> defaultValuesString;
     static {
@@ -432,11 +451,18 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, "15");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, "10");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, "15");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACTS, "");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, "");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, "0");
-        defaultValuesString.put(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, "");
+        defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACTS, "");
+        defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, "");
+        //defaultValuesString.put(PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_SEND_SMS_SMS_TEXT, "");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, "-");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, "");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, "");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, "");
+        defaultValuesString.put(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, "");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT, "0");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_ON_OFF, "0");
     }
 
     static final int[] profileIconId = {
@@ -1097,13 +1123,22 @@ class Profile {
                    int applicationLocationScanInterval,
                    int applicationOrientationScanInterval,
                    int applicationPeriodicScanInterval,
-                   String phoneCallsContacts,
-                   String phoneCallsContactGroups,
-                   int phoneCallsContactListType,
-                   boolean phoneCallsBlockCalls,
-                   boolean phoneCallsSendSMS,
-                   String phoneCallsSMSText,
-                   String deviceWallpaperLockscreen
+                   String sendSMSContacts,
+                   String sendSMSContactGroups,
+                   //int sendSMSContactListType,
+                   boolean sendSMSSendSMS,
+                   String sendSMSSMSText,
+                   String deviceWallpaperLockscreen,
+                   boolean clearNotificationEnabled,
+                   String clearNotificationApplications,
+                   boolean clearNotificationCheckContacts,
+                   String clearNotificationContacts,
+                   String clearNotificationContactGroups,
+                   boolean clearNotificationCheckText,
+                   String clearNotificationText,
+                   int screenNightLight,
+                   int screenNightLightPrefs,
+                   int screenOnOff
             )
     {
         this._id = id;
@@ -1219,13 +1254,22 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
-        this._phoneCallsContacts = phoneCallsContacts;
-        this._phoneCallsContactGroups = phoneCallsContactGroups;
-        this._phoneCallsContactListType = phoneCallsContactListType;
-        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
-        this._phoneCallsSendSMS = phoneCallsSendSMS;
-        this._phoneCallsSMSText = phoneCallsSMSText;
+        this._sendSMSContacts = sendSMSContacts;
+        this._sendSMSContactGroups = sendSMSContactGroups;
+        //this._phoneCallsContactListType = sendSMSContactListType;
+        this._sendSMSSendSMS = sendSMSSendSMS;
+        this._sendSMSSMSText = sendSMSSMSText;
         this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
+        this._clearNotificationEnabled = clearNotificationEnabled;
+        this._clearNotificationApplications = clearNotificationApplications;
+        this._clearNotificationCheckContacts = clearNotificationCheckContacts;
+        this._clearNotificationContacts = clearNotificationContacts;
+        this._clearNotificationContactGroups = clearNotificationContactGroups;
+        this._clearNotificationCheckText = clearNotificationCheckText;
+        this._clearNotificationText = clearNotificationText;
+        this._screenNightLight = screenNightLight;
+        this._screenNightLightPrefs = screenNightLightPrefs;
+        this._screenOnOff = screenOnOff;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1346,13 +1390,22 @@ class Profile {
             int applicationLocationScanInterval,
             int applicationOrientationScanInterval,
             int applicationPeriodicScanInterval,
-            String phoneCallsContacts,
-            String phoneCallsContactGroups,
-            int phoneCallsContactListType,
-            boolean phoneCallsBlockCalls,
-            boolean phoneCallsSendSMS,
-            String phoneCallsSMSText,
-            String deviceWallpaperLockscreen
+            String sendSMSContacts,
+            String sendSMSContactGroups,
+            //int sendSMSContactListType,
+            boolean sendSMSSendSMS,
+            String sendSMSSMSText,
+            String deviceWallpaperLockscreen,
+            boolean clearNotificationEnabled,
+            String clearNotificationApplications,
+            boolean clearNotificationCheckContacts,
+            String clearNotificationContacts,
+            String clearNotificationContactGroups,
+            boolean clearNotificationCheckText,
+            String clearNotificationText,
+            int screenNightLight,
+            int screenNightLightPrefs,
+            int screenOnOff
     )
     {
         this._name = name;
@@ -1467,13 +1520,22 @@ class Profile {
         this._applicationLocationScanInterval = applicationLocationScanInterval;
         this._applicationOrientationScanInterval = applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = applicationPeriodicScanInterval;
-        this._phoneCallsContacts = phoneCallsContacts;
-        this._phoneCallsContactGroups = phoneCallsContactGroups;
-        this._phoneCallsContactListType = phoneCallsContactListType;
-        this._phoneCallsBlockCalls = phoneCallsBlockCalls;
-        this._phoneCallsSendSMS = phoneCallsSendSMS;
-        this._phoneCallsSMSText = phoneCallsSMSText;
+        this._sendSMSContacts = sendSMSContacts;
+        this._sendSMSContactGroups = sendSMSContactGroups;
+        //this._sendSMSContactListType = sendSMSContactListType;
+        this._sendSMSSendSMS = sendSMSSendSMS;
+        this._sendSMSSMSText = sendSMSSMSText;
         this._deviceWallpaperLockScreen = deviceWallpaperLockscreen;
+        this._clearNotificationEnabled = clearNotificationEnabled;
+        this._clearNotificationApplications = clearNotificationApplications;
+        this._clearNotificationCheckContacts = clearNotificationCheckContacts;
+        this._clearNotificationContacts = clearNotificationContacts;
+        this._clearNotificationContactGroups = clearNotificationContactGroups;
+        this._clearNotificationCheckText = clearNotificationCheckText;
+        this._clearNotificationText = clearNotificationText;
+        this._screenNightLight = screenNightLight;
+        this._screenNightLightPrefs = screenNightLightPrefs;
+        this._screenOnOff = screenOnOff;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1595,13 +1657,22 @@ class Profile {
         this._applicationLocationScanInterval = profile._applicationLocationScanInterval;
         this._applicationOrientationScanInterval = profile._applicationOrientationScanInterval;
         this._applicationPeriodicScanInterval = profile._applicationPeriodicScanInterval;
-        this._phoneCallsContacts = profile._phoneCallsContacts;
-        this._phoneCallsContactGroups = profile._phoneCallsContactGroups;
-        this._phoneCallsContactListType = profile._phoneCallsContactListType;
-        this._phoneCallsBlockCalls = profile._phoneCallsBlockCalls;
-        this._phoneCallsSendSMS = profile._phoneCallsSendSMS;
-        this._phoneCallsSMSText = profile._phoneCallsSMSText;
+        this._sendSMSContacts = profile._sendSMSContacts;
+        this._sendSMSContactGroups = profile._sendSMSContactGroups;
+        //this._sendSMSContactListType = profile._sendSMSContactListType;
+        this._sendSMSSendSMS = profile._sendSMSSendSMS;
+        this._sendSMSSMSText = profile._sendSMSSMSText;
         this._deviceWallpaperLockScreen = profile._deviceWallpaperLockScreen;
+        this._clearNotificationEnabled = profile._clearNotificationEnabled;
+        this._clearNotificationApplications = profile._clearNotificationApplications;
+        this._clearNotificationCheckContacts = profile._clearNotificationCheckContacts;
+        this._clearNotificationContacts = profile._clearNotificationContacts;
+        this._clearNotificationContactGroups = profile._clearNotificationContactGroups;
+        this._clearNotificationCheckText = profile._clearNotificationCheckText;
+        this._clearNotificationText = profile._clearNotificationText;
+        this._screenNightLight = profile._screenNightLight;
+        this._screenNightLightPrefs = profile._screenNightLightPrefs;
+        this._screenOnOff = profile._screenOnOff;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1959,22 +2030,41 @@ class Profile {
                     this._applicationOrientationScanInterval = withProfile._applicationOrientationScanInterval;
                 if (withProfile._applicationPeriodicScanInterval != 0)
                     this._applicationPeriodicScanInterval = withProfile._applicationPeriodicScanInterval;
-                if (!withProfile._phoneCallsContacts.isEmpty())
-                    this._phoneCallsContacts = withProfile._phoneCallsContacts;
-                if (!withProfile._phoneCallsContactGroups.isEmpty())
-                    this._phoneCallsContactGroups = withProfile._phoneCallsContactGroups;
-                if (withProfile._phoneCallsContactListType != 0)
-                    this._phoneCallsContactListType = withProfile._phoneCallsContactListType;
-                if (withProfile._phoneCallsBlockCalls)
-                    this._phoneCallsBlockCalls = true;
-                if (withProfile._phoneCallsSendSMS)
-                    this._phoneCallsSendSMS = true;
-                if (!withProfile._phoneCallsSMSText.isEmpty())
-                    this._phoneCallsSMSText = withProfile._phoneCallsSMSText;
+                if (!withProfile._sendSMSContacts.isEmpty())
+                    this._sendSMSContacts = withProfile._sendSMSContacts;
+                if (!withProfile._sendSMSContactGroups.isEmpty())
+                    this._sendSMSContactGroups = withProfile._sendSMSContactGroups;
+                //if (withProfile._phoneCallsContactListType != 0)
+                //    this._phoneCallsContactListType = withProfile._phoneCallsContactListType;
+                if (withProfile._sendSMSSendSMS)
+                    this._sendSMSSendSMS = true;
+                if (!withProfile._sendSMSSMSText.isEmpty())
+                    this._sendSMSSMSText = withProfile._sendSMSSMSText;
+                if (withProfile._clearNotificationEnabled)
+                    this._clearNotificationEnabled = true;
+                if (!withProfile._clearNotificationApplications.isEmpty())
+                    this._clearNotificationApplications = withProfile._clearNotificationApplications;
+                if (withProfile._clearNotificationCheckContacts)
+                    this._clearNotificationCheckContacts = true;
+                if (!withProfile._clearNotificationContacts.isEmpty())
+                    this._clearNotificationContacts = withProfile._clearNotificationContacts;
+                if (!withProfile._clearNotificationContactGroups.isEmpty())
+                    this._clearNotificationContactGroups = withProfile._clearNotificationContactGroups;
+                if (withProfile._clearNotificationCheckText)
+                    this._clearNotificationCheckText = true;
+                if (!withProfile._clearNotificationText.isEmpty())
+                    this._clearNotificationText = withProfile._clearNotificationText;
+                if (withProfile._screenNightLight != 0)
+                    this._screenNightLight = withProfile._screenNightLight;
+                if (withProfile._screenNightLightPrefs != 0)
+                    this._screenNightLightPrefs = withProfile._screenNightLightPrefs;
+                if (withProfile._screenOnOff != 0)
+                    this._screenOnOff = withProfile._screenOnOff;
             }
 
             // set merged profile as activated
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
+//            Log.e("Pofile.mergeProfiles", "profile to db="+withProfile._id);
             dataWrapper.setProfileActive(withProfile);
 
             /* Do not log this, logged is merged profile in EventsHandler
@@ -2353,22 +2443,43 @@ class Profile {
             if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
                 return false;
             }
-            if (!this._phoneCallsContacts.equals(withProfile._phoneCallsContacts)) {
+            if (!this._sendSMSContacts.equals(withProfile._sendSMSContacts)) {
                 return false;
             }
-            if (!this._phoneCallsContactGroups.equals(withProfile._phoneCallsContactGroups)) {
+            if (!this._sendSMSContactGroups.equals(withProfile._sendSMSContactGroups)) {
                 return false;
             }
-            if (this._phoneCallsContactListType != withProfile._phoneCallsContactListType) {
+            //if (this._phoneCallsContactListType != withProfile._phoneCallsContactListType) {
+            //    return false;
+            //}
+            if (this._sendSMSSendSMS != withProfile._sendSMSSendSMS) {
                 return false;
             }
-            if (this._phoneCallsBlockCalls != withProfile._phoneCallsBlockCalls) {
+            if (!this._sendSMSSMSText.equals(withProfile._sendSMSSMSText)) {
                 return false;
             }
-            if (this._phoneCallsSendSMS != withProfile._phoneCallsSendSMS) {
+            if (this._clearNotificationEnabled != withProfile._clearNotificationEnabled) {
                 return false;
             }
-            if (!this._phoneCallsSMSText.equals(withProfile._phoneCallsSMSText)) {
+            if (!this._clearNotificationApplications.equals(withProfile._clearNotificationApplications)) {
+                return false;
+            }
+            if (this._clearNotificationCheckContacts != withProfile._clearNotificationCheckContacts) {
+                return false;
+            }
+            if (!this._clearNotificationContacts.equals(withProfile._clearNotificationContacts)) {
+                return false;
+            }
+            if (!this._clearNotificationContactGroups.equals(withProfile._clearNotificationContactGroups)) {
+                return false;
+            }
+            if (this._clearNotificationCheckText != withProfile._clearNotificationCheckText) {
+                return false;
+            }
+            if (!this._clearNotificationText.equals(withProfile._clearNotificationText)) {
+                return false;
+            }
+            if (this._screenNightLight != withProfile._screenNightLight) {
                 return false;
             }
 
@@ -3422,13 +3533,22 @@ class Profile {
         editor.putString(PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL, Integer.toString(this._applicationLocationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL, Integer.toString(this._applicationOrientationScanInterval));
         editor.putString(PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL, Integer.toString(this._applicationPeriodicScanInterval));
-        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACTS, this._phoneCallsContacts);
-        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS, this._phoneCallsContactGroups);
-        editor.putString(PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
-        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS, this._phoneCallsBlockCalls);
-        editor.putBoolean(PREF_PROFILE_PHONE_CALLS_SEND_SMS, this._phoneCallsSendSMS);
-        editor.putString(PREF_PROFILE_PHONE_CALLS_SMS_TEXT, this._phoneCallsSMSText);
+        editor.putString(PREF_PROFILE_SEND_SMS_CONTACTS, this._sendSMSContacts);
+        editor.putString(PREF_PROFILE_SEND_SMS_CONTACT_GROUPS, this._sendSMSContactGroups);
+        //editor.putString(PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE, Integer.toString(this._phoneCallsContactListType));
+        editor.putBoolean(PREF_PROFILE_SEND_SMS_SEND_SMS, this._sendSMSSendSMS);
+        editor.putString(PREF_PROFILE_SEND_SMS_SMS_TEXT, this._sendSMSSMSText);
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN, this._deviceWallpaperLockScreen);
+        editor.putBoolean(PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, this._clearNotificationEnabled);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS, this._clearNotificationApplications);
+        editor.putBoolean(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS, this._clearNotificationCheckContacts);
+        editor.putBoolean(PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT, this._clearNotificationCheckText);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS, this._clearNotificationContactGroups);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS, this._clearNotificationContacts);
+        editor.putString(PREF_PROFILE_CLEAR_NOTIFICATION_TEXT, this._clearNotificationText);
+        editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT, Integer.toString(this._screenNightLight));
+        editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, Integer.toString(this._screenNightLightPrefs));
+        editor.putString(PREF_PROFILE_SCREEN_ON_OFF, Integer.toString(this._screenOnOff));
 
         editor.apply();
     }

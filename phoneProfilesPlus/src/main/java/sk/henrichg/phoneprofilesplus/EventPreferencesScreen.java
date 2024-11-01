@@ -67,7 +67,7 @@ class EventPreferencesScreen extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_screen_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context));
@@ -79,14 +79,14 @@ class EventPreferencesScreen extends EventPreferences {
                 if (index != -1) {
                     _value.append(context.getString(R.string.event_preferences_screen_event_type)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 if (this._whenUnlocked) {
                     if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
@@ -155,8 +155,8 @@ class EventPreferencesScreen extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesScreen tmp = new EventPreferencesScreen(this._event, this._enabled, this._eventType, this._whenUnlocked);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -247,7 +247,7 @@ class EventPreferencesScreen extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 //boolean isScreenOn;
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean keyguardShowing = false;

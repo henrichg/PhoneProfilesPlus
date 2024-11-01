@@ -92,7 +92,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_bluetooth_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, DatabaseHandler.ETYPE_BLUETOOTH, context));
@@ -130,7 +130,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (index != -1) {
                     _value.append(context.getString(R.string.event_preferences_bluetooth_connection_type));
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
                 }
 
                 /*
@@ -185,7 +185,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
                 selectedBluetoothNames = value.toString();
-                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -217,7 +217,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         if ((connectionType == 1) || (connectionType == 3)) {
                             summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
-                            titleColor = ContextCompat.getColor(context, R.color.error_color);
+                            titleColor = ContextCompat.getColor(context, R.color.errorColor);
                         } else {
                             summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
@@ -273,7 +273,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     if ((connectionType == 1) || (connectionType == 3)) {
                         summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
                                 summary;
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE +
@@ -417,7 +417,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS, preferences, context);
 
-        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, context).preferenceAllowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference;
@@ -434,8 +434,8 @@ class EventPreferencesBluetooth extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType/*, this._devicesType*/);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -522,7 +522,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)
                 && Permissions.checkEventBluetoothForEMUI(context, event, null)*/) {
@@ -537,9 +537,9 @@ class EventPreferencesBluetooth extends EventPreferences {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
                     if (isBluetoothEnabled) {
-                        BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
+                        List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
 
-                        if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
+                        if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, "")) {
 //                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is connected  event="+_event._name);
 
                             String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
@@ -554,13 +554,20 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         break;
                                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
                                         for (BluetoothDeviceData data : boundedDevicesList) {
-                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
+                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, data, "");
                                             if (connected[i])
                                                 break;
                                         }
                                         break;
                                     default:
-                                        connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, _bluetoothName);
+                                        // check in system configured devices
+                                        for (BluetoothDeviceData data : boundedDevicesList) {
+                                            connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, data, _bluetoothName);
+                                            if (connected[i])
+                                                break;
+                                        }
+                                        // check by name
+                                        connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, _bluetoothName);
                                         break;
                                 }
                                 i++;
@@ -593,7 +600,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     done = true;
                             }
                         } else {
-//                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bluetooth is NOT connected  event="+_event._name);
+//                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "*** bluetooth is NOT connected  event="+_event._name + " ****");
                             if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                                 (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                                 // not use scanner data
@@ -603,6 +610,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         }
 //                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "eventsHandler.bluetoothPassed="+eventsHandler.bluetoothPassed);
                     } else {
+//                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "*** bluetooth not enabled ***");
                         if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                             (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                             // not use scanner data
@@ -644,10 +652,11 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(eventsHandler.context);
 
                                         if (scanResults != null) {
-                                            for (BluetoothDeviceData device : scanResults) {
+                                            for (BluetoothDeviceData deviceFromScan : scanResults) {
                                                 String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
                                                 boolean[] nearby = new boolean[splits.length];
                                                 int i = 0;
+                                                String _deviceFromScanAddress;
                                                 for (String _bluetoothName : splits) {
                                                     nearby[i] = false;
                                                     switch (_bluetoothName) {
@@ -655,45 +664,83 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                             nearby[i] = true;
                                                             break;
                                                         case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                                            for (BluetoothDeviceData data : boundedDevicesList) {
-                                                                String _device = device.getName().toUpperCase();
-                                                                String _adapterName = data.getName().toUpperCase();
-                                                                if ((!_device.isEmpty()) &&
-                                                                        (!_adapterName.isEmpty()) &&
-                                                                        Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                                    nearby[i] = true;
-                                                                    break;
-                                                                }
-                                                            }
-                                                            break;
-                                                        default:
-                                                        /* Removed, hidden BT are not supported
-                                                        if ((device.getName() == null) || device.getName().isEmpty()) {
-                                                            // scanned device has not name (hidden BT?)
-                                                            String deviceAddress = device.getAddress();
-                                                            if ((deviceAddress != null) && (!deviceAddress.isEmpty())) {
-                                                                // device has address
-                                                                for (BluetoothDeviceData data : boundedDevicesList) {
-                                                                    String dataAddress = data.getAddress();
-                                                                    if ((dataAddress != null) &&
-                                                                            (!dataAddress.isEmpty()) &&
-                                                                            dataAddress.equals(deviceAddress)) {
+                                                            _deviceFromScanAddress = deviceFromScan.getAddress();
+                                                            if (!_deviceFromScanAddress.isEmpty()) {
+                                                                for (BluetoothDeviceData boundedDevice : boundedDevicesList) {
+                                                                    String _boundedDeviceAddress = boundedDevice.getAddress();
+                                                                    if ((!_boundedDeviceAddress.isEmpty()) &&
+                                                                            _deviceFromScanAddress.equals(_boundedDeviceAddress)) {
+                                                                        // found address
+                                                                        nearby[i] = true;
+                                                                        break;
+                                                                    }
+                                                                    // address not found, search by name
+                                                                    String _boundedDeviceName = boundedDevice.getName().toUpperCase();
+                                                                    String _sensorName = _bluetoothName.toUpperCase();
+                                                                    if ((!_sensorName.isEmpty()) &&
+                                                                            (!_boundedDeviceName.isEmpty()) &&
+                                                                            Wildcard.match(_boundedDeviceName, _sensorName, '_', '%', true)) {
+                                                                        // found name
                                                                         nearby[i] = true;
                                                                         break;
                                                                     }
                                                                 }
                                                             }
-                                                        } else*/
-                                                        {
-                                                            String _deviceName = device.getName().toUpperCase();
-                                                            String _adapterName = _bluetoothName.toUpperCase();
-                                                            if ((!_adapterName.isEmpty()) &&
-                                                                    (!_deviceName.isEmpty()) &&
-                                                                    Wildcard.match(_deviceName, _adapterName, '_', '%', true)) {
-                                                                nearby[i] = true;
+                                                            break;
+                                                        default:
+                                                            /* Removed, hidden BT are not supported
+                                                            if ((device.getName() == null) || device.getName().isEmpty()) {
+                                                                // scanned device has not name (hidden BT?)
+                                                                String deviceAddress = device.getAddress();
+                                                                if ((deviceAddress != null) && (!deviceAddress.isEmpty())) {
+                                                                    // device has address
+                                                                    for (BluetoothDeviceData data : boundedDevicesList) {
+                                                                        String dataAddress = data.getAddress();
+                                                                        if ((dataAddress != null) &&
+                                                                                (!dataAddress.isEmpty()) &&
+                                                                                dataAddress.equals(deviceAddress)) {
+                                                                            nearby[i] = true;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            } else
+                                                            {*/
+                                                            BluetoothDeviceData configuredDevice = null;
+                                                            _deviceFromScanAddress = deviceFromScan.getAddress();
+                                                            if (!_deviceFromScanAddress.isEmpty()) {
+                                                                for (BluetoothDeviceData boundedDevice : boundedDevicesList) {
+                                                                    String _boundedDeviceAddress = boundedDevice.getAddress();
+                                                                    if ((!_boundedDeviceAddress.isEmpty()) &&
+                                                                            _deviceFromScanAddress.equals(_boundedDeviceAddress)) {
+                                                                        // found configured device in system by its address
+                                                                        configuredDevice = boundedDevice;
+                                                                        break;
+                                                                    }
+                                                                }
                                                             }
-                                                        }
-                                                        break;
+
+                                                            //noinspection IfStatementWithIdenticalBranches
+                                                            if (configuredDevice != null) {
+                                                                String _deviceName = configuredDevice.getName().toUpperCase();
+                                                                String _sensorName = _bluetoothName.toUpperCase();
+                                                                if ((!_sensorName.isEmpty()) &&
+                                                                        (!_deviceName.isEmpty()) &&
+                                                                        Wildcard.match(_deviceName, _sensorName, '_', '%', true)) {
+                                                                    // found nearby sensot BT name
+                                                                    nearby[i] = true;
+                                                                }
+                                                            } else {
+                                                                String _deviceName = deviceFromScan.getName().toUpperCase();
+                                                                String _sensorName = _bluetoothName.toUpperCase();
+                                                                if ((!_sensorName.isEmpty()) &&
+                                                                        (!_deviceName.isEmpty()) &&
+                                                                        Wildcard.match(_deviceName, _sensorName, '_', '%', true)) {
+                                                                    nearby[i] = true;
+                                                                }
+                                                            }
+                                                            //}
+                                                            break;
                                                     }
                                                     i++;
                                                 }

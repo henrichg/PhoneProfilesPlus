@@ -211,7 +211,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                                 EventsHandler.SENSOR_TYPE_BRIGHTNESS},
                         PPExecutors.SENSOR_NAME_SENSOR_TYPE_SCREEN_BRIGHTNESS, 0);
             } else {
-                //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN,SENSOR_TYPE_BRIGHTNESS");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(new int[]{
                         EventsHandler.SENSOR_TYPE_SCREEN,

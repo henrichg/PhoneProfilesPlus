@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -102,6 +101,7 @@ public class ChromaColorView extends RelativeLayout {
 
         colorView = root.findViewById(R.id.acch_color_view);
         colorEdit = root.findViewById(R.id.acch_color_edit);
+        //noinspection DataFlowIssue
         colorEdit.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_edittext_all));
         //colorEditButton = root.findViewById(R.id.acch_color_edit_button);
 
@@ -136,7 +136,8 @@ public class ChromaColorView extends RelativeLayout {
             colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
         //colorEditButton.setText(String.format("%06X", 0xFFFFFF & currentColor));
 
-        ViewGroup channelContainer = findViewById(R.id.acch_channel_container);
+        LinearLayout channelContainer = findViewById(R.id.acch_channel_container);
+        //noinspection DataFlowIssue
         channelContainer.removeAllViews();
 
         List<Channel> channels = colorMode.getColorMode().getChannels();
@@ -260,6 +261,7 @@ public class ChromaColorView extends RelativeLayout {
                     getResources().getDimensionPixelSize(R.dimen.acch_channel_view_margin_top);
             params.bottomMargin =
                     getResources().getDimensionPixelSize(R.dimen.acch_channel_view_margin_bottom);
+            //currentChannelView.requestLayout();
         }
     }
 

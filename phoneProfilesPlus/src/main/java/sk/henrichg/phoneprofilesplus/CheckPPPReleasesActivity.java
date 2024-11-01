@@ -313,6 +313,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         TextView text;
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
         message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
 
         final String ASSETS = " \"Assets\"?";
@@ -320,6 +321,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         if (newVersionDataExists) {
             Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
+            //noinspection DataFlowIssue
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + ASSETS);
             button.setVisibility(View.GONE);
 
@@ -348,15 +350,18 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             };
             sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            //noinspection DataFlowIssue
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
 
             text.setVisibility(View.VISIBLE);
         }
         else {
+            //noinspection DataFlowIssue
             text.setVisibility(View.GONE);
 
             Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
+            //noinspection DataFlowIssue
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + ASSETS);
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(v -> {
@@ -368,6 +373,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 33) {
             TextView text2 = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_apk_installation);
+            //noinspection DataFlowIssue
             text2.setVisibility(View.VISIBLE);
             String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                     " " + activity.getString(R.string.install_ppp_store_droidify) +
@@ -508,6 +514,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         TextView text;
         text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
         message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
 
         text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
@@ -543,6 +550,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 if (Build.VERSION.SDK_INT >= 33) {
                     TextView text2 = layout.findViewById(R.id.dialog_for_fdroid_apk_installation);
+                    //noinspection DataFlowIssue
                     text2.setVisibility(View.VISIBLE);
                     String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                             " " + activity.getString(R.string.install_ppp_store_fdroid) +
@@ -580,6 +588,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -591,7 +600,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             clickableSpan = new ClickableSpan() {
                 @Override
-                public void updateDrawState(TextPaint ds) {
+                public void updateDrawState(@NonNull TextPaint ds) {
                     ds.setColor(ds.linkColor);    // you can use custom color
                     ds.setUnderlineText(false);    // this remove the underline
                 }
@@ -1039,6 +1048,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         TextView text;
         text = layout.findViewById(R.id.dialog_for_apkpure_info_text);
         message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1054,7 +1064,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
         View buttonsDivider = layout.findViewById(R.id.dialog_for_apkpure_buttonsDivider);
         if (!apkPureInstalled) {
+            //noinspection DataFlowIssue
             text.setVisibility(View.VISIBLE);
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_apkpure_ppp_release);
@@ -1087,6 +1099,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
             if (Build.VERSION.SDK_INT >= 33) {
                 TextView text2 = layout.findViewById(R.id.dialog_for_apkpure_apk_installation);
+                //noinspection DataFlowIssue
                 text2.setVisibility(View.VISIBLE);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + activity.getString(R.string.install_ppp_store_apkpure) +
@@ -1094,6 +1107,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text2.setText(str);
             }
         } else {
+            //noinspection DataFlowIssue
             text.setVisibility(View.GONE);
             //buttonsDivider.setVisibility(View.GONE);
         }
@@ -1186,6 +1200,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_github_download_not_supported);
         }
 
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1201,7 +1216,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_droidify_droidify_application);
         View buttonsDivider = layout.findViewById(R.id.dialog_for_droidify_buttonsDivider);
         if (!droidifyInstalled) {
+            //noinspection DataFlowIssue
             text.setVisibility(View.VISIBLE);
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_droidify_ppp_release);
@@ -1234,6 +1251,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
             if (Build.VERSION.SDK_INT >= 33) {
                 TextView text2 = layout.findViewById(R.id.dialog_for_droidify_apk_installation);
+                //noinspection DataFlowIssue
                 text2.setVisibility(View.VISIBLE);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + activity.getString(R.string.install_ppp_store_droidify) +
@@ -1241,6 +1259,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text2.setText(str);
             }
         } else {
+            //noinspection DataFlowIssue
             text.setVisibility(View.GONE);
             //buttonsDivider.setVisibility(View.GONE);
         }
@@ -1329,6 +1348,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_neostore_info_text);
         message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
 
+        //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1344,7 +1364,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_neostore_neostore_application);
         View buttonsDivider = layout.findViewById(R.id.dialog_for_neostore_buttonsDivider);
         if (!neostoreInstalled) {
+            //noinspection DataFlowIssue
             text.setVisibility(View.VISIBLE);
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_neostore_ppp_release);
@@ -1377,6 +1399,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
             if (Build.VERSION.SDK_INT >= 33) {
                 TextView text2 = layout.findViewById(R.id.dialog_for_neostore_apk_installation);
+                //noinspection DataFlowIssue
                 text2.setVisibility(View.VISIBLE);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + activity.getString(R.string.install_ppp_store_neostore) +
@@ -1384,6 +1407,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text2.setText(str);
             }
         } else {
+            //noinspection DataFlowIssue
             text.setVisibility(View.GONE);
             //buttonsDivider.setVisibility(View.GONE);
         }

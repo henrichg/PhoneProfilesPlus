@@ -150,13 +150,22 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN)
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS),
+                //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_OFF))
                 );
     }
 
@@ -924,7 +933,7 @@ class DataWrapperStatic {
 
             PPApplicationStatic.createGrantPermissionNotificationChannel(context.getApplicationContext(), false);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                    .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                    .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.errorColor))
                     .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                     .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                     .setContentTitle(nTitle) // title for notification

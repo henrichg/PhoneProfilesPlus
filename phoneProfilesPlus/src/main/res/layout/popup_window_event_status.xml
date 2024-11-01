@@ -87,7 +87,9 @@
                     android:focusable="false"
                     app:switchPadding="@dimen/switch_padding"
                     android:text="@string/event_list_item_menu_run"
-                    android:textSize="@dimen/gui_info_popup_text_size" />
+                    android:textSize="@dimen/gui_info_popup_text_size"
+                    app:trackTint="@color/switch_track_color"
+                    app:thumbTint="@color/switch_thumb_color" />
                 <!--                android:layout_marginBottom="15dp"-->
 
                 <TextView
@@ -106,7 +108,7 @@
                     android:textSize="15sp"
                     android:id="@+id/event_status_popup_window_text8"
                     app:drawableStartCompat="@drawable/ic_event_status_pause_manual_activation"
-                    app:drawableTint="@color/altype_eventEnd"
+                    app:drawableTint="@color/altypeEventEndColor"
                     android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -116,7 +118,7 @@
                     android:textSize="15sp"
                     android:id="@+id/event_status_popup_window_text2"
                     app:drawableStartCompat="@drawable/ic_event_status_running"
-                    app:drawableTint="@color/altype_eventStart"
+                    app:drawableTint="@color/altypeEventStartColor"
                     android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -126,7 +128,7 @@
                     android:textSize="15sp"
                     android:id="@+id/event_status_popup_window_text3"
                     app:drawableStartCompat="@drawable/ic_event_status_pause"
-                    app:drawableTint="@color/altype_eventEnd"
+                    app:drawableTint="@color/altypeEventEndColor"
                     android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,7 +138,7 @@
                     android:textSize="15sp"
                     android:id="@+id/event_status_popup_window_text4"
                     app:drawableStartCompat="@drawable/ic_event_status_pause_delay"
-                    app:drawableTint="@color/altype_eventDelayStartEnd"
+                    app:drawableTint="@color/altypeEventDelayStartEndColor"
                     android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -146,7 +148,7 @@
                     android:textSize="15sp"
                     android:id="@+id/event_status_popup_window_text5"
                     app:drawableStartCompat="@drawable/ic_event_status_running_delay"
-                    app:drawableTint="@color/altype_eventDelayStartEnd"
+                    app:drawableTint="@color/altypeEventDelayStartEndColor"
                     android:drawablePadding="@dimen/event_status_drawable_padding" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -156,17 +158,19 @@
                     android:textSize="15sp"
                     android:id="@+id/event_status_popup_window_text6"
                     app:drawableStartCompat="@drawable/ic_event_status_stop"
-                    app:drawableTint="@color/event_status_stop"
+                    app:drawableTint="@color/eventStatusStopColor"
                     android:drawablePadding="@dimen/event_status_drawable_padding" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/popup_window_events_status_show_info"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text7"
                     android:textColor="@color/accent_color"
-                    android:background="?attr/selectableItemBackground"/>
+                    android:background="@drawable/editor_ripple_item_right_button"/>
 
             </LinearLayout>
 

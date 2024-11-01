@@ -1,6 +1,8 @@
 **PhoneProfilesPlus allows automatically or with one click configuring the device for life situations (at home, at work, in your car, sleep outside, ...).**
 
-*Please report me bugs, comments and suggestions to my mail. Speed up the especially bug fixes. Thank you very much.*
+*NOTE: Google Play Protect may display dialog box with title "Unsafe app blocked" and description "This app was build for an older version of Android and doesn`t include the latest privacy protection."
+Please click in this dialog "More details" and then "Install anyway".
+Dialog is displayed, because PPP has target SDK vesion 28 (Android 9). Must be, because of functionalities in PPP.*
 
 **Features:**
 

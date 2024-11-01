@@ -21,14 +21,15 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:orientation="horizontal"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <ImageView
             android:id="@+id/widget_samsung_edge_settings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/samsung_edge_settings_icon_size"
+            android:layout_height="@dimen/samsung_edge_settings_icon_size"
+            android:layout_marginBottom="5dp"
             android:padding="10dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_widget_settings"
             android:contentDescription="@string/samsung_edge_panel_settings_description"
             android:clickable="true"
@@ -66,7 +67,7 @@
                 android:orientation="horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/widget_ripple_list_item">
+                android:background="@drawable/widget_list_item">
 
                 <ImageView
                     android:id="@+id/widget_samsung_edge_header_profile_icon"
@@ -90,7 +91,6 @@
                     android:fontFamily="sans-serif-condensed"
                     tools:ignore="SpUsage" />
 <!--                android:fontFamily="sans-serif-condensed"-->
-<!--                android:textColor="#33b5e5"-->
 
             </LinearLayout>
 
@@ -116,7 +116,7 @@
                 android:divider="@android:color/transparent"
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay"
-                android:listSelector="@drawable/widget_ripple_list_item" />
+                android:listSelector="@drawable/widget_list_item" />
 
             <TextView
                 android:id="@+id/widget_samsung_edge_empty"

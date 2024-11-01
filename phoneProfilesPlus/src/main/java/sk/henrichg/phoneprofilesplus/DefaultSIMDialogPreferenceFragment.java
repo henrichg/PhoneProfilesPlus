@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -40,10 +39,13 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         super.onBindDialogView(view);
 
         TextView text = view.findViewById(R.id.default_sim_voice_textView);
+        //noinspection DataFlowIssue
         text.setText(getString(R.string.default_sim_pref_dlg_voice)+":");
         text = view.findViewById(R.id.default_sim_sms_textView);
+        //noinspection DataFlowIssue
         text.setText(getString(R.string.default_sim_pref_dlg_sms)+":");
         text = view.findViewById(R.id.default_sim_data_textView);
+        //noinspection DataFlowIssue
         text.setText(getString(R.string.default_sim_pref_dlg_data)+":");
 
         voiceSpinner = view.findViewById(R.id.default_sim_voice_spinner);
@@ -72,18 +74,18 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //preference.dualSIMSupported = false;
 
         //if (transactionCodeVoice != -1) {
-            HighlightedSpinnerAdapter voiceSpinnerAdapter = new HighlightedSpinnerAdapter(
+            PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.spinner_highlighted,
+                    R.layout.ppp_spinner,
                     getResources().getStringArray(R.array.defaultSIMVoiceArray));
-            voiceSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             voiceSpinner.setAdapter(voiceSpinnerAdapter);
             voiceSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
             voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((HighlightedSpinnerAdapter) voiceSpinner.getAdapter()).setSelection(position);
+                    ((PPSpinnerAdapter) voiceSpinner.getAdapter()).setSelection(position);
 //                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.voiceSpinner.onItemSelected", "position="+position);
                     preference.voiceValue = position;
                 }
@@ -102,18 +104,18 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         }*/
 
         //if (transactionCodeSMS != -1) {
-            HighlightedSpinnerAdapter smsSpinnerAdapter = new HighlightedSpinnerAdapter(
+            PPSpinnerAdapter smsSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.spinner_highlighted,
+                    R.layout.ppp_spinner,
                     getResources().getStringArray(R.array.defaultSIMSMSArray));
-            smsSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+            smsSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             smsSpinner.setAdapter(smsSpinnerAdapter);
             smsSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
             smsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((HighlightedSpinnerAdapter) smsSpinner.getAdapter()).setSelection(position);
+                    ((PPSpinnerAdapter) smsSpinner.getAdapter()).setSelection(position);
 //                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.smsSpinner.onItemSelected", "position="+position);
                     preference.smsValue = position;
                 }
@@ -132,18 +134,18 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         }*/
 
         //if (transactionCodeData != -1) {
-            HighlightedSpinnerAdapter dataSpinnerAdapter = new HighlightedSpinnerAdapter(
+            PPSpinnerAdapter dataSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.spinner_highlighted,
+                    R.layout.ppp_spinner,
                     getResources().getStringArray(R.array.defaultSIMDataArray));
-            dataSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+            dataSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             dataSpinner.setAdapter(dataSpinnerAdapter);
             dataSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
             dataSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((HighlightedSpinnerAdapter) dataSpinner.getAdapter()).setSelection(position);
+                    ((PPSpinnerAdapter) dataSpinner.getAdapter()).setSelection(position);
 //                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.dataSpinner.onItemSelected", "position="+position);
                     preference.dataValue = position;
                 }

@@ -205,6 +205,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
                 true, true,
                 false, false,
                 false,
+                false,
                 this
         );
 

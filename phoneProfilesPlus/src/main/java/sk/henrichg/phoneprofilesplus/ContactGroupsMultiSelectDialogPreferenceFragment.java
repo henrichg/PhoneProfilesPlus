@@ -25,7 +25,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
     // Layout widgets.
     ListView listView;
     private LinearLayout linlaProgress;
-    private LinearLayout rellaData;
+    private LinearLayout linlaData;
     RelativeLayout emptyList;
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
@@ -49,9 +49,12 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
         super.onBindDialogView(view);
 
         linlaProgress = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
-        rellaData = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_rella_data);
+        linlaData = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_data);
         listView = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
         emptyList = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_empty);
+
+        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext, preference);
+        listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
@@ -62,13 +65,11 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             }
         });
 
-        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(prefContext, preference);
-        listView.setAdapter(listAdapter);
-
         final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
-            refreshListView(false);
+            refreshListView(true);
         });
 
         if (Permissions.grantContactGroupsDialogPermissions(prefContext)) {
@@ -81,7 +82,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             handler.postDelayed(() -> {
                 ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
                 if (fragment != null)
-                    fragment.refreshListView(true);
+                    fragment.refreshListView(false);
             }, 200);
         }
     }
@@ -106,22 +107,22 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
         preference.fragment = null;
     }
 
-    void refreshListView(final boolean notForUnselect) {
-        asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
+    void refreshListView(final boolean forUnselect) {
+        asyncTask = new RefreshListViewAsyncTask(forUnselect, preference, this, prefContext);
         asyncTask.execute();
     }
 
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
-        final boolean notForUnselect;
+        final boolean forUnselect;
         private final WeakReference<ContactGroupsMultiSelectDialogPreference> preferenceWeakRef;
         private final WeakReference<ContactGroupsMultiSelectDialogPreferenceFragment> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
-        public RefreshListViewAsyncTask(final boolean notForUnselect,
+        public RefreshListViewAsyncTask(final boolean forUnselect,
                                         ContactGroupsMultiSelectDialogPreference preference,
                                         ContactGroupsMultiSelectDialogPreferenceFragment fragment,
                                         Context prefContext) {
-            this.notForUnselect = notForUnselect;
+            this.forUnselect = forUnselect;
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.fragmentWeakRef = new WeakReference<>(fragment);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -133,8 +134,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 
             ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
-                if (notForUnselect) {
-                    fragment.rellaData.setVisibility(View.GONE);
+                if (!forUnselect) {
+                    fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
@@ -150,19 +151,24 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 //    EditorActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
                 // must be first
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null) {
                     // cache not created, create it
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
                     if (!contactsCache.getCaching()) {
                         // caching not performed
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getList()");
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                             PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
@@ -171,24 +177,30 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                             contactList.clear();
                     } else {
                         // wait for cache end
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
                         while (contactsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
                 }
                 //must be seconds, this ads groups into contacts
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactGroupsCache()");
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                 if (contactGroupsCache == null) {
                     // cache not created, create it
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                     PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
                     if (!contactGroupsCache.getCaching()) {
                         // caching not performed
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getList()");
                         List<ContactGroup> contactGroupList = contactGroupsCache.getList(/*withoutNumbers*/);
                         if (contactGroupList == null) {
                             // not cached, cache it
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                             PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
                             /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                             while (contactGroupsCache.getCaching())
@@ -196,6 +208,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         }
                     } else {
                         // wait for cache end
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
                         while (contactGroupsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
@@ -214,32 +227,38 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
             ContactGroupsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
-            final boolean _notForUnselect = notForUnselect;
+            final boolean _forUnselect = forUnselect;
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                //if (!EditorActivity.getContactGroupsCache().cached)
-                //    EditorActivity.getContactGroupsCache().clearCache(false);
-
                 fragment.linlaProgress.setVisibility(View.GONE);
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    fragment.rellaData.setVisibility(View.VISIBLE);
+                    fragment.linlaData.setVisibility(View.VISIBLE);
+
+                    if (!_forUnselect) {
+                        if (preference.contactGroupList.isEmpty()) {
+                            fragment.listView.setVisibility(View.GONE);
+                            fragment.emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            fragment.emptyList.setVisibility(View.GONE);
+                            fragment.listView.setVisibility(View.VISIBLE);
+                        }
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.onPostExecute", "PPApplicationStatic.getContactGroupsCache()");
+//                        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
+//                        if (contactGroupsCache != null) {
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.onPostExecute", "contactGroupsCache.getList()");
+//                            List<ContactGroup> contactGroupList = contactGroupsCache.getList();
+//                            if ((contactGroupList != null) && (contactGroupList.isEmpty())) {
+//                                fragment.listView.setVisibility(View.GONE);
+//                                fragment.emptyList.setVisibility(View.VISIBLE);
+//                            } else {
+//                                fragment.emptyList.setVisibility(View.GONE);
+//                                fragment.listView.setVisibility(View.VISIBLE);
+//                            }
+//                        }
+                    }
 
                     fragment.listAdapter.notifyDataSetChanged();
-
-                    if (_notForUnselect) {
-                        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-                        if (contactGroupsCache != null) {
-                            List<ContactGroup> contactGroupList = contactGroupsCache.getList();
-                            if ((contactGroupList != null) && (contactGroupList.isEmpty())) {
-                                fragment.listView.setVisibility(View.GONE);
-                                fragment.emptyList.setVisibility(View.VISIBLE);
-                            } else {
-                                fragment.emptyList.setVisibility(View.GONE);
-                                fragment.listView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
                 });
             }
         }

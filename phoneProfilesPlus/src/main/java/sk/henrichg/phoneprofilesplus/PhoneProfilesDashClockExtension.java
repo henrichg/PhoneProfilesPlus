@@ -11,6 +11,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     private DataWrapper dataWrapper;
     private static volatile PhoneProfilesDashClockExtension instance;
 
+    /** @noinspection unused*/
     public PhoneProfilesDashClockExtension()
     {
         //instance = this;

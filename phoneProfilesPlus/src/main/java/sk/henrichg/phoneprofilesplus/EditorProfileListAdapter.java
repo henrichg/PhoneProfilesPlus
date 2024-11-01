@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListViewHolder>
                                  implements ItemTouchHelperAdapter
@@ -380,10 +382,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     }
 
 
-    void showTargetHelps(final Activity activity, /*final EditorProfileListFragment fragment,*/ final View listItemView) {
-        //if (fragment.targetHelpsSequenceStarted)
-        //    return;
-
+    void showTargetHelps(final Activity activity, final View listItemView) {
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished &&
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
@@ -397,20 +396,13 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsShowInActivator) {
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(activity);
+            List<TapTarget> targets = new ArrayList<>();
 
             if (startTargetHelps) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
@@ -425,10 +417,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
                 listItemView.getLocationOnScreen(screenLocation);
-                //listItemView.getLocationInWindow(screenLocation);
 
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     View dragHandle = listItemView.findViewById(R.id.profile_list_drag_handle);
+                    //noinspection DataFlowIssue
                     profileItemTarget.offset(screenLocation[0] + 100 + dragHandle.getWidth(), screenLocation[1]);
 
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
@@ -438,40 +430,61 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     // do not add it again
                     startTargetHelpsOrder = false;
 
-                    sequence.targets(
+                    targets.add(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(1),
+                                    .id(1)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(2),
+                                    .id(2)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(3),
+                                    .id(3)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -480,31 +493,46 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 } else if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL) {
                     profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
-                    sequence.targets(
+                    targets.add(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(1),
+                                    .id(1)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(2),
+                                    .id(2)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -513,31 +541,46 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 } else {
                     profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
-                    sequence.targets(
+                    targets.add(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(1),
+                                    .id(1)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(2),
+                                    .id(2)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -554,12 +597,16 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = false;
 
-                    sequence.targets(
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -574,12 +621,16 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
-                sequence.targets(
+                //noinspection DataFlowIssue
+                targets.add(
                         TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .dimColor(R.color.tabTargetHelpDimColor)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
@@ -596,11 +647,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -610,8 +658,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
                     editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
@@ -624,18 +670,16 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
 
                     ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
-
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
 
-            //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = false;
+            for (TapTarget target : targets) {
+                target.setDrawBehindStatusBar(true);
+                target.setDrawBehindNavigationBar(true);
+            }
+            sequence.targets(targets);
 
             sequence.start();
 

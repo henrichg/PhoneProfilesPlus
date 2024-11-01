@@ -15,7 +15,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/deleteSecureDataInExportDialog_root3"
@@ -128,12 +128,26 @@
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_notification" />
             <CheckBox
-                android:id="@+id/deleteSecureDataInExportDialogPhoneCalls"
+                android:id="@+id/deleteSecureDataInExportDialogCallScreening"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
-                android:text="@string/export_settings_delete_contacts_data_phonecalls" />
+                android:text="@string/export_settings_delete_contacts_data_callScreening" />
+            <CheckBox
+                android:id="@+id/deleteSecureDataInExportDialogSendSMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/checkbox_radiobutton_color"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_contacts_data_send_sms" />
+            <CheckBox
+                android:id="@+id/deleteSecureDataInExportDialogClearNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/checkbox_radiobutton_color"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_contacts_data_clear_notification" />
 
         </LinearLayout>
 
@@ -145,6 +159,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

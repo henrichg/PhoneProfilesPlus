@@ -80,6 +80,8 @@ class WakelockTags {
     static final String WAKELOCK_TAG_VPNNetworkCallback_doConnection_1 = PPApplication.PACKAGE_NAME + ":VPNNetworkCallback_doConnection_1";
     static final String WAKELOCK_TAG_WifiAPStateChangeBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":WifiAPStateChangeBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_WifiStateChangedBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_ActivateProfileHelper_screenOff = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_screenOff";
+    static final String WAKELOCK_TAG_ActivateProfileHelper_screenOn = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_screenOn";
 
     private WakelockTags() {
         // private constructor to prevent instantiation

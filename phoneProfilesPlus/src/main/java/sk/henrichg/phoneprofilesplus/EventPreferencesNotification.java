@@ -141,7 +141,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_notification_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context));
@@ -167,12 +167,12 @@ class EventPreferencesNotification extends EventPreferences {
                         //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
 
                         if (this._inCall) {
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         if (this._missedCall) {
                             if (this._inCall)
                                 _value.append(StringConstants.STR_BULLET);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                         if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -185,7 +185,7 @@ class EventPreferencesNotification extends EventPreferences {
                                     ApplicationInfo app;
                                     try {
                                         app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
-                                        if (app != null)
+                                        //if (app != null)
                                             selectedApplications = packageManager.getApplicationLabel(app).toString();
                                     } catch (Exception e) {
                                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
@@ -202,31 +202,31 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                         if (this._inCall || this._missedCall)
                             _value.append(StringConstants.STR_BULLET);
-                        _value.append(context.getString(R.string.event_preferences_notifications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(context.getString(R.string.event_preferences_notifications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                         if (this._checkContacts) {
                             _value.append(StringConstants.STR_BULLET);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
 
                             _value.append(context.getString(R.string.event_preferences_notifications_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                             _value.append(context.getString(R.string.event_preferences_notifications_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                             _value.append(context.getString(R.string.event_preferences_contactListType)).append(StringConstants.STR_COLON_WITH_SPACE);
                             String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         if (this._checkText) {
                             _value.append(StringConstants.STR_BULLET);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
 
                             _value.append(context.getString(R.string.event_preferences_notifications_text)).append(StringConstants.STR_COLON_WITH_SPACE);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_text, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_text, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         _value.append(StringConstants.STR_BULLET);
-                        _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 }
             }
@@ -258,7 +258,7 @@ class EventPreferencesNotification extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
@@ -306,7 +306,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
                     summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
                             summary;
-                    titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
                     summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
@@ -474,8 +474,8 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
                                                         this._applications, this._inCall, this._missedCall, this._duration,
                                                         this._checkContacts, this._contactGroups, this._contacts,
@@ -513,28 +513,28 @@ class EventPreferencesNotification extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         boolean okCheck = false;
+        if (_inCall || _missedCall || (!_applications.isEmpty())) {
+            if (_checkContacts) {
+                runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                        (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+                okCheck = true;
+            }
 
-        if (_checkContacts) {
-            runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
-                    (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
-            okCheck = true;
+            if (_checkText) {
+                runnable = runnable && (!_text.isEmpty());
+                okCheck = true;
+            }
         }
 
-        if (_checkText) {
-            runnable = runnable && (!_text.isEmpty());
-            okCheck = true;
-        }
-
-        if (!okCheck)
-            runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
-
-        return runnable;
+        return runnable && okCheck;
     }
 
     @Override
     boolean isAllConfigured(Context context)
     {
         boolean allConfigured = super.isAllConfigured(context);
+
+        allConfigured = allConfigured && isRunnable(context);
 
         allConfigured = allConfigured &&
                 (ApplicationPreferences.applicationEventNotificationEnableScanning ||
@@ -950,18 +950,20 @@ class EventPreferencesNotification extends EventPreferences {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                     //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache == null)
                             return false;
                         List<Contact> contactList;
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isNotificationVisible", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
 
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
                             // ignore PPP notification
+                            if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                continue;
                             if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
                                 continue;
                             if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
@@ -1151,14 +1153,14 @@ class EventPreferencesNotification extends EventPreferences {
                 StatusBarNotification newestNotification = null;
                 StatusBarNotification activeNotification;
 
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null)
                     return null;
                 List<Contact> contactList;
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.getNewestVisibleNotification", "PPApplication.contactsCacheMutex");
-                synchronized (PPApplication.contactsCacheMutex) {
-                    contactList = contactsCache.getList(/*false*/);
-                }
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "contactsCache.getList()");
+                contactList = contactsCache.getList(/*false*/);
 
                 for (StatusBarNotification statusBarNotification : statusBarNotifications) {
                     if (this._inCall) {
@@ -1305,7 +1307,7 @@ class EventPreferencesNotification extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
 
                 boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
                         GlobalUtils.isNowTimeBetweenTimes(

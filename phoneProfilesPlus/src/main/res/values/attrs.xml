@@ -101,6 +101,9 @@
     <declare-styleable name="PPPhoneCallSendSMSDialogPreference">
         <attr name="sendSMS" format="boolean" />
     </declare-styleable>
+<!--    <declare-styleable name="PPEditTextPrefernce">-->
+<!--        <attr name="editValue" format="string" />-->
+<!--    </declare-styleable>-->
 
     <!-- theme dependent drawables -->
     <!--    <attr name="activityBackgroundColor" format="reference" />-->

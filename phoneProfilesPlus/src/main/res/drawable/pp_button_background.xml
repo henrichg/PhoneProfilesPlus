@@ -4,10 +4,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="1dp"
-                android:left="1dp"
-                android:right="1dp"
-                android:top="1dp" />
+                android:bottom="@dimen/button_border_thickness"
+                android:left="@dimen/button_border_thickness"
+                android:right="@dimen/button_border_thickness"
+                android:top="@dimen/button_border_thickness" />
 
             <solid android:color="@color/buttonBorderColor" />
 

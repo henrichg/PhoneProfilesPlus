@@ -70,6 +70,7 @@ class AddEventDialog
         listView = layout.findViewById(R.id.event_pref_dlg_listview);
         help = layout.findViewById(R.id.event_pref_dlg_help);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
             if (viewHolder != null)

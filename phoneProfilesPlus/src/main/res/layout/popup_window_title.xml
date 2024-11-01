@@ -12,10 +12,10 @@
         android:id="@+id/popup_window_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="12dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="8dp">
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp">
 
         <TextView
             android:id="@+id/popup_window_title"
@@ -31,16 +31,17 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/popup_window_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="2dp"
-            android:padding="5dp"
+            android:padding="@dimen/image_button_padding"
             android:layout_gravity="end"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/editor_ripple_item_right_button"
             android:src="@drawable/ic_button_close"
             app:tint="@color/accent_color"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/popup_window_close_button_name"
             app:textAllCaps="true" />
 
@@ -52,7 +53,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/popup_window_divider" />
+        android:background="@color/popupWindowDividerColor" />
 
 </LinearLayout>
 

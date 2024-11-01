@@ -35,6 +35,7 @@ public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmen
 
         PPMultiSelectListPreferenceAdapter listAdapter = new PPMultiSelectListPreferenceAdapter(prefContext, preference);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             CheckBox chb = item.findViewById(R.id.pp_multiselect_list_pref_dlg_item_checkbox);
 
@@ -57,6 +58,7 @@ public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmen
                 preference.value.add(_valueFromPos);
                 _found = true;
             }
+            //noinspection DataFlowIssue
             chb.setChecked(_found);
             //preference.persistValue();
         });

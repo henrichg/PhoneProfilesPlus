@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -140,7 +141,22 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + " " + DatabaseHandler.TEXT_TYPE
+                + DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_SEND_SMS_CONTACTS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS + " " + DatabaseHandler.TEXT_TYPE + ","
+                //+ DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_SEND_SMS_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_SEND_SMS_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_SCREEN_ON_OFF + " " + DatabaseHandler.INTEGER_TYPE// + ","
                 + ")";
     }
 
@@ -373,7 +389,22 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_MUSIC_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_MUSIC_APPLICATIONS + " " + DatabaseHandler.TEXT_TYPE //+ ","
+                + DatabaseHandler.KEY_E_MUSIC_APPLICATIONS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                //+ DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SEND_SMS + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_CALL_SMS_TEXT + " " + DatabaseHandler.TEXT_TYPE //+ ","
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -531,6 +562,7 @@ class DatabaseHandlerCreateUpdateDB {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__VPN_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_VPN_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BRIGHTNESS_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MUSIC_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_MUSIC_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALL_SCREENING_ENABLED ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + DatabaseHandler.TABLE_EVENTS + " (" + DatabaseHandler.KEY_E_STATUS + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -552,14 +584,14 @@ class DatabaseHandlerCreateUpdateDB {
             //cursor = db.rawQuery("PRAGMA phoneProfilesManager.TABLE_info("+ table +")", null);
 
             cursor = db.rawQuery("select * from "+table + " LIMIT 1", null);
-            if (cursor != null) {
+            //if (cursor != null) {
                 String[] _columns = cursor.getColumnNames();
                 Collections.addAll(columns, _columns);
                 //while (cursor.moveToNext()) {
                 //    String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 //    columns.add(name);
                 //}
-            }
+            //}
         } finally {
             if (cursor != null && !cursor.isClosed())
                 cursor.close();
@@ -693,6 +725,21 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_WALLPAPER_LOCKSCREEN, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SEND_SMS_CONTACTS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS, DatabaseHandler.TEXT_TYPE, columns);
+                //createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SEND_SMS_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SEND_SMS_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_ON_OFF, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -914,6 +961,21 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_MUSIC_STATE, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_MUSIC_APPLICATIONS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS, DatabaseHandler.INTEGER_TYPE, columns);
+                //createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_DURATION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SEND_SMS, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_CALL_SMS_TEXT, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -1127,7 +1189,7 @@ class DatabaseHandlerCreateUpdateDB {
             /*
             intentName = "[OpenVPN Connect - connect URL profile]";
             cursorUpdateDB = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_NAME + " FROM " + DatabaseHandler.TABLE_INTENTS +
-                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "=\"" + intentName + "\"",
+                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "='" + intentName + "'",
                     null);
             found = false;
             if (cursorUpdateDB.moveToFirst()) {
@@ -1159,7 +1221,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             intentName = "[OpenVPN Connect - connect file profile]";
             cursorUpdateDB = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_NAME + " FROM " + DatabaseHandler.TABLE_INTENTS +
-                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "=\"" + intentName + "\"",
+                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "='" + intentName + "'",
                     null);
             found = false;
             if (cursorUpdateDB.moveToFirst()) {
@@ -1192,7 +1254,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             intentName = "[OpenVPN Connect - disconnect]";
             cursorUpdateDB = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_NAME + " FROM " + DatabaseHandler.TABLE_INTENTS +
-                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "=\"" + intentName + "\"",
+                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "='" + intentName + "'",
                     null);
             found = false;
             if (cursorUpdateDB.moveToFirst()) {
@@ -1221,7 +1283,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             intentName = "[OpenVPN for Android - connect]";
             cursorUpdateDB = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_NAME + " FROM " + DatabaseHandler.TABLE_INTENTS +
-                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "=\"" + intentName + "\"",
+                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "='" + intentName + "'",
                     null);
             found = false;
             if (cursorUpdateDB.moveToFirst()) {
@@ -1249,7 +1311,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             intentName = "[OpenVPN for Android - disconnect]";
             cursorUpdateDB = db.rawQuery("SELECT " + DatabaseHandler.KEY_IN_NAME + " FROM " + DatabaseHandler.TABLE_INTENTS +
-                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "=\"" + intentName + "\"",
+                            " WHERE " + DatabaseHandler.KEY_IN_NAME + "='" + intentName + "'",
                     null);
             found = false;
             if (cursorUpdateDB.moveToFirst()) {
@@ -1330,7 +1392,7 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 22)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_RUN_APPLICATION_CHANGE + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + "=\"-\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + "='-'");
         }
 
         if (oldVersion < 24)
@@ -1347,7 +1409,7 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_START_TIME + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_END_TIME + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_DAYS_OF_WEEK + "=\"#ALL#\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_DAYS_OF_WEEK + "='#ALL#'");
         }
 
         if (oldVersion < 30)
@@ -1391,7 +1453,7 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1022)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START + "=''");
         }
 
         if (oldVersion < 1023)
@@ -1438,7 +1500,7 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_ENABLED + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_EVENT + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_CONTACTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_CONTACTS + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_CONTACT_LIST_TYPE + "=0");
         }
 
@@ -1507,9 +1569,9 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1090)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALENDAR_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALENDAR_CALENDARS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALENDAR_CALENDARS + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALENDAR_SEARCH_FIELD + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING + "=''");
         }
 
         if (oldVersion < 1095)
@@ -1530,7 +1592,7 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1105)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_WIFI_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_WIFI_SSID + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_WIFI_SSID + "=''");
         }
 
         if (oldVersion < 1106)
@@ -1572,7 +1634,7 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1130)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BLUETOOTH_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0");
         }
 
@@ -1580,7 +1642,7 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_ENABLED + "=0");
             //db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_EVENT + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_CONTACTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_CONTACTS + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_CONTACT_LIST_TYPE + "=0");
         }
 
@@ -1627,7 +1689,7 @@ class DatabaseHandlerCreateUpdateDB {
                                 brightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|" + splits[1] + "|" + splits[2] + "|0";
 
                             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
-                                    " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "=\"" + brightness + "\" " +
+                                    " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "='" + brightness + "' " +
                                     "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
                         }
 
@@ -1681,7 +1743,7 @@ class DatabaseHandlerCreateUpdateDB {
                                 brightness = percentage + "|" + splits[1] + "|" + splits[2] + "|0";
 
                             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
-                                    " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "=\"" + brightness + "\" " +
+                                    " SET " + DatabaseHandler.KEY_DEVICE_BRIGHTNESS + "='" + brightness + "' " +
                                     "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
                         }
 
@@ -1719,8 +1781,8 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1180)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_CONTACT_GROUPS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_CONTACT_GROUPS + "=''");
         }
 
         if (oldVersion < 1210)
@@ -1855,9 +1917,9 @@ class DatabaseHandlerCreateUpdateDB {
                         String bluetoothAdapterName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME)).replace("%", "\\%").replace("_", "\\_");
 
                         db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS +
-                                " SET " + DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING + "=\"" + calendarSearchString + "\"," +
-                                DatabaseHandler.KEY_E_WIFI_SSID + "=\"" + wifiSSID + "\"," +
-                                DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME + "=\"" + bluetoothAdapterName + "\"" +
+                                " SET " + DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING + "='" + calendarSearchString + "'," +
+                                DatabaseHandler.KEY_E_WIFI_SSID + "='" + wifiSSID + "'," +
+                                DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME + "='" + bluetoothAdapterName + "'" +
                                 " WHERE " + DatabaseHandler.KEY_E_ID + "=" + id);
 
                     } while (cursor.moveToNext());
@@ -1875,7 +1937,7 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1400)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_APPLICATIONS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_APPLICATIONS + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_START_TIME + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_DURATION + "=5");
         }
@@ -1899,7 +1961,7 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1450)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_APPLICATION_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_APPLICATION_APPLICATIONS + "=''");
         }
 
         if (oldVersion < 1460)
@@ -1964,18 +2026,18 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 1600)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_SIDES + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_SIDES + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_DISTANCE + "=0");
         }
 
         if (oldVersion < 1610)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_DISPLAY + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_DISPLAY + "=''");
         }
 
         if (oldVersion < 1620)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_IGNORE_APPLICATIONS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ORIENTATION_IGNORE_APPLICATIONS + "=''");
         }
 
         if (oldVersion < 1630)
@@ -2000,7 +2062,7 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1680)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS +  "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS +  "=''");
         }
 
         if (oldVersion < 1700)
@@ -2073,7 +2135,7 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1770)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NFC_NFC_TAGS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NFC_NFC_TAGS + "=''");
         }
 
         if (oldVersion < 1780)
@@ -2127,8 +2189,8 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1860)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "=\""+StringConstants.CONNECTTOSSID_JUSTANY+"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "=\""+StringConstants.CONNECTTOSSID_JUSTANY+"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "='"+StringConstants.CONNECTTOSSID_JUSTANY+"'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "='"+StringConstants.CONNECTTOSSID_JUSTANY+"'");
         }
 
         if (oldVersion < 1870)
@@ -2200,10 +2262,10 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1950)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DURATION_NOTIFICATION_SOUND + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DURATION_NOTIFICATION_VIBRATE + "=0");
         }
 
@@ -2281,7 +2343,7 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2040)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE + "=''");
 
             try {
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
@@ -2310,9 +2372,9 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2050)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "=\"-\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "='-'");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "=\"-\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "='-'");
         }
 
         if (oldVersion < 2060)
@@ -2382,7 +2444,7 @@ class DatabaseHandlerCreateUpdateDB {
         }
 
         if (oldVersion < 2130) {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_NFC_TAGS + " SET " + DatabaseHandler.KEY_NT_UID + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_NFC_TAGS + " SET " + DatabaseHandler.KEY_NT_UID + "=''");
         }
 
         if (oldVersion < 2140) {
@@ -2441,23 +2503,23 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2180)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_END + "=0");
         }
 
         if (oldVersion < 2200)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_INTENTS + " SET " + DatabaseHandler.KEY_IN_NAME + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_INTENTS + " SET " + DatabaseHandler.KEY_IN_NAME + "=''");
         }
 
         if (oldVersion < 2230)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_INTENTS + " SET " + DatabaseHandler.KEY_IN_ACTION + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_INTENTS + " SET " + DatabaseHandler.KEY_IN_ACTION + "=''");
         }
 
         if (oldVersion < 2240)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BATTERY_PLUGGED + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_BATTERY_PLUGGED + "=''");
         }
 
         if (oldVersion < 2270) {
@@ -2640,11 +2702,20 @@ class DatabaseHandlerCreateUpdateDB {
                                 15,
                                 "",
                                 "",
-                                0,
-                                false,
+                                //0,
                                 false,
                                 "",
-                                "-"
+                                "-",
+                                false,
+                                "",
+                                false,
+                                "",
+                                "",
+                                false,
+                                "",
+                                0,
+                                0,
+                                0
                         );
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
@@ -2758,16 +2829,16 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2310)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_DTMF + "=\"-1|1|0\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_ACCESSIBILITY + "=\"-1|1|0\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_DTMF + "=\"-1|1|0\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_ACCESSIBILITY + "=\"-1|1|0\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_DTMF + "='-1|1|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_ACCESSIBILITY + "='-1|1|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_DTMF + "='-1|1|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_ACCESSIBILITY + "='-1|1|0'");
         }
 
         if (oldVersion < 2320)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO + "=\"-1|1|0\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO + "=\"-1|1|0\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO + "='-1|1|0'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO + "='-1|1|0'");
         }
 
         if (oldVersion < 2340)
@@ -2802,12 +2873,12 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2350)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "=''");
         }
 
         if (oldVersion < 2360)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "=''");
         }
 
         if (oldVersion < 2370)
@@ -2885,10 +2956,10 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2406)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_CHECK_CONTACTS + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_CONTACT_GROUPS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_CONTACTS + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_CHECK_TEXT + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_TEXT + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_NOTIFICATION_TEXT + "=''");
         }
         if (oldVersion < 2407)
         {
@@ -2903,7 +2974,7 @@ class DatabaseHandlerCreateUpdateDB {
         }
 
         if (oldVersion < 2409) {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_ACTIVITY_LOG + " SET " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT + "=\"1 [0]\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_ACTIVITY_LOG + " SET " + DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT + "='1 [0]'");
         }
 
         if (oldVersion < 2410) {
@@ -2944,12 +3015,12 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2421)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ALARM_CLOCK_APPLICATIONS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ALARM_CLOCK_APPLICATIONS + "=''");
         }
 
         if (oldVersion < 2422)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ALARM_CLOCK_PACKAGE_NAME + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ALARM_CLOCK_PACKAGE_NAME + "=''");
         }
 
         if (oldVersion < 2423)
@@ -3038,8 +3109,8 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2441)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_GENERATE_NOTIFICATION + "=\"0|0||\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_GENERATE_NOTIFICATION + "=\"0|0||\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_GENERATE_NOTIFICATION + "='0|0||'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_GENERATE_NOTIFICATION + "='0|0||'");
         }
 
         if (oldVersion < 2442)
@@ -3093,7 +3164,7 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2448)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ACCESSORY_TYPE + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ACCESSORY_TYPE + "=''");
 
             try {
                 List<String> columns = getTableColums(db, DatabaseHandler.TABLE_EVENTS);
@@ -3110,7 +3181,7 @@ class DatabaseHandlerCreateUpdateDB {
                             int peripheralType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PERIPHERAL_TYPE));
 
                             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS +
-                                    " SET " + DatabaseHandler.KEY_E_ACCESSORY_TYPE + "=\"" + peripheralType + "\"" +
+                                    " SET " + DatabaseHandler.KEY_E_ACCESSORY_TYPE + "='" + peripheralType + "'" +
                                     " WHERE " + DatabaseHandler.KEY_E_ID + "=" + id);
 
                         } while (cursor.moveToNext());
@@ -3150,9 +3221,9 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2453)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "='0|0|0'");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "='0|0|0'");
         }
 
         if (oldVersion < 2454)
@@ -3170,19 +3241,19 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_CHANGE_SIM2 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM1 + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM2 + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM1 + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM1 + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM2 + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM1 + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM2 + "=''");
 
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_CHANGE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_CHANGE_SIM2 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM1 + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM2 + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM1 + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM1 + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_RINGTONE_SIM2 + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM1 + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM2 + "=''");
         }
 
         if (oldVersion < 2460)
@@ -3216,21 +3287,21 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2466)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SOUND_PROFILE_RINGER_MODES + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SOUND_PROFILE_ZEN_MODES + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SOUND_PROFILE_RINGER_MODES + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SOUND_PROFILE_ZEN_MODES + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SOUND_PROFILE_SENSOR_PASSED + "=0");
         }
 
         if (oldVersion < 2467)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_LIVE_WALLPAPER + "=''");
         }
 
         if (oldVersion < 2468)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VIBRATE_NOTIFICATIONS + "=0");
 
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_LIVE_WALLPAPER + "=''");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VIBRATE_NOTIFICATIONS + "=0");
         }
 
@@ -3521,9 +3592,9 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2512)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_G_LATITUDE_T + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_G_LONGITUDE_T + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_CELL_ID_T + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_G_LATITUDE_T + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_GEOFENCES + " SET " + DatabaseHandler.KEY_G_LONGITUDE_T + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MOBILE_CELLS + " SET " + DatabaseHandler.KEY_MC_CELL_ID_T + "=''");
         }
 
         if (oldVersion < 2513)
@@ -3537,7 +3608,7 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_STOP_RINGING + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SEND_SMS + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SMS_TEXT + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SMS_TEXT + "=''");
         }
         */
 
@@ -3548,10 +3619,10 @@ class DatabaseHandlerCreateUpdateDB {
         }
         if (oldVersion < 2517)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "=''");
         }
         if (oldVersion < 2518)
         {
@@ -3562,8 +3633,8 @@ class DatabaseHandlerCreateUpdateDB {
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "=0");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "=\"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT + "=''");
         }
 
         if (oldVersion < 2520)
@@ -3589,7 +3660,148 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 2524)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MUSIC_APPLICATIONS + "=\"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_MUSIC_APPLICATIONS + "=''");
+        }
+
+        if (oldVersion < 2525) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS + "=''");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2526) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_DURATION + "=5");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME + "=0");
+        }
+
+        if (oldVersion < 2527) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION + "=0");
+        }
+
+        if (oldVersion < 2531) {
+            try {
+                int eventStartOrder = 0;
+                String countQuery = "SELECT MAX(" + DatabaseHandler.KEY_E_START_ORDER + ") FROM " + DatabaseHandler.TABLE_EVENTS;
+                Cursor cursorCount = db.rawQuery(countQuery, null);
+                if (cursorCount.getCount() > 0) {
+                    if (cursorCount.moveToFirst()) {
+                        eventStartOrder = cursorCount.getInt(0);
+                    }
+                }
+                cursorCount.close();
+
+                final String selectQuery = "SELECT " + DatabaseHandler.KEY_ID + "," +
+                        DatabaseHandler.KEY_NAME + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_CONTACTS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS + "," +
+                        DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT +
+                        " FROM " + DatabaseHandler.TABLE_PROFILES;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        int blockCallsInProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS));
+
+                        if (blockCallsInProfile == 1) {
+                            // block calls is enabled in profile
+
+                            ++eventStartOrder;
+                            Event event = DataWrapperStatic.getNonInitializedEvent(
+                                    instance.context.getString(R.string.event_name_copy_from_profile_block_calls)+"-"+
+                                            cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_NAME)),
+                                    eventStartOrder);
+                            event.setStatus(Event.ESTATUS_STOP);
+                            event._atEndDo = Event.EATENDDO_NONE;
+                            event._eventPreferencesCallScreening._enabled = true;
+                            event._eventPreferencesCallScreening._callDirection = EventPreferencesCallScreening.CALL_DIRECTION_INCOMING;
+                            event._eventPreferencesCallScreening._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
+                            event._eventPreferencesCallScreening._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS));
+                            event._eventPreferencesCallScreening._blockCalls = true;
+                            event._eventPreferencesCallScreening._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1);
+                            event._eventPreferencesCallScreening._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT));
+                            event._eventPreferencesCallScreening._duration = 5;
+                            event._eventPreferencesCallScreening._permanentRun = false;
+
+                            DatabaseHandlerEvents.addEvent(event, db);
+                        }
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+
+                db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
+                db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
+
+            } catch (Exception e) {
+                Log.e("DatabaseHandlerCreateUpdateDB", Log.getStackTraceString(e));
+            }
+        }
+
+        if (oldVersion < 2532)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SEND_SMS_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SEND_SMS_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SEND_SMS_CONTACT_GROUPS + "=''");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE + "=0");
+            //db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SEND_SMS_CONTACT_LIST_TYPE + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SEND_SMS_SEND_SMS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SEND_SMS_SEND_SMS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SEND_SMS_SMS_TEXT + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SEND_SMS_SMS_TEXT + "=''");
+        }
+
+        if (oldVersion < 2532) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SEND_SMS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SMS_TEXT + "=''");
+        }
+
+        if (oldVersion < 2534) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_ENABLED + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_APPLICATIONS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACTS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS + "=''");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_CHECK_TEXT + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT + "=''");
+        }
+
+        if (oldVersion < 2535) {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS + "=0");
+        }
+
+        if (oldVersion < 2536)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + "=0");
+        }
+        if (oldVersion < 2537)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS + "=0");
+        }
+
+        if (oldVersion < 2538)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_SCREEN_ON_OFF + "=0");
+
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_SCREEN_ON_OFF + "=0");
         }
 
     }

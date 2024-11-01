@@ -89,6 +89,7 @@ class Event {
     EventPreferencesRoaming _eventPreferencesRoaming;
     EventPreferencesVPN _eventPreferencesVPN;
     EventPreferencesMusic _eventPreferencesMusic;
+    EventPreferencesCallScreening _eventPreferencesCallScreening;
 
     Spanned _peferencesDecription;
 
@@ -341,7 +342,7 @@ class Event {
 
     private void createEventPreferencesCall()
     {
-        this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5, 0);
+        this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5, 0, false, "");
     }
 
     private void createEventPreferencesAccessories()
@@ -475,6 +476,11 @@ class Event {
         this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0, "");
     }
 
+    private void createEventPreferencesCallScreening()
+    {
+        this._eventPreferencesCallScreening = new EventPreferencesCallScreening(this, false, 0, "", "", /*0,*/false, false, false, "", false, 5);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -503,6 +509,7 @@ class Event {
         createEventPreferencesRoaming();
         createEventPreferencesVPN();
         createEventPreferencesMusic();
+        createEventPreferencesCallScreening();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -559,6 +566,8 @@ class Event {
             createEventPreferencesVPN();
         if (this._eventPreferencesMusic == null)
             createEventPreferencesMusic();
+        if (this._eventPreferencesCallScreening == null)
+            createEventPreferencesCallScreening();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -585,78 +594,82 @@ class Event {
         this._eventPreferencesRoaming.copyPreferences(fromEvent);
         this._eventPreferencesVPN.copyPreferences(fromEvent);
         this._eventPreferencesMusic.copyPreferences(fromEvent);
+        this._eventPreferencesCallScreening.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
         Context appContext = context.getApplicationContext();
         return  (this._eventPreferencesTime._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBattery._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCall._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesAccessories._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCalendar._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesWifi._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesScreen._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBrightness._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBluetooth._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSMS._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesNotification._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesApplication._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesLocation._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesOrientation._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesMobileCells._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesNFC._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._wifi != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._bluetooth != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._simOnOff != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._defaultSIMForCalls != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._defaultSIMForSMS != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._mobileData != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._gps != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._nfc != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._airplaneMode != 0) &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesAlarmClock._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesDeviceBoot._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSoundProfile._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesPeriodic._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVolumes._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesActivatedProfile._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRoaming._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVPN._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesMusic._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesCallScreening._enabled &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                ;
     }
 
     boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -720,6 +733,8 @@ class Event {
             runnable = runnable && this._eventPreferencesVPN.isRunnable(appContext);
         if (this._eventPreferencesMusic._enabled)
             runnable = runnable && this._eventPreferencesMusic.isRunnable(appContext);
+        if (this._eventPreferencesCallScreening._enabled)
+            runnable = runnable && this._eventPreferencesCallScreening.isRunnable(appContext);
 
         return runnable;
     }
@@ -785,6 +800,8 @@ class Event {
             isAllConfigured = isAllConfigured && this._eventPreferencesVPN.isAllConfigured(appContext);
         if (this._eventPreferencesMusic._enabled)
             isAllConfigured = isAllConfigured && this._eventPreferencesMusic.isAllConfigured(appContext);
+        if (this._eventPreferencesCallScreening._enabled)
+            isAllConfigured = isAllConfigured && this._eventPreferencesCallScreening.isAllConfigured(appContext);
 
         return isAllConfigured;
     }
@@ -819,7 +836,8 @@ class Event {
                             this._eventPreferencesActivatedProfile._enabled ||
                             this._eventPreferencesRoaming._enabled ||
                             this._eventPreferencesVPN._enabled ||
-                            this._eventPreferencesMusic._enabled;
+                            this._eventPreferencesMusic._enabled ||
+                            this._eventPreferencesCallScreening._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -874,6 +892,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesVPN.isAccessibilityServiceEnabled(context, againCheckInDelay);
             if (this._eventPreferencesMusic._enabled)
                 accessibilityEnabled = this._eventPreferencesMusic.isAccessibilityServiceEnabled(context, againCheckInDelay);
+            if (this._eventPreferencesCallScreening._enabled)
+                accessibilityEnabled = this._eventPreferencesCallScreening.isAccessibilityServiceEnabled(context, againCheckInDelay);
         }
 
         return accessibilityEnabled;
@@ -938,6 +958,7 @@ class Event {
         this._eventPreferencesRoaming.loadSharedPreferences(preferences);
         this._eventPreferencesVPN.loadSharedPreferences(preferences);
         this._eventPreferencesMusic.loadSharedPreferences(preferences);
+        this._eventPreferencesCallScreening.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -1004,6 +1025,7 @@ class Event {
         this._eventPreferencesRoaming.saveSharedPreferences(preferences);
         this._eventPreferencesVPN.saveSharedPreferences(preferences);
         this._eventPreferencesMusic.saveSharedPreferences(preferences);
+        this._eventPreferencesCallScreening.saveSharedPreferences(preferences);
 
         if (!(this.isRunnable(context, true) && this.isAllConfigured(context, true)))
             this._status = ESTATUS_STOP;
@@ -1278,13 +1300,13 @@ class Event {
                             String profileName = dataWrapper.getProfileName(Long.parseLong(startWhenActivatedProfile));
                             if (profileName != null) {
                                 _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                        .append(getColorForChangedPreferenceValue(profileName, !preference.isEnabled(), context))
+                                        .append(EventPreferences.getColorForChangedPreferenceValue(profileName, !preference.isEnabled(), false, context))
                                         .append(StringConstants.TAG_BOLD_END_HTML);
                             }
                         }
                         else {
                             _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                    .append(getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context))
+                                    .append(EventPreferences.getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), false, context))
                                     .append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         dataWrapper.invalidateDataWrapper();
@@ -1293,7 +1315,7 @@ class Event {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context))
+                                .append(EventPreferences.getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), false, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundStartChanged) {
@@ -1308,7 +1330,7 @@ class Event {
                         if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_notificationRepeat)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context))
+                                .append(EventPreferences.getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), false, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
 
                     }
@@ -1335,7 +1357,7 @@ class Event {
                         /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context))
+                                .append(EventPreferences.getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), false, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (notificationSoundEndChanged) {
@@ -1484,6 +1506,8 @@ class Event {
             _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
             _eventPreferencesMusic.setSummary(prefMng, key, preferences, context);
             _eventPreferencesMusic.setCategorySummary(prefMng, preferences, context);
+            _eventPreferencesCallScreening.setSummary(prefMng, key, preferences, context);
+            _eventPreferencesCallScreening.setCategorySummary(prefMng, preferences, context);
         }
     }
 
@@ -1573,6 +1597,8 @@ class Event {
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesMusic.setAllSummary(prefMng, preferences, context);
         _eventPreferencesMusic.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesCallScreening.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesCallScreening.setCategorySummary(prefMng, preferences, context);
     }
 
     String getPreferencesDescription(Context context, DataWrapper _dataWrapper, boolean addPassStatus)
@@ -1655,6 +1681,12 @@ class Event {
 
         if (_eventPreferencesCall._enabled) {
             String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, false, context);
+            if (desc != null)
+                _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
+        }
+
+        if (_eventPreferencesCallScreening._enabled) {
+            String desc = _eventPreferencesCallScreening.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
                 _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(desc).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
         }
@@ -1819,6 +1851,7 @@ class Event {
         _eventPreferencesRoaming.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesVPN.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesMusic.checkPreferences(prefMng, onlyCategory, context);
+        _eventPreferencesCallScreening.checkPreferences(prefMng, onlyCategory, context);
     }
 
     /*
@@ -1881,6 +1914,7 @@ class Event {
         eventTimelineList.add(eventTimeline);
     }
 
+    // !!! WARNING: call it olny from EventsHandler.doHandleEvent() !!!
     void startEvent(DataWrapper dataWrapper,
                             //boolean ignoreGlobalPref,
                             //boolean interactive,
@@ -1889,19 +1923,29 @@ class Event {
                             //boolean log,
                             Profile mergedProfile)
     {
-        // remove delay alarm
-        removeDelayStartAlarm(dataWrapper); // for start delay
-        removeDelayEndAlarm(dataWrapper); // for end delay
-        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
-
         if ((!EventStatic.getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
             return;
 
         if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true))) {
-            // event is not runnable, no start it
+            // event is not runnable, no start it, but pause it
+
+            // parameters as from EventsHandler.doHandleEvent()
+            //pauseEvent(dataWrapper, true, false, false,
+            //        true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
+
+            // parameters as from DataWrapper._activateProfile() but:
+            // do not allow restart events, do not activate return profile, do not call system event,
+            // do npt merge to mergedProfile
+            pauseEvent(dataWrapper, false, true, true,
+                    true, null, false, forRestartEvents, manualRestart, true);
             return;
         }
+
+        // remove delay alarm
+        removeDelayStartAlarm(dataWrapper); // for start delay
+        removeDelayEndAlarm(dataWrapper); // for end delay
+        removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
         //if (ApplicationPreferences.prefEventsBlocked)
         if (EventStatic.getEventsBlocked(dataWrapper.context))
@@ -2327,9 +2371,10 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
+        // !!! Pause event even if is when not good configured !!!
+        //if (!(this.isRunnable(dataWrapper.context, true) && this.isAllConfigured(dataWrapper.context, true)))
             // event is not runnable, no pause it
-            return;
+        //    return;
 
 /*		if (PPApplication.getEventsBlocked(dataWrapper.context))
         {
@@ -2532,6 +2577,7 @@ class Event {
         _eventPreferencesRoaming.setSensorPassed(_eventPreferencesRoaming.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesVPN.setSensorPassed(_eventPreferencesVPN.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         _eventPreferencesMusic.setSensorPassed(_eventPreferencesMusic.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        _eventPreferencesCallScreening.setSensorPassed(_eventPreferencesCallScreening.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2566,6 +2612,7 @@ class Event {
             _eventPreferencesRoaming.setSystemEventForStart(context);
             _eventPreferencesVPN.setSystemEventForStart(context);
             _eventPreferencesMusic.setSystemEventForStart(context);
+            _eventPreferencesCallScreening.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2598,6 +2645,7 @@ class Event {
             _eventPreferencesRoaming.setSystemEventForPause(context);
             _eventPreferencesVPN.setSystemEventForPause(context);
             _eventPreferencesMusic.setSystemEventForPause(context);
+            _eventPreferencesCallScreening.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2630,6 +2678,7 @@ class Event {
             _eventPreferencesRoaming.removeSystemEvent(context);
             _eventPreferencesVPN.removeSystemEvent(context);
             _eventPreferencesMusic.removeSystemEvent(context);
+            _eventPreferencesCallScreening.removeSystemEvent(context);
         }
     }
 
@@ -3134,7 +3183,7 @@ class Event {
                 nText = nText + ". " + context.getString(R.string.start_event_notification_text2);
                 PPApplicationStatic.createNotifyEventStartNotificationChannel(context.getApplicationContext(), false);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.informationColor))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                         .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                         .setContentTitle(nTitle) // title for notification
@@ -3205,15 +3254,6 @@ class Event {
             //return true;
         }
         //return false;
-    }
-
-    String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
-        if (!disabled) {
-            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
-            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
-        } else
-            return preferenceValue;
     }
 
 }

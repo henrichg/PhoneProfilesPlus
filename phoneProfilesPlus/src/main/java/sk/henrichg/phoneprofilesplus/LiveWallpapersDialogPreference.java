@@ -174,7 +174,7 @@ public class LiveWallpapersDialogPreference extends DialogPreference {
         }
 
         public static final Creator<LiveWallpapersDialogPreference.SavedState> CREATOR =
-                new Creator<LiveWallpapersDialogPreference.SavedState>() {
+                new Creator<>() {
                     public LiveWallpapersDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new LiveWallpapersDialogPreference.SavedState(in);

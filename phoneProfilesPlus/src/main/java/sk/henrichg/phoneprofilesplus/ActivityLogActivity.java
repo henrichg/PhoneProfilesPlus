@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +24,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import java.lang.ref.WeakReference;
@@ -33,6 +38,9 @@ public class ActivityLogActivity extends AppCompatActivity
     private LinearLayout progressLinearLayout;
     private ActivityLogAdapter activityLogAdapter;
     private TextView addedNewLogsText;
+    AppCompatSpinner filterSpinner;
+
+    private int selectedFilter = 0;
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
@@ -60,9 +68,10 @@ public class ActivityLogActivity extends AppCompatActivity
     }
     private AddedActivityLogBroadcastReceiver addedActivityLogBroadcastReceiver;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -70,6 +79,8 @@ public class ActivityLogActivity extends AppCompatActivity
         setContentView(R.layout.activity_ppp_activity_log);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        Toolbar toolbar = findViewById(R.id.activity_log_toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,13 +88,105 @@ public class ActivityLogActivity extends AppCompatActivity
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
+        filterSpinner = findViewById(R.id.activity_log_filter_spinner);
+        String[] filterItems = new String[] {
+                getString(R.string.activity_log_filter_all),
+                getString(R.string.activity_log_filter_blocked_calls),
+                getString(R.string.activity_log_filter_errors),
+                getString(R.string.activity_log_filter_event_start),
+                getString(R.string.activity_log_filter_event_end),
+                getString(R.string.activity_log_filter_event_stop),
+                getString(R.string.activity_log_filter_restart_events),
+                getString(R.string.activity_log_filter_profile_activations),
+        };
+        PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
+                this,
+                R.layout.ppp_spinner_filter,
+                filterItems);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
+        filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+        //filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all_editor));
+/*        switch (appTheme) {
+            case "dark":
+                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
+                //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+                break;
+            case "white":
+                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
+                //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                break;
+//            case "dlight":
+//                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+//                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+//                break;
+            default:
+                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+                //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                break;
+        }*/
+        //filterInitialized = false;
+        filterSpinner.setAdapter(filterSpinnerAdapter);
+//        filterSpinner.setEnabled(false);
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //if (!filterInitialized) {
+                //    filterInitialized = true;
+                //    return;
+                //}
+                if (filterSpinner.getAdapter() != null) {
+                    //if (filterSpinner.getAdapter().getCount() <= position)
+                    //    position = 0;
+                    ((PPSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                }
+
+                int selectedFilter;
+                switch (position) {
+                    case 0:
+                        //noinspection DuplicateBranchesInSwitch
+                        selectedFilter = PPApplication.ALFILTER_ALL;
+                        break;
+                    case 1:
+                        selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
+                        break;
+                    case 2:
+                        selectedFilter = PPApplication.ALFITER_ERRORS;
+                        break;
+                    case 3:
+                        selectedFilter = PPApplication.ALFILTER_EVENT_START;
+                        break;
+                    case 4:
+                        selectedFilter = PPApplication.ALFILTER_EVENT_END;
+                        break;
+                    case 5:
+                        selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
+                        break;
+                    case 6:
+                        selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
+                        break;
+                    case 7:
+                        selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
+                        break;
+                    default:
+                        selectedFilter = PPApplication.ALFILTER_ALL;
+                }
+                selectFilterItem(selectedFilter);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
         //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
+        //noinspection DataFlowIssue
         addedNewLogsText.setVisibility(View.GONE);
 
         //dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         listView = findViewById(R.id.activity_log_list);
+        //noinspection DataFlowIssue
         listView.setEmptyView(findViewById(R.id.activity_log_list_empty));
         progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
         listView.setVisibility(View.GONE);
@@ -108,7 +211,7 @@ public class ActivityLogActivity extends AppCompatActivity
         super.onStart();
 
         setAdapterAsyncTask =
-                new SetAdapterAsyncTask(this, getApplicationContext());
+                new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
         setAdapterAsyncTask.execute();
     }
 
@@ -153,7 +256,7 @@ public class ActivityLogActivity extends AppCompatActivity
         if (itemId == R.id.menu_activity_log_reload) {
             //addedNewLogs = false;
             addedNewLogsText.setVisibility(View.GONE);
-            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
+            activityLogAdapter.reload(getApplicationContext(), selectedFilter);
             listView.setSelection(0);
             return true;
         }
@@ -169,7 +272,7 @@ public class ActivityLogActivity extends AppCompatActivity
                         //addedNewLogs = false;
                         addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
+                        activityLogAdapter.reload(getApplicationContext(), selectedFilter);
                     },
                     null,
                     null,
@@ -178,6 +281,7 @@ public class ActivityLogActivity extends AppCompatActivity
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
@@ -193,7 +297,7 @@ public class ActivityLogActivity extends AppCompatActivity
             PPApplicationStatic.setActivityLogEnabled(getApplicationContext(), !enabled);
             if (!enabled)
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, "");
-            activityLogAdapter.reload(getApplicationContext()/*dataWrapper*/);
+            activityLogAdapter.reload(getApplicationContext(), selectedFilter);
             listView.setSelection(0);
             invalidateOptionsMenu();
             return true;
@@ -215,37 +319,37 @@ public class ActivityLogActivity extends AppCompatActivity
 
             _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message_colors)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
 
-            int color = ContextCompat.getColor(this, R.color.altype_profile);
+            int color = ContextCompat.getColor(this, R.color.altypeProfileColor);
             String colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_profile_activation)).append(StringConstants.TAG_BREAK_HTML);
 
-            color = ContextCompat.getColor(this, R.color.altype_eventStart);
+            color = ContextCompat.getColor(this, R.color.altypeEventStartColor);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_start)).append(StringConstants.TAG_BREAK_HTML);
 
-            color = ContextCompat.getColor(this, R.color.altype_eventEnd);
+            color = ContextCompat.getColor(this, R.color.altypeEventEndColor);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_end)).append(StringConstants.TAG_BREAK_HTML);
 
-            color = ContextCompat.getColor(this, R.color.altype_restartEvents);
+            color = ContextCompat.getColor(this, R.color.altypeRestartEventsColor);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_restart_events)).append(StringConstants.TAG_BREAK_HTML);
 
-            color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
+            color = ContextCompat.getColor(this, R.color.altypeEventDelayStartEndColor);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_delay_start_end)).append(StringConstants.TAG_BREAK_HTML);
 
-            color = ContextCompat.getColor(this, R.color.altype_error);
+            color = ContextCompat.getColor(this, R.color.altypeErrorColor);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_error)).append(StringConstants.TAG_BREAK_HTML);
 
-            color = ContextCompat.getColor(this, R.color.altype_other);
+            color = ContextCompat.getColor(this, R.color.altypeOtherColor);
             colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
             _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
             _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_others));
@@ -289,6 +393,7 @@ public class ActivityLogActivity extends AppCompatActivity
             _value.append(getString(R.string.activity_log_help_message_data_otherEventDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
             _value.append(getString(R.string.activity_log_help_message_data_eventName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
 
+            //noinspection DataFlowIssue
             infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, false, 0, 0, true));
 
             infoTextView.setClickable(true);
@@ -342,17 +447,30 @@ public class ActivityLogActivity extends AppCompatActivity
         */
     }
 
+    private void selectFilterItem(int selectedFilter) {
+        this.selectedFilter = selectedFilter;
+
+        setAdapterAsyncTask =
+                new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
+        setAdapterAsyncTask.execute();
+
+        filterSpinner.setSelection(selectedFilter);
+    }
+
     private static class SetAdapterAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         private final WeakReference<Context> contextWeakReference;
         private final WeakReference<ActivityLogActivity> activityWeakReference;
 
+        final int _selectedFilter;
         Cursor activityLogCursor = null;
 
-        public SetAdapterAsyncTask(final ActivityLogActivity activity,
+        public SetAdapterAsyncTask(final int selectedFilter,
+                                   final ActivityLogActivity activity,
                                    final Context context) {
             this.contextWeakReference = new WeakReference<>(context);
             this.activityWeakReference = new WeakReference<>(activity);
+            this._selectedFilter = selectedFilter;
         }
 
         @Override
@@ -360,7 +478,8 @@ public class ActivityLogActivity extends AppCompatActivity
             Context context = contextWeakReference.get();
 
             if (context != null) {
-                activityLogCursor =  DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor();
+                activityLogCursor =
+                        DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor(_selectedFilter);
             }
 
             return null;
@@ -379,9 +498,32 @@ public class ActivityLogActivity extends AppCompatActivity
 
                     // Attach cursor adapter to the ListView
                     activity.listView.setAdapter(activity.activityLogAdapter);
+                    activity.activityLogAdapter.notifyDataSetChanged();
 
                     activity.progressLinearLayout.setVisibility(View.GONE);
                     activity.listView.setVisibility(View.VISIBLE);
+
+                    activity.listView.setOnItemClickListener((parent, view, position, id) -> {
+                        ActivityLogAdapter adapter = (ActivityLogAdapter) parent.getAdapter();
+                        Cursor cursor = adapter.getCursor();
+                        cursor.moveToPosition(position);
+                        int logTypeIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
+                        int logType = cursor.getInt(logTypeIndex);
+
+                        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+//                                Log.e("ActivityLogActivity.onItemClick", "blocked call");
+                            int telNumberIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
+                            String telNumber = cursor.getString(telNumberIndex);
+//                                Log.e("ActivityLogActivity.onItemClick", "telNumber="+telNumber);
+                            if (!telNumber.isEmpty()) {
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                intent.setData(Uri.parse("tel:" + telNumber));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                parent.getContext().startActivity(intent);
+//                                    Log.e("ActivityLogActivity.onItemClick", "dialer started");
+                            }
+                        }
+                    });
                 }
             }
 

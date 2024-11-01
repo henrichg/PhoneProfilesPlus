@@ -405,7 +405,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                     if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
                         changeSpeakerphone = true;
                     if (changeSpeakerphone) {
-                        /// activate SpeakerPhone
+                        // activate SpeakerPhone
                         // not working in EMUI :-/
 
                         // set it to MODE_IN_CALL, becaise simulatin ronging call sets it to MODE_NORMAL

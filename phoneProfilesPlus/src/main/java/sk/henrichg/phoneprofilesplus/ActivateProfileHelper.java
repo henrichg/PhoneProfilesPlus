@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.hardware.camera2.CameraAccessException;
@@ -39,11 +40,15 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.os.UserHandle;
+import android.provider.MediaStore;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
+import android.telephony.SmsManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -126,14 +131,19 @@ class ActivateProfileHelper {
     private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
     private static final String SETTINGS_PREF_VIBRATE_IN_SILENT = "vibrate_in_silent";
-    private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
     private static final String SETTINGS_PREF_VIBRATE_ON = "vibrate_on";
-    private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
     private static final String SETTINGS_AUDIO_SAFE_VOLUME_STATE = "audio_safe_volume_state";
     private static final String SETTINGS_HEADSUP_NOTIFICATION_ENABLED = "heads_up_notifications_enabled";
     private static final String SETTINGS_LOW_POWER = "low_power";
     private static final String SETTINGS_DOZE_ALWAYS_ON = "doze_always_on";
     private static final String SETTINGS_UI_NIGHT_MODE = "ui_night_mode";
+    private static final String SETTINGS_PREF_RING_VIBRATION_INTENSITY = "ring_vibration_intensity";
+    private static final String SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY = "notification_vibration_intensity";
+    private static final String SETTINGS_PREF_HAPTIC_FEEDBACK_VIBRATION_INTENSITY = "haptic_feedback_intensity";
+    private static final String SETTINGS_BLUE_LIGHT_FILTER = "blue_light_filter";
+    private static final String SETTINGS_SCREEN_PAPER_MODE_ENABLED = "screen_paper_mode_enabled";
+    private static final String SETTINGS_EYES_PROTECTION_MODE = "eyes_protection_mode";
+    private static final String SETTINGS_NIGHT_DISPLAY_ACTIVATED = "night_display_activated";
 
 //    private static final String PPPPS_SETTINGS_TYPE_SPECIAL = "setting_type_special";
 //    private static final String SETTINGS_SET_WIFI_ENABLED = "setWifiEnabled";
@@ -160,7 +170,7 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
 
                     if (profile._deviceOnOffSIM1 != 0) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                             //noinspection ConstantConditions
                             if (!firstSleepCalled) {
@@ -189,7 +199,7 @@ class ActivateProfileHelper {
                         }
                     }
                     if (profile._deviceOnOffSIM2 != 0) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -223,7 +233,7 @@ class ActivateProfileHelper {
 
         // change default SIM
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -269,7 +279,7 @@ class ActivateProfileHelper {
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -285,7 +295,7 @@ class ActivateProfileHelper {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -297,7 +307,7 @@ class ActivateProfileHelper {
                         }
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -313,7 +323,7 @@ class ActivateProfileHelper {
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -435,7 +445,7 @@ class ActivateProfileHelper {
         // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -534,7 +544,7 @@ class ActivateProfileHelper {
         if (canChangeWifi) {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -604,7 +614,7 @@ class ActivateProfileHelper {
             }
 
             // connect to SSID
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
@@ -702,7 +712,7 @@ class ActivateProfileHelper {
 
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -760,7 +770,7 @@ class ActivateProfileHelper {
 
         // setup location mode
         if (profile._deviceLocationMode != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -820,7 +830,7 @@ class ActivateProfileHelper {
 
         // setup GPS
         if (profile._deviceGPS != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -859,7 +869,7 @@ class ActivateProfileHelper {
 
         // setup NFC
         if (profile._deviceNFC != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     //noinspection UnusedAssignment
@@ -944,7 +954,7 @@ class ActivateProfileHelper {
                     boolean _setAirplaneMode = false;
                     boolean _useAssistant = false;
                     if (profile._deviceAirplaneMode != 0) {
-                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             _isAirplaneMode = isAirplaneMode(appContext);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
@@ -1790,7 +1800,7 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
                      {
@@ -1808,6 +1818,8 @@ class ActivateProfileHelper {
                             }
                             else
                             if (PPApplication.deviceIsOnePlus) {
+                                // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                 switch (lValue) {
                                     case 1:
                                         if (Settings.System.getInt(appContext.getContentResolver(),
@@ -1826,26 +1838,29 @@ class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
                             //PPApplicationStatic.recordException(ee);
 
-                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                            int ppppsVersion = isPPPPutSettingsInstalled(appContext);
+                            if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_SILENT, String.valueOf(lValue));
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_SILENT, String.valueOf(lValue));
                                 } else if (PPApplication.deviceIsOnePlus) {
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                    // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     switch (lValue) {
                                         case 1:
-                                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "2");
+                                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "2");
                                             break;
                                         case 0:
-                                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "0");
+                                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "0");
                                             break;
                                     }
                                 } else {
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                 }
                             }
-                            else if (ShizukuUtils.hasShizukuPermission()) {
+                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                 synchronized (PPApplication.rootMutex) {
                                     try {
                                         String command1;
@@ -1858,6 +1873,8 @@ class ActivateProfileHelper {
                                         }
                                         else
                                         if (PPApplication.deviceIsOnePlus) {
+                                            // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                            // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                             command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                             command2 = "";
                                             switch (lValue) {
@@ -1898,6 +1915,8 @@ class ActivateProfileHelper {
                                         }
                                         else
                                         if (PPApplication.deviceIsOnePlus) {
+                                            // Must be set minimal to 2, because without this, in OnePlus will not vibrates
+                                            // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
                                             command1 = COMMAND_SETTINGS_PUT_SYSTEM + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                             String command2 = "";
                                             switch (lValue) {
@@ -1964,21 +1983,22 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                int ppppsVersion = isPPPPutSettingsInstalled(appContext);
+                if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                     if (PPApplication.deviceIsPixel) {
                         if (lValue > 0) {
-                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
-                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
+                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
+                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                         } else {
-                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
+                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                         }
                     } else {
-                        putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
+                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                     }
                 }
-                else if (ShizukuUtils.hasShizukuPermission()) {
+                else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                     synchronized (PPApplication.rootMutex) {
                         String command1;
                         String command2 = "";
@@ -2047,18 +2067,20 @@ class ActivateProfileHelper {
                                                SharedPreferences executedProfileSharedPreferences) {
         if (value != -1) {
             Context appContext = context.getApplicationContext();
-            if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 {
 //                    Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
 //                    Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
 
+                    int ppppsVersion = isPPPPutSettingsInstalled(appContext);
+
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
 
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
-                        else if (ShizukuUtils.hasShizukuPermission()) {
+                        if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
+                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
+                        else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
                                 try {
@@ -2068,25 +2090,28 @@ class ActivateProfileHelper {
                                 }
                             }
                         } else {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (RootUtils.isRooted(/*false*/) && RootUtils.settingsBinaryExists(false))) {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper._setVibrationIntensity", "(1) PPApplication.rootMutex");
-                            synchronized (PPApplication.rootMutex) {
-                                String command1;
-                                Command command;
-                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
-                                command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_VIBRATION_INTENSITY);
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper._setVibrationIntensity", Log.getStackTraceString(e));
-                                    //PPApplicationStatic.recordException(e);
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
+                                    command = new Command(0, /*false,*/ command1);
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_VIBRATION_INTENSITY);
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper._setVibrationIntensity", Log.getStackTraceString(e));
+                                        //PPApplicationStatic.recordException(e);
+                                    }
                                 }
                             }
                         }
                     } else {
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                            putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
+                        if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
+                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1;
@@ -2190,7 +2215,7 @@ class ActivateProfileHelper {
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
                         "ring_stepless_vibration_intensity",
-                        lValueRinging + VibrationIntensityPreference.getMinValue("RINGING"),
+                        lValueRinging + VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE),
                         executedProfileSharedPreferences
                 );
             }
@@ -2199,7 +2224,7 @@ class ActivateProfileHelper {
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
                         "notification_stepless_vibration_intensity",
-                        lValueNotificaitons + VibrationIntensityPreference.getMinValue("NOTIFICATIONS"),
+                        lValueNotificaitons + VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE),
                         executedProfileSharedPreferences
                 );
             }
@@ -2208,7 +2233,7 @@ class ActivateProfileHelper {
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
                         "touch_stepless_vibration_intensity",
-                        lValueTouchIntensity + VibrationIntensityPreference.getMinValue("TOUCHINTERACTION"),
+                        lValueTouchIntensity + VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE),
                         executedProfileSharedPreferences
                 );
             }
@@ -2223,8 +2248,11 @@ class ActivateProfileHelper {
             if (profile.getVibrationIntensityTouchInteractionChange())
                 lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
 
-            if ((lValueRinging > 0) || (lValueNotificaitons > 0) || (lValueTouchIntensity > 0))
-                putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
+            if ((lValueRinging > 0) || (lValueNotificaitons > 0) || (lValueTouchIntensity > 0)) {
+                int ppppsVersion = isPPPPutSettingsInstalled(context);
+                if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
+                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
+            }
 
             if (profile.getVibrationIntensityRingingChange()) {
                 lValueRinging = profile.getVibrationIntensityRingingValue();
@@ -2249,7 +2277,7 @@ class ActivateProfileHelper {
                 lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
-                        "haptic_feedback_intensity",
+                        SETTINGS_PREF_HAPTIC_FEEDBACK_VIBRATION_INTENSITY,
                         lValueTouchIntensity,
                         executedProfileSharedPreferences
                 );
@@ -2575,7 +2603,7 @@ class ActivateProfileHelper {
             }
 
             if (profile._soundRingtoneChangeSIM1 == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim1Exists = hasSIMCardData.hasSIM1;
                     if (sim1Exists) {
@@ -2737,7 +2765,7 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundRingtoneChangeSIM2 == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim2Exists = hasSIMCardData.hasSIM2;
 
@@ -2890,7 +2918,9 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChangeSIM1 == 1) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                    int ppppsVersion = isPPPPutSettingsInstalled(appContext);
 
                     boolean sim1Exists = hasSIMCardData.hasSIM1;
 
@@ -2929,10 +2959,10 @@ class ActivateProfileHelper {
 
                                             //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
 
-                                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                                putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
+                                            if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                                                putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
                                             }
-                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_SAMSUNG + " " + uri.toString();
                                                     try {
@@ -2970,10 +3000,10 @@ class ActivateProfileHelper {
                                             } catch (Exception ignored) {
                                             }
 
-                                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                                putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
+                                            if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                                                putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
                                             }
-                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_HUAWEI + " " + uri.toString();
                                                     try {
@@ -3051,10 +3081,10 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                        putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
+                                    if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
                                     }
-                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_SAMSUNG + " \"\"";
                                             try {
@@ -3090,10 +3120,10 @@ class ActivateProfileHelper {
                                     // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                        putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
+                                    if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
                                     }
-                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM1_HUAWEI + " \"\"";
                                             try {
@@ -3146,7 +3176,9 @@ class ActivateProfileHelper {
             }
             if (profile._soundNotificationChangeSIM2 == 1) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2");
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                    int ppppsVersion = isPPPPutSettingsInstalled(appContext);
 
                     boolean sim2Exists = hasSIMCardData.hasSIM2;
                     //Log.e("ActivateProfileHelper.setTones", "sim2Exists="+sim2Exists);
@@ -3186,10 +3218,10 @@ class ActivateProfileHelper {
 
                                             //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
-                                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                                putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
+                                            if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                                                putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
                                             }
-                                            else if (ShizukuUtils.hasShizukuPermission()) {
+                                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
                                                     String command1 = COMMAND_SETTINGS_PUT_SYSTEM + PREF_NOTIFICATION_SIM2_SAMSUNG + " " + uri.toString();
                                                     try {
@@ -3304,10 +3336,10 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                        putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
+                                    if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
                                     }
-                                    else if (ShizukuUtils.hasShizukuPermission()) {
+                                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = COMMAND_SETTINGS_PUT_SYSTEM+PREF_NOTIFICATION_SIM2_SAMSUNG + " \"\"";
                                             try {
@@ -3393,7 +3425,9 @@ class ActivateProfileHelper {
             }
 
             if (profile._soundSameRingtoneForBothSIMCards != 0) {
-                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                    int ppppsVersion = isPPPPutSettingsInstalled(appContext);
 
                     boolean sim1Exists = hasSIMCardData.hasSIM1;
                     boolean sim2Exists = hasSIMCardData.hasSIM2;
@@ -3407,13 +3441,13 @@ class ActivateProfileHelper {
                             if (profile._soundSameRingtoneForBothSIMCards == 2)
                                 value = "0";
 
-                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                            if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_XIAOMI, value);
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_XIAOMI, value);
                                 else if (PPApplication.deviceIsOnePlus)
-                                    putSettingsParameter(context, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
+                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
                             }
-                            else if (ShizukuUtils.hasShizukuPermission()) {
+                            else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = null;
                                     if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
@@ -3523,6 +3557,9 @@ class ActivateProfileHelper {
     }
 
     static void executeForVolumes(Profile _profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences _executedProfileSharedPreferences) {
+//        PPApplicationStatic.recordException(new Exception("test"));
+
+
         final Context appContext = context.getApplicationContext();
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
@@ -3651,12 +3688,13 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                            putSettingsParameter(appContext, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
-                        else if (ShizukuUtils.hasShizukuPermission()) {
+                        int ppppsVersion = isPPPPutSettingsInstalled(appContext);
+                        if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
+                            putSettingsParameter(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
+                        else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = COMMAND_SETTINGS_PUT_SYSTEM + NOTIFICATION_LIGHT_PULSE + " " + value;
                                 try {
@@ -3723,7 +3761,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -3794,7 +3832,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean G1OK = false;
                         //if (PPApplication.deviceIsOnePlus) {
@@ -3860,12 +3898,102 @@ class ActivateProfileHelper {
         PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setScreenOnPermanent(Profile profile, Context context) {
-        if (Permissions.checkProfileScreenOnPermanent(context, profile, null)) {
-            if (profile._screenOnPermanent == 1)
-                createKeepScreenOnView(context);
-            else if (profile._screenOnPermanent == 2)
-                removeKeepScreenOnView(context);
+    private static void setScreenOn(final Context context) {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = null;
+        try {
+            if (powerManager != null) {
+                //noinspection deprecation
+                wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
+                                PowerManager.ACQUIRE_CAUSES_WAKEUP |
+                                PowerManager.ON_AFTER_RELEASE,
+                        WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_screenOn);
+
+                wakeLock.acquire(1000);
+
+                GlobalUtils.sleep(500);
+
+                //release will release the lock from CPU, in case of that,
+                // screen will go back to sleep mode in defined time bt device settings
+                wakeLock.release();
+            }
+
+        } catch (Exception e) {
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        } finally {
+            if ((wakeLock != null) && wakeLock.isHeld()) {
+                try {
+                    wakeLock.release();
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
+
+    private static void setScreenOff(Profile _profile, final Context context) {
+        final Context appContext = context.getApplicationContext();
+        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        Runnable runnable = () -> {
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setScreenOff");
+
+            if (PPApplication.blockProfileEventActions)
+                // not lock device after boot
+                return;
+
+            //Context appContext= appContextWeakRef.get();
+            Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+
+            if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_screenOff);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    if (PhoneProfilesService.getInstance() != null) {
+                        if (Permissions.checkScreenOnOff(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
+                            try {
+                                Intent intent = new Intent(appContext, LockDeviceActivity.class);
+                                intent.putExtra(LockDeviceActivity.EXTRA_ONLY_SCREEN_OFF, true);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                appContext.startActivity(intent);
+                            } catch (Exception e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            }
+        };
+        PPApplicationStatic.createProfileActiationExecutorPool();
+        PPApplication.profileActiationExecutorPool.submit(runnable);
+    }
+
+    private static void setScreenOnOff(Profile profile, Context context) {
+        if (Permissions.checkProfileScreenOnOff(context, profile, null)) {
+            if (profile._screenOnOff == 1)
+                setScreenOn(context);
+            else if ((profile._screenOnOff == 2) &&
+                    (profile._lockDevice != 1)) // only when is not configured "Quick screen" version of "Lock device"
+                setScreenOff(profile, context);
         }
     }
 
@@ -4037,6 +4165,51 @@ class ActivateProfileHelper {
         PPApplication.soundModeExecutorPool.submit(runnable);
     }
 
+    private static Bitmap _changeWallpaperGetBitmapFromUri(String wallpaperUri, Context appContext) {
+        Bitmap bitmap = null;
+        Uri uri = Uri.parse(wallpaperUri);
+        if (uri != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    ImageDecoder.Source source = ImageDecoder.createSource(appContext.getContentResolver(), uri);
+                    bitmap = ImageDecoder.decodeBitmap(source, (decoder, info, src) -> {
+                        //decoder.setTargetSampleSize(1);
+                        //decoder.setMutableRequired(true);
+                        //decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+                    });
+                }
+                else
+                    bitmap = MediaStore.Images.Media.getBitmap(appContext.getContentResolver(), uri);
+            } catch (Exception ignored) {}
+        }
+        return bitmap;
+    }
+
+    private static Exception _changeWallpaperForLockscreen(WallpaperManager wallpaperManager, Bitmap bitmap, int height, int width) {
+        // calculates sizes to maintain aspect ratio
+        int scaleToUse = 100; // this will be our percentage
+        int sizeY = height * scaleToUse / 100;
+        int sizeX = bitmap.getWidth() * sizeY / bitmap.getHeight();
+        // resize bitmap for lockscreen
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, sizeX, sizeY, true);
+
+        int flags = WallpaperManager.FLAG_LOCK;
+        int left = 0;
+        int right = resizedBitmap.getWidth();
+        if (resizedBitmap.getWidth() > width) {
+            left = (resizedBitmap.getWidth() / 2) - (width / 2);
+            right = (resizedBitmap.getWidth() / 2) + (width / 2);
+        }
+        Rect visibleCropHint = new Rect(left, 0, right, resizedBitmap.getHeight());
+
+        try {
+            wallpaperManager.setBitmap(resizedBitmap, visibleCropHint, true, flags);
+            return null;
+        } catch (Exception e) {
+            return e;
+        }
+    }
+
     private static void _changeImageWallpapers(Profile profile, String wallpaperUri, String lockScreenWallpaperUri, boolean fromFolder, Context appContext) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
@@ -4053,31 +4226,36 @@ class ActivateProfileHelper {
             }
 
             // for lock screen no double width
-            if (profile._deviceWallpaperFor != 2)
-                width = width << 1; // best wallpaper width is twice screen width
+            //if (profile._deviceWallpaperFor != 2)
+            //    width = width << 1; // best wallpaper width is twice screen width
 
             if (fromFolder) {
-                Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+                Bitmap decodedSampleBitmap = _changeWallpaperGetBitmapFromUri(wallpaperUri, appContext);
                 if (decodedSampleBitmap != null) {
                     // set wallpaper
                     WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
                     try {
-                        int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
-                        Rect visibleCropHint = null;
-                        if (profile._deviceWallpaperFor == 1)
-                            flags = WallpaperManager.FLAG_SYSTEM;
-                        if (profile._deviceWallpaperFor == 2) {
-                            flags = WallpaperManager.FLAG_LOCK;
-                            int left = 0;
-                            int right = decodedSampleBitmap.getWidth();
-                            if (decodedSampleBitmap.getWidth() > width) {
-                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
-                            }
-                            visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
+                        if (profile._deviceWallpaperFor == 0) {
+                            // home+lock
+                            int flags = WallpaperManager.FLAG_SYSTEM;
+                            wallpaperManager.setBitmap(decodedSampleBitmap, null, true, flags);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width);
+                            if (ee != null)
+                                throw(ee);
                         }
-                        wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
-                        decodedSampleBitmap.recycle();
+                        else
+                        if (profile._deviceWallpaperFor == 1) {
+                            // home only
+                            int flags = WallpaperManager.FLAG_SYSTEM;
+                            wallpaperManager.setBitmap(decodedSampleBitmap, null, true, flags);
+                        }
+                        else
+                        if (profile._deviceWallpaperFor == 2) {
+                            // lock only
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width);
+                            if (ee != null)
+                                throw(ee);
+                        }
 
                         // this is required for "change random image from folder"
                         PPApplicationStatic.setWallpaperChangeTime(appContext);
@@ -4100,48 +4278,38 @@ class ActivateProfileHelper {
             } else {
                 Bitmap decodedSampleBitmapHome = null;
                 Bitmap decodedSampleBitmapLock = null;
-                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1))
-                    decodedSampleBitmapHome = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+                if ((profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 1)) {
+                    decodedSampleBitmapHome = _changeWallpaperGetBitmapFromUri(wallpaperUri, appContext);
+                }
                 if ((lockScreenWallpaperUri != null) && (!lockScreenWallpaperUri.isEmpty()) &&
                         (!lockScreenWallpaperUri.equals("-")) &&
-                        (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2))
-                    decodedSampleBitmapLock = BitmapManipulator.resampleBitmapUri(lockScreenWallpaperUri, width, height, false, true, appContext);
+                        (profile._deviceWallpaperFor == 0) || (profile._deviceWallpaperFor == 2)) {
+                    decodedSampleBitmapLock = _changeWallpaperGetBitmapFromUri(lockScreenWallpaperUri, appContext);
+                }
 
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
                 try {
                     if (profile._deviceWallpaperFor == 0) {
                         // home+lock
                         if ((decodedSampleBitmapHome != null)) {
-                            int flags;
-                            if (decodedSampleBitmapLock == null)
-                                flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
-                            else
-                                flags = WallpaperManager.FLAG_SYSTEM;
-
+                            int flags = WallpaperManager.FLAG_SYSTEM;
                             wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
                         }
                         if (decodedSampleBitmapLock != null) {
-                            int flags = WallpaperManager.FLAG_LOCK;
-                            int left = 0;
-                            int right = decodedSampleBitmapLock.getWidth();
-                            if (decodedSampleBitmapLock.getWidth() > width) {
-                                left = (decodedSampleBitmapLock.getWidth() / 2) - (width / 2);
-                                right = (decodedSampleBitmapLock.getWidth() / 2) + (width / 2);
-                            }
-                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmapLock.getHeight());
-
-                            wallpaperManager.setBitmap(decodedSampleBitmapLock, visibleCropHint, true, flags);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmapLock, height, width);
+                            if (ee != null)
+                                throw(ee);
                         }
                     }
+                    else
                     if (profile._deviceWallpaperFor == 1) {
                         // home only
                         if ((decodedSampleBitmapHome != null)) {
-                            int flags;
-                            flags = WallpaperManager.FLAG_SYSTEM;
-
+                            int flags = WallpaperManager.FLAG_SYSTEM;
                             wallpaperManager.setBitmap(decodedSampleBitmapHome, null, true, flags);
                         }
                     }
+                    else
                     if (profile._deviceWallpaperFor == 2) {
                         // lock only
                         Bitmap decodedSampleBitmap = decodedSampleBitmapHome;
@@ -4149,16 +4317,9 @@ class ActivateProfileHelper {
                             decodedSampleBitmap = decodedSampleBitmapLock;
 
                         if (decodedSampleBitmap != null) {
-                            int flags = WallpaperManager.FLAG_LOCK;
-                            int left = 0;
-                            int right = decodedSampleBitmap.getWidth();
-                            if (decodedSampleBitmap.getWidth() > width) {
-                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
-                            }
-                            Rect visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
-
-                            wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                            Exception ee =  _changeWallpaperForLockscreen(wallpaperManager, decodedSampleBitmap, height, width);
+                            if (ee != null)
+                                throw(ee);
                         }
                     }
 
@@ -4441,10 +4602,18 @@ class ActivateProfileHelper {
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
 
+        boolean canChangeWallpaper = true;
         // startActivity from background: Android 10 (API level 29)
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
-        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            if ((_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
+                    (_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
+                canChangeWallpaper = Settings.canDrawOverlays(context);
+            }
+        }
+
+        if (canChangeWallpaper) {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
@@ -4460,7 +4629,6 @@ class ActivateProfileHelper {
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForWallpaper);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
-
                         _changeImageWallpapers(profile, profile._deviceWallpaper, profile._deviceWallpaperLockScreen, false, appContext);
                     } catch (Exception e) {
     //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -4933,7 +5101,7 @@ class ActivateProfileHelper {
 
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (profile._deviceMobileDataPrefs == 1) {
                     final String SETTINGS_DATA_USAGE_CLASS_NAME = "com.android.settings.Settings$DataUsageSummaryActivity";
                     final String SETTINGS_PHONE_CLASS_NAME = "com.android.phone.Settings";
@@ -5023,7 +5191,7 @@ class ActivateProfileHelper {
                 }
             }
 
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (profile._deviceNetworkTypePrefs == 1) {
                     if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
                         try {
@@ -5172,10 +5340,10 @@ class ActivateProfileHelper {
                         PPApplicationStatic.recordException(e);
                     }
                 } else {
-                /*String PACKAGE_PREFIX =
-                        VpnManager.class.getPackage().getName() + ".";
-                String ACTION_VPN_SETTINGS =
-                        PACKAGE_PREFIX + "SETTINGS";*/
+                    /*String PACKAGE_PREFIX =
+                            VpnManager.class.getPackage().getName() + ".";
+                    String ACTION_VPN_SETTINGS =
+                            PACKAGE_PREFIX + "SETTINGS";*/
                     String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
                     Intent intent = new Intent(ACTION_VPN_SETTINGS);
                     if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
@@ -5186,6 +5354,32 @@ class ActivateProfileHelper {
                         showNotificationForInteractiveParameters(appContext, title, text, intent,
                                 PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID,
                                 PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG);
+                    }
+                }
+            }
+
+            if (profile._screenNightLightPrefs == 1) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
+                        == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_NIGHT_DISPLAY_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    } else {
+                        Intent intent = new Intent(Settings.ACTION_NIGHT_DISPLAY_SETTINGS);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                            String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                    ProfileStatic.getNightLightPrefsStringString(appContext);
+                            showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                    PPApplication.PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION_ID,
+                                    PPApplication.PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION_TAG);
+                        }
                     }
                 }
             }
@@ -5225,7 +5419,7 @@ class ActivateProfileHelper {
 
         PPApplicationStatic.createInformationNotificationChannel(appContext, false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(title) // title for notification
@@ -5255,7 +5449,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static void execute(final Context context, final Profile profile)
+    static void execute(final Context context, final Profile profile, final boolean forRestartEvents)
     {
         final Context appContext = context.getApplicationContext();
 
@@ -5368,6 +5562,11 @@ class ActivateProfileHelper {
             setScreenOnPermanent(profile, appContext);
         //}
 
+        // screen on/off
+        if (profile._deviceKeyguard == 0)
+            // only when deviceKeyguard is not configured do screen on/off
+            setScreenOnOff(profile, appContext);
+
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(appContext, profile, null)) {
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
@@ -5391,23 +5590,26 @@ class ActivateProfileHelper {
         //    PPApplication.setActivatedProfileScreenTimeout(context, 0);
 
         // on/off lock screen
-        boolean setLockScreen = false;
-        switch (profile._deviceKeyguard) {
-            case 1:
-                // enable lock screen
-                setLockScreenDisabled(appContext, false);
-                setLockScreen = true;
-                break;
-            case 2:
-                // disable lock screen
-                setLockScreenDisabled(appContext, true);
-                setLockScreen = true;
-                break;
-        }
-        if (setLockScreen) {
-            //boolean isScreenOn;
-            //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-            //if (pm != null) {
+        if (profile._screenOnOff == 0) {
+            // only when screen on/off is not configured do device keyguard
+
+            boolean setLockScreen = false;
+            switch (profile._deviceKeyguard) {
+                case 1:
+                    // enable lock screen
+                    setLockScreenDisabled(appContext, false);
+                    setLockScreen = true;
+                    break;
+                case 2:
+                    // disable lock screen
+                    setLockScreenDisabled(appContext, true);
+                    setLockScreen = true;
+                    break;
+            }
+            if (setLockScreen) {
+                //boolean isScreenOn;
+                //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
+                //if (pm != null) {
                 boolean keyguardShowing;
                 KeyguardManager kgMgr = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                 if (kgMgr != null) {
@@ -5417,14 +5619,15 @@ class ActivateProfileHelper {
                         try {
                             //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
                             //if (ppService != null) {
-                                GlobalUtils.switchKeyguard(context);
+                            GlobalUtils.switchKeyguard(context);
                             //}
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
                     }
                 }
-            //}
+                //}
+            }
         }
 
         // setup display brightness
@@ -5731,17 +5934,17 @@ class ActivateProfileHelper {
             setScreenDarkMode(context, profile._screenDarkMode, executedProfileSharedPreferences);
         }
 
-            // set always on display
-            if (profile._alwaysOnDisplay != 0) {
-                switch (profile._alwaysOnDisplay) {
-                    case 1:
-                        setAlwaysOnDisplay(appContext, 1, executedProfileSharedPreferences);
-                        break;
-                    case 2:
-                        setAlwaysOnDisplay(appContext, 0, executedProfileSharedPreferences);
-                        break;
-                }
+        // set always on display
+        if (profile._alwaysOnDisplay != 0) {
+            switch (profile._alwaysOnDisplay) {
+                case 1:
+                    setAlwaysOnDisplay(appContext, 1, executedProfileSharedPreferences);
+                    break;
+                case 2:
+                    setAlwaysOnDisplay(appContext, 0, executedProfileSharedPreferences);
+                    break;
             }
+        }
 
         // close all applications
 
@@ -5851,6 +6054,15 @@ class ActivateProfileHelper {
 
         setVibrationIntensity(appContext, profile, executedProfileSharedPreferences);
 
+        sendSMS(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
+
+        clearNotificaitons(appContext, profile, executedProfileSharedPreferences, forRestartEvents);
+
+        // set screen dark mode
+        if (profile._screenNightLight != 0) {
+            setScreenNightLight(context, profile, executedProfileSharedPreferences);
+        }
+
         if (profile._applicationDisableGloabalEventsRun != 0) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0);
             dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1,
@@ -5892,9 +6104,13 @@ class ActivateProfileHelper {
             case 1: // 15 seconds
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 15000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 15000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 15000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -5934,9 +6150,13 @@ class ActivateProfileHelper {
             case 2: // 30 seconds
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 30000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 30000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 30000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -5977,9 +6197,13 @@ class ActivateProfileHelper {
             case 3: // 1 minute
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 60000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 60000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 60000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6020,9 +6244,13 @@ class ActivateProfileHelper {
             case 4: // 2 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 120000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 120000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 120000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6063,9 +6291,13 @@ class ActivateProfileHelper {
             case 5: // 10 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 600000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 600000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 600000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6118,9 +6350,13 @@ class ActivateProfileHelper {
             case 7: // 5 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 300000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 300000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 300000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6169,9 +6405,13 @@ class ActivateProfileHelper {
             case 9: // 30 minutes
                 //removeScreenTimeoutAlwaysOnView(context);
                 //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 1800000;
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 1800000;
+                    else
+                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 1800000;
+                }
                 else {
                     if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
                         if (ShizukuUtils.hasShizukuPermission()) {
@@ -6229,18 +6469,11 @@ class ActivateProfileHelper {
     static void showKeepScreenOnNotificaiton(Context context) {
         String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
                 "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
-        String nText = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +
-                " " + context.getString(R.string.keep_screen_on_active_notification_title_1) + " " +
-                "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\". " +
-                context.getString(R.string.keep_screen_on_active_notification_decription_1) +
-                " \"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\", " +
-                context.getString(R.string.keep_screen_on_active_notification_decription_2) +
-                " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
-                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
+        String nText = context.getString(R.string.keep_screen_on_active_notification_description);
 
         PPApplicationStatic.createKeepScreenOnNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification
@@ -6388,6 +6621,15 @@ class ActivateProfileHelper {
                 }
             }
         //}
+    }
+
+    private static void setScreenOnPermanent(Profile profile, Context context) {
+        if (Permissions.checkProfileScreenOnPermanent(context, profile, null)) {
+            if (profile._screenOnPermanent == 1)
+                createKeepScreenOnView(context);
+            else if (profile._screenOnPermanent == 2)
+                removeKeepScreenOnView(context);
+        }
     }
 
     static boolean isAirplaneMode(Context context)
@@ -6769,7 +7011,8 @@ class ActivateProfileHelper {
             //else
 
             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-            wifiManager.setWifiEnabled(enable);
+            if (wifiManager != null)
+                wifiManager.setWifiEnabled(enable);
 
 
             //if (isPPPPutSettingsInstalled(appContext) > 0) {
@@ -7383,7 +7626,7 @@ class ActivateProfileHelper {
 
                 if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -7499,6 +7742,7 @@ class ActivateProfileHelper {
                                 if (Permissions.checkLockDevice(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
                                     try {
                                         Intent intent = new Intent(appContext, LockDeviceActivity.class);
+                                        intent.putExtra(LockDeviceActivity.EXTRA_ONLY_SCREEN_OFF, false);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -7586,7 +7830,7 @@ class ActivateProfileHelper {
 
     @SuppressLint("WrongConstant")
     private static void setScreenDarkMode(Context appContext, final int value, SharedPreferences executedProfileSharedPreferences) {
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT >= 29) {
                 boolean G1OK = false;
@@ -8243,7 +8487,7 @@ class ActivateProfileHelper {
 
     private static void setCameraFlash(Context appContext, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         if (profile._cameraFlash != 0) {
-            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkProfileCameraFlash(appContext, profile, null)) {
                     switch (profile._cameraFlash) {
@@ -8347,7 +8591,7 @@ class ActivateProfileHelper {
             try {
                 int vpnApplication = Integer.parseInt(splits[0]);
                 if (vpnApplication > 0) {
-                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, executedProfileSharedPreferences, true, context).allowed
+                    if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, executedProfileSharedPreferences, true, context).preferenceAllowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         boolean enableVPN = splits[1].equals("0");
 
@@ -8385,40 +8629,46 @@ class ActivateProfileHelper {
                             Intent intent = null;
                             switch (vpnApplication) {
                                 case 1:
-                                    intent = new Intent();
-                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
-                                    if (enableVPN) {
-                                        intent.setAction("net.openvpn.openvpn.CONNECT");
-                                        String keyValue = "AS " + profileName;
-                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
-                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
-                                    } else {
-                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
-                                        intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                    if (Permissions.checkProfileVPN(context, profile, null)) {
+                                        intent = new Intent();
+                                        intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                        if (enableVPN) {
+                                            intent.setAction("net.openvpn.openvpn.CONNECT");
+                                            String keyValue = "AS " + profileName;
+                                            intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                            intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
+                                        } else {
+                                            intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                            intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                        }
                                     }
                                     break;
                                 case 2:
-                                    intent = new Intent();
-                                    intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
-                                    if (enableVPN) {
-                                        intent.setAction("net.openvpn.openvpn.CONNECT");
-                                        String keyValue = "PC " + profileName;
-                                        intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
-                                        intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
-                                    } else {
-                                        intent.setAction("net.openvpn.openvpn.DISCONNECT");
-                                        intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                    if (Permissions.checkProfileVPN(context, profile, null)) {
+                                        intent = new Intent();
+                                        intent.setComponent(new ComponentName("net.openvpn.openvpn", "net.openvpn.unified.MainActivity"));
+                                        if (enableVPN) {
+                                            intent.setAction("net.openvpn.openvpn.CONNECT");
+                                            String keyValue = "PC " + profileName;
+                                            intent.putExtra("net.openvpn.openvpn.AUTOSTART_PROFILE_NAME", keyValue);
+                                            intent.putExtra("net.openvpn.openvpn.AUTOCONNECT", StringConstants.TRUE_STRING);
+                                        } else {
+                                            intent.setAction("net.openvpn.openvpn.DISCONNECT");
+                                            intent.putExtra("net.openvpn.openvpn.STOP", StringConstants.TRUE_STRING);
+                                        }
                                     }
                                     break;
                                 case 3:
-                                    intent = new Intent();
-                                    if (enableVPN) {
-                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
-                                    } else {
-                                        intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
+                                    if (Permissions.checkProfileVPN(context, profile, null)) {
+                                        intent = new Intent();
+                                        if (enableVPN) {
+                                            intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN"));
+                                        } else {
+                                            intent.setComponent(new ComponentName("de.blinkt.openvpn", "de.blinkt.openvpn.api.DisconnectVPN"));
+                                        }
+                                        intent.setAction("android.intent.action.MAIN");
+                                        intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
                                     }
-                                    intent.setAction("android.intent.action.MAIN");
-                                    intent.putExtra("de.blinkt.openvpn.api.profileName", profileName);
                                     break;
                                 case 4:
                                     if (Permissions.checkProfileWireGuard(context, profile, null)) {
@@ -8432,8 +8682,10 @@ class ActivateProfileHelper {
                             if (intent != null) {
                                 if (vpnApplication < 4) {
                                     try {
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        context.startActivity(intent);
+                                        if (Settings.canDrawOverlays(context)) {
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            context.startActivity(intent);
+                                        }
                                     } catch (ActivityNotFoundException | SecurityException ee) {
                                         PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN,
                                                 null, profileName, "");
@@ -8490,7 +8742,7 @@ class ActivateProfileHelper {
                         mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
                     else
                         mBuilder.setSmallIcon(R.drawable.ic_information_notify);
-                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.information_color));
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.informationColor));
                     if (showLargeIcon)
                         mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification));
                     break;
@@ -8499,7 +8751,7 @@ class ActivateProfileHelper {
                         mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
                     else
                         mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
-                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.error_color));
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.errorColor));
                     if (showLargeIcon)
                         mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification));
                     break;
@@ -8667,6 +8919,676 @@ class ActivateProfileHelper {
         }
     }
 
+    static void sendSMS(final Context appContext, Profile profile,
+                        SharedPreferences executedProfileSharedPreferences,
+                        final boolean forRestartEvents)  {
+        if (PPApplication.blockProfileEventActions)
+            // not send sms when are blocked profile ections (for example at start of PPP)
+            return;
+//        Log.e("ActivateProfileHelper.sendSMS", "11111111111");
+        if (forRestartEvents)
+            // do not send sms for restart events
+            return;
+//        Log.e("ActivateProfileHelper.sendSMS", "222222222222222");
+
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            long oldActivatedProfileId = PPApplication.prefProfileBeforeActivation;
+//            Log.e("ActivateProfileHelper.sendSMS", "profile._id="+profile._id);
+//            Log.e("ActivateProfileHelper.sendSMS", "oldActivatedProfileId="+oldActivatedProfileId);
+            if (profile._id != oldActivatedProfileId) {
+
+                try {
+
+                    List<String> usedTelNumbers = new ArrayList<>();
+
+                    if (profile._sendSMSSendSMS && (profile._sendSMSSMSText != null) && (!profile._sendSMSSMSText.isEmpty())) {
+//                        Log.e("ActivateProfileHelper.sendSMS", "xxxxxxxxxxxxxxxx");
+
+                        if (Permissions.checkSendSMS(appContext)) {
+                            if (/*(profile._sendSMSContactListType == Profile.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                    ((profile._sendSMSContacts != null) && (!profile._sendSMSContacts.isEmpty())) ||
+                                            ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))) {
+
+//                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "PPApplicationStatic.getContactsCache()");
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                List<Contact> contactList = null;
+                                if (contactsCache != null) {
+//                                    PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "contactsCache.getList()");
+                                    contactList = contactsCache.getList(/*false*/);
+                                }
+
+                                // send sms for configured contect groups
+                                String[] splits = profile._sendSMSContactGroups.split(StringConstants.STR_SPLIT_REGEX);
+                                for (String split : splits) {
+                                    if (!split.isEmpty()) {
+                                        synchronized (PPApplication.contactsCacheMutex) {
+                                            if (contactList != null) {
+                                                for (Contact contact : contactList) {
+                                                    if (contact.groups != null) {
+                                                        long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                                        if (groupId != -1) {
+                                                            // group found in contact
+                                                            if (contact.phoneId != 0) {
+                                                                String _phoneNumber = contact.phoneNumber;
+                                                                // send sms
+                                                                if (!usedTelNumbers.contains(_phoneNumber)) {
+                                                                    // not sent, send it
+                                                                    try {
+                                                                        SmsManager smsManager = SmsManager.getDefault();
+                                                                        smsManager.sendTextMessage(_phoneNumber, null, profile._sendSMSSMSText, null, null);
+                                                                        usedTelNumbers.add(_phoneNumber);
+                                                                    } catch (
+                                                                            Exception e) {
+                                                                        PPApplicationStatic.recordException(e);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // send sms for configured contacts
+                                splits = (profile._sendSMSContacts.split(StringConstants.STR_SPLIT_REGEX));
+                                for (String split : splits) {
+                                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+
+                                    if ((!split.isEmpty()) &&
+                                            (splits2.length == 3) &&
+                                            (!splits2[0].isEmpty()) &&
+                                            (!splits2[1].isEmpty()) &&
+                                            (!splits2[2].isEmpty())) {
+                                        String contactPhoneNumber = splits2[1];
+                                        // send sms
+                                        if (!usedTelNumbers.contains(contactPhoneNumber)) {
+                                            // not sent, send it
+                                            try {
+                                                SmsManager smsManager = SmsManager.getDefault();
+                                                smsManager.sendTextMessage(contactPhoneNumber, null, profile._sendSMSSMSText, null, null);
+                                                usedTelNumbers.add(contactPhoneNumber);
+                                            } catch (Exception e) {
+                                                PPApplicationStatic.recordException(e);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS,
+                            null, profile._name, "");
+                }
+            }
+
+        }
+    }
+
+    static void clearNotificaitons(final Context appContext, Profile profile,
+                                   SharedPreferences executedProfileSharedPreferences,
+                                   final boolean forRestartEvents) {
+        if (PPApplication.blockProfileEventActions)
+            // not clear notifications when are blocked profile ections (for example at start of PPP)
+            return;
+        if (forRestartEvents)
+            // do not clear notifications for restart events
+            return;
+
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, true)) {
+                if (profile._clearNotificationEnabled && (profile._clearNotificationApplications != null)
+                        && (!profile._clearNotificationApplications.isEmpty())) {
+                    PPNotificationListenerService service = PPNotificationListenerService.getInstance();
+                    if (service != null) {
+                        try {
+                            StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                            //noinspection RedundantLengthCheck
+                            if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+//                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "PPApplicationStatic.getContactsCache()");
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                if (contactsCache != null) {
+                                    List<Contact> contactList;
+//                                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.isNotificationVisible", "PPApplication.contactsCacheMutex");
+//                                    PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "contactCache.getList()");
+                                    contactList = contactsCache.getList(/*false*/);
+
+                                    for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+
+                                        // ignore PPP notification
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                            continue;
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
+                                            continue;
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                            continue;
+                                        if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_EXTENDER))
+                                            continue;
+
+                                        String[] splits = profile._clearNotificationApplications.split(StringConstants.STR_SPLIT_REGEX);
+                                        for (String split : splits) {
+                                            // get only package name = remove activity
+                                            String packageName = Application.getPackageName(split);
+                                            // search for package name in saved package names
+                                            StatusBarNotification activeNotification = isNotificationActive(profile,
+                                                    statusBarNotification,
+                                                    packageName,
+                                                    contactList);
+                                            if (activeNotification != null) {
+                                                if (!activeNotification.isOngoing()) {
+                                                    String key = activeNotification.getKey();
+                                                    try {
+                                                        service.cancelNotification(key);
+                                                    } catch (Exception e) {
+                                                        PPApplicationStatic.recordException(e);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (contactList != null)
+                                        contactList.clear();
+                                }
+                            }
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.isNotificationVisible", Log.getStackTraceString(e));
+
+                            // Hm: java.lang.RuntimeException: Could not read bitmap blob.
+                            //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                            //PPApplicationStatic.recordException(e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // test statusBarNotification for event parameters
+    private static StatusBarNotification isNotificationActive(Profile profile,
+                                                       StatusBarNotification statusBarNotification,
+                                                       String packageName,
+                                                       List<Contact> contactList) {
+        try {
+            String packageNameFromNotification = statusBarNotification.getPackageName();
+//            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
+
+            boolean packageNameFound = false;
+            if (packageNameFromNotification.equals(packageName)) {
+                packageNameFound = true;
+            }
+
+            if (packageNameFound) {
+
+                boolean testText = false;
+
+                String notificationTicker = "";
+                String notificationTitle = "";
+                String notificationText = "";
+
+                if (profile._clearNotificationCheckContacts || profile._clearNotificationCheckText) {
+                    if (statusBarNotification.getNotification().tickerText != null) {
+                        notificationTicker = statusBarNotification.getNotification().tickerText.toString();
+                        testText = true;
+                    }
+                    Bundle extras = statusBarNotification.getNotification().extras;
+                    if (extras != null) {
+                        String _text1 = extras.getString("android.title");
+                        if (_text1 != null) {
+                            notificationTitle = _text1;
+                            testText = true;
+                        }
+                        CharSequence _text2 = extras.getCharSequence("android.text");
+                        if (_text2 != null) {
+                            notificationText = _text2.toString();
+                            testText = true;
+                        }
+                    }
+                }
+
+                boolean textFound = false;
+                if (testText) {
+                    // title or text or ticker is set in notification
+
+                    if (profile._clearNotificationCheckContacts) {
+                        boolean phoneNumberFound = false;
+                        if (!notificationTitle.isEmpty())
+                            phoneNumberFound = isContactConfigured(profile, notificationTitle, contactList);
+                        if (!notificationText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(profile, notificationText, contactList);
+                        if (!notificationTicker.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(profile, notificationTicker, contactList);
+
+                        textFound = phoneNumberFound;
+                    }
+                    if (profile._clearNotificationCheckText) {
+                        String searchText = "";
+                        for (int whatTest = 0; whatTest < 3; whatTest++) {
+                            // test in loop title (0), text(1), ticker(2)
+                            if (whatTest == 0) {
+                                if (!notificationTitle.isEmpty())
+                                    searchText = notificationTitle;
+                                else
+                                    continue;
+                            }
+                            if (whatTest == 1) {
+                                if (!notificationText.isEmpty())
+                                    searchText = notificationText;
+                                else
+                                    continue;
+                            }
+                            if (whatTest == 2) {
+                                if (!notificationTicker.isEmpty())
+                                    searchText = notificationTicker;
+                                else
+                                    continue;
+                            }
+
+                            String[] textSplits = profile._clearNotificationText.split(StringConstants.STR_SPLIT_REGEX);
+
+                            String[] positiveList = new String[textSplits.length];
+                            String[] negativeList = new String[textSplits.length];
+                            int argsId;
+
+                            // positive strings
+                            boolean positiveExists = false;
+                            argsId = 0;
+                            for (String split : textSplits) {
+                                if (!split.isEmpty()) {
+                                    String searchPattern = split;
+
+                                    if (searchPattern.startsWith("!")) {
+                                        // only positive
+                                        continue;
+                                    }
+
+                                    // trim leading and trailing spaces
+                                    searchPattern = searchPattern.trim();
+
+                                    // when in searchPattern are not wildcards add %
+                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                        searchPattern = "%" + searchPattern + "%";
+
+                                    searchPattern = searchPattern.replace("\\%", "{^^}");
+                                    searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                    searchPattern = searchPattern.replace("%", "(.*)");
+                                    searchPattern = searchPattern.replace("_", "(.)");
+
+                                    searchPattern = searchPattern.replace("{^^}", "\\%");
+                                    searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                    //if (!searchPattern.startsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "^";
+                                    //if (!searchPattern.endsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "$";
+
+                                    positiveList[argsId] = searchPattern;
+
+                                    positiveExists = true;
+
+                                    ++argsId;
+
+                                }
+                            }
+
+                            // negative strings
+                            boolean negativeExists = false;
+                            argsId = 0;
+                            for (String split : textSplits) {
+                                if (!split.isEmpty()) {
+                                    String searchPattern = split;
+
+                                    if (!searchPattern.startsWith("!")) {
+                                        // only negative
+                                        continue;
+                                    }
+
+                                    // remove !
+                                    searchPattern = searchPattern.substring(1);
+
+                                    // trim leading and trailing spaces
+                                    searchPattern = searchPattern.trim();
+
+                                    // when in searchPattern are not wildcards add %
+                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                        searchPattern = "%" + searchPattern + "%";
+
+                                    searchPattern = searchPattern.replace("\\%", "{^^}");
+                                    searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                    searchPattern = searchPattern.replace("%", "(.*)");
+                                    searchPattern = searchPattern.replace("_", "(.)");
+
+                                    searchPattern = searchPattern.replace("{^^}", "\\%");
+                                    searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                    //if (!searchPattern.startsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "^";
+                                    //if (!searchPattern.endsWith("(.*)"))
+                                    //    searchPattern = searchPattern + "$";
+
+                                    negativeList[argsId] = searchPattern;
+
+                                    negativeExists = true;
+
+                                    ++argsId;
+
+                                }
+                            }
+
+                            boolean foundPositive = false;
+                            if (positiveExists) {
+                                for (String _positiveText : positiveList) {
+                                    if ((_positiveText != null) && (!_positiveText.isEmpty())) {
+                                        if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
+                                            foundPositive = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            boolean foundNegative = true;
+                            if (negativeExists) {
+                                for (String _negativeText : negativeList) {
+                                    if ((_negativeText != null) && (!_negativeText.isEmpty())) {
+                                        if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
+                                            foundNegative = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            textFound = foundPositive && foundNegative;
+
+                            if (textFound)
+                                break;
+                        }
+                    }
+                }
+
+                if (testText) {
+                    // is configured test text (_checkContacts or _checkText = true)
+                    if (textFound)
+                        return statusBarNotification;
+                    else
+                        return null;
+                } else {
+                    // is not configured test text (_checkContacts and _checkText = false)
+                    return statusBarNotification;
+                }
+            }
+        } catch (Exception e) {
+            //Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
+        }
+        // package name not found
+        return null;
+    }
+    private static boolean isContactConfigured(Profile profile, String text, List<Contact> contactList) {
+        boolean phoneNumberFound = false;
+
+        // find phone number in groups
+        String[] splits = profile._clearNotificationContactGroups.split(StringConstants.STR_SPLIT_REGEX);
+        for (String split : splits) {
+            if (!split.isEmpty()) {
+//                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isContactConfigured", "PPApplication.contactsCacheMutex");
+                synchronized (PPApplication.contactsCacheMutex) {
+                    if (contactList != null) {
+                        for (Contact contact : contactList) {
+                            if (contact.groups != null) {
+                                long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                if (groupId != -1) {
+                                    // group found in contact
+                                    String _contactName = contact.name;
+                                    if (text.toLowerCase().contains(_contactName.toLowerCase())) {
+                                        phoneNumberFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (phoneNumberFound)
+                break;
+        }
+
+        if (!phoneNumberFound) {
+            // find phone number in contacts
+            // contactId#phoneId|...
+            splits = profile._clearNotificationContacts.split(StringConstants.STR_SPLIT_REGEX);
+            for (String split : splits) {
+                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+
+                if ((!split.isEmpty()) &&
+                        (splits2.length == 3) &&
+                        (!splits2[0].isEmpty()) &&
+                        (!splits2[1].isEmpty()) &&
+                        (!splits2[2].isEmpty())) {
+                    String contactName = splits2[0];
+                    if (text.toLowerCase().contains(contactName.toLowerCase())) {
+                        // phone number is in sensor configured
+                        phoneNumberFound = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return phoneNumberFound;
+    }
+
+    private static void setScreenNightLight(Context appContext, final Profile profile, SharedPreferences executedProfileSharedPreferences) {
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                boolean startBLFService = false;
+                /*try {
+                    if (profile._screenNightLight == 1) {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                SETTINGS_BLUE_LIGHT_FILTER, -1) != 1)
+                            Settings.System.putInt(appContext.getContentResolver(), SETTINGS_BLUE_LIGHT_FILTER, 1);
+                    } else {
+                        if (Settings.System.getInt(appContext.getContentResolver(),
+                                SETTINGS_BLUE_LIGHT_FILTER, -1) != 0)
+                            Settings.System.putInt(appContext.getContentResolver(), SETTINGS_BLUE_LIGHT_FILTER, 0);
+                    }
+                    startBLFService = true;
+                } catch (Exception ee) {
+                    //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(ee));*/
+
+                    int ppppsVersion = isPPPPutSettingsInstalled(appContext);
+
+                    if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
+                        // WARNING: PPPPS do not change SETTINGS_BLUE_LIGHT_FILTER in Settings.System
+                        // Why? I do not know. Exception is not generated in PPPPS. :-(
+                        // But Shizuku, root working good.
+
+//                        Log.e("ActivateProfileHelper.setScreenNightLight", "PPPPS");
+                        if (profile._screenNightLight == 1)
+                            putSettingsParameter(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "1");
+                        else
+                            putSettingsParameter(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "0");
+                        startBLFService = true;
+                    }
+                    else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
+//                        Log.e("ActivateProfileHelper.setScreenNightLight", "Shizuku");
+                        synchronized (PPApplication.rootMutex) {
+                            try {
+                                String command1;
+                                if (profile._screenNightLight == 1)
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 1";
+                                else
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 0";
+                                ShizukuUtils.executeCommand(command1);
+                                startBLFService = true;
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+                            }
+                        }
+                    } else {
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
+//                            Log.e("ActivateProfileHelper.setScreenNightLight", "root");
+
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenNightLight", "PPApplication.rootMutex");
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                if (profile._screenNightLight == 1)
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 1";
+                                else
+                                    command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_BLUE_LIGHT_FILTER + " 0";
+
+                                Command command = new Command(0, command1); //, command2);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SCREEN_NIGHT_LIGHT);
+                                    startBLFService = true;
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                    //PPApplicationStatic.recordException(e);
+                                }
+                            }
+                        }
+                    }
+                //}
+                if (startBLFService) {
+                    // must be started sthis service
+                    // read: https://github.com/henrichg/PhoneProfilesPlus/issues/81#issuecomment-2343379766
+                    Runnable runnable = () -> {
+                        try {
+                            Intent intent = new Intent();
+                            intent.setComponent(new ComponentName("com.samsung.android.bluelightfilter", "com.samsung.android.bluelightfilter.BlueLightFilterService"));
+                            intent.putExtra("BLUE_LIGHT_FILTER_SERVICE_TYPE", (profile._screenNightLight == 1) ? 24 : 25);
+                            appContext.startService(intent);
+                        } catch (Exception eee) {
+                            //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                            PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                        }
+                    };
+                    PPApplicationStatic.createDelayedProfileActivationExecutor();
+                    // 1000 ms, because is delayed change of SETTINGS_BLUE_LIGHT_FILTER in PPPPS, Shizuku root
+                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1000, TimeUnit.MILLISECONDS);
+                }
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                // Shizuku, root is required !!!
+                if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
+                    synchronized (PPApplication.rootMutex) {
+                        try {
+                            String command1;
+                            if (profile._screenNightLight == 1)
+                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 1";
+                            else
+                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 0";
+                            ShizukuUtils.executeCommand(command1);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                            //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+                        }
+                    }
+                } else {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenNightLight", "PPApplication.rootMutex");
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            if (profile._screenNightLight == 1)
+                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 1";
+                            else
+                                command1 = COMMAND_SETTINGS_PUT_SYSTEM + SETTINGS_SCREEN_PAPER_MODE_ENABLED + " 0";
+
+                            Command command = new Command(0, command1); //, command2);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SCREEN_NIGHT_LIGHT);
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                if (Permissions.checkProfileScreenNightLight(appContext, profile, null)) {
+                    try {
+                        if (profile._screenNightLight == 1) {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    SETTINGS_EYES_PROTECTION_MODE, -1) != 1) {
+                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_EYES_PROTECTION_MODE, 1);
+                            }
+                        } else {
+                            if (Settings.System.getInt(appContext.getContentResolver(),
+                                    SETTINGS_EYES_PROTECTION_MODE, -1) != 0) {
+                                Settings.System.putInt(appContext.getContentResolver(), SETTINGS_EYES_PROTECTION_MODE, 0);
+                            }
+                        }
+                    } catch (Exception e2) {
+                        //PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e2));
+                    }
+                }
+            } else {
+                boolean G1OK = false;
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    try {
+                        if (profile._screenNightLight == 1) {
+                            if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                    SETTINGS_NIGHT_DISPLAY_ACTIVATED, -1) != 1)
+                                Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_NIGHT_DISPLAY_ACTIVATED, 1);
+                        } else {
+                            if (Settings.Secure.getInt(appContext.getContentResolver(),
+                                    SETTINGS_NIGHT_DISPLAY_ACTIVATED, -1) != 0)
+                                Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_NIGHT_DISPLAY_ACTIVATED, 0);
+                        }
+                        G1OK = true;
+                    } catch (Exception e2) {
+                        PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e2));
+                        //PPApplicationStatic.recordException(e2);
+                    }
+                }
+                if (!G1OK) {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (RootUtils.isRooted() && RootUtils.settingsBinaryExists(false))) {
+//                        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setScreenDarkMode", "PPApplication.rootMutex");
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = COMMAND_SETTINGS_PUT_SECURE + SETTINGS_NIGHT_DISPLAY_ACTIVATED;
+                            if (profile._screenNightLight == 1)
+                                command1 = command1 + " 1";
+                            else
+                                command1 = command1 + " 0";
+                            Command command = new Command(0, /*false,*/ command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_DARK_MODE);
+                            } catch (Exception ee) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(ee));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     static void getRingerVolume(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.getRingerVolume", "PPApplication.profileActivationMutex");
@@ -8681,12 +9603,14 @@ class ActivateProfileHelper {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setRingerVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            int systemZenMode = getSystemZenMode(context/*, -1*/);
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putInt(PREF_RINGER_VOLUME, volume);
-                editor.apply();
-                ApplicationPreferences.prefRingerVolume = volume;
+            if (audioManager != null) {
+                int systemZenMode = getSystemZenMode(context/*, -1*/);
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putInt(PREF_RINGER_VOLUME, volume);
+                    editor.apply();
+                    ApplicationPreferences.prefRingerVolume = volume;
+                }
             }
         }
     }
@@ -8705,12 +9629,14 @@ class ActivateProfileHelper {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNotificationVolume", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            int systemZenMode = getSystemZenMode(context/*, -1*/);
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
-                editor.apply();
-                ApplicationPreferences.prefNotificationVolume = volume;
+            if (audioManager != null) {
+                int systemZenMode = getSystemZenMode(context/*, -1*/);
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
+                    editor.apply();
+                    ApplicationPreferences.prefNotificationVolume = volume;
+                }
             }
         }
     }
@@ -8879,21 +9805,58 @@ class ActivateProfileHelper {
     }
 
     static void putSettingsParameter(Context context,
+                                     int ppppsVersion,
                                      @SuppressWarnings("SameParameterValue") String settingsType,
                                      String parameterName,
                                      String parameterValue) {
-        // startActivity from background: Android 10 (API level 29)
-        // Exception:
-        // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
-        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+        if (ppppsVersion <= PPApplication.VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE) {
+            // in version <= 70 service not exists in PPPPS
+
+            // startActivity from background: Android 10 (API level 29)
+            // Exception:
+            // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
+            if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+                try {
+                    // !!! Activity with action not working good.
+                    // Because if is started first PPPPS, closed and then activated profile,
+                    // PPPPS MainActivity is started :-(
+                    // Must by used activity with android:launchMode="singleInstance".
+
+                    // singleIstance -> this activity is in its own task, thus, after finish it,
+                    // is not get back MainActivity, because MainActivity is in another task.
+                    // Then singleIstance is good launchMode for PutSettingsParameterActivity.
+
+                    //PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME_PPPPS, 0);
+                    //long verCode = PPApplicationStatic.getVersionCode(pInfo);
+                    //Log.e("ActivateProfileHelper.putSettingsParameter", "verCode="+verCode);
+
+                    Intent intent;
+                    intent = new Intent();
+                    intent.setComponent(new ComponentName(PPApplication.PACKAGE_NAME_PPPPS, PPApplication.PACKAGE_NAME_PPPPS+".PutSettingsParameterActivity"));
+                    intent.putExtra("extra_put_setting_parameter_type", settingsType);
+                    intent.putExtra("extra_put_setting_parameter_name", parameterName);
+                    intent.putExtra("extra_put_setting_parameter_value", parameterValue);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK /*| Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
+                }
+                // WARNING: do not remove this sleep !!!
+                // Is required to set time space between two calls of this method.
+                GlobalUtils.sleep(500);
+            }
+        } else {
+            // start PPPPS service
             try {
-                Intent intent = new Intent();
-                intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
+//                Log.e("ActivateProfileHelper.putSettingsParameter", "XXXXXXXX");
+                Intent intent;
+                intent = new Intent();
+                intent.setComponent(new ComponentName(PPApplication.PACKAGE_NAME_PPPPS, PPApplication.PACKAGE_NAME_PPPPS + ".PutSettingsParameterService"));
                 intent.putExtra("extra_put_setting_parameter_type", settingsType);
                 intent.putExtra("extra_put_setting_parameter_name", parameterName);
                 intent.putExtra("extra_put_setting_parameter_value", parameterValue);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK /*| Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
+                context.startService(intent);
             } catch (Exception e) {
                 PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
             }

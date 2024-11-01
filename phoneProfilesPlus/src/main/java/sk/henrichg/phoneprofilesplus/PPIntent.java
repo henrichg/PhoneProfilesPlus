@@ -286,7 +286,7 @@ class PPIntent implements Parcelable {
     }
 
 
-    public static final Parcelable.Creator<PPIntent> CREATOR = new Parcelable.Creator<PPIntent>() {
+    public static final Parcelable.Creator<PPIntent> CREATOR = new Parcelable.Creator<>() {
         public PPIntent createFromParcel(Parcel source) {
             return new PPIntent(source);
         }

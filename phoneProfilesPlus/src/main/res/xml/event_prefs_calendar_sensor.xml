@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventCalendarParameters"
     app:key="eventCalendarCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventCalendarEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
         app:key="eventCalendarCalendars"
         app:defaultValue=""
@@ -28,12 +29,13 @@
         app:key="eventCalendarCalendarEventParametersCategory"
         app:title="@string/event_preferences_calendar_event_parameters"
         app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="eventCalendarAllEvents"
             app:title="@string/event_preferences_calendar_all_events"
             app:defaultValue="false"
             app:dependency="eventCalendarEnabled"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preferences_calendar_search_field"
             app:summary="@string/array_event_pref_calendarSearchField_eventName"
@@ -50,12 +52,13 @@
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
 
-<!--        <SwitchPreferenceCompat-->
+<!--        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference-->
 <!--            app:key="eventCalendarIgnoreAllDayEvents"-->
 <!--            app:title="@string/event_preferences_calendar_ignore_all_day_events"-->
 <!--            app:defaultValue="false"-->
 <!--            app:dependency="eventCalendarEnabled"-->
-<!--            app:layout="@layout/mp_preference_material_widget" />-->
+<!--            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />-->
         <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preferences_calendar_all_day_events"
             app:summary="@string/array_event_pref_calendarAllDayEvents_dontCheck"

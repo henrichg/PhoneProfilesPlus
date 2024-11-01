@@ -72,6 +72,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
         // don't delete this - it is workaround for set this LinearLayout non-clickable
         LinearLayout buttonsLayout = itemView.findViewById(R.id.event_list_item_buttons_root);
+        //noinspection DataFlowIssue
         buttonsLayout.setOnClickListener(v -> {});
 
         itemView.setOnClickListener(this);
@@ -94,7 +95,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-            int colorRes = R.color.event_status_stop;
+            int colorRes = R.color.eventStatusStopColor;
             /*if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
@@ -105,25 +106,25 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     case Event.ESTATUS_RUNNING:
                         if (event._isInDelayEnd) {
                             statusRes = R.drawable.ic_event_status_running_delay;
-                            colorRes = R.color.altype_eventDelayStartEnd;
+                            colorRes = R.color.altypeEventDelayStartEndColor;
                         }
                         else {
                             statusRes = R.drawable.ic_event_status_running;
-                            colorRes = R.color.altype_eventStart;
+                            colorRes = R.color.altypeEventStartColor;
                         }
                         break;
                     case Event.ESTATUS_PAUSE:
                         if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation)) {
                             statusRes = R.drawable.ic_event_status_pause_manual_activation;
-                            colorRes = R.color.altype_eventEnd;
+                            colorRes = R.color.altypeEventEndColor;
                         }
                         else if (event._isInDelayStart) {
                             statusRes = R.drawable.ic_event_status_pause_delay;
-                            colorRes = R.color.altype_eventDelayStartEnd;
+                            colorRes = R.color.altypeEventDelayStartEndColor;
                         }
                         else {
                             statusRes = R.drawable.ic_event_status_pause;
-                            colorRes = R.color.altype_eventEnd;
+                            colorRes = R.color.altypeEventEndColor;
                         }
                         break;
                     case Event.ESTATUS_STOP:
@@ -131,7 +132,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //noinspection ConstantConditions
                         statusRes = R.drawable.ic_event_status_stop;
                         //noinspection ConstantConditions
-                        colorRes = R.color.event_status_stop;
+                        colorRes = R.color.eventStatusStopColor;
                         //statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                         //else
                         //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
@@ -151,7 +152,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //else
                 //    eventName.setTypeface(null, Typeface.NORMAL);
                 //eventName.setTextSize(15);
-                eventName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
+                eventName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
             }
             else
             if (!EventStatic.getGlobalEventsRunning(context)/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
@@ -487,6 +488,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     int x = GlobalGUIRoutines.dpToPx(10);
                     int y = 0;
 
+                    //noinspection DataFlowIssue
                     popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                 }

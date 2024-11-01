@@ -217,8 +217,8 @@ public class CustomColorDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<CustomColorDialogPreference.SavedState>() {
+        public static final Creator<CustomColorDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public CustomColorDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new CustomColorDialogPreference.SavedState(in);

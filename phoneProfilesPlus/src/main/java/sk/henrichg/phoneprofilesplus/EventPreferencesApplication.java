@@ -90,7 +90,7 @@ class EventPreferencesApplication extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_application_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context));
@@ -124,7 +124,7 @@ class EventPreferencesApplication extends EventPreferences {
                             ApplicationInfo app;
                             try {
                                 app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
-                                if (app != null)
+                                //if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
                                 selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
@@ -139,18 +139,18 @@ class EventPreferencesApplication extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_duration)).append(StringConstants.STR_COLON_WITH_SPACE);
                 if (this._duration == 0)
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, this._duration / 60);
                     calendar.set(Calendar.MINUTE, this._duration % 60);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(
                             DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis())),
-                                disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
@@ -279,8 +279,8 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -508,7 +508,7 @@ class EventPreferencesApplication extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.applicationPassed = false;
 
                 if (PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true

@@ -74,6 +74,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         final FrameLayout defaultColorLayout = layout.findViewById(R.id.dialog_color_chooser_default_color);
 
+        //noinspection DataFlowIssue
         defaultColorLayout.setTag(-1);
         defaultColorLayout.setOnClickListener(this);
 
@@ -101,6 +102,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         setBackgroundCompat(defaultColorLayout, new RippleDrawable(rippleColors, selector, null));
 
         final TextView defaultColorLabel = layout.findViewById(R.id.dialog_color_chooser_default_color_label);
+        //noinspection DataFlowIssue
         defaultColorLabel.setTag(-1);
         defaultColorLabel.setOnClickListener(this);
 
@@ -113,6 +115,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         final FrameLayout customColorLayout = layout.findViewById(R.id.dialog_color_chooser_custom_color);
 
+        //noinspection DataFlowIssue
         customColorLayout.setTag(-2);
         customColorLayout.setOnClickListener(this);
 
@@ -147,6 +150,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         setBackgroundCompat(customColorLayout, new RippleDrawable(rippleColors, selector, null));
 
         final TextView customColorLabel = layout.findViewById(R.id.dialog_color_chooser_custom_color_label);
+        //noinspection DataFlowIssue
         customColorLabel.setTag(-2);
         customColorLabel.setOnClickListener(this);
 
@@ -154,6 +158,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         final GridLayout list = layout.findViewById(R.id.dialog_color_chooser_grid);
 
+        //noinspection DataFlowIssue
         int count = list.getChildCount();
         for (int i = 0; i < count; i++) {
             FrameLayout child = (FrameLayout) list.getChildAt(i);
@@ -192,6 +197,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
                 dialogBuilder.setView(layout);
 
                 final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
+                //noinspection DataFlowIssue
                 chromaColorView.setCurrentColor(profileIconPreference.customColor);
                 chromaColorView.setColorMode(ColorMode.values()[0]);
                 chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
@@ -240,24 +246,9 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         }*/
 
         String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
-        /*if (GlobalGUIRoutines.isNightModeEnabled(activity.getApplicationContext()))
-            applicationTheme = "dark";
-        else
-            applicationTheme = "white";*/
-        /*int nightModeFlags =
-                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                applicationTheme = "dark";
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                applicationTheme = "white";
-                break;
-        }*/
 
-        final String COLOR1 = "#6E6E6E";
-        final String COLOR2 = "#AEAEAE";
+//        final String COLOR1 = "#6E6E6E";
+//        final String COLOR2 = "#AEAEAE";
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
@@ -267,12 +258,14 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+//            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+            coloredCircle.setStroke(1, activity.getColor(R.color.pppColorChooserColor1));
         } else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+//            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
+            coloredCircle.setStroke(1, activity.getColor(R.color.pppColorChooserColor1));
         }
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
@@ -281,12 +274,14 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(2, Color.parseColor(COLOR1));
+//            coloredCircle.setStroke(2, Color.parseColor(COLOR1));
+            coloredCircle.setStroke(2, activity.getColor(R.color.pppColorChooserColor1));
         } else {
             //if (position == 0) // white color
             //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-            darkerCircle.setStroke(2, Color.parseColor(COLOR2));
+//            darkerCircle.setStroke(2, Color.parseColor(COLOR2));
+            darkerCircle.setStroke(2, activity.getColor(R.color.pppColorChooserColor2));
         }
 
         StateListDrawable stateListDrawable = new StateListDrawable();

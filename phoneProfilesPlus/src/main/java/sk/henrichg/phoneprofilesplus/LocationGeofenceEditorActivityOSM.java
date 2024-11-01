@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -136,6 +137,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         setContentView(R.layout.activity_location_geofence_editor_osm);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        Toolbar toolbar = findViewById(R.id.location_editor_toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -165,6 +168,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         mapIsLoading = findViewById(R.id.location_editor_map_loading);
 
         mMap = findViewById(R.id.location_editor_map);
+        //noinspection DataFlowIssue
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         //mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
@@ -259,9 +263,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //radiusLabel = findViewById(R.id.location_pref_dlg_radius_seekbar_label);
 
         TextView radiusLabel = findViewById(R.id.location_pref_dlg_radius_label);
+        //noinspection DataFlowIssue
         radiusLabel.setText(getString(R.string.event_preferences_location_radius_label) + ":");
 
         radiusValue = findViewById(R.id.location_pref_dlg_radius_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(radiusValue, getString(R.string.location_pref_dlg_edit_radius_tooltip));
         radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
@@ -303,6 +309,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
         numberPicker = layout.findViewById(R.id.better_number_picker);
         // Initialize state
+        //noinspection DataFlowIssue
         numberPicker.setMin(BigDecimal.valueOf(MIN_RADIUS));
         numberPicker.setMax(BigDecimal.valueOf(MAX_RADIUS));
         numberPicker.setPlusMinusVisibility(View.INVISIBLE);
@@ -363,12 +370,14 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         */
 
         geofenceNameEditText = findViewById(R.id.location_editor_geofence_name);
-        geofenceNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        geofenceNameEditText.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.edit_text_color));
         geofenceNameEditText.setText(geofence._name);
 
         addressText = findViewById(R.id.location_editor_address_text);
 
         okButton = findViewById(R.id.location_editor_ok);
+        //noinspection DataFlowIssue
         okButton.setOnClickListener(v -> {
             String name = geofenceNameEditText.getText().toString();
             if ((!name.isEmpty()) && (mLocation != null)) {
@@ -398,6 +407,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         });
 
         Button cancelButton = findViewById(R.id.location_editor_cancel);
+        //noinspection DataFlowIssue
         cancelButton.setOnClickListener(v -> {
             Intent returnIntent = new Intent();
             setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -405,6 +415,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         });
 
         AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_change_location_dialog_title));
         myLocationButton.setOnClickListener(v -> {
             SingleSelectListDialog changeLocationDialog = new SingleSelectListDialog(
@@ -441,6 +452,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         });
 
         addressButton = findViewById(R.id.location_editor_address_btn);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(v -> {
             SingleSelectListDialog renameGeofenceDialog = new SingleSelectListDialog(
@@ -589,8 +601,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     //mMap.invalidate();
                 }
                 currentLocationOverlay = new LocationGeofenceEditorCurrentLocationOverlayOSM(new GeoPoint(mLastLocation), mLastLocation.getAccuracy(),
-                        ContextCompat.getColor(this, R.color.map_last_location_marker_fill),
-                        ContextCompat.getColor(this, R.color.map_last_location_marker_stroke));
+                        ContextCompat.getColor(this, R.color.mapLastLocationMarkerFillColor),
+                        ContextCompat.getColor(this, R.color.mapLastLocationMarkerStrokeColor));
                 mMap.getOverlays().add(currentLocationOverlay);
                 mMap.invalidate();
             }
@@ -601,8 +613,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     //mMap.invalidate();
                 }
                 geofenceOverlay = new LocationGeofenceEditorGeofenceOverlayOSM(new GeoPoint(mLocation), geofence._radius,
-                        ContextCompat.getColor(this, R.color.map_edited_location_marker_fill),
-                        ContextCompat.getColor(this, R.color.map_edited_location_marker_stroke));
+                        ContextCompat.getColor(this, R.color.mapEditedLocationMarkerFillColor),
+                        ContextCompat.getColor(this, R.color.mapEditedLocationMarkerStrokeColor));
                 mMap.getOverlays().add(geofenceOverlay);
 
                 if (editedMarker != null) {
@@ -651,7 +663,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                 }
             //}
             if (addressButton.isEnabled())
-                GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
+                GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, this);
 
             if (updateEditedMarker) {
                 radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
@@ -704,6 +716,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                     true, true,
                                     false, false,
                                     true,
+                                    false,
                                     this
                             );
 
@@ -719,6 +732,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     this
             );
@@ -902,7 +916,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                         enableAddressButton = true;
                                     }
 
-                                    GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
+                                    GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, this);
                                 }
                             });
                 }
@@ -1261,11 +1275,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
 
     private final LocationListener mLocationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
+        public void onLocationChanged(@NonNull Location location) {
 //            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
-            if (location == null)
-                return;
+            //if (location == null)
+            //    return;
 
             final Location oldLastLocation = mLastLocation;
 
@@ -1296,11 +1310,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             }
         }
 
-        public void onProviderDisabled(String provider) {
+        public void onProviderDisabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderDisabled", "xxx");
         }
 
-        public void onProviderEnabled(String provider) {
+        public void onProviderEnabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "888888888888888");
         }
 
@@ -1326,6 +1340,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         null,
                         true, true,
                         false, false,
+                        false,
                         false,
                         this
                 );

@@ -5,13 +5,13 @@ ext.ppVersions = [
 
         // Add new version, published in GitHub Relases, also into Discord PPP server
 
-        publishVersion    : '6.5.1.2b',
-        publishVersionCode: 7174,
+        publishVersion    : '7.0',
+        publishVersionCode: 7200,
 
         minSdk            : 26,
         targetSdk         : 28,
-        compileSdk        : 34,
-        buildTools        : '34.0.0',
+        compileSdk        : 35,
+        buildTools        : '35.0.0',
 
         appcompatXLib     : '1.7.0', //'1.6.1', //'1.5.1',
         kotlinStdlibJdk8  : '1.8.22', // appcompat 1.7.0 - dependencies problem, this fixed it
@@ -19,7 +19,7 @@ ext.ppVersions = [
         recyclerView      : '1.3.2', //''1.3.1',
 
         autoservice       : '1.1.1',
-        acra              : '5.11.3', //'5.11.2'
+        acra              : '5.11.4', //'5.11.3'
 
-        shizuku           : '12.1.0' // It must by this version, because of Shizuku.newProcess()
+        shizuku           : '13.1.0' // It must by this version, because of Shizuku.newProcess()
 ]

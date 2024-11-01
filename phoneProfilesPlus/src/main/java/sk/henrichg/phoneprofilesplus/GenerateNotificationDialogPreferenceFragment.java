@@ -117,7 +117,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         showLargeIconChBtn = layout.findViewById(R.id.generateNotificationPrefDialogShowLargeIcon);
 
         notificationTitleEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
-        notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
         notificationTitleEdtText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -138,7 +139,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         });
 
         notificationBodyEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
-        notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
 
         generateChBtn.setOnCheckedChangeListener((buttonView, isChecked) -> enableViews());
 

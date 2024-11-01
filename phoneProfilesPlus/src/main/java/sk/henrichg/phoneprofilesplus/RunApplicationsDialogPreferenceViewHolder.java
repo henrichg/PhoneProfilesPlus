@@ -113,7 +113,7 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
                     sbt.removeSpan(span);
             }
             if (errorColor) {
-                sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.error_color)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.errorColor)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             textView.setText(sbt);
         }

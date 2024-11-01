@@ -4,18 +4,20 @@
     app:title="@string/event_preferences_category_eventDeviceBootParameters"
     app:key="eventDeviceBootCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventDeviceBootEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventDeviceBootPermanentRun"
         app:title="@string/pref_event_permanentRun"
         app:summary="@string/pref_event_permanentRun_summary"
         app:defaultValue="true"
         app:dependency="eventDeviceBootEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventDeviceBootDuration"
         app:summary="@string/event_preferences_duration"

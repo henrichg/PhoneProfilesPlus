@@ -70,6 +70,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
     static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
+    static final String ACTION_CALL_SCREENING_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallScreeningEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -139,6 +140,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR = "register_receivers_for_sms_sensor";
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
     static final String EXTRA_DISABLE_NOT_USED_SCANNERS = "disable_not_used_scanners";
+    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "register_receivers_for_call_screening_sensor";
+    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "unregister_receivers_for_call_screening_sensor";
 
     static final String EXTRA_START_FOR_SHIZUKU_START = "start_for_shizuku_start";
 
@@ -736,6 +739,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.firstStartAfterInstallation = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
 
                 // this save actual version
+                boolean applicationJustInstalled = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
                 boolean newVersion = doForPackageReplaced(appContext);
                 if (newVersion) {
                     __activateProfiles = true;
@@ -838,6 +842,11 @@ public class PhoneProfilesService extends Service
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 2, false, false);
 
+                //EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
+                EventPreferencesCallScreening.setEventCallScreeningTime(appContext, 0);
+                EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(appContext, "");
+                EventPreferencesCallScreening.setEventCallScreeningCallDirection(appContext, 0);
+
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
 
@@ -932,11 +941,12 @@ public class PhoneProfilesService extends Service
                 //else
                 MobileCellsScanner.startAutoRegistration(appContext, true);
 
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, true*/);
+                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, true*/);
                 // this also clears shared preferences
-                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
 //                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
-                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext/*, false*/);
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);
@@ -968,7 +978,10 @@ public class PhoneProfilesService extends Service
                         try {
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             String version = pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
-                            PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, "");
+                            if (applicationJustInstalled)
+                                PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_INSTALLATION, version, null, "");
+                            else
+                                PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, "");
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
@@ -1065,35 +1078,35 @@ public class PhoneProfilesService extends Service
                         PPApplicationStatic.recordException(e);
                     }
                 }
-                else*/
-                {
-                    PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "start work for first start");
+                else
+                {*/
+                PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "start work for first start");
 
-                    //PPApplication.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
+                //PPApplication.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
-                    Data workData = new Data.Builder()
-                            .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, __activateProfiles)
-                            .putBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, _startFromExternalApplication)
-                            .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
-                            .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
-                            .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
-                            .putBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
-                            //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
-                            .build();
+                Data workData = new Data.Builder()
+                        .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, __activateProfiles)
+                        .putBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, _startFromExternalApplication)
+                        .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
+                        .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
+                        .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
+                        .putBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
+                        //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
+                        .build();
 
 //                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.doForFirstStart", "xxxxxxxxxxxxxxxxxxxx");
 
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
-                                    .setInputData(workData)
-                                    //.setInitialDelay(5, TimeUnit.SECONDS)
-                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                    .build();
-                    try {
-                        if (PPApplicationStatic.getApplicationStarted(true, false)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
+                                .setInputData(workData)
+                                //.setInitialDelay(5, TimeUnit.SECONDS)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                .build();
+                try {
+                    if (PPApplicationStatic.getApplicationStarted(true, false)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
 
 //                                        //if (PPApplicationStatic.logEnabled()) {
 //                                        ListenableFuture<List<WorkInfo>> statuses;
@@ -1105,15 +1118,15 @@ public class PhoneProfilesService extends Service
 //                                        //}
 
 //                                PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "keepResultsForAtLeast");
-                                //workManager.enqueue(worker);
-                                // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
-                                workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                            }
+                            //workManager.enqueue(worker);
+                            // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
+                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                         }
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
                     }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
                 }
+                //}
                 //}
 
                 PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "END");
@@ -1485,7 +1498,7 @@ public class PhoneProfilesService extends Service
                     if (Build.VERSION.SDK_INT >= 30) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
 
-                        final String OLD_BROWN_COLOR = "#ff201a18";
+                        final String OLD_BROWN_COLOR = String.valueOf(appContext.getColor(R.color.pppColorOldBrownBackground));
 
                         String backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON,
                                 ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);

@@ -55,16 +55,20 @@ class PPEditTextAlertDialog {
         //mDialog.setOnShowListener(dialog -> doShow());
 
         TextView messageText = layout.findViewById(R.id.dialog_with_edittext_label);
+        //noinspection DataFlowIssue
         messageText.setText(_label);
 
         editText = layout.findViewById(R.id.dialog_with_edittext_edit);
+        //noinspection DataFlowIssue
         editText.setText(_initialEditValue);
         editText.requestFocus();
 
         View buttonsDivider = layout.findViewById(R.id.dialog_with_edittext_buttonBarDivider);
         if (_hideButtonBarDivider)
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.GONE);
         else
+            //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 
         mDialog.setCanceledOnTouchOutside(_canceledOnTouchOutside);

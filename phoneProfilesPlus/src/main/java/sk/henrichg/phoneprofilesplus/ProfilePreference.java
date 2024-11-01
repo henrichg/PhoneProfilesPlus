@@ -283,8 +283,8 @@ public class ProfilePreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<ProfilePreference.SavedState>() {
+        public static final Creator<ProfilePreference.SavedState> CREATOR =
+                new Creator<>() {
             public ProfilePreference.SavedState createFromParcel(Parcel in)
             {
                 return new ProfilePreference.SavedState(in);

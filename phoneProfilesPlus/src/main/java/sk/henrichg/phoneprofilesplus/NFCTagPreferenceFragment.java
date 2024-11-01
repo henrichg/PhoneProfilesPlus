@@ -66,6 +66,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         //dataLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_data);
 
         addIcon = view.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addIcon, getString(R.string.nfc_tag_pref_dlg_add_button_tooltip));
         addIcon.setOnClickListener(v -> {
             String tagName = nfcTagName.getText().toString();
@@ -83,7 +84,8 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         });
 
         nfcTagName = view.findViewById(R.id.nfc_tag_pref_dlg_bt_name);
-        nfcTagName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        nfcTagName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         nfcTagName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,7 +103,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                addIcon, prefContext.getApplicationContext());
+                addIcon, prefContext);
 
         nfcTagListView = view.findViewById(R.id.nfc_tag_pref_dlg_listview);
         emptyList = view.findViewById(R.id.nfc_tag_pref_dlg_empty);
@@ -163,11 +165,13 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         });
         */
         final ImageView helpIcon = view.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> DialogHelpPopupWindow.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.nfc_tag_pref_dlg_help, false));
 
 
         ImageView changeSelectionIcon = view.findViewById(R.id.nfc_tag_pref_dlg_changeSelection);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.nfc_tag_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(view1 -> {
             if (getActivity() != null)
@@ -332,6 +336,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                             true, true,
                             false, false,
                             true,
+                            false,
                             getActivity()
                     );
 

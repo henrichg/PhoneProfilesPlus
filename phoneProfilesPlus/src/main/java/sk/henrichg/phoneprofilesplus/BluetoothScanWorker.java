@@ -60,7 +60,7 @@ public class BluetoothScanWorker extends Worker {
                 // application is not started
                 return Result.success();
 
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, context).preferenceAllowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);
 //                PPApplicationStatic.logE("[IN_WORKER] BluetoothScanWorker.doWork", "---------------------------------------- END - not enabled bluetooth");
@@ -233,7 +233,7 @@ public class BluetoothScanWorker extends Worker {
 
     // shortInterval = true is called only from PPService.scheduleBluetoothWorker
     static void scheduleWork(Context context, boolean shortInterval) {
-        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, context).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (shortInterval) {
                 _cancelWork(context, false);
@@ -422,7 +422,7 @@ public class BluetoothScanWorker extends Worker {
         setWaitForLEResults(context, false);
         setScanKilled(context, false);
 
-        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, context).preferenceAllowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED)
             return;
 

@@ -65,6 +65,7 @@ class AddProfileDialog
 
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
             if (viewHolder != null)

@@ -29,6 +29,8 @@ class EventPreferencesCall extends EventPreferences {
     boolean _runAfterCallEndPermanentRun;
     int _runAfterCallEndDuration;
     int _forSIMCard;
+    boolean _sendSMS;
+    String _smsText;
 
     long _runAfterCallEndTime;
     int _runAfterCallEndFromSIMSlot;
@@ -45,6 +47,9 @@ class EventPreferencesCall extends EventPreferences {
     //static final String PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS = "eventCallAccessibilitySettings";
     //static final String PREF_EVENT_CALL_LAUNCH_EXTENDER = "eventCallLaunchExtender";
     private static final String PREF_EVENT_CALL_FOR_SIM_CARD = "eventCallForSimCard";
+    static final String PREF_EVENT_CALL_SEND_SMS = "eventCallSendSMS";
+    static final String PREF_EVENT_CALL_SMS_TEXT = "eventCallSMSText";
+    static final String PREF_EVENT_CALL_SEND_SMS_INFO = "eventCallSendSMSInfo";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
 
@@ -68,7 +73,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
     private static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
     private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
-    private static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
+    static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
     private static final int PHONE_CALL_EVENT_SERVICE_UNBIND = 8;
 
     private static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -84,7 +89,9 @@ class EventPreferencesCall extends EventPreferences {
                          int contactListType,
                          boolean runAfterCallEndPermanentRun,
                          int runAfterCallEndDuration,
-                         int forSIMCard) {
+                         int forSIMCard,
+                         boolean sendSMS,
+                         String smsText) {
         super(event, enabled);
 
         this._callEvent = callEvent;
@@ -94,6 +101,8 @@ class EventPreferencesCall extends EventPreferences {
         this._runAfterCallEndPermanentRun = runAfterCallEndPermanentRun;
         this._runAfterCallEndDuration = runAfterCallEndDuration;
         this._forSIMCard = forSIMCard;
+        this._sendSMS = sendSMS;
+        this._smsText = smsText;
 
         this._runAfterCallEndTime = 0;
         this._runAfterCallEndFromSIMSlot = 0;
@@ -108,6 +117,8 @@ class EventPreferencesCall extends EventPreferences {
         this._runAfterCallEndPermanentRun = fromEvent._eventPreferencesCall._runAfterCallEndPermanentRun;
         this._runAfterCallEndDuration = fromEvent._eventPreferencesCall._runAfterCallEndDuration;
         this._forSIMCard = fromEvent._eventPreferencesCall._forSIMCard;
+        this._sendSMS = fromEvent._eventPreferencesCall._sendSMS;
+        this._smsText = fromEvent._eventPreferencesCall._smsText;
         this.setSensorPassed(fromEvent._eventPreferencesCall.getSensorPassed());
 
         this._runAfterCallEndTime = 0;
@@ -124,6 +135,8 @@ class EventPreferencesCall extends EventPreferences {
         editor.putBoolean(PREF_EVENT_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN, this._runAfterCallEndPermanentRun);
         editor.putString(PREF_EVENT_CALL_RUN_AFTER_CALL_END_DURATION, String.valueOf(this._runAfterCallEndDuration));
         editor.putString(PREF_EVENT_CALL_FOR_SIM_CARD, String.valueOf(this._forSIMCard));
+        editor.putBoolean(PREF_EVENT_CALL_SEND_SMS, this._sendSMS);
+        editor.putString(PREF_EVENT_CALL_SMS_TEXT, this._smsText);
         editor.apply();
     }
 
@@ -136,6 +149,8 @@ class EventPreferencesCall extends EventPreferences {
         this._runAfterCallEndPermanentRun = preferences.getBoolean(PREF_EVENT_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN, false);
         this._runAfterCallEndDuration = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_RUN_AFTER_CALL_END_DURATION, "5"));
         this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_FOR_SIM_CARD, "0"));
+        this._sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
+        this._smsText = preferences.getString(PREF_EVENT_CALL_SMS_TEXT, "");
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
@@ -151,8 +166,8 @@ class EventPreferencesCall extends EventPreferences {
                 _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
-            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED, context);
-            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED, false, context);
+            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
@@ -170,17 +185,17 @@ class EventPreferencesCall extends EventPreferences {
                 } else {
                     _value.append(context.getString(R.string.pref_event_call_event));
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.event_preferences_call_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.event_preferences_call_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.event_preferences_contactListType));
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                         boolean hasSIMCard = false;
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -190,27 +205,25 @@ class EventPreferencesCall extends EventPreferences {
 //                                Log.e("EventPreferencesCall.getPreferencesDescription", "called hasSIMCard");
                                 HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                                 hasSIMCard = hasSIMCardData.simCount > 0;
-                                //boolean sim1Exists = hasSIMCardData.hasSIM1;
-                                //boolean sim2Exists = hasSIMCardData.hasSIM2;
-
-                                //simExists = sim1Exists;
-                                //simExists = simExists && sim2Exists;
-                                //hasSIMCard = simExists;
                             }
                         }
                         if (hasSIMCard) {
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_call_forSimCard));
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
-                            _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
 
                     if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._runAfterCallEndPermanentRun)
-                            _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         else
-                            _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._runAfterCallEndDuration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._runAfterCallEndDuration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
+
+                        if ((this._callEvent == CALL_EVENT_MISSED_CALL)) {
+                            _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preference_callSendSMS));
+                        }
                     }
 
                 }
@@ -292,6 +305,12 @@ class EventPreferencesCall extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false, false);
         }
+        if (key.equals(PREF_EVENT_CALL_SMS_TEXT)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(value);
+            }
+        }
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
@@ -301,16 +320,8 @@ class EventPreferencesCall extends EventPreferences {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     hasFeature = true;
-                    //boolean simExists;
-//                    Log.e("EventPreferencesCall.setSummary", "called hasSIMCard");
                     HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                     hasSIMCard = hasSIMCardData.simCount > 1;
-                    //boolean sim1Exists = hasSIMCardData.hasSIM1;
-                    //boolean sim2Exists = hasSIMCardData.hasSIM2;
-
-                    //simExists = sim1Exists;
-                    //simExists = simExists && sim2Exists;
-                    //hasSIMCard = simExists;
                     PPListPreference listPreference = prefMng.findPreference(key);
                     if (listPreference != null) {
                         int index = listPreference.findIndexOfValue(value);
@@ -323,7 +334,7 @@ class EventPreferencesCall extends EventPreferences {
                 Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
                 if (preference != null) {
                     PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
                     preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -333,37 +344,13 @@ class EventPreferencesCall extends EventPreferences {
                 Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
                 if (preference != null) {
                     PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
                     preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 }
             }
         }
-
-        /*
-        if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if (extenderVersion == 0) {
-                    String summary = context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary);// +
-                            //"\n\n" + context.getString(R.string.event_preferences_call_PPPExtender_install_summary);
-                    preference.setSummary(summary);
-                }
-                else {
-                    String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(context);
-                    String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
-                            " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                        summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                    else
-                        summary = summary + context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
-                    preference.setSummary(summary);
-                }
-            }
-        }
-        */
 
         Event event = new Event();
         event.createEventPreferences();
@@ -387,6 +374,16 @@ class EventPreferencesCall extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, false, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
+        if (preference != null) {
+            boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_CALL_SMS_TEXT);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_SMS_TEXT, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false, false);
+        }
 
         int _isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
@@ -397,29 +394,6 @@ class EventPreferencesCall extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(extenderPreference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
-        /*
-        preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
-        if (preference != null) {
-
-            String summary;
-            if (isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
-                summary = context.getString(R.string.accessibility_service_enabled);
-            else {
-                if (_isAccessibilityEnabled == -1) {
-                    summary = context.getString(R.string.accessibility_service_not_used);
-                    summary = summary + "\n\n" + context.getString(R.string.preference_not_used_extender_reason) + " " +
-                            context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else {
-                    summary = context.getString(R.string.accessibility_service_disabled);
-                    summary = summary + "\n\n" + context.getString(R.string.event_preferences_call_AccessibilitySettingsForExtender_summary);
-                }
-            }
-            preference.setSummary(summary);
-
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
-                    !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
-        }
-        */
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
@@ -442,8 +416,13 @@ class EventPreferencesCall extends EventPreferences {
                 key.equals(PREF_EVENT_CALL_RUN_AFTER_CALL_END_DURATION) ||
                 key.equals(PREF_EVENT_CALL_EXTENDER) ||
                 //key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER) ||
-                key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
+                key.equals(PREF_EVENT_CALL_FOR_SIM_CARD) ||
+                key.equals(PREF_EVENT_CALL_SMS_TEXT)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
+        }
+        if (key.equals(PREF_EVENT_CALL_SEND_SMS)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
     }
 
@@ -458,13 +437,16 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_EXTENDER, preferences, context);
         //setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_FOR_SIM_CARD, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_SEND_SMS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_SMS_TEXT, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups,
-                    this._contactListType, this._runAfterCallEndPermanentRun, this._runAfterCallEndDuration, this._forSIMCard);
+                    this._contactListType, this._runAfterCallEndPermanentRun, this._runAfterCallEndDuration, this._forSIMCard,
+                    this._sendSMS, this._smsText);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -538,10 +520,6 @@ class EventPreferencesCall extends EventPreferences {
                 if (preference != null)
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-//                preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
-//                if (preference != null)
-//                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
-
                 boolean showPreferences = false;
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -576,6 +554,21 @@ class EventPreferencesCall extends EventPreferences {
                     if (preference != null)
                         preference.setVisible(false);
                 }
+                if (preferences != null) {
+                    String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
+                    int contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
+                    if (preference != null)
+                        preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS_INFO);
+                    if (preference != null)
+                        preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
+
+                    boolean sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_SMS_TEXT);
+                    if (preference != null)
+                        preference.setEnabled(sendSMS && contactListType == CONTACT_LIST_TYPE_WHITE_LIST);
+                }
 
                 setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
             }
@@ -589,8 +582,6 @@ class EventPreferencesCall extends EventPreferences {
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         callEndTime.setTimeInMillis((_runAfterCallEndTime - gmtOffset) + (_runAfterCallEndDuration * 1000L));
-        //calEndTime.set(Calendar.SECOND, 0);
-        //calEndTime.set(Calendar.MILLISECOND, 0);
 
         long alarmTime;
         alarmTime = callEndTime.getTimeInMillis();
@@ -635,10 +626,8 @@ class EventPreferencesCall extends EventPreferences {
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
-                //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
@@ -655,12 +644,8 @@ class EventPreferencesCall extends EventPreferences {
     private void setRunAfterCallEndAlarm(long alarmTime, Context context) {
         if (!_runAfterCallEndPermanentRun) {
             if (_runAfterCallEndTime > 0) {
-                //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
-                //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
-
-                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -685,18 +670,10 @@ class EventPreferencesCall extends EventPreferences {
         boolean phoneNumberFound = false;
 
         if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-            /*ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-            if (contactsCache == null)
-                return false;
-            List<Contact> contactList;
-//            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(1) PPApplication.contactsCacheMutex");
-            synchronized (PPApplication.contactsCacheMutex) {
-                contactList = contactsCache.getList(); //false
-            }*/
-
             // find phone number in groups
             String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured group="+split);
                 if (!split.isEmpty()) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
                     synchronized (PPApplication.contactsCacheMutex) {
@@ -708,6 +685,7 @@ class EventPreferencesCall extends EventPreferences {
                                         // group found in contact
                                         if (contact.phoneId != 0) {
                                             String _phoneNumber = contact.phoneNumber;
+//                                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "found in group _phoneNumber="+_phoneNumber);
                                             if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                                 phoneNumberFound = true;
                                                 break;
@@ -724,12 +702,19 @@ class EventPreferencesCall extends EventPreferences {
                     break;
             }
 
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "(1) phoneNumberFound="+phoneNumberFound);
+
             if (!phoneNumberFound) {
                 // find phone number in contacts
                 // contactId#phoneId|...
                 splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+//                    if (!split.isEmpty()) {
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone numbe[0]r="+splits2[0]);
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[1]="+splits2[1]);
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "in senzor configured phone number[2]="+splits2[2]);
+//                    }
 
                     if ((!split.isEmpty()) &&
                             (splits2.length == 3) &&
@@ -745,6 +730,8 @@ class EventPreferencesCall extends EventPreferences {
                     }
                 }
             }
+
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.isPhoneNumberConfigured", "(2) phoneNumberFound="+phoneNumberFound);
 
             if (this._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
                 phoneNumberFound = !phoneNumberFound;
@@ -781,13 +768,9 @@ class EventPreferencesCall extends EventPreferences {
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallRunAfterCallEndTime(_event);
 
                     if (phoneNumberFound) {
-                        //if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                            setSystemEventForPause(dataWrapper.context);
+                        setSystemEventForPause(dataWrapper.context);
                     }
-                }// else {
-                //    _startTime = 0;
-                //    DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
-                //}
+                }
             } else {
                 _runAfterCallEndTime = 0;
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallRunAfterCallEndTime(_event);
@@ -800,7 +783,6 @@ class EventPreferencesCall extends EventPreferences {
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallEventType = ApplicationPreferences.
                     getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
-            //return ApplicationPreferences.prefEventCallEventType;
         }
     }
     static void setEventCallEventType(Context context, int eventType) {
@@ -823,8 +805,6 @@ class EventPreferencesCall extends EventPreferences {
                     (eventType == PHONE_CALL_EVENT_UNDEFINED))
                 ApplicationPreferences.prefEventCallRunAfterCallEndTime = ApplicationPreferences.
                         getSharedPreferences(context).getLong(EventPreferencesCall.PREF_EVENT_CALL_RUN_AFTER_CALL_END_TIME, 0);
-
-            //return ApplicationPreferences.prefEventCallEventTime;
         }
     }
     static void setEventCallEventTime(Context context, long time, int eventType) {
@@ -847,7 +827,6 @@ class EventPreferencesCall extends EventPreferences {
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallPhoneNumber = ApplicationPreferences.
                     getSharedPreferences(context).getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
-            //return ApplicationPreferences.prefEventCallPhoneNumber;
         }
     }
     static void setEventCallPhoneNumber(Context context, String phoneNumber) {
@@ -869,8 +848,6 @@ class EventPreferencesCall extends EventPreferences {
                     (eventType == PHONE_CALL_EVENT_UNDEFINED))
                 ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot = ApplicationPreferences.
                     getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, 0);
-
-            //return ApplicationPreferences.prefEventCallPhoneNumber;
         }
     }
     static void setEventCallFromSIMSlot(Context context, int simSlot, int eventType) {
@@ -892,7 +869,7 @@ class EventPreferencesCall extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventCallContacts(context, event, null)*//* &&
                   this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
@@ -902,6 +879,9 @@ class EventPreferencesCall extends EventPreferences {
                 //Log.e("EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
                 //Log.e("EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
                 //Log.e("EventPreferencesCall.doHandleEvent", "simSlot="+simSlot);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "runAfterCallEndSIMSlot="+runAfterCallEndSIMSlot);
 
                 boolean phoneNumberFound = false;
 
@@ -909,14 +889,15 @@ class EventPreferencesCall extends EventPreferences {
                     if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
                         eventsHandler.callPassed = false;
                     else {
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache != null) {
                             List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                            synchronized (PPApplication.contactsCacheMutex) {
-                                contactList = contactsCache.getList(/*false*/);
-                            }
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "contactsCache.getList()");
+                            contactList = contactsCache.getList(/*false*/);
                             phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber/*, this*/);
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "phoneNumberFound="+phoneNumberFound);
                             if (contactList != null)
                                 contactList.clear();
                         }
@@ -992,13 +973,6 @@ class EventPreferencesCall extends EventPreferences {
                         }
                         else
                             eventsHandler.callPassed = false;
-
-                        //if ((callEventType == PhoneCallsListener.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        //        (callEventType == PhoneCallsListener.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                        //    //callPassed = true;
-                        //    //eventStart = eventStart && false;
-                        //    callPassed = false;
-                        //}
                     } else
                         eventsHandler.callPassed = false;
 
@@ -1042,6 +1016,9 @@ class EventPreferencesCall extends EventPreferences {
                     else
                         eventsHandler.notAllowedCall = true;
                 }
+
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "eventsHandler.notAllowedCall="+eventsHandler.notAllowedCall);
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "eventsHandler.callPassed="+eventsHandler.callPassed);
 
                 if (!eventsHandler.notAllowedCall) {
                     if (eventsHandler.callPassed)

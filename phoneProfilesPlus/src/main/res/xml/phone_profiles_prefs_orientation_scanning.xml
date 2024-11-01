@@ -9,11 +9,12 @@
         app:title="@string/phone_profiles_pref_applicationEventOrientation_info"
         app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventOrientationEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventOrientationEnableScanning"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventOrientationScanIntervalCategory"
         app:dependency="applicationEventOrientationEnableScannig"
@@ -84,12 +85,13 @@
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationEventOrientationScanOnlyWhenScreenIsOn"
             app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             app:defaultValue="true"
             app:dependency="applicationEventOrientationEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

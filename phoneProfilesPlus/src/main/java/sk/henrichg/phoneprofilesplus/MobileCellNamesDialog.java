@@ -59,6 +59,7 @@ class MobileCellNamesDialog {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         if (!showFilterItems) {
+            //noinspection ReplaceNullCheck
             if (_positiveClick != null)
                 dialogBuilder.setPositiveButton(android.R.string.ok, _positiveClick);
             else {
@@ -71,8 +72,10 @@ class MobileCellNamesDialog {
                             //}
                         //} else
                         if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                            //noinspection DataFlowIssue
                             ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
                         } else if (preference instanceof MobileCellsEditorPreference) {
+                            //noinspection DataFlowIssue
                             ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                         }
                     }
@@ -105,7 +108,8 @@ class MobileCellNamesDialog {
         cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
         emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
-        cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.edit_text_color));
         if (!showFilterItems) {
             cellName.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -133,6 +137,7 @@ class MobileCellNamesDialog {
         rellaDialog = layout.findViewById(R.id.mobile_cell_names_dlg_rella_dialog);
 
         listAdapter = new MobileCellNamesDialogAdapter(activity, this);
+        //noinspection DataFlowIssue
         cellNamesListView.setAdapter(listAdapter);
 
         cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {

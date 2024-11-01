@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/subtitle_text_size"
         android:textColor="@color/activitySecondaryTextColor"
-        android:text="" />
+        android:text=""
+        tools:ignore="SpUsage" />
 
 </LinearLayout>

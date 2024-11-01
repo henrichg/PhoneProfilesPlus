@@ -40,9 +40,6 @@ public enum ColorMode {
      */
     public AbstractColorMode getColorMode() {
         switch (this) {
-            case RGB:
-            default:
-                return new RGB();
             case HSV:
                 return new HSV();
             case ARGB:
@@ -53,6 +50,9 @@ public enum ColorMode {
                 return new CMYK255();
             case HSL:
                 return new HSL();
+            case RGB:
+            default:
+                return new RGB();
         }
     }
 

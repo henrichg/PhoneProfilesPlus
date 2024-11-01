@@ -15,7 +15,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 
     <ScrollView
@@ -105,7 +105,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView1"
@@ -122,7 +122,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView2"
@@ -139,7 +139,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView3"
@@ -156,7 +156,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView4"
@@ -173,7 +173,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView5"
@@ -190,7 +190,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView6"
@@ -207,7 +207,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView7"
@@ -224,7 +224,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView8"
@@ -241,7 +241,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView9"
@@ -258,7 +258,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView10"
@@ -275,7 +275,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView11"
@@ -292,7 +292,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView12"
@@ -309,7 +309,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView13"
@@ -326,7 +326,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView14"
@@ -343,7 +343,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView15"
@@ -360,7 +360,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView16"
@@ -377,7 +377,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView17"
@@ -394,7 +394,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView18"
@@ -411,7 +411,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView19"
@@ -428,7 +428,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
-                        tools:background="#000">
+                        tools:background="@color/pppColor000">
 
                         <ImageView
                             android:id="@+id/profile_icon_color_chooser_imageView20"
@@ -463,12 +463,12 @@
                             android:id="@+id/dialog_color_chooser_custom_color_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
+                            android:paddingStart="@dimen/layout_as_button_padding"
+                            android:paddingEnd="@dimen/layout_as_button_padding"
+                            android:minHeight="@dimen/button_min_height"
                             android:text="@string/colorChooser_pref_dialog_customIconColor"
-                            android:gravity="end"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="end"
                             android:textAlignment="gravity"
                             android:textSize="15sp"
                             android:textColor="@color/accent_color"
@@ -476,6 +476,8 @@
                             android:background="@drawable/pp_button_background_selector"
                             android:clickable="true"
                             android:focusable="true" />
+<!--                        android:paddingTop="@dimen/custom_color_dialog_button_top_bottom_padding"-->
+<!--                        android:paddingBottom="@dimen/custom_color_dialog_button_top_bottom_padding"-->
 
                     </LinearLayout>
 
@@ -510,6 +512,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

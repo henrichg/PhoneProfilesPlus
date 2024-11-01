@@ -228,7 +228,7 @@ public class DaysOfWeekPreference extends DialogPreference {
         }
 
         public static final Creator<DaysOfWeekPreference.SavedState> CREATOR =
-                new Creator<DaysOfWeekPreference.SavedState>() {
+                new Creator<>() {
                     public DaysOfWeekPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new DaysOfWeekPreference.SavedState(in);

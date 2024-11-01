@@ -72,7 +72,7 @@ class EventPreferencesLocation extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_location_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context));
@@ -125,9 +125,9 @@ class EventPreferencesLocation extends EventPreferences {
                     }
                 }
                 selectedLocations = value.toString();
-                _value.append(context.getString(R.string.event_preferences_locations_location)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedLocations, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_locations_location)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedLocations, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 if (this._whenOutside)
-                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -157,7 +157,7 @@ class EventPreferencesLocation extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
@@ -205,7 +205,7 @@ class EventPreferencesLocation extends EventPreferences {
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                             summary;
-                    titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
@@ -282,8 +282,8 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -383,7 +383,7 @@ class EventPreferencesLocation extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning) {

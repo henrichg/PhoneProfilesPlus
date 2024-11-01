@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Derived from https://github.com/androidx/androidx/blob/005e9694795cee9a42375d80b0d813af9e700ac1/preference/preference/res/layout/preference_widget_switch_compat.xml -->
+<!-- Thanks to https://stackoverflow.com/a/73782598/9077356 -->
+<!--<com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--
+<com.google.android.material.materialswitch.MaterialSwitch
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/switchWidget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:clickable="false"
+    android:background="@null"
+    tools:ignore="UnusedResources" />
+-->
+<androidx.appcompat.widget.SwitchCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/switchControl"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:focusable="false"
+    app:trackTint="@color/switch_track_color"
+    app:thumbTint="@color/switch_thumb_color" />
+<!--    android:id="@android:id/switch_widget"-->

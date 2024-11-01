@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -35,10 +36,12 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         final TextView infoTextView = view.findViewById(R.id.info_pref_dialog_info_text);
 
         if (preference.isHtml) {
+            //noinspection DataFlowIssue
             infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true,  false, 0, 0, true));
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(new PPLinkMovementMethod(this, context));
         } else
+            //noinspection DataFlowIssue
             infoTextView.setText(preference.infoText);
     }
 
@@ -50,6 +53,14 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     @Override
     public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
                               final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
+        onLinkClickedListener(linkUrl, linkTypeUrl, linkText, linkTypeText,
+                preference.getTitle(), context, getActivity());
+    }
+
+    /** @noinspection unused*/
+    static void onLinkClickedListener(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
+                                      final String linkText, PPLinkMovementMethod.LinkType linkTypeText,
+                                      CharSequence dialodTitle, Context context, Activity activity) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
         boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.PPP_APP_INFO_SCREEN);
         boolean showDroidifyInstallationSite = linkUrl.startsWith(InfoDialogPreference.DROIDIFY_INSTALLATION_SITE);
@@ -72,7 +83,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, iiQuickGuide);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, iiFragment);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, scrollTo);
-            startActivity(intentLaunch);
+            context.startActivity(intentLaunch);
         }
         if (showPPPAppInfoScreen) {
             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -80,12 +91,12 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
             if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
                 //noinspection deprecation
-                startActivity(intent);
+                context.startActivity(intent);
             } else {
                 PPAlertDialog dialog2 = new PPAlertDialog(
-                        preference.getTitle(),
-                        getString(R.string.setting_screen_not_found_alert),
-                        getString(android.R.string.ok),
+                        dialodTitle,
+                        context.getString(R.string.setting_screen_not_found_alert),
+                        context.getString(android.R.string.ok),
                         null,
                         null, null,
                         null,
@@ -96,7 +107,8 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                         true, true,
                         false, false,
                         true,
-                        getActivity()
+                        false,
+                        activity
                 );
 
                 dialog2.show();
@@ -107,7 +119,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
-                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
             } catch (Exception ignored) {}
         }
         if (grantRoot) {
@@ -119,7 +131,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 rooted = RootUtils._isRooted();
             }
             if (rooted) {
-                Permissions.grantRootX(null, getActivity());
+                Permissions.grantRootX(null, activity);
             }
         }
     }

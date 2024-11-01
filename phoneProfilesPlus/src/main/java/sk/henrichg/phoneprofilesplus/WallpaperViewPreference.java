@@ -225,8 +225,8 @@ public class WallpaperViewPreference extends Preference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<WallpaperViewPreference.SavedState>() {
+        public static final Creator<WallpaperViewPreference.SavedState> CREATOR =
+                new Creator<>() {
             public WallpaperViewPreference.SavedState createFromParcel(Parcel in)
             {
                 return new WallpaperViewPreference.SavedState(in);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 public class NFCTagWriteActivity extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -42,6 +43,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nfc_write_tag);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        Toolbar toolbar = findViewById(R.id.write_nfc_tag_toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,22 +57,27 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         tagDbId = intent.getLongExtra(EXTRA_TAG_DB_ID, 0);
 
         touchTextView = findViewById(R.id.write_nfc_tag_touch);
+        //noinspection DataFlowIssue
         touchTextView.setText(R.string.nfc_tag_pref_dlg_readNfcTag_touch);
 
         tagDataTextView = findViewById(R.id.write_nfc_tag_data);
         writableTextView = findViewById(R.id.write_nfc_tag_writable);
         addReadedNameButton = findViewById(R.id.write_nfc_tag_addReadedTagName);
+        //noinspection DataFlowIssue
         addReadedNameButton.setEnabled(false);
         writeNameToTagAndAddNameButton = findViewById(R.id.write_nfc_tag_writeNameToTagAndAddName);
+        //noinspection DataFlowIssue
         writeNameToTagAndAddNameButton.setEnabled(false);
 
         TextView tagNameTextView = findViewById(R.id.write_nfc_tag_name);
+        //noinspection DataFlowIssue
         tagNameTextView.setText(getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_tagName) + " " + tagName);
         tagDataTextView.setText(getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_tagData) + " " +
                                 getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_tagData_noData));
 
         if (tagDbId != 0) {
             TextView addUpdateTagTextView = findViewById(R.id.write_nfc_tag_addUpdateName);
+            //noinspection DataFlowIssue
             addUpdateTagTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_changeNameButtons);
         }
 
@@ -120,7 +128,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                         writeNameToTagAndAddNameButton.setEnabled(nfcManager.intentForWrite != null);
                     }
                     else {
-                        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.error_color));
+                        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.errorColor));
                         writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable);
                         touchTextView.setText(R.string.nfc_tag_pref_dlg_readNfcTag_touch);
                         writeNameToTagAndAddNameButton.setEnabled(false);
@@ -170,6 +178,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
 
         Button button = findViewById(R.id.write_nfc_tag_button);
+        //noinspection DataFlowIssue
         button.setOnClickListener(view -> {
             setResult(Activity.RESULT_CANCELED);
             finish();
@@ -187,7 +196,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 text = text + " (" + getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable) + ")";
             }
         }
-        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.error_color));
+        writableTextView.setTextColor(ContextCompat.getColor(this, R.color.errorColor));
         writableTextView.setText(text);
         //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
         //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
@@ -232,6 +241,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
+    /** @noinspection NullableProblems*/
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);

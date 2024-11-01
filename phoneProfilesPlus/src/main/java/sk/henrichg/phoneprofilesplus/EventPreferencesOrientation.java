@@ -155,7 +155,7 @@ class EventPreferencesOrientation extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_orientation_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context));
@@ -195,7 +195,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     }
                     selectedValues = __value.toString();
                 }
-                _value.append(context.getString(R.string.event_preferences_orientation_display)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_orientation_display)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -217,22 +217,22 @@ class EventPreferencesOrientation extends EventPreferences {
                         }
                         selectedValues = __value.toString();
                     }
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_sides)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_sides)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_distance)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(distanceNames[i], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_distance)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(distanceNames[i], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._checkLight) {
                     _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            .append(getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 else {
                     _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_light)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
-                            .append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            .append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -260,7 +260,7 @@ class EventPreferencesOrientation extends EventPreferences {
                             ApplicationInfo app;
                             try {
                                 app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
-                                if (app != null)
+                                //if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
                                 selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
@@ -275,7 +275,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_ignoreForApplications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_orientation_ignoreForApplications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -306,7 +306,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
@@ -636,8 +636,8 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesOrientation tmp = new EventPreferencesOrientation(this._event, this._enabled, this._display, this._sides, this._distance, this._checkLight, this._lightMin, this._lightMax, this._ignoredApplications);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -940,7 +940,7 @@ class EventPreferencesOrientation extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean inCall = false;
                 TelephonyManager telephony = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:title="@string/event_preferences_category_eventCallParameters"
+    app:key="eventCallCategory">
+
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="eventCallEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_call_event"
+        app:summary="@string/array_event_pref_ringing"
+        app:key="eventCallEvent"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallEventsArray"
+        app:ppEntryValues="@array/eventCallEventsValues"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
+        app:key="eventCallContactGroups"
+        app:defaultValue=""
+        app:title="@string/event_preferences_call_contact_groups"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
+        app:key="eventCallContacts"
+        app:defaultValue=""
+        app:title="@string/event_preferences_call_contacts"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:withoutNumbers="false"/>
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_contactListType"
+        app:summary="@string/array_event_pref_contact_list_type_white_list"
+        app:key="eventCallContactListType"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallContactListTypeArray"
+        app:ppEntryValues="@array/eventCallContactListTypeValues"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="eventCallPermanentRun"
+        app:title="@string/pref_event_permanentRun"
+        app:summary="@string/pref_event_permanentRun_summary"
+        app:defaultValue="true"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+        app:key="eventCallDuration"
+        app:summary="@string/event_preferences_duration"
+        app:title="@string/event_preferences_duration"
+        app:defaultValue="5"
+        app:dMin="5"
+        app:dMax="86400"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_call_forSimCard"
+        app:summary="@string/event_preferences_forSimCard_bothCards"
+        app:key="eventCallForSimCard"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallForSimCardArray"
+        app:ppEntryValues="@array/eventCallForSimCardValues"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="eventCallSendSMSInfo"
+        app:title="@string/event_preference_callSendSMS"
+        app:summary="@string/event_preference_callSendSMS_info_summary"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
+        app:title="@string/event_preference_callSendSMS"
+        app:key="eventCallSendSMS"
+        app:defaultValue="false"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
+        app:key="eventCallSMSText"
+        app:title="@string/event_preference_callSMSText"
+        android:selectAllOnFocus="true"
+        app:defaultValue=""
+        app:dependency="eventCallSendSMS"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
+        app:title="@string/pppextender_pref_dialog_title"
+        app:summary=""
+        app:installSummary="@string/event_preferences_call_PPPExtender_install_summary"
+        app:launchSummary="@string/event_preferences_call_LaunchExtender_summary"
+        app:enableExtenderSummaryDisabled="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
+        app:key="eventCallExtender"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+<!--    <Preference-->
+<!--        app:key="eventCallInstallExtender"-->
+<!--        app:title="@string/install_extender_dialog_title"-->
+<!--        app:summary="@string/event_preferences_call_PPPExtender_install_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+<!--    <Preference-->
+<!--        app:key="eventCallAccessibilitySettings"-->
+<!--        app:title="@string/event_preferences_applications_AccessibilitySettings_title"-->
+<!--        app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+<!--    <Preference-->
+<!--        app:key="eventCallLaunchExtender"-->
+<!--        app:title="@string/pppextender_pref_dialog_launch_button"-->
+<!--        app:summary="@string/event_preferences_call_LaunchExtender_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
+</androidx.preference.PreferenceScreen>

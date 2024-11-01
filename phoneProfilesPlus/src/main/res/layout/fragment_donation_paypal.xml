@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/donation_paypal_fragment_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp" >
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/donation_paypal_fragment_liLa1"
@@ -38,7 +40,9 @@
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             android:text="@string/donation_description"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            />
+<!--        android:textStyle="bold"/>-->
 
         <TextView
             android:id="@+id/donation_paypal_donation_description_2"
@@ -53,9 +57,9 @@
             android:id="@+id/donation_paypal_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
             android:text="@string/donation_paypal"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+<!--        android:paddingTop="15dp"-->
 
         <!--
         <TextView
@@ -116,11 +120,16 @@
                 android:id="@+id/donation_paypal_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="26dp"
                 android:layout_marginEnd="30dp"
+                android:paddingStart="@dimen/spinner_padding_horizontal"
+                android:paddingEnd="@dimen/spinner_padding_horizontal"
+                android:paddingTop="@dimen/spinner_padding_vertical"
+                android:paddingBottom="@dimen/spinner_padding_vertical"
                 android:layout_weight="1"
                 android:prompt="@string/donation_google_android_market_text"
                 android:popupElevation="0dp"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <Button
@@ -176,22 +185,26 @@
         android:id="@+id/donation_paypal_fragment_liLa2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical" >
+<!--        android:layout_alignParentBottom="true">-->
 
         <View
             android:id="@+id/donation_paypal_activity_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <Button
             android:id="@+id/donation_paypal_activity_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|end"
             android:layout_marginTop="15dp"
-            android:minHeight="40dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
+            android:minWidth="@dimen/button_min_width"
+            android:minHeight="@dimen/button_min_height"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"
@@ -202,5 +215,5 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
 

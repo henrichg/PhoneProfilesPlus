@@ -363,8 +363,8 @@ public class VolumeDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<VolumeDialogPreference.SavedState>() {
+        public static final Creator<VolumeDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public VolumeDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new VolumeDialogPreference.SavedState(in);

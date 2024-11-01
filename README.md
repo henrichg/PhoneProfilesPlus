@@ -6,7 +6,7 @@
 PhoneProfilesPlus (PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.5.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5.1.1)
+[![version](https://img.shields.io/badge/version-7.0-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
@@ -21,6 +21,10 @@ Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 ### Sources of PhoneProfilesPlus:
+
+NOTE: Google Play Protect may display dialog box with title "Unsafe app blocked" and description "This app was build for an older version of Android and doesn`t include the latest privacy protection."
+Please click in this dialog "More details" and then "Install anyway".\
+Dialog is displayed, because PPP has target SDK vesion 28 (Android 9). Must be, because of functionalities in PPP.
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
@@ -112,12 +116,15 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 [[12]](art/phoneScreenshots/12.png),
 [[13]](art/phoneScreenshots/13.png)
 
+##### History of UI changes :wink:
+- __[Show it](docs/history_of_ui_changes.md)__
+
 ##### Supported Android versions
 
 - From Android 8.0
 - minSdkVersion = 26
 - targetSdkVersion = 28
-- compiledSdkVersion = 34
+- compiledSdkVersion = 35
 
 ##### Required external libs - open-source
 
@@ -155,4 +162,4 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Required external libs - not open-source
 
-- Samsung Look - http://developer.samsung.com/galaxy/edge
+- Samsung Look

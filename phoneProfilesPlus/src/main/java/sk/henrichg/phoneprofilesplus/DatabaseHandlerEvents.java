@@ -12,62 +12,66 @@ import java.util.List;
 class DatabaseHandlerEvents {
 
     // Adding new event
+    static void addEvent(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHandler.KEY_E_NAME, event._name); // Event Name
+        values.put(DatabaseHandler.KEY_E_START_ORDER, event._startOrder); // start order
+        values.put(DatabaseHandler.KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
+        values.put(DatabaseHandler.KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
+        values.put(DatabaseHandler.KEY_E_STATUS, event.getStatus()); // event status
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START, event._notificationSoundStart); // notification sound
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_START, event._notificationVibrateStart); // notification vibrate
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_START, event._repeatNotificationStart); // repeat notification sound
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, event._repeatNotificationIntervalStart); // repeat notification sound interval
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END, event._notificationSoundEnd); // notification sound
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_END, event._notificationVibrateEnd); // notification vibrate
+        values.put(DatabaseHandler.KEY_E_FORCE_RUN, event._ignoreManualActivation ? 1 : 0); // force run when manual profile activation
+        values.put(DatabaseHandler.KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
+        values.put(DatabaseHandler.KEY_E_PRIORITY, event._priority); // priority
+        values.put(DatabaseHandler.KEY_E_DELAY_START, event._delayStart); // delay for start
+        values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
+        values.put(DatabaseHandler.KEY_E_AT_END_DO, event._atEndDo); //at end of event do
+        values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation at start
+        values.put(DatabaseHandler.KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+        values.put(DatabaseHandler.KEY_E_DELAY_END, event._delayEnd); // delay for end
+        values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
+        values.put(DatabaseHandler.KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
+        values.put(DatabaseHandler.KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
+        values.put(DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
+        values.put(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
+        //values.put(DatabaseHandler.KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
+        values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
+
+        db.beginTransaction();
+
+        try {
+            // Inserting Row
+            event._id = db.insert(DatabaseHandler.TABLE_EVENTS, null, values);
+            updateEventPreferences(event, db);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     static void addEvent(DatabaseHandler instance, Event event) {
         instance.importExportLock.lock();
         try {
             try {
                 instance.startRunningCommand();
 
-                int startOrder = getMaxEventStartOrder(instance) + 1;
+                event._startOrder = getMaxEventStartOrder(instance) + 1;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
-                ContentValues values = new ContentValues();
-                values.put(DatabaseHandler.KEY_E_NAME, event._name); // Event Name
-                values.put(DatabaseHandler.KEY_E_START_ORDER, startOrder); // start order
-                values.put(DatabaseHandler.KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
-                values.put(DatabaseHandler.KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
-                values.put(DatabaseHandler.KEY_E_STATUS, event.getStatus()); // event status
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START, event._notificationSoundStart); // notification sound
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_START, event._notificationVibrateStart); // notification vibrate
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_START, event._repeatNotificationStart); // repeat notification sound
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, event._repeatNotificationIntervalStart); // repeat notification sound interval
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END, event._notificationSoundEnd); // notification sound
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_VIBRATE_END, event._notificationVibrateEnd); // notification vibrate
-                values.put(DatabaseHandler.KEY_E_FORCE_RUN, event._ignoreManualActivation ? 1 : 0); // force run when manual profile activation
-                values.put(DatabaseHandler.KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
-                values.put(DatabaseHandler.KEY_E_PRIORITY, event._priority); // priority
-                values.put(DatabaseHandler.KEY_E_DELAY_START, event._delayStart); // delay for start
-                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
-                values.put(DatabaseHandler.KEY_E_AT_END_DO, event._atEndDo); //at end of event do
-                values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation at start
-                values.put(DatabaseHandler.KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                values.put(DatabaseHandler.KEY_E_DELAY_END, event._delayEnd); // delay for end
-                values.put(DatabaseHandler.KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
-                values.put(DatabaseHandler.KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
-                values.put(DatabaseHandler.KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
-                values.put(DatabaseHandler.KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
-                values.put(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
-                //values.put(DatabaseHandler.KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
-                values.put(DatabaseHandler.KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundStartPlayAlsoInSilentMode ? 1 : 0);
-                values.put(DatabaseHandler.KEY_E_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE, event._notificationSoundEndPlayAlsoInSilentMode ? 1 : 0);
-
-                db.beginTransaction();
-
-                try {
-                    // Inserting Row
-                    event._id = db.insert(DatabaseHandler.TABLE_EVENTS, null, values);
-                    updateEventPreferences(event, db);
-
-                    db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    db.endTransaction();
-                }
+                addEvent(event, db);
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
@@ -123,7 +127,7 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -161,7 +165,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 if (event != null)
                     getEventPreferences(event, db);
@@ -459,11 +463,13 @@ class DatabaseHandlerEvents {
                                 String[] splits = oldFkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                                 StringBuilder newFkProfiles = new StringBuilder();
                                 for (String split : splits) {
-                                    long fkProfile = Long.parseLong(split);
-                                    if (fkProfile != profile._id) {
-                                        if (newFkProfiles.length() > 0)
-                                            newFkProfiles.append("|");
-                                        newFkProfiles.append(split);
+                                    if (!split.isEmpty()) {
+                                        long fkProfile = Long.parseLong(split);
+                                        if (fkProfile != profile._id) {
+                                            if (newFkProfiles.length() > 0)
+                                                newFkProfiles.append("|");
+                                            newFkProfiles.append(split);
+                                        }
                                     }
                                 }
                                 values = new ContentValues();
@@ -635,8 +641,7 @@ class DatabaseHandlerEvents {
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
 
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -688,7 +693,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_TIME_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesBattery(Event event, SQLiteDatabase db) {
@@ -703,8 +708,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -720,7 +724,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BATTERY_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesCall(Event event, SQLiteDatabase db) {
@@ -735,15 +739,14 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME,
                         DatabaseHandler.KEY_E_CALL_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT,
-                        DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD//,
+                        DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD,
 //                        DatabaseHandler.KEY_E_CALL_STOP_RINGING,
-//                        DatabaseHandler.KEY_E_CALL_SEND_SMS,
-//                        DatabaseHandler.KEY_E_CALL_SMS_TEXT,
+                        DatabaseHandler.KEY_E_CALL_SEND_SMS,
+                        DatabaseHandler.KEY_E_CALL_SMS_TEXT
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -759,14 +762,14 @@ class DatabaseHandlerEvents {
                 eventPreferences._runAfterCallEndPermanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_PERMANENT_RUN)) == 1);
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD));
 //                eventPreferences._stopRinging = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_STOP_RINGING)) == 1);
-//                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SEND_SMS)) == 1);
-//                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SMS_TEXT));
+                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SEND_SMS)) == 1);
+                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SMS_TEXT));
                 eventPreferences._runAfterCallEndTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME));
                 eventPreferences._runAfterCallEndFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesAccessory(Event event, SQLiteDatabase db) {
@@ -777,8 +780,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -790,7 +792,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACCESSORY_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesCalendar(Event event, SQLiteDatabase db) {
@@ -814,8 +816,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -840,7 +841,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesWifi(Event event, SQLiteDatabase db) {
@@ -852,8 +853,7 @@ class DatabaseHandlerEvents {
                                                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -866,7 +866,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesScreen(Event event, SQLiteDatabase db) {
@@ -878,8 +878,7 @@ class DatabaseHandlerEvents {
                                                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -892,7 +891,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SCREEN_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesBluetooth(Event event, SQLiteDatabase db) {
@@ -905,8 +904,7 @@ class DatabaseHandlerEvents {
                                                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -920,7 +918,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesSMS(Event event, SQLiteDatabase db) {
@@ -939,8 +937,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -961,7 +958,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesNotification(Event event, SQLiteDatabase db) {
@@ -984,8 +981,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1009,7 +1005,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesApplication(Event event, SQLiteDatabase db) {
@@ -1022,8 +1018,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1037,7 +1032,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_APPLICATION_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesLocation(Event event, SQLiteDatabase db) {
@@ -1049,8 +1044,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1064,7 +1058,7 @@ class DatabaseHandlerEvents {
 
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesOrientation(Event event, SQLiteDatabase db) {
@@ -1081,8 +1075,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1100,7 +1093,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ORIENTATION_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
@@ -1113,8 +1106,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1129,7 +1121,7 @@ class DatabaseHandlerEvents {
 
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesNFC(Event event, SQLiteDatabase db) {
@@ -1143,8 +1135,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1159,7 +1150,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NFC_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesRadioSwitch(Event event, SQLiteDatabase db) {
@@ -1178,8 +1169,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1199,7 +1189,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesAlarmClock(Event event, SQLiteDatabase db) {
@@ -1214,8 +1204,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1231,7 +1220,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ALARM_CLOCK_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesDeviceBoot(Event event, SQLiteDatabase db) {
@@ -1244,8 +1233,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1259,7 +1247,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_DEVICE_BOOT_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesSoundProfile(Event event, SQLiteDatabase db) {
@@ -1271,8 +1259,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1285,7 +1272,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SOUND_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesPeriodic(Event event, SQLiteDatabase db) {
@@ -1299,8 +1286,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1315,7 +1301,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PERIODIC_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesVolumes(Event event, SQLiteDatabase db) {
@@ -1339,8 +1325,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1365,7 +1350,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesActivatedProfile(Event event, SQLiteDatabase db) {
@@ -1378,8 +1363,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1393,7 +1377,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesRoaming(Event event, SQLiteDatabase db) {
@@ -1406,8 +1390,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1421,7 +1404,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesVPN(Event event, SQLiteDatabase db) {
@@ -1432,8 +1415,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1445,7 +1427,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VPN_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesBrightness(Event event, SQLiteDatabase db) {
@@ -1459,8 +1441,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1475,7 +1456,7 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BRIGHTNESS_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
     }
 
     static private void getEventPreferencesMusic(Event event, SQLiteDatabase db) {
@@ -1487,8 +1468,7 @@ class DatabaseHandlerEvents {
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
+        //if (cursor != null) {
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0)
@@ -1501,7 +1481,50 @@ class DatabaseHandlerEvents {
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED)));
             }
             cursor.close();
-        }
+        //}
+    }
+
+    static private void getEventPreferencesCallScreening(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                new String[]{DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS,
+                        //DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_DURATION,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN,
+                        DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED
+                },
+                DatabaseHandler.KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        //if (cursor != null) {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesCallScreening eventPreferences = event._eventPreferencesCallScreening;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED)) == 1);
+                eventPreferences._callDirection = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION));
+                eventPreferences._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS));
+                //eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE));
+                eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS));
+                eventPreferences._notInContacts = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS)) == 1);
+                eventPreferences._blockCalls = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS)) == 1);
+                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS)) == 1);
+                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_DURATION));
+                eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN)) == 1);
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED)));
+            }
+            cursor.close();
+        //}
     }
 
     // this is called only from getEvent and getAllEvents
@@ -1533,6 +1556,7 @@ class DatabaseHandlerEvents {
         getEventPreferencesVPN(event, db);
         getEventPreferencesBrightness(event, db);
         getEventPreferencesMusic(event, db);
+        getEventPreferencesCallScreening(event, db);
     }
 
     static private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -1595,8 +1619,8 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD, eventPreferences._forSIMCard);
 //        values.put(DatabaseHandler.KEY_E_CALL_STOP_RINGING, (eventPreferences._stopRinging) ? 1 : 0);
-//        values.put(DatabaseHandler.KEY_E_CALL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
-//        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
+        values.put(DatabaseHandler.KEY_E_CALL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME, eventPreferences._runAfterCallEndTime);
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, eventPreferences._runAfterCallEndFromSIMSlot);
 
@@ -2018,6 +2042,30 @@ class DatabaseHandlerEvents {
                 new String[] { String.valueOf(event._id) });
     }
 
+    static private void updateEventPreferencesCallScreening(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesCallScreening eventPreferences = event._eventPreferencesCallScreening;
+
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION, eventPreferences._callDirection);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS, eventPreferences._contacts);
+        //values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE, eventPreferences._contactListType);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS, eventPreferences._contactGroups);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS, (eventPreferences._notInContacts) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS, (eventPreferences._blockCalls) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT, eventPreferences._smsText);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_DURATION, eventPreferences._duration);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME, eventPreferences._startTime);
+        values.put(DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
     static private void updateEventPreferences(Event event, SQLiteDatabase db) {
@@ -2047,6 +2095,7 @@ class DatabaseHandlerEvents {
         updateEventPreferencesVPN(event, db);
         updateEventPreferencesBrightness(event, db);
         updateEventPreferencesMusic(event, db);
+        updateEventPreferencesCallScreening(event, db);
     }
 
 
@@ -2067,7 +2116,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2075,7 +2124,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2259,7 +2308,7 @@ class DatabaseHandlerEvents {
                         new String[]{DatabaseHandler.KEY_E_ID},
                         "trim(" + DatabaseHandler.KEY_E_NAME + ")=?",
                         new String[]{name}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     int rc = cursor.getCount();
@@ -2269,7 +2318,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2375,6 +2424,9 @@ class DatabaseHandlerEvents {
                         case DatabaseHandler.ETYPE_MUSIC:
                             sensorPassedField = DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED;
                             break;
+                        case DatabaseHandler.ETYPE_CALL_SCREENING:
+                            sensorPassedField = DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
@@ -2383,7 +2435,7 @@ class DatabaseHandlerEvents {
                             },
                             DatabaseHandler.KEY_E_ID + "=?",
                             new String[]{String.valueOf(eventPreferences._event._id)}, null, null, null, null);
-                    if (cursor != null) {
+                    //if (cursor != null) {
                         cursor.moveToFirst();
 
                         if (cursor.getCount() > 0) {
@@ -2391,7 +2443,7 @@ class DatabaseHandlerEvents {
                         }
 
                         cursor.close();
-                    }
+                    //}
 
                     //db.close();
 
@@ -2524,6 +2576,10 @@ class DatabaseHandlerEvents {
                     case DatabaseHandler.ETYPE_MUSIC:
                         sensorPassed = event._eventPreferencesMusic.getSensorPassed();
                         sensorPassedField = DatabaseHandler.KEY_E_MUSIC_SENSOR_PASSED;
+                        break;
+                    case DatabaseHandler.ETYPE_CALL_SCREENING:
+                        sensorPassed = event._eventPreferencesCallScreening.getSensorPassed();
+                        sensorPassedField = DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED;
                         break;
                 }
                 ContentValues values = new ContentValues();
@@ -2783,6 +2839,8 @@ class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_BRIGHTNESS_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_MUSIC)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MUSIC_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_CALL_SCREENING)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +
@@ -2793,11 +2851,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2826,11 +2884,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -2902,7 +2960,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2912,7 +2970,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -2979,7 +3037,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -2987,7 +3045,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -3095,7 +3153,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3103,7 +3161,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -3213,7 +3271,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3223,7 +3281,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3289,7 +3347,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3297,7 +3355,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3365,7 +3423,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3374,7 +3432,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3521,7 +3579,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3530,7 +3588,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3596,7 +3654,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3604,7 +3662,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3711,7 +3769,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3727,7 +3785,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3793,7 +3851,7 @@ class DatabaseHandlerEvents {
                         },
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -3801,7 +3859,81 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
+                //}
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void updateCallScreeningStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME, event._eventPreferencesCallScreening._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateCallScreeningStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
                 }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void getCallScreeningStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                //if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesCallScreening._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME));
+                    }
+
+                    cursor.close();
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -3870,11 +4002,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4218,7 +4350,7 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_G_ID + "=?",
                         new String[]{String.valueOf(geofenceId)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
@@ -4231,7 +4363,7 @@ class DatabaseHandlerEvents {
                     }
 
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4510,12 +4642,12 @@ class DatabaseHandlerEvents {
                                             " FROM " + DatabaseHandler.TABLE_GEOFENCES +
                                             " WHERE " + DatabaseHandler.KEY_G_ID + "=" + geofence;
                                     Cursor cursor = db.rawQuery(selectQuery, null);
-                                    if (cursor != null) {
+                                    //if (cursor != null) {
                                         if (cursor.moveToFirst())
                                             // switch caeked state in db: 1,2 -> 0, 0 -> 1
                                             _check = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED)) == 0) ? 1 : 0;
                                         cursor.close();
-                                    }
+                                    //}
                                 }
                                 if (_check != 2) {
                                     // save into db only check = 0, 1 = true check
@@ -4591,11 +4723,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         r = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4625,7 +4757,7 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         do {
                             if (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED)) == 1) {
@@ -4639,7 +4771,7 @@ class DatabaseHandlerEvents {
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4667,11 +4799,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -4753,11 +4885,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         r = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_TRANSITION));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -5130,37 +5262,39 @@ class DatabaseHandlerEvents {
                                 // change selected
                                 String[] splits = selectedIds.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
-                                    boolean updateCell = false;
-                                    long _valueCell = Long.parseLong(valueCell);
-                                    if (cell.cellId != Integer.MAX_VALUE) {
-                                        if (_valueCell == cell.cellId)
-                                            updateCell = true;
-                                    } else if (cell.cellIdLong != Long.MAX_VALUE) {
-                                        if (_valueCell == cell.cellIdLong)
-                                            updateCell = true;
-                                    }
-                                    if (updateCell) {
-                                        String oldCellName = cell.name;
-
-                                        cell.name = toCellName;
-                                        MobileCell mobileCell = new MobileCell();
-                                        mobileCell._id = foundedDbId;
-                                        mobileCell._cellId = cell.cellId;
-                                        mobileCell._cellIdLong = cell.cellIdLong;
-                                        mobileCell._name = cell.name;
-                                        mobileCell._new = cell._new;
-                                        mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                        //mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                                        //mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                                        //mobileCell._doNotDetect = cell.doNotDetect;
-                                        updateMobileCell(instance, mobileCell);
-
-                                        if ((oldCellName != null) && (!oldCellName.isEmpty())) {
-                                            if (renamedCells.length() > 0)
-                                                renamedCells.append("|");
-                                            renamedCells.append(oldCellName);
+                                    if (!valueCell.isEmpty()) {
+                                        boolean updateCell = false;
+                                        long _valueCell = Long.parseLong(valueCell);
+                                        if (cell.cellId != Integer.MAX_VALUE) {
+                                            if (_valueCell == cell.cellId)
+                                                updateCell = true;
+                                        } else if (cell.cellIdLong != Long.MAX_VALUE) {
+                                            if (_valueCell == cell.cellIdLong)
+                                                updateCell = true;
                                         }
+                                        if (updateCell) {
+                                            String oldCellName = cell.name;
 
+                                            cell.name = toCellName;
+                                            MobileCell mobileCell = new MobileCell();
+                                            mobileCell._id = foundedDbId;
+                                            mobileCell._cellId = cell.cellId;
+                                            mobileCell._cellIdLong = cell.cellIdLong;
+                                            mobileCell._name = cell.name;
+                                            mobileCell._new = cell._new;
+                                            mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                                            //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                            //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                                            //mobileCell._doNotDetect = cell.doNotDetect;
+                                            updateMobileCell(instance, mobileCell);
+
+                                            if ((oldCellName != null) && (!oldCellName.isEmpty())) {
+                                                if (renamedCells.length() > 0)
+                                                    renamedCells.append("|");
+                                                renamedCells.append(oldCellName);
+                                            }
+
+                                        }
                                     }
                                 }
                             }
@@ -5381,11 +5515,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -5407,18 +5541,18 @@ class DatabaseHandlerEvents {
                 // Select All Query
                 final String selectQuery = "SELECT COUNT(*) " +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
-                        " WHERE " + DatabaseHandler.KEY_MC_NAME + "=\"" + cellName + "\"";
+                        " WHERE " + DatabaseHandler.KEY_MC_NAME + "='" + cellName + "'";
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -5480,7 +5614,7 @@ class DatabaseHandlerEvents {
                 instance.startRunningCommand();
 
                 // Select All Query
-                String selectQuery = "";
+                String selectQuery = null;
                 if (mobileCell != Integer.MAX_VALUE)
                     selectQuery = "SELECT COUNT(*) " +
                             " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
@@ -5491,17 +5625,17 @@ class DatabaseHandlerEvents {
                             " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS +
                             " WHERE " + DatabaseHandler.KEY_MC_CELL_ID_LONG + "=" + mobileCellLong;
 
-                if (!selectQuery.isEmpty()) {
+                if (selectQuery != null) {
                     //SQLiteDatabase db = this.getReadableDatabase();
                     SQLiteDatabase db = instance.getMyWritableDatabase();
 
                     Cursor cursor = db.rawQuery(selectQuery, null);
 
-                    if (cursor != null) {
+                    //if (cursor != null) {
                         cursor.moveToFirst();
                         r = cursor.getInt(0);
                         cursor.close();
-                    }
+                    //}
                 }
 
                 //db.close();
@@ -5539,7 +5673,7 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(countQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         do {
                             MobileCellsSensorEvent mobileCellsSensorEvent = new MobileCellsSensorEvent();
@@ -5550,7 +5684,7 @@ class DatabaseHandlerEvents {
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -5575,8 +5709,7 @@ class DatabaseHandlerEvents {
                         new String[]{DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS},
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{String.valueOf(eventId)}, null, null, null, null);
-                if (cursor != null)
-                {
+                //if (cursor != null) {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0)
@@ -5584,7 +5717,7 @@ class DatabaseHandlerEvents {
                         cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
                     }
                     cursor.close();
-                }
+                //}
 
                 //db.close();
 
@@ -5677,12 +5810,12 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                int r = 0;
-                if (cursor != null) {
+                int r;// = 0;
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 if (r == 0) {
                     ContentValues values = new ContentValues();
@@ -5849,11 +5982,11 @@ class DatabaseHandlerEvents {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     cursor.moveToFirst();
                     r = cursor.getInt(0);
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -5881,11 +6014,11 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{Long.toString(event_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         priority = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PRIORITY));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {
@@ -5913,11 +6046,11 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ID + "=?",
                         new String[]{Long.toString(event_id)}, null, null, null, null);
 
-                if (cursor != null) {
+                //if (cursor != null) {
                     if (cursor.moveToFirst())
                         ignoreManualActivation = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_FORCE_RUN));
                     cursor.close();
-                }
+                //}
 
                 //db.close();
             } catch (Exception e) {

@@ -101,15 +101,15 @@ class EventPreferencesRoaming extends EventPreferences {
                 _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
-            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, context);
-            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, false, context);
+            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (this._checkNetwork) {
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
                 if (this._checkData) {
                     if (this._checkNetwork)
                         _value.append(StringConstants.STR_BULLET);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                     boolean hasSIMCard = false;
@@ -132,7 +132,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (hasSIMCard) {
                         _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_roaming_forSimCard));
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
-                        _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
             }
             else {
@@ -185,7 +185,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_FOR_SIM_CARD);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -195,7 +195,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_FOR_SIM_CARD);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -251,8 +251,8 @@ class EventPreferencesRoaming extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRoaming tmp = new EventPreferencesRoaming(this._event, this._enabled, this._checkNetwork, this._checkData, this._forSIMCard);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -406,7 +406,7 @@ class EventPreferencesRoaming extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 this._networkRoamingInSIMSlot0 = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
                 this._dataRoamingInSIMSlot0 = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;

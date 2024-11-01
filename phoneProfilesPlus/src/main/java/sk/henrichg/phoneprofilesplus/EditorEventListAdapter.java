@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHolder>
                                  implements ItemTouchHelperAdapter
@@ -367,10 +369,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         activityDataWrapper.restartEventsWithDelay(true, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
-    void showTargetHelps(Activity activity, /*EditorEventListFragment fragment,*/ View listItemView) {
-        //if (fragment.targetHelpsSequenceStarted)
-        //    return;
-
+    void showTargetHelps(Activity activity, View listItemView) {
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished &&
                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished)
@@ -382,27 +381,19 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
         if (startTargetHelps || startTargetHelpsOrder || startTargetHelpsStatus) {
 
-            //String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];
             listItemView.getLocationOnScreen(screenLocation);
-            //listItemView.getLocationInWindow(screenLocation);
 
             final TapTargetSequence sequence = new TapTargetSequence(activity);
+            List<TapTarget> targets = new ArrayList<>();
 
             if (startTargetHelps) {
 
@@ -418,6 +409,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     View view = listItemView.findViewById(R.id.event_list_drag_handle);
+                    //noinspection DataFlowIssue
                     eventItemTarget.offset(screenLocation[0] + 80 + view.getWidth(), screenLocation[1]);
 
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
@@ -427,49 +419,77 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     // do not add it again
                     startTargetHelpsOrder = false;
 
-                    sequence.targets(
+                    targets.add(
                             TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(1),
+                                    .id(1)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(2),
+                                    .id(2)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(3),
+                                    .id(3)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(4),
+                                    .id(4)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -478,40 +498,61 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 } else {
                     eventItemTarget.offset(screenLocation[0] + 80, screenLocation[1]);
 
-                    sequence.targets(
+                    targets.add(
                             TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(1),
+                                    .id(1)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(2),
+                                    .id(2)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_ignore_manual_activation), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_title), activity.getString(R.string.editor_activity_targetHelps_ignoreManualActivation_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
-                                    .id(3),
+                                    .id(3)
+                    );
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -527,12 +568,16 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = false;
 
-                    sequence.targets(
+                    //noinspection DataFlowIssue
+                    targets.add(
                             TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -547,12 +592,16 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 editor.apply();
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus= false;
 
-                sequence.targets(
+                //noinspection DataFlowIssue
+                targets.add(
                         TapTarget.forView(listItemView.findViewById(R.id.event_list_item_status), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_title), activity.getString(R.string.editor_activity_targetHelps_eventStatusIcon_description))
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .dimColor(R.color.tabTargetHelpDimColor)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(false)
                                 .drawShadow(true)
@@ -565,15 +614,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
                     editor.apply();
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -583,14 +627,11 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
-
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
 
                     editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                    //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                     editor.apply();
 
@@ -598,18 +639,16 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
 
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                    //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
-
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
 
-            //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = false;
+            for (TapTarget target : targets) {
+                target.setDrawBehindStatusBar(true);
+                target.setDrawBehindNavigationBar(true);
+            }
+            sequence.targets(targets);
 
             sequence.start();
         }

@@ -84,6 +84,7 @@ class ContactsFilterDialog {
         rellaDialog = layout.findViewById(R.id.contacts_filter_dlg_rella_dialog);
 
         listAdapter = new ContactsFilterDialogAdapter(activity, this);
+        //noinspection DataFlowIssue
         contactsFilterListView.setAdapter(listAdapter);
 
         contactsFilterListView.setOnItemClickListener((parent, v, position, id) -> {
@@ -131,19 +132,24 @@ class ContactsFilterDialog {
             ContactsFilterDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null) {
                     // cache not created, create it
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
                 } else {
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getCaching()");
                     if (!contactsCache.getCaching()) {
                         // caching not performed
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getList()");
                         List<Contact> contactList = contactsCache.getList(/*withoutNumbers*/);
                         if (contactList == null) {
                             // not cached, cache it
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
                             PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
@@ -153,6 +159,7 @@ class ContactsFilterDialog {
                             contactList.clear();
                     } else {
                         // wait for cache end
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getCaching()");
                         while (contactsCache.getCaching())
                             GlobalUtils.sleep(100);
                     }
@@ -163,6 +170,7 @@ class ContactsFilterDialog {
 
 //                PPApplicationStatic.logE("[SYNCHRONIZED] ContactsFilterDialog.ShowDialogAsyncTask", "PPApplication.contactsCacheMutex");
                 synchronized (PPApplication.contactsCacheMutex) {
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "contactsCache.getList()");
                     List<Contact> localContactList = contactsCache.getList(/*withoutNumbers*/);
                     if (localContactList != null) {
                         for (Contact contact : localContactList) {
@@ -193,31 +201,15 @@ class ContactsFilterDialog {
                     String newFilterName = "";
                     try {
                         ApplicationInfo applicationInfo = packageManager.getApplicationInfo(filter.data, PackageManager.MATCH_ALL);
-                        if (applicationInfo != null) {
+                        //if (applicationInfo != null) {
                             newFilterName = packageManager.getApplicationLabel(applicationInfo).toString();
                             found = true;
-                        }
+                        //}
                     } catch (Exception ignored) {
                     }
                     if (!found) {
-                        if (filter.data != null) {
-                            if (filter.data.equals("com.osp.app.signin"))
-                                newFilterName = activity.getString(R.string.contact_account_type_samsung_account);
-                            if (filter.data.equals("com.google"))
-                                newFilterName = activity.getString(R.string.contact_account_type_google_account);
-                            if (filter.data.equals("vnd.sec.contact.sim"))
-                                newFilterName = activity.getString(R.string.contact_account_type_sim_card);
-                            if (filter.data.equals("vnd.sec.contact.sim2"))
-                                newFilterName = activity.getString(R.string.contact_account_type_sim_card);
-                            if (filter.data.equals("vnd.sec.contact.phone"))
-                                newFilterName = activity.getString(R.string.contact_account_type_phone_application);
-                            if (filter.data.equals("org.thoughtcrime.securesms"))
-                                newFilterName = "Signal";
-                            if (filter.data.equals("com.google.android.apps.tachyon"))
-                                newFilterName = "Duo";
-                            if (filter.data.equals("com.whatsapp"))
-                                newFilterName = "WhatsApp";
-                        }
+                        if (filter.data != null)
+                            newFilterName = ContactsCache.getAccountName(filter.data, activity);
                     }
                     if (newFilterName.isEmpty())
                         newFilterName = filter.data;

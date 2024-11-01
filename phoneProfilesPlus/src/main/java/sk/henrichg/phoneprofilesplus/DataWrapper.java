@@ -981,15 +981,19 @@ class DataWrapper {
                 Event event = it.next();
                 if (event != null) {
                     int status = event.getStatusFromDB(context);
+//                    Log.e("DataWrapper.pauseAllEvents", "event._name="+event._name);
+//                    Log.e("DataWrapper.pauseAllEvents", "status="+status);
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
+//                            Log.e("DataWrapper.pauseAllEvents", "pause event");
                             event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false, false, true);
                         }
                     }
 
                     setEventBlocked(event, false);
                     if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._ignoreManualActivation) {
+//                        Log.e("DataWrapper.pauseAllEvents", "block event");
                         // block only running forceRun events
                         if (!event._noPauseByManualActivation) // do not pause event, even when is running
                             setEventBlocked(event, true);
@@ -997,6 +1001,7 @@ class DataWrapper {
 
                     if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
                         // for "push" events, set startTime to 0
+//                        Log.e("DataWrapper.pauseAllEvents", "clearSensorsStartTime");
                         clearSensorsStartTime(event, true);
                     }
                 }
@@ -1500,7 +1505,7 @@ class DataWrapper {
                                   final boolean forRestartEvents, final boolean manualRestart)
     {
         // show notification when battery optimization is not enabled
-        DrawOverAppsPermissionNotification.showNotification(context, false);
+        //DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
         DNDPermissionNotification.showNotification(context, false);
 
@@ -1508,8 +1513,34 @@ class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         //Profile.setActivatedProfileForDuration(context, 0);
 
-        // get currently activated profile
-        //Profile oldActivatedProfile = getActivatedProfile(false, false);
+        /*
+        // get first profile from fifo
+        long oldActivatedProfileId;
+        boolean manualProfileActivation =
+                (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE);
+        if (manualProfileActivation) {
+            oldActivatedProfileId = getActivatedProfileId();
+            Log.e("DataWrapper._activateProfile", "(3) oldActivatedProfileId=" + oldActivatedProfileId);
+        } else {
+            List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
+            if (!activateProfilesFIFO.isEmpty()) {
+                String fromFifo = activateProfilesFIFO.get(0);
+                String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
+                //oldActivatedProfileId = getActivatedProfileId();
+                //Log.e("DataWrapper._activateProfile", "(1.1) oldActivatedProfileId=" + oldActivatedProfileId);
+                oldActivatedProfileId = Long.parseLong(splits[0]);
+                Log.e("DataWrapper._activateProfile", "(1.2) oldActivatedProfileId=" + oldActivatedProfileId);
+            } else {
+                oldActivatedProfileId = getActivatedProfileId();
+                Log.e("DataWrapper._activateProfile", "(2) oldActivatedProfileId=" + oldActivatedProfileId);
+            }
+        }
+        */
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_EVENT) //&&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1527,7 +1558,7 @@ class DataWrapper {
         }
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
-//        Log.e("DataWrapper._activateProfile", "profile="+_profile._name);
+//        Log.e("DataWrapper._activateProfile", "profile to db="+_profile._id);
         setProfileActive(_profile);
 
         // for STARTUP_SOURCE_EVENT, STARTUP_SOURCE_FOR_FIRST_START is mandatory
@@ -1540,7 +1571,7 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
             (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EXTERNAL_APP);
@@ -1607,9 +1638,8 @@ class DataWrapper {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
         PPApplication.updateGUI(false, false, context);
 
-        if (_profile != null) {
-            ActivateProfileHelper.execute(context, _profile);
-        }
+        if (_profile != null)
+            ActivateProfileHelper.execute(context, _profile, forRestartEvents);
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
@@ -1648,6 +1678,10 @@ class DataWrapper {
         final Context appContext = context.getApplicationContext();
         final WeakReference<DataWrapper> dataWrapperWeakRef = new WeakReference<>(_dataWrapper);
         final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+
+        PPApplicationStatic.getProfileBeforeActivation(appContext);
+//        Log.e("DataWrapper.activateProfileFromMainThread", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
@@ -1828,6 +1862,7 @@ class DataWrapper {
                         true, true,
                         false, false,
                         true,
+                        false,
                         activity
                 );
 
@@ -1929,6 +1964,9 @@ class DataWrapper {
 
     void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
     {
+        PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
+//        Log.e("DataWrapper.activateProfile", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
         Profile profile;
 
         // for activated profile is recommended update of activity
@@ -1947,7 +1985,7 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
             (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE))
         {
             // activation is invoked from shortcut, widget, Activator, Editor, service,
@@ -2006,7 +2044,7 @@ class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
             (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE))
         {
             if (profile_id == 0)
@@ -2032,7 +2070,7 @@ class DataWrapper {
         {
             if (profile != null) {
                 DatabaseHandler.getInstance(context).activateProfile(profile);
-//                Log.e("DataWrapper.activateProfile", "profile="+profile._name);
+//                Log.e("DataWrapper.activateProfile", "profile to db="+profile._id);
                 setProfileActive(profile);
             }
 
@@ -2076,6 +2114,8 @@ class DataWrapper {
                     fifoSaveProfiles(activateProfilesFIFO);
                 }
 
+                PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
+//                Log.e("DataWrapper.activateProfileAfterDuration", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
                 // activateProfileAfterDuration is already called from handlerThread
                 _activateProfile(profile, false, startupSource, false, false);
             }
@@ -2086,6 +2126,9 @@ class DataWrapper {
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
+        //PPApplicationStatic.geProfileBeforeActivation(context.getApplicationContext());
+        //Log.e("DataWrapper._restartEvents", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
             if (logRestart) {
                 if (manualRestart)
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
@@ -2096,7 +2139,7 @@ class DataWrapper {
             //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             if ((EventStatic.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
 
-//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK});
@@ -2140,10 +2183,10 @@ class DataWrapper {
 
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
-//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_MANUAL_RESTART_EVENTS");
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS});
             } else {
-//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_RESTART_EVENTS");
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS});
             }
 //        }
@@ -2166,6 +2209,9 @@ class DataWrapper {
     }
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
+        //PPApplicationStatic.geProfileBeforeActivation(context.getApplicationContext());
+        //Log.e("DataWrapper._restartEventsWithRescan", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
         if (alsoRescan) {
             // remove all event delay alarms
             resetAllEventsInDelayStart(false);
@@ -2198,7 +2244,7 @@ class DataWrapper {
             }
         }
 
-        DrawOverAppsPermissionNotification.showNotification(context, false);
+        //DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
         DNDPermissionNotification.showNotification(context, false);
     }
@@ -2374,6 +2420,7 @@ class DataWrapper {
                     true, true,
                     false, false,
                     true,
+                    false,
                     activity
             );
 
@@ -2591,6 +2638,7 @@ class DataWrapper {
                     true, true,
                     false, false,
                     true,
+                    false,
                     activity
             );
 
@@ -2640,6 +2688,7 @@ class DataWrapper {
                 true, true,
                 false, false,
                 true,
+                false,
                 activity
         );
 
@@ -2756,6 +2805,13 @@ class DataWrapper {
             _event._eventPreferencesDeviceBoot._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateDeviceBootStartTime(_event);
             _event._eventPreferencesDeviceBoot.removeAlarm(context);
+        }
+
+        if (force || _event._eventPreferencesCallScreening._permanentRun) {
+            //Log.e("DataWrapper.clearSensorsStartTime", "*** _startTime = 0");
+            _event._eventPreferencesCallScreening._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateCallScreeningStartTime(_event);
+            _event._eventPreferencesCallScreening.removeAlarm(context);
         }
 
         if (force) {
@@ -2945,6 +3001,9 @@ class DataWrapper {
                             break;
                         case DatabaseHandler.ETYPE_MUSIC:
                             sensorEnabled = _event._eventPreferencesMusic._enabled;
+                            break;
+                        case DatabaseHandler.ETYPE_CALL_SCREENING:
+                            sensorEnabled = _event._eventPreferencesCallScreening._enabled;
                             break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:

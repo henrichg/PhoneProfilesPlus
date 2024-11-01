@@ -7,6 +7,10 @@
     <dimen name="activity_margin_start">0dp</dimen>
     <dimen name="activity_margin_end">0dp</dimen>
 
+    <dimen name="content_inset_start">15dp</dimen>
+    <dimen name="content_inset_end">0dp</dimen>
+    <dimen name="content_inset_start_with_navigation">15dp</dimen>
+
     <dimen name="editor_profiles_item_buttons_end_margin">2dp</dimen>
     <dimen name="editor_events_item_buttons_end_margin">0dp</dimen>
 
@@ -19,19 +23,20 @@
 
     <dimen name="activator_min_width_minor">85%</dimen>
     <dimen name="activator_min_width_major">85%</dimen>
-    <dimen name="activator_fixed_width_minor">85%</dimen>
-    <dimen name="activator_fixed_width_major">85%</dimen>
+<!--    <dimen name="activator_fixed_width_minor">85%</dimen>-->
+<!--    <dimen name="activator_fixed_width_major">85%</dimen>-->
 
     <dimen name="activator_transparent_padding_top_bottom">15dp</dimen>
     <dimen name="activator_transparent_padding_left_right">0dp</dimen>
 
     <dimen name="dialog_min_width_minor">85%</dimen>
     <dimen name="dialog_min_width_major">85%</dimen>
-    <dimen name="dialog_fixed_width_minor">80%</dimen>
-    <dimen name="dialog_fixed_width_major">80%</dimen>
+<!--    <dimen name="dialog_fixed_width_minor">80%</dimen>-->
+<!--    <dimen name="dialog_fixed_width_major">80%</dimen>-->
 
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_margin">15dp</dimen>
+    <dimen name="small_divider_height">2dp</dimen>
 
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
@@ -42,7 +47,27 @@
 
     <dimen name="popup_window_corner_radius">10dp</dimen>
     <dimen name="popup_menu_corner_radius">10dp</dimen>
-    <dimen name="button_corner_radius">7dp</dimen>
+    <dimen name="button_corner_radius">30dp</dimen>
+    <dimen name="button_border_thickness">2dp</dimen>
+    <dimen name="button_padding">20dp</dimen>
+    <dimen name="layout_as_button_padding">15dp</dimen>
+    <dimen name="button_min_width">70dp</dimen>
+    <dimen name="button_min_height">42dp</dimen>
+    <dimen name="dialog_button_min_height">56dp</dimen>
+    <dimen name="filter_button_min_height">38dp</dimen>
+
+<!--    <dimen name="time_duration_value_button_top_bottom_padding">9dp</dimen>-->
+<!--    <dimen name="custom_color_dialog_button_top_bottom_padding">10dp</dimen>-->
+<!--    <dimen name="filter_button_top_bottom_padding">8dp</dimen>-->
+
+    <dimen name="edit_text_corner_radius">7dp</dimen>
+
+    <dimen name="icon_selector_radius">50dp</dimen>
+    <dimen name="widget_restart_events_selector_radius">50dp</dimen>
+    <dimen name="widget_restart_events_marginEnd">5dp</dimen>
+    <dimen name="image_button_size">42dp</dimen>
+    <dimen name="image_button_padding">9dp</dimen>
+    <dimen name="samsung_edge_settings_icon_size">40dp</dimen>
 
     <dimen name="alert_dialog_top_padding">10dp</dimen>
 
@@ -87,8 +112,6 @@
     <dimen name="profile_preferences_indicator_height">15dp</dimen>
     <dimen name="profile_preferences_indicator_in_event_height">13dp</dimen>
 
-    <dimen name="time_duration_value_button_top_bottom_padding">7dp</dimen>
-
     <dimen name="icon_widget_height_more_compact">60dp</dimen>
     <dimen name="icon_widget_height">70dp</dimen>
     <dimen name="icon_widget_height_higher">85dp</dimen>
@@ -109,7 +132,8 @@
     <dimen name="one_row_profile_list_marker_height">3dp</dimen>
 
     <dimen name="title_text_size">17sp</dimen>
-    <dimen name="subtitle_text_size">15sp</dimen>
+<!--    <dimen name="subtitle_text_size">15sp</dimen>-->
+    <dimen name="subtitle_text_size">16dp</dimen>
     <dimen name="editor_title_text_size">18sp</dimen>
 
     <dimen name="auto_size_max_text_size">16dp</dimen>
@@ -118,5 +142,8 @@
     <dimen name="dialog_progressbar_padding">15dp</dimen>
 
     <dimen name="switch_padding">10dp</dimen>
+
+    <dimen name="spinner_padding_horizontal">4dp</dimen>
+    <dimen name="spinner_padding_vertical">2dp</dimen>
 
 </resources>

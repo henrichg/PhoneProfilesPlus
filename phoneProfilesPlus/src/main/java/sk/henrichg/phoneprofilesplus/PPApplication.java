@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.service.quicksettings.TileService;
@@ -56,18 +57,20 @@ public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
-    // this version code must by <= version code in dependencies.gradle
+    // this version code must by <= then version code in dependencies.gradle
     static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
+    // TODO set it to false if you do not want to show News
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
+    // TODO set it to false if you do not want to show notification
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
 
     //// Extender versions
     // for this version will be displayed upgrade notification
     //  required must by <= latest
-    static final int VERSION_CODE_EXTENDER_REQUIRED = 900;
-    static final String VERSION_NAME_EXTENDER_REQUIRED = "8.1.6";
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 910;
+    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_EXTENDER_LATEST = 905;
+    static final int VERSION_CODE_EXTENDER_LATEST = 910;
     //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.7";
     ///////
 
@@ -77,9 +80,10 @@ public class PPApplication extends Application
     static final int VERSION_CODE_PPPPS_REQUIRED = 65;
     static final String VERSION_NAME_PPPPS_REQUIRED = "1.0.8";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_PPPPS_LATEST = 70;
+    static final int VERSION_CODE_PPPPS_LATEST = 80;
     //static final String VERSION_NAME_PPPPS_LATEST = "1.0.9";
     ///////
+    static final int VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE = 71;
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -193,7 +197,7 @@ public class PPApplication extends Application
     static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
 
     // TODO change to latest version
-    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.1/InstallWithOptions_0.6.1-release.apk";
+    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.4/InstallWithOptions_0.6.4-release.apk";
 
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
     //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
@@ -294,7 +298,6 @@ public class PPApplication extends Application
                                                 //+"|[APPLICATION_FULLY_STARTED]"
                                                 //+"|[MAIN_WORKER_CALL]"
                                                 //+"|[CONTACTS_DIALOG]"
-                                                //+"|[CONTACTS_CACHE]"
                                                 //+"|[SYNCHRONIZED]"
                                                 //+"|[DEFAULT_SIM]"
                                                 //+"|[RESTART_WIFI_SCANNER]"
@@ -303,8 +306,14 @@ public class PPApplication extends Application
                                                 //+"|BluetoothConnectionBroadcastReceiver"
                                                 //+"|EventPreferencesBluetooth"
                                                 //+"|CheckCriticalPPPReleasesBroadcastReceiver"
-
                                                 //+"|[LOCATION_SCAN_TEST]"
+                                                //+"|PreferenceAllowed"
+
+                                                //+"|[CONTACTS_CACHE]"
+                                                //+"|[CONTACTS_OBSERVER]"
+                                                //+"|[BLUETOOTH_CONNECT]"
+                                                //+"|EventPreferencesBluetooth.doHandleEvent"
+                                                //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -313,32 +322,39 @@ public class PPApplication extends Application
     static final int ALTYPE_UNDEFINED = 0;
 
     static final int ALTYPE_LOG_TOP = 999;
-    static final int ALTYPE_PROFILE_ACTIVATION = 1;
-    static final int ALTYPE_APPLICATION_EXIT = 10;
-    static final int ALTYPE_DATA_IMPORT = 11;
     static final int ALTYPE_PAUSED_LOGGING = 12;
     static final int ALTYPE_STARTED_LOGGING = 13;
-    static final int ALTYPE_EVENT_END_DELAY = 14;
-    static final int ALTYPE_EVENT_STOP = 15;
+
+    static final int ALTYPE_APPLICATION_START = 9;
     static final int ALTYPE_APPLICATION_START_ON_BOOT = 16;
+    static final int ALTYPE_APPLICATION_EXIT = 10;
+    static final int ALTYPE_APPLICATION_INSTALLATION = 115;
+    static final int ALTYPE_APPLICATION_UPGRADE = 34;
+    static final int ALTYPE_APPLICATION_SYSTEM_RESTART = 107;
+    static final int ALTYPE_DATA_IMPORT = 11;
+    static final int ALTYPE_DATA_EXPORT = 101;
+
+    static final int ALTYPE_PROFILE_PREFERENCES_CHANGED = 30;
+    static final int ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED = 31;
     static final int ALTYPE_EVENT_PREFERENCES_CHANGED = 17;
+
+    static final int ALTYPE_PROFILE_ADDED = 108;
+    static final int ALTYPE_EVENT_ADDED = 109;
     static final int ALTYPE_EVENT_DELETED = 18;
     static final int ALTYPE_PROFILE_DELETED = 19;
 
+    static final int ALTYPE_PROFILE_ACTIVATION = 1;
     static final int ALTYPE_MERGED_PROFILE_ACTIVATION = 2;
+    static final int ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE = 35;
+
+    static final int ALTYPE_RESTART_EVENTS = 6;
     static final int ALTYPE_MANUAL_RESTART_EVENTS = 20;
+
     static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
     static final int ALTYPE_AFTER_DURATION_DEFAULT_PROFILE = 22;
     static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
 
     static final int ALTYPE_EVENT_START = 3;
-    static final int ALTYPE_PROFILE_PREFERENCES_CHANGED = 30;
-    static final int ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED = 31;
-    static final int ALTYPE_ALL_EVENTS_DELETED = 32;
-    static final int ALTYPE_ALL_PROFILES_DELETED = 33;
-    static final int ALTYPE_APPLICATION_UPGRADE = 34;
-    static final int ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE = 35;
-
     static final int ALTYPE_EVENT_START_DELAY = 4;
 
     static final int ALTYPE_EVENT_END_NONE = 51;
@@ -351,11 +367,15 @@ public class PPApplication extends Application
     static final int ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE = 58;
     static final int ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS = 59;
     static final int ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE = 60;
+    static final int ALTYPE_EVENT_END_DELAY = 14;
 
-    static final int ALTYPE_RESTART_EVENTS = 6;
+    static final int ALTYPE_EVENT_STOP = 15;
+
+    static final int ALTYPE_ALL_EVENTS_DELETED = 32;
+    static final int ALTYPE_ALL_PROFILES_DELETED = 33;
+
     static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
     static final int ALTYPE_RUN_EVENTS_ENABLE = 8;
-    static final int ALTYPE_APPLICATION_START = 9;
 
     static final int ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION = 1000;
     static final int ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT = 1001;
@@ -369,20 +389,77 @@ public class PPApplication extends Application
     static final int ALTYPE_PROFILE_ERROR_WIFI = 1009;
     static final int ALTYPE_PROFILE_ERROR_WIFIAP = 1010;
     static final int ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS = 1011;
+    static final int ALTYPE_PROFILE_ERROR_SEND_SMS = 1012;
 
-    static final int ALTYPE_DATA_EXPORT = 101;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION = 102;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS = 103;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT = 104;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT = 105;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT = 106;
-    static final int ALTYPE_APPLICATION_SYSTEM_RESTART = 107;
-    static final int ALTYPE_PROFILE_ADDED = 108;
-    static final int ALTYPE_EVENT_ADDED = 109;
+
     static final int ALTYPE_TIMEZONE_CHANGED = 110;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED = 111;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
+
+    static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+    // TODO actual max. value = 115;
+
+    static final int ALFILTER_ALL = 0;
+    static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;
+        // ALTYPE_CALL_SCREENING_BLOCKED_CALL
+    static final int ALFITER_ERRORS = 2;
+        // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION
+        // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT
+        // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT
+        // ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE
+        // ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION
+        // ALTYPE_PROFILE_ERROR_SET_TONE_ALARM
+        // ALTYPE_PROFILE_ERROR_SET_WALLPAPER
+        // ALTYPE_PROFILE_ERROR_SET_VPN
+        // ALTYPE_PROFILE_ERROR_CAMERA_FLASH
+        // ALTYPE_PROFILE_ERROR_WIFI
+        // ALTYPE_PROFILE_ERROR_WIFIAP
+        // ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS
+        // ALTYPE_PROFILE_ERROR_SEND_SMS
+        // ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED
+        // ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND
+    static final int ALFILTER_EVENT_START = 3;
+        // ALTYPE_EVENT_START
+        // ALTYPE_EVENT_START_DELAY
+    static final int ALFILTER_EVENT_END = 4;
+        // ALTYPE_EVENT_END_NONE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE
+        // ALTYPE_EVENT_END_UNDO_PROFILE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE
+        // ALTYPE_EVENT_END_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
+        // ALTYPE_EVENT_END_DELAY
+        // ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT
+    static final int ALFILTER_EVENT_STOP = 5;
+        // ALTYPE_EVENT_STOP
+        // ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT
+    static final int ALFILTER_RESTART_EVENTS = 6;
+        // ALTYPE_RESTART_EVENTS
+        // ALTYPE_MANUAL_RESTART_EVENTS
+        // ALTYPE_AFTER_DURATION_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS
+        // ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS
+    static final int ALFITER_PROFILE_ACTIVATION = 7;
+        // ALTYPE_PROFILE_ACTIVATION
+        // ALTYPE_MERGED_PROFILE_ACTIVATION
+        // ALTYPE_AFTER_DURATION_UNDO_PROFILE
+        // ALTYPE_AFTER_DURATION_DEFAULT_PROFILE
+        // ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
+        // ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION
 
     static final String MODEL_NEXUS = "Nexus";
     static final String MANUFACTURER_HMD_GLOBAL = "HMD Global";
@@ -402,7 +479,8 @@ public class PPApplication extends Application
     static final boolean deviceIsMotorola = isMotorola();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
-    static final boolean romIsGalaxy = isGalaxyROM();
+    static boolean romIsGalaxy = false;
+    static boolean romIsGalaxy611 = false;
 
     static volatile boolean HAS_FEATURE_BLUETOOTH_LE = false;
     static volatile boolean HAS_FEATURE_WIFI = false;
@@ -412,6 +490,8 @@ public class PPApplication extends Application
     static volatile boolean HAS_FEATURE_LOCATION = false;
     static volatile boolean HAS_FEATURE_LOCATION_GPS = false;
     static volatile boolean HAS_FEATURE_CAMERA_FLASH = false;
+    // this is required for target 33
+    //static volatile boolean HAS_FEATURE_TELEPHONY_MESSAGING = false;
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -441,7 +521,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_EDITOR = 8;
     //static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
     //static final int STARTUP_SOURCE_LAUNCHER_START = 10;
-    static final int STARTUP_SOURCE_LAUNCHER = 11;
+    //static final int STARTUP_SOURCE_LAUNCHER = 11;
     // STARTUP_SOURCE_EVENT_MANUAL is for activation of profile from evet, when is set:
     //  - "Start of event"/"Other parameters"/"[M] Manual profile activation at start"
     //  - "End of event"/"Other parameters"/"[M] Manual profile activation at end"
@@ -571,6 +651,10 @@ public class PPApplication extends Application
     static final int PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_ID = 168;
     static final String PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION";
     static final String PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP";
+    static final int PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_ID = 169;
+    static final String PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_SEND_SMS_ERROR_NOTIFICATION";
+    static final int PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION_ID = 170;
+    static final String PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_SCREEN_NIGHT_LIGHT_PREFS_NOTIFICATION";
 
     static final int KEEP_SCREEN_ON_NOTIFICATION_ID = 142;
     static final String KEEP_SCREEN_ON_NOTIFICATION_TAG = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION";
@@ -793,6 +877,10 @@ public class PPApplication extends Application
     //static volatile boolean applicationPackageReplaced = false;
     static volatile boolean deviceBoot = false;
 
+    static final int titleTapTargetSize = 22;
+    static final float descriptionTapTargetAlpha = 0.95f;
+
+
     //static final boolean restoreFinished = true;
 
     static volatile Collator collator = null;
@@ -872,8 +960,10 @@ public class PPApplication extends Application
     // LockDeviceActivity
     //static volatile LockDeviceActivity lockDeviceActivity = null;
     static volatile boolean lockDeviceActivityDisplayed = false;
+    static volatile boolean lockDeviceActivityOnlyScreenOff = false;
 
-    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
+    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 0;
+    static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 0;
 
 //    static int brightnessBeforeScreenOff;
 //    static float adaptiveBrightnessBeforeScreenOff;
@@ -980,6 +1070,7 @@ public class PPApplication extends Application
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
+    static volatile CallScreeningEventEndBroadcastReceiver callScreeningEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 
@@ -1075,6 +1166,7 @@ public class PPApplication extends Application
 
     static boolean prefActivityLogEnabled;
     static long prefLastActivatedProfile;
+    static long prefProfileBeforeActivation;
     static long wallpaperChangeTime;
 
     static volatile String connectToSSID = StringConstants.CONNECTTOSSID_JUSTANY;
@@ -1112,7 +1204,7 @@ public class PPApplication extends Application
     static volatile int mobileCellsScannerDurationForAutoRegistration = 0;
     static volatile String mobileCellsScannerCellsNameForAutoRegistration = "";
 
-    static volatile boolean blockContactContentObserver = false;
+    //static volatile boolean blockContactContentObserver = false;
 
     @Override
     public void onCreate()
@@ -1140,6 +1232,7 @@ public class PPApplication extends Application
             }
         }*/
 
+
         super.onCreate();
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
@@ -1147,6 +1240,17 @@ public class PPApplication extends Application
             Log.e("################# PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
         }
+
+        romIsGalaxy = isGalaxyROM(getApplicationContext());
+        romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
+
+        // do not used because some dynamic notification, widgets has its own laypouts and in it
+        // are colors configured = keep material componets lib to 1.10.0
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            DynamicTonalPaletteSamsung dynamicTonalPaletteSamsung = new DynamicTonalPaletteSamsung();
+            GlobalGUIRoutines.lightColorScheme = dynamicTonalPaletteSamsung.dynamicLightColorSchemeSamsung(getApplicationContext());
+            GlobalGUIRoutines.darkColorScheme = dynamicTonalPaletteSamsung.dynamicDarkColorSchemeSamsung(getApplicationContext());
+        }*/
 
         RootUtils.initRoot();
 
@@ -1211,6 +1315,7 @@ public class PPApplication extends Application
         HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
         HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
+        //HAS_FEATURE_TELEPHONY_MESSAGING = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY_MESSAGING);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");
 
@@ -1544,7 +1649,7 @@ public class PPApplication extends Application
                         .withResSendButtonIcon(0)
                         .withResDiscardButtonIcon(0)
                         .withSendOnClick(true)
-                        .withColor(ContextCompat.getColor(base, R.color.error_color))
+                        .withColor(ContextCompat.getColor(base, R.color.errorColor))
                         .withEnabled(true)
                         .build(),
                 new MailSenderConfigurationBuilder()
@@ -2036,27 +2141,60 @@ public class PPApplication extends Application
     }
     */
 
-    /*
     private static boolean isSemAvailable(Context context) {
         return context != null &&
                 (context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile") ||
-                        context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
+                 context.getPackageManager().hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
     }
-    */
 
+    private static boolean isGalaxyROM(Context appContext) {
+        try {
+            if (isSemAvailable(appContext)) {
+                String systemProperty = SystemProperties.get("ro.build.version.oneui");
+                int oneUIVersion = Integer.parseInt(systemProperty);
+                if (oneUIVersion != 0)
+                    return true;
+                else {
+                    return deviceIsSamsung;
+                }
+            }
+        } catch (Exception e) {
+            return deviceIsSamsung;
+        }
+        return deviceIsSamsung;
+    }
+
+    /*
     private static boolean isGalaxyROM() {
         try {
             //String romName = getOneUiVersion();
-            /*
-            if (romName.isEmpty())
-                return true; // old, non-OneUI ROM
-            else
-                return true; // OneUI ROM
-            */
+            //if (romName.isEmpty())
+            //    return true; // old, non-OneUI ROM
+            //else
+            //    return true; // OneUI ROM
             return isSamsung();
         } catch (Exception e) {
             return false;
         }
+    }
+    */
+
+    private static boolean isGalaxyROM611(Context appContext) {
+        try {
+            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && isSemAvailable(appContext)) {
+                // OneUi is since Android SDK 28
+                String systemProperty = SystemProperties.get("ro.build.version.oneui");
+                //Log.e("PPApplication.isGalaxyROM611", "systemProperty="+systemProperty);
+                boolean isOneUI611 = false;
+                try {
+                    isOneUI611 = (Integer.parseInt(systemProperty) >= 60101);
+                } catch (Exception ignored) {}
+                return isOneUI611;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
     }
 
     private static boolean isLG() {

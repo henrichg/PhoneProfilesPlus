@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/write_nfc_tag_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,12 +12,24 @@
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/write_nfc_tag_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"/>
+
     <View
         android:id="@+id/write_nfc_tag_title_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <RelativeLayout
         android:id="@+id/write_nfc_tag_root2"
@@ -86,7 +99,7 @@
                         android:id="@+id/write_nfc_tag_buttonsDivider0"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/divider_height"
-                        android:background="@color/dialog_divider" />
+                        android:background="@color/dialogDividerColor" />
 
                     <TextView
                         android:id="@+id/write_nfc_tag_addUpdateName"
@@ -103,7 +116,10 @@
                         android:layout_marginTop="15dp"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_addReadedNameButton"
-                        android:minHeight="40dp"
+                        android:minHeight="@dimen/button_min_height"
+                        android:paddingStart="@dimen/button_padding"
+                        android:paddingEnd="@dimen/button_padding"
+                        android:minWidth="@dimen/button_min_width"
                         android:textColor="@color/action_button_text_color"
                         android:textStyle="bold"
                         android:background="@drawable/pp_button_background_selector"
@@ -122,7 +138,10 @@
                     android:layout_below="@+id/write_nfc_tag_root3"
                     android:layout_centerInParent="true"
                     android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writeNameToTagAndAddNameButton"
-                    android:minHeight="40dp"
+                    android:minHeight="@dimen/button_min_height"
+                    android:paddingStart="@dimen/button_padding"
+                    android:paddingEnd="@dimen/button_padding"
+                    android:minWidth="@dimen/button_min_width"
                     android:textColor="@color/action_button_text_color"
                     android:textStyle="bold"
                     android:background="@drawable/pp_button_background_selector"
@@ -146,7 +165,7 @@
                 android:id="@+id/write_nfc_tag_buttonsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialogDividerColor" />
 
             <Button
                 android:id="@+id/write_nfc_tag_button"
@@ -155,7 +174,10 @@
                 android:layout_marginTop="15dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@android:string/cancel"
-                android:minHeight="40dp"
+                android:minHeight="@dimen/button_min_height"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
+                android:minWidth="@dimen/button_min_width"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"

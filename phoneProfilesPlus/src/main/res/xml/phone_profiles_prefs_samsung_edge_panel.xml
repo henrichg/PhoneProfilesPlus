@@ -18,11 +18,12 @@
         app:ppEntries="@array/samsungEdgeVerticalPositionArray"
         app:ppEntryValues="@array/samsungEdgeVerticalPositionValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationSamsungEdgeHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <PreferenceCategory
         app:key="applicationSamsungEdgeBackgroundCategory"
@@ -36,11 +37,12 @@
             app:defaultValue="25"
             app:showLighting="false"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationSamsungEdgeBackgroundType"
             app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             app:summary="0%%"
@@ -91,11 +93,12 @@
             app:defaultValue="100"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationSamsungEdgeCustomIconLightness"
             app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
     

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_clear_notifications"
+    app:key="prf_pref_clearNotificationsCategory" >
+
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="prf_pref_clearNotificationEnbaled"
+        app:title="@string/profile_preferences_clearNotificationEnabled"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="prf_pref_clearNotificationNotificationsAccessSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/profile_preferences_clearNotificationsAccessSettings_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+        app:defaultValue="@string/dash_string"
+        app:key="prf_pref_clearNotificationApplications"
+        app:title="@string/event_preferences_notifications_applications"
+        app:removePPApplications="1"
+        app:systemSettings="notifications"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="prf_pref_clearNotificationCheckContacts"
+        app:title="@string/event_preferences_notifications_checkContacts"
+        app:defaultValue="false"
+        app:dependency="prf_pref_clearNotificationEnbaled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
+        app:key="prf_pref_clearNotificationContactGroups"
+        app:defaultValue=""
+        app:title="@string/event_preferences_notifications_contact_groups"
+        app:dependency="prf_pref_clearNotificationCheckContacts"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
+        app:key="prf_pref_clearNotificationContacts"
+        app:defaultValue=""
+        app:title="@string/event_preferences_notifications_contacts"
+        app:dependency="prf_pref_clearNotificationCheckContacts"
+        app:layout="@layout/mp_preference_material_widget"
+        app:withoutNumbers="false" />
+
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="prf_pref_clearNotificationCheckText"
+        app:title="@string/event_preferences_notifications_checkText"
+        app:defaultValue="false"
+        app:dependency="prf_pref_clearNotificationEnbaled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.SearchStringPreference
+        app:key="prf_pref_clearNotificationText"
+        app:summary="@string/event_preferences_notifications_text"
+        app:title="@string/event_preferences_notifications_text"
+        app:dependency="prf_pref_clearNotificationCheckText"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

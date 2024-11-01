@@ -76,11 +76,12 @@
             app:summary="@string/phone_profiles_pref_notificationUseDecorationInfo_summary"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
 
@@ -107,7 +108,7 @@
         <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
             app:key="notificationBackgroundCustomColor"
             app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
-            app:defaultValue="#FFFFFFFF"
+            app:defaultValue="@color/pppColorWhiteWithAlpha"
             app:chromaColorMode="RGB"
             app:chromaIndicatorMode="HEX"
             app:layout="@layout/mp_preference_material_widget" />
@@ -144,11 +145,12 @@
             app:ppEntryValues="@array/widgetColorValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationShowProfileIcon"
             app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
             app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationProfileIconLightness"
             app:summary="100%%"
@@ -156,11 +158,12 @@
             app:defaultValue="100"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationCustomProfileIconLightness"
             app:title="@string/phone_profiles_pref_notificationProfileCustomIconLightness"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
 
@@ -175,12 +178,13 @@
             app:summary=""
             app:layout="@layout/mp_preference_material_widget" />
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
             app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
             app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"
@@ -197,17 +201,19 @@
         app:title="@string/phone_profiles_pref_notificationButtonsCategory"
         app:layout="@layout/mp_preference_category" >
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationShowRestartEventsAsButton"
             app:title="@string/phone_profiles_pref_notificationShowReastartEventsAsButton"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
 

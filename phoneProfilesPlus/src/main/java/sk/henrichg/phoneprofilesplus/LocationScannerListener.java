@@ -4,18 +4,20 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 class LocationScannerListener implements LocationListener {
 
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(@NonNull Location location) {
 //            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onLocationChanged", "xxx");
         LocationScanner.doLocationChanged(location, false);
     }
 
-    public void onProviderDisabled(String provider) {
+    public void onProviderDisabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderDisabled", "xxx");
     }
 
-    public void onProviderEnabled(String provider) {
+    public void onProviderEnabled(@NonNull String provider) {
 //            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderEnabled", "xxx");
     }
 

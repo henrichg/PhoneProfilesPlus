@@ -136,8 +136,8 @@ class EventPreferencesSMS extends EventPreferences {
                 _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
             }
 
-            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
-            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, false, context);
+            if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     _value.append(context.getString(R.string.profile_preferences_device_not_allowed))
@@ -158,14 +158,14 @@ class EventPreferencesSMS extends EventPreferences {
                     //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
 
                     _value.append(context.getString(R.string.event_preferences_sms_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.event_preferences_sms_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                     _value.append(context.getString(R.string.pref_event_sms_contactListType));
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                         boolean hasSIMCard = false;
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -187,13 +187,13 @@ class EventPreferencesSMS extends EventPreferences {
                         if (hasSIMCard) {
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_sms_forSimCard));
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
-                            _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
 
                     if (this._permanentRun)
-                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
             else {
@@ -277,7 +277,7 @@ class EventPreferencesSMS extends EventPreferences {
                     Preference preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -287,7 +287,7 @@ class EventPreferencesSMS extends EventPreferences {
                     Preference preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
@@ -414,8 +414,8 @@ class EventPreferencesSMS extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
                                                                 this._permanentRun, this._duration, this._forSIMCard);
             if (preferences != null)
@@ -732,7 +732,7 @@ class EventPreferencesSMS extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventSMSContacts(context, event, null)*/
                 /* moved to Extender && Permissions.checkEventSMSBroadcast(context, event, null)*/) {

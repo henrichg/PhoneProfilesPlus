@@ -55,6 +55,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         // don't delete this - it is workaround for set this LinearLayout non-clickable
         LinearLayout buttonsLayout = itemView.findViewById(R.id.profile_list_item_buttons_root);
+        //noinspection DataFlowIssue
         buttonsLayout.setOnClickListener(v -> {});
 
         itemView.setOnClickListener(this);
@@ -85,7 +86,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         if (ProfileStatic.isRedTextNotificationRequired(profile, false, context)){
             profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
-            profileName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
+            profileName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
         }
         else {
             profileName.setTypeface(null, Typeface.BOLD);

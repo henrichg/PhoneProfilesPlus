@@ -263,7 +263,8 @@ class PPApplicationStatic {
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
                     (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
-                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS) ||
+                    (logType == PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS)) {
 
                 boolean manualProfileActivation = false;
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
@@ -339,13 +340,18 @@ class PPApplicationStatic {
                             notificationId = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_ID;
                             notificationTag = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG;
                             break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS:
+                            text = appContext.getString(R.string.altype_profileError_sendSMS);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SEND_SMS_ERROR_NOTIFICATION_TAG;
+                            break;
                     }
                     if (!text.isEmpty()) {
                         text = appContext.getString(R.string.profile_activation_activation_error) + StringConstants.STR_COLON_WITH_SPACE + text + ".";
 
                         PPApplicationStatic.createExclamationNotificationChannel(appContext, false);
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                                .setColor(ContextCompat.getColor(appContext, R.color.errorColor))
                                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                                 .setContentTitle(title) // title for notification
@@ -532,7 +538,7 @@ class PPApplicationStatic {
                     Context appContext = PPApplication.getInstance().getApplicationContext();
                     createExclamationNotificationChannel(appContext, false);
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                            .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                            .setColor(ContextCompat.getColor(appContext, R.color.errorColor))
                             .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                             .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                             .setContentTitle("App exception occured!!") // title for notification
@@ -714,6 +720,10 @@ class PPApplicationStatic {
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 0);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 1);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 2);
+        //EventPreferencesCallScreening.getEventCallScreeningActive(context);
+        EventPreferencesCallScreening.getEventCallScreeningTime(context);
+        EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
+        EventPreferencesCallScreening.getEventCallScreeningCallDirection(context);
 
         ApplicationPreferences.loadStartTargetHelps(context);
     }
@@ -1177,7 +1187,7 @@ class PPApplicationStatic {
     }
     */
 
-    private static void getLastActivatedProfile(Context context)
+    static void getLastActivatedProfile(Context context)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.getLastActivatedProfile", "PPApplication.applicationGlobalPreferencesMutex");
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
@@ -1193,7 +1203,14 @@ class PPApplicationStatic {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putLong(PPApplication.PREF_LAST_ACTIVATED_PROFILE, profileId);
             editor.apply();
-            PPApplication.prefLastActivatedProfile = profileId;
+//            PPApplication.prefLastActivatedProfile = profileId;
+        }
+    }
+    static void getProfileBeforeActivation(Context context)
+    {
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.geProfileBeforeActivation", "PPApplication.applicationGlobalPreferencesMutex");
+        synchronized (PPApplication.applicationGlobalPreferencesMutex) {
+            PPApplication.prefProfileBeforeActivation = DatabaseHandler.getInstance(context).getActivatedProfileId();
         }
     }
 
@@ -2059,6 +2076,23 @@ class PPApplicationStatic {
         }
     }
 
+    /*
+    static void registerReceiversForCallScreeningSensor(boolean register, Context context) {
+        try {
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            if (register)
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR, true);
+            else
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR, true);
+            runCommand(context, commandIntent);
+//            Log.e("PPApplication.registerReceiversForSMSSensor", "xxx");
+        } catch (Exception e) {
+            recordException(e);
+        }
+    }
+    */
+
 /*
     public static void restartEvents(Context context, boolean unblockEventsRun, boolean reactivateProfile) {
         try {
@@ -2160,6 +2194,7 @@ class PPApplicationStatic {
                     }
                     PPApplication.contactGroupsCache = null;
                     if (PPApplication.contactsCache != null) {
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic._exitApp", "(in contactsCacheMutex) contactsCache.clearCache()");
                         PPApplication.contactsCache.clearCache();
                     }
                     PPApplication.contactsCache = null;
@@ -2615,11 +2650,14 @@ class PPApplicationStatic {
     static void createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/)
     {
         if (clear) {
-            if (PPApplication.contactsCache != null)
+            if (PPApplication.contactsCache != null) {
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactsCache", "contactsCache.clearCache()");
                 PPApplication.contactsCache.clearCache();
+            }
         }
         if (PPApplication.contactsCache == null)
             PPApplication.contactsCache = new ContactsCache();
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactsCache", "contactsCache.getContactList()");
         PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/);
     }
 
@@ -2631,11 +2669,14 @@ class PPApplicationStatic {
     static void createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
     {
         if (clear) {
-            if (PPApplication.contactGroupsCache != null)
+            if (PPApplication.contactGroupsCache != null) {
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactGroupsCache", "contactGroupsCache.clearCache()");
                 PPApplication.contactGroupsCache.clearCache();
+                }
         }
         if (PPApplication.contactGroupsCache == null)
             PPApplication.contactGroupsCache = new ContactGroupsCache();
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactGroupsCache", "contactGroupsCache.getContactGroupList()");
         PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/);
     }
 
@@ -2658,8 +2699,9 @@ class PPApplicationStatic {
                     defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
                     //else
                     //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
-                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                            "com.google.android.apps.nexuslauncher");
+                    return (defaultLauncher == null) ||
+                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                                "com.google.android.apps.nexuslauncher");
                 } catch (Exception e) {
                     return false;
                 }
@@ -2689,7 +2731,8 @@ class PPApplicationStatic {
                     //else
                     //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
-                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                    return (defaultLauncher == null) ||
+                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
                             "com.sec.android.app.launcher");
                 } catch (Exception e) {
                     return false;
@@ -2721,7 +2764,8 @@ class PPApplicationStatic {
                     //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
                     //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
-                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                    return (defaultLauncher == null) ||
+                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
                             "com.miui.home");
                 } catch (Exception e) {
                     return false;

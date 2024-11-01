@@ -87,6 +87,9 @@
     <!-- for WireGuard -->
     <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS"/>
 
+    <!-- for "Night light settings" profile parameter in "Samsung devices -->
+    <uses-permission android:name="com.samsung.android.permission.SEC_EYECOMFORT_BROADCAST"/>
+
 <!--    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>-->
 
 
@@ -98,7 +101,8 @@
     <!--  Only devices with touchscreen - maybe this exclude TV-->
     <uses-feature
         android:name="android.hardware.touchscreen"
-        android:required="true"/>
+        android:required="true"
+        tools:ignore="UnnecessaryRequiredFeature" />
     <uses-feature
         android:name="android.hardware.faketouch"
         android:required="true"/>
@@ -142,6 +146,9 @@
     <uses-feature
         android:name="android.hardware.sensor.light"
         android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.telephony.messaging"
+        android:required="false"/>
 
     <queries>
         <!-- ACRA fix of MailSenderConfigurationBuilder for Android 11 -->
@@ -153,12 +160,19 @@
             <action android:name="android.intent.action.SEND_MULTIPLE" />
             <data android:mimeType="message/rfc822" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
 
         <!-- NFC tag sensor -->
         <intent>
             <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
             <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
         </intent>
+
+        <!-- PPPPutSettings -->
+        <package android:name="sk.henrichg.pppputsettings" />
     </queries>
 
     <application
@@ -275,13 +289,13 @@
         </activity>
 
         <activity
-            android:name=".ProfilesPrefsActivity"
-            android:label="@string/title_activity_profile_preferences">
+            android:name=".ProfilesPrefsActivity">
         </activity>
+<!--    android:label="@string/title_activity_profile_preferences">-->
         <activity
-            android:name=".EventsPrefsActivity"
-            android:label="@string/title_activity_event_preferences">
+            android:name=".EventsPrefsActivity">
         </activity>
+<!--    android:label="@string/title_activity_event_preferences">-->
         <activity
             android:name=".PhoneProfilesPrefsActivity"
             android:label="@string/title_activity_phone_profiles_preferences"
@@ -325,6 +339,7 @@
             android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity"
+            android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"/>
@@ -471,7 +486,9 @@
         </activity>
         <activity
             android:name=".DonationPayPalActivity"
-            android:label="@string/donation_activity_title">
+            android:label="@string/donation_activity_title"
+            android:theme="@style/DialogTheme_dayNight"
+            >
         </activity>
         <activity
             android:name=".CheckCriticalPPPReleasesDisableActivity"
@@ -510,14 +527,14 @@
             android:launchMode="singleInstance"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
-        <activity
-            android:name=".AutostartPermissionActivity"
-            android:excludeFromRecents="true"
-            android:label=""
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:launchMode="singleInstance"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".AutostartPermissionActivity"-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:label=""-->
+<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:theme="@style/EmptyAppCompatActivity">-->
+<!--        </activity>-->
         <activity
             android:name=".LaunchWidgetIconConfigurationActivity"
             android:exported="true"

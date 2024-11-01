@@ -330,8 +330,8 @@ public class OpaquenessLightingPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<OpaquenessLightingPreference.SavedState>() {
+        public static final Creator<OpaquenessLightingPreference.SavedState> CREATOR =
+                new Creator<>() {
             public OpaquenessLightingPreference.SavedState createFromParcel(Parcel in)
             {
                 return new OpaquenessLightingPreference.SavedState(in);

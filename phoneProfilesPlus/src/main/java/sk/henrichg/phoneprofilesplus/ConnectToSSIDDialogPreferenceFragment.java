@@ -65,6 +65,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             listAdapter.notifyDataSetChanged();
         });
 
+        //noinspection DataFlowIssue
         helpTextView.setText(getString(R.string.connect_to_ssid_dialog_help) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
         helpTextView.setOnClickListener(v -> {
             boolean ok = false;
@@ -94,6 +95,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                         true, true,
                         false, false,
                         true,
+                        false,
                         getActivity()
                 );
 

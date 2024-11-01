@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/location_editor_root_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
+    android:orientation="vertical"
+    tools:context=".LocationGeofenceEditorActivityOSM">
+
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/location_editor_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="?attr/toolbarTheme"
+    app:popupTheme="?attr/toolbarPopupMenu"
+    app:contentInsetEnd="@dimen/content_inset_end"
+    app:contentInsetStart="@dimen/content_inset_start"
+    app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+    app:navigationIcon="?attr/homeAsUpIndicator"
+    android:elevation="1dp"/>
+
+<RelativeLayout
     android:id="@+id/location_editor_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,7 +43,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <RelativeLayout
             android:id="@+id/location_editor_et_btn4"
@@ -38,14 +59,15 @@
                 android:id="@+id/location_editor_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
+                android:minWidth="@dimen/button_min_width"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:text="@android:string/ok"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
-                android:minHeight="40dp"
+                android:minHeight="@dimen/button_min_height"
                 android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
@@ -53,15 +75,16 @@
                 android:id="@+id/location_editor_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
+                android:minWidth="@dimen/button_min_width"
                 android:layout_marginEnd="5dp"
                 android:layout_toStartOf = "@id/location_editor_ok"
                 android:layout_centerVertical="true"
                 android:text="@android:string/cancel"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
-                android:minHeight="40dp"
+                android:minHeight="@dimen/button_min_height"
                 android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
@@ -87,9 +110,9 @@
             android:id="@+id/location_editor_et_btn_reLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:layout_marginTop="15dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp" >
 
             <TextView
@@ -106,12 +129,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="7dp"
+                android:paddingStart="@dimen/layout_as_button_padding"
+                android:paddingEnd="@dimen/layout_as_button_padding"
+                android:minHeight="@dimen/button_min_height"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="0dp"
+                android:gravity="center_vertical"
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"
                 android:textColor="@color/accent_color"
                 android:textStyle="bold"
@@ -121,6 +144,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 tools:ignore="HardcodedText" />
+<!--            android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
+<!--            android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
             <!--
             <RelativeLayout
                 android:id="@+id/location_editor_et_btn_reLa2"
@@ -144,6 +169,11 @@
                     android:layout_height="30dp"
                     android:layout_below="@id/location_pref_dlg_radius_seekbar_label"
                     android:max="1000"
+                    android:minHeight="3dp"
+                    android:maxHeight="3dp"
+                    android:progressDrawable="@drawable/seek_bar_drawable"
+                    android:thumb="@drawable/seek_bar_thumb"
+                    android:thumbTint="@color/accent_color"
                     android:splitTrack="false"
                     tools:ignore="UnusedAttribute"/>
 
@@ -157,46 +187,82 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp" >
+            android:layout_marginBottom="15dp" >
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_my_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_my_location"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/location_editor_change_location_dialog_title"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
+<!--            android:layout_centerVertical="true"-->
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_address_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf = "@id/location_editor_my_location"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_address"
                 app:tint="@color/accent_color"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/location_editor_rename_with_address_button_tooltip"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/editor_ripple_item_right_button" />
+<!--            android:layout_centerVertical="true"-->
 
-            <EditText
-                android:id="@+id/location_editor_geofence_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_toStartOf = "@id/location_editor_address_btn"
                 android:layout_centerVertical="true"
-                android:selectAllOnFocus="true"
-                android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor"/>
+                android:layout_toStartOf = "@id/location_editor_address_btn">
+                <EditText
+                    android:id="@+id/location_editor_geofence_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/EditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/location_geofence_editor_location_name" />
+            </RelativeLayout>
+
+<!--            <EditText-->
+<!--                android:id="@+id/location_editor_geofence_name"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:layout_toStartOf = "@id/location_editor_address_btn"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:selectAllOnFocus="true"-->
+<!--                android:inputType="textNoSuggestions"-->
+<!--                android:importantForAutofill="no"-->
+<!--                tools:ignore="LabelFor"/>-->
 
         </RelativeLayout>
 
@@ -217,12 +283,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_alignParentTop="true"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <LinearLayout
             android:id="@+id/location_editor_address_linla"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:layout_alignParentBottom="true"
             android:orientation="vertical" >
 
@@ -230,8 +298,8 @@
                 android:id="@+id/location_editor_address_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:visibility="invisible"
                 android:text=""
                 android:ellipsize="end"
@@ -241,7 +309,7 @@
                 android:id="@+id/location_editor_mapDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialogDividerColor" />
 
         </LinearLayout>
 
@@ -290,3 +358,5 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
+</LinearLayout>

@@ -4,11 +4,12 @@
     app:key="eventRadioSwitchCategory"
     app:title="@string/event_preferences_category_eventSoundProfileParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventSoundProfileEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:title="@string/event_preferences_soundProfile_ringerModes"
         app:key="eventSoundProfileRingerModes"

@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -45,7 +44,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.activity_important_info_toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,12 +52,14 @@ public class ImportantInfoActivity extends AppCompatActivity {
         }
 
         TabLayout tabLayout = findViewById(R.id.activity_important_info_tab_layout);
+        //noinspection DataFlowIssue
         tabLayout.addTab(tabLayout.newTab().setText(R.string.important_info_important_info_tab));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.important_info_quick_guide_tab));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager2 viewPager = findViewById(R.id.activity_important_info_pager);
         ImportantInfoActivityFragmentStateAdapter adapter = new ImportantInfoActivityFragmentStateAdapter(getSupportFragmentManager(), getLifecycle());
+        //noinspection DataFlowIssue
         viewPager.setAdapter(adapter);
         // this fixes cropped fragment in Quick guide
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -80,8 +80,11 @@ public class ImportantInfoActivity extends AppCompatActivity {
             }
         });
 
+        /*
         Button closeButton = findViewById(R.id.activity_important_info_close);
+        //noinspection DataFlowIssue
         closeButton.setOnClickListener(v -> finish());
+        */
 
         Intent intent = getIntent();
         boolean firstInstallation = intent.getBooleanExtra(ImportantInfoNotification.EXTRA_FIRST_INSTALLATION, false);

@@ -296,7 +296,7 @@ class TonesHandler {
 
 //                    Cursor cursor = context.getContentResolver().query(contentUri,
 //                            new String[]{MediaStore.MediaColumns.DATA},
-//                            MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
+//                            MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null, null);
 //                    if (cursor != null) {
 //                        if (!cursor.moveToFirst()) {
 //                            // not exists in content
@@ -305,7 +305,7 @@ class TonesHandler {
 //
 //                            //// If the ringtone already exists in the database, delete it first
 //                            //context.getContentResolver().delete(contentUri,
-//                            //        MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
+//                            //        MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
 //
 //                            // Add the metadata to the file in the database
 //                            ContentValues contentValues = new ContentValues();
@@ -403,7 +403,7 @@ class TonesHandler {
 
         // If the ringtone already exists in the database, delete it first
         context.getContentResolver().delete(contentUri,
-                MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
+                MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
 
         // delete the file
         outFile.delete();

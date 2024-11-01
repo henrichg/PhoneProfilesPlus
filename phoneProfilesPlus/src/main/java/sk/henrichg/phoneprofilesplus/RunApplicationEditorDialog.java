@@ -21,7 +21,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -106,12 +105,14 @@ class RunApplicationEditorDialog
         mDialog = dialogBuilder.create();
 
         mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
+        //noinspection DataFlowIssue
         mDelayValue.setText(StringFormatUtils.getDurationString(startApplicationDelay));
 
         mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
         mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
 
         LinearLayout delayValueRoot = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay_root);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(delayValueRoot, activity.getString(R.string.applications_editor_dialog_edit_delay_tooltip));
         mDelayValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
             int iValue = (int) duration / 1000;
@@ -147,13 +148,14 @@ class RunApplicationEditorDialog
         });
 
         filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
-        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                 activity,
-                R.layout.spinner_highlighted,
+                R.layout.ppp_spinner,
                 activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
+        //noinspection DataFlowIssue
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
+//        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.spinner_control_color));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -194,15 +196,18 @@ class RunApplicationEditorDialog
 
             @SuppressLint("NotifyDataSetChanged")
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                ((PPSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
                 selectedFilter = Integer.parseInt(filterValues[position]);
                 if (selectedFilter == 2)
+                    //noinspection DataFlowIssue
                     addButton.setVisibility(View.VISIBLE);
                 else
+                    //noinspection DataFlowIssue
                     addButton.setVisibility(View.GONE);
 
                 fillApplicationList();
+                //noinspection DataFlowIssue
                 listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listView.setAdapter(null);
                 listView.setAdapter(listAdapter);
@@ -224,11 +229,13 @@ class RunApplicationEditorDialog
         });
 
         addButton  = layout.findViewById(R.id.run_applications_editor_dialog_addIntent);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
         addButton.setOnClickListener(view -> startEditor(null));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         listView = layout.findViewById(R.id.run_applications_editor_dialog_listview);
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -476,6 +483,7 @@ class RunApplicationEditorDialog
                         true, true,
                         false, false,
                         true,
+                        false,
                         activity
                 );
 

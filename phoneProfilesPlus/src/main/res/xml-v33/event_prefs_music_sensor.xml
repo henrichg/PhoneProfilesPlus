@@ -4,11 +4,12 @@
     app:title="@string/event_preferences_category_eventMusicParameters"
     app:key="eventMusicCategory" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventMusicEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:key="eventMusicMusicState"
         app:title="@string/event_preferences_music_state"
@@ -16,15 +17,6 @@
         app:defaultValue="0"
         app:ppEntries="@array/eventMusicStatesArray"
         app:ppEntryValues="@array/eventMusicStatesValues"
-        app:dependency="eventMusicEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-        app:defaultValue="@string/dash_string"
-        app:key="eventMusicApplications"
-        app:title="@string/event_preferences_applications_applications"
-        app:removePPApplications="1"
-        app:systemSettings="not_check"
         app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
@@ -41,6 +33,15 @@
         app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1"
         app:dependency="eventMusicEnabled"
         app:infoText=""
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+        app:defaultValue="@string/dash_string"
+        app:key="eventMusicApplications"
+        app:title="@string/event_preferences_applications_applications"
+        app:removePPApplications="1"
+        app:systemSettings="not_check"
+        app:dependency="eventMusicEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
 

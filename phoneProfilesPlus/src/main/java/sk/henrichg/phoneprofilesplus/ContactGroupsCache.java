@@ -12,8 +12,8 @@ class ContactGroupsCache {
 
     private final ArrayList<ContactGroup> contactGroupList;
 
-    private boolean cached;
-    private boolean caching;
+    private volatile boolean cached;
+    private volatile boolean caching;
     //private boolean cancelled;
 
     ContactGroupsCache()
@@ -45,6 +45,7 @@ class ContactGroupsCache {
         caching = true;
         //cancelled = false;
 
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsCache.getContactGroupList", "PPApplicationStatic.getContactsCache()");
         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null) {
             caching = false;
@@ -59,11 +60,10 @@ class ContactGroupsCache {
 
         List<Contact> _contactList;
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(1) PPApplication.contactsCacheMutex");
-        synchronized (PPApplication.contactsCacheMutex) {
-            _contactList = contactsCache.getList(/*false*/);
-            if (_contactList == null)
-                _contactList = new ArrayList<>();
-        }
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsCache.getContactGroupList", "contactsCache.getList()");
+        _contactList = contactsCache.getList(/*false*/);
+        if (_contactList == null)
+            _contactList = new ArrayList<>();
 
 //        long kolegoviaGroupId = 0;
 
@@ -117,7 +117,7 @@ class ContactGroupsCache {
                 clearGroups(_contactList);
                 //contactsCache.clearGroups(_contactListWithoutNumber);
 
-                List<Long> contactGroupIds = new ArrayList<>();
+                //List<Long> contactGroupIds = new ArrayList<>();
 
                 String[] projection = new String[]{
                         ContactsContract.Groups._ID,
@@ -142,15 +142,21 @@ class ContactGroupsCache {
 
                             String accountType = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.ACCOUNT_TYPE));
 
-                            int count = mCursor.getInt(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.SUMMARY_COUNT));
+//                            int count = mCursor.getInt(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.SUMMARY_COUNT));
+//                            if (name.startsWith("Pokus")) {
+//                                Log.e("ContactGroupsCache.getContactGroupList", "name="+name);
+//                                Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId="+contactGroupId);
+//                                Log.e("ContactGroupsCache.getContactGroupList", "accountType="+accountType);
+//                                Log.e("ContactGroupsCache.getContactGroupList", "count="+count);
+//                            }
 
                             //if (count > 0) {
-                            contactGroupIds.add(contactGroupId);
+                            //contactGroupIds.add(contactGroupId);
 
                             ContactGroup aContactGroup = new ContactGroup();
                             aContactGroup.groupId = contactGroupId;
                             aContactGroup.name = name;
-                            aContactGroup.count = count;
+                            aContactGroup.count = 0; //count;
                             aContactGroup.accountType = accountType;
 
                             _contactGroupList.add(aContactGroup);
@@ -167,6 +173,67 @@ class ContactGroupsCache {
                 //if (cancelled)
                 //    return;
 
+                // get contacts for each group
+                for (ContactGroup contactGroup : _contactGroupList) {
+//                    Log.e("ContactGroupsCache.getContactGroupList", "(2) name="+contactGroup.name);
+//                    Log.e("ContactGroupsCache.getContactGroupList", "(2) contactGroupId="+contactGroup.groupId);
+//                    Log.e("ContactGroupsCache.getContactGroupList", "(2) accountType="+contactGroup.accountType);
+
+                    contactGroup.count = 0;
+                    Cursor groupCursor = null;
+                    try {
+                        String[] cProjection = {
+                                ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID,
+                                ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                        };
+
+                        groupCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI,
+                                cProjection,
+                                ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "= ?" + " AND "
+                                        + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                                        + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'",
+                                new String[] { String.valueOf(contactGroup.groupId) }, /*null*/ ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID);
+
+                        if (groupCursor != null) {
+                            while (groupCursor.moveToNext()) {
+                                long contactId = groupCursor.getLong(groupCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                                //Log.e("ContactGroupsCache.getContactGroupList", "found contactId="+contactId);
+                                long contactGroupId = groupCursor.getLong(groupCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID));
+                                //Log.e("ContactGroupsCache.getContactGroupList", "found contactGroupId="+contactGroupId);
+
+                                List<String> _contactPhoneNumberInGroup = new ArrayList<>();
+                                for (Contact contact : _contactList) {
+                                    //Log.e("ContactGroupsCache.getContactGroupList", "inside query contact.contactId="+contact.contactId);
+                                    if (contact.contactId == contactId) {
+                                        if (!contact.phoneNumber.isEmpty()) {
+                                            if (contact.groups == null)
+                                                contact.groups = new ArrayList<>();
+                                            if (!contact.groups.contains(contactGroupId)) {
+                                                if (!_contactPhoneNumberInGroup.contains(contact.phoneNumber)) {
+//                                                    Log.e("ContactGroupsCache.getContactGroupList", "added contactId="+contactId+" phone=+"+contact.phoneNumber+" to contactGroupId="+contactGroupId);
+                                                    contact.groups.add(contactGroupId);
+                                                    _contactPhoneNumberInGroup.add(contact.phoneNumber);
+                                                    ++contactGroup.count;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+//                                Log.e("ContactGroupsCache.getContactGroupList", "count of contacts in group="+contactGroup.count);
+                                //_contactListInGroup = null;
+                            }
+
+                            groupCursor.close();
+                        }
+                    } catch (Exception e) {
+                        if (groupCursor != null)
+                            groupCursor.close();
+//                        Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+
+                /*
                 String[] projectionGroup = new String[]{
                         ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID,
                         ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID//,
@@ -182,15 +249,15 @@ class ContactGroupsCache {
                         for (long contactGroupId : contactGroupIds) {
                             if (groupRowId == contactGroupId) {
                                 // contact is in contactGroupId group
-
                                 long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                addGroupToContact(contactId, contactGroupId, _contactList);
+                                addGroupToContact(contactId, contactGroupId, _contactList, _contactGroupList, context);
                                 //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
                         }
                     }
                     mCursorGroup.close();
                 }
+                */
 
                 //_contactGroupList.sort(new ContactGroupsComparator());
 
@@ -313,7 +380,7 @@ class ContactGroupsCache {
     }
     */
 
-    void updateContactGroups(List<ContactGroup> _contactGroupList) {
+    private void updateContactGroups(List<ContactGroup> _contactGroupList) {
         contactGroupList.clear();
         contactGroupList.addAll(_contactGroupList);
     }
@@ -340,6 +407,7 @@ class ContactGroupsCache {
         }
     }
 
+/*
     ContactGroup getContactGroup(int position)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroup", "PPApplication.contactsCacheMutex");
@@ -350,9 +418,10 @@ class ContactGroupsCache {
                 return null;
         }
     }
+ */
 
     // called only from ContactGroupsCache
-    void clearGroups(List<Contact> _contactList) {
+    private void clearGroups(List<Contact> _contactList) {
         if (_contactList == null)
             return;
 
@@ -366,8 +435,12 @@ class ContactGroupsCache {
         }
     }
 
+    /*
     // called only from ContactGroupsCache
-    void addGroupToContact(long contactId, long contactGroupId, List<Contact> _contactList) {
+    void addGroupToContact(long contactId, long contactGroupId,
+                           List<Contact> _contactList, List<ContactGroup> _contactGroupList,
+                           Context context) {
+
         if (_contactList == null)
             return;
 
@@ -390,9 +463,27 @@ class ContactGroupsCache {
                             break;
                         }
                     }
+                    boolean pokusGroup = (contactGroupId == 12) || (contactGroupId == 13) || (contactGroupId == 14) ||
+                                         (contactGroupId == 36) || (contactGroupId == 37) || (contactGroupId == 38) || (contactGroupId == 39);
                     if (!groupFound) {
                         // group not found, add it
+                        if (pokusGroup) {
+                            Log.e("ContactGroupsCache.addGroupToContact", "contactGroupId="+contactGroupId);
+                            Log.e("ContactGroupsCache.addGroupToContact", "added group to contact=" + contact.name);
+                        }
                         contact.groups.add(contactGroupId);
+                        for (ContactGroup contactGroup : _contactGroupList) {
+                            if (contactGroup.groupId == contactGroupId) {
+                                if (pokusGroup)
+                                    Log.e("ContactGroupsCache.addGroupToContact", "increased group (2) " +  contactGroup.name);
+                                ++contactGroup.count;
+                            }
+                        }
+                    } else {
+                        if (pokusGroup) {
+                            Log.e("ContactGroupsCache.addGroupToContact", "contactGroupId="+contactGroupId);
+                            Log.e("ContactGroupsCache.addGroupToContact", "contact already added=" + contact.name);
+                        }
                     }
                 }
             }
@@ -401,6 +492,7 @@ class ContactGroupsCache {
                 break;
         }
     }
+    */
 
     void clearCache()
     {

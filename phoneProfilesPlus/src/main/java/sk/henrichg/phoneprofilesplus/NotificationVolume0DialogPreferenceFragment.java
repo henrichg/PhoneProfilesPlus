@@ -91,6 +91,7 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
 //        });
 
         TextView text = layout.findViewById(R.id.notification_0_pref_dialog_text);
+        //noinspection DataFlowIssue
         text.setText(message);
 
         //phoneProfilesSilentRB = layout.findViewById(R.id.notification_0_pref_dialog_PhoneProfilesSilent_rb);
@@ -98,6 +99,7 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
 
         //if (uriId.isEmpty()) {
         //    phoneProfilesSilentRB.setVisibility(View.GONE);
+            //noinspection DataFlowIssue
             noneRB.setChecked(true);
         //}
         //else {

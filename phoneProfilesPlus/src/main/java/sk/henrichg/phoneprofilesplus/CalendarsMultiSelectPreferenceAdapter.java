@@ -71,6 +71,7 @@ class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
             convertView.setTag(new CalendarViewHolder(calendarColor, textViewDisplayName, checkBox));
 
             // If CheckBox is toggled, update the Contact it is tagged with.
+            //noinspection DataFlowIssue
             checkBox.setOnClickListener(v -> {
                 CheckBox cb = (CheckBox) v;
                 CalendarEvent calendar1 = (CalendarEvent) cb.getTag();
@@ -94,7 +95,9 @@ class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
         checkBox.setTag(calendar);
 
         // Display Contact data
+        //noinspection DataFlowIssue
         calendarColor.setBackgroundColor(/*0xff000000*/ + calendar.color);
+        //noinspection DataFlowIssue
         textViewDisplayName.setText(calendar.name);
 
         //Log.d("CalendarsMultiSelectPreferenceAdapter.getView","calendar.checked="+calendar.checked);

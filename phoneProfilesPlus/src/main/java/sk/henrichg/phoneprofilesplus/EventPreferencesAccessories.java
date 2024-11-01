@@ -88,7 +88,7 @@ class EventPreferencesAccessories extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_accessories_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context));
@@ -117,7 +117,7 @@ class EventPreferencesAccessories extends EventPreferences {
                     selectedAccessory = value.toString();
                 }
                 _value.append(StringConstants.TAG_BOLD_START_HTML)
-                        .append(getColorForChangedPreferenceValue(selectedAccessory, disabled, context))
+                        .append(getColorForChangedPreferenceValue(selectedAccessory, disabled, addBullet, context))
                         .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
@@ -211,8 +211,8 @@ class EventPreferencesAccessories extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesAccessories tmp = new EventPreferencesAccessories(this._event, this._enabled, this._accessoryType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -283,7 +283,7 @@ class EventPreferencesAccessories extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!this._accessoryType.isEmpty()) {
                     String[] splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
@@ -336,8 +336,9 @@ class EventPreferencesAccessories extends EventPreferences {
                             if (bluetooth != null) {
                                 boolean isBluetoothEnabled = bluetooth.isEnabled();
                                 boolean isHeadsetConnected = false;
+                                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
                                 if (isBluetoothEnabled) {
-                                    boolean isBluetoothConnected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
+                                    boolean isBluetoothConnected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, "");
                                     if (isBluetoothConnected)
                                         isHeadsetConnected = BluetoothAdapter.STATE_CONNECTED == bluetooth.getProfileConnectionState(BluetoothProfile.HEADSET);
                                 }

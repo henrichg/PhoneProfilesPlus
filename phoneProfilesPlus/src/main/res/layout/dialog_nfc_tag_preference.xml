@@ -38,7 +38,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <RelativeLayout
             android:id="@+id/nfc_tag_pref_dlg_empty"
@@ -56,8 +56,7 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:contentDescription=""
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/empty_list_content_description" />
 
         </RelativeLayout>
 
@@ -84,7 +83,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <RelativeLayout
             android:id="@+id/nfc_tag_pref_dlg_et_btn2"
@@ -94,54 +93,91 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/nfc_tag_pref_dlg_helpIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_help"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/help_button_tooltip"/>
+<!--            android:layout_centerVertical="true"-->
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/nfc_tag_pref_dlg_changeSelection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
-                android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/nfc_tag_pref_dlg_helpIcon"
                 android:src="@drawable/ic_button_select"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/nfc_tag_pref_dlg_select_button_tooltip"/>
+<!--            android:layout_centerVertical="true"-->
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/nfc_tag_pref_dlg_addIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
-                android:layout_centerVertical="true"
                 android:layout_toStartOf = "@id/nfc_tag_pref_dlg_changeSelection"
                 android:src="@drawable/ic_button_add"
                 app:tint="@color/accent_color"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/nfc_tag_pref_dlg_add_button_tooltip"/>
+<!--            android:layout_centerVertical="true"-->
 
-            <EditText
-                android:id="@+id/nfc_tag_pref_dlg_bt_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon"
-                android:selectAllOnFocus="true"
-                android:hint="@string/nfc_tag_pref_dlg_hint"
-                android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"/>
+                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon">
+                <EditText
+                    android:id="@+id/nfc_tag_pref_dlg_bt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/EditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/nfc_tag_pref_dlg_hint" />
+            </RelativeLayout>
+
+<!--            <EditText-->
+<!--                android:id="@+id/nfc_tag_pref_dlg_bt_name"-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon"-->
+<!--                android:selectAllOnFocus="true"-->
+<!--                android:hint="@string/nfc_tag_pref_dlg_hint"-->
+<!--                android:inputType="textNoSuggestions"-->
+<!--                android:importantForAutofill="no"/>-->
 
         </RelativeLayout>
 

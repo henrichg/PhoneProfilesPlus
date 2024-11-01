@@ -44,9 +44,11 @@ class MultiSelectListDialog
 
         listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             CheckBox chb = item.findViewById(R.id.pp_multiselect_list_pref_dlg_item_checkbox);
             itemValues[position] = !itemValues[position];
+            //noinspection DataFlowIssue
             chb.setChecked(itemValues[position]);
         });
     }

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -113,42 +114,74 @@ public class ImportantInfoHelpFragment extends Fragment {
         if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
         }
 
         if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setText(getString(R.string.important_info_pppps_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
         }
 
 
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
+        TextView infoTextnews1 = view.findViewById(R.id.important_info_news_1);
+        TextView infoTextnews2 = view.findViewById(R.id.important_info_news_2);
+        TextView infoTextnews3 = view.findViewById(R.id.important_info_news_3);
+        TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);
         if (!news) {
+            //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
+            if (infoTextnews1 != null)
+                infoTextnews1.setVisibility(View.GONE);
+            if (infoTextnews2 != null)
+                infoTextnews2.setVisibility(View.GONE);
+            if (infoTextnews3 != null)
+                infoTextnews3.setVisibility(View.GONE);
+            if (infoTextnews4 != null)
+                infoTextnews4.setVisibility(View.GONE);
         } else {
+            //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
             infoTextNews.setText("*** " + getString(R.string.important_info_news) + " ***");
+
+            //TODO add textVews of News
+            if (infoTextnews1 != null)
+                infoTextnews1.setVisibility(View.VISIBLE);
+            if (infoTextnews2 != null)
+                infoTextnews2.setVisibility(View.VISIBLE);
+            if (infoTextnews3 != null)
+                infoTextnews3.setVisibility(View.VISIBLE);
+            if (infoTextnews4 != null)
+                infoTextnews4.setVisibility(View.VISIBLE);
         }
 
     }
@@ -156,7 +189,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     static void doOnViewCreated(@NonNull View view, Fragment fragment) {
 
-        final ImportantInfoActivity activity = (ImportantInfoActivity) fragment.getActivity();
+        final Activity activity = fragment.getActivity();
         if (activity == null)
             return;
 
@@ -193,6 +226,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 
@@ -236,6 +270,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 
@@ -274,6 +309,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 
@@ -318,6 +354,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             true, true,
                             false, false,
                             true,
+                            false,
                             activity
                     );
 
@@ -377,6 +414,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText100.setText(text);
         }
 
+        /*
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
@@ -395,6 +433,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
+        */
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
@@ -654,7 +693,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
 
-                    popup.setOnMenuItemClickListener(activity::supportMenu);
+                    ImportantInfoActivity importantInfoActivity = (ImportantInfoActivity) activity;
+                    popup.setOnMenuItemClickListener(importantInfoActivity::supportMenu);
 
                     if (!activity.isFinishing())
                         popup.show();
