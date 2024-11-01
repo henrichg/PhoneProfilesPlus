@@ -7,45 +7,79 @@
 
 <h1 id="changelog">PhoneProfilesPlus Zoznam zmien</h1>
 
-<h2 id="version2">Verzia: 6.5.1, 6.5.1.1</h2>
+<h2 id="version2">Verzia: 7.0</h2>
 
 <ul lang="en">
-    <li>Added Neo Store into README.md.</li>
-    <li>Add: Dash Clock Widget in Settings.</li>
-    <li>Change: Added support for "Neo Store" for PPP, PPPE, PPPPS installation.</li>
-    <li>Change: Added support for "Neo Store".</li>
-    <li>Change: Installation of PPP, PPPE from GitHub.</li>
-    <li>Change: Applied patch #131, which fixes detection of mobile cells when is checked "Start when outside mobile cell".</li>
-    <li>Change: Detection of PPPPS if Shizuku is installed but PPPPS not. Use Shizuku instead.</li>
-    <li>Change: Do not use broadcast for start Activator/Editor from notification in API < 31. Not nedded it.</li>
-    <li>Change: Launcher for widgets, notification moved from "Application interface" to widgets, notification settings.</li>
-    <li>Change: Changed label of main activity to "PPP".</li>
-    <li>Change: Create shortcuts: added possibility to set icon name for shortcut.</li>
-    <li>Change: Added private constructor to utility classes (with all methods static).</li>
-    <li>Change: Added call of doAfterFirstStart when Shizuku is started.</li>
-    <li>Change: Added test for managers, adapters to check the enablement of the event sensor.</li>
-    <li>Change: "Music sensor": added support for detection of music controller.</li>
-    <li>Change: "Default SIM": added support for Android 13-. Maybe will be working in all devices.</li>
-    <li>Change: "SIM on/off": added support for Android 12+. Maybe will be working in all devices.</li>
-    <li>Change: Added button divider into Samsung edge panel.</li>
-    <li>Change: Added support for CellInfoNr into Mobile cells scanning. It is for 5G mobile net.</li>
-    <li>Change: Removed Support e-mail from "About application".</li>
-    <li>Change: Use Shizuku if PPPPS is not installed.</li>
-    <li>Change: Show red text about not granted Shizuku, if is running and PPPPS is also checked.</li>
-    <li>Change: Added required version of PPPPS.</li>
-    <li>Change: Added GMail, XDA-developers, Twitter, Reddit, Bluesky, Discord PPP server badge into README.md</li>
-    <li>Change: Added labels into README.md badges.</li>
-    <li>Change: Added XDA-developers, Twitter, Reddit, Bluesky, Discord into Editor "Support" menu.</li>
-    <li>Fixed appcompat 1.7.0 dependencies problem.</li>
-    <li>Fix: Fixed download url for InstallWithOptions.apk.</li>
-    <li>Fix: Force set Wi-Fi, Bluetooth, Mobile cells sensor not passed, when Location is disabled.</li>
-    <li>Fix: Installation of PPPPS for API 34+: download urls for InstallWithOptions.apk. and PPPPutSettings.apk.</li>
-    <li>Fix: Fixed show error when scanning is not enabled and is required for sensor.</li>
-    <li>Fix: Maybe fixed set volume during Priority DND.</li>
-    <li>Fix: Maybe fixed set volumes.</li>
-    <li>Fix: Simulating ringing call: Fixed check of mute ringing state. Must be checked not form system, but from activated profile.</li>
-    <li>Fix: Fixed check of settings, service commands.</li>
-    <li>Fix: Fixed test of preference allowed state for dual sim notification tone profile parameter.</li>
+    <li>Add: "Call screening" event sensor (move of profile parameter "Phone call")</li>
+    <li>Add: Send SMS for missed call into Call senzor.</li>
+    <li>Add: Profile parameter "Clear notifications".</li>
+    <li>Add: "Eye comfort shield" profile parameter.</li>
+    <li>Add: "Night light" profile parameter.</li>
+    <li>Add: "(I) Night light settings" profile parameter.</li>
+    <li>Add: Profile parameter "Screen on/off".</li>
+    <li>Added but not tested and not used: Fix for dynamic colors in Samsung devices.</li>
+    <li>Change: Added "Applications" parameter into "Music sensor".</li>
+    <li>Change: Added filter into "Activity log".</li>
+    <li>Change: Changed 404 link in "Draw over apps" permission wth "Restricted settings" info dialog.</li>
+    <li>Change: Added support for "Restricted settings" if is required.</li>
+    <li>Change: Called PPPPS over the service.</li>
+    <li>Change: "Unlock device" changed to "Device lockscreen". Because this parameter enable/disable lockscreen.</li>
+    <li>Change: Removed support for Huawei AppGallery.</li>
+    <li>Change: Important info News about "Draw over apps".</li>
+    <li>Change: "Phone call" profile parameter and "Send SMS" preference changed to dialog preference.</li>
+    <li>Change: Added event state icon into popup about event states.</li>
+    <li>Change: Moved "Enable events run" at top of popup about event states, run/stop indicator.</li>
+    <li>Change: Added missing BT profiles into BT connected devices detector.</li>
+    <li>Change: Show dialog for start Shizuku, when is not running but is installed.</li>
+    <li>Change: New versions of PPPE and PPPPS.</li>
+    <li>Change: Added bullets into description in traffic light popup.</li>
+    <li>Change: Important info email link changed to Support popup menu.</li>
+    <li>Change: Increased PPPE REQUIRED version code.</li>
+    <li>Change: Added check for PPPPS REQUIRED version code, when must be used.</li>
+    <li>Change: new LATEST PPPPS version code.</li>
+    <li>Change: Added "Do not disturb access" into Settings/Permissions.</li>
+    <li>Change: Added "History of UI changes" into README.md</li>
+    <li>Change: Do not use hiding of header at scroll in Activator grid view.</li>
+    <li>Change: "Change wallpaper" profile parameter - wallpaper URI conversion to bitmap with MediaStore/ImageDecoder.</li>
+    <li>Change: README.md Added note about "Google Play Protect" dialog displayed during PPP installation.</li>
+    <li>Change: fastlane full_description: Added note about "Google Play Protect" dialog displayed during PPP installation.</li>
+    <li>Change: Added info about "Send SMS" in "Call sensor".</li>
+    <li>Change: Added info about "Check light" in "Orientation sensor".</li>
+    <li>Change: GUI: backgroung color, coponents colors, design.</li>
+    <li>Fix: GUI: coponents colors, design.</li>
+    <li>Fix: Fixed rectangle ripple for Android < 13.</li>
+    <li>Fix: Bad aligned color channels in AndroidClearChroma.</li>
+    <li>Fixed string in APKPure check PPP release dialog.</li>
+    <li>Fix: Fixed set volume when unlink is disabled and volumes are merged.</li>
+    <li>Fix: Do not stop event in EventsHandler even when is not good by sensors requirements.</li>
+    <li>Fix: Fixed installation of PPPE and PPPPS. Required is Droid-ify for API >= 33.</li>
+    <li>Fix: Fixed version code and name of PPPE a PPPPS.</li>
+    <li>Fix: Fixed not playing notification about profile activation when "Confirm activating profile" is disabled.</li>
+    <li>Fix: Fixed native notification style. Removed is big space in notification.</li>
+    <li>Fix: Fixed not working "Change to random image" in Android 14+.</li>
+    <li>Fixed layout of PPP compact notification for Samsung One UI 6.</li>
+    <li>Fix: Fixed notification without decorator for Samsung.</li>
+    <li>Fix: Maybe fixed not paused event even when is not good configured.</li>
+    <li>Fix: Check location permission only when is required.</li>
+    <li>Fix: Fixed deleted "Vibration intensity" in profile parameters screen.</li>
+    <li>Fix: "Vibration intensity" max. values for Android 14+.</li>
+    <li>Fix: Fixed SQLite TEXT constants.</li>
+    <li>Fix: Fixed activity log for installation of PPP.</li>
+    <li>Fix: Fixed check of SYSTEM_ALERT_WINDOW permission.</li>
+    <li>Fix: Fixed "Mobile cells scanning": was not possible to enable it, if Phone permission is not granted.</li>
+    <li>Fix: Added check for permissions in profile preferences screen for profile parameters in "Others".</li>
+    <li>Fix: Do not show red text for grant Shizuku, when Shizuku is started, but not granted, and is not used any parameter using (Z) parameters.</li>
+    <li>Fix: Mobile cells editor and Re-Scan button - enable it and ask for grant needed permissions.</li>
+    <li>Fix: "Change wallpaper" profile parameter and "Draw over apps" permission check.</li>
+    <li>Fix: Fixed change of wallpapers by "Change wallpaper" profile parameter.</li>
+    <li>Fix: Maybe fixed adding groups into contacts.</li>
+    <li>Fix: Detection of in system configured BT Names by its address.</li>
+    <li>Fix: Detection of configured BT. Better for multithreading.</li>
+    <li>Fix: Bluetooth sensor - Connection type=Connected.</li>
+    <li>Fix: Not working send e-mail with attachments in Android 15.</li>
+    <li>Fix: Do not ask for grant Shizuku if is PPPPS installed.</li>
+    <li>Fix: Fixed "Custom color dialog" for "Restart events icon".</li>
+    <li>Fix: Detection of BTLE devices (watch).</li>
 </ul>
 
 <ul>
@@ -57,7 +91,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5.1.1">Informácie o vydaní na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0">Informácie o vydaní na GitHub.</a>
 </p>
 
 </body>

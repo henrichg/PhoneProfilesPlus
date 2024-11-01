@@ -415,203 +415,75 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
 -------------------------------------
 
-Profil a novy parameter "Block phone calls"
-
-Ak je role nastavene, uz nefunguje jeho znovu-nastavenie, nozbrazuje sa ten bottom sheet na to.
-Ide len zrusit v Settings "Caller ID & spam app".
-Ak je nastavena ina apka ako PPP, zobrazi sa bottom sheet, takze toto je OK.
-Ako postupovat:
-1. ak je nastavene PPP, disablovat tuto volbu HOTOVO
-2. zobrazovat v summary stav, cize k tomu, co tam uz je dat pred to este stav. HOTOVO
-
-Treba permission na tie kontakty. Contacts.
-Samotny contacts a groups dialog, pyta pravo. Je volane: Permissions.grantContactsDialogPermissions(prefContext).
-Cize treba uz iba klasicky ako u inych parametroch. HOTOVO
-
-Treba este zistit, ci netreba dake dalise pravo.
-Ak bude treba, treba este dorobit Phone permission pre:
-<uses-permission android:name="Manifest.permission.ANSWER_PHONE_CALLS" />
-<uses-permission android:name="Manifest.permission.CALL_PHONE" />
-NETREBA, testnute.
-
-A pridaj ešte contact list type, ako je v call senzore.
-No ale tuto nie je dobra vec, davat tam EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE.
-Prilis kriticke je toto blokovanie. Ta hodnota by znamenala, ze kazdy jeden hovor by to blokovalo.
-HOTOVO
-
-Import/Export
-- kontakty treba zakriptovat, pozri to u udalosti
-- kontakty treba dat, ze ich nechcem do backupu, je na to aj dialog, ten treba tiez upravit
-HOTOVO
-
-"Block phone calls" -> treba spravit indikator HOTOVO
-
-V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
-
--------------------------------
-
-Volane: restartEventsWithRescan()
-DataWrapper:
-- stopEventsForProfile() - false - kedy volane? - daj true, je to volane z EditorProfileListFragment.deleteProfile()
-- startEventAtFirstFtart() - false 2x - kedy volane? - nastav podla toho odkial je volane, cize pridaj parameter manualRestart
-
-EventStatic:
-- runStopEvent() - false - kedy volane? - daj true, je to volane len z GUI
-
-RestartEventsWithDealyWorker:
-- doWork() - false = kedy volane? - nastav podla dat z workera
-
-TimeChangedReceiver:
-- doWork() - false - kedy volane? - daj true, sice znova zacne duration, ale nevadi, toto je volane len na zmenu time zony
-
----
-
-Volane: restartEventsWithDelay()
-EditorEventListAdapter:
-- clearView() - false - kedy volane? - daj true, je to volane pri manualnom presuvani itemov eventov v Editore
-
-GrantPermisionActivity:
-- finishGrant() - false - kedy volane? - daj true vo vsetkych pripadoch, je to volane ked monci grant, ktory je bud z Editora alebo z notifikacie
-
-PPExtenderBroadcastReceiver:
-- onReceive() 0 false - kedy volane? - daj true, volane len raz, ked sa nakonektuje Extender
-
-------------------
-
-- _restartEvents() loguje, ak je jeho parameter manualRestart = true:
-  PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
-
-- volany je z restartEvents()
-- a ten je volany z _restartEventsWithRescan()
-- a ten je volany z restartEventsWithRescan()
-
-- a nakoniec restartEventsWithRescan() je volany z vela miest:
-  - ActionForExternalApplicationActivity.onStart() - nie manual restart
-  - DatabaseHandler.onUpgrade() - nie manual restart
-
-  Tieto su jasne, toto urcite Zajicek nerobil:
-  - DataWrapper.stopEventForProfile() - MANUAL ***
-    - DataWrapper.stopEventForProfileFromMainThread()
-      - EditorProfileListFragment.deleteProfile()
-  - DataWrapper.restartEventsWithAlert() - MANUAL ***
-    - ActivatorActivity.onOptionsItemSelected()
-    - EditorActivity.onOptionsItemSelected()
-    - GeneratrNotificationAfterClickDialog()
-    - RestartEventsFromGUIActivity.onStart()
-    - ActivatorListFragment.activateProfile()
-    - BackgroundActivateProfileActivity.activateProfile()
-      - DataWrapperStatic.createShortcutInfo()
-      - OneRowProfileListWidgetPtovider.setProfileIcon()
-      - PPTileService.onClick()
-      - ProfileListNotification.setProfileIcon()
-      - ProfileListWidgetProvider.buildLayout()
-      - SamsungEdgeProvider.buildLayout()
-      - ShortcutCreatorListFragment.onPreExecute()
-  - EditorEventListFragment.deleteEvent() - MANUAL ***
-  - EditorProfileListFragment.deleteProfile() - MANUAL ***
-  - EventsPrefsActivity.savePreferences() - MANUAL ***
-  - EventsPrefsActivity.saveUpdateOfPreferences() - MANUAL ***
-  - EventStatic.runStopEvent() - MANUAL ***
-    - EditorEventListFragment.showEditMenu()
-    - EventStatusPopupWindow()
-  - ProfilePrefsActivity.savePreferences() - MANUAL ***
-
-  - DataWrapper.startEventsAtFirstStart() - AKO PARAMETER - najdi kde je volane
-    - DataWrapper.firstStartEvents() - AKO PARAMETER - najdi kde je volane
-  - DataWrapper.restartEventsWithDelay() - AKO PARAMETER - najdi kde je volane
-    - Event.doActivateEndProfile() - nie je manual restart
-    - GrantPermissionActivity.finishGrant()
-    - MainWorker.doWork().ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
-    - PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED
-    - ProfileDurationAlarmBroadcastReceiver._doWork() - nie je manual restart
-
-  - RestartEventsWithDelayWork.doWork() - AKO PARAMETER - najdi kde je volane
-    - RestartEventsWithDelayWorker.doWork() - AKO EXTRA - najdi kde je volane
-      - DataWrapper.restartEventsWithDelay() - pre longDelay
-      - MainWorker.doWork() - nie je manual restart
-      - ProfileDurationAlarmBroadcastReceiver.onReceive() - nie je manual restart
-      - ProfileDurationAlarmBroadcastReceiver.setAlarm() - troska zlozite
-
-  - EventStatic.runStopEvent() - MANUAL ***
-    - ActionForExternalApplicationActivity.onStart() !!!!
-- TimeChangedReceiver.doWork() - MANUAL *** !!!!
-
-Je teda vela manual restartov :-)
-
------------------
-
-PPPPS:
-Added Neo Store into README.md.
-Change: Added GMail, Discord, Twitter, XDA-developers, Twitter, Reddit, Bluesky badges to README.md
-Change: Added "Support" submenu.
-Change: Changed label of main activity to "PPPPS".
-Change: Added more info about installation into README.md.
-Fixed appcompat 1.7.0 dependencies problem.
-Fix: Fixed download link of InstallWithOptions.pak in docs.
-
---------------
-
-PPApplication.updateGUI()
-- EventsHandler dava: PPApplication.updateGUI(false, false, context);
-  Cize neupdatovat hned, nie dlhy interval
-- PPApplication robi na to toto:
-  - delay = 5;
-  - vola PPApplication.forceUpdateGUI(appContext, true, false, false); cez executor s tym delay:
-    cize Editor ano, !!! nie notifikacie (pozri ci sa toto tyka aj widgetov) !!!
-  - potom mimo excutora reloaduje notifikacie
-
-  Takze PPApplication.forceUpdateGUI() updatuje VZDY widgety.
-  Vola OneRowWidgetProvider.updateWidgets(). Takze jedine, ze by bol problem tam.
-
-Takze takto ziskavam posledne spusteny hovor:
-List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size() - 1);
-
-Proste to vypada, ze je vsetko ako ma byt. Takze nechapem, preco sa widget neupdatol.
-
-------------------------
-
-activity_location_geofence_editor_osm -> location_pref_dlg_radius_value
- - vola Number picker dialog
-dialog_ask_for_duration -> duration_pref_dlg_value
- - vola time duration picker
-dialog_duration_preference -> duration_pref_dlg_value
- - vola time duration picker
-dialog_mobile_cells_registration_preference -> duration_pref_dlg_value
- - vola time duration picker
-dialog_run_applications_editor -> run_applications_editor_startApplicationDelay
- - vola time duration picker
-dialog_time_preference -> time_pref_dlg_value
- - vola time duration picker
-HOTOVO:
-   pouzite je uz existujuce dimen/time_duration_value_button_top_bottom_padding
-
-dialog_color_chooser -> dialog_color_chooser_custom_color_label
- - vola android clear chroma dialog
-dialog_profile_icon_color_chooser -> dialog_color_chooser_custom_color_label
- - vola android clear chroma dialog
-dialog_restart_events_color_chooser -> dialog_color_chooser_custom_color_label
- - vola android clear chroma dialog
-HOTOVO:
-   pouzite je uz existujuce dimen/custom_color_dialog_button_top_bottom_padding
-
-** dialog_contacts_multiselect_preference -> contacts_multiselect_pref_dlg_contacts_filter
- - vola dialog na vyber filtra
-** dialog_mobile_cells_editor_preference -> mobile_cells_pref_dlg_cells_filter_name
- - vola dialog na vyber filtra
-HOTOVO:
-   pouzite je uz existujuce dimen/filter_button_top_bottom_padding
-
-
-!!!
-dialog_mobile_cells_registration_preference -> mobile_cells_registration_cells_name
- - vola dialog s EditText na nahodenie nazvu bunky -> tuto prilis dlhy text ak nie je nastaveny nazov,
-   potom sa prepise na zadany nazov
-   PREROB
-   Asi tam dam TextView: "Nazov bunky:" pod tym tento TextView button s "[ nezadane ]" alebo so zadanym nazvom.
-HOTOVO
-
-
-
-
+PPP:
+Add: "Call screening" event sensor (move of profile parameter "Phone call")
+Add: Send SMS for missed call into Call senzor.
+Add: Profile parameter "Clear notifications".
+Add: "Eye comfort shield" profile parameter.
+Add: "Night light" profile parameter.
+Add: "(I) Night light settings" profile parameter.
+Add: Profile parameter "Screen on/off".
+Added but not tested and not used: Fix for dynamic colors in Samsung devices.
+Change: Added "Applications" parameter into "Music sensor".
+Change: Added filter into "Activity log".
+Change: Changed 404 link in "Draw over apps" permission wth "Restricted settings" info dialog.
+Change: Added support for "Restricted settings" if is required.
+Change: Called PPPPS over the service.
+Change: "Unlock device" changed to "Device lockscreen". Because this parameter enable/disable lockscreen.
+Change: Removed support for Huawei AppGallery.
+Change: Important info News about "Draw over apps".
+Change: "Phone call" profile parameter and "Send SMS" preference changed to dialog preference.
+Change: Added event state icon into popup about event states.
+Change: Moved "Enable events run" at top of popup about event states, run/stop indicator.
+Change: Added missing BT profiles into BT connected devices detector.
+Change: Show dialog for start Shizuku, when is not running but is installed.
+Change: New versions of PPPE and PPPPS.
+Change: Added bullets into description in traffic light popup.
+Change: Important info email link changed to Support popup menu.
+Change: Increased PPPE REQUIRED version code.
+Change: Added check for PPPPS REQUIRED version code, when must be used.
+Change: new LATEST PPPPS version code.
+Change: Added "Do not disturb access" into Settings/Permissions.
+Change: Added "History of UI changes" into README.md
+Change: Do not use hiding of header at scroll in Activator grid view.
+Change: "Change wallpaper" profile parameter - wallpaper URI conversion to bitmap with MediaStore/ImageDecoder.
+Change: README.md Added note about "Google Play Protect" dialog displayed during PPP installation.
+Change: fastlane full_description: Added note about "Google Play Protect" dialog displayed during PPP installation.
+Change: Added info about "Send SMS" in "Call sensor".
+Change: Added info about "Check light" in "Orientation sensor".
+Change: GUI: backgroung color, coponents colors, design.
+Fix: GUI: coponents colors, design.
+Fix: Fixed rectangle ripple for Android < 13.
+Fix: Bad aligned color channels in AndroidClearChroma.
+Fixed string in APKPure check PPP release dialog.
+Fix: Fixed set volume when unlink is disabled and volumes are merged.
+Fix: Do not stop event in EventsHandler even when is not good by sensors requirements.
+Fix: Fixed installation of PPPE and PPPPS. Required is Droid-ify for API >= 33.
+Fix: Fixed version code and name of PPPE a PPPPS.
+Fix: Fixed not playing notification about profile activation when "Confirm activating profile" is disabled.
+Fix: Fixed native notification style. Removed is big space in notification.
+Fix: Fixed not working "Change to random image" in Android 14+.
+Fixed layout of PPP compact notification for Samsung One UI 6.
+Fix: Fixed notification without decorator for Samsung.
+Fix: Maybe fixed not paused event even when is not good configured.
+Fix: Check location permission only when is required.
+Fix: Fixed deleted "Vibration intensity" in profile parameters screen.
+Fix: "Vibration intensity" max. values for Android 14+.
+Fix: Fixed SQLite TEXT constants.
+Fix: Fixed activity log for installation of PPP.
+Fix: Fixed check of SYSTEM_ALERT_WINDOW permission.
+Fix: Fixed "Mobile cells scanning": was not possible to enable it, if Phone permission is not granted.
+Fix: Added check for permissions in profile preferences screen for profile parameters in "Others".
+Fix: Do not show red text for grant Shizuku, when Shizuku is started, but not granted, and is not used any parameter using (Z) parameters.
+Fix: Mobile cells editor and Re-Scan button - enable it and ask for grant needed permissions.
+Fix: "Change wallpaper" profile parameter and "Draw over apps" permission check.
+Fix: Fixed change of wallpapers by "Change wallpaper" profile parameter.
+Fix: Maybe fixed adding groups into contacts.
+Fix: Detection of in system configured BT Names by its address.
+Fix: Detection of configured BT. Better for multithreading.
+Fix: Bluetooth sensor - Connection type=Connected.
+Fix: Not working send e-mail with attachments in Android 15.
+Fix: Do not ask for grant Shizuku if is PPPPS installed.
+Fix: Fixed "Custom color dialog" for "Restart events icon".
+Fix: Detection of BTLE devices (watch).
 

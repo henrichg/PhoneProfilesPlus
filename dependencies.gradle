@@ -5,8 +5,8 @@ ext.ppVersions = [
 
         // Add new version, published in GitHub Relases, also into Discord PPP server
 
-        publishVersion    : '7.0b',
-        publishVersionCode: 7198,
+        publishVersion    : '7.0',
+        publishVersionCode: 7200,
 
         minSdk            : 26,
         targetSdk         : 28,
