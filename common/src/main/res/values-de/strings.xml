@@ -2269,13 +2269,13 @@
     <string name="profile_preferences_deviceKeyguard">Sperrbildschirm des Geräts</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">Dieser Parameter aktiviert/deaktiviert den Sperrbildschirm des Geräts. Bei der Einstellung „Aus” wird der Sperrbildschirm nicht angezeigt, wenn der Bildschirm eingeschaltet wird.</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
-    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
-    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
-    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
-    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
-    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
-    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
-    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
-    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Bildschirm Ein/Aus</string>
+    <string name="keep_screen_on_active_notification_description">„Bildschirm einschalten” ist „Ein”. Um es auf „Aus“ zu stellen, konfigurieren und aktivieren Sie das Profil mit „Bildschirm einschalten“=„Aus“.</string>
+    <string name="permission_why_profile_screen_on_off">zum Ein- und Ausschalten des Bildschirms</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">Wenn „Bildschirm Ein/Aus“ konfiguriert ist, ist „Gerätesperrbildschirm“ deaktiviert ist und umgekehrt. Es ist nicht möglich, beides zu konfigurieren.</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku ist installiert, wird aber nicht ausgeführt. Bitte öffnen Sie Shizuku und starten Sie es aus seiner Anwendung.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Öffnen</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Hilfe</string>
+    <string name="event_preference_callSendSMS_info_summary">Dieser Parameter ist für „Anrufereignis“=„Entgangener Anruf“.</string>
+    <string name="event_preferences_orientation_checkLight_info">„Licht“ ist das vom Lichtsensor des Geräts erfasste Umgebungslicht.</string>
 </resources>

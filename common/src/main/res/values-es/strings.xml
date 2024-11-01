@@ -2270,7 +2270,7 @@
     <string name="profile_preferences_deviceKeyguard_info_summary">Este parámetro activa o desactiva la pantalla de bloqueo del dispositivo. Cuando esté desactivada, la pantalla de bloqueo no aparecerá cuando la pantalla está encendida.</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">La configuración de \"Tiempo de espera de pantalla\" en el sistema (por activación de perfil) no desactiva \"Mantener pantalla encendida\". También necesitarás configurar \"Mantener la pantalla encendida\" comop \"Apagado\" si deseas que \"Tiempo de espera de pantalla\" funcione.</string>
     <string name="profile_preferences_deviceScreenOnOff">Pantalla encendida/apagada</string>
-    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
+    <string name="keep_screen_on_active_notification_description">\"Mantener la pantalla encendida\" es \"Activado\". Para desactivarla, configure y active el perfil con \"Mantener la pantalla encendida\"=\"Desactivado\".</string>
     <string name="permission_why_profile_screen_on_off">para encender/apagar la pantalla</string>
     <string name="profile_preferences_deviceScreenOnOff_info_summary">Cuando se configura \"Encendido o Apagado\", \"Pantalla de bloqueo de dispositivo\" se desactiva, y viceversa. No es posible configurar ambos.</string>
     <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku está instalado, pero no se está ejecutando. Por favor, abre Shizuku e inícialo.</string>

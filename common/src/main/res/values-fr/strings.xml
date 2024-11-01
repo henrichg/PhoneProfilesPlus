@@ -2269,13 +2269,13 @@
     <string name="profile_preferences_deviceKeyguard">Écran de verrouillage de l\'appareil</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">Ce paramètre active ou désactive l\'écran de verrouillage de l\'appareil. Lorsque la valeur est désactivée, l\'écran de verrouillage n\'apparaîtra pas lorsque l\'écran est allumé.</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Le réglage « Délai d\'attente de l\'écran » dans le système (par activation du profil) ne désactive pas « Garder l\'écran allumé ». Vous devez également configurer « Garder l\'écran allumé » à « Éteint » si vous voulez que « Délai d\'attente de l\'écran » fonctionne sur le système.</string>
-    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
-    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
-    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
-    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
-    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
-    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
-    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
-    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Écran Allumé/Éteint</string>
+    <string name="keep_screen_on_active_notification_description">\"Garder l\'écran allumé\" est \"Activé\". Pour le désactiver, configurez et activez le profil avec \"Garder l\'écran allumé\"=\"Désactivé\".</string>
+    <string name="permission_why_profile_screen_on_off">pour allumer ou éteindre l\'écran</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">Lorsque \"Écran Allumé/Éteint\" est configuré, \"Écran de verrouillage de l\'appareil\" est désactivé et vice versa. Il n\'est pas possible de configurer les deux.</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku est installé, mais n\'est pas en cours d\'exécution. Veuillez ouvrir Shizuku et le démarrer à partir de son application.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Ouvrir</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Aide</string>
+    <string name="event_preference_callSendSMS_info_summary">Ce paramètre est pour \"Événement d\'appel\"=\"Appel manqué\".</string>
+    <string name="event_preferences_orientation_checkLight_info">\"Lumière\" est la lumière ambiante détectée par le capteur de luminosité.</string>
 </resources>

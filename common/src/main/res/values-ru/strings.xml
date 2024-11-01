@@ -2269,13 +2269,13 @@
     <string name="profile_preferences_deviceKeyguard">Экран блокировки устройства</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">Этот параметр включает/отключает экран блокировки устройства. Когда установлено значение \"Выкл.\", экран блокировки при включённом экране появляться не будет.</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Задание \"Времени таймаута экрана\" в системе (при активации профиля) не отключает настройку \"Не выключать экран\". Если вы хотите, чтобы \"Время таймаута экрана\" работало, нужно также отключить \"Не выключать экран\".</string>
-    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
-    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
-    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
-    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
-    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
-    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
-    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
-    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Включение/выключение экрана</string>
+    <string name="keep_screen_on_active_notification_description">Параметр \"Не выключать экран\" включён. Чтобы отключить его, настройте и активируйте профиль, в котором он выключен.</string>
+    <string name="permission_why_profile_screen_on_off">для включения/выключения экрана</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">Когда задано \"Включение/выключение экрана\", \"Экран блокировки устройства\" недоступен, и наоборот. Невозможно задать и то, и другое.</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku установлен, но не запущен. Пожалуйста, откройте Shizuku и запустите его из его приложения.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Открыть</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Справка</string>
+    <string name="event_preference_callSendSMS_info_summary">Этот параметр - для \"Состояние и тип вызова\"=\"Пропущенный вызов\".</string>
+    <string name="event_preferences_orientation_checkLight_info">\"Освещённость\" - это окружающий свет, определяемый датчиком освещённости устройства.</string>
 </resources>
