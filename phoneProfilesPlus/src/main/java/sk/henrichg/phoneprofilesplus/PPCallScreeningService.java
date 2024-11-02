@@ -69,7 +69,8 @@ public class PPCallScreeningService extends CallScreeningService {
                         List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
                         for (Event event : eventList) {
                             if (event._eventPreferencesCallScreening._enabled &&
-                                event._eventPreferencesCallScreening.isRunnable(appContext)) {
+                                event._eventPreferencesCallScreening.isRunnable(appContext) &&
+                                event.getStatus() == Event.ESTATUS_RUNNING) {
 
                                 String contacts = event._eventPreferencesCallScreening._contacts;
                                 String contactGroups = event._eventPreferencesCallScreening._contactGroups;
@@ -81,7 +82,8 @@ public class PPCallScreeningService extends CallScreeningService {
                                 smsText = event._eventPreferencesCallScreening._smsText;
 
                                 if (notInContacts) {
-                                    blockCallingPhoneNumber = !isPhoneNumberInContacts(contactList, callingPhoneNumber);
+                                    if (direction != EventPreferencesCallScreening.CALL_DIRECTION_OUTGOING)
+                                        blockCallingPhoneNumber = !isPhoneNumberInContacts(contactList, callingPhoneNumber);
                                 } else {
                                     if ((
                                             /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
