@@ -6062,4 +6062,53 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static List<Event> getCallScreeningEvents(DatabaseHandler instance) {
+        List<Event> eventList = new ArrayList<>();
+        try {
+            // Select All Query
+            final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
+                    DatabaseHandler.KEY_E_STATUS + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_CALL_DIRECTION + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_CONTACTS + "," +
+                    //DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_CONTACT_GROUPS + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_NOT_IN_CONTACTS + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_BLOCK_CALLS + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_SEND_SMS + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_SMS_TEXT + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_START_TIME + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_DURATION + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_PERMANENT_RUN + "," +
+                    DatabaseHandler.KEY_E_CALL_SCREENING_SENSOR_PASSED +
+                    " FROM " + DatabaseHandler.TABLE_EVENTS +
+                    " WHERE " + DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + "=1" +
+                    " ORDER BY " + DatabaseHandler.KEY_E_ID;
+
+            //SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = instance.getMyWritableDatabase();
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    Event event = new Event();
+                    event._id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+                    event.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_STATUS)));
+                    event.createEventPreferencesCallScreening();
+                    getEventPreferencesCallScreening(event, db);
+                    eventList.add(event);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+            //db.close();
+
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
+        return eventList;
+    }
+
 }

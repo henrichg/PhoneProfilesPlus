@@ -476,7 +476,7 @@ class Event {
         this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0, "");
     }
 
-    private void createEventPreferencesCallScreening()
+    void createEventPreferencesCallScreening()
     {
         this._eventPreferencesCallScreening = new EventPreferencesCallScreening(this, false, 0, "", "", /*0,*/false, false, false, "", false, 5);
     }
