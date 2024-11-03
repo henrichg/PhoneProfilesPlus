@@ -43,6 +43,12 @@ class MultiSelectListDialog
         mDialog.setOnShowListener(dialog -> doShow());
 
         listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
+        // moved from doShow(), better for dialog animation and
+        // also correct the displacement of the dialog
+        if (listView != null) {
+            MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
+            listView.setAdapter(listAdapter);
+        }
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -54,8 +60,8 @@ class MultiSelectListDialog
     }
 
     private void doShow() {
-        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
-        listView.setAdapter(listAdapter);
+//        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
+//        listView.setAdapter(listAdapter);
     }
 
     void show() {
