@@ -62,6 +62,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
