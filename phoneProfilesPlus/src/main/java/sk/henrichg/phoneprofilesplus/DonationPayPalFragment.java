@@ -112,7 +112,7 @@ public class DonationPayPalFragment extends Fragment {
         closeButton.setOnClickListener(v -> {
             if (getActivity() != null) {
                 getActivity().finish();
-                getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
