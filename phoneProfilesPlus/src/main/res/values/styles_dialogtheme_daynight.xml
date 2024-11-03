@@ -13,5 +13,7 @@
 <!--        <item name="windowFixedWidthMinor">85%</item>-->
         <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+
+<!--        <item name="android:windowActivityTransitions">true</item>-->
     </style>
 </resources>
