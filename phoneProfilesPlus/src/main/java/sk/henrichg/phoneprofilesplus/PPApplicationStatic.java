@@ -1425,7 +1425,8 @@ class PPApplicationStatic {
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
-                recordException(e);
+                // must be onlu log, because this channel is used in ACRA
+                Log.e("PPApplicationStatic.createExclamationNotificationChannel", Log.getStackTraceString(e));
             }
     }
 

@@ -1650,6 +1650,7 @@ public class PPApplication extends Application
                         .withResDiscardButtonIcon(0)
                         .withSendOnClick(true)
                         .withColor(ContextCompat.getColor(base, R.color.errorColor))
+                        .withChannelId(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                         .withEnabled(true)
                         .build(),
                 new MailSenderConfigurationBuilder()
