@@ -14,6 +14,7 @@ class MultiSelectListDialog
     final AlertDialog mDialog;
     final Activity activity;
 
+    /** @noinspection FieldCanBeLocal*/
     private final ListView listView;
 
     final int itemsRes;

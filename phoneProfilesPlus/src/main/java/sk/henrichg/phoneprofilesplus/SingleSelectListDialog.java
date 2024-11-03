@@ -16,6 +16,7 @@ class SingleSelectListDialog
     final AlertDialog mDialog;
     final Activity activity;
 
+    /** @noinspection FieldCanBeLocal*/
     private final ListView listView;
     final DialogInterface.OnClickListener itemClick;
 
