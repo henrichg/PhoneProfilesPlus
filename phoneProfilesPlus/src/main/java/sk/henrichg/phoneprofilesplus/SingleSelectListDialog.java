@@ -72,7 +72,7 @@ class SingleSelectListDialog
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> doShow());
+        //mDialog.setOnShowListener(dialog -> doShow());
 
         listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
         // moved from doShow(), better for dialog animation and
@@ -95,11 +95,11 @@ class SingleSelectListDialog
         });
     }
 
-    private void doShow() {
-        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-        //SingleSelectListDialogAdapter listAdapter = new SingleSelectListDialogAdapter(itemsRes, this);
-        //listView.setAdapter(listAdapter);
-    }
+//    private void doShow() {
+//        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+//        SingleSelectListDialogAdapter listAdapter = new SingleSelectListDialogAdapter(itemsRes, this);
+//        listView.setAdapter(listAdapter);
+//    }
 
     void show() {
         if (!activity.isFinishing())
