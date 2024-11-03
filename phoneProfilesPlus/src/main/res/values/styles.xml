@@ -115,8 +115,8 @@
 <!--    <item name="android:background">@color/activityBackgroundColor</item>-->
 
     <style name="CustomDialogAnimation">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
