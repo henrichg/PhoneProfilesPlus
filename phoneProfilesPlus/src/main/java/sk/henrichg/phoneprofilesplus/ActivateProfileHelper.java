@@ -740,6 +740,9 @@ class ActivateProfileHelper {
                             setBluetoothState = true;
                             break;
                     }
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled="+isBluetoothEnabled);
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
@@ -749,12 +752,12 @@ class ActivateProfileHelper {
                         try {
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
                                 if (isBluetoothEnabled) {
-//                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
+                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
                                     // adb shell cmd bluetooth_manager enable
                                     bluetoothAdapter.enable();
                                 }
                                 else {
-//                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
+                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
                                     // adb shell cmd bluetooth_manager disable
                                     bluetoothAdapter.disable();
                                 }
