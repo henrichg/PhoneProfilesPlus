@@ -6782,7 +6782,7 @@ class ActivateProfileHelper {
 
         try {
             boolean enabled = false;
-            if (Permissions.checkPhone(appContext.getApplicationContext())) {
+            if (Permissions.checkModifyPhone(appContext.getApplicationContext())) {
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {
@@ -6912,7 +6912,7 @@ class ActivateProfileHelper {
 
         if (simExists)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkModifyPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
                 //if ((simCard == 0)) {
                     if (ShizukuUtils.hasShizukuPermission()) {
