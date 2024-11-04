@@ -814,7 +814,7 @@ class EventPreferencesCallScreening extends EventPreferences {
 
                     // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                     //Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "screeningActive="+screeningActive);
-                    Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "phoneNumber="+phoneNumber);
+//                    Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "phoneNumber="+phoneNumber);
 
                     boolean phoneNumberFound = false;
 
@@ -831,7 +831,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                                 contactList.clear();
                         }
 
-                        Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "phoneNumberFound="+phoneNumberFound);
+//                        Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "phoneNumberFound="+phoneNumberFound);
 
                         eventsHandler.callScreeningPassed = phoneNumberFound;
 

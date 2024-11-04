@@ -19,7 +19,7 @@ public class PPCallScreeningService extends CallScreeningService {
     @Override
     public void onScreenCall(@NonNull Call.Details callDetails) {
         if (Build.VERSION.SDK_INT >= 29) {
-            Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
+//            Log.e("PPCallScreeningService.onScreenCall", "Call screening service triggered");
 
             final Context appContext = getApplicationContext();
 
@@ -39,13 +39,13 @@ public class PPCallScreeningService extends CallScreeningService {
                 //Runnable runnable = () -> {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
 
-                    Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - start");
+//                    Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - start");
                     Calendar now = Calendar.getInstance();
                     long time = now.getTimeInMillis();
 //                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPCallScreeningService.onScreenCall", "SENSOR_TYPE_CALL_SCREENING");
                     eventsHandler.setEventCallScreeningParameters(callingPhoneNumber, time, callDirection);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING});
-                    Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - end");
+//                    Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - end");
                 //};
                 //PPApplicationStatic.createBasicExecutorPool();
                 //PPApplication.basicExecutorPool.submit(runnable);
@@ -58,7 +58,7 @@ public class PPCallScreeningService extends CallScreeningService {
                 {
                     // blok call only for incoming call
 
-                    Log.e("PPCallScreeningService.onScreenCall", "***** (1) *****");
+//                    Log.e("PPCallScreeningService.onScreenCall", "***** (1) *****");
 
                     //noinspection ExtractMethodRecommender
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "PPApplicationStatic.getContactsCache()");
@@ -76,7 +76,7 @@ public class PPCallScreeningService extends CallScreeningService {
 
                     if (contactList != null) {
                         List<Event> eventList = DatabaseHandler.getInstance(appContext).getCallScreeningEvents();
-                        Log.e("PPCallScreeningService.onScreenCall", "eventList.size()="+eventList.size());
+//                        Log.e("PPCallScreeningService.onScreenCall", "eventList.size()="+eventList.size());
                         for (Event event : eventList) {
                             if (event._eventPreferencesCallScreening._enabled &&
                                 event._eventPreferencesCallScreening.isRunnable(appContext) &&
@@ -121,7 +121,7 @@ public class PPCallScreeningService extends CallScreeningService {
                         contactList.clear();
                     }
 
-                    Log.e("PPCallScreeningService.onScreenCall", "blockCallingPhoneNumber="+blockCallingPhoneNumber);
+//                    Log.e("PPCallScreeningService.onScreenCall", "blockCallingPhoneNumber="+blockCallingPhoneNumber);
 
                     if (blockCallingPhoneNumber) {
                         //block call
@@ -145,12 +145,12 @@ public class PPCallScreeningService extends CallScreeningService {
                             }
                         }
                     } else {
-                        Log.e("PPCallScreeningService.onScreenCall", "***** (2) *****");
+//                        Log.e("PPCallScreeningService.onScreenCall", "***** (2) *****");
                         response.setDisallowCall(false);
                         response.setRejectCall(false);
                     }
                 } else {
-                    Log.e("PPCallScreeningService.onScreenCall", "***** (3) *****");
+//                    Log.e("PPCallScreeningService.onScreenCall", "***** (3) *****");
                     response.setDisallowCall(false);
                     response.setRejectCall(false);
                 }
@@ -165,7 +165,7 @@ public class PPCallScreeningService extends CallScreeningService {
                 //PPApplication.eventsHandlerExecutor.submit(runnable);
             }
 
-            Log.e("PPCallScreeningService.onScreenCall", "***** (4) *****");
+//            Log.e("PPCallScreeningService.onScreenCall", "***** (4) *****");
 
             CallResponse.Builder response = new CallResponse.Builder();
             response.setDisallowCall(false);
