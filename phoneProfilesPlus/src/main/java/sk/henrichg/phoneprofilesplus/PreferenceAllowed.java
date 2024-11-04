@@ -449,13 +449,12 @@ class PreferenceAllowed {
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
-                    //HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
 
 //                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM1="+hasSIMCardData.hasSIM1);
 //                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM2="+hasSIMCardData.hasSIM2);
 
-//                    boolean sim0Exists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
-                    boolean sim0Exists = telephonyManager.getPhoneCount() > 0;
+                    boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                     if (!sim0Exists) {
                         preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                         notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
