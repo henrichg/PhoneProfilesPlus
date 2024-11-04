@@ -325,7 +325,8 @@ class ActivateProfileHelper {
         if (profile._deviceMobileData != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // TODO 300
+                    GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
 
@@ -351,7 +352,8 @@ class ActivateProfileHelper {
                 }
                 if (_setMobileData) {
                     setMobileData(appContext, _isMobileData, 0);
-                    GlobalUtils.sleep(200);
+                    // TODO 200
+                    GlobalUtils.sleep(1000);
                 }
             }
         }
