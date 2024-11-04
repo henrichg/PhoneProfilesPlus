@@ -774,13 +774,16 @@ class Permissions {
                 }
             }
             boolean grantedReadPhoneState = true;
+            boolean grantedModifyPhoneState = true;
             if ((profile._deviceMobileData != 0) ||
                     //(profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
                     (profile._deviceNetworkType != 0) ||
                     (profile._deviceNetworkTypeSIM1 != 0) || (profile._deviceNetworkTypeSIM2 != 0) ||
                     (!profile._deviceDefaultSIMCards.equals("0|0|0")) ||
-                    (profile._deviceOnOffSIM1 != 0) || (profile._deviceOnOffSIM2 != 0))
+                    (profile._deviceOnOffSIM1 != 0) || (profile._deviceOnOffSIM2 != 0)) {
                 grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+                grantedModifyPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+            }
             //if (profile._deviceNFC != 0)
             //    granted = checkNFC(context);
             if (permissions != null) {
@@ -788,7 +791,8 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
                 if (!grantedReadPhoneState)
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
-                //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
+                if (!grantedModifyPhoneState)
+                    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
             boolean grantedAccessCoarseLocation = true;
             boolean grantedAccessFineLocation = true;
@@ -821,7 +825,8 @@ class Permissions {
 
     static boolean checkPhone(Context context) {
         try {
-            return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
+                    (ContextCompat.checkSelfPermission(context, permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }

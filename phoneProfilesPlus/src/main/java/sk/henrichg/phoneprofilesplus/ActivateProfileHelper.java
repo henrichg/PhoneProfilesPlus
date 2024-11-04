@@ -6825,12 +6825,13 @@ class ActivateProfileHelper {
 
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null) {
-                                if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
+                                //if (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                                //if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
                                     enabled = telephonyManager.isDataEnabled();
-                                else {
+                                //else {
                                     //noinspection deprecation
-                                    enabled = telephonyManager.getDataEnabled();
-                                }
+                                //    enabled = telephonyManager.getDataEnabled();
+                                //}
                             }
                         }
                     }
@@ -6843,12 +6844,13 @@ class ActivateProfileHelper {
 
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
-                            if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
+                            //if (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                            //if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
                                 enabled = telephonyManager.isDataEnabled();
-                            else {
+                            //else {
                                 //noinspection deprecation
-                                enabled = telephonyManager.getDataEnabled();
-                            }
+                            //    enabled = telephonyManager.getDataEnabled();
+                            //}
 //                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
                         }
                     }
