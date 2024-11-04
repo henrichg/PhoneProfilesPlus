@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -804,6 +803,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         }
     }
 
+    /*
     void doHandleEventOnlyCheckPhoneNumberAndDirection(EventsHandler eventsHandler,
                                                         String phoneNumber, int callDirection) {
         if (_enabled) {
@@ -855,6 +855,7 @@ class EventPreferencesCallScreening extends EventPreferences {
             }
         }
     }
+    */
 
     void doHandleEvent(EventsHandler eventsHandler) {
         if (_enabled) {

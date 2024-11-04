@@ -7,7 +7,6 @@ import android.telecom.Call;
 import android.telecom.CallScreeningService;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
