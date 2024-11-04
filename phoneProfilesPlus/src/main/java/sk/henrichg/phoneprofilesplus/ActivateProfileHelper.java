@@ -331,6 +331,7 @@ class ActivateProfileHelper {
                 }
 
                 boolean _isMobileData = isMobileData(appContext, 0);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
@@ -350,6 +351,9 @@ class ActivateProfileHelper {
                         _setMobileData = true;
                         break;
                 }
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "_setMobileData="+_setMobileData);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(2) _isMobileData="+_isMobileData);
                 if (_setMobileData) {
                     setMobileData(appContext, _isMobileData, 0);
                     // TODO 200
