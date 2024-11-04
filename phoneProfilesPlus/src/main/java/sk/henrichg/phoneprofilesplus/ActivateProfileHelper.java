@@ -6873,22 +6873,17 @@ class ActivateProfileHelper {
         //Context appContext = context.getApplicationContext();
 
 //        Log.e("ActivateProfileHelper.setMobileData", "called hasSIMCard");
-//        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-//        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
-//        if (simCard == 1) {
-//            boolean sim1Exists = hasSIMCardData.hasSIM1;
-//            simExists = simExists && sim1Exists;
-//        }
-//        else
-//        if (simCard == 2) {
-//            boolean sim2Exists = hasSIMCardData.hasSIM2;
-//            simExists = simExists && sim2Exists;
-//        }
-
-        boolean simExists = false;
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null)
-            simExists = telephonyManager.getPhoneCount() > 0;
+        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+        boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+        if (simCard == 1) {
+            boolean sim1Exists = hasSIMCardData.hasSIM1;
+            simExists = simExists && sim1Exists;
+        }
+        else
+        if (simCard == 2) {
+            boolean sim2Exists = hasSIMCardData.hasSIM2;
+            simExists = simExists && sim2Exists;
+        }
 
         if (simExists)
         {
