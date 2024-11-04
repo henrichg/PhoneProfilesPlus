@@ -330,7 +330,13 @@ class ActivateProfileHelper {
                     firstSleepCalled = true;
                 }
 
-                boolean _isMobileData = isMobileData(appContext, 0);
+                //boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
+                //boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
+                boolean _isMobileDataSIM0= isMobileData(appContext, 0);
+                //PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
+                //PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
+                boolean _isMobileData = (_isMobileDataSIM0 /*|| (_isMobileDataSIM1 && _isMobileDataSIM2)*/);
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
@@ -6745,6 +6751,7 @@ class ActivateProfileHelper {
         }
     }
 
+    @SuppressLint("MissingPermission")
     static boolean isMobileData(Context context, int simCard)
     {
         Context appContext = context.getApplicationContext();
@@ -6817,9 +6824,14 @@ class ActivateProfileHelper {
                             //enabled = adapter.getDataEnabled(0);
 
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                            if (telephonyManager != null)
-                                //noinspection deprecation
-                                enabled = telephonyManager.getDataEnabled();
+                            if (telephonyManager != null) {
+                                if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
+                                    enabled = telephonyManager.isDataEnabled();
+                                else {
+                                    //noinspection deprecation
+                                    enabled = telephonyManager.getDataEnabled();
+                                }
+                            }
                         }
                     }
                     else {
@@ -6830,10 +6842,15 @@ class ActivateProfileHelper {
                         //PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
 
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (telephonyManager != null)
-                            //noinspection deprecation
-                            enabled = telephonyManager.getDataEnabled();
+                        if (telephonyManager != null) {
+                            if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
+                                enabled = telephonyManager.isDataEnabled();
+                            else {
+                                //noinspection deprecation
+                                enabled = telephonyManager.getDataEnabled();
+                            }
 //                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+                        }
                     }
                 }
             }
