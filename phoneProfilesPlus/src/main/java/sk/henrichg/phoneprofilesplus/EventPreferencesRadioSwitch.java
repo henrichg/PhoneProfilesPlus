@@ -919,7 +919,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_mobileData != 0) && PPApplication.HAS_FEATURE_TELEPHONY) {
-                    boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
+                    boolean _isMobileDataSIM1 = ActivateProfileHelper.isMobileData(eventsHandler.context, 1);
+                    boolean _isMobileDataSIM2 = ActivateProfileHelper.isMobileData(eventsHandler.context, 2);
+                    boolean _isMobileDataSIM0 = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
+                    boolean enabled = (_isMobileDataSIM0 || _isMobileDataSIM1 || _isMobileDataSIM2);
 
                     boolean connected = false;
                     if ((_mobileData == 3) || (_mobileData == 4) || (_mobileData == 5) || (_mobileData == 6)) {

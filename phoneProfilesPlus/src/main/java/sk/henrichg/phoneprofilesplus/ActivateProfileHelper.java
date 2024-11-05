@@ -174,7 +174,8 @@ class ActivateProfileHelper {
 
                             //noinspection ConstantConditions
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(1000);
                                 firstSleepCalled = true;
                             }
 
@@ -201,7 +202,8 @@ class ActivateProfileHelper {
                     if (profile._deviceOnOffSIM2 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(1000);
                                 firstSleepCalled = true;
                             }
 
@@ -235,7 +237,8 @@ class ActivateProfileHelper {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
-                        GlobalUtils.sleep(300);
+                        // 300
+                        GlobalUtils.sleep(1000);
                         firstSleepCalled = true;
                     }
 
@@ -281,7 +284,8 @@ class ActivateProfileHelper {
         if (profile._deviceNetworkType >= 100) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+                    GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
 
@@ -297,7 +301,8 @@ class ActivateProfileHelper {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(1000);
                                 firstSleepCalled = true;
                             }
 
@@ -309,7 +314,8 @@ class ActivateProfileHelper {
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(1000);
                                 firstSleepCalled = true;
                             }
 
@@ -325,7 +331,7 @@ class ActivateProfileHelper {
         if (profile._deviceMobileData != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    // TODO 300
+                    // 300
                     GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
@@ -336,7 +342,7 @@ class ActivateProfileHelper {
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
-                boolean _isMobileData = (_isMobileDataSIM0 || (_isMobileDataSIM1 && _isMobileDataSIM2));
+                boolean _isMobileData = (_isMobileDataSIM0 || _isMobileDataSIM1 || _isMobileDataSIM2);
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
@@ -362,7 +368,7 @@ class ActivateProfileHelper {
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(2) _isMobileData="+_isMobileData);
                 if (_setMobileData) {
                     setMobileData(appContext, _isMobileData, 0);
-                    // TODO 200
+                    // 200
                     GlobalUtils.sleep(1000);
                 }
             }
@@ -375,7 +381,8 @@ class ActivateProfileHelper {
                     if (profile._deviceMobileDataSIM1 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(1000);
                                 firstSleepCalled = true;
                             }
 
@@ -414,7 +421,8 @@ class ActivateProfileHelper {
                     if (profile._deviceMobileDataSIM2 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(1000);
                                 firstSleepCalled = true;
                             }
 
@@ -459,7 +467,8 @@ class ActivateProfileHelper {
         if (profile._deviceWiFiAP != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+                    GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
 
@@ -558,7 +567,8 @@ class ActivateProfileHelper {
             if (profile._deviceWiFi != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
-                        GlobalUtils.sleep(300);
+                        // 300
+                        GlobalUtils.sleep(1000);
                         firstSleepCalled = true;
                     }
 
@@ -629,7 +639,8 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                     if (!firstSleepCalled) {
-                        GlobalUtils.sleep(300);
+                        // 300
+                        GlobalUtils.sleep(1000);
                         firstSleepCalled = true;
                     }
 
@@ -726,7 +737,8 @@ class ActivateProfileHelper {
         if (profile._deviceBluetooth != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+                    GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
 
@@ -787,7 +799,8 @@ class ActivateProfileHelper {
         if (profile._deviceLocationMode != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+                    GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
 
@@ -847,7 +860,8 @@ class ActivateProfileHelper {
         if (profile._deviceGPS != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+                    GlobalUtils.sleep(1000);
                     firstSleepCalled = true;
                 }
 
@@ -886,7 +900,8 @@ class ActivateProfileHelper {
         if (profile._deviceNFC != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+                    GlobalUtils.sleep(1000);
                     //noinspection UnusedAssignment
                     firstSleepCalled = true;
                 }
@@ -8097,7 +8112,10 @@ class ActivateProfileHelper {
                                                     }
                                                     boolean _isMobileData = false;
                                                     if (subscriptionType == SUBSCRIPTRION_DATA) {
-                                                        _isMobileData = isMobileData(appContext, 0);
+                                                        boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
+                                                        boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
+                                                        boolean _isMobileDataSIM0 = isMobileData(appContext, 0);
+                                                        _isMobileData = (_isMobileDataSIM0 || _isMobileDataSIM1 || _isMobileDataSIM2);
                                                         if (_isMobileData) {
                                                             setMobileData(context, false, 0);
                                                             //GlobalUtils.sleep(100);
