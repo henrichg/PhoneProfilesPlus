@@ -315,7 +315,7 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 +"|[BLUETOOTH]"
-                                                +"|[MOBILE_DATA]"
+                                                //+"|[MOBILE_DATA]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

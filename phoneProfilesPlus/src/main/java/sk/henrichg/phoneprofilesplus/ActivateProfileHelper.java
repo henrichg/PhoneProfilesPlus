@@ -339,11 +339,11 @@ class ActivateProfileHelper {
                 boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
                 boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
                 boolean _isMobileDataSIM0 = isMobileData(appContext, 0);
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
                 boolean _isMobileData = (_isMobileDataSIM0 || _isMobileDataSIM1 || _isMobileDataSIM2);
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
@@ -363,9 +363,9 @@ class ActivateProfileHelper {
                         _setMobileData = true;
                         break;
                 }
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "_setMobileData="+_setMobileData);
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(2) _isMobileData="+_isMobileData);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "_setMobileData="+_setMobileData);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(2) _isMobileData="+_isMobileData);
                 if (_setMobileData) {
                     setMobileData(appContext, _isMobileData, 0);
                     // 200
@@ -6798,7 +6798,7 @@ class ActivateProfileHelper {
         try {
             boolean enabled = false;
             if (Permissions.checkModifyPhone(appContext.getApplicationContext())) {
-                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.isMobileData", "granted READ_PHONE_STATE, ACCESS_NETWORK_STATE");
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.isMobileData", "granted READ_PHONE_STATE, ACCESS_NETWORK_STATE");
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {

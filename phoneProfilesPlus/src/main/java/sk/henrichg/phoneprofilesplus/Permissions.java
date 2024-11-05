@@ -836,8 +836,8 @@ class Permissions {
         try {
             boolean readPhoneState = ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
             boolean accessNetworkState = Permissions.hasPermission(context, Manifest.permission.ACCESS_NETWORK_STATE);
-            PPApplicationStatic.logE("[MOBILE_DATA] Permissions.checkModifyPhone", "readPhoneState="+readPhoneState);
-            PPApplicationStatic.logE("[MOBILE_DATA] Permissions.checkModifyPhone", "accessNetworkState="+accessNetworkState);
+//            PPApplicationStatic.logE("[MOBILE_DATA] Permissions.checkModifyPhone", "readPhoneState="+readPhoneState);
+//            PPApplicationStatic.logE("[MOBILE_DATA] Permissions.checkModifyPhone", "accessNetworkState="+accessNetworkState);
 
             return (readPhoneState && accessNetworkState);
         } catch (Exception e) {
