@@ -1211,8 +1211,6 @@ public class PPApplication extends Application
     @Override
     public void onCreate()
     {
-        PPApplicationStatic.logE("################# PPApplication.onCreate", "onCreate() start");
-
         /* Hm this resets start, why?!
         if (DebugVersion.enabled) {
             if (!ACRA.isACRASenderServiceProcess()) {
@@ -1236,6 +1234,13 @@ public class PPApplication extends Application
 
 
         super.onCreate();
+
+        PPApplicationStatic.logE("################# PPApplication.onCreate", "onCreate() start");
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            PPApplicationStatic.logE("##### PPApplication.onCreate", "PPP version="+pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")");
+        } catch (Exception ignored) {}
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {
@@ -1281,8 +1286,6 @@ public class PPApplication extends Application
             PPApplicationStatic.logE("##### PPApplication.onCreate", "kill PPApplication - not good");
             return;
         }
-
-        PPApplicationStatic.logE("##### PPApplication.onCreate", "continue onCreate()");
 
         PPApplicationStatic.createBasicExecutorPool();
         PPApplicationStatic.createProfileActiationExecutorPool();
