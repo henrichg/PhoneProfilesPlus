@@ -6783,6 +6783,7 @@ class ActivateProfileHelper {
         try {
             boolean enabled = false;
             if (Permissions.checkModifyPhone(appContext.getApplicationContext())) {
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.isMobileData", "granted READ_PHONE_STATE, MODIFY_PHONE_STATE");
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {
