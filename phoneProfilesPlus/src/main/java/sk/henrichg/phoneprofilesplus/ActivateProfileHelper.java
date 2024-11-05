@@ -330,13 +330,13 @@ class ActivateProfileHelper {
                     firstSleepCalled = true;
                 }
 
-                //boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
-                //boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
-                //boolean _isMobileDataSIM0= isMobileData(appContext, 0);
-                //PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
-                //PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
-                //PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
-                boolean _isMobileData = (isMobileData(appContext, 0) /*|| (_isMobileDataSIM1 && _isMobileDataSIM2)*/);
+                boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
+                boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
+                boolean _isMobileDataSIM0 = isMobileData(appContext, 0);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
+                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
+                boolean _isMobileData = (_isMobileDataSIM0 || (_isMobileDataSIM1 && _isMobileDataSIM2));
                 PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
