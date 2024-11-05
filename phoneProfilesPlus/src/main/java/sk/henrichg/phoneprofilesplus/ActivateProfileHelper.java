@@ -158,7 +158,9 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
-        int RADIOS_SLEEP = 1500;
+        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+
+        int RADIOS_SLEEP = 300;
         boolean firstSleepCalled = false;
 
         Context appContext = context.getApplicationContext();
@@ -175,6 +177,7 @@ class ActivateProfileHelper {
 
                             //noinspection ConstantConditions
                             if (!firstSleepCalled) {
+                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 sleep()");
                                 // 300
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
@@ -204,6 +207,7 @@ class ActivateProfileHelper {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 // 300
+                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 sleep()");
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
@@ -239,6 +243,7 @@ class ActivateProfileHelper {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         // 300
+                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceDefaultSIMCards sleep()");
                         GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
@@ -286,6 +291,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -303,6 +309,7 @@ class ActivateProfileHelper {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 // 300
+                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM1 sleep()");
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
@@ -316,6 +323,7 @@ class ActivateProfileHelper {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 // 300
+                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM2 sleep()");
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
@@ -333,6 +341,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -469,6 +478,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -569,6 +579,7 @@ class ActivateProfileHelper {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         // 300
+                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi sleep()");
                         GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
@@ -641,6 +652,7 @@ class ActivateProfileHelper {
                 if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                     if (!firstSleepCalled) {
                         // 300
+                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID sleep()");
                         GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
@@ -739,6 +751,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -746,6 +759,7 @@ class ActivateProfileHelper {
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(1) isBluetoothEnabled="+isBluetoothEnabled);
                     boolean setBluetoothState = false;
                     switch (profile._deviceBluetooth) {
                         case 1:
@@ -765,9 +779,8 @@ class ActivateProfileHelper {
                             setBluetoothState = true;
                             break;
                     }
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
                     PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled="+isBluetoothEnabled);
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(2) isBluetoothEnabled="+isBluetoothEnabled);
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
@@ -801,6 +814,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -862,6 +876,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -902,6 +917,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
+                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     //noinspection UnusedAssignment
                     firstSleepCalled = true;
@@ -958,21 +974,21 @@ class ActivateProfileHelper {
         return assistIsSet;
     }
 
-    private static void executeForRadios(Profile _profile, Context context, SharedPreferences _executedProfileSharedPreferences)
+    private static void executeForRadios(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences)
     {
-        if (_profile == null)
+        if (profile == null)
             return;
 
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
-            //Context appContext= appContextWeakRef.get();
-            Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
-            if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+            //Context appContext = appContextWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -1041,10 +1057,10 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+            //}
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     static boolean isAudibleRinging(int ringerMode, int zenMode/*, boolean onlyVibrateSilent*/) {
@@ -3587,18 +3603,18 @@ class ActivateProfileHelper {
             return null;
     }
 
-    static void executeForVolumes(Profile _profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences _executedProfileSharedPreferences) {
+    static void executeForVolumes(Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences executedProfileSharedPreferences) {
 //        PPApplicationStatic.recordException(new Exception("test"));
 
 
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-            Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
             if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3694,21 +3710,21 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setNotificationLed(Context context, final int value, SharedPreferences _executedProfileSharedPreferences) {
+    private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
 
             //Context appContext= appContextWeakRef.get();
             //Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) && (profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3767,21 +3783,21 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences _executedProfileSharedPreferences) {
+    private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
 
             //Context appContext= appContextWeakRef.get();
             //Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) && (profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3838,21 +3854,21 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences _executedProfileSharedPreferences) {
+    private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
 
             //Context appContext= appContextWeakRef.get();
             //Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) && (profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3924,9 +3940,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setScreenOn(final Context context) {
@@ -3962,11 +3978,11 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setScreenOff(Profile _profile, final Context context) {
+    private static void setScreenOff(Profile profile, final Context context) {
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setScreenOff");
 
             if (PPApplication.blockProfileEventActions)
@@ -3974,7 +3990,7 @@ class ActivateProfileHelper {
                 return;
 
             //Context appContext= appContextWeakRef.get();
-            Profile profile = profileWeakRef.get();
+            //Profile profile = profileWeakRef.get();
             //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -4013,9 +4029,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setScreenOnOff(Profile profile, Context context) {
@@ -4154,18 +4170,18 @@ class ActivateProfileHelper {
     }
 
     private static void setRingerMode(AudioManager audioManager, final int ringerMode) {
-        final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(audioManager);
-        Runnable runnable = () -> {
-            AudioManager audioManager1 = audioManagerWeakRef.get();
-            audioManager1.setRingerMode(ringerMode);
-        };
-        PPApplicationStatic.createSoundModeExecutorPool();
-        PPApplication.soundModeExecutorPool.submit(runnable);
+        //final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(audioManager);
+        //Runnable runnable = () -> {
+            //AudioManager audioManager = audioManagerWeakRef.get();
+            audioManager.setRingerMode(ringerMode);
+        //};
+        //PPApplicationStatic.createSoundModeExecutorPool();
+        //PPApplication.soundModeExecutorPool.submit(runnable);
     }
 
     static void requestInterruptionFilter(Context context, final int zenMode) {
         final Context appContext = context.getApplicationContext();
-        Runnable runnable = () -> {
+        //Runnable runnable = () -> {
             try {
                 //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
@@ -4191,9 +4207,9 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-        };
-        PPApplicationStatic.createSoundModeExecutorPool();
-        PPApplication.soundModeExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createSoundModeExecutorPool();
+        //PPApplication.soundModeExecutorPool.submit(runnable);
     }
 
     private static Bitmap _changeWallpaperGetBitmapFromUri(String wallpaperUri, Context appContext) {
@@ -4628,9 +4644,9 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void changeImageWallpaper(Profile _profile, Context context) {
+    private static void changeImageWallpaper(Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
 
         boolean canChangeWallpaper = true;
@@ -4638,18 +4654,18 @@ class ActivateProfileHelper {
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if (Build.VERSION.SDK_INT >= 29) {
-            if ((_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
-                    (_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
+            if ((profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
+                    (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
                 canChangeWallpaper = Settings.canDrawOverlays(context);
             }
         }
 
         if (canChangeWallpaper) {
-            Runnable runnable = () -> {
+            //Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
                 //Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
+                //Profile profile = profileWeakRef.get();
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
                 if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -4673,13 +4689,13 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+            //};
+            //PPApplicationStatic.createProfileActiationExecutorPool();
+            //PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
-    private static void changeWallpaperFromFolder(Profile _profile, Context context) {
+    private static void changeWallpaperFromFolder(Profile profile, Context context) {
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
@@ -4692,13 +4708,13 @@ class ActivateProfileHelper {
 
 //            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "(1)");
             final Context appContext = context.getApplicationContext();
-            final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+            //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
             //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-            Runnable runnable = () -> {
+            //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
                 //Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
+                //Profile profile = profileWeakRef.get();
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
                 if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -4805,23 +4821,23 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+            //};
+            //PPApplicationStatic.createProfileActiationExecutorPool();
+            //PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
-    private static void executeForRunApplications(Profile _profile, Context context) {
-        if (_profile._deviceRunApplicationChange == 1)
+    private static void executeForRunApplications(Profile profile, Context context) {
+        if (profile._deviceRunApplicationChange == 1)
         {
             // startActivity from background: Android 10 (API level 29)
             // Exception:
             // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
             if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
                 final Context appContext = context.getApplicationContext();
-                final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+                //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
                 //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-                Runnable runnable = () -> {
+                //Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
                     if (PPApplication.blockProfileEventActions)
@@ -4829,50 +4845,50 @@ class ActivateProfileHelper {
                         return;
 
                     //Context appContext= appContextWeakRef.get();
-                    Profile profile = profileWeakRef.get();
+                    //Profile profile = profileWeakRef.get();
                     //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                    if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForRunApplications);
-                                wakeLock.acquire(10 * 60 * 1000);
+                    //if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForRunApplications);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
+
+                        //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+                        //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
+
+                        for (String split : splits) {
+//                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
+                            int startApplicationDelay = Application.getStartApplicationDelay(split);
+//                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
+                            if (Application.getStartApplicationDelay(split) > 0) {
+                                RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
+                            } else {
+//                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
+                                doExecuteForRunApplications(appContext, profile._name, split);
                             }
-
-                            String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
-
-                            //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-                            //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
-
-                            for (String split : splits) {
-    //                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
-                                int startApplicationDelay = Application.getStartApplicationDelay(split);
-    //                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
-                                if (Application.getStartApplicationDelay(split) > 0) {
-                                    RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
-                                } else {
-    //                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
-                                    doExecuteForRunApplications(appContext, profile._name, split);
-                                }
-                                GlobalUtils.sleep(1000);
-                            }
-                        } catch (Exception e) {
-    //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
+                            GlobalUtils.sleep(1000);
+                        }
+                    } catch (Exception e) {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
-                };
-                PPApplicationStatic.createProfileActiationExecutorPool();
-                PPApplication.profileActiationExecutorPool.submit(runnable);
+                    //}
+                //};
+                //PPApplicationStatic.createProfileActiationExecutorPool();
+                //PPApplication.profileActiationExecutorPool.submit(runnable);
             }
         }
     }
@@ -7658,19 +7674,19 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setPowerSaveMode(Profile _profile, final Context context, SharedPreferences _executedProfileSharedPreferences) {
-        if (_profile._devicePowerSaveMode != 0) {
+    private static void setPowerSaveMode(Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
+        if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
-            final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-            final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-            Runnable runnable = () -> {
+            //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+            //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+            //Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
 
                 //Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
-                if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+                //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
@@ -7749,18 +7765,18 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
-            };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+                //}
+            //};
+            //PPApplicationStatic.createProfileActiationExecutorPool();
+            //PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
-    private static void lockDevice(Profile _profile, final Context context) {
+    private static void lockDevice(Profile profile, final Context context) {
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
             if (PPApplication.blockProfileEventActions)
@@ -7768,7 +7784,7 @@ class ActivateProfileHelper {
                 return;
 
             //Context appContext= appContextWeakRef.get();
-            Profile profile = profileWeakRef.get();
+            //Profile profile = profileWeakRef.get();
             //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -7869,9 +7885,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     @SuppressLint("WrongConstant")
