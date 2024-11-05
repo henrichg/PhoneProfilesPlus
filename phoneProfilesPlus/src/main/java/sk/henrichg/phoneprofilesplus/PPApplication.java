@@ -905,6 +905,7 @@ public class PPApplication extends Application
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
     static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
+    static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();

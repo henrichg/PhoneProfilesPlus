@@ -1638,8 +1638,11 @@ class DataWrapper {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
         PPApplication.updateGUI(false, false, context);
 
-        if (_profile != null)
-            ActivateProfileHelper.execute(context, _profile, forRestartEvents);
+        if (_profile != null) {
+            synchronized (PPApplication.activateProfileExecuteMutex) {
+                ActivateProfileHelper.execute(context, _profile, forRestartEvents);
+            }
+        }
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
