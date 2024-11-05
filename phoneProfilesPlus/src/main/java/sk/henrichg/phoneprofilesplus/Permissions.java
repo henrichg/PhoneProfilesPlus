@@ -834,8 +834,12 @@ class Permissions {
     }
     static boolean checkModifyPhone(Context context) {
         try {
-            return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
-                    (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE));
+            boolean readPhoneState = ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
+            boolean accessNetworkState = Permissions.hasPermission(context, Manifest.permission.ACCESS_NETWORK_STATE);
+            PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.isMobileData", "readPhoneState="+readPhoneState);
+            PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.isMobileData", "modifyPhoneState="+accessNetworkState);
+
+            return (readPhoneState && accessNetworkState);
         } catch (Exception e) {
             return false;
         }

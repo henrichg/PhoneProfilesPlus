@@ -414,7 +414,8 @@ class PreferenceAllowed {
             //Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
             // not working :-/
-            if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
+            //if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
+            if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_NETWORK_STATE)) {
                 if (ActivateProfileHelper.canSetMobileData(appContext)) {
                     if (profile != null) {
                         if (profile._deviceMobileData != 0)
