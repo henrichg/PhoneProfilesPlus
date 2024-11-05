@@ -174,7 +174,7 @@ class Permissions {
     private static final String PREF_CONTACTS_PERMISSION = "contactsPermission";
     private static final String PREF_LOCATION_PERMISSION = "locationPermission";
     private static final String PREF_MICROPHONE_PERMISSION = "microphonePermission";
-    private static final String PREF_MODIFY_PHONE_PERMISSION = "modifyPhonePermission";
+    //private static final String PREF_MODIFY_PHONE_PERMISSION = "modifyPhonePermission";
     private static final String PREF_PHONE_PERMISSION = "phonePermission";
     private static final String PREF_SENSORS_PERMISSION = "sensorsPermission";
     private static final String PREF_SMS_PERMISSION = "smsPermission";
@@ -3020,7 +3020,7 @@ class Permissions {
         editor.putBoolean(PREF_CONTACTS_PERMISSION, Permissions.checkContacts(context));
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
-        editor.putBoolean(PREF_MODIFY_PHONE_PERMISSION, Permissions.checkModifyPhone(context));
+        //editor.putBoolean(PREF_MODIFY_PHONE_PERMISSION, Permissions.checkModifyPhone(context));
         editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
         editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(/*context*/));
         editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(/*context*/));
@@ -3083,10 +3083,10 @@ class Permissions {
         return preferences.getBoolean(PREF_SMS_PERMISSION, false);
     }
 
-    static boolean getModifyPhonePermission(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_MODIFY_PHONE_PERMISSION, false);
-    }
+//    static boolean getModifyPhonePermission(Context context) {
+//        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+//        return preferences.getBoolean(PREF_MODIFY_PHONE_PERMISSION, false);
+//    }
 
     static boolean getPhonePermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);

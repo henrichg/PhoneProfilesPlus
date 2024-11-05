@@ -2460,13 +2460,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!smsPermission);
                         }
-                        if (!permissionsChanged) {
-                            // !!! must before of Permissions.checkPhone()
-                            boolean modifyPhonePermission = Permissions.checkModifyPhone(context);
-                            permissionsChanged = Permissions.getModifyPhonePermission(context) != modifyPhonePermission;
-                            // finish Editor when permission is disabled
-                            finishActivity = permissionsChanged && (!modifyPhonePermission);
-                        }
+//                        if (!permissionsChanged) {
+//                            // !!! must before of Permissions.checkPhone()
+//                            boolean modifyPhonePermission = Permissions.checkModifyPhone(context);
+//                            permissionsChanged = Permissions.getModifyPhonePermission(context) != modifyPhonePermission;
+//                            // finish Editor when permission is disabled
+//                            finishActivity = permissionsChanged && (!modifyPhonePermission);
+//                        }
                         if (!permissionsChanged) {
                             boolean phonePermission = Permissions.checkPhone(context);
                             permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
