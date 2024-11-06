@@ -70,6 +70,8 @@ class WifiScanner {
                 WifiScanWorker.fillWifiConfigurationList(context/*, false*/);
 
                 boolean canScan = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ (1) canScan="+canScan);
+
                 if (canScan) {
                     if (!ApplicationPreferences.applicationEventWifiScanIgnoreHotspot) {
                         if (Build.VERSION.SDK_INT < 30)
@@ -79,6 +81,7 @@ class WifiScanner {
                             canScan = !WifiApManager.isWifiAPEnabledA30(context);
                     }
                 }
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ (2) canScan="+canScan);
 
                 if (canScan) {
 
@@ -94,10 +97,12 @@ class WifiScanner {
                     //    if (wifiEventsExists)
                             scan = isLocationEnabled(context/*, scannerType*/);
                     //}
+//                    PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ scan="+scan);
                     if (!scan) {
                         // wifi scan events not exists
                         WifiScanWorker.cancelWork(context, fromDialog/*, null*/);
                     } else {
+//                        PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ prefEventWifiEnabledForScan="+ApplicationPreferences.prefEventWifiEnabledForScan);
                         if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                             final Context appContext = context.getApplicationContext();
                             // service restarted during scanning (prefEventWifiEnabledForScan is set to false at end of scan),
@@ -129,6 +134,8 @@ class WifiScanner {
                             //unlock();
                         }
 
+//                        PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ continue");
+
                         //noinspection ConstantConditions
                         if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
@@ -147,8 +154,10 @@ class WifiScanner {
                             wifiState = enableWifi(WifiScanWorker.wifi/*, wifiChangeHandler*/);
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+//                                PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ WIFI_STATE_ENABLED");
                                 /*WifiScanWorker.*/startScan(context);
                             } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
+//                                PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.doScan", "^^^^^^^^^ WIFI_STATE_ENABLING");
                                 WifiScanWorker.setScanRequest(context, false);
                                 WifiScanWorker.setWaitForResults(context, false);
                                 setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
@@ -269,8 +278,10 @@ class WifiScanner {
 
             boolean startScan = false;
             if (WifiScanWorker.wifi != null) {
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.startScan", "^^^^^^^^^ wifi.startScan()");
                 startScan = WifiScanWorker.wifi.startScan();
             }
+//            PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.startScan", "^^^^^^^^^ startScan="+startScan);
             if (!startScan) {
                 if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                     //if (Build.VERSION.SDK_INT >= 29)
@@ -318,6 +329,8 @@ class WifiScanner {
                 // Tested and scanning working ;-)
                 isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
+//            PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.enableWifi", "isWifiEnabled="+isWifiEnabled);
+//            PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.enableWifi", "isScanAlwaysAvailable="+isScanAlwaysAvailable);
             isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
             if (!isWifiEnabled)
             {
@@ -349,6 +362,7 @@ class WifiScanner {
                                 //else
                                 ActivateProfileHelper.setWifi(appContext, true);
                                 //_wifi.setWifiEnabled(true);
+//                                PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.enableWifi", "(1) @@@@@@@");
 
                                 long start = SystemClock.uptimeMillis();
                                 do {
@@ -356,6 +370,7 @@ class WifiScanner {
                                         break;
                                     if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
                                         GlobalUtils.sleep(5000);
+//                                        PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.enableWifi", "(2) @@@@@@@");
                                         scanner.startScan(appContext);
                                         break;
                                     }

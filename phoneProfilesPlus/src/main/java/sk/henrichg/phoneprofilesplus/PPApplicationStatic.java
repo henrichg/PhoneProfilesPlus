@@ -1811,6 +1811,7 @@ class PPApplicationStatic {
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, PPApplication.SCANNER_RESTART_WIFI_SCANNER);
             runCommand(context, commandIntent);
+//            PPApplicationStatic.logE("[BLUETOOTH] PPApplicationStatic.restartWifiScanner", "*******");
         } catch (Exception e) {
             recordException(e);
         }

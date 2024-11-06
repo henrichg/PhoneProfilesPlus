@@ -127,6 +127,7 @@ class PPExecutors {
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
+//        PPApplicationStatic.logE("[BLUETOOTH] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "%%%%%%%%%%%%%%%%");
         handleEventsMianWorker(EventsHandler.SENSOR_TYPE_BRIGHTNESS, MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG/*, 0*/);
     }
 

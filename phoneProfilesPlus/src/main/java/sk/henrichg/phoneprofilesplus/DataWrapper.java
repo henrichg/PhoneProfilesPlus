@@ -1638,6 +1638,11 @@ class DataWrapper {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
         PPApplication.updateGUI(false, false, context);
 
+//        try {
+//            PPApplicationStatic.logE("[BLUETOOTH] **** DataWrapper._activateProfile", Thread.currentThread().getStackTrace()[5].getClassName());
+//            PPApplicationStatic.logE("[BLUETOOTH] **** DataWrapper._activateProfile", Thread.currentThread().getStackTrace()[5].getMethodName());
+//        } catch (Exception ignored) {}
+
         if (_profile != null) {
             Runnable runnable = () -> {
                 synchronized (PPApplication.activateProfileExecuteMutex) {
@@ -2147,6 +2152,7 @@ class DataWrapper {
 
             //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             if ((EventStatic.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
+//                PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEvents", "(1)");
 
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -2192,9 +2198,11 @@ class DataWrapper {
 
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
+//                PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEvents", "(3)");
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_MANUAL_RESTART_EVENTS");
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS});
             } else {
+//                PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEvents", "(4)");
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_RESTART_EVENTS");
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS});
             }
@@ -2227,28 +2235,30 @@ class DataWrapper {
             resetAllEventsInDelayEnd(false);
         }
 
+//        PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEventsWithRescan", "call of restartEvents");
         restartEvents(unblockEventsRun, /*true, true,*/ manualRestart, logRestart/*, false*/);
 
         if (alsoRescan) {
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
-            boolean restart = false;
+            boolean rescan = false;
             if (ApplicationPreferences.applicationEventLocationEnableScanning)
-                restart = true;
+                rescan = true;
             else if (ApplicationPreferences.applicationEventWifiEnableScanning)
-                restart = true;
+                rescan = true;
             else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
-                restart = true;
+                rescan = true;
             else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                PPApplicationStatic.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
-                restart = true;
+                rescan = true;
             }
             else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                PPApplicationStatic.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
-                restart = true;
+                rescan = true;
             }
             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
-                restart = true;
-            if (restart) {
+                rescan = true;
+//            PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEventsWithRescan", "rescan="+rescan);
+            if (rescan) {
                 PPApplicationStatic.rescanAllScanners(context);
             }
         }
@@ -2284,6 +2294,7 @@ class DataWrapper {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+//                        PPApplicationStatic.logE("[BLUETOOTH] DataWrapper.restartEventsWithRescan", "(1) $$$$$$$$");
                         dataWrapper._restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 
                     } catch (Exception e) {
@@ -2302,8 +2313,10 @@ class DataWrapper {
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
-        else
+        else {
+//            PPApplicationStatic.logE("[BLUETOOTH] DataWrapper.restartEventsWithRescan", "(2) $$$$$$$$");
             _restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
+        }
 
         if (showToast && PPApplication.showToastForProfileActivation) {
             if (ApplicationPreferences.notificationsToast) {

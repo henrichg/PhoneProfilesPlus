@@ -91,8 +91,10 @@ public class MainWorker extends Worker {
 //                    PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "PPApplication.PACKAGE_NAME");
                     continue;
                 }
-//                else
+//                else {
 //                    PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
+//                    PPApplicationStatic.logE("[BLUETOOTH]  ****** MainWorker.doWork", "--------------- START tag=" + tag);
+//                }
 
                 switch (tag) {
                     case ORIENTATION_SCANNER_WORK_TAG:
