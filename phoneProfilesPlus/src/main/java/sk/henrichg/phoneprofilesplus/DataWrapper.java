@@ -1646,9 +1646,9 @@ class DataWrapper {
         if (_profile != null) {
             Runnable runnable = () -> {
                 synchronized (PPApplication.activateProfileExecuteMutex) {
-                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
+//                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
                     ActivateProfileHelper.execute(context, _profile, forRestartEvents);
-                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "execute END _profile._name=" + _profile._name);
+//                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "execute END _profile._name=" + _profile._name);
                 }
             };
             PPApplicationStatic.createProfileActiationExecutorPool();

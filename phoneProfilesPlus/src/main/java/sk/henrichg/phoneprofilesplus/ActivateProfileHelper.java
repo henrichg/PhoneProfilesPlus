@@ -158,7 +158,7 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
-        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+//        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
 
         int RADIOS_SLEEP = 300;
         boolean firstSleepCalled = false;
@@ -177,7 +177,7 @@ class ActivateProfileHelper {
 
                             //noinspection ConstantConditions
                             if (!firstSleepCalled) {
-                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 sleep()");
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 sleep()");
                                 // 300
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
@@ -207,7 +207,7 @@ class ActivateProfileHelper {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 // 300
-                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 sleep()");
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 sleep()");
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
@@ -243,7 +243,7 @@ class ActivateProfileHelper {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         // 300
-                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceDefaultSIMCards sleep()");
+//                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceDefaultSIMCards sleep()");
                         GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
@@ -291,7 +291,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -309,7 +309,7 @@ class ActivateProfileHelper {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 // 300
-                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM1 sleep()");
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM1 sleep()");
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
@@ -323,7 +323,7 @@ class ActivateProfileHelper {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
                                 // 300
-                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM2 sleep()");
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM2 sleep()");
                                 GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
@@ -341,7 +341,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -478,7 +478,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -579,7 +579,7 @@ class ActivateProfileHelper {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
                         // 300
-                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi sleep()");
+//                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi sleep()");
                         GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
@@ -652,7 +652,7 @@ class ActivateProfileHelper {
                 if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                     if (!firstSleepCalled) {
                         // 300
-                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID sleep()");
+//                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID sleep()");
                         GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
@@ -751,7 +751,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -759,7 +759,7 @@ class ActivateProfileHelper {
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(1) isBluetoothEnabled="+isBluetoothEnabled);
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(1) isBluetoothEnabled="+isBluetoothEnabled);
                     boolean setBluetoothState = false;
                     switch (profile._deviceBluetooth) {
                         case 1:
@@ -779,8 +779,8 @@ class ActivateProfileHelper {
                             setBluetoothState = true;
                             break;
                     }
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(2) isBluetoothEnabled="+isBluetoothEnabled);
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(2) isBluetoothEnabled="+isBluetoothEnabled);
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
@@ -790,12 +790,12 @@ class ActivateProfileHelper {
                         try {
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
                                 if (isBluetoothEnabled) {
-                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
+//                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
                                     // adb shell cmd bluetooth_manager enable
                                     bluetoothAdapter.enable();
                                 }
                                 else {
-                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
+//                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
                                     // adb shell cmd bluetooth_manager disable
                                     bluetoothAdapter.disable();
                                 }
@@ -814,7 +814,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -876,7 +876,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
@@ -917,7 +917,7 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
                     // 300
-                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC sleep()");
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC sleep()");
                     GlobalUtils.sleep(RADIOS_SLEEP);
                     //noinspection UnusedAssignment
                     firstSleepCalled = true;
