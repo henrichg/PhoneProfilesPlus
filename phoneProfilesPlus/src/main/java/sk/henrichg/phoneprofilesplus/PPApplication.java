@@ -1107,6 +1107,7 @@ public class PPApplication extends Application
 
     volatile static ExecutorService basicExecutorPool = null;
     volatile static ExecutorService profileActiationExecutorPool = null;
+    volatile static ExecutorService activateProfileExecuteExecutorPool = null;
     volatile static ExecutorService soundModeExecutorPool = null;
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;

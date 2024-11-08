@@ -1651,8 +1651,8 @@ class DataWrapper {
 //                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "execute END _profile._name=" + _profile._name);
                 }
             };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+            PPApplicationStatic.createActivateProfileExecuteExecutorPool();
+            PPApplication.activateProfileExecuteExecutorPool.submit(runnable);
         }
 
         if (/*(mappedProfile != null) &&*/ (!merged)) {

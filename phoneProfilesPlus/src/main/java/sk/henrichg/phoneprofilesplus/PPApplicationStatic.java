@@ -2440,6 +2440,10 @@ class PPApplicationStatic {
         if (PPApplication.profileActiationExecutorPool == null)
             PPApplication.profileActiationExecutorPool = Executors.newCachedThreadPool();
     }
+    static void createActivateProfileExecuteExecutorPool() {
+        if (PPApplication.activateProfileExecuteExecutorPool == null)
+            PPApplication.activateProfileExecuteExecutorPool = Executors.newCachedThreadPool();
+    }
     static void createSoundModeExecutorPool() {
         if (PPApplication.soundModeExecutorPool == null)
             PPApplication.soundModeExecutorPool = Executors.newCachedThreadPool();
