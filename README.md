@@ -60,7 +60,7 @@ __GitHub (better is using Droid-ify instead):__
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
 
-__If is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.__
+If is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.
 - [Show how](docs/install_apk_from_pc.md)
 
 ### Applications required for some PhoneProfilesPlus features:
