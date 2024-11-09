@@ -86,6 +86,15 @@ class StringConstants {
 
     static final String CONTACTS_FILTER_DATA_ALL = "[all]";
 
+    //⏲⧴⤇⤆⍈⍇⧗⧖
+    static final String DURATION_END = "⧗⍇";
+    static final String END_OF_ACTIVATION_TIME_END = "⧗⍇";
+    static final String END_OF_ACTIVATION_DURATION = "⧴";
+    static final String END_OF_ACTIVATION_TIME = "⧗";
+    static final String EVENT_DEALY_START = "⍈";
+    static final String EVENT_DEALY_END = "⍇";
+
+
     private StringConstants() {
         // private constructor to prevent instantiation
     }

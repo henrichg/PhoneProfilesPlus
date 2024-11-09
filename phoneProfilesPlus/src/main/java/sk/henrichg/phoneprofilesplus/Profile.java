@@ -3325,7 +3325,7 @@ class Profile {
                     //noinspection DataFlowIssue
                     long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
                     if (endDurationTime > 0) {
-                        durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                        durationString = "(" + StringConstants.DURATION_END + StringConstants.STR_COLON_WITH_SPACE + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
                         showEndTime = true;
                     }
                 }
@@ -3342,14 +3342,14 @@ class Profile {
                         //noinspection DataFlowIssue
                         long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
                         if (endDurationTime > 0) {
-                            durationString = "(" + context.getString(R.string.duration_end_acronym) + ":" +
+                            durationString = "(" + StringConstants.DURATION_END + StringConstants.STR_COLON_WITH_SPACE +
                                     ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
                             showEndTime = true;
                         }
                     }
                 }
                 if (!showEndTime) {
-                    durationString = "[" + context.getString(R.string.end_of_activation_duration_acronym) + ":" + StringFormatUtils.getDurationString(_duration) + "]";
+                    durationString = "[" + StringConstants.END_OF_ACTIVATION_DURATION + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_duration) + "]";
                 }
             }
         }
@@ -3373,7 +3373,7 @@ class Profile {
 
                             if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                                 // configured time is not expired
-                                durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
+                                durationString = "(" + StringConstants.END_OF_ACTIVATION_TIME_END + StringConstants.STR_COLON_WITH_SPACE +
                                         StringFormatUtils.getTimeString((int) endOfActivationTime) + ")";
                                 showEndTime = true;
                             }
@@ -3382,7 +3382,7 @@ class Profile {
                 }
                 if (!showEndTime) {
                     //if (!_checked)
-                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
+                        durationString = "[" + StringConstants.END_OF_ACTIVATION_TIME + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }

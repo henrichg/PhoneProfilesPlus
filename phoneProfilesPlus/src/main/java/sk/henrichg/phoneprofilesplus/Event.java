@@ -2845,7 +2845,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
 
         if (_isInDelayStart) {
-            String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
+            String evenName = _name + " (" + StringConstants.EVENT_DEALY_START +
                     StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayStart) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
@@ -3070,7 +3070,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
 
         if (_isInDelayEnd) {
-            String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
+            String evenName = _name + " (" + StringConstants.EVENT_DEALY_END +
                     StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayEnd) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
