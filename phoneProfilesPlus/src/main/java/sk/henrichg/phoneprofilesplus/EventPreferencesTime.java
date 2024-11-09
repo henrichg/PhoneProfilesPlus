@@ -268,7 +268,7 @@ class EventPreferencesTime extends EventPreferences {
                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
                                 alarmTime = computeAlarm(false/*, context*/);
                                 // date and time format by user system settings configuration
-                                alarmTimeS = "("+StringConstants.EVENT_END_TIME+") " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                alarmTimeS = StringConstants.EVENT_END_TIME+" " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 _value.append(StringConstants.TAG_BREAK_HTML);
                                 _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);
@@ -315,7 +315,7 @@ class EventPreferencesTime extends EventPreferences {
                                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
                                                 alarmTime = computeAlarm(false/*, context*/);
                                                 // date and time format by user system settings configuration
-                                                alarmTimeS = "("+StringConstants.EVENT_END_TIME+") " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                                alarmTimeS = StringConstants.EVENT_END_TIME + " " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                                 _value.append(StringConstants.TAG_BREAK_HTML);
                                                 _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append("-> ").append(alarmTimeS);

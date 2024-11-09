@@ -3325,7 +3325,7 @@ class Profile {
                     //noinspection DataFlowIssue
                     long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
                     if (endDurationTime > 0) {
-                        durationString = "(" + StringConstants.DURATION_END + StringConstants.STR_COLON_WITH_SPACE + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                        durationString = "(" + StringConstants.DURATION_END + " " + ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
                         showEndTime = true;
                     }
                 }
@@ -3342,14 +3342,14 @@ class Profile {
                         //noinspection DataFlowIssue
                         long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime.get(_id);
                         if (endDurationTime > 0) {
-                            durationString = "(" + StringConstants.DURATION_END + StringConstants.STR_COLON_WITH_SPACE +
+                            durationString = "(" + StringConstants.DURATION_END + " " +
                                     ProfileStatic.timeDateStringFromTimestamp(context, endDurationTime) + ")";
                             showEndTime = true;
                         }
                     }
                 }
                 if (!showEndTime) {
-                    durationString = "[" + StringConstants.END_OF_ACTIVATION_DURATION + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_duration) + "]";
+                    durationString = "[" + StringConstants.END_OF_ACTIVATION_DURATION + " " + StringFormatUtils.getDurationString(_duration) + "]";
                 }
             }
         }
@@ -3373,7 +3373,7 @@ class Profile {
 
                             if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                                 // configured time is not expired
-                                durationString = "(" + StringConstants.END_OF_ACTIVATION_TIME_END + StringConstants.STR_COLON_WITH_SPACE +
+                                durationString = "(" + StringConstants.END_OF_ACTIVATION_TIME_END + " " +
                                         StringFormatUtils.getTimeString((int) endOfActivationTime) + ")";
                                 showEndTime = true;
                             }
@@ -3382,7 +3382,7 @@ class Profile {
                 }
                 if (!showEndTime) {
                     //if (!_checked)
-                        durationString = "[" + StringConstants.END_OF_ACTIVATION_TIME + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
+                        durationString = "[" + StringConstants.END_OF_ACTIVATION_TIME + " " + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }
