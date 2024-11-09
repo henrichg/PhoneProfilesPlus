@@ -93,6 +93,8 @@ class StringConstants {
     static final String END_OF_ACTIVATION_TIME = "⧗";
     static final String EVENT_DEALY_START = "⍈";
     static final String EVENT_DEALY_END = "⍇";
+    static final String EVENT_START_TIME = "⧗";
+    static final String EVENT_END_TIME = "⧗";
 
 
     private StringConstants() {
