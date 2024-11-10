@@ -3438,7 +3438,8 @@ class PreferenceAllowed {
 
 //        Context appContext = context.getApplicationContext();
 
-        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
+        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme ||
+                (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT < 33))) {
             if (isShiuzkuGranted() == 1) {
                 preferenceAllowed = PREFERENCE_ALLOWED;
             } else if (isRooted() == 1) {

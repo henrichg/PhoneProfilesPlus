@@ -6132,6 +6132,54 @@ class ActivateProfileHelper {
         }
     }
 
+    private static void _setScreenTimeount(int screenTimeoutValue, boolean forceSet, Context appContext) {
+        //removeScreenTimeoutAlwaysOnView(context);
+        //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+        if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
+            // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
+            if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = screenTimeoutValue;
+            else
+                PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = screenTimeoutValue;
+        }
+        else {
+            if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme ||
+                    (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT < 33))) {
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    synchronized (PPApplication.rootMutex) {
+                        String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " "+screenTimeoutValue;
+                        try {
+                            ShizukuUtils.executeCommand(command1);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                        }
+                    }
+                } else
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+                    synchronized (PPApplication.rootMutex) {
+                        String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " "+screenTimeoutValue;
+                        Command command = new Command(0, /*false,*/ command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                        }
+                    }
+                }
+                else {
+                    if (Settings.System.getInt(appContext.getContentResolver(),
+                            Settings.System.SCREEN_OFF_TIMEOUT, -1) != screenTimeoutValue)
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, screenTimeoutValue);
+                }
+            } else {
+                if (Settings.System.getInt(appContext.getContentResolver(),
+                        Settings.System.SCREEN_OFF_TIMEOUT, -1) != screenTimeoutValue)
+                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, screenTimeoutValue);
+            }
+        }
+    }
+
     static void setScreenTimeout(int screenTimeout, boolean forceSet, Context context) {
         Context appContext = context.getApplicationContext();
 
@@ -6149,352 +6197,25 @@ class ActivateProfileHelper {
         //   <item>9</item>
         switch (screenTimeout) {
             case 1: // 15 seconds
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 15000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 15000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 15000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                        }
-                    } else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 15000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                    }
-                }
+                _setScreenTimeount(15000, forceSet, appContext);
                 break;
             case 2: // 30 seconds
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 30000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 30000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 30000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 30000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
-                    }
-                }
+                _setScreenTimeount(30000, forceSet, appContext);
                 break;
             case 3: // 1 minute
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 60000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 60000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 60000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 60000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
-                    }
-                }
+                _setScreenTimeount(60000, forceSet, appContext);
                 break;
             case 4: // 2 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 120000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 120000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 120000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 120000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
-                    }
-                }
+                _setScreenTimeount(120000, forceSet, appContext);
                 break;
             case 5: // 10 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 600000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 600000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 600000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 600000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
-                    }
-                }
+                _setScreenTimeount(600000, forceSet, appContext);
                 break;
-            /*case 6:
-                //2147483647 = Integer.MAX_VALUE
-                //18000000   = 5 hours
-                //86400000   = 24 hours
-                //43200000   = 12 hours
-                removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 86400000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000);
-                break;*/
             case 7: // 5 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 300000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 300000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 300000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 300000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
-                    }
-                }
+                _setScreenTimeount(300000, forceSet, appContext);
                 break;
-            /*case 8:
-                removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 86400000; //1800000;
-                else
-                    createScreenTimeoutAlwaysOnView(appContext);
-                break;*/
             case 9: // 30 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 1800000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 1800000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 1800000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 1800000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
-                    }
-                }
+                _setScreenTimeount(1800000, forceSet, appContext);
                 break;
         }
         setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
