@@ -298,7 +298,6 @@
     <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
     <string name="menu_activity_log_reload">Reload</string>
     <string name="event_preferences_atEndDo">More actions</string>
-    <string name="array_pref_atEndDo_none">None</string>
     <string name="array_pref_atEndDo_undoneProfile">Undo the profile</string>
     <string name="array_pref_atEndDo_restartEvents">Restart events</string>
     <string name="event_preference_profile_restartEvents">Restart</string>
@@ -2310,6 +2309,8 @@
 
     <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+
+    <string name="array_pref_atEndDo_none">Nothing</string>
 
     <!-- **************************************************************************************** -->
 
