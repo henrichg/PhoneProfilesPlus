@@ -1660,13 +1660,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme ||
-                (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT < 33))) {
+                (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT < 34))) {
             PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, preferences, true, context);
 
-                listPreference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceScreenTimeout));
-                listPreference.setDialogTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceScreenTimeout));
+                listPreference.setTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceScreenTimeout));
+                listPreference.setDialogTitle(StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceScreenTimeout));
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "");
                 setSummary(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, value);
 

@@ -284,7 +284,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 String profileName = profile._name;
                 if (event._manualProfileActivation)
                     profileName = StringConstants.STR_MANUAL_SPACE + profileName;
-                //TODO
                 if (event._delayStart > 0)
                    profileName = profileName + " [" + StringConstants.EVENT_DEALY_START + " " + StringFormatUtils.getDurationString(event._delayStart) + "] ";
                 profileStartName.setText(profileName);
@@ -387,7 +386,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             profileName = StringConstants.STR_MANUAL_SPACE +profile._name;
                         else
                             profileName = profile._name;
-                        //TODO
                         if (event._delayEnd > 0)
                             profileName =  profileName + " ["  + StringConstants.EVENT_DEALY_END + " " + StringFormatUtils.getDurationString(event._delayEnd) + "]";
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
@@ -442,7 +440,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     }
                 } else {
                     String profileName = "";
-                    //TODO
                     if (event._delayEnd > 0)
                        profileName = "[" +  StringConstants.EVENT_DEALY_END + " " + StringFormatUtils.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {

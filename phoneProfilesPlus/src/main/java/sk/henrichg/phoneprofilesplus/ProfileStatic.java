@@ -1015,7 +1015,7 @@ class ProfileStatic {
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE( null, sharedPreferences);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT:
-                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( preferenceKey, null, sharedPreferences/*, fromUIThread, context*/);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( preferenceKey, null, sharedPreferences/*, fromUIThread*/, context);
                     break;
                 case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS();
@@ -1080,7 +1080,7 @@ class ProfileStatic {
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM( "-", profile, sharedPreferences, fromUIThread, context, true);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS( profile, sharedPreferences, fromUIThread, context);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE( profile, sharedPreferences);
-            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( "-", profile, sharedPreferences/*, fromUIThread, context*/);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( "-", profile, sharedPreferences/*, fromUIThread*/, context);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( profile, sharedPreferences, fromUIThread, context);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS();
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
