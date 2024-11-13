@@ -142,7 +142,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     try {
-                        boolean getVersion;
+                        boolean gitHubInstallation;
                         //if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
                         //    getVersion = false;
                         //else
@@ -166,9 +166,9 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                             boolean neostoreInstalled = (intent != null);
 
-                            getVersion = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled);
+                            gitHubInstallation = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled);
                         //}
-                        if (getVersion)
+                        if (gitHubInstallation)
                             _doWorkGitHub(appContext);
                         else
                             _doWorkOthers(appContext);
