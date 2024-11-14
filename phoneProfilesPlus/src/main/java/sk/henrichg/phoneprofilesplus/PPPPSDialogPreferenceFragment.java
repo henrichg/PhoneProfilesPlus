@@ -341,7 +341,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             @Override
             public void onClick(@NonNull View textView) {
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                    // In One UI is bug in ststem downloader. Chrome, as default browser, do not downlaod
+                    // In One UI is bug in system downloader. Chrome, as default browser, do not downlaod
                     // For this reason used is DownloadManager
                     try {
                         String text = activity.getString(R.string.downloading_toast_text);

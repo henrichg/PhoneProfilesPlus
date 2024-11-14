@@ -351,21 +351,6 @@ Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o
 
 -----------------------
 
-6.4:
-- Add: Added support for Shizuku for some profile parameters which requires ROOT.
-- Change: Event priority displayed in Editor as sensor, also with pass status.
-- Change: Added "Do Not Use" event priority. This event will be started, even when is running event with higher priority.
-- Change: Added filter into contacts dialog.
-- Change: Added special dialog for "Draw over apps" permission with link to web page with solutions, when is not possible to grant this permission.
-- Change: Added button about installation from GitHub in Extender installation dialog, when installation is from Galaxy Store. Because Galaxy Store requires Samsung Account.
-- Change: For activation of profile from Activator: direct open of profile preferences, if in it are some errors.
-- Change: Changes in check for latest Extender and PPPPS version and installation of dialogs.
-- Change: Updated Features in README.md.
-- Fixed bugs
-- Updated translations
-
--------------------
-
 java.lang.IllegalStateException: You are adding too many system settings.
 You should stop using system settings for app specific data package: sk.henrichg.phoneprofilesplus
 
@@ -486,4 +471,142 @@ Fix: Not working send e-mail with attachments in Android 15.
 Fix: Do not ask for grant Shizuku if is PPPPS installed.
 Fix: Fixed "Custom color dialog" for "Restart events icon".
 Fix: Detection of BTLE devices (watch).
+
+----------
+
+Check novych verzii PPP:
+
+Keď nemám Droid-ify. Čo urobím? Otvorím GitHub? Týka sa to denného checku, mesačného aj toho z menu?
+Lebo ma napadlo, ze ak nema Dorid-ify, mohol by som testnut NeoStore a ak ani to, tak F-Droid.
+U F-Droid mam problem, ze nema default IzzyOnDroid. Hm.
+
+---
+
+Raz denne - toto notifikuje novu verziu, ked naozaj vyjde v IzzyOnDroid:
+Hlada verziu, co je v releases.md
+TU MUSI BYT verzia z releases.md v IzzyOnDroid. Ak nie je, nenotifikuje.
+CheckCriticalPPPReleasesBroadcastReceiver pozera pre API >=33 IzzyOnDroid repo,
+ zorbrai notifikaciu k tam JE pppReleaseData.versionCodeInReleases.
+Pre nizsie API hned zobrazi notifikaciu.
+Notifikacia otvara CheckPPPReleasesActivity s:
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
+
+---
+
+Mesacne - toto je len taky check, ze "Kukni sa , ci nahodou nie je vonku nova verzia":
+Testuje, co je nainstalovane Droid-ify, NeoStore, F-Droid a podla toho robi:
+1. nie je aplikacia:
+Hlada verziu, co je v releases.md
+- Pre API >= 33 pozera IzzyOnDroid repo, hlada tam pppReleaseData.versionCodeInReleases,
+  zobrazi notifikaciu ak NIE JE v IzzyOnDroid - bude pozerat do GitHub.
+- Pre nizsie API hned zobrazi notifikaciu - bude pozerat do GitHub.
+2. je aplikacia:
+Hned zobrazi notifikaciu - istalovat sa bude aplikaciou.
+Notifikacia otvara CheckPPPReleasesActivity s:
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
+
+---
+
+CheckPPPReleasesActivity:
+Na tie 2 pripady hore nie je menuItem nastavene, takze sa volashowDialog kde sa menuItem da podla
+EXTRA_CRITICAL_CHECK na -1 alebo -2.
+
+- Ked je criticalCheck = false. Podla toho, co je nainstalovane sa vola prislusny obchod. TOTO JE SUPER:
+    if (droidifyInstalled)
+        checkInDroidIfy(activity, false);
+    else if (neostoreInstalled)
+        checkInNeoStore(activity);
+    else if (fdroidInstalled)
+        checkInFDroid(activity);
+    else {
+        if (Build.VERSION.SDK_INT < 33)
+            checkInGitHub(activity, false);
+        else {
+            checkInDroidIfy(activity, true);
+        }
+    }
+  Akurat musis pozriet ked nema ziaden obchod Tak bud natvrdo chce Droid-Ify (checkInDroidIfy())
+  alebo GitHub (checkInGitHub()). Toto podla API verzie.
+  checkInDroidIfy(): Zobrazi dialog na instalciu PPP cez Droid-ify a ak nie je nainstalovane Droid-ify,
+                      dialog ponuka jeho instalaciu.
+  checkInGitHub(): Zobrazi dialog na instalciu PPP, cisto len z GitHub.
+
+  Takze ak nie je ziadna apka, natvrdo pyta Drodi-ify. Myslim, ze toto moze byt. Droid-ify je preferovane,
+  ale ak ma nainstaloane nieoc ine, pouzije to.
+
+- Ked je criticalCheck = true. Tu je pytany Drodi-ify:
+    if (Build.VERSION.SDK_INT < 33)
+        checkInGitHub(activity, false);
+    else {
+        checkInDroidIfy(activity, true);
+    }
+  Musis pozriet: bud natvrdo chce Droid-Ify (checkInDroidIfy()) alebo GitHub (checkInGitHub()).
+  Toto podla API verzie.
+  checkInDroidIfy(): Zobrazi dialog na instalciu PPP cez Droid-ify a ak nie je nainstalovane Droid-ify,
+                      dialog ponuka jeho instalaciu.
+  checkInGitHub(): Zobrazi dialog na instalciu PPP, cisto len z GitHub.
+
+  !!!
+  Tu bez ohladu na to, ci ma naistalovanu inu apku, pyta Droid-ify natvrdo. Tu musi tiez pozerat aplikacie
+  a ponukat nainstalovanu.
+  HOTOVO
+
+---
+
+Z Editor menu - GitHub (toto je v CheckPPPReleasesActivity.showDialog()):
+    if (Build.VERSION.SDK_INT < 33)
+        checkInGitHub(activity, false);
+    else {
+        checkInDroidIfy(activity, true);
+    }
+
+  checkInDroidIfy(): Zobrazi dialog na instalciu PPP cez Droid-ify a ak nie je nainstalovane Droid-ify,
+                      dialog ponuka jeho instalaciu.
+  checkInGitHub(): Zobrazi dialog na instalciu PPP, cisto len z GitHub.
+
+  Toto je OK, ma to ponuknut dialog na Droid-ify pre API 33+, Je v nom poznamka o tom, ze instalacia
+  z GitHub nie je podporovana a je tam tl. na otvorenie Droid-ify.
+  Ked nie je Droid-ify nainstalovane, zobrazuje link na IzzyOnDroid, pre API >= 33 pise, ze stiahnutie apk
+  nie je podporovane. Ponuka tl. na instalaciu Droid-ify.
+
+-------------
+
+Check novych verzii PPPE a PPPPS:
+
+Tu notifikaciu zobrazuje ImportantInfoNotification.
+Zobrazuje sa:
+- v momente ked povolim notifkacie pre PPP
+- ked startne PPP servis
+Cize nie az tak casto. Ale tu sa netestuje, ci su naistalovane stores a podobne. Len sa zobrazi otifikacia.
+
+PPPE a PPPPS ale sa da instalovat aj z prislusnych dialogov, co sa otvoria z preferences.
+Dalej sa da instalovat z ImportantInfoActivity.
+
+Na instalaciu sa vola:
+ExtenderDialogPreferenceFragment.installPPPExtender()
+- ak ma daky store instalovany, instaluje natvrdo zo storu
+- ak nema store instalovany:
+  - pre API 33+: ponuka instalciu Droid-ify -> vola installDroidIfy(), a az potom moze PPPE instalovat.
+  - pre nizsie API instaluje z GitHub -> installExtenderFromGitHub()
+    - upozornuje ze nie je podporvana instalacia zo stiahnuteho APK pre API >= 33.
+      Ale toto podla mna nema zmysel, kedze installExtenderFromGitHub() je volany vzdy len pre API < 33.
+
+PPPPSDialogPreferenceFragment.installPPPPutSettings()
+Pre API < 34:
+- ak ma daky store instalovany, instaluje natvrdo zo storu
+- ak nema store instalovany:
+  - pre API 33+: ponuka instalciu Droid-ify -> vola installDroidIfy(), a az potom moze PPPE instalovat.
+  - pre nizsie API instaluje z GitHub -> installExtenderFromGitHub()
+    - upozornuje ze nie je podporvana instalacia zo stiahnuteho APK pre API >= 33.
+      Ale toto podla mna nema zmysel, kedze installExtenderFromGitHub() je volany vzdy len pre API < 33.
+Pre API >= 34:
+- vola installPPPPutSettingsFromGitHub34()
+  - je tam link na InstallWithOptions, klik ho downloadne.
+  - je tam dalsi link na downlaod PPPPS.
+  - je tam navod ako naistalovat PPPS pomocou InstallWithOptions.
+
 

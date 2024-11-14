@@ -215,6 +215,25 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
 
         if (!displayed) {
+            if ((store == -1) || (store == -2)) {
+                // -1: CheckPPPReleasesBroadcastReceiver
+                // -2: CheckCriticalPPPReleasesBroadcastReceiver
+
+                if (droidifyInstalled)
+                    checkInDroidIfy(activity, false);
+                else if (neostoreInstalled)
+                    checkInNeoStore(activity);
+                else if (fdroidInstalled)
+                    checkInFDroid(activity);
+                else {
+                    if (Build.VERSION.SDK_INT < 33)
+                        checkInGitHub(activity, false);
+                    else {
+                        checkInDroidIfy(activity, true);
+                    }
+                }
+            }
+/*
             if (store == -1) {
                 // this is for
                 // - CheckPPPReleasesBroadcastReceiver
@@ -252,6 +271,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     checkInDroidIfy(activity, true);
                 }
             }
+ */
         }
     }
 
