@@ -166,7 +166,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                             boolean neostoreInstalled = (intent != null);
 
-                            gitHubInstallation = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled);
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
+                            boolean apkPureInstalled = (intent != null);
+
+                            gitHubInstallation = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled || apkPureInstalled);
                         //}
                         if (gitHubInstallation)
                             _doWorkGitHub(appContext);

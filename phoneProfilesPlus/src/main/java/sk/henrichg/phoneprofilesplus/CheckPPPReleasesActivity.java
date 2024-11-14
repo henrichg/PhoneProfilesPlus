@@ -163,6 +163,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //boolean appGalleryInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
         boolean neostoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
+        boolean apkPureInstalled = (intent != null);
 
         boolean displayed = false;
 
@@ -225,6 +227,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     checkInNeoStore(activity);
                 else if (fdroidInstalled)
                     checkInFDroid(activity);
+                else if (apkPureInstalled)
+                    checkInAPKPure(activity);
                 else {
                     if (Build.VERSION.SDK_INT < 33)
                         checkInGitHub(activity, false);
@@ -254,6 +258,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         checkInNeoStore(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
+                    else if (apkPureInstalled)
+                        checkInAPKPure(activity);
                     else {
                         if (Build.VERSION.SDK_INT < 33)
                             checkInGitHub(activity, false);
