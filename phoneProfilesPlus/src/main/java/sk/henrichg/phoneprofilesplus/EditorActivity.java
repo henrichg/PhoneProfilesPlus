@@ -1499,18 +1499,18 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
-        else
-        if (itemId == R.id.menu_twitter) {
-            String url = PPApplication.TWITTER_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
+//        else
+//        if (itemId == R.id.menu_twitter) {
+//            String url = PPApplication.TWITTER_URL;
+//            intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse(url));
+//            try {
+//                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+//            } catch (Exception e) {
+//                PPApplicationStatic.recordException(e);
+//            }
+//            return true;
+//        }
         else
         if (itemId == R.id.menu_reddit) {
             String url = PPApplication.REDDIT_URL;

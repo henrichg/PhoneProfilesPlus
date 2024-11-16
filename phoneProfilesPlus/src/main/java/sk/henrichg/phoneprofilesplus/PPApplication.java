@@ -130,7 +130,7 @@ public class PPApplication extends Application
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
-    static final String TWITTER_URL = "https://x.com/henrichg";
+//    static final String TWITTER_URL = "https://x.com/henrichg";
     static final String REDDIT_URL = "https://www.reddit.com/user/henrichg/";
     static final String BLUESKY_URL = "https://bsky.app/profile/henrichg.bsky.social";
     static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258733424504737936";
