@@ -230,6 +230,18 @@ public class ImportantInfoActivity extends AppCompatActivity {
             }
             return true;
         }
+        else
+        if (itemId == R.id.menu_mastodon) {
+            String url = PPApplication.MASTODON_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
         else {
             return false;
         }

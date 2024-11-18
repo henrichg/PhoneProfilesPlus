@@ -2312,6 +2312,8 @@
 
     <string name="array_pref_atEndDo_none">Nothing</string>
 
+    <string name="menu_mastodon" translatable="false">Mastodon</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

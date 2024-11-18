@@ -139,6 +139,7 @@ public class PPApplication extends Application
     //static final String DISCORD_HELP_URL = "https://discord.com/channels/1258733423426670633/1261141698638250004";
     //static final String DISCORD_BUGS_URL = "https://discord.com/channels/1258733423426670633/1261143124827312192";
     //static final String DISCORD_SUGGESTIONS_URL = "https://discord.com/channels/1258733423426670633/1261143274895314976";
+    static final String MASTODON_URL = "https://mastodon.social/@henrichg";
 
     // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
     // In it is possible to get this url with "Get link".
