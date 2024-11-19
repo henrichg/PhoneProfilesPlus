@@ -340,8 +340,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="fcb21f" />
-                            <entry key="outputName" value="ic_launcher_monochrome" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../_balast/ic_launcher_ppp/drawable/ic_launcher_monochrome.svg" />
+                            <entry key="outputName" value="ic_email" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/email.svg" />
                           </map>
                         </option>
                       </PersistentState>
