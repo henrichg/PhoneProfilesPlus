@@ -943,7 +943,7 @@ public class EditorActivity extends AppCompatActivity
 //        if (menuItem != null) {
 //            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
 //            if (intent != null)
-//                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_galaxy_store));
+//                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_galaxy_store));
 //            else
 //                menuItem.setTitle(R.string.menu_check_releases_galaxy_store);
 //        }
@@ -951,7 +951,7 @@ public class EditorActivity extends AppCompatActivity
 //        if (menuItem != null) {
 //            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
 //            if (intent != null)
-//                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_appgallery));
+//                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_appgallery));
 //            else
 //                menuItem.setTitle(R.string.menu_check_releases_appgallery);
 //        }
@@ -959,7 +959,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_droidify));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_droidify));
             else
                 menuItem.setTitle(R.string.menu_check_releases_droidify);
         }
@@ -967,7 +967,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_neostore));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_neostore));
             else
                 menuItem.setTitle(R.string.menu_check_releases_neostore);
         }
@@ -975,7 +975,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_fdroid));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_fdroid));
             else
                 menuItem.setTitle(R.string.menu_check_releases_fdroid);
         }
@@ -983,7 +983,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_apkpure));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_apkpure));
             else
                 menuItem.setTitle(R.string.menu_check_releases_apkpure);
         }

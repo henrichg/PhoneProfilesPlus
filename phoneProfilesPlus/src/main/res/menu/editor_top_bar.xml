@@ -176,22 +176,27 @@
             <item android:id="@+id/menu_check_in_droidify"
                 android:title="@string/menu_check_releases_droidify"
                 android:orderInCategory="102"
+                android:icon="@drawable/ic_droidify"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_neostore"
                 android:title="@string/menu_check_releases_neostore"
                 android:orderInCategory="103"
+                android:icon="@drawable/ic_neostore"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_fdroid"
                 android:title="@string/menu_check_releases_fdroid"
                 android:orderInCategory="104"
+                android:icon="@drawable/ic_fdroid"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_apkpure"
                 android:title="@string/menu_check_releases_apkpure"
                 android:orderInCategory="105"
+                android:icon="@drawable/ic_apkpure"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_github"
                 android:title="@string/menu_check_releases_github"
                 android:orderInCategory="110"
+                android:icon="@drawable/ic_github"
                 app:showAsAction="never" />
         </menu>
 
