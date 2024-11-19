@@ -2188,7 +2188,6 @@
     <string name="menu_discord" translatable="false">Discord</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
     <string name="menu_discord_invitation">Server invitation</string>
-    <string name="menu_twitter" translatable="false">Twitter/X</string>
     <string name="menu_reddit" translatable="false">Reddit</string>
     <string name="menu_bluesky" translatable="false">Bluesky</string>
     <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
@@ -2380,7 +2379,6 @@
     <string name="extender_menu_discord" translatable="false">Discord</string>
     <string name="extender_menu_discord_server">PhoneProfilesPlus server</string>
     <string name="extender_menu_discord_invitation">Server invitation</string>
-    <string name="extender_menu_twitter" translatable="false">Twitter/X</string>
     <string name="extender_menu_reddit" translatable="false">Reddit</string>
     <string name="extender_menu_bluesky" translatable="false">Bluesky</string>
     <string name="extender_notification_channel_exclamation">Exclamation</string>
@@ -2422,7 +2420,6 @@
     <string name="pppputsettings_menu_discord" translatable="false">Discord</string>
     <string name="pppputsettings_menu_discord_server">PhoneProfilesPlus server</string>
     <string name="pppputsettings_menu_discord_invitation">Server invitation</string>
-    <string name="pppputsettings_menu_twitter" translatable="false">Twitter/X</string>
     <string name="pppputsettings_menu_reddit" translatable="false">Reddit</string>
     <string name="pppputsettings_menu_bluesky" translatable="false">Bluesky</string>
     <string name="pppputsettings_menu_mastodon" translatable="false">Mastodon</string>
