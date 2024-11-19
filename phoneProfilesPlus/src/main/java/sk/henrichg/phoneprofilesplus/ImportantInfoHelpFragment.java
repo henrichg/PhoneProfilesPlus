@@ -675,6 +675,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     PopupMenu popup;
                     popup = new PopupMenu(activity, supportText, Gravity.START | Gravity.BOTTOM);
                     new MenuInflater(activity).inflate(R.menu.menu_support, popup.getMenu());
+                    // used is MenuPopupHelper to show icons
                     MenuPopupHelper menuHelper = new MenuPopupHelper(activity, (MenuBuilder) popup.getMenu(), v);
                     menuHelper.setForceShowIcon(true);
                     //menuHelper.setGravity(Gravity.END);
