@@ -97,7 +97,7 @@ class StringConstants {
     static final String EVENT_END_TIME = "⧗";
 
     //static final String CHAR_SQUARE = "■";
-    static final String INSTALLED_STORE_INDICATOR = "⭆";
+    static final String INSTALLED_STORE_INDICATOR = "•"; //"⭆";
 
     private StringConstants() {
         // private constructor to prevent instantiation
