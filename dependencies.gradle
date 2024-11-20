@@ -5,13 +5,13 @@ ext.ppVersions = [
 
         // Add new version, published in GitHub Relases, also into Discord PPP server
 
-        publishVersion    : '7.0.0.1b',
-        publishVersionCode: 7219,
+        publishVersion    : '7.0.1b',
+        publishVersionCode: 7220,
 
         minSdk            : 26,
         targetSdk         : 28,
-        compileSdk        : 35,
-        buildTools        : '35.0.0',
+        compileSdk        : 34, // required for NFC enable/disable, by me bug is in reginer android.jar for API 35
+        buildTools        : '34.0.0',
 
         appcompatXLib     : '1.7.0', //'1.6.1', //'1.5.1',
         kotlinStdlibJdk8  : '1.8.22', // appcompat 1.7.0 - dependencies problem, this fixed it
