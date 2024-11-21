@@ -102,8 +102,7 @@ dependencies {
     /////
 
     /// for usage of WorkManager
-    //noinspection GradleDependency
-    implementation 'androidx.work:work-runtime:2.9.1' //2.8.1'
+    implementation 'androidx.work:work-runtime:2.10.0' //2.9.1' //2.8.1'
 
     /// for fix bitmaps orietnation
     implementation 'androidx.exifinterface:exifinterface:1.3.7'

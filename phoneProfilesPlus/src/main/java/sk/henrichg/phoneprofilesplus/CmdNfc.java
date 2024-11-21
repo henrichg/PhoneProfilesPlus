@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.nfc.INfcAdapter;
+import android.os.Build;
 import android.os.ServiceManager;
 import android.util.Log;
 
@@ -27,15 +28,21 @@ public class CmdNfc {
     // requires android.permission.WRITE_SECURE_SETTINGS
     static boolean setNFC(boolean enable) {
         try {
-            INfcAdapter adapter = INfcAdapter.Stub.asInterface(ServiceManager.getService("nfc")); // service list | grep INfcAdapter
-            return enable ? adapter.enable(/*PPApplication.PACKAGE_NAME*/) : adapter.disable(true/*, PPApplication.PACKAGE_NAME*/);
+            INfcAdapter adapter = INfcAdapter.Stub.asInterface(ServiceManager.getService("nfc"));
+            if (Build.VERSION.SDK_INT >= 35) {
+                return enable ? adapter.enable(PPApplication.PACKAGE_NAME) : adapter.disable(true, PPApplication.PACKAGE_NAME);
+            } else {
+                return enable ? ReflectUtils.reflect(adapter).method("enable").get() : ReflectUtils.reflect(adapter).method("disable", true).get();
+            }
+            //INfcAdapter adapter = INfcAdapter.Stub.asInterface(ServiceManager.getService("nfc")); // service list | grep INfcAdapter
+            //return enable ? adapter.enable(/*PPApplication.PACKAGE_NAME*/) : adapter.disable(true/*, PPApplication.PACKAGE_NAME*/);
         } catch (Throwable e) {
             PPApplicationStatic.logException("CmdNfc.setNFC", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
             return false;
         }
     }
-
+    /*
     static void setNFC35(boolean enable) {
         if (ShizukuUtils.hasShizukuPermission()) {
             synchronized (PPApplication.rootMutex) {
@@ -47,11 +54,11 @@ public class CmdNfc {
                 }
             }
         } else {
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted()) {
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMobileData", "PPApplication.rootMutex");
                 synchronized (PPApplication.rootMutex) {
                     String command1 = "svc nfc " + (enable ? "enable" : "disable");
-                    Command command = new Command(0, /*false,*/ command1);
+                    Command command = new Command(0, command1);
                     try {
                         RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                         RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_MOBILE_DATA);
@@ -62,5 +69,6 @@ public class CmdNfc {
             }
         }
     }
+    */
 
 }

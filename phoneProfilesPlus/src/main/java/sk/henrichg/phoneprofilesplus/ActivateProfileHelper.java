@@ -7157,35 +7157,31 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
-        if (Build.VERSION.SDK_INT >= 35) {
-            CmdNfc.setNFC35(enable);
-        } else {
-            boolean G1OK = false;
-            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                CmdNfc.setNFC(enable);
-                G1OK = true;
-            }
-            if (!G1OK) {
-                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                        (RootUtils.isRooted(/*false*/))) {
+        boolean G1OK = false;
+        if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+            CmdNfc.setNFC(enable);
+            G1OK = true;
+        }
+        if (!G1OK) {
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                    (RootUtils.isRooted(/*false*/))) {
 //                PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setNFC", "PPApplication.rootMutex");
-                    synchronized (PPApplication.rootMutex) {
-                        String command1 = RootUtils.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
-                        if (command1 != null) {
-                            Command command = new Command(0, /*false,*/ command1);
-                            try {
-                                RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                                RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_NFC);
-                            } catch (Exception e) {
-                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
-                                //PPApplicationStatic.recordException(e);
-                            }
+                synchronized (PPApplication.rootMutex) {
+                    String command1 = RootUtils.getJavaCommandFile(CmdNfc.class, "nfc", appContext, enable);
+                    if (command1 != null) {
+                        Command command = new Command(0, /*false,*/ command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_NFC);
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
+                            //PPApplicationStatic.recordException(e);
                         }
-                        //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-                        //if (command != null)
-                        //  RootToolsSmall.runSuCommand(command);
                     }
+                    //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
+                    //if (command != null)
+                    //  RootToolsSmall.runSuCommand(command);
                 }
             }
         }

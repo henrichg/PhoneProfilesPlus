@@ -874,104 +874,46 @@ class PreferenceAllowed {
         if (PPApplication.HAS_FEATURE_NFC)
         {
             // device has nfc
-            if (Build.VERSION.SDK_INT >= 35) {
-                if (isShiuzkuGranted(true) == 1) {
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                if (profile != null) {
+                    if (profile._deviceNFC != 0)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
                     preferenceAllowed = PREFERENCE_ALLOWED;
-                }
-                else
-                if (isRooted() == 1) {
-                    // device is rooted
+            } else if (isRooted() == 1) {
 
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._deviceNFC != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                return;
-                            }
-                        }
-                    } else if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return;
-                            }
-                        }
-                    }
-
-                    if (profile != null) {
-                        if (profile._deviceNFC != 0)
-                            preferenceAllowed = PREFERENCE_ALLOWED;
-                    } else
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                }
-                else {
-                    if (profile != null) {
-                        if (profile._deviceNFC != 0) {
-//                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PPREF_PROFILE_DEVICE_NFC", "(1) Shizuku not granted");
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if (profile._deviceNFC != 0) {
+                        if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                            notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                            notAllowedShizuku = true;
-                        } else
-                            preferenceAllowed = PREFERENCE_ALLOWED;
-                    } else {
-                        //noinspection ConstantConditions
-                        if (sharedPreferences != null) {
-                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-//                                PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC", "(2) Shizuku not granted");
-                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
-                                notAllowedShizuku = true;
-                            } else
-                                preferenceAllowed = PREFERENCE_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
+                        }
+                    }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
                         }
                     }
                 }
+
+                if (profile != null) {
+                    if (profile._deviceNFC != 0)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
             } else {
-                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (profile != null) {
-                        if (profile._deviceNFC != 0)
-                            preferenceAllowed = PREFERENCE_ALLOWED;
-                    } else
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                } else if (isRooted() == 1) {
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._deviceNFC != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                return;
-                            }
-                        }
-                    } else if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return;
-                            }
-                        }
-                    }
-
-                    if (profile != null) {
-                        if (profile._deviceNFC != 0)
-                            preferenceAllowed = PREFERENCE_ALLOWED;
-                    } else
-                        preferenceAllowed = PREFERENCE_ALLOWED;
-                } else {
-                    preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-                    if ((profile != null) && (profile._deviceNFC != 0)) {
-                        //return preferenceAllowed;
-                        //notAllowedRoot = true;
-                        notAllowedG1 = true;
-                    }
+                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                if ((profile != null) && (profile._deviceNFC != 0)) {
+                    //return preferenceAllowed;
+                    //notAllowedRoot = true;
+                    notAllowedG1 = true;
                 }
             }
         }

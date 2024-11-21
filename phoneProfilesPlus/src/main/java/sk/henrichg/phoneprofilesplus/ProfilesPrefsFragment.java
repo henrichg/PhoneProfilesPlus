@@ -3418,10 +3418,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_RADIOS_CATTEGORY_ROOT, context))
                     .append(StringConstants.TAG_BOLD_END_HTML);
         }
-        if (Build.VERSION.SDK_INT >= 35)
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NFC, R.string.profile_preferences_deviceNFC_35, context);
-        else
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NFC, R.string.profile_preferences_deviceNFC, context);
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NFC, R.string.profile_preferences_deviceNFC, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);

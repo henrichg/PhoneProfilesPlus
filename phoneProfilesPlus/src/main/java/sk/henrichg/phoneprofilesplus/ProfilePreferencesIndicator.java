@@ -1416,12 +1416,8 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, sharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3)) {
                         if (fillPreferences)
-                            if (Build.VERSION.SDK_INT >= 35)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC_35) + StringConstants.STR_COLON_WITH_SPACE +
-                                        appContext.getString(R.string.array_pref_hardwareModeArray_on);
-                            else
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + StringConstants.STR_COLON_WITH_SPACE +
-                                        appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "nfc:1";
                         else {
@@ -1433,12 +1429,8 @@ class ProfilePreferencesIndicator {
                     }
                     if (profile._deviceNFC == 2) {
                         if (fillPreferences)
-                            if (Build.VERSION.SDK_INT >= 35)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC_35) + StringConstants.STR_COLON_WITH_SPACE +
-                                        appContext.getString(R.string.array_pref_hardwareModeArray_off);
-                            else
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + StringConstants.STR_COLON_WITH_SPACE +
-                                        appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNFC) + StringConstants.STR_COLON_WITH_SPACE +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
                         if (fillStrings)
                             strings[countDrawables++] = "nfc:0";
                         else {
