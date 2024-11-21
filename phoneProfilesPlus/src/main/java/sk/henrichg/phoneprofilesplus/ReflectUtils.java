@@ -11,7 +11,6 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ import java.util.Map;
  *     time  : 2017/12/15
  *     desc  : utils about reflect
  * </pre>
+ * @noinspection JavadocLinkAsPlainText
  */
 public final class ReflectUtils {
 
@@ -48,6 +48,7 @@ public final class ReflectUtils {
      * @param className The name of class.
      * @return the single {@link ReflectUtils} instance
      * @throws ReflectException if reflect unsuccessfully
+     * @noinspection unused
      */
     public static ReflectUtils reflect(final String className)
             throws ReflectException {
@@ -61,6 +62,7 @@ public final class ReflectUtils {
      * @param classLoader The loader of class.
      * @return the single {@link ReflectUtils} instance
      * @throws ReflectException if reflect unsuccessfully
+     * @noinspection unused
      */
     public static ReflectUtils reflect(final String className, final ClassLoader classLoader)
             throws ReflectException {
@@ -115,6 +117,7 @@ public final class ReflectUtils {
      * Create and initialize a new instance.
      *
      * @return the single {@link ReflectUtils} instance
+     * @noinspection unused
      */
     public ReflectUtils newInstance() {
         return newInstance(new Object[0]);
@@ -158,23 +161,21 @@ public final class ReflectUtils {
     }
 
     private void sortConstructors(List<Constructor<?>> list) {
-        Collections.sort(list, new Comparator<Constructor<?>>() {
-            @Override
-            public int compare(Constructor<?> o1, Constructor<?> o2) {
-                Class<?>[] types1 = o1.getParameterTypes();
-                Class<?>[] types2 = o2.getParameterTypes();
-                int len = types1.length;
-                for (int i = 0; i < len; i++) {
-                    if (!types1[i].equals(types2[i])) {
-                        if (wrapper(types1[i]).isAssignableFrom(wrapper(types2[i]))) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
+        //noinspection Java8ListSort
+        Collections.sort(list, (o1, o2) -> {
+            Class<?>[] types1 = o1.getParameterTypes();
+            Class<?>[] types2 = o2.getParameterTypes();
+            int len = types1.length;
+            for (int i = 0; i < len; i++) {
+                if (!types1[i].equals(types2[i])) {
+                    if (wrapper(types1[i]).isAssignableFrom(wrapper(types2[i]))) {
+                        return 1;
+                    } else {
+                        return -1;
                     }
                 }
-                return 0;
             }
+            return 0;
         });
     }
 
@@ -198,6 +199,7 @@ public final class ReflectUtils {
      *
      * @param name The name of field.
      * @return the single {@link ReflectUtils} instance
+     * @noinspection unused
      */
     public ReflectUtils field(final String name) {
         try {
@@ -214,6 +216,7 @@ public final class ReflectUtils {
      * @param name  The name of field.
      * @param value The value.
      * @return the single {@link ReflectUtils} instance
+     * @noinspection unused
      */
     public ReflectUtils field(String name, Object value) {
         try {
@@ -229,6 +232,7 @@ public final class ReflectUtils {
         Field field = getAccessibleField(name);
         if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL) {
             try {
+                //noinspection JavaReflectionMemberAccess
                 Field modifiersField = Field.class.getDeclaredField("modifiers");
                 modifiersField.setAccessible(true);
                 modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
@@ -363,23 +367,21 @@ public final class ReflectUtils {
     }
 
     private void sortMethods(final List<Method> methods) {
-        Collections.sort(methods, new Comparator<Method>() {
-            @Override
-            public int compare(Method o1, Method o2) {
-                Class<?>[] types1 = o1.getParameterTypes();
-                Class<?>[] types2 = o2.getParameterTypes();
-                int len = types1.length;
-                for (int i = 0; i < len; i++) {
-                    if (!types1[i].equals(types2[i])) {
-                        if (wrapper(types1[i]).isAssignableFrom(wrapper(types2[i]))) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
+        //noinspection Java8ListSort
+        Collections.sort(methods, (o1, o2) -> {
+            Class<?>[] types1 = o1.getParameterTypes();
+            Class<?>[] types2 = o2.getParameterTypes();
+            int len = types1.length;
+            for (int i = 0; i < len; i++) {
+                if (!types1[i].equals(types2[i])) {
+                    if (wrapper(types1[i]).isAssignableFrom(wrapper(types2[i]))) {
+                        return 1;
+                    } else {
+                        return -1;
                     }
                 }
-                return 0;
             }
+            return 0;
         });
     }
 
@@ -428,33 +430,30 @@ public final class ReflectUtils {
      *
      * @param proxyType The interface type that is implemented by the proxy.
      * @return a proxy for the wrapped object
+     * @noinspection unused
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked","unused"})
     public <P> P proxy(final Class<P> proxyType) {
         final boolean isMap = (object instanceof Map);
-        final InvocationHandler handler = new InvocationHandler() {
-            @Override
-            @SuppressWarnings("null")
-            public Object invoke(Object proxy, Method method, Object[] args) {
-                String name = method.getName();
-                try {
-                    return reflect(object).method(name, args).get();
-                } catch (ReflectException e) {
-                    if (isMap) {
-                        Map<String, Object> map = (Map<String, Object>) object;
-                        int length = (args == null ? 0 : args.length);
+        final InvocationHandler handler = (proxy, method, args) -> {
+            String name = method.getName();
+            try {
+                return reflect(object).method(name, args).get();
+            } catch (ReflectException e) {
+                if (isMap) {
+                    Map<String, Object> map = (Map<String, Object>) object;
+                    int length = (args == null ? 0 : args.length);
 
-                        if (length == 0 && name.startsWith("get")) {
-                            return map.get(property(name.substring(3)));
-                        } else if (length == 0 && name.startsWith("is")) {
-                            return map.get(property(name.substring(2)));
-                        } else if (length == 1 && name.startsWith("set")) {
-                            map.put(property(name.substring(3)), args[0]);
-                            return null;
-                        }
+                    if (length == 0 && name.startsWith("get")) {
+                        return map.get(property(name.substring(3)));
+                    } else if (length == 0 && name.startsWith("is")) {
+                        return map.get(property(name.substring(2)));
+                    } else if (length == 1 && name.startsWith("set")) {
+                        map.put(property(name.substring(3)), args[0]);
+                        return null;
                     }
-                    throw e;
                 }
+                throw e;
             }
         };
         return (P) Proxy.newProxyInstance(proxyType.getClassLoader(),
@@ -529,6 +528,7 @@ public final class ReflectUtils {
         return obj instanceof ReflectUtils && object.equals(((ReflectUtils) obj).get());
     }
 
+    /** @noinspection NullableProblems*/
     @Override
     public String toString() {
         return object.toString();
@@ -541,10 +541,12 @@ public final class ReflectUtils {
 
         private static final long serialVersionUID = 858774075258496016L;
 
+        /** @noinspection unused*/
         public ReflectException(String message) {
             super(message);
         }
 
+        /** @noinspection unused*/
         public ReflectException(String message, Throwable cause) {
             super(message, cause);
         }

@@ -5,10 +5,6 @@ import android.os.Build;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.stericson.rootshell.execution.Command;
-import com.stericson.rootshell.execution.Shell;
-import com.stericson.roottools.RootTools;
-
 /**
  * A shell executable for NTC toggle.
  */
