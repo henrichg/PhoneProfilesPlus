@@ -2313,6 +2313,8 @@
 
     <string name="menu_mastodon" translatable="false">Mastodon</string>
 
+    <string name="profile_preferences_deviceNFC_35">(Z)(R) NFC</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

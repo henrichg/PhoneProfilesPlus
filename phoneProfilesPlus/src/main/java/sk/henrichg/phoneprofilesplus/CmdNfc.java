@@ -4,6 +4,10 @@ import android.nfc.INfcAdapter;
 import android.os.ServiceManager;
 import android.util.Log;
 
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
+
 /**
  * A shell executable for NTC toggle.
  */
@@ -29,6 +33,33 @@ public class CmdNfc {
             PPApplicationStatic.logException("CmdNfc.setNFC", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
             return false;
+        }
+    }
+
+    static void setNFC35(boolean enable) {
+        if (ShizukuUtils.hasShizukuPermission()) {
+            synchronized (PPApplication.rootMutex) {
+                String command1 = "svc nfc " + (enable ? "enable" : "disable");
+                try {
+                    ShizukuUtils.executeCommand(command1);
+                } catch (Exception e) {
+                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                }
+            }
+        } else {
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setMobileData", "PPApplication.rootMutex");
+                synchronized (PPApplication.rootMutex) {
+                    String command1 = "svc nfc " + (enable ? "enable" : "disable");
+                    Command command = new Command(0, /*false,*/ command1);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                        RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_MOBILE_DATA);
+                    } catch (Exception e) {
+                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                    }
+                }
+            }
         }
     }
 

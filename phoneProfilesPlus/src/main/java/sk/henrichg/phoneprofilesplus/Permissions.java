@@ -735,16 +735,6 @@ class Permissions {
         }
     }
 
-    /*
-    static boolean checkNFC(Context context) {
-        try {
-            return (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    */
-
     static boolean checkRingtonePreference(Context context) {
         try {
             return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -786,8 +776,6 @@ class Permissions {
                 //if (profile._deviceMobileData != 0)
                 //    grantedModifyPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
             }
-            //if (profile._deviceNFC != 0)
-            //    granted = checkNFC(context);
             if (permissions != null) {
                 if (!grantedWriteSettings)
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
