@@ -941,13 +941,6 @@ public class PhoneProfilesService extends Service
                 //else
                 MobileCellsScanner.startAutoRegistration(appContext, true);
 
-                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, true*/);
-                // this also clears shared preferences
-                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
-//                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
-                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
-
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);
                 WifiScanWorker.setWifiEnabledForScan(appContext, false);
@@ -960,8 +953,15 @@ public class PhoneProfilesService extends Service
                 BluetoothScanWorker.setScanKilled(appContext, false);
 
                 // !!! registerReceiversAndWorkers moved into MainWorker.doAfterFirstStart
-                // in it is not PPP brioadcasts registration
+                // in it is not PPP broadcasts registration
                 PhoneProfilesServiceStatic.registerAllTheTimeRequiredPPPBroadcastReceivers(true, appContext);
+
+                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, true*/);
+                // this also clears shared preferences
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+//                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 
                 PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
                 DonationBroadcastReceiver.setAlarm(appContext);
