@@ -130,7 +130,6 @@
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.resourceinspection:resourceinspection-annotation:1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.11.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.apps.dashclock:dashclock-api:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.linkedin.dexmaker:dexmaker:2.28.4" level="project" />
     <orderEntry type="library" name="Gradle: com.github.simbiose:Encryption:2.0.1" level="project" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/sdk-v1.0.0.jar" level="project" />
