@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -68,8 +67,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     //boolean scrollToSet = false;
     private boolean nestedFragment = false;
-
-    private boolean dashClockInstalled = false;
 
     private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
@@ -452,13 +449,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         setDivider(null); // this remove dividers for categories
 
-        dashClockInstalled = false;
-        PackageManager pm = activity.getPackageManager();
-        try {
-            pm.getPackageInfo("net.nurik.roman.dashclock", PackageManager.GET_ACTIVITIES);
-            dashClockInstalled = true;
-        } catch (Exception ignored) {}
-
         /*
         prefMng = getPreferenceManager();
         prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
@@ -528,11 +518,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-
-            if (dashClockInstalled) {
-                preferenceCategoryScreen = findPreference(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT);
-                if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            }
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT);
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
             preferenceCategoryScreen = findPreference(PREF_SHORTCUT_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
@@ -1202,12 +1189,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if ((PPApplication.sLook == null) || (!PPApplication.sLookCocktailPanelEnabled)) {
             PreferenceScreen preferenceScreen = findPreference(PPApplication.PREF_ROOT_SCREEN);
             Preference preferenceCategory = findPreference(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT);
-            if ((preferenceScreen != null) && (preferenceCategory != null))
-                preferenceScreen.removePreference(preferenceCategory);
-        }
-        if (!dashClockInstalled) {
-            PreferenceScreen preferenceScreen = findPreference(PPApplication.PREF_ROOT_SCREEN);
-            Preference preferenceCategory = findPreference(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT);
             if ((preferenceScreen != null) && (preferenceCategory != null))
                 preferenceScreen.removePreference(preferenceCategory);
         }
@@ -4776,8 +4757,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT)) {
-            if (dashClockInstalled)
-                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));
