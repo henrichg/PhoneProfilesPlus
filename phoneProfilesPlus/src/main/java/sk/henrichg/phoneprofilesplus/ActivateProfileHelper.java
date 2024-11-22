@@ -7541,6 +7541,7 @@ class ActivateProfileHelper {
                             }
                             break;
                         case 2:
+                            // this is supported only for SDK < 28
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/))) {
     //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.lockDevice", "PPApplication.rootMutex");
