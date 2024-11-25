@@ -15,7 +15,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
@@ -715,7 +714,7 @@ class EventPreferencesNotification extends EventPreferences {
                                                        List<Contact> contactList) {
         try {
             String packageNameFromNotification = statusBarNotification.getPackageName();
-            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
+            //Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
             //Log.e("EventPreferencesNotification.isNotificationActive", "packageName="+packageName);
 
             if (!packageName.isEmpty()) {
@@ -746,20 +745,19 @@ class EventPreferencesNotification extends EventPreferences {
             String notificationInfoText = "";
 
             if (_checkContacts || _checkText) {
-                //Log.e("EventPreferencesNotification.isNotificationActive", "xxxxx");
-                Log.e("EventPreferencesNotification.isNotificationActive", "tickerText=" + statusBarNotification.getNotification().tickerText);
+                //Log.e("EventPreferencesNotification.isNotificationActive", "tickerText=" + statusBarNotification.getNotification().tickerText);
                 if (statusBarNotification.getNotification().tickerText != null) {
                     notificationTicker = statusBarNotification.getNotification().tickerText.toString();
-                    Log.e("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
                     textIsInNotification = true;
                 }
                 Bundle extras = statusBarNotification.getNotification().extras;
                 if (extras != null) {
-                    Log.e("EventPreferencesNotification.isNotificationActive", "extras: start");
-                    for (String key : extras.keySet()) {
-                        Log.e("EventPreferencesNotification.isNotificationActive", "extras=" + key + "="+ extras.get(key));
-                    }
-                    Log.e("EventPreferencesNotification.isNotificationActive", "extras: end");
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "extras: start");
+                    //for (String key : extras.keySet()) {
+                    //    Log.e("EventPreferencesNotification.isNotificationActive", "extras=" + key + "="+ extras.get(key));
+                    //}
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "extras: end");
 
                     String _text1 = extras.getString("android.title");
                     //Log.e("EventPreferencesNotification.isNotificationActive", "_text1=" + _text1);
@@ -799,7 +797,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
 
-            Log.e("EventPreferencesNotification.isNotificationActive", "testText="+textIsInNotification);
+            //Log.e("EventPreferencesNotification.isNotificationActive", "testText="+textIsInNotification);
 
             boolean textFound = false;
             if (textIsInNotification) {
@@ -869,7 +867,7 @@ class EventPreferencesNotification extends EventPreferences {
                             else
                                 continue;
                         }
-                        Log.e("EventPreferencesNotification.isNotificationActive", "whatTest=" + whatTest + " searchText="+searchText);
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "whatTest=" + whatTest + " searchText="+searchText);
 
                         String[] textSplits = _text.split(StringConstants.STR_SPLIT_REGEX);
 
@@ -997,7 +995,7 @@ class EventPreferencesNotification extends EventPreferences {
 
             if (textIsInNotification) {
                 // text is in notification (required for _checkContacts || _checkText)
-                Log.e("EventPreferencesNotification.isNotificationActive", "textFound="+textFound);
+                //Log.e("EventPreferencesNotification.isNotificationActive", "textFound="+textFound);
                 if (textFound)
                     return statusBarNotification;
                 else
@@ -1010,7 +1008,7 @@ class EventPreferencesNotification extends EventPreferences {
             else
             {
                 // is not configured test text and not is configured _checkContacts || _checkText
-                Log.e("EventPreferencesNotification.isNotificationActive", "testText=false");
+                //Log.e("EventPreferencesNotification.isNotificationActive", "testText=false");
                 return statusBarNotification;
             }
         } catch (Exception e) {
