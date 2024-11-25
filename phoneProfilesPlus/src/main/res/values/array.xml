@@ -270,10 +270,12 @@
     <string-array name="launcherArray">
         <item>@string/array_pref_launcher_activator</item>
         <item>@string/array_pref_launcher_editor</item>
+        <item>@string/array_pref_launcher_switch_profiles</item>
     </string-array>
     <string-array name="launcherValues">
         <item>activator</item>
         <item>editor</item>
+        <item>switch_profiles</item>
     </string-array>
     <string-array name="locationServicePrefsArray">
         <item>@string/array_pref_no_show</item>

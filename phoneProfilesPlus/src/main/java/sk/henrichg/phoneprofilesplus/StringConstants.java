@@ -80,6 +80,7 @@ class StringConstants {
 
     static final String EXTRA_ACTIVATOR = "activator";
     static final String EXTRA_EDITOR = "editor";
+    static final String EXTRA_SWITCH_PROFILES = "switch_profiles";
 
     static final String RINGTONE_CONTENT_INTERNAL = "content://media/internal";
     static final String RINGTONE_CONTENT_EXTERNAL = "content://media/external";

@@ -25,6 +25,7 @@ import java.lang.ref.WeakReference;
 public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
+    private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
     public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
@@ -1162,19 +1163,44 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if (!applicationWidgetIconHideProfileName)
                     remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
 
+                dataWrapper.fillProfileList(false, false);
+                boolean doSwitch = false;
                 //Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
                 Intent intent;
-                if (applicationWidgetIconLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
-                    intent = new Intent(context.getApplicationContext(), ActivatorActivity.class);
-                else
-                    intent = new Intent(context.getApplicationContext(), EditorActivity.class);
-                // clear all opened activities
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                //remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
-                //remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
-                remoteViews.setOnClickPendingIntent(R.id.icon_widget_relLa1, pendingIntent);
+                if (applicationWidgetIconLauncher.equals(StringConstants.EXTRA_SWITCH_PROFILES)) {
+                    if (dataWrapper.profileList.size() == 2) {
+                        doSwitch = true;
+                        Profile profileToSwitch = null;
+                        if (profile != null) {
+                            for (Profile _profile : dataWrapper.profileList) {
+                                if (profile._id != _profile._id) {
+                                    profileToSwitch = _profile;
+                                    break;
+                                }
+                            }
+                        } else {
+                            profileToSwitch = dataWrapper.profileList.get(0);
+                        }
+                        intent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
+                        intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileToSwitch._id);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(context, PROFILE_ID_ACTIVATE_PROFILE_ID + (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        remoteViews.setOnClickPendingIntent(R.id.icon_widget_relLa1, pendingIntent);
+                    }
+                }
+                if (!doSwitch) {
+                    if (applicationWidgetIconLauncher.equals(StringConstants.EXTRA_ACTIVATOR) ||
+                            applicationWidgetIconLauncher.equals(StringConstants.EXTRA_SWITCH_PROFILES))
+                        intent = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                    else
+                        intent = new Intent(context.getApplicationContext(), EditorActivity.class);
+                    // clear all opened activities
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    //remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
+                    //remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
+                    remoteViews.setOnClickPendingIntent(R.id.icon_widget_relLa1, pendingIntent);
+                }
 
                 // widget update
                 try {
