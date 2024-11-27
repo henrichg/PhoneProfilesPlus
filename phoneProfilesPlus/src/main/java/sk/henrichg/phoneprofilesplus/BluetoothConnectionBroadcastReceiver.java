@@ -15,6 +15,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -141,8 +142,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             };
-            PPApplicationStatic.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
+            //PPApplicationStatic.createEventsHandlerExecutor();
+            //PPApplication.eventsHandlerExecutor.submit(runnable);
+            PPApplicationStatic.createDelayedEventsHandlerExecutor();
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
 
     }
