@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="16sp"
             android:textColor="@color/mp_category_color"
             android:singleLine="false"/>
         <TextView
