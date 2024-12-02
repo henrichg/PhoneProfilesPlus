@@ -1647,6 +1647,7 @@ public class PPApplication extends Application
                 .withReportContent(reportContent)
                 .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME));
 
+        PPApplicationStatic.createExclamationNotificationChannel(base, true);
         builder.withPluginConfigurations(
                 new NotificationConfigurationBuilder()
                         .withChannelName(getString(R.string.notification_channel_crash_report))

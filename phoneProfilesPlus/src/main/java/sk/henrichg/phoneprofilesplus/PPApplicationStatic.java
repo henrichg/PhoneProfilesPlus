@@ -648,6 +648,8 @@ class PPApplicationStatic {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
 
+        PPApplicationStatic.createNotificationChannels(context, false);
+
         if (enableStartOnBoot) {
             SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = settings.edit();
@@ -1674,8 +1676,7 @@ class PPApplicationStatic {
             }
     }
 
-    static void createNotificationChannels(Context appContext,
-                                           @SuppressWarnings("SameParameterValue") boolean forceChange) {
+    static void createNotificationChannels(Context appContext, boolean forceChange) {
         createDonationNotificationChannel(appContext, forceChange);
         createExclamationNotificationChannel(appContext, forceChange);
         createGeneratedByProfileNotificationChannel(appContext, forceChange);
