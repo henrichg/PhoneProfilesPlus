@@ -108,7 +108,7 @@ class AddEventAdapter extends BaseAdapter {
             }
             vi.setTag(holder);
             //defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
-            defaultColor = ContextCompat.getColor(context, R.color.activitySecondaryTextColor);
+            defaultColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
         }
         else
         {

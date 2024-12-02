@@ -72,7 +72,6 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         final Context context = activity.getApplicationContext();
 
-        //TODO
         TextView taskerTextView = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         if (taskerTextView != null) {
             taskerTextView.setMovementMethod(null); // this disable text selection
@@ -963,6 +962,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             // place your TextView's text in clipboard
             ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(CLIPBOARD_SERVICE);
             if (clipboard != null)
+                //noinspection deprecation
                 clipboard.setText(taskerTextView.getText());
         }
     }
