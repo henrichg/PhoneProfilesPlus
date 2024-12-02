@@ -23,7 +23,7 @@ class PPEditTextAlertDialog {
                           DialogInterface.OnCancelListener _cancelListener,
                           boolean _cancelable,
                           boolean _canceledOnTouchOutside,
-                          boolean _hideButtonBarDivider,
+                          //boolean _hideButtonBarDivider,
                           Activity _activity) {
         this.activity = _activity;
         /*
@@ -63,6 +63,7 @@ class PPEditTextAlertDialog {
         editText.setText(_initialEditValue);
         editText.requestFocus();
 
+        /*
         View buttonsDivider = layout.findViewById(R.id.dialog_with_edittext_buttonBarDivider);
         if (_hideButtonBarDivider)
             //noinspection DataFlowIssue
@@ -70,6 +71,7 @@ class PPEditTextAlertDialog {
         else
             //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
+        */
 
         mDialog.setCanceledOnTouchOutside(_canceledOnTouchOutside);
 

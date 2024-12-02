@@ -2074,7 +2074,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 },
                                 null, null,
-                                true, true, false,
+                                true, true, //false,
                                 activity
                         );
                         if (!activity.isFinishing())
@@ -2181,7 +2181,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 },
                                 null, null,
-                                true, true, false,
+                                true, true, //false,
                                 activity
                         );
                         if (!activity.isFinishing())

@@ -114,7 +114,9 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
 
-    /// for get dominant color from profile icons
+    // for get dominant color from profile icons
+    // - for notification decorator
+    // - for increase brightness of profile icon color - for dark theme of GUI
     implementation 'androidx.palette:palette:1.0.0'
 
     // 1.1.1 is required because of not working title style (Spannable) in 1.2.0

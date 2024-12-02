@@ -26,11 +26,9 @@ class PPSpinnerAdapter extends ArrayAdapter<String> {
         TextView itemText = itemView.findViewById(android.R.id.text1);
         if (itemText != null) {
             if (position == mSelectedIndex) {
-                //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
                 itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent_color));
             } else {
-                //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
-                itemText.setTextColor(ContextCompat.getColor(activity, R.color.activitySecondaryTextColor));
+                itemText.setTextColor(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
             }
         }
 

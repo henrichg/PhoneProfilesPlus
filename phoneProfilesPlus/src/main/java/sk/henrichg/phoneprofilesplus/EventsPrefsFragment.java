@@ -1323,7 +1323,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 },
                                 null, null,
-                                true, true, false,
+                                true, true, //false,
                                 activity
                         );
                         if (!activity.isFinishing())
