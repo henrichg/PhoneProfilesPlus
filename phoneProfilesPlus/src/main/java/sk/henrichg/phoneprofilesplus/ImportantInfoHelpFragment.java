@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -961,9 +962,16 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             // place your TextView's text in clipboard
             ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(CLIPBOARD_SERVICE);
-            if (clipboard != null)
+            if (clipboard != null) {
                 //noinspection deprecation
                 clipboard.setText(taskerTextView.getText());
+                if ((Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                    // Xiaomi 13 lite, HyperOs, do not show toast
+
+                    PPApplication.showToast(activity, "Copied to clipboard", Toast.LENGTH_SHORT);
+                    //ToastCompat.makeText(activity, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 /*
