@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -17,6 +20,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,6 +71,28 @@ public class ImportantInfoHelpFragment extends Fragment {
             return;
 
         final Context context = activity.getApplicationContext();
+
+        //TODO
+        TextView taskerTextView = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
 
         activity.expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
         activity.expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
@@ -916,6 +942,29 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+    }
+
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        final ImportantInfoActivity activity = (ImportantInfoActivity)getActivity();
+        if (activity == null)
+            return;
+
+        TextView taskerTextView = (TextView) v;
+        int id = taskerTextView.getId();
+        if ((id == R.id.activity_info_activate_profile_from_tasker_params) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_restart_events) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_stop_event))
+        {
+            // user has long pressed your TextView
+            //menu.add(0, v.getId(), 0, "Copy");
+
+            // place your TextView's text in clipboard
+            ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(CLIPBOARD_SERVICE);
+            if (clipboard != null)
+                clipboard.setText(taskerTextView.getText());
+        }
     }
 /*
     static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {
