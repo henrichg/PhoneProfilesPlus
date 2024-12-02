@@ -2315,6 +2315,8 @@
 
     <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
 
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

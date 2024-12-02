@@ -969,7 +969,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
                     // Xiaomi 13 lite, HyperOs, do not show toast
 
-                    PPApplication.showToast(activity, "Copied to clipboard", Toast.LENGTH_SHORT);
+                    PPApplication.showToast(activity, getString(R.string.importantinfo_tasker_command_copy_to_clipboard_toast), Toast.LENGTH_SHORT);
                     //ToastCompat.makeText(activity, "Copied to clipboard", Toast.LENGTH_SHORT).show();
             }
         }
