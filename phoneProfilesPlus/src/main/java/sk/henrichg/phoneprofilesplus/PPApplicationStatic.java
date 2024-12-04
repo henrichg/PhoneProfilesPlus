@@ -762,7 +762,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListPrefIndicator(context);
             ApplicationPreferences.applicationWidgetListPrefIndicatorLightness(context);
             ApplicationPreferences.applicationWidgetListHeader(context);
-            ApplicationPreferences.applicationWidgetListBackground(context);
             ApplicationPreferences.applicationWidgetListLightnessB(context);
             ApplicationPreferences.applicationWidgetListLightnessT(context);
             ApplicationPreferences.applicationWidgetIconColor(context);
@@ -808,7 +807,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context);
             //ApplicationPreferences.applicationEventMobileCellsRescan(context);
             ApplicationPreferences.applicationDeleteOldActivityLogs(context);
-            ApplicationPreferences.applicationWidgetIconBackground(context);
             ApplicationPreferences.applicationWidgetIconLightnessB(context);
             ApplicationPreferences.applicationWidgetIconLightnessT(context);
             ApplicationPreferences.applicationEventUsePriority(context);
@@ -858,7 +856,6 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationShowButtonExit(context);
             ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
             ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness(context);
-            ApplicationPreferences.applicationWidgetOneRowBackground(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
             ApplicationPreferences.applicationWidgetOneRowIconColor(context);
@@ -920,9 +917,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationShortcutCustomIconLightness(context);
             ApplicationPreferences.notificationShowRestartEventsAsButton(context);
             ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
-            ApplicationPreferences.applicationWidgetIconUseDynamicColors(context);
-            ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
-            ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
             ApplicationPreferences.applicationRestartEventsIconColor(context);
             //ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon(context);
             ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOff(context);
@@ -938,7 +932,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowFillBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListFillBackground(context);
 
-            ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
@@ -951,7 +944,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode(context);
-            ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness(context);
@@ -993,6 +985,18 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
+
+            // this must be called before of xxxBackground()
+            ApplicationPreferences.applicationWidgetIconUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors(context);
+
+            // this must be called after of xxxUseDynamicColors()
+            ApplicationPreferences.applicationWidgetIconBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowBackground(context);
+            ApplicationPreferences.applicationWidgetListBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
 
             ApplicationPreferences.deleteBadPreferences(context);
         }
