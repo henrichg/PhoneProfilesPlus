@@ -7,9 +7,9 @@
     <dimen name="editor_profiles_item_buttons_end_margin">10dp</dimen>
     <dimen name="editor_events_item_buttons_end_margin">10dp</dimen>
 
-    <dimen name="activator_toolbar_height">29dp</dimen>
-    <dimen name="run_stop_indicator_width">54dp</dimen>
-    <dimen name="run_stop_indicator_height">28dp</dimen>
+    <dimen name="activator_toolbar_height">33dp</dimen>
+    <dimen name="run_stop_indicator_width">58dp</dimen>
+    <dimen name="run_stop_indicator_height">32dp</dimen>
     <dimen name="run_stop_indicator_margin_top">0dp</dimen>
     <dimen name="run_stop_indicator_margin_end_editor">2dp</dimen>
     <dimen name="run_stop_indicator_margin_end_activator">0dp</dimen>

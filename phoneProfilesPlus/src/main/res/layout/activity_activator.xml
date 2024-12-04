@@ -52,7 +52,7 @@
                         android:id="@+id/act_prof_run_stop_indicator"
                         android:layout_width="@dimen/run_stop_indicator_width"
                         android:layout_height="match_parent"
-                        android:padding="6dp"
+                        android:padding="@dimen/run_stop_indicator_padding"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitCenter"
