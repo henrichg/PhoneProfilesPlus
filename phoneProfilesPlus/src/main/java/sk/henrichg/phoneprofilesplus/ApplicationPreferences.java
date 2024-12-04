@@ -895,8 +895,9 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetListBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetListUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -1154,8 +1155,9 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetIconBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetIconUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -1415,8 +1417,9 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetOneRowBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetOneRowUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -1684,17 +1687,17 @@ class ApplicationPreferences {
         applicationEventNotificationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetOneRowRoundedCornersRadius(Context context) {
         applicationWidgetOneRowRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetListRoundedCornersRadius(Context context) {
         applicationWidgetListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
-    static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetIconRoundedCornersRadius(Context context) {
         applicationWidgetIconRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
@@ -1862,8 +1865,9 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1893,8 +1897,9 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetOneRowChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1924,8 +1929,9 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetListChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -2007,17 +2013,17 @@ class ApplicationPreferences {
         applicationEventPeriodicScanningDisabledScannigByProfile = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetIconUseDynamicColors(Context context) {
         applicationWidgetIconUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetOneRowUseDynamicColors(Context context) {
         applicationWidgetOneRowUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetListUseDynamicColors(Context context) {
         applicationWidgetListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
@@ -2092,13 +2098,13 @@ class ApplicationPreferences {
         applicationWidgetIconFillBackground = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND_DEFAULT_VALUE);
     }
 
-
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetOneRowProfileListBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetOneRowProfileListUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -2153,7 +2159,7 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetOneRowProfileListRoundedCornersRadius(Context context) {
         applicationWidgetOneRowProfileListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
@@ -2172,8 +2178,9 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -2199,7 +2206,7 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(context));
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetOneRowProfileListUseDynamicColors(Context context) {
         applicationWidgetOneRowProfileListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
