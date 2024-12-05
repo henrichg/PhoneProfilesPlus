@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Name des Profils.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen für Ereignisse</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Name des Ereignisses.</string>
-    <string name="activity_log_help_close">Schließen</string>
     <string name="event_preference_sensor_soundProfile_summary">Dieser Sensor löst ein Ereignis aus, indem er den Soundmodus oder den „Bitte nicht stören“-Typ umschaltet. Parameter: Sound-Modi, „Bitte nicht stören“-Typen.</string>
     <string name="event_type_soundProfile">Audioprofil</string>
     <string name="event_preferences_soundProfile_ringerModes">Sound-Modi</string>
@@ -1809,7 +1808,7 @@
     <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Klicken Sie hier, um anzuzeigen, wie Sie konfigurieren können, welche Funkgeräte ausgeschaltet werden sollen, wenn der Flugzeugmodus des Geräts aktiviert ist.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info1">Es ist möglich zu konfigurieren, welche Funkgeräte ausgeschaltet werden sollen, wenn das Gerät im Flugzeugmodus aktiviert ist.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info2">Für diese Hilfe ist es empfehlenswert, sie auf dem Computer in einem Internet-Browser zu öffnen. Die Hilfe ist in PhoneProfilesPlus GitHub README.md, gekennzeichnet als</string>
-    <string name="event_preference_sensor_activated_profile_summary">Dieser Sensor startet und beendet ein Ereignis durch die Aktivierung eines Profils. Parameter: Startprofil (Profil, das das Ereignis startet), Endprofil (Profil, das das Ereignis beendet).</string>
+    <string name="event_preference_sensor_activated_profile_summary">Dieser Sensor startet und beendet ein Ereignis durch die Aktivierung eines Profils. Parameter: Startprofil (Profil, das Ereignis startet), Endprofil (Profil, das Ereignis beendet).</string>
     <string name="event_type_activated_profile">Aktiviertes Profil</string>
     <string name="event_preferences_activated_profile_startProfile">Start profile</string>
     <string name="event_preferences_activated_profile_endProfile">End profile</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Dieser Parameter ist für „Anrufereignis“=„Entgangener Anruf“.</string>
     <string name="event_preferences_orientation_checkLight_info">„Licht“ ist das vom Lichtsensor des Geräts erfasste Umgebungslicht.</string>
     <string name="array_pref_atEndDo_none">Nichts</string>
+    <string name="array_pref_launcher_switch_profiles">Profile wechseln (bei nur 2 konfigurierten Profilen)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

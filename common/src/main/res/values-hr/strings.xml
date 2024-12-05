@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Naziv profila.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">sve ostalo za događaje</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Naziv događaja.</string>
-    <string name="activity_log_help_close">Zatvori</string>
     <string name="event_preference_sensor_soundProfile_summary">Ovaj senzor će pokrenuti događaj prebacivanjem Zvučnog profila ili \" Ne uznemiravaj\" tipa. Parametri: Zvučni profili, \"Ne uznemiravaj\" tipovi.</string>
     <string name="event_type_soundProfile">Profil za zvuk</string>
     <string name="event_preferences_soundProfile_ringerModes">Modovi zvuka</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
     <string name="array_pref_atEndDo_none">Nijedan</string>
+    <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

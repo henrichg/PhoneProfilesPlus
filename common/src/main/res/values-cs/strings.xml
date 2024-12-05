@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Název profilu.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">všechny ostatní pro události</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Název události.</string>
-    <string name="activity_log_help_close">Zavřít</string>
     <string name="event_preference_sensor_soundProfile_summary">Tento senzor je pro start události podle přepínání zvukových režimů nebo typů \"Nerušit\". Parametry: Zvukové režimy, typy \"Nerušit\".</string>
     <string name="event_type_soundProfile">Zvukový profil</string>
     <string name="event_preferences_soundProfile_ringerModes">Režimy zvuku</string>
@@ -2173,7 +2172,7 @@
     <string name="profile_preference_phoneCallsSendSMS_summary_send">Odeslat SMS</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Neodesílat SMS</string>
     <string name="popup_event_states_state">Stav:</string>
-    <string name="popup_event_states_paused">Pozastaveno</string>
+    <string name="popup_event_states_paused">Pozastavená</string>
     <string name="popup_event_states_running">Bežíci</string>
     <string name="popup_event_states_stopped">Zastavena</string>
     <string name="popup_event_states_paused_delay">Pozastavená se zpožděním</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Tento parametr je pro \"Události hovoru\" = \"Zmeškaný hovor\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Světlo\" je okolní světlo detekované snímačem světla v zařízení.</string>
     <string name="array_pref_atEndDo_none">Nic</string>
+    <string name="array_pref_launcher_switch_profiles">Přepnout profily (pouze pro 2 nakonfigurované profily)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Zkopírováno do schránky</string>
 </resources>

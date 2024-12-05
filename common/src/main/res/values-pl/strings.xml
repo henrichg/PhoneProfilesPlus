@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Nazwa profilu.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">wszystkie inne dla zdarzeń</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Nazwa zdarzenia.</string>
-    <string name="activity_log_help_close">Zamknij</string>
     <string name="event_preference_sensor_soundProfile_summary">Ten czujnik uruchomi zdarzenie, gdy przełączane są tryby dzwonka lub typy \"Nie przeszkadzać\". Parametry: tryby dzwonka, typy \"Nie przeszkadzać\".</string>
     <string name="event_type_soundProfile">Tryb dzwonka</string>
     <string name="event_preferences_soundProfile_ringerModes">Tryby dzwonka</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Ten parametr dotyczy \"Zdarzenie rozmowy\"=\"Nieodebrane połączenie\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Światło\" to jasność otoczenia wykryta przez czujnik światła.</string>
     <string name="array_pref_atEndDo_none">Nic</string>
+    <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

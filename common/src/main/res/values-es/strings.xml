@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Nombre del perfil.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">todos los demás para eventos</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Nombre del evento.</string>
-    <string name="activity_log_help_close">Cerrar</string>
     <string name="event_preference_sensor_soundProfile_summary">Este sensor iniciará un evento al cambiar los modos de sonido o los tipos de \"No molestar\". Parámetros: modos de sonido, tipos de \"No molestar\".</string>
     <string name="event_type_soundProfile">Perfil de sonido</string>
     <string name="event_preferences_soundProfile_ringerModes">Modos de sonido</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Este parámetro es para \"Evento de llamada\"=\"Llamada perdida\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Luz\" es la luz ambiental detectada por el sensor de luz del dispositivo.</string>
     <string name="array_pref_atEndDo_none">Nada</string>
+    <string name="array_pref_launcher_switch_profiles">Cambiar perfiles (solo para 2 perfiles configurados)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

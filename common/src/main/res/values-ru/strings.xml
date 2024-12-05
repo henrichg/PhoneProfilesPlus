@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Название профиля.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">всё остальное по событиям</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Название события.</string>
-    <string name="activity_log_help_close">Закрыть</string>
     <string name="event_preference_sensor_soundProfile_summary">Этот датчик запускает событие по переключению режимов звука или типов режима \"Не беспокоить\". Параметры: \"Режимы звука\", \"Типы режима \"Не беспокоить\".</string>
     <string name="event_type_soundProfile">Звуковой профиль</string>
     <string name="event_preferences_soundProfile_ringerModes">Режимы звука</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Этот параметр - для \"Состояние и тип вызова\"=\"Пропущенный вызов\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Освещённость\" - это окружающий свет, определяемый датчиком освещённости устройства.</string>
     <string name="array_pref_atEndDo_none">Ничего</string>
+    <string name="array_pref_launcher_switch_profiles">Переключать профили (если настроено только 2 профиля)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

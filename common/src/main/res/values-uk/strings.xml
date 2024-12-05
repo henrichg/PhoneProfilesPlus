@@ -992,7 +992,7 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Розширювальний</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Великий</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Малий</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Надайте дозвіл Телефону в PhoneProfilesPlusExtender. Це необхідно щоб отримувати виклики за допомогою PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Надайте дозвіл Телефону в PhoneProfilesPlusExtender. Це необхідно щоб отримувати виклики за допомогою PhoneProfilesPlusExtender. </string>
     <string name="event_preferences_sms_LaunchExtender_summary">Надайте дозвіл SMS для PhoneProfilesPlusExtender. Це необхідно щоб отримувати SMS/MMS PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Навушники без мікрофона</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не встановлено!</string>
@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Назва профілю.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">решта по подіям</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Назва події.</string>
-    <string name="activity_log_help_close">Закрити</string>
     <string name="event_preference_sensor_soundProfile_summary">Цей датчик розпочне подію при перемиканні режимів Звуку або режиму \"Не турбувати\". Параметри: режими Звуку, різновиди \"Не турбувати\".</string>
     <string name="event_type_soundProfile">Звуковий профіль</string>
     <string name="event_preferences_soundProfile_ringerModes">Режими звуку</string>
@@ -2065,7 +2064,7 @@
     <string name="export_settings_delete0_contacts_data_sms">Контакти до Датчика SMS/MMS</string>
     <string name="export_settings_delete_contacts_data_notification">Контакти до Датчика сповіщення</string>
     <string name="grant_draw_over_apps_dialog_info_text">Ви повинні надати дозвіл \"Показувати поверх застосунків\". Це потрібно для запуску activities коли PhoneProfilesPlus працює у фоні. Для цього натисніть кнопку \"Надати\".</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Не використовуйте</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Не використовуйте</string>
     <string name="contacts_filter_dialog_filter_title">Фільтр контактів</string>
     <string name="contacts_filter_dialog_item_show_all">[ Всі ]</string>
     <string name="profile_preferences_types_shizuku_permission">Надайте дозвіл Shizuku</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Цей параметр для \"Подія дзвінка\"=\"Пропущений виклик\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Світло\" це довколишнє світло яке визначається датчиком світла.</string>
     <string name="array_pref_atEndDo_none">Нічого</string>
+    <string name="array_pref_launcher_switch_profiles">Перемикнути профілі (тільки для двох налаштованих профілів)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

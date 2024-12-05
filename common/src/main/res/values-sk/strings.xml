@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Názov profilu.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">všetky ostatné pre udalosti</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Názov udalosti.</string>
-    <string name="activity_log_help_close">Zavrieť</string>
     <string name="event_preference_sensor_soundProfile_summary">Tento senzor spustí udalosť na zmenu zvukových režimov alebo typov „Nerušiť“. Parametre: Zvukové režimy, typy „Nerušiť“.</string>
     <string name="event_type_soundProfile">Zvukový profil</string>
     <string name="event_preferences_soundProfile_ringerModes">Režimy zvukov</string>
@@ -2094,7 +2093,7 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Typ mobilnej siete pre SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Typ mobilnej siete pre SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Predvolená SIM karta</string>
-    <string name="nfc_tag_pref_dlg_readNfcTag_title">Čítať NFC tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Čítať NFC tag </string>
     <string name="nfc_tag_pref_dlg_readNfcTag_text">Čitať NFC tag zapísaný v PhonePorfilesPlus.</string>
     <string name="event_preferences_nfc_createReadNFCTagShortcut">Odkaz na \"Čítať NFC tag\"</string>
     <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Kliknite sem na vytvorenie odkazu na \"Čítať NFC tag\" v domovskom spúšťači.</string>
@@ -2170,7 +2169,7 @@
     <string name="menu_discord_invitation">Pozvánka na server</string>
     <string name="check_releases_apkpure_ppp_release">Vydanie PhoneProfilesPlus v ApkPure:</string>
     <string name="install_pppps_install_droidify_text">Nainštalujte si prosím Droid-ify. Vyžaduje sa pre inštaláciu PPPPutSettings. Potom znova nainštalujte PPPutSettings.</string>
-    <string name="profile_preference_phoneCallsSendSMS_summary_send">Odoslať SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Poslať SMS</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Neposlať SMS</string>
     <string name="popup_event_states_state">Stav:</string>
     <string name="popup_event_states_paused">Pozastavená</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Tento parameter je pre \"Udalosť hovoru\"=\"Zmeškaný hovor\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Svetlo\" je okolité svetlo detekované snímačom svetla v zariadení.</string>
     <string name="array_pref_atEndDo_none">Nič</string>
+    <string name="array_pref_launcher_switch_profiles">Prepnúť profily (len pre 2 nakonfigurované profily)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Skopírované do schránky</string>
 </resources>

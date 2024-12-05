@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Nom du profil.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">tous les autres pour les événements</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Nom de l\'événement.</string>
-    <string name="activity_log_help_close">Fermer</string>
     <string name="event_preference_sensor_soundProfile_summary">Ce capteur va démarrer un événement en changeant les modes son ou les types \"Ne pas déranger\". Paramètres: modes sonores, types \"Ne pas déranger\".</string>
     <string name="event_type_soundProfile">Profil sonore</string>
     <string name="event_preferences_soundProfile_ringerModes">Modes de son</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Ce paramètre est pour \"Événement d\'appel\"=\"Appel manqué\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Lumière\" est la lumière ambiante détectée par le capteur de luminosité.</string>
     <string name="array_pref_atEndDo_none">Aucun</string>
+    <string name="array_pref_launcher_switch_profiles">Changer de profil (pour seulement 2 profils configurés)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

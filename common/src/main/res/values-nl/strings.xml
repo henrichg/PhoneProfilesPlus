@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profielnaam.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen voor events</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Eventnaam.</string>
-    <string name="activity_log_help_close">Sluiten</string>
     <string name="event_preference_sensor_soundProfile_summary">Deze sensor start een event door te schakelen tussen de Geluidsmodi of \"Niet storen\" types. Parameters: Geluidsmodi: \"Niet storen\" types.</string>
     <string name="event_type_soundProfile">Geluidsprofiel</string>
     <string name="event_preferences_soundProfile_ringerModes">Geluidsmodus</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">Deze parameter is voor \"Oproep event\"=\"Gemiste oproep\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Licht\" is omgevingslicht gedetecteerd door de sensor van het lichtsensor.</string>
     <string name="array_pref_atEndDo_none">Geen</string>
+    <string name="array_pref_launcher_switch_profiles">Wissel profielen (indien 2 profielen geconfigureerd)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>

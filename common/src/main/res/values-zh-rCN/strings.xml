@@ -1555,7 +1555,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">情景名称.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">所有其他事件</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">事件名称.</string>
-    <string name="activity_log_help_close">关闭</string>
     <string name="event_preference_sensor_soundProfile_summary">此传感器将通过切换声音模式或“勿扰”模式来启动事件。参数：声音模式，“勿扰”模式。</string>
     <string name="event_type_soundProfile">声音情景</string>
     <string name="event_preferences_soundProfile_ringerModes">声音模式</string>
@@ -2272,4 +2271,6 @@
     <string name="event_preference_callSendSMS_info_summary">此参数用于\"通话事件\"=\"漏接电话\"。</string>
     <string name="event_preferences_orientation_checkLight_info">“光线”是指由轻型设备传感器检测到的环境光线。</string>
     <string name="array_pref_atEndDo_none">无</string>
+    <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
 </resources>
