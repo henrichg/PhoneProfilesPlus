@@ -785,15 +785,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (infoDialogPreference != null) {
             String grantRootURL = "";
             if (ApplicationPreferences.applicationNeverAskForGrantRoot && RootUtils.isRooted()) {
+                grantRootURL = StringConstants.TAG_BREAK_HTML;
                 // <a href>
-                grantRootURL = StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.GRANT_ROOT +
+                grantRootURL = grantRootURL +
+                        StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.GRANT_ROOT +
                         StringConstants.TAG_URL_LINK_START_URL_END_HTML +
                         getString(R.string.profile_preferences_types_R_grant_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
             }
             infoDialogPreference.setInfoText(
                 // <ul><li>
                 StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                getString(R.string.important_info_profile_install_pppps) +
+                StringConstants.TAG_BREAK_HTML +
                 // <a href>
                 StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                 R.id.activity_info_notification_profile_pppps_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
@@ -802,7 +805,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 StringConstants.TAG_LIST_ITEM_END_HTML +
                 //<li>
                 StringConstants.TAG_LIST_ITEM_START_HTML +
-                getString(R.string.important_info_profile_grant) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                getString(R.string.important_info_profile_grant) +
+                StringConstants.TAG_BREAK_HTML +
                 // <a href>
                 StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                 R.id.activity_info_notification_profile_grant_1_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
@@ -811,14 +815,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 StringConstants.TAG_LIST_ITEM_END_HTML +
                 //<li>
                 StringConstants.TAG_LIST_ITEM_START_HTML +
-                getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                grantRootURL +
+                getString(R.string.important_info_profile_root) +
+                grantRootURL + StringConstants.TAG_DOUBLE_BREAK_HTML +
                 //</li>
                 StringConstants.TAG_LIST_ITEM_END_HTML +
 
                 //<li>
                 StringConstants.TAG_LIST_ITEM_START_HTML +
-                getString(R.string.phone_profiles_pref_grantShizukuPermission_summary1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                getString(R.string.phone_profiles_pref_grantShizukuPermission_summary1) +
+                StringConstants.TAG_BREAK_HTML +
                 // <a href>
                 StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                 R.id.activity_info_notification_profile_shizuku_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
