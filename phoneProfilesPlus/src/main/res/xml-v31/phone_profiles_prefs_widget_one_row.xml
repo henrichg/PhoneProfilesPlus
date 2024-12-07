@@ -142,6 +142,13 @@
         app:title="@string/phone_profiles_pref_applicationWidgetIconsCategory"
         app:layout="@layout/mp_preference_category" >
 
+        <sk.henrichg.phoneprofilesplus.InformationPreference
+            app:key="applicationWidgetOneRowIconColorInfo"
+            app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+            app:summary="@string/phone_profiles_pref_applicationWidgetIconColor_summary"
+            app:infoText=""
+            app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
             app:summary="0"
@@ -163,6 +170,13 @@
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget"
             app:widgetLayout="@layout/preference_widget_custom_switch" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="applicationWidgetOneRowPrefIndicatorCategory"
+        app:title="@string/phone_profiles_pref_applicationWidgetPrefIndicatorCategory"
+        app:layout="@layout/mp_preference_category" >
 
         <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowPrefIndicator"
