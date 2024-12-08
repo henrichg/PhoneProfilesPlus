@@ -77,6 +77,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowBackgroundColorNightModeOff;
         String applicationWidgetOneRowBackgroundColorNightModeOn;
         boolean applicationWidgetOneRowFillBackground;
+        boolean applicationWidgetOneRowPrefIndicatorUseDynamicColor;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -114,6 +115,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
             applicationWidgetOneRowBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
             applicationWidgetOneRowBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
+            applicationWidgetOneRowPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetOneRowPrefIndicatorUseDynamicColor;
+            //Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowPrefIndicatorUseDynamicColor="+applicationWidgetOneRowPrefIndicatorUseDynamicColor);
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplicationStatic.isPixelLauncherDefault(context) ||
@@ -134,8 +137,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
-                if (Build.VERSION.SDK_INT < 31)
+                if (Build.VERSION.SDK_INT < 31) {
                     applicationWidgetOneRowUseDynamicColors = false;
+                    applicationWidgetOneRowPrefIndicatorUseDynamicColor = false;
+                }
+
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetOneRowChangeColorsByNightMode &&
                          (!applicationWidgetOneRowUseDynamicColors))) {
@@ -253,7 +259,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
         if (applicationWidgetOneRowChangeColorsByNightMode &&
             applicationWidgetOneRowIconColor.equals("0")) {
-            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowUseDynamicColors)
+            if ((Build.VERSION.SDK_INT >= 31) &&
+                    (applicationWidgetOneRowUseDynamicColors ||
+                            applicationWidgetOneRowPrefIndicatorUseDynamicColor))
                 indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;

@@ -60,6 +60,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetListUseDynamicColors;
         String applicationWidgetListBackgroundColorNightModeOff;
         String applicationWidgetListBackgroundColorNightModeOn;
+        boolean applicationWidgetListPrefIndicatorUseDynamicColor;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -91,6 +92,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
             applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
             applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
+            applicationWidgetListPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetListRoundedCorners) {
@@ -117,8 +119,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
-                if (Build.VERSION.SDK_INT < 31)
+                if (Build.VERSION.SDK_INT < 31) {
                     applicationWidgetListUseDynamicColors = false;
+                    applicationWidgetListPrefIndicatorUseDynamicColor = false;
+                }
+
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetListChangeColorsByNightMode &&
                         (!applicationWidgetListUseDynamicColors))) {
@@ -618,7 +623,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
                     if (applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0")) {
-                        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListUseDynamicColors)
+                        if ((Build.VERSION.SDK_INT >= 31) &&
+                                (applicationWidgetListUseDynamicColors ||
+                                applicationWidgetListPrefIndicatorUseDynamicColor))
                             indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
                         else
                             indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;

@@ -346,6 +346,9 @@ class ApplicationPreferences {
     static volatile boolean prefEventPrefsActivityStartTargetHelps;
     //static volatile boolean prefEventPrefsActivityStartTargetHelpsFinished;
 
+    static volatile boolean applicationWidgetOneRowPrefIndicatorUseDynamicColor;
+    static volatile boolean applicationWidgetListPrefIndicatorUseDynamicColor;
+
     private volatile static SharedPreferences preferences = null;
 
     //static final String PREF_APPLICATION_PACKAGE_REPLACED = "applicationPackageReplaced";
@@ -599,6 +602,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED = "applicationContactsInBackupEncripted";
     static final String PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED = "applicationLocationsInBackupEncripted";
     static final String PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS = "applicationHyperOsWifiBluetoothDialogs";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR = "applicationWidgetOneRowPrefIndicatorUseDynamicColor";
+    static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR = "applicationWidgetListPrefIndicatorUseDynamicColor";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2456,6 +2461,16 @@ class ApplicationPreferences {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putLong(PREF_DYNAMIC_SHORTCUT_PROFILE_ID + "_" + shortcut, profileId);
         editor.apply();
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
+    static void applicationWidgetOneRowPrefIndicatorUseDynamicColor(Context context) {
+        applicationWidgetOneRowPrefIndicatorUseDynamicColor = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR, PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
+    static void applicationWidgetListPrefIndicatorUseDynamicColor(Context context) {
+        applicationWidgetListPrefIndicatorUseDynamicColor = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR, PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE);
     }
 
 }

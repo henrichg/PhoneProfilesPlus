@@ -185,6 +185,14 @@
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget"
             app:widgetLayout="@layout/preference_widget_custom_switch" />
+
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationWidgetOneRowPrefIndicatorUseDynamicColor"
+            app:title="@string/phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"

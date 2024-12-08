@@ -733,6 +733,7 @@ class PPApplicationStatic {
     static void loadApplicationPreferences(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadApplicationPreferences", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
+            Log.e("PPApplicationStatic.loadApplicationPreferences", "xxxxx");
             ApplicationPreferences.editorOrderSelectedItem(context);
             ApplicationPreferences.editorSelectedView(context);
             ApplicationPreferences.editorProfilesViewSelectedItem(context);
@@ -991,6 +992,9 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorUseDynamicColor(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor(context);
 
             // this must be called after of xxxUseDynamicColors()
             ApplicationPreferences.applicationWidgetIconBackground(context);
@@ -1410,7 +1414,7 @@ class PPApplicationStatic {
 
     static void createExclamationNotificationChannel(Context context, boolean forceChange) {
             try {
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                 if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
