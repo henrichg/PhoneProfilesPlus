@@ -102,20 +102,9 @@ class IgnoreBatteryOptimizationNotification {
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
 
         Intent intent;
-        //PowerManager pm = (PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE);
         String packageName = PPApplication.PACKAGE_NAME;
-        //if (pm.isIgnoringBatteryOptimizations(packageName)) {
-//            intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-        //}
-        //else {
-        //    DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
-        //    But in ONEPLUS it IS ONLY SOLUTION !!!
-            intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + packageName));
-        //    if (!GlobalGUIRoutines.activityIntentExists(intent, context)) {
-        //        intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-        //    }
-        //}
+        intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+        intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + packageName));
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
