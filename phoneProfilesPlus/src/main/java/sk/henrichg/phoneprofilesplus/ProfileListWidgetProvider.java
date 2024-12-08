@@ -62,6 +62,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetListBackgroundColorNightModeOn;
         boolean applicationWidgetListPrefIndicatorUseDynamicColor;
 
+        int setRestartEventsLightness = 0;
+
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
@@ -140,6 +142,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        setRestartEventsLightness = -1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
@@ -153,6 +156,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = "0";
                         applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        setRestartEventsLightness = 1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
@@ -384,6 +388,17 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         int blueText = redText;
 
         int restartEventsLightness = redText;
+        if (setRestartEventsLightness == -1) {
+            restartEventsLightness = restartEventsLightness - 0x1F;
+            if (restartEventsLightness < 0x00)
+                restartEventsLightness = 0x00;
+        }
+        else
+        if (setRestartEventsLightness == 1) {
+            restartEventsLightness = restartEventsLightness + 0x1F;
+            if (restartEventsLightness > 0xFF)
+                restartEventsLightness = 0xFF;
+        }
         int separatorLightness = redText;
 
         //------------------

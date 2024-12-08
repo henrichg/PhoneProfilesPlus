@@ -79,6 +79,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetOneRowFillBackground;
         boolean applicationWidgetOneRowPrefIndicatorUseDynamicColor;
 
+        int setRestartEventsLightness = 0;
+
 //        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
 
@@ -159,6 +161,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetOneRowShowBorder = false; // do not show border
                         applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        setRestartEventsLightness = -1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                         applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
@@ -173,6 +176,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetOneRowShowBorder = false; // do not show border
                         applicationWidgetOneRowLightnessBorder = "0";
                         applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        setRestartEventsLightness = 1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                         applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
@@ -441,6 +445,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             int blueText = redText;
 
             int restartEventsLightness = redText;
+            if (setRestartEventsLightness == -1) {
+                restartEventsLightness = restartEventsLightness - 0x1F;
+                if (restartEventsLightness < 0x00)
+                    restartEventsLightness = 0x00;
+            }
+            else
+            if (setRestartEventsLightness == 1) {
+                restartEventsLightness = restartEventsLightness + 0x1F;
+                if (restartEventsLightness > 0xFF)
+                    restartEventsLightness = 0xFF;
+            }
 
             boolean isIconResourceID;
             String iconIdentifier;
