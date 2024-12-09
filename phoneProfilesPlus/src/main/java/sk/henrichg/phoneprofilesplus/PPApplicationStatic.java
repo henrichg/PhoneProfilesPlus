@@ -733,7 +733,7 @@ class PPApplicationStatic {
     static void loadApplicationPreferences(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadApplicationPreferences", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
-            Log.e("PPApplicationStatic.loadApplicationPreferences", "xxxxx");
+            //Log.e("PPApplicationStatic.loadApplicationPreferences", "xxxxx");
             ApplicationPreferences.editorOrderSelectedItem(context);
             ApplicationPreferences.editorSelectedView(context);
             ApplicationPreferences.editorProfilesViewSelectedItem(context);

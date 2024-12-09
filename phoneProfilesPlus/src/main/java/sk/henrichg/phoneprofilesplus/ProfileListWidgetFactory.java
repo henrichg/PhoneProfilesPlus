@@ -111,7 +111,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             String applicationWidgetListBackgroundColor;
             String applicationWidgetListBackgroundColorNightModeOff;
             String applicationWidgetListBackgroundColorNightModeOn;
-            boolean applicationWidgetListPrefIndicatorUseDynamicColor;
+            //boolean applicationWidgetListPrefIndicatorUseDynamicColor;
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.getViewAt", "PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
@@ -121,7 +121,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
                 if (Build.VERSION.SDK_INT < 30) {
                     applicationWidgetListChangeColorsByNightMode = false;
-                    applicationWidgetListPrefIndicatorUseDynamicColor = false;
+                    //applicationWidgetListPrefIndicatorUseDynamicColor = false;
                 }
                 else
                     applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
@@ -133,12 +133,12 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
                 applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
                 applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
-                applicationWidgetListPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor;
+                //applicationWidgetListPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor;
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (Build.VERSION.SDK_INT < 31) {
                         applicationWidgetListUseDynamicColors = false;
-                        applicationWidgetListPrefIndicatorUseDynamicColor = false;
+                        //applicationWidgetListPrefIndicatorUseDynamicColor = false;
                     }
                     if (//PPApplication.isPixelLauncherDefault(context) ||
                             (applicationWidgetListChangeColorsByNightMode &&
