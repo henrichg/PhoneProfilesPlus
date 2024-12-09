@@ -2319,6 +2319,7 @@
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Preferences indicator</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
 
     <!-- **************************************************************************************** -->
 

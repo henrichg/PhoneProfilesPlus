@@ -120,6 +120,13 @@
         app:title="@string/phone_profiles_pref_applicationWidgetTextCategory"
         app:layout="@layout/mp_preference_category" >
 
+        <sk.henrichg.phoneprofilesplus.InformationPreference
+            app:key="applicationWidgetOneRowLightnessTInfo"
+            app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+            app:summary="@string/phone_profiles_pref_applicationWidgetLightnessTInfo_summary"
+            app:infoText=""
+            app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
             app:summary="100%%"
