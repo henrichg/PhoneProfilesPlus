@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Llamadas salientes</string>
     <string name="array_event_pref_call_screening_direction_all">Todas las llamadas</string>
     <string name="event_name_copy_from_profile_block_calls">Bloquear llamadas</string>
-    <string name="important_info_phone_call_to_call_screening">Para cada perfil con el parámetro \"Llamadas telefónicas\"\/\"Bloquear llamadas\" configurado se genera un nuevo evento con el sensor \"Filtro de llamadas\". Este evento tiene deshabilitado el parámetro \"Ejecutar evento\". El parámetro \"Llamadas telefónicas\" de los perfiles se elimina.</string>
     <string name="profile_preferences_category_send_sms">Enviar SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Grupos de contactos</string>
     <string name="profile_preference_sendSMSContacts">Contactos</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Apantallamiento de confort ocular</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Si no es posible conceder este permiso, tal vez los ajustes restringidos para PhoneProfilesPlus no estén permitidos. Haz clic aquí para permitirlos.</string>
     <string name="permission_why_profile_vpn">para activar/desactivar la VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">La necesidad de tener habilitado el permiso \"Mostrar sobre otras aplicaciones\" permanentemente ha sido eliminada ya que este permiso forma ahora parte de la \"Configuración restringida\" y, si se habilita, puede bloquear aplicaciones bancarias, sitios web, medios de pago, etc., que además podrían solicitarte deshabilitar el permiso \"Mostrar sobre otras aplicaciones\" para PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Se recomienda instalar la nueva versión de PPPPutSettings (1.1), donde hay un cambio que no requiere \"Mostrar sobre otras aplicaciones\". Para versiones anteriores a la 1.1, los parámetros marcados con (S) requerirán este permiso.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Para algunos parámetros de perfil todavía es necesario el permiso \"Mostrar sobre otras aplicaciones\", por ejemplo, para \"Ejecutar aplicaciones, atajos, intentos\".</string>
     <string name="color_value">Valor de color</string>
     <string name="location_geofence_editor_location_name">Nombre de ubicación</string>
     <string name="application_editor_intent_action_custom_label">Acción personalizada</string>
@@ -2272,5 +2268,9 @@
     <string name="event_preferences_orientation_checkLight_info">\"Luz\" es la luz ambiental detectada por el sensor de luz del dispositivo.</string>
     <string name="array_pref_atEndDo_none">Nada</string>
     <string name="array_pref_launcher_switch_profiles">Cambiar perfiles (solo para 2 perfiles configurados)</string>
-    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copiado al portapapeles</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Indicador de preferencias</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">El tipo de color de icono se utilizará tanto para el icono del perfil como para el indicador de preferencias.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Usar color dinámico para el indicador</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">La luminosidad del texto se utilizará tanto para el icono de texto como para el icono de \"Reiniciar eventos\".</string>
 </resources>

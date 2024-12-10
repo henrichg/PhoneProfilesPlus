@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Odchádzajúce hovory</string>
     <string name="array_event_pref_call_screening_direction_all">Všetky hovory</string>
     <string name="event_name_copy_from_profile_block_calls">Blokovať hovory</string>
-    <string name="important_info_phone_call_to_call_screening">Pre každý profil s nakonfigurovaným parametrom \"Telefónne hovory\"\/\"Blokovať hovory\" je vygenerovaná nová udalosť so senzorom \"Kontrola hovorov\". Táto udalosť má zakázaný parameter \"Spustenie udalosti\". Parameter „Telefónne hovory“ z profilov je odstránený.</string>
     <string name="profile_preferences_category_send_sms">Poslať SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Skupiny kontaktov</string>
     <string name="profile_preference_sendSMSContacts">Kontakty</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Štít pre pohodlie očí</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Ak nie je možné udeliť toto povolenie, možno nie sú povolené obmedzené nastavenia pre PhoneProfilesPlus. Kliknutím sem to povolíte.</string>
     <string name="permission_why_profile_vpn">pre zapnutie/vypnutie VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">Potreba mať natrvalo povolené \"Vykresliť cez ďalšie aplikácie\" bola odstránená. Pretože toto právo sa nachádza v časti \"Obmedzené nastavenia\" a ak je povolené, bankové aplikácie a webové stránky, platby za tovar, služby atď. môžu byť zablokované alebo môžu vyžadovať vypnutie funkcie \"Vykresliť cez ďalšie aplikácie\" v PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Odporúča sa nainštalovať novú verziu PPPPutSettings (1.1), kde je zmena, ktorá si nevyžaduje \"Vykresliť cez ďalšie aplikácie\". Pre verzie staršie ako 1.1 budú parametre označené (S) stále vyžadovať toto právo.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Pre niektoré parametre profilu sa stále vyžaduje \"Vykresliť cez ďalšie aplikácie\", napríklad pre \"Spustiť aplikácie, odkazy, intenty\".</string>
     <string name="color_value">Hodnota farby</string>
     <string name="location_geofence_editor_location_name">Názov polohy</string>
     <string name="application_editor_intent_action_custom_label">Vlastná akcia</string>
@@ -2273,4 +2269,8 @@
     <string name="array_pref_atEndDo_none">Nič</string>
     <string name="array_pref_launcher_switch_profiles">Prepnúť profily (len pre 2 nakonfigurované profily)</string>
     <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Skopírované do schránky</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Indikátor parametrov</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Typ farby ikony sa použije pre ikonu profilu aj indikátor parametrov.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Použiť dynamickú farbu pre indikátor</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Svetlosť textu sa použije pre text aj ikonu „Reštart udalostí“.</string>
 </resources>

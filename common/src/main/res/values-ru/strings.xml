@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Исходящие вызовы</string>
     <string name="array_event_pref_call_screening_direction_all">Все вызовы</string>
     <string name="event_name_copy_from_profile_block_calls">Блокировать вызовы</string>
-    <string name="important_info_phone_call_to_call_screening">Для каждого профиля с настроенным параметром \"Вызовы\"/\"Блокировать вызовы\" создано новое событие с датчиком \"Фильтрация вызовов\". Параметр \"Запуск события\" такого события отключён. Параметр \"Вызовы\" из профилей удалён.</string>
     <string name="profile_preferences_category_send_sms">Отправить SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Группы контактов</string>
     <string name="profile_preference_sendSMSContacts">Контакты</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Комфорт для глаз</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Если предоставить это разрешение не получается, возможно, приложению PhoneProfilesPlus не разрешён доступ к настройкам. Чтобы разрешить его, нажмите сюда.</string>
     <string name="permission_why_profile_vpn">для включения/отключения VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">Необходимость в предоставлении разрешения \"Поверх других приложений\" удалена. Так как оно является частью \"Настроек с ограниченным доступом\", банковские приложения и сайты, платёжные системы и т.д. могут стать недоступны или требовать отзыва разрешения \"Поверх других приложений\" для PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Рекомендуется установить новую версию PPPPutSettings (1.1), которая больше не требует разрешения \"Поверх других приложений\". Для более ранних, чем 1.1, версий параметры, отмеченные буквой (S), всё ещё будут требовать наличие этого разрешения.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Однако для некоторых параметров профиля, например, для \"Запуска приложений, ярлыков, intent\'ов\" разрешение \"Поверх других приложений\" всё ещё необходимо.</string>
     <string name="color_value">Значение цвета</string>
     <string name="location_geofence_editor_location_name">Название местоположения</string>
     <string name="application_editor_intent_action_custom_label">Пользовательское действие</string>
@@ -2272,5 +2268,9 @@
     <string name="event_preferences_orientation_checkLight_info">\"Освещённость\" - это окружающий свет, определяемый датчиком освещённости устройства.</string>
     <string name="array_pref_atEndDo_none">Ничего</string>
     <string name="array_pref_launcher_switch_profiles">Переключать профили (если настроено только 2 профиля)</string>
-    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Скопировано в буфер обмена</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Индикатор настроек</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Тип иконки будет использоваться и для иконки профиля, и для индикатора настроек.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Динамический цвет для индикатора</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Яркость текста будет использоваться и для текста, и для иконки перезапуска событий.</string>
 </resources>

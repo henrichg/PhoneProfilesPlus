@@ -69,6 +69,7 @@
             android:textSize="@dimen/important_info_title_size"
             android:textStyle="bold" />
 
+        <!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,6 +106,7 @@
                 android:id="@+id/important_info_news_4"
                 android:textStyle="bold"
                 android:visibility="visible"/>
+        -->
 
 <!--        <TextView-->
 <!--            android:layout_width="wrap_content"-->

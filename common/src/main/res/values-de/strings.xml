@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Ausgehende Anrufe</string>
     <string name="array_event_pref_call_screening_direction_all">Alle Anrufe</string>
     <string name="event_name_copy_from_profile_block_calls">Anrufe sperren</string>
-    <string name="important_info_phone_call_to_call_screening">Für jedes Profil mit dem konfigurierten Parameter „Telefonanrufe“/„Anrufe sperren“ wird ein neues Ereignis mit dem Sensor „Anrufüberwachung“ erzeugt. Bei diesem Ereignis ist der Parameter „Ereignisablauf“ deaktiviert. Der Parameter „Telefonanrufe“ wird aus den Profilen entfernt.</string>
     <string name="profile_preferences_category_send_sms">SMS senden</string>
     <string name="profile_preference_sendSMSContactGroups">Kontaktgruppen</string>
     <string name="profile_preference_sendSMSContacts">Kontakte</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Wenn es nicht möglich ist, diese Berechtigung zu erteilen, sind eingeschränkte Einstellungen für PhoneProfilesPlus möglicherweise nicht zulässig. Klicken Sie hier, um es zuzulassen.</string>
     <string name="permission_why_profile_vpn">zum Aktivieren/Deaktivieren von VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">Die Notwendigkeit, „Über andere Apps ziehen“ dauerhaft zu aktivieren, wurde entfernt. Da sich dieses Recht in den „Eingeschränkten Einstellungen“ befindet und wenn es aktiviert ist, können Banking-Anwendungen und -Websites, Zahlungen für Waren, Dienstleistungen usw. gesperrt werden oder erfordern die Deaktivierung von „Über andere Apps ziehen“ in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Es wird empfohlen, die neue Version von PPPPutSettings (1.1) zu installieren, in der es eine Änderung gibt, die „Über andere Apps ziehen“ nicht erfordert. Bei Versionen vor 1.1 erfordern die mit (S) gekennzeichneten Parameter weiterhin dieses Recht.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Für einige Profilparameter ist „Über andere Apps ziehen“ weiterhin erforderlich, zum Beispiel für „Anwendungen, Tastaturkürzel und Absichten ausführen“.</string>
     <string name="color_value">Farbwert</string>
     <string name="location_geofence_editor_location_name">Standortname</string>
     <string name="application_editor_intent_action_custom_label">Benutzerdefinierte Aktion</string>
@@ -2272,5 +2268,9 @@
     <string name="event_preferences_orientation_checkLight_info">„Licht“ ist das vom Lichtsensor des Geräts erfasste Umgebungslicht.</string>
     <string name="array_pref_atEndDo_none">Nichts</string>
     <string name="array_pref_launcher_switch_profiles">Profile wechseln (bei nur 2 konfigurierten Profilen)</string>
-    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">In Zwischenablage kopiert</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Einstellungsanzeige</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Der Farbtyp des Symbols wird sowohl für das Profilsymbol als auch für die Einstellungsanzeige verwendet.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Dynamische Farbe für Indikator verwenden</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Die Texthelligkeit wird sowohl für den Text als auch für das Symbol „Ereignisse neu starten“ verwendet.</string>
 </resources>

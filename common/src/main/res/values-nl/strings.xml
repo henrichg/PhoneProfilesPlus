@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Uitgaande oproepen</string>
     <string name="array_event_pref_call_screening_direction_all">Alle oproepen</string>
     <string name="event_name_copy_from_profile_block_calls">Oproepen blokkeren</string>
-    <string name="important_info_phone_call_to_call_screening">Voor elk profiel met geconfigureerde parameter \"Telefonische oproepen\" \/\"Blokkeer oproepen\" wordt een nieuw event gegenereerd met de \"Oproepscherm\" sensor. Dit event heeft de parameter \"Event run\" uitgeschakeld. \"Telefonische oproepen\" parameter uit profielen is verwijderd.</string>
     <string name="profile_preferences_category_send_sms">Sms verzenden</string>
     <string name="profile_preference_sendSMSContactGroups">Contactgroepen</string>
     <string name="profile_preference_sendSMSContacts">Contacten</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Oogcomfortschild</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Als het niet mogelijk is om toegang tot meldingen in te schakelen zijn er misschien nog niet toegestane instellingen voor PhoneProfilesPlus. Klik hier om toe te staan.</string>
     <string name="permission_why_profile_vpn">voor aan-/uitzetten VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">De noodzaak om \"Weergeven over apps\" permanent aan te zetten is verwijderd. Omdat deze toestemming een \"Beperkte instelling\" is kan het, als ingeschakeld, banktoepassingen en websites, betalingen voor goederen, diensten, enzovoort blokkeren. \"Weergeven over apps\" moet je dan uitschakelen in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Installeer de nieuwe versie van PPutSettings (1.1) waarbij de toestemming \"Weergeven over apps\" niet meer nodig is. Voor versies eerder dan 1.1 hebben parameters die met (S) zijn gemarkeerd nog steeds deze toestemming nodig.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Voor sommige profiel parameters is nog steeds \"Weergegeven over apps\" nodig. Bijvoorbeeld voor starten \"Programma\'s, snelkoppelingen, intents\".</string>
     <string name="color_value">Kleurwaarde</string>
     <string name="location_geofence_editor_location_name">Locatienaam</string>
     <string name="application_editor_intent_action_custom_label">Aangepaste actie</string>
@@ -2272,5 +2268,9 @@
     <string name="event_preferences_orientation_checkLight_info">\"Licht\" is omgevingslicht gedetecteerd door de sensor van het lichtsensor.</string>
     <string name="array_pref_atEndDo_none">Geen</string>
     <string name="array_pref_launcher_switch_profiles">Wissel profielen (indien 2 profielen geconfigureerd)</string>
-    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Gekopieerd naar klembord</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Voorkeuren indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Pictogram kleurtype gebruik je voor profielpictogram en voorkeuren indicator.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Gebruik dynamische kleur voor indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Teksthelderheid zal zowel voor tekst als voor \"Herstart gebeurtenissen\" pictogram worden gebruikt.</string>
 </resources>

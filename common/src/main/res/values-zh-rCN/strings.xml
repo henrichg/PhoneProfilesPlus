@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">去电</string>
     <string name="array_event_pref_call_screening_direction_all">所有通话</string>
     <string name="event_name_copy_from_profile_block_calls">骚扰拦截</string>
-    <string name="important_info_phone_call_to_call_screening">对于每个配置了参数“电话通话”/“骚扰拦截”的情景模式，都会生成带有“来电过滤”传感器的新事件。此事件的“事件运行”参数已被禁用。来自情景模式的“电话通话”参数已被移除。</string>
     <string name="profile_preferences_category_send_sms">发送短信</string>
     <string name="profile_preference_sendSMSContactGroups">联系人组</string>
     <string name="profile_preference_sendSMSContacts">联系人</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) 护眼护盾</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">若未授予此权限，PhoneProfilesPlus 将无法设置。点此授权。</string>
     <string name="permission_why_profile_vpn">启用/禁用 VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">\"在其他应用上绘制/显示\"权限被移除，由于此权限位于“受限设置”中，如果启用，一些银行类应用和网站支付可能会被阻止，需要 PhoneProfilesPlus 关闭“在其他应用上绘制/显示”。</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">建议安装新版本的PPPutSetting(1.1)，其不需要“在其他应用上绘制/显示”。 对于早于1.1的版本，用(S) 标记的参数仍然需要此权限。</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">对于某些情景参数，仍然需要\"在其他应用上绘制/显示\"，例如\"运行应用，快捷方式，intents\"。</string>
     <string name="color_value">颜色值</string>
     <string name="location_geofence_editor_location_name">位置名称</string>
     <string name="application_editor_intent_action_custom_label">自定义操作</string>
@@ -2271,6 +2267,10 @@
     <string name="event_preference_callSendSMS_info_summary">此参数用于\"通话事件\"=\"漏接电话\"。</string>
     <string name="event_preferences_orientation_checkLight_info">“光线”是指由轻型设备传感器检测到的环境光线。</string>
     <string name="array_pref_atEndDo_none">无</string>
-    <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
-    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="array_pref_launcher_switch_profiles">切换情景(只能配置 2 个情景)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">复制到剪贴板</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">配置指示灯</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">图标颜色类型将用于情景图标和配置指示灯。</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">指示灯使用动态颜色</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">文本亮度将用于文本和“重启事件”图标。</string>
 </resources>

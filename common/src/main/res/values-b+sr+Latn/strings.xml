@@ -2201,7 +2201,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Outgoing calls</string>
     <string name="array_event_pref_call_screening_direction_all">All calls</string>
     <string name="event_name_copy_from_profile_block_calls">Block calls</string>
-    <string name="important_info_phone_call_to_call_screening">For each profile with configured parameter \"Phone calls\"\/\"Block calls\", is generated new event with \"Call screening\" sensor. This event has the \"Event run\" parameter disabled. \"Phone calls\" parameter from profiles is removed.</string>
     <string name="profile_preferences_category_send_sms">Send SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Contact groups</string>
     <string name="profile_preference_sendSMSContacts">Contacts</string>
@@ -2247,9 +2246,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
     <string name="permission_why_profile_vpn">for enable/disable VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">It is recommended to install the new version of PPPPutSettings (1.1), where there is a change that does not require \"Draw over apps\". For versions earlier than 1.1, parameters marked with (S) will still require this right.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
     <string name="color_value">Color value</string>
     <string name="location_geofence_editor_location_name">Location name</string>
     <string name="application_editor_intent_action_custom_label">Custom action</string>
@@ -2273,4 +2269,8 @@
     <string name="array_pref_atEndDo_none">Nijеdan</string>
     <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
     <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Preferences indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
 </resources>
