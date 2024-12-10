@@ -759,7 +759,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }*/
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
+                    applicationWidgetListIconColor.equals("0") &&
+                    (applicationWidgetListUseDynamicColors ||
+                     applicationWidgetListPrefIndicatorUseDynamicColor))) {
                 bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);

@@ -773,7 +773,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                        applicationWidgetOneRowIconColor.equals("0") &&
+                        (applicationWidgetOneRowUseDynamicColors ||
+                         applicationWidgetOneRowPrefIndicatorUseDynamicColor))) {
                     //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                     bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
