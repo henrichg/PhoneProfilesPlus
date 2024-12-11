@@ -3370,7 +3370,7 @@ public class EditorActivity extends AppCompatActivity
                 fragment.updateListView(event, newEvent, false, false/*, 0*/);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
-                        ApplicationPreferences.applicationEditorPrefIndicator);
+                        !ApplicationPreferences.applicationEditorHideEventDetails);
                 fragment.updateHeader(activeProfile);
 
                 if (filterEventsSelectedItem != 0) {

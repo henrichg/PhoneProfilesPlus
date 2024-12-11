@@ -1002,6 +1002,8 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
 
+            ApplicationPreferences.applicationEditorHideEventDetails(context);
+
             ApplicationPreferences.deleteBadPreferences(context);
         }
     }

@@ -82,12 +82,12 @@ class AddEventAdapter extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+        boolean applicationNotHideEditorHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
 
         if (convertView == null)
         {
             //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (applicationEditorPrefIndicator)
+            if (applicationNotHideEditorHideEventDetails)
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
@@ -99,7 +99,7 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
             //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
-            if (applicationEditorPrefIndicator) {
+            if (applicationNotHideEditorHideEventDetails) {
                 //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
                 holder.eventPreferencesDescription = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -149,7 +149,7 @@ class AddEventAdapter extends BaseAdapter {
             holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
             holder.eventName.setText(sbt);
 
-            if (applicationEditorPrefIndicator)
+            if (applicationNotHideEditorHideEventDetails)
             {
                 if (holder.eventPreferencesDescription != null) {
                     if (position == 0) {
@@ -215,7 +215,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (applicationEditorPrefIndicator)
+                if (applicationNotHideEditorHideEventDetails)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -243,7 +243,7 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileStartName.setTextColor(defaultColor);
                 holder.profileStartName.setText(profileName);
                 holder.profileStartIcon.setImageResource(profileStartIconsArray[position]);
-                if (applicationEditorPrefIndicator)
+                if (applicationNotHideEditorHideEventDetails)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -320,7 +320,7 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (applicationEditorPrefIndicator) {
+                    if (applicationNotHideEditorHideEventDetails) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -378,7 +378,7 @@ class AddEventAdapter extends BaseAdapter {
                     }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndIcon.setImageResource(profileEndIconsArray[position]);
-                    if (applicationEditorPrefIndicator) {
+                    if (applicationNotHideEditorHideEventDetails) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);

@@ -62,7 +62,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         profileEndName = itemView.findViewById(R.id.event_list_item_profile_end_name);
         profileEndIcon = itemView.findViewById(R.id.event_list_item_profile_end_icon);
         ignoreManualActivationButton = itemView.findViewById(R.id.event_list_item_ignore_manual_activation);
-        if (ApplicationPreferences.applicationEditorPrefIndicator)
+        if (!ApplicationPreferences.applicationEditorHideEventDetails)
         {
             eventPreferencesDescription  = itemView.findViewById(R.id.event_list_item_preferences_description);
             //eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -205,7 +205,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //eventName.setTextColor(textColorSecondary);
             }
 
-            boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+            boolean applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
 
             String _eventName;
             String eventStartOrder = "[O:" + event._startOrder + "] ";
@@ -258,7 +258,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), _eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             eventName.setText(sbt);
 
-            if (applicationEditorPrefIndicator)
+            if (applicationEditorNotHideEventDetails)
             {
                 if (eventPreferencesDescription != null) {
                     //String eventPrefDescription = event.getPreferencesDescription(context, true);
@@ -278,7 +278,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             */
             Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
-                    applicationEditorPrefIndicator, false);
+                    applicationEditorNotHideEventDetails, false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -314,7 +314,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (applicationEditorPrefIndicator)
+                if (applicationEditorNotHideEventDetails)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -333,7 +333,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
                     profileStartName.setText(R.string.profile_preference_profile_end_no_activate);
                     profileStartIcon.setImageResource(R.drawable.ic_empty);
-                    if (applicationEditorPrefIndicator) {
+                    if (applicationEditorNotHideEventDetails) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -378,7 +378,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //    profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
-                        applicationEditorPrefIndicator, false);
+                        applicationEditorNotHideEventDetails, false);
                 if (profile != null) {
                     String profileName;
                     //if (event._atEndHowUndo == 0) {
@@ -426,7 +426,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (applicationEditorPrefIndicator) {
+                    if (applicationEditorNotHideEventDetails) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -459,7 +459,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     }
                     profileEndName.setText(profileName);
                     profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    if (applicationEditorPrefIndicator) {
+                    if (applicationEditorNotHideEventDetails) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);

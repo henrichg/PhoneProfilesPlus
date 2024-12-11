@@ -49,7 +49,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public EditorEventListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-            if (ApplicationPreferences.applicationEditorPrefIndicator)
+            if (!ApplicationPreferences.applicationEditorHideEventDetails)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listitem_editor_event_with_order, parent, false);
             else
@@ -57,7 +57,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                         .inflate(R.layout.listitem_editor_event_no_indicator_with_order, parent, false);
         }
         else {
-            if (ApplicationPreferences.applicationEditorPrefIndicator)
+            if (!ApplicationPreferences.applicationEditorHideEventDetails)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listitem_editor_event, parent, false);
             else
@@ -297,22 +297,22 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (refreshIcons) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.notifyDataSetChanged", "DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
-                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+                boolean applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
                     Profile profile;
                     if (event._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
                         profile = activityDataWrapper.getProfileById(event._fkProfileStart, true,
-                                applicationEditorPrefIndicator, false);
+                                applicationEditorNotHideEventDetails, false);
                         activityDataWrapper.refreshProfileIcon(profile, true,
-                                applicationEditorPrefIndicator);
+                                applicationEditorNotHideEventDetails);
                     }
                     if (event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
                         profile = activityDataWrapper.getProfileById(event._fkProfileEnd, true,
-                                applicationEditorPrefIndicator, false);
+                                applicationEditorNotHideEventDetails, false);
                         activityDataWrapper.refreshProfileIcon(profile, true,
-                                applicationEditorPrefIndicator);
+                                applicationEditorNotHideEventDetails);
                     }
                 }
             }

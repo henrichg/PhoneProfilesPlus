@@ -199,7 +199,7 @@ public class EditorEventListFragment extends Fragment
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_events_activated_profile_pref_indicator);
-        if (!ApplicationPreferences.applicationEditorPrefIndicator)
+        if (ApplicationPreferences.applicationEditorHideEventDetails)
             //noinspection DataFlowIssue
             profilePrefIndicatorImageView.setVisibility(GONE);
 
@@ -414,7 +414,7 @@ public class EditorEventListFragment extends Fragment
         final boolean _generatePredefinedProfiles;
         boolean defaultEventsGenerated = false;
 
-        final boolean applicationEditorPrefIndicator;
+        final boolean applicationEditorNotHideEventDetails;
 
         //Handler progressBarHandler;
         //Runnable progressBarRunnable;
@@ -430,7 +430,7 @@ public class EditorEventListFragment extends Fragment
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+            applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
         }
 
         @Override
@@ -447,7 +447,7 @@ public class EditorEventListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
+            _dataWrapper.fillProfileList(true, applicationEditorNotHideEventDetails);
             _dataWrapper.fillEventList();
             _dataWrapper.fillEventTimelineList();
 
@@ -535,7 +535,7 @@ public class EditorEventListFragment extends Fragment
 
                     fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorNotHideEventDetails);
                     fragment.updateHeader(profile);
 
                     fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1164,7 +1164,7 @@ public class EditorEventListFragment extends Fragment
             }
         }
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator)
+        if (!ApplicationPreferences.applicationEditorHideEventDetails)
         {
             if (profile == null)
                 //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
@@ -1306,7 +1306,7 @@ public class EditorEventListFragment extends Fragment
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(2) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                    ApplicationPreferences.applicationEditorPrefIndicator);
+                                    !ApplicationPreferences.applicationEditorHideEventDetails);
                             updateHeader(profile);
                         }
                     }
@@ -1318,7 +1318,7 @@ public class EditorEventListFragment extends Fragment
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(3) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                    ApplicationPreferences.applicationEditorPrefIndicator);
+                                    !ApplicationPreferences.applicationEditorHideEventDetails);
                             updateHeader(profile);
                         }
 
@@ -1369,7 +1369,7 @@ public class EditorEventListFragment extends Fragment
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(5) DataWrapper.profileList");
                     synchronized (activityDataWrapper.profileList) {
                         Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                ApplicationPreferences.applicationEditorPrefIndicator);
+                                !ApplicationPreferences.applicationEditorHideEventDetails);
                         updateHeader(profile);
                     }
                     eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
