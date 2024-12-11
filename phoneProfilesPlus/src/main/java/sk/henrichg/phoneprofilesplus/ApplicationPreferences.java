@@ -348,6 +348,7 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetOneRowPrefIndicatorUseDynamicColor;
     static volatile boolean applicationWidgetListPrefIndicatorUseDynamicColor;
     static volatile boolean applicationEditorHideEventDetails;
+    static volatile boolean applicationEditorHideEventDetailsForStartOrder;
 
     private volatile static SharedPreferences preferences = null;
 
@@ -605,6 +606,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR = "applicationWidgetOneRowPrefIndicatorUseDynamicColor";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR = "applicationWidgetListPrefIndicatorUseDynamicColor";
     static final String PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS = "applicationEditorHideEventDetails";
+    static final String PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER = "applicationEditorHideEventDetailsForStartOrder";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2477,6 +2479,11 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_DEFAULT_VALUE = false;
     static void applicationEditorHideEventDetails(Context context) {
         applicationEditorHideEventDetails = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE = true;
+    static void applicationEditorHideEventDetailsForStartOrder(Context context) {
+        applicationEditorHideEventDetailsForStartOrder = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE);
     }
 
 }

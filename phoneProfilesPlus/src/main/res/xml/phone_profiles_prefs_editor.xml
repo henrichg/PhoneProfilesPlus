@@ -5,10 +5,24 @@
     app:title="@string/phone_profiles_pref_category_editor">
 
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="applicationEditorPrefIndicator"
+        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:summary="@string/phone_profiles_pref_applicationPrefIndicator_summary"
+        app:defaultValue="true"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEditorHideEventDetails"
         app:title="@string/phone_profiles_pref_applicationHideEventDetails"
         app:summary="@string/phone_profiles_pref_applicationHideEventDetails_summary"
         app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="applicationEditorHideEventDetailsForStartOrder"
+        app:title="@string/phone_profiles_pref_applicationHideEventDetailsForStartOrder"
+        app:summary="@string/phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary"
+        app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference

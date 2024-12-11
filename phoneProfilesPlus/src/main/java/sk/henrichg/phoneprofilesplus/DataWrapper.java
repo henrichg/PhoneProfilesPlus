@@ -483,7 +483,7 @@ class DataWrapper {
         }
     }
 
-    private Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
+    Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         Profile profile = DatabaseHandler.getInstance(context).getProfile(id, merged);
         if (/*forGUI &&*/ (profile != null))

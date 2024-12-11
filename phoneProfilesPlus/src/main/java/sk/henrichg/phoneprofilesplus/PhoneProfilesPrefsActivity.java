@@ -28,6 +28,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
     private boolean showEditorPrefIndicator;
     private boolean hideEditorEventDetails;
+    private boolean hideEditorEventDetailsForStartOrder;
     private boolean hideEditorHeaderOrBottomBar;
     //private String activeLanguage;
     private String activeTheme;
@@ -118,6 +119,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         //activeNightModeOffTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
         showEditorPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
         hideEditorEventDetails = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, false);
+        hideEditorEventDetailsForStartOrder = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, true);
         hideEditorHeaderOrBottomBar = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
         //showEditorHeader = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 
@@ -609,6 +611,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             invalidateEditor = true;
         }
         if (hideEditorEventDetails != ApplicationPreferences.applicationEditorHideEventDetails)
+        {
+            invalidateEditor = true;
+        }
+        if (hideEditorEventDetailsForStartOrder != ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)
         {
             invalidateEditor = true;
         }

@@ -199,7 +199,7 @@ public class EditorEventListFragment extends Fragment
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.editor_events_activated_profile_pref_indicator);
-        if (ApplicationPreferences.applicationEditorHideEventDetails)
+        if (!ApplicationPreferences.applicationEditorPrefIndicator)
             //noinspection DataFlowIssue
             profilePrefIndicatorImageView.setVisibility(GONE);
 
@@ -535,7 +535,8 @@ public class EditorEventListFragment extends Fragment
 
                     fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorNotHideEventDetails);
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
+                            ApplicationPreferences.applicationEditorPrefIndicator);
                     fragment.updateHeader(profile);
 
                     fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1164,7 +1165,7 @@ public class EditorEventListFragment extends Fragment
             }
         }
 
-        if (!ApplicationPreferences.applicationEditorHideEventDetails)
+        if (ApplicationPreferences.applicationEditorPrefIndicator)
         {
             if (profile == null)
                 //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
@@ -1306,7 +1307,7 @@ public class EditorEventListFragment extends Fragment
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(2) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                    !ApplicationPreferences.applicationEditorHideEventDetails);
+                                    ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
                     }
@@ -1318,7 +1319,7 @@ public class EditorEventListFragment extends Fragment
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(3) DataWrapper.profileList");
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                    !ApplicationPreferences.applicationEditorHideEventDetails);
+                                    ApplicationPreferences.applicationEditorPrefIndicator);
                             updateHeader(profile);
                         }
 
@@ -1369,7 +1370,7 @@ public class EditorEventListFragment extends Fragment
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListFragment.changeListOrder", "(5) DataWrapper.profileList");
                     synchronized (activityDataWrapper.profileList) {
                         Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                                !ApplicationPreferences.applicationEditorHideEventDetails);
+                                ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
                     }
                     eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
@@ -2033,7 +2034,7 @@ public class EditorEventListFragment extends Fragment
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         long activatedProfileId;
-        Profile profileFromDataWrapper;
+        Profile profileFromDataWrapperForHeader;
 
         boolean doNotRefresh = false;
 
@@ -2069,7 +2070,7 @@ public class EditorEventListFragment extends Fragment
                     }
 
                     if (activatedProfileId != -1) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
+                        profileFromDataWrapperForHeader = dataWrapper.getProfileByIdFromDB(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -2152,9 +2153,9 @@ public class EditorEventListFragment extends Fragment
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     if (!doNotRefresh) {
                         if (activatedProfileId != -1) {
-                            if (profileFromDataWrapper != null)
-                                profileFromDataWrapper._checked = true;
-                            fragment.updateHeader(profileFromDataWrapper);
+                            if (profileFromDataWrapperForHeader != null)
+                                profileFromDataWrapperForHeader._checked = true;
+                            fragment.updateHeader(profileFromDataWrapperForHeader);
                         } else {
                             fragment.updateHeader(null);
                         }
