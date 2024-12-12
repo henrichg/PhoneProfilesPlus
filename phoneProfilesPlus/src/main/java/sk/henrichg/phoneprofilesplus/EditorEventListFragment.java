@@ -430,7 +430,9 @@ public class EditorEventListFragment extends Fragment
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
+            applicationEditorNotHideEventDetails = (!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                    ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                     (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder));
         }
 
         @Override

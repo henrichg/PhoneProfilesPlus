@@ -62,7 +62,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         profileEndName = itemView.findViewById(R.id.event_list_item_profile_end_name);
         profileEndIcon = itemView.findViewById(R.id.event_list_item_profile_end_icon);
         ignoreManualActivationButton = itemView.findViewById(R.id.event_list_item_ignore_manual_activation);
-        if (!ApplicationPreferences.applicationEditorHideEventDetails)
+        if ((!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                 (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)))
         {
             eventPreferencesDescription  = itemView.findViewById(R.id.event_list_item_preferences_description);
             //eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -205,7 +207,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //eventName.setTextColor(textColorSecondary);
             }
 
-            boolean applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
+            boolean applicationEditorNotHideEventDetails =
+                    (!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                    ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                     (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder));
 
             String _eventName;
             String eventStartOrder = "[O:" + event._startOrder + "] ";

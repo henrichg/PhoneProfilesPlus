@@ -49,12 +49,17 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public EditorEventListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-            if (!ApplicationPreferences.applicationEditorHideEventDetails)
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.listitem_editor_event_with_order, parent, false);
-            else
+            if (ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder) {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listitem_editor_event_no_indicator_with_order, parent, false);
+            } else {
+                if (!ApplicationPreferences.applicationEditorHideEventDetails)
+                    view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.listitem_editor_event_with_order, parent, false);
+                else
+                    view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.listitem_editor_event_no_indicator_with_order, parent, false);
+            }
         }
         else {
             if (!ApplicationPreferences.applicationEditorHideEventDetails)
@@ -299,7 +304,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             synchronized (activityDataWrapper.eventList) {
                 boolean applicationEditorNotHideEventDetails =
                         (!ApplicationPreferences.applicationEditorHideEventDetails) &&
-                         ApplicationPreferences.applicationEditorPrefIndicator;
+                        ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                         (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)) &&
+                        ApplicationPreferences.applicationEditorPrefIndicator;
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
