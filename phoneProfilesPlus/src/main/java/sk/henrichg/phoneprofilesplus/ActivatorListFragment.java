@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class ActivatorListFragment extends Fragment {
     private GridView gridView = null;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
+    private ImageView activeProfilePrefIndicator;
     RelativeLayout viewNoData;
     private LinearLayout progressBar;
     //FrameLayout gridViewDivider = null;
@@ -120,6 +122,7 @@ public class ActivatorListFragment extends Fragment {
 
         activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
+        activeProfilePrefIndicator = view.findViewById(R.id.act_prof_activated_profile_pref_indicator);
         if (!applicationActivatorGridLayout)
             listView = view.findViewById(R.id.act_prof_profiles_list);
         else {
@@ -475,8 +478,7 @@ public class ActivatorListFragment extends Fragment {
         activityDataWrapper = null;
     }
 
-    private void updateHeader(Profile profile)
-    {
+    private void updateHeader(Profile profile) {
         //if (!ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
         //    return;
 
@@ -484,22 +486,18 @@ public class ActivatorListFragment extends Fragment {
             // Activator opened from recent app list and setting for show header is changed
             return;
 
-        String oldDisplayedText = (String)activatedProfileHeader.getTag();
+        String oldDisplayedText = (String) activatedProfileHeader.getTag();
 
-        if (profile == null)
-        {
+        if (profile == null) {
             activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
 
             activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
-        }
-        else
-        {
+        } else {
             activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
 
             activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
-            if (profile.getIsIconResourceID())
-            {
+            if (profile.getIsIconResourceID()) {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
                 if (bitmap != null)
                     activeProfileIcon.setImageBitmap(bitmap);
@@ -512,36 +510,32 @@ public class ActivatorListFragment extends Fragment {
                         activeProfileIcon.setImageResource(res); // icon resource
                     }
                 }
-            }
-            else
-            {
+            } else {
                 //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
                 //Bitmap bitmap = profile._iconBitmap;
                 //if (bitmap != null)
                 //    activeProfileIcon.setImageBitmap(bitmap);
                 //else
-                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
 
-        //if (ApplicationPreferences.applicationActivatorPrefIndicator)
-        if (ApplicationPreferences.applicationEditorPrefIndicator)
-        {
-            //noinspection ConstantConditions
-            ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
-            if (profilePrefIndicatorImageView != null)
-            {
+        if (activeProfilePrefIndicator != null) {
+            //if (ApplicationPreferences.applicationActivatorPrefIndicator)
+            if (ApplicationPreferences.applicationEditorPrefIndicator) {
                 if (profile == null)
                     //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                    profilePrefIndicatorImageView.setVisibility(GONE);
+                    activeProfilePrefIndicator.setVisibility(GONE);
                 else {
                     if (profile._preferencesIndicator != null)
-                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                        activeProfilePrefIndicator.setImageBitmap(profile._preferencesIndicator);
                     else
-                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                        activeProfilePrefIndicator.setImageResource(R.drawable.ic_empty);
                 }
-            }
+            } else
+                activeProfilePrefIndicator.setVisibility(GONE);
         }
+
 
         String newDisplayedText = (String)activatedProfileHeader.getTag();
         if (!newDisplayedText.equals(oldDisplayedText))
