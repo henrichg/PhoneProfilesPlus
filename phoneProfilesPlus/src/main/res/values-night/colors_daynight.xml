@@ -76,7 +76,7 @@
 <!--    <color name="buttonBorderColor">#5d4e41</color>-->
     <color name="buttonBorderColor">#66513f</color>
 <!--    <color name="buttonDisabledBorderColor">#736b69</color>-->
-    <color name="buttonDisabledBorderColor">#3e3735</color>
+    <color name="buttonDisabledBorderColor">#403938</color>
 
 <!--    <color name="toastBackgroundColor">#3a3a3a</color>-->
     <color name="toastBackgroundColor">#3c3533</color>
