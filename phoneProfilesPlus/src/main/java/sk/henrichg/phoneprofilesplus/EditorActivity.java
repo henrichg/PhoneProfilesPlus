@@ -1664,6 +1664,8 @@ public class EditorActivity extends AppCompatActivity
             return false;
     }
 
+    // selectedView = 0=Profles/1=Events
+    // postion = selected filter item
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener/*, boolean startTargetHelps*/) {
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
