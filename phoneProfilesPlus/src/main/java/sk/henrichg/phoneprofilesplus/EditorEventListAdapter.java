@@ -297,7 +297,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (refreshIcons) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.notifyDataSetChanged", "DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
-                boolean applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
+                boolean applicationEditorNotHideEventDetails =
+                        (!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                         ApplicationPreferences.applicationEditorPrefIndicator;
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();

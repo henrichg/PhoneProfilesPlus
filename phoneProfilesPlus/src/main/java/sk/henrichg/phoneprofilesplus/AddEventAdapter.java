@@ -215,7 +215,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (applicationNotHideEditorHideEventDetails)
+                if (ApplicationPreferences.applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -230,6 +230,9 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileStartIndicator.setVisibility(View.GONE);
                         }
                     }
+                } else {
+                    if (holder.profileStartIndicator != null)
+                        holder.profileStartIndicator.setVisibility(View.GONE);
                 }
             }
             else
@@ -243,8 +246,8 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileStartName.setTextColor(defaultColor);
                 holder.profileStartName.setText(profileName);
                 holder.profileStartIcon.setImageResource(profileStartIconsArray[position]);
-                if (applicationNotHideEditorHideEventDetails)
-                {
+                //if (ApplicationPreferences.applicationEditorPrefIndicator)
+                //{
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -252,7 +255,12 @@ class AddEventAdapter extends BaseAdapter {
                         //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
                         holder.profileStartIndicator.setVisibility(View.GONE);
                     }
-                }
+                //} else {
+                //    if (holder.profileStartIndicator != null) {
+                        //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                //        holder.profileStartIndicator.setVisibility(View.GONE);
+                //    }
+                //}
             }
 
             // profile end
@@ -320,7 +328,7 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (applicationNotHideEditorHideEventDetails) {
+                    if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -334,6 +342,9 @@ class AddEventAdapter extends BaseAdapter {
                                 holder.profileEndIndicator.setVisibility(View.GONE);
                             }
                         }
+                    } else {
+                        if (holder.profileEndIndicator != null)
+                            holder.profileEndIndicator.setVisibility(View.GONE);
                     }
                 } else {
                     String profileName;
@@ -378,14 +389,19 @@ class AddEventAdapter extends BaseAdapter {
                     }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndIcon.setImageResource(profileEndIconsArray[position]);
-                    if (applicationNotHideEditorHideEventDetails) {
+                    //if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (holder.profileEndIndicator != null)
                             //holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
                             holder.profileEndIndicator.setVisibility(View.GONE);
-                    }
+                    //} else {
+                    //    if (holder.profileEndIndicator != null) {
+                            //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    //        holder.profileEndIndicator.setVisibility(View.GONE);
+                    //    }
+                    //}
                 }
             }
 
