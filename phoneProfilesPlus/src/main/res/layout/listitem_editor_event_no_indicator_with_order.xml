@@ -4,7 +4,7 @@
     android:id="@+id/event_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="6dp"
+    android:paddingStart="4dp"
     android:paddingEnd="0dp"
     android:paddingTop="1dp"
     android:paddingBottom="1dp"
@@ -54,17 +54,17 @@
         android:orientation="horizontal"
         android:layout_toStartOf="@id/event_list_item_buttons_root"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="5dp" >
+        android:layout_centerVertical="true" >
+<!--        android:layout_marginStart="5dp"-->
 
         <sk.henrichg.phoneprofilesplus.DragHandle
             android:id="@+id/event_list_drag_handle"
             android:layout_width="25dp"
-            android:layout_height="45dp"
+            android:layout_height="match_parent"
             android:contentDescription="@string/preference_item_drag_handle"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:layout_marginStart="3dp"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:layout_marginStart="8dp"
             android:layout_gravity="center_vertical"
             android:scaleType="center"
             android:src="@drawable/ic_drag_handle"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="0dp"
+            android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp" >
