@@ -484,9 +484,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         {
             profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
             profileIcon.setImageResource(R.drawable.ic_profile_default);
-            if (showIndicators)
-                profileIndicators.setImageResource(R.drawable.ic_empty);
-            else
+            //if (showIndicators)
+            //    profileIndicators.setImageResource(R.drawable.ic_empty);
+            //else
                 profileIndicators.setVisibility(View.GONE);
         }
         else
@@ -538,9 +538,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 else {
                     profileName.setText(mActivity.getString(R.string.profile_preference_profile_end_no_activate));
                     profileIcon.setImageResource(R.drawable.ic_profile_default);
-                    if (showIndicators)
-                        profileIndicators.setImageResource(R.drawable.ic_empty);
-                    else
+                    //if (showIndicators)
+                    //    profileIndicators.setImageResource(R.drawable.ic_empty);
+                    //else
                         profileIndicators.setVisibility(View.GONE);
                 }
             }
