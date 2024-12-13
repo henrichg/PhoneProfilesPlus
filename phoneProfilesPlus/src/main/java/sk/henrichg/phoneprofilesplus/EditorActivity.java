@@ -520,7 +520,7 @@ public class EditorActivity extends AppCompatActivity
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(R.layout.popup_window_run_stop_indicator, getDataWrapper(), EditorActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
