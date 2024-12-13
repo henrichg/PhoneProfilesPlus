@@ -24,6 +24,9 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -1186,4 +1189,23 @@ class GlobalGUIRoutines {
         return hsl;
     }
 
+    static void dimBehindPopupWindow(PopupWindow popupWindow) {
+        View container;
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            container = (View) popupWindow.getContentView().getParent();
+        //} else {
+        //    container = popupWindow.getContentView();
+        //}
+        if (popupWindow.getBackground() != null) {
+            container = (View) container.getParent();
+        }
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (wm != null) {
+            WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+            p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND; // add a flag here instead of clear others
+            p.dimAmount = 0.6f;
+            wm.updateViewLayout(container, p);
+        }
+    }
 }

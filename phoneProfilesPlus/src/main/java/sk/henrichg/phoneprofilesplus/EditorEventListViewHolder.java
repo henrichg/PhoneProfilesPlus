@@ -509,6 +509,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //noinspection DataFlowIssue
                     popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
+                    GlobalGUIRoutines.dimBehindPopupWindow(popup);
                 }
             });
 

@@ -184,6 +184,7 @@ public class ActivatorActivity extends AppCompatActivity
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                GlobalGUIRoutines.dimBehindPopupWindow(popup);
             }
         });
 
