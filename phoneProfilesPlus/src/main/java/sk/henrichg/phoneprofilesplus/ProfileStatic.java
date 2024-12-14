@@ -1030,6 +1030,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_SCREEN_ON_OFF:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
                     break;
+                case Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION( preferenceKey, null, sharedPreferences);
+                    break;
                 default:
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1084,6 +1087,7 @@ class ProfileStatic {
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( profile, sharedPreferences, fromUIThread, context);
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS();
             preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION( "-", profile, sharedPreferences);
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||
@@ -1232,7 +1236,7 @@ class ProfileStatic {
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
 
         boolean accessibilityNotRequired = true;
-        if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
+        if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange == 1)))
             accessibilityNotRequired = false;
         boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), againCheckAccessibilityInDelay) == 1);
 

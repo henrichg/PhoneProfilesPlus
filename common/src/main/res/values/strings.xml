@@ -853,7 +853,6 @@
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Do not force stop</string>
-    <string name="array_pref_force_stop">Force stop</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
@@ -2321,6 +2320,9 @@
     <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
     <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
     <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
 
     <!-- **************************************************************************************** -->
 

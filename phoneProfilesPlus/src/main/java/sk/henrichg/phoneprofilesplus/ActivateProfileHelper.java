@@ -127,6 +127,7 @@ class ActivateProfileHelper {
     private static final String COMMAND_SERVICE_ROOT_WIFI = "wifi";
     private static final String COMMAND_SERVICE_ROOT_ISUB = "isub";
     private static final String COMMAND_AIRPLANE_MODE = "cmd connectivity airplane-mode";
+    private static final String COMMAND_AM_FORCE_STOP_APP = "am force-stop  ";
 
     private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
@@ -5012,59 +5013,72 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
-        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
-                (PPApplication.isRooted(false))) {
+        if (profile._deviceForceStopApplicationChange == 1) {
+            boolean enabled;
+            enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
+                    /*, "ActivateProfileHelper.execute (profile._deviceForceStopApplicationChange)"*/);
+            if (enabled) {
+                if (profile._lockDevice != 0)
+                    // not force stop if profile has lock device enabled
+                    return;
 
-            synchronized (PPApplication.rootMutex) {
-                processPID = -1;
-                String command1 = "pidof sk.henrichg.phoneprofilesplus";
-                Command command = new Command(0, false, command1) {
-                    @Override
-                    public void commandOutput(int id, String line) {
-                        super.commandOutput(id, line);
-                        try {
-                            processPID = Integer.parseInt(line);
-                        } catch (Exception e) {
-                            processPID = -1;
-                        }
-                    }
+                // For root (maybe also Shizuku - not needed PPPE
+                // "am force-stop com.google.android.calculator"
 
-                    @Override
-                    public void commandTerminated(int id, String reason) {
-                        super.commandTerminated(id, reason);
-                    }
-
-                    @Override
-                    public void commandCompleted(int id, int exitCode) {
-                        super.commandCompleted(id, exitCode);
-                    }
-                };
-
-
-                try {
-                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    PPApplication.commandWait(command);
-                    //if (processPID != -1) {
-                        boolean killed = roottools.killProcess(PPApplication.PACKAGE_NAME);
-                    //}
-                } catch (Exception ee) {
-                    Log.e("ActivateProfileHelper.executeForForceStopApplications", Log.getStackTraceString(ee));
+                String applications = profile._deviceForceStopApplicationPackageName;
+                if (!(applications.isEmpty() || (applications.equals("-")))) {
+                    Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                    intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
+                    intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
+                    appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
             }
-        } else {*/
-            if (profile._lockDevice != 0)
-                // not force stop if profile has lock device enabled
-                return;
-
-            String applications = profile._deviceForceStopApplicationPackageName;
-            if (!(applications.isEmpty() || (applications.equals("-")))) {
-                Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
-                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
-                intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
-                appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+        }
+        else
+        if (profile._deviceForceStopApplicationChange == 2) {
+            boolean isRooted = RootUtils.isRooted(/*false*/);
+            if (ShizukuUtils.hasShizukuPermission()) {
+                String applications = profile._deviceForceStopApplicationPackageName;
+                String[] splits = applications.split(StringConstants.STR_SPLIT_REGEX);
+                for (String split : splits) {
+                    if (!split.isEmpty()) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            command1 = COMMAND_AM_FORCE_STOP_APP + " " + split;
+                            try {
+                                ShizukuUtils.executeCommand(command1);
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                            }
+                        }
+                    }
+                }
+            } else
+            if (isRooted &&
+                    (!ApplicationPreferences.applicationNeverAskForGrantRoot)) {
+                // device is rooted
+                String applications = profile._deviceForceStopApplicationPackageName;
+                String[] splits = applications.split(StringConstants.STR_SPLIT_REGEX);
+                for (String split : splits) {
+                    if (!split.isEmpty()) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            command1 = COMMAND_AM_FORCE_STOP_APP + " " + split;
+                            Command command = new Command(0, /*false,*/ command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                }
             }
-        //}
+        }
     }
 
     /*
@@ -6117,14 +6131,9 @@ class ActivateProfileHelper {
             dataWrapper.invalidateDataWrapper();
         }
 
-        if (profile._deviceForceStopApplicationChange == 1) {
-            boolean enabled;
-            enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
-                            /*, "ActivateProfileHelper.execute (profile._deviceForceStopApplicationChange)"*/);
-            if (enabled) {
-                // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
-                ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
-            }
+        if (profile._deviceForceStopApplicationChange >= 1) {
+            // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
+            ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
         }
         else {
 //            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");

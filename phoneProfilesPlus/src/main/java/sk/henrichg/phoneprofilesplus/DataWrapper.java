@@ -3051,7 +3051,7 @@ class DataWrapper {
                         profileEnabled = !_profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY);
                         break;
                     case DatabaseHandler.PTYPE_FORCE_STOP:
-                        profileEnabled = _profile._deviceForceStopApplicationChange != 0;
+                        profileEnabled = _profile._deviceForceStopApplicationChange > 0;
                         break;
                     case DatabaseHandler.PTYPE_LOCK_DEVICE:
                         profileEnabled = _profile._lockDevice != 0;

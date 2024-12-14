@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -2290,6 +2291,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
                     }
                     break;
+                case Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE:
+                    defaultValueS = Profile.defaultValuesString.get(key);
+                    String forceStop = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, defaultValueS);
+                    if ((forceStop != null) && (!forceStop.equals(defaultValueS))) {
+                        title = getString(preferenceTitleId);
+                        notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                        notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                        notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                        notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
+                    }
+                    break;
                 default:
                     /*String defaultValue =
                             getResources().getString(
@@ -4045,7 +4057,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.permissionGranted = permissions.isEmpty();
 
         profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
-        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
+        if (profile._deviceForceStopApplicationChange == 1)
+            cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
 
         return false;
     }
@@ -4053,6 +4066,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryForceStopApplications(Context context,
                                                             CattegorySummaryData cattegorySummaryData) {
+
+        Profile profile = new Profile();
 
         StringBuilder _value = new StringBuilder(); // must be empty for this cattegory
 
@@ -4075,42 +4090,48 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         );
 
         boolean ok = true;
-        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-        if (extenderVersion == 0) {
-            _value.append(getString(R.string.profile_preferences_device_not_allowed))
-                    .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
-            ok = false;
-        } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
-            _value.append(getString(R.string.profile_preferences_device_not_allowed))
-                    .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
-            ok = false;
-        }
-        else
-        if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
-                /*, "ProfilesPrefsFragment.setCategorySummaryForceStopApplications"*/)) {
-            _value.append(getString(R.string.profile_preferences_device_not_allowed))
-                    .append(": ").append(getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
-            ok = false;
-        }
-        else
-        if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
-            _value.append(getString(R.string.profile_preferences_device_not_allowed))
-                    .append(": ").append(getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined));
-            ok = false;
+        if ("1".equals(sValue)) {
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            if (extenderVersion == 0) {
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(getString(R.string.preference_not_allowed_reason_not_extender_installed));
+                ok = false;
+            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(getString(R.string.preference_not_allowed_reason_extender_not_upgraded));
+                ok = false;
+            } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                    /*, "ProfilesPrefsFragment.setCategorySummaryForceStopApplications"*/)) {
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender));
+                ok = false;
+            } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined));
+                ok = false;
+            }
+            cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
+        } else
+        if ("2".equals(sValue)) {
+            PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION(
+                    Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                    null, preferences);
+            ok = preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+            notRootedOrGrantetRoot = preferenceAllowed.notAllowedRoot;
+            notGrantedShizuku = preferenceAllowed.notAllowedShizuku;
         }
 
         if (ok) {
-            if ((sValue != null) && sValue.equals("1")) {
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, R.string.profile_preferences_deviceForceStopApplicationsPackageName, context);
-                defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
-                sValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, defaultValue);
-                _value.append(StringConstants.STR_BULLET).append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
-                                .append(
-                                    ProfileStatic.getColorForChangedPreferenceValue(
-                                            ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(sValue, "accessibility_2.0", context, false),
-                                            prefMng, PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT, context)
-                                ).append(StringConstants.TAG_BOLD_END_HTML);
-            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, R.string.profile_preferences_deviceForceStopApplicationsPackageName, context);
+            defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
+            sValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, defaultValue);
+            _value.append(StringConstants.STR_BULLET).append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(
+                                ProfileStatic.getColorForChangedPreferenceValue(
+                                        ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(sValue, "accessibility_2.0", context, false),
+                                        prefMng, PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT, context)
+                            ).append(StringConstants.TAG_BOLD_END_HTML);
         }
 
         cattegorySummaryData.summary = _value.toString();
@@ -4118,9 +4139,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.bold = (index > 0);
         cattegorySummaryData.forceSet = true;
 
-        Profile profile = new Profile();
         profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
-        cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context, false) == 1;
 
         return false;
     }
@@ -6016,36 +6035,44 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                boolean ok = true;
-                CharSequence changeSummary = "";
-                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if (extenderVersion == 0) {
-                    ok = false;
-                    changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                }
-                else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
-                    ok = false;
-                    changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                }
-                else
-                if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
-                        /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/)) {
-                    ok = false;
-                    changeSummary = getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-                }
-                else
-                if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
-                    ok = false;
-                    changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
-                }
-
                 sValue = listPreference.getValue();
                 index = listPreference.findIndexOfValue(sValue);
+
+                String defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+                String _sValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, defaultValue);
+                boolean ok = true;
+                CharSequence changeSummary = "";
+                if ("1".equals(_sValue)) {
+                    int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                    if (extenderVersion == 0) {
+                        ok = false;
+                        changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
+                        ok = false;
+                        changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                    } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                            /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/)) {
+                        ok = false;
+                        changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                    } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                        ok = false;
+                        changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                    }
+                }
+                else
+                if ("2".equals(_sValue)) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION(
+                            Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                            null, preferences);
+                    ok = preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+                    changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                }
+
                 if (!ok) {
                     listPreference.setSummary(changeSummary);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, true, false);
@@ -7442,12 +7469,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
-            setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
-            //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
-            boolean enabled;
-            enabled = PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, false
-                    /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
-            //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
+            String defaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+            String _sValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, defaultValue);
+            boolean enabled = true;
+            if ("1".equals(_sValue)) {
+                setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
+                //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
+                enabled = PPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, false
+                        /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
+                //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
+            }
+            else
+            if ("2".equals(_sValue)) {
+                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, preferences, true, context);
+                enabled = preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+            }
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {

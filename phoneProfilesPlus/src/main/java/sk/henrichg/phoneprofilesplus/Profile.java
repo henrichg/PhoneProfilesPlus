@@ -1899,7 +1899,7 @@ class Profile {
                 if (withProfile._headsUpNotifications != 0)
                     this._headsUpNotifications = withProfile._headsUpNotifications;
                 if (withProfile._deviceForceStopApplicationChange != 0) {
-                    this._deviceForceStopApplicationChange = 1;
+                    this._deviceForceStopApplicationChange = withProfile._deviceForceStopApplicationChange;
                     if (this._deviceForceStopApplicationPackageName.isEmpty())
                         this._deviceForceStopApplicationPackageName = withProfile._deviceForceStopApplicationPackageName;
                     else
@@ -3556,12 +3556,12 @@ class Profile {
     int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay) {
         int accessibilityEnabled = -99;
 
-        if ((this._deviceForceStopApplicationChange != 0) ||
+        if ((this._deviceForceStopApplicationChange == 1) ||
             (this._lockDevice != 0)) {
 
             int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
-            if (this._deviceForceStopApplicationChange != 0) {
+            if (this._deviceForceStopApplicationChange == 1) {
                 if (extenderVersion == 0)
                     // not installed
                     accessibilityEnabled = -2;

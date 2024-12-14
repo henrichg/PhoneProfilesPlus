@@ -3512,4 +3512,79 @@ class PreferenceAllowed {
         preferenceAllowed = PREFERENCE_ALLOWED;
     }
 
+    void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION(
+                String preferenceKey, Profile profile, SharedPreferences sharedPreferences) {
+
+        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+        boolean rootRequired = false;
+        if (profile != null)
+            rootRequired = profile._deviceForceStopApplicationChange == 2;
+        else
+        if ((sharedPreferences != null) && (preferenceKey != null))
+            rootRequired = sharedPreferences.getString(preferenceKey, "0").equals("2");
+
+        if (rootRequired) {
+            if (isShiuzkuGranted(true) == 1) {
+                if (profile == null)
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+                else {
+                    if (profile._deviceNetworkType != 0)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                }
+            } else if (isRooted() == 1) {
+                // device is rooted
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if ((profile._deviceForceStopApplicationChange == 2)) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
+                        }
+                    }
+                } else
+                //noinspection ConstantValue
+                if (sharedPreferences != null) {
+                    if (sharedPreferences.getString(preferenceKey, "0").equals("2")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
+                    }
+                }
+                if (profile == null)
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+                else {
+                    if (profile._deviceForceStopApplicationChange == 2)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                }
+            } else {
+                if (profile != null) {
+                    if (profile._deviceForceStopApplicationChange == 2) {
+//                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION", "(1) Shizuku not granted");
+                        preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        notAllowedShizuku = true;
+                    } else
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (sharedPreferences.getString(preferenceKey, "0").equals("2")) {
+//                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION", "(2) Shizuku not granted");
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed = PREFERENCE_ALLOWED;
+                    }
+                }
+            }
+        } else
+            preferenceAllowed = PREFERENCE_ALLOWED;
+    }
+
 }
