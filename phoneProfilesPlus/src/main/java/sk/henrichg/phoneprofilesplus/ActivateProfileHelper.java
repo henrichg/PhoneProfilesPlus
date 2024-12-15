@@ -127,7 +127,7 @@ class ActivateProfileHelper {
     private static final String COMMAND_SERVICE_ROOT_WIFI = "wifi";
     private static final String COMMAND_SERVICE_ROOT_ISUB = "isub";
     private static final String COMMAND_AIRPLANE_MODE = "cmd connectivity airplane-mode";
-    private static final String COMMAND_AM_FORCE_STOP_APP = "am force-stop  ";
+    private static final String COMMAND_AM_FORCE_STOP_APP = "am force-stop ";
 
     private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
@@ -5045,11 +5045,11 @@ class ActivateProfileHelper {
                     if (!split.isEmpty()) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
-                            command1 = COMMAND_AM_FORCE_STOP_APP + " " + split;
+                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
                             try {
                                 ShizukuUtils.executeCommand(command1);
                             } catch (Exception e) {
-                                //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.executeForForceStopApplications", Log.getStackTraceString(e));
                             }
                         }
                     }
@@ -5064,7 +5064,7 @@ class ActivateProfileHelper {
                     if (!split.isEmpty()) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
-                            command1 = COMMAND_AM_FORCE_STOP_APP + " " + split;
+                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
                             Command command = new Command(0, /*false,*/ command1);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
