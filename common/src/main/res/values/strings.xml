@@ -682,7 +682,7 @@
     <string name="event_preference_activity_targetHelps_save_title">Save event</string>
     <string name="event_preference_activity_targetHelps_save_description">Click this to save event preference changes.</string>
     <string name="about_application_privacy_policy">Privacy Policy:</string>
-    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
+    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will be activated when no any event is running.</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
     <string name="profile_preferences_lockDevice">Lock device</string>
     <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
@@ -2323,6 +2323,7 @@
 
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 
     <!-- **************************************************************************************** -->
 

@@ -24,7 +24,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,6 +131,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_CATTEGORY = "prf_pref_deviceWallpaperCategory";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO = "prf_pref_deviceWallpaperHuaweiInfo";
     private static final String PREF_PROFILE_DEVICE_KEYGUARD_INFO = "prf_pref_deviceKeyguardInfo";
+    private static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_INFO = "prf_pref_forceStopApplicationsInfo";
 
     private static final String PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT = "prf_pref_activationDurationCategoryRoot";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT = "prf_pref_soundProfileCategoryRoot";
@@ -1808,6 +1808,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_SCREEN_ON_OFF);
         }
 
+        preference = findPreference((PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_INFO));
+        if (preference != null) {
+            preference.setSummary(getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary) + "\n"
+                    + getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary_2));
+        }
     }
 
     @Override
