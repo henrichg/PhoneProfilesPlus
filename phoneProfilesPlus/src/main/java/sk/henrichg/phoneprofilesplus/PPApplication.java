@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
+// is from reginer android.jar
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;

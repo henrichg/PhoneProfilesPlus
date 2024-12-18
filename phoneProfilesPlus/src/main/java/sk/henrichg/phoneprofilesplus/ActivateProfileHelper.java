@@ -43,6 +43,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+// is from reginer android.jar
 import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.MediaStore;
@@ -65,6 +66,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.palette.graphics.Palette;
 
+// is from reginer android.jar
 import com.android.internal.telephony.ITelephony;
 import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.stericson.rootshell.execution.Command;

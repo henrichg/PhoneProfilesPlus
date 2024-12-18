@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.NonNull;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -288,7 +287,7 @@ class DataWrapperStatic {
 
     static Spannable getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, @NonNull DataWrapper dataWrapper) {
+            boolean durationInNextLine, DataWrapper dataWrapper) {
         Context context = dataWrapper.context;
         LocaleHelper.setApplicationLocale(context);
         return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, context);
@@ -300,7 +299,7 @@ class DataWrapperStatic {
             boolean addDuration,
             @SuppressWarnings("SameParameterValue") boolean multiLine,
             @SuppressWarnings("SameParameterValue") boolean durationInNextLine,
-            @NonNull DataWrapper dataWrapper) {
+            DataWrapper dataWrapper) {
         Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
         Spannable sbt = new SpannableString(sProfileName);
         Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);

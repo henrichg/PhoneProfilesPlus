@@ -37,7 +37,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+// is from reginer android.jar
 import com.android.internal.view.menu.MenuBuilder;
+// is from reginer android.jar
 import com.android.internal.view.menu.MenuPopupHelper;
 
 /** @noinspection ExtractMethodRecommender*/

@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+// is from reginer android.jar
 import android.nfc.INfcAdapter;
 import android.os.Build;
+// is from reginer android.jar
 import android.os.ServiceManager;
 import android.util.Log;
 
