@@ -63,6 +63,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -463,6 +465,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);

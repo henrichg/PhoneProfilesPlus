@@ -14,6 +14,8 @@ public class ActivityLogHelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 

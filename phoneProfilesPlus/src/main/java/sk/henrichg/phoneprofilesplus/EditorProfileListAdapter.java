@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -88,6 +89,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 holder.dragHandle.setOnTouchListener((v, event) -> {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            EditorActivity.itemDragPerformed = true;
+                            Log.e("EditorProfileListAdapter.dragHandle.onTouch", "itemDragPerformed=true");
                             mDragStartListener.onStartDrag(holder);
                             break;
                         case MotionEvent.ACTION_UP:
@@ -377,10 +380,12 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public void clearView() {
-//        PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListAdapter.onItemMove", "call of updateGUI");
-        PPApplication.updateGUI(true, false, activityDataWrapper.context);
-    }
+        // end of drag handler
 
+//        PPApplication.updateGUI(true, false, activityDataWrapper.context);
+        // rescan is not needed when only order in Activator is changed
+        activityDataWrapper.restartEventsWithDelay(false, false, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+    }
 
     void showTargetHelps(final Activity activity, final View listItemView) {
         boolean startTargetHelpsFinished = ApplicationPreferences.prefEditorActivityStartTargetHelpsFinished &&

@@ -67,6 +67,8 @@ public class ActivityLogActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -425,6 +427,8 @@ public class ActivityLogActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             unregisterReceiver(addedActivityLogBroadcastReceiver);

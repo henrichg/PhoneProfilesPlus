@@ -98,6 +98,8 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false);
 
         super.onCreate(savedInstanceState);
@@ -393,6 +395,8 @@ public class ActivatorActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);

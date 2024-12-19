@@ -78,6 +78,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -206,6 +208,9 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
+
         event = null;
 
         if ((startPreferencesActivityAsyncTask != null) &&

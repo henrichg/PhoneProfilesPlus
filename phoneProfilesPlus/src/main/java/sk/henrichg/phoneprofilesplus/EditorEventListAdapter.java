@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -83,6 +84,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 holder.dragHandle.setOnTouchListener((v, event1) -> {
                     switch (event1.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            EditorActivity.itemDragPerformed = true;
+                            Log.e("EditorEventListAdapter.dragHandle.onTouch", "itemDragPerformed=true");
                             mDragStartListener.onStartDrag(holder);
                             break;
                         case MotionEvent.ACTION_UP:
@@ -375,7 +378,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public void clearView() {
-        activityDataWrapper.restartEventsWithDelay(true, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+        // end of drag handler
+
+        activityDataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
     void showTargetHelps(Activity activity, View listItemView) {

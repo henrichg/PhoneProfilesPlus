@@ -101,6 +101,8 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -157,6 +159,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EditorActivity.itemDragPerformed = false;
         Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
         //Log.e("GrantShizukuPermissionActivity.onDestroy", "xxx");
     }

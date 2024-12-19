@@ -123,6 +123,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -539,6 +541,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EditorActivity.itemDragPerformed = false;
+
         mMap.onPause();
         try {
             stopLocationUpdates();

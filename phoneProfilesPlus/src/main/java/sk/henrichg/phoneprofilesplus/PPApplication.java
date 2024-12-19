@@ -1237,6 +1237,8 @@ public class PPApplication extends Application
         }*/
 
 
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate();
 
         PPApplicationStatic.logE("################# PPApplication.onCreate", "onCreate() start");
@@ -1562,6 +1564,8 @@ public class PPApplication extends Application
 
     @Override
     protected void attachBaseContext(Context base) {
+        EditorActivity.itemDragPerformed = false;
+
         //super.attachBaseContext(base);
         super.attachBaseContext(LocaleHelper.onAttach(base));
         //Reflection.unseal(base);

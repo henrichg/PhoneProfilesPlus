@@ -14,6 +14,8 @@ public class DonationPayPalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 

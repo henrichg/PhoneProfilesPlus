@@ -93,6 +93,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -258,6 +260,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
+
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;

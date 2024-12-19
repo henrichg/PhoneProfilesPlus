@@ -187,6 +187,8 @@ public class EditorActivity extends AppCompatActivity
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
 
+    static volatile boolean itemDragPerformed = false;
+
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
         private final RefreshGUIActivatorEditorListener listener;
@@ -197,6 +199,9 @@ public class EditorActivity extends AppCompatActivity
 
         @Override
         public void onReceive( Context context, Intent intent ) {
+            if (itemDragPerformed)
+                return;
+
             listener.refreshGUIFromListener(intent);
         }
     }
@@ -233,6 +238,8 @@ public class EditorActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
 
         //if (Build.VERSION.SDK_INT >= 34)
@@ -753,6 +760,8 @@ public class EditorActivity extends AppCompatActivity
     {
         super.onDestroy();
 //        Log.e("EditorActivity.onDestroy", "xxxx");
+
+        EditorActivity.itemDragPerformed = false;
 
         unregisterReceiversInStop();
 

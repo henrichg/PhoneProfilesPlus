@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,9 +48,11 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         mAdapter.onItemDismiss(viewHolder.getAbsoluteAdapterPosition());
     }
 
+    // this is called at end of drag, in Editor adapters is ovverided
     @Override
-    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder
-    ) {
+    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+        EditorActivity.itemDragPerformed = false;
+        Log.e("ItemTouchHelperCallback.clearView", "itemDragPerformed=false");
         mAdapter.clearView();
     }
 }

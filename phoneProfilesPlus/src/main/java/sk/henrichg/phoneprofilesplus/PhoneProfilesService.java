@@ -1817,6 +1817,8 @@ public class PhoneProfilesService extends Service
         PPApplicationStatic.logE("PhoneProfilesService.onStartCommand", "intent="+intent);
         PPApplicationStatic.logE("PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
+        EditorActivity.itemDragPerformed = false;
+
         //startForegroundNotification = true;
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
