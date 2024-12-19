@@ -1764,6 +1764,16 @@ public class PhoneProfilesService extends Service
                     editor.apply();
                 }
 
+                if (actualVersionCode <= 7200) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                    boolean prefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR,
+                            ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR_DEFAULT_VALUE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, prefIndicator);
+                    editor.apply();
+                }
+
             }
 
             // Keep this !!! stop tap target for package replaced
