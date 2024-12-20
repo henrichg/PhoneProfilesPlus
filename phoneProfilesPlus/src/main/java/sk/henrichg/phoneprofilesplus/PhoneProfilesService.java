@@ -735,12 +735,12 @@ public class PhoneProfilesService extends Service
                 //Permissions.setHyperOSWifiBluetoothDialogAppOp();
 
                 //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                int savedVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
+                PPApplication.firstStartAfterInstallation = savedVersionCode == 0;
 
-                PPApplication.firstStartAfterInstallation = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
-
-                // this save actual version
-                boolean applicationJustInstalled = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
-                boolean newVersion = doForPackageReplaced(appContext);
+                boolean applicationJustInstalled = PPApplication.firstStartAfterInstallation; //PPApplicationStatic.getSavedVersionCode(appContext) == 0;
+                // doForPackageReplaced() save actual version code
+                boolean newVersion = doForPackageReplaced(appContext, savedVersionCode);
                 if (newVersion) {
                     __activateProfiles = true;
                     __applicationStart = true;
@@ -1153,8 +1153,8 @@ public class PhoneProfilesService extends Service
     }
 
     @SuppressLint("ObsoleteSdkInt")
-    private boolean doForPackageReplaced(Context appContext) {
-        int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
+    private boolean doForPackageReplaced(Context appContext, int oldVersionCode) {
+        //int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
         int actualVersionCode = 0;
         // save version code
         try {
