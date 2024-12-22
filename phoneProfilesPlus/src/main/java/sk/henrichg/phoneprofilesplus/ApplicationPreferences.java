@@ -2481,7 +2481,7 @@ class ApplicationPreferences {
         applicationEditorHideEventDetails = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE = false;
     static void applicationEditorHideEventDetailsForStartOrder(Context context) {
         applicationEditorHideEventDetailsForStartOrder = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE);
     }

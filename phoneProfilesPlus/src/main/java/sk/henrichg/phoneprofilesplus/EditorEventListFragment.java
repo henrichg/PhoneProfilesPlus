@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
@@ -53,6 +55,7 @@ public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
     DataWrapper activityDataWrapper;
+    EditorActivity activity;
 
     private View rootView;
     LinearLayout activatedProfileHeader;
@@ -171,6 +174,8 @@ public class EditorEventListFragment extends Fragment
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
         //loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
+        activity = (EditorActivity) getActivity();
+
         //getActivity().getIntent();
 
         //noinspection deprecation
@@ -279,8 +284,6 @@ public class EditorEventListFragment extends Fragment
         listView.addFooterView(footerView, null, false);
         */
 
-        Activity activity = getActivity();
-
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -337,6 +340,7 @@ public class EditorEventListFragment extends Fragment
 
         orderSelectedItem = ApplicationPreferences.editorOrderSelectedItem;
 
+        /*
         LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_events_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             //noinspection DataFlowIssue
@@ -344,15 +348,44 @@ public class EditorEventListFragment extends Fragment
         else
             //noinspection DataFlowIssue
             bottomBarOrderRoot.setVisibility(VISIBLE);
+        */
 
+        TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
         orderSpinner = view.findViewById(R.id.editor_events_list_bottom_bar_order);
+        SwitchCompat hideEventDetaildSwitch = view.findViewById(R.id.editor_events_list_hide_event_details);
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+            //noinspection DataFlowIssue
+            orderLabel.setVisibility(GONE);
+            orderSpinner.setVisibility(GONE);
+            //noinspection DataFlowIssue
+            hideEventDetaildSwitch.setVisibility(VISIBLE);
+            hideEventDetaildSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder);
+            hideEventDetaildSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SharedPreferences preferences = activityDataWrapper.context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, isChecked);
+                    editor.apply();
+                    ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder = isChecked;
+                    // must be called reloadActivity(), because must by invocked fragment layout with/without event details
+                    GlobalGUIRoutines.reloadActivity(activity, false);
+                }
+            });
+        } else {
+            //noinspection DataFlowIssue
+            orderLabel.setVisibility(VISIBLE);
+            orderSpinner.setVisibility(VISIBLE);
+            //noinspection DataFlowIssue
+            hideEventDetaildSwitch.setVisibility(GONE);
+        }
 
 //        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
 //            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
 //        else
 //            orderSpinner.setVisibility(VISIBLE);
 
-        TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
+        //TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
         //noinspection DataFlowIssue
         orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
 

@@ -242,6 +242,19 @@
                 android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/editor_events_list_hide_event_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="2dp"
+                android:textSize="16dp"
+                android:text="@string/phone_profiles_pref_applicationHideEventDetails"
+                app:switchPadding="@dimen/switch_padding"
+                app:trackTint="@color/switch_track_color"
+                app:thumbTint="@color/switch_thumb_color"
+                tools:ignore="SpUsage" />
+
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
