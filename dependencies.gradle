@@ -5,8 +5,8 @@ ext.ppVersions = [
 
         // Add new version, published in GitHub Relases, also into Discord PPP server
 
-        publishVersion    : '7.0.1b',
-        publishVersionCode: 7229, // in PhoneProfilesService.doForPackageReplaced() must be set also for TODO hide event details
+        publishVersion    : '7.0.1',
+        publishVersionCode: 7235,
 
         minSdk            : 26,
         targetSdk         : 28,

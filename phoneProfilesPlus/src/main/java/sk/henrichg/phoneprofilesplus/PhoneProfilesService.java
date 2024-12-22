@@ -1764,8 +1764,7 @@ public class PhoneProfilesService extends Service
                     editor.apply();
                 }
 
-                //TODO hide event details
-                if (actualVersionCode <= 7229) {
+                if (actualVersionCode <= 7235) {
                     SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
 
                     boolean prefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR,
