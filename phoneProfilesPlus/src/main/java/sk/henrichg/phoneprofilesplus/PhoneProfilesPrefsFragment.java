@@ -4717,9 +4717,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_EDITOR_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
             _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationHideEventDetails));
+            _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationHideHeaderOrBottomBar));
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_deleteOldActivityLogs));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_createEditorShortcut));
         }
         if (key.equals(PREF_WIDGET_LIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
