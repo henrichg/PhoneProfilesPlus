@@ -476,7 +476,7 @@ class Event {
         this._eventPreferencesMusic = new EventPreferencesMusic(this, false, 0, "");
     }
 
-    private void createEventPreferencesCallScreening()
+    void createEventPreferencesCallScreening()
     {
         this._eventPreferencesCallScreening = new EventPreferencesCallScreening(this, false, 0, "", "", /*0,*/false, false, false, "", false, 5);
     }
@@ -2328,7 +2328,7 @@ class Event {
                     // Do not restart events when is event paused during restart events !!!
                     // do not reactivate profile to avoid infinite loop
 
-                    dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
+                    dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
 
                     // keep wakelock awake 5 secods
                     // this may do restart after 5 seconds also in Doze mode
@@ -2845,8 +2845,8 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
 
         if (_isInDelayStart) {
-            String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
-                    StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayStart) +")";
+            String evenName = _name + " (" + StringConstants.EVENT_DEALY_START + " " +
+                    StringFormatUtils.getDurationString(_delayStart) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
@@ -3070,8 +3070,8 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
 
         if (_isInDelayEnd) {
-            String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
-                    StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayEnd) +")";
+            String evenName = _name + " (" + StringConstants.EVENT_DEALY_END + " " +
+                    StringFormatUtils.getDurationString(_delayEnd) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 

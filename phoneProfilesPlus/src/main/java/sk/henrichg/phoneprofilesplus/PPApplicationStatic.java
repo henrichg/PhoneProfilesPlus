@@ -143,8 +143,8 @@ class PPApplicationStatic {
         _cancelWork(BluetoothScanWorker.WORK_TAG, false);
         _cancelWork(BluetoothScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
-        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_1, false);
-        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
+        //_cancelWork(RestartEventsWithDelayWorker.WORK_TAG_1, false);
+        //_cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, false);
@@ -648,6 +648,8 @@ class PPApplicationStatic {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
 
+        PPApplicationStatic.createNotificationChannels(context, false);
+
         if (enableStartOnBoot) {
             SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = settings.edit();
@@ -731,6 +733,7 @@ class PPApplicationStatic {
     static void loadApplicationPreferences(Context context) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplicationStatic.loadApplicationPreferences", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
+            //Log.e("PPApplicationStatic.loadApplicationPreferences", "xxxxx");
             ApplicationPreferences.editorOrderSelectedItem(context);
             ApplicationPreferences.editorSelectedView(context);
             ApplicationPreferences.editorProfilesViewSelectedItem(context);
@@ -760,7 +763,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListPrefIndicator(context);
             ApplicationPreferences.applicationWidgetListPrefIndicatorLightness(context);
             ApplicationPreferences.applicationWidgetListHeader(context);
-            ApplicationPreferences.applicationWidgetListBackground(context);
             ApplicationPreferences.applicationWidgetListLightnessB(context);
             ApplicationPreferences.applicationWidgetListLightnessT(context);
             ApplicationPreferences.applicationWidgetIconColor(context);
@@ -806,7 +808,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context);
             //ApplicationPreferences.applicationEventMobileCellsRescan(context);
             ApplicationPreferences.applicationDeleteOldActivityLogs(context);
-            ApplicationPreferences.applicationWidgetIconBackground(context);
             ApplicationPreferences.applicationWidgetIconLightnessB(context);
             ApplicationPreferences.applicationWidgetIconLightnessT(context);
             ApplicationPreferences.applicationEventUsePriority(context);
@@ -856,7 +857,6 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationShowButtonExit(context);
             ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
             ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness(context);
-            ApplicationPreferences.applicationWidgetOneRowBackground(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
             ApplicationPreferences.applicationWidgetOneRowIconColor(context);
@@ -918,9 +918,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationShortcutCustomIconLightness(context);
             ApplicationPreferences.notificationShowRestartEventsAsButton(context);
             ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
-            ApplicationPreferences.applicationWidgetIconUseDynamicColors(context);
-            ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
-            ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
             ApplicationPreferences.applicationRestartEventsIconColor(context);
             //ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon(context);
             ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOff(context);
@@ -936,7 +933,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowFillBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListFillBackground(context);
 
-            ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
@@ -949,7 +945,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode(context);
-            ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness(context);
@@ -991,6 +986,24 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
+
+            // this must be called before of xxxBackground()
+            ApplicationPreferences.applicationWidgetIconUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorUseDynamicColor(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor(context);
+
+            // this must be called after of xxxUseDynamicColors()
+            ApplicationPreferences.applicationWidgetIconBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowBackground(context);
+            ApplicationPreferences.applicationWidgetListBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
+
+            ApplicationPreferences.applicationEditorHideEventDetails(context);
+            ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder(context);
 
             ApplicationPreferences.deleteBadPreferences(context);
         }
@@ -1404,7 +1417,7 @@ class PPApplicationStatic {
 
     static void createExclamationNotificationChannel(Context context, boolean forceChange) {
             try {
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                 if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
@@ -1425,7 +1438,8 @@ class PPApplicationStatic {
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
-                recordException(e);
+                // must be onlu log, because this channel is used in ACRA
+                Log.e("PPApplicationStatic.createExclamationNotificationChannel", Log.getStackTraceString(e));
             }
     }
 
@@ -1673,8 +1687,7 @@ class PPApplicationStatic {
             }
     }
 
-    static void createNotificationChannels(Context appContext,
-                                           @SuppressWarnings("SameParameterValue") boolean forceChange) {
+    static void createNotificationChannels(Context appContext, boolean forceChange) {
         createDonationNotificationChannel(appContext, forceChange);
         createExclamationNotificationChannel(appContext, forceChange);
         createGeneratedByProfileNotificationChannel(appContext, forceChange);
@@ -1810,6 +1823,7 @@ class PPApplicationStatic {
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, PPApplication.SCANNER_RESTART_WIFI_SCANNER);
             runCommand(context, commandIntent);
+//            PPApplicationStatic.logE("[BLUETOOTH] PPApplicationStatic.restartWifiScanner", "*******");
         } catch (Exception e) {
             recordException(e);
         }
@@ -2437,6 +2451,10 @@ class PPApplicationStatic {
     static void createProfileActiationExecutorPool() {
         if (PPApplication.profileActiationExecutorPool == null)
             PPApplication.profileActiationExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createActivateProfileExecuteExecutorPool() {
+        if (PPApplication.activateProfileExecuteExecutorPool == null)
+            PPApplication.activateProfileExecuteExecutorPool = Executors.newCachedThreadPool();
     }
     static void createSoundModeExecutorPool() {
         if (PPApplication.soundModeExecutorPool == null)

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/run_stop_indicator_popup_window_root"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp"
+    app:cardCornerRadius="@dimen/popup_window_corner_radius"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/run_stop_indicator_popup_window_linla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/popupwindow_background" >
+
+        <include layout="@layout/popup_window_title_for_activator" />
+
+        <ScrollView
+            android:id="@+id/run_stop_indicator_popup_window_scroll_view"
+            android:layout_width="@dimen/popup_window_run_stop_indicator_width"
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false" >
+
+            <LinearLayout
+                android:id="@+id/run_stop_indicator_popup_window_liLa1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="7dp">
+
+                <!--
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/important_info_profile_activation_traffic_light_icon"
+                    android:textSize="@dimen/gui_info_popup_text_size"
+                    android:id="@+id/run_stop_indicator_popup_window_text1"
+                    android:drawablePadding="6dp" />
+                -->
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/run_stop_indicator_popup_window_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:checked="false"
+                    android:focusable="false"
+                    app:switchPadding="@dimen/switch_padding"
+                    android:text="@string/menu_run_events"
+                    android:textSize="@dimen/gui_info_popup_text_size"
+                    app:trackTint="@color/switch_track_color"
+                    app:thumbTint="@color/switch_thumb_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/run_stop_indicator_light"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:textColor="@color/trafficLightGreenColor"
+                        android:id="@+id/run_stop_indicator_popup_window_text2_light1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important_info_profile_activation_text9"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:id="@+id/run_stop_indicator_popup_window_text2" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/run_stop_indicator_light"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:textColor="@color/trafficLightOrangeColor"
+                        android:id="@+id/run_stop_indicator_popup_window_text2_light2" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important_info_profile_activation_text10"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:id="@+id/run_stop_indicator_popup_window_text3" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/run_stop_indicator_light"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:textColor="@color/trafficLightRedColor"
+                        android:id="@+id/run_stop_indicator_popup_window_text2_light3" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/important_info_profile_activation_text11"
+                        android:textSize="@dimen/gui_info_popup_text_size"
+                        android:id="@+id/run_stop_indicator_popup_window_text4" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/popup_window_events_status_show_info"
+                    android:textSize="@dimen/gui_info_popup_text_size"
+                    android:id="@+id/run_stop_indicator_popup_window_important_info"
+                    android:textColor="@color/accent_color"
+                    android:background="@drawable/editor_ripple_item_right_button" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

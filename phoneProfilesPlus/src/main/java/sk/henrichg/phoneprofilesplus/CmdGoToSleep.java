@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+// is from reginer android.jar
 import android.os.IPowerManager;
+// is from reginer android.jar
 import android.os.ServiceManager;
 import android.os.SystemClock;
 

@@ -22,6 +22,7 @@
 <!--    <color name="activityPopupMenuBackgroundColor">#161310</color>-->
 <!--    <color name="activityPopupMenuBackgroundColor">#15120f</color>-->
     <color name="activityPopupMenuBackgroundColor">#14110e</color>
+    <color name="activityPopupMenuBorderColor">#48382a</color>
 
     <color name="activityTitleTextColor">#ffffff</color>
     <color name="dialogTitleTextColor">#ffffff</color>
@@ -59,7 +60,7 @@
     <color name="popupWindowDividerColor">#48382a</color>
 <!--    <color name="popupAndMenuBorderColor">#3f3f3f</color>-->
 <!--    <color name="popupAndMenuBorderColor">#47382b</color>-->
-    <color name="popupAndMenuBorderColor">#48382a</color>
+<!--    <color name="popupAndMenuBorderColor">#48382a</color>-->
 <!--    <color name="scrollbarColor">#404040</color>-->
 <!--    <color name="scrollbarColor">#47382b</color>-->
     <color name="scrollbarColor">#48382a</color>
@@ -75,7 +76,8 @@
 <!--    <color name="buttonBorderColor">#656565</color>-->
 <!--    <color name="buttonBorderColor">#5d4e41</color>-->
     <color name="buttonBorderColor">#66513f</color>
-    <color name="buttonDisabledBorderColor">#736b69</color>
+<!--    <color name="buttonDisabledBorderColor">#736b69</color>-->
+    <color name="buttonDisabledBorderColor">#403938</color>
 
 <!--    <color name="toastBackgroundColor">#3a3a3a</color>-->
     <color name="toastBackgroundColor">#3c3533</color>

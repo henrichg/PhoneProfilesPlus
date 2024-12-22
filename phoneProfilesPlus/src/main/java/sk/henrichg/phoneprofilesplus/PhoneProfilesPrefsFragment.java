@@ -5,6 +5,7 @@ import static android.content.Context.RECEIVER_NOT_EXPORTED;
 import static android.content.Context.ROLE_SERVICE;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -183,8 +185,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_WIDGET_LISY_CATEGORY = "categoryWidgetList";
     static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS = "applicationEventMobileCellsConfigureCells";
-
     private static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO = "applicationWidgetDashClockInfo";
+    private static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO = "applicationWidgetOneRowLightnessTInfo";
+    private static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO = "applicationWidgetListLightnessTInfo";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -389,6 +392,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
+    @SuppressLint("BatteryLife")
     @SuppressWarnings("deprecation")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -974,11 +978,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(preference18 -> {
-//                    PowerManager pm = (PowerManager) activity.getApplicationContext().getSystemService(Context.POWER_SERVICE);
-//                    String packageName = PPApplication.PACKAGE_NAME;
-//                    if (pm.isIgnoringBatteryOptimizations(packageName) //||
-//                        //(!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, activity.getApplicationContext()))
-//                    ) {
+                    boolean isIgnoreBartteryOptimisationsSet = false;
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    try {
+                        if (pm != null)
+                            isIgnoreBartteryOptimisationsSet = pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME);
+                    } catch (Exception ignore) {
+                    }
+                    if (isIgnoreBartteryOptimisationsSet) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, activity.getApplicationContext())) {
                             try {
@@ -1012,48 +1019,42 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
-//                    } else {
-//                        DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
-//                        boolean ok = false;
-//                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-//                        intent.setData(Uri.parse(PPApplication.DATA_PACKAGE + packageName));
-//                        if (GlobalGUIRoutines.activityIntentExists(intent, activity.getApplicationContext())) {
-//                            try {
-//                                startActivity(intent);
-//                                ok = true;
-//                            } catch (Exception ignored) {
-//                            }
-//                        } else {
-//                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, activity.getApplicationContext())) {
-//                                try {
-//                                    intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-//                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-//                                    startActivity(intent);
-//                                    ok = true;
-//                                } catch (Exception e) {
-//                                    PPApplicationStatic.recordException(e);
-//                                }
-//                            }
-//                        }
-//                        if (!ok) {
-//                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-//                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-//                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-//                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-//                            AlertDialog dialog = dialogBuilder.create();
-////                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-////                                    @Override
-////                                    public void onShow(DialogInterface dialog) {
-////                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-////                                        if (positive != null) positive.setAllCaps(false);
-////                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-////                                        if (negative != null) negative.setAllCaps(false);
-////                                    }
-////                                });
-//                            if (!activity.isFinishing())
-//                                dialog.show();
-//                        }
-//                    }
+                    } else {
+                        boolean ok = false;
+                        try {
+                            Intent intent;
+                            String packageName = PPApplication.PACKAGE_NAME;
+                            intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + packageName));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                        if (!ok) {
+                            PPAlertDialog dialog = new PPAlertDialog(
+                                    preference18.getTitle(),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    false,
+                                    activity
+                            );
+
+                            if (!activity.isFinishing())
+                                dialog.show();
+                        }
+                    }
                     return false;
                 });
             }
@@ -2074,7 +2075,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 },
                                 null, null,
-                                true, true, false,
+                                true, true, //false,
                                 activity
                         );
                         if (!activity.isFinishing())
@@ -2181,7 +2182,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 },
                                 null, null,
-                                true, true, false,
+                                true, true, //false,
                                 activity
                         );
                         if (!activity.isFinishing())
@@ -2460,6 +2461,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!smsPermission);
                         }
+//                        if (!permissionsChanged) {
+//                            // !!! must before of Permissions.checkPhone()
+//                            boolean modifyPhonePermission = Permissions.checkModifyPhone(context);
+//                            permissionsChanged = Permissions.getModifyPhonePermission(context) != modifyPhonePermission;
+//                            // finish Editor when permission is disabled
+//                            finishActivity = permissionsChanged && (!modifyPhonePermission);
+//                        }
                         if (!permissionsChanged) {
                             boolean phonePermission = Permissions.checkPhone(context);
                             permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
@@ -2673,6 +2681,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER);
@@ -2850,6 +2860,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B);
@@ -3036,12 +3048,18 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR, "0").equals("1");
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T) || keyIsWidgetListChangeColorByNightMode) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
+            Preference _preference = prefMng.findPreference(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
             if (_preference != null)
                 _preference.setEnabled(!changeWidgetListColorsByNightMode);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T) || keyIsWidgetOneRowChangeColorByNightMode) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T);
+            Preference _preference = prefMng.findPreference(PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T);
             if (_preference != null)
                 _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
         }
@@ -3549,6 +3567,35 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON);
             if (_preference != null)
                 _preference.setEnabled(changeWidgetOneRowProfileListColorsByNightMode && (!useDynamicColorsWidgetOneRowProfileList));
+        }
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR);
+            if (_preference != null) {
+                _preference.setEnabled(
+                        preferenceIndicatorsOneRowEnabled &&
+                        changeWidgetOneRowColorsByNightMode &&
+                        !monochromeIconOneRow &&
+                        !useDynamicColorsWidgetOneRow);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR);
+            if (_preference != null) {
+                _preference.setEnabled(
+                        preferenceIndicatorsListEnabled &&
+                        changeWidgetListColorsByNightMode &&
+                        !monochromeIconList &&
+                        !useDynamicColorsWidgetList);
+            }
         }
     }
 
@@ -4838,7 +4885,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                                     Context context) {
         Preference preference = prefMng.findPreference(preferenceKey);
         if ((preference != null) && preference.isEnabled()) {
-            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            int labelColor = ContextCompat.getColor(context, R.color.preferenceSummaryValueColor);
             String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
             return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else

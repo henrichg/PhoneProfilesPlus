@@ -364,6 +364,10 @@
             android:label="@string/title_activity_activity_log">
         </activity>
         <activity
+            android:name=".ActivityLogHelpActivity"
+            android:label="@string/about_application_title">
+        </activity>
+        <activity
             android:name=".ImportantInfoActivity"
             android:label="@string/important_info_activity_title">
         </activity>

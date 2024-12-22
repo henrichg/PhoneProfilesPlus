@@ -52,6 +52,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -304,6 +306,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         if ((startPreferencesActivityAsyncTask != null) &&
                 startPreferencesActivityAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
@@ -627,7 +631,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationEnableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING, ""));
             profile._headsUpNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, ""));
             profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, ""));
-            if (profile._deviceForceStopApplicationChange == 1)
+            if (profile._deviceForceStopApplicationChange >= 1)
                 profile._deviceForceStopApplicationPackageName = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
             else
                 profile._deviceForceStopApplicationPackageName = "-";

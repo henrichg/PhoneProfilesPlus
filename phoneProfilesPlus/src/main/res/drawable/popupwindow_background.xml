@@ -10,7 +10,8 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="@color/popupAndMenuBorderColor" />
+<!--            <solid android:color="@color/popupAndMenuBorderColor" />-->
+            <solid android:color="@color/dialogBorderColor" />
 
             <corners android:radius="@dimen/popup_window_corner_radius" />
         </shape>
@@ -19,7 +20,8 @@
     <!-- Background -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/activityPopupMenuBackgroundColor" />
+<!--            <solid android:color="@color/activityPopupMenuBackgroundColor" />-->
+            <solid android:color="@color/primary" />
 
             <corners android:radius="@dimen/popup_window_corner_radius" />
         </shape>

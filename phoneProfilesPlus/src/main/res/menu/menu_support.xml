@@ -4,10 +4,12 @@
     <item android:id="@+id/menu_email_to_author"
         android:title="@string/menu_email_to_author"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_email"
         app:showAsAction="never" />
     <item android:id="@+id/menu_discord"
         android:title="@string/menu_discord"
         android:orderInCategory="103"
+        android:icon="@drawable/ic_discord"
         app:showAsAction="never">
         <menu>
             <item android:id="@+id/menu_discord_server"
@@ -23,18 +25,26 @@
     <item android:id="@+id/menu_xda_developers"
         android:title="@string/menu_xda_developers"
         android:orderInCategory="104"
+        android:icon="@drawable/ic_xda_developers"
         app:showAsAction="never" />
-    <item android:id="@+id/menu_twitter"
-        android:title="@string/menu_twitter"
-        android:orderInCategory="105"
-        app:showAsAction="never" />
+<!--    <item android:id="@+id/menu_twitter"-->
+<!--        android:title="@string/menu_twitter"-->
+<!--        android:orderInCategory="105"-->
+<!--        app:showAsAction="never" />-->
     <item android:id="@+id/menu_reddit"
         android:title="@string/menu_reddit"
         android:orderInCategory="106"
+        android:icon="@drawable/ic_reddit"
         app:showAsAction="never" />
     <item android:id="@+id/menu_bluesky"
         android:title="@string/menu_bluesky"
         android:orderInCategory="106"
+        android:icon="@drawable/ic_bluesky"
+        app:showAsAction="never" />
+    <item android:id="@+id/menu_mastodon"
+        android:title="@string/menu_mastodon"
+        android:orderInCategory="107"
+        android:icon="@drawable/ic_mastodon"
         app:showAsAction="never" />
 
 </menu>

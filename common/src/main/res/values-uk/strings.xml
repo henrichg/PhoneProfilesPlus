@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">Вібрація при торканні</string>
     <string name="menu_activity_log_reload">Перезавантаження</string>
     <string name="event_preferences_atEndDo">І зробити</string>
-    <string name="array_pref_atEndDo_none">Нічого</string>
     <string name="array_pref_atEndDo_undoneProfile">Скасувати профіль</string>
     <string name="array_pref_atEndDo_restartEvents">Перезавантажити події</string>
     <string name="event_preference_profile_restartEvents">Перезавантажити</string>
@@ -412,7 +411,7 @@
     <string name="important_info_profile_activation_text8">У назві Активатора та Редактора показується \"світлофор\".</string>
     <string name="important_info_profile_activation_text9">Події можуть бути запущені.</string>
     <string name="important_info_profile_activation_text10">Події не виконуються - профіль активовано вручну.</string>
-    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
+    <string name="important_info_profile_activation_text11">Події зупинено - запуск подій може бути відновлено за допомогою іконки верхньої панелі редактора \"Дозволити запуск подій\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Іконка перезапуску подій:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Іконка «Світлофор»:</string>
     <string name="important_info_android_doze_mode">В Android 6+ реалізовано режими \"Doze\" та \"App Standby\". Якщо Ви зіткнулись з проблемою активації подій профілю, коли пристрій був не на зарядці та з вимкнутим екраном, натисніть тут, щоб додати PhoneProfilesPlus в список \"Не заощаджувати заряд батареї\".</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Датчик аксесуарів:</b> Розпочати подію, коли, наприклад, під\'єднані навушники.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Датчик NFC:</b> Початок події через NFC мітки.]]></string>
     <string name="important_info_quick_guide_events_3">Якщо ви активуєте профіль вручну (не за подією), всі запущені події завершуються (призупиняються). Під час роботи вручну активованого профілю, події починатися не будуть. (А) Проте, ви можете змінити цю поведінку, використовуючи опцію \"Ігнорувати ручну активацію\" в параметрах події.</string>
-    <string name="important_info_quick_guide_editor_1">Профілі та Події налаштовуються у Редакторі, який можна викликати через Активатор. В Редакторі можна додавати, дублювати, оновлювати та вилучати профілі та події. За допомогою лівої бічної панелі Редактора можна змінити його вміст. Використовуйте її для перемикання між списками профілів і подій.</string>
     <string name="event_preferences_noPauseByManualActivation">Не призупиняти вручну</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Не призупиняти цю запущену подію якщо профіль запущено вручну</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Назву мітки не встановлено.</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Ігнорувати для застосунків\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Щоб увімкнути параметр \"Застосунки\", натисніть тут для встановлення PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Щоб увімкнути параметр \"Ігнорувати для застосунків\", натисніть тут для встановлення PhoneProfilesPlusExtender.</string>
-    <string name="about_application_extender_source_code">Початковий код - Extender:</string>
+    <string name="about_application_extender_source_code">Початковий код - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">Можна налаштувати кілька рядків. Роздільник «|».</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Стандартно налаштований профіль</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Цей профіль буде активовано, коли ніяка подія не виконується. Натисніть тут, щоб налаштувати його.</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Будь ласка, встановіть нову версію PhoneProfilesPlusExtender. Додаткові відомості про встановлення - в параметрах, для яких потрібен PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Натисніть тут, щоб встановити останню версію PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Не зупиняти примусово</string>
-    <string name="array_pref_force_stop">Примусово припиняти</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Примусова зупинка застосунків</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Застосунки, які потрібно примусово зупиняти</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Щоб увімкнути параметр \"Примусова зупинка застосунків\", натисніть сюди для встановлення PhoneProfilesPlusExtender.</string>
@@ -993,8 +990,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Розширювальний</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Великий</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Малий</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Надайте дозвіл Телефону в PhoneProfilesPlusExtender. Це необхідно щоб отримувати виклики за допомогою Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Надайте дозвіл SMS в PhoneProfilesPlusExtender. Це необхідно щоб отримувати SMS/MMS з допомогою Extender.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Надайте дозвіл Телефону в PhoneProfilesPlusExtender. Це необхідно щоб отримувати виклики за допомогою PhoneProfilesPlusExtender. </string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Надайте дозвіл SMS для PhoneProfilesPlusExtender. Це необхідно щоб отримувати SMS/MMS PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Навушники без мікрофона</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не встановлено!</string>
     <string name="default_profile_name_battery_ok">OK батарея</string>
@@ -1052,7 +1049,7 @@
     <string name="array_pref_lockDevice_extender">Використовувати PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">Android 9+, щоб працювало сканування за стільниковими вежами, потрібно активувати доступ до Місцеперебування в налаштуваннях телефону.</string>
     <string name="info_notification_event_not_started_1">Подія не розпочалась:</string>
-    <string name="info_notification_event_not_started_2">You have disabled global events run (red \"traffic light\") - enable it in Editor top bar icon \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_2">Ви вимкнули запуск подій (червоний індикатор \"світлофора\") - увімкніть його в верхній іконці панелі редактора \"Дозволити запуск подій\".</string>
     <string name="info_notification_event_not_started_3">Ви вручну активували профіль (помаранчевий індикатор) - необхідно перезавантажити всі події. В меню Активатора, Редактора чи в сповіщенні натисніть \"Перезавантажити події\". Якщо профіль активовано вручну, то перед його назвою з\'являється буква \"[M]\" (Manual). Виняток: в налаштуваннях події увімкнено \"Ігнорувати ручну активацію\".</string>
     <string name="info_notification_event_not_started_4">Ви вимкнули запуск цієї події в її налаштуваннях - увімкніть \"Дозволити запуск\" в налаштуваннях події. Примітка: \"індикатор світлофор\" показано у назві події в меню Активатора та Редактора.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Якщо сканування стільникових веж не працює, увімкніть Місцеперебування в Налаштуваннях Системи.</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Взагалі може не працювати у вашому пристрої.</string>
     <string name="application_is_starting_toast">запускається…</string>
     <string name="application_is_started_toast">запущений</string>
-    <string name="duration_end_acronym">до</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Рядок стану</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Панель оповіщень</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Стиль сповіщень</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Назва профілю.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">решта по подіям</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Назва події.</string>
-    <string name="activity_log_help_close">Закрити</string>
     <string name="event_preference_sensor_soundProfile_summary">Цей датчик розпочне подію при перемиканні режимів Звуку або режиму \"Не турбувати\". Параметри: режими Звуку, різновиди \"Не турбувати\".</string>
     <string name="event_type_soundProfile">Звуковий профіль</string>
     <string name="event_preferences_soundProfile_ringerModes">Режими звуку</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">Коли певний час досягнуто</string>
     <string name="profile_preferences_exactTime">Певний час</string>
     <string name="profile_preferences_category_end_of_activation">Завершення активації</string>
-    <string name="end_of_activation_time_end_acronym">ка</string>
-    <string name="end_of_activation_duration_acronym">т</string>
-    <string name="end_of_activation_time_acronym">ч</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Показати час закінчення активації профілю</string>
-    <string name="event_delay_start_acronym">зс</string>
-    <string name="event_delay_end_acronym">зз</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">після досягнення певного часу - скасувати профіль</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">після досягнення певного часу - стандартно налаштований профіль</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">після досягнення певного часу - перезапуск подій</string>
@@ -1908,7 +1898,7 @@
     <string name="install_pppps_text4">Примітка: PPPPutSettings розроблений для версії Андроїд 5.1. Таким чином застосунок не сумісний з Google Play Protect. Але PPPPutSettings є безпечним, його буде використовувати лише PhoneProfilesPlus.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings не встановлено!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">не встановлено PPPPutSettings</string>
-    <string name="about_application_pppps_source_code">Початковий код - PPPPutSettings:</string>
+    <string name="about_application_pppps_source_code">Початковий код - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">LED Сповіщення</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Завжди на екрані</string>
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">Переглянути політику конфіденційності PhoneProfilesPlus через</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Більш компактний</string>
     <string name="altype_timezone_changed">часовий пояс змінено</string>
-    <string name="altype_extender_accessibility_service_enabled">Служба спец можливостей увімкнута для Extender</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Служба спец можливостей не увімкнута для Extender</string>
-    <string name="altype_extender_accessibility_service_unbind">Служба спеціальних можливостей не пов\'язана з Extender</string>
+    <string name="altype_extender_accessibility_service_enabled">Служба спец можливостей увімкнута для PhoneProfilesPlusExtender</string>
+    <string name="altype_extender_accessibility_service_not_enabled">Служба спец можливостей не увімкнута для PhoneProfilesPlusExtender</string>
+    <string name="altype_extender_accessibility_service_unbind">Служба спеціальних можливостей не пов\'язана з PhoneProfilesPlusExtender</string>
     <string name="check_releases_install_from_apk_note1">ПРИМІТКА: встановлення з завантаженого файлу не рекомендується для Android 13 + з міркувань безпеки. Замість цього використовуйте</string>
     <string name="check_releases_install_from_apk_note2_ppp">, якщо у Вашому приладі немає підтримуваного магазину застосунків - встановіть PhoneProfilesPlus звідси.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, якщо у Вашому приладі немає підтримуваного магазину застосунків - встановіть PhoneProfilesPlusExtender звідси.</string>
@@ -2072,7 +2062,7 @@
     <string name="export_settings_delete0_contacts_data_sms">Контакти до Датчика SMS/MMS</string>
     <string name="export_settings_delete_contacts_data_notification">Контакти до Датчика сповіщення</string>
     <string name="grant_draw_over_apps_dialog_info_text">Ви повинні надати дозвіл \"Показувати поверх застосунків\". Це потрібно для запуску activities коли PhoneProfilesPlus працює у фоні. Для цього натисніть кнопку \"Надати\".</string>
-    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">[P:--] Не використовуйте</string>
+    <string name="array_event_pref_priorityDoNotUse" tools:ignore="TypographyDashes">Ø - Не використовуйте</string>
     <string name="contacts_filter_dialog_filter_title">Фільтр контактів</string>
     <string name="contacts_filter_dialog_item_show_all">[ Всі ]</string>
     <string name="profile_preferences_types_shizuku_permission">Надайте дозвіл Shizuku</string>
@@ -2175,8 +2165,8 @@
     <string name="profile_preferences_deviceDualSIMPINCode_summary">УВАГА: Буде потрібно ввести ПІН код для SIM карти яка буде увімкнута.</string>
     <string name="menu_discord_server">PhoneProfilesPlus сервер</string>
     <string name="menu_discord_invitation">Запрошення до сервера</string>
-    <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
-    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
+    <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus в APKPure:</string>
+    <string name="install_pppps_install_droidify_text">Встановіть Droid-ify. Це потрібно для встановлення PPPPutSettings. Після цього знову встановіть PPPPutSettings.</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_send">Надіслати SMS</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Не надсилати SMS</string>
     <string name="popup_event_states_state">Стан:</string>
@@ -2191,13 +2181,13 @@
     <string name="event_preferences_music_notificationAccessSystemSettingsDisabled_summary">Доступ до сповіщень вимкнено</string>
     <string name="event_preferences_music_notificationAccessSystemSettingsEnabled_summary">Доступ до сповіщень увімкнено</string>
     <string name="phone_profiles_pref_call_screening">Встановити дію екрана виклику</string>
-    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary">Click here to set call screening role for PhoneProfilesPlus. Is required for \"Call screening\" event sensor.</string>
-    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1">Call screening role for PhoneProfilesPlus is set</string>
-    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0">Call screening role for PhoneProfilesPlus is not set</string>
-    <string name="event_type_call_screening">Call screening sensor</string>
-    <string name="event_preferences_category_eventCallScreeningParameters">Call screening sensor</string>
-    <string name="event_preference_sensor_call_screening_summary">This sensor will start an event if displayed is phone call screen during call. Call blocking is supported in it. Parameters: Contact groups, Contacts, Duration, Permanent run, Block phone call, Send SMS, SMS text.</string>
-    <string name="export_settings_delete_contacts_data_callScreening">Contacts for sensor \"Call screening\"</string>
+    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary">Натисніть тут щоб встановити роль екрану виклика в PhoneProfilesPlus. Це необхідно для датчика \"Екран виклику\".</string>
+    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1">Роль екрана виклику для PhoneProfilesPlus встановлено</string>
+    <string name="phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0">Роль екрана виклику для PhoneProfilesPlus не встановлено</string>
+    <string name="event_type_call_screening">Датчик екрана виклику</string>
+    <string name="event_preferences_category_eventCallScreeningParameters">Датчик екрана виклику</string>
+    <string name="event_preference_sensor_call_screening_summary">Цей датчик запустить подію якщо під час виклику показується екран виклику. Є можливість блокування викликів. Параметри: Групи контактів, Контакти, Тривалість, Постійно запущено, Блокувати виклик, Відправити СМС, Текст СМС.</string>
+    <string name="export_settings_delete_contacts_data_callScreening">Контакти для датчика \"Екран виклику\"</string>
     <string name="event_preference_callScreeningBlockCalls">Блокувати телефонні дзвінки</string>
     <string name="event_preference_callScreeningSendSMS">Надіслати SMS</string>
     <string name="event_preference_callScreeningSMSText">Текст SMS</string>
@@ -2209,12 +2199,11 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Вихідні виклики</string>
     <string name="array_event_pref_call_screening_direction_all">Всі виклики</string>
     <string name="event_name_copy_from_profile_block_calls">Блокувати виклики</string>
-    <string name="important_info_phone_call_to_call_screening">For each profile with configured parameter \"Phone calls\"\/\"Block calls\", is generated new event with \"Call screening\" sensor. This event has the \"Event run\" parameter disabled. \"Phone calls\" parameter from profiles is removed.</string>
-    <string name="profile_preferences_category_send_sms">Send SMS</string>
-    <string name="profile_preference_sendSMSContactGroups">Contact groups</string>
-    <string name="profile_preference_sendSMSContacts">Contacts</string>
-    <string name="permission_why_profile_send_sms">for read contacts in profile parameter \"Send SMS\"</string>
-    <string name="export_settings_delete_contacts_data_send_sms">Contacts for profile parameter \"Send SMS\"</string>
+    <string name="profile_preferences_category_send_sms">Надіслати SMS</string>
+    <string name="profile_preference_sendSMSContactGroups">Групи контактів</string>
+    <string name="profile_preference_sendSMSContacts">Контакти</string>
+    <string name="permission_why_profile_send_sms">для читання контактів у параметрі профілю \"Надіслати SMS\"</string>
+    <string name="export_settings_delete_contacts_data_send_sms">Контакти для параметра профілю \"Надіслати SMS\"</string>
     <string name="profile_preference_sendSMSSendSMS">Надіслати SMS</string>
     <string name="profile_preference_sendSMSSMSText">Текст SMS</string>
     <string name="altype_profileError_sendSMS">профіль - помилка при відправці SMS</string>
@@ -2234,7 +2223,7 @@
     <string name="event_preference_callScreeningNotInContacts">Тел. номерів немає в контактах</string>
     <string name="altype_callScreening_blockedCall">Заблокований виклик</string>
     <string name="activityLog_blockedCall_telNumber">тел. номер:</string>
-    <string name="event_preference_callScreeningBlockCalls_summary">WARNING: This parameter allows block of calls. Notification about blocked calls will not be displayed!\nBut the blocked tel. numbers are logged in the \"Activity log\", which enables calling back to blocked tel. number by clicking on this log line.</string>
+    <string name="event_preference_callScreeningBlockCalls_summary">УВАГА: Цей параметр дозволяє блокувати виклики. Сповіщення про заблокований виклик не буде!\nАле тел. номер буде записаний в \"Журнал подій\", натиснувши в якому на номер, можна віддзвонити.</string>
     <string name="activity_log_filter_all">Журнал повністю</string>
     <string name="activity_log_filter_blocked_calls">Заблоковані виклики</string>
     <string name="activity_log_filter_errors">Помилки</string>
@@ -2255,12 +2244,9 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Захист очей</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Якщо не виходить надати цей дозвіл, можливо PhoneProfilesPlus немає доступу до налаштувань. Натисніть тут щоб надати його.</string>
     <string name="permission_why_profile_vpn">для вкл/вимк VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">It is recommended to install the new version of PPPPutSettings (1.1), where there is a change that does not require \"Draw over apps\". For versions earlier than 1.1, parameters marked with (S) will still require this right.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
-    <string name="color_value">Color value</string>
-    <string name="location_geofence_editor_location_name">Location name</string>
-    <string name="application_editor_intent_action_custom_label">Custom action</string>
+    <string name="color_value">Значення кольору</string>
+    <string name="location_geofence_editor_location_name">Назва місцеперебування</string>
+    <string name="application_editor_intent_action_custom_label">Власна дія</string>
     <string name="empty_list_content_description">Порожній список</string>
     <string name="tone_content_description">Тон</string>
     <string name="profile_list_notification_right_arrow">Стрілка вправо</string>
@@ -2268,14 +2254,29 @@
     <string name="mobile_cells_registration_cell_name_not_set">[ Не вказано ]</string>
     <string name="profile_preferences_deviceKeyguard">Екран блокування</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">Цей параметр вмикає/вимикає екран блокування пристрою. Коли встановлено на \"Вимкнено\" - екран блокування не з\'являється при увімкненні екрану.</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
-    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
-    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
-    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
-    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
-    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
-    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
-    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
-    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Налаштування \"Час роботи екрану\" (якщо активація профілем) не вимикає опцію \"Залишити екран увімкненим\". Тому Вам потрібно вимкнути цю опцію щоб все запрацювало вірно.</string>
+    <string name="profile_preferences_deviceScreenOnOff">Екран Увімк/Вимк</string>
+    <string name="keep_screen_on_active_notification_description">\"Залишати екран увімкнутим\" - увімкнуто. Щоб вимкнути потрібно налаштувати й активувати профіль де \"Залишати екран увімкнутим\" - вимкнуто.</string>
+    <string name="permission_why_profile_screen_on_off">для увімк/вимк екрана</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">Коли налаштовано \"Екран увімк/вимк\" то неможливо налаштувати \"Екран блокування\" і навпаки. Працює щось одне.</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku встановлено, але не запущено. Запустіть Shizuku з його застосунку.</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Відкрити</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">Допомога</string>
+    <string name="event_preference_callSendSMS_info_summary">Цей параметр для \"Подія дзвінка\"=\"Пропущений виклик\".</string>
+    <string name="event_preferences_orientation_checkLight_info">\"Світло\" це довколишнє світло яке визначається датчиком світла.</string>
+    <string name="array_pref_atEndDo_none">Нічого</string>
+    <string name="array_pref_launcher_switch_profiles">Перемикнути профілі (тільки для двох налаштованих профілів)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Скопійовано до буфера обміну</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Індикатор налаштувань</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Тип кольору іконок буде використовуватися як для іконки профілю, так і для індикатора налаштувань.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Використовувати динамічний колір для індикатора</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Світлість тексту буде використовуватися як для тексту, так і для іконки \"Перезапустити події\".</string>
+    <string name="important_info_quick_guide_editor_1">Профілі та Події налаштовуються у Редакторі, який можна викликати через Активатор. В Редакторі можна додавати, дублювати, оновлювати та вилучати профілі та події. За допомогою нижньої панелі Редактора можна змінити його вигляд. Використовуйте її для перемикання між списками профілів і подій.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Сховати подробиці події</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Приховати подробиці про подію у списку подій редактора.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Сховати подробиці про подію в списку редакторів, коли встановлено фільтр «Порядок запуску».</string>
+    <string name="array_pref_force_stop_with_pppe">Використати PPPE для примусової зупинки</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Примусово зупинити командою</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примітка: Може не працювати на вашому пристрої.</string>
 </resources>

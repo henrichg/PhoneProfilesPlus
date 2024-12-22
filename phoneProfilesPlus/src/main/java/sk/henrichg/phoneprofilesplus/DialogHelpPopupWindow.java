@@ -93,6 +93,7 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
             popup.setClippingEnabled(false); // disabled for draw outside activity
             popup.showOnAnchor(helpIcon, VerticalPosition.ALIGN_TOP,
                     HorizontalPosition.ALIGN_RIGHT, x, y, false);
+            GlobalGUIRoutines.dimBehindPopupWindow(popup);
         }
     }
 

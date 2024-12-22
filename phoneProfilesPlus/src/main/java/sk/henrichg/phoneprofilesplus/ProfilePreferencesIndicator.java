@@ -2009,12 +2009,25 @@ class ProfilePreferencesIndicator {
                 }
             }
             // force stop application
-            if (profile._deviceForceStopApplicationChange == 1) {
+            if (profile._deviceForceStopApplicationChange >= 1) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, sharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    boolean enabled;
-                    enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, false, false
-                            /*, "ProfilePreferencesIndicator.fillArrays (profile._deviceForceStopApplicationChange)"*/);
-                    if (enabled) {
+                    if (profile._deviceForceStopApplicationChange == 1) {
+                        boolean enabled;
+                        enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, false, false
+                                /*, "ProfilePreferencesIndicator.fillArrays (profile._deviceForceStopApplicationChange)"*/);
+                        if (enabled) {
+                            if (fillPreferences)
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);
+                            if (fillStrings)
+                                strings[countDrawables++] = "fcst";
+                            else {
+                                disabled[countDrawables] = false;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
+                            }
+                            if (fillPreferences)
+                                countItems[countPreferences++] = 1;
+                        }
+                    } else {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);
                         if (fillStrings)

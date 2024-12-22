@@ -32,11 +32,16 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
     // Layout widgets
     private AlertDialog mDialog;
+    /** @noinspection FieldCanBeLocal*/
     private TextView extenderVersionText = null;
+    /** @noinspection FieldCanBeLocal*/
     private TextView extenderLaunchText = null;
 //    private View extenderLaunchDivider = null;
+    /** @noinspection FieldCanBeLocal*/
     private TextView extenderAccessibilitySettings = null;
+    /** @noinspection FieldCanBeLocal*/
     private TextView extenderAccessibilitySettingsValue = null;
+    /** @noinspection FieldCanBeLocal*/
     private TextView extenderAccessibilitySettingsSummary = null;
 
     static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
@@ -80,7 +85,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> {
+        //mDialog.setOnShowListener(dialog -> {
             String prefVolumeDataSummary;
             int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
             if (extenderVersion == 0) {
@@ -183,7 +188,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             //----
 
             //enableViews();
-        });
+        //});
 
         return mDialog;
     }

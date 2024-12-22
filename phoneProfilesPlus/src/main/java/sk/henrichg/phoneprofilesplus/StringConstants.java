@@ -80,11 +80,25 @@ class StringConstants {
 
     static final String EXTRA_ACTIVATOR = "activator";
     static final String EXTRA_EDITOR = "editor";
+    static final String EXTRA_SWITCH_PROFILES = "switch_profiles";
 
     static final String RINGTONE_CONTENT_INTERNAL = "content://media/internal";
     static final String RINGTONE_CONTENT_EXTERNAL = "content://media/external";
 
     static final String CONTACTS_FILTER_DATA_ALL = "[all]";
+
+    //⏲⧴⤇⤆⍈⍇⧗⧖⭆⭅￫￩
+    static final String DURATION_END = "⧗";
+    static final String END_OF_ACTIVATION_TIME_END = "⧗";
+    static final String END_OF_ACTIVATION_DURATION = "⧴";
+    static final String END_OF_ACTIVATION_TIME = "⧗";
+    static final String EVENT_DEALY_START = "⭆";
+    static final String EVENT_DEALY_END = "⭅";
+    static final String EVENT_START_TIME = "⧗";
+    static final String EVENT_END_TIME = "⧗";
+
+    //static final String CHAR_SQUARE = "■";
+    static final String INSTALLED_STORE_INDICATOR = "•"; //"⭆";
 
     private StringConstants() {
         // private constructor to prevent instantiation

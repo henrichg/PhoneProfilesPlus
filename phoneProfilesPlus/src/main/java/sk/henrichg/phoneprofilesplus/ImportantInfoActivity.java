@@ -26,6 +26,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -194,18 +196,18 @@ public class ImportantInfoActivity extends AppCompatActivity {
             }
             return true;
         }
-        else
-        if (itemId == R.id.menu_twitter) {
-            String url = PPApplication.TWITTER_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
+//        else
+//        if (itemId == R.id.menu_twitter) {
+//            String url = PPApplication.TWITTER_URL;
+//            intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse(url));
+//            try {
+//                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+//            } catch (Exception e) {
+//                PPApplicationStatic.recordException(e);
+//            }
+//            return true;
+//        }
         else
         if (itemId == R.id.menu_reddit) {
             String url = PPApplication.REDDIT_URL;
@@ -221,6 +223,18 @@ public class ImportantInfoActivity extends AppCompatActivity {
         else
         if (itemId == R.id.menu_bluesky) {
             String url = PPApplication.BLUESKY_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_mastodon) {
+            String url = PPApplication.MASTODON_URL;
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
             try {

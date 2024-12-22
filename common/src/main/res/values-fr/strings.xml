@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">Vibration au toucher</string>
     <string name="menu_activity_log_reload">Recharger</string>
     <string name="event_preferences_atEndDo">Et faire</string>
-    <string name="array_pref_atEndDo_none">Aucun</string>
     <string name="array_pref_atEndDo_undoneProfile">Annuler le profil</string>
     <string name="array_pref_atEndDo_restartEvents">Redémarrer les événements</string>
     <string name="event_preference_profile_restartEvents">Redémarrer</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Capteur d\'accessoires :</b> Démarrer un événement lorsque, par exemple, des écouteurs sont connectés.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Capteur NFC:</b> Lancer un événement via les balises NFC.]]></string>
     <string name="important_info_quick_guide_events_3">Si vous activez manuellement un profil (et non par un événement), tous les événements en cours sont arrêtés (en pause). Les événements ne démarreront plus suite à l’activation manuelle d\'un profil. Toutefois, vous pouvez passer outre ce comportement via le paramètre \"Ignorer l’activation manuelle\" dans les paramètres de l’événement.</string>
-    <string name="important_info_quick_guide_editor_1">Profils et événements sont configurés dans l’éditeur que vous pouvez appeler par le biais de l’activateur. Dans l’éditeur, vous pouvez ajouter, dupliquer, mettre à jour et supprimer des profils et des événements. L’éditeur a un panneau latéral gauche, qui vous permet de modifier l’affichage de l’éditeur. Il permet de commuter entre les profils et les événements.</string>
     <string name="event_preferences_noPauseByManualActivation">Ne pas mettre en pause lors de l\'activation manuelle</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Ne pas mettre en pause cet événement lors de l\'activation manuelle d\'un profil</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Le nom de la balise n’est pas configuré.</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Pour activer le paramètre \"Ignorer pour les applications\", autoriser PhoneProfilesPlusExtender dans les paramètres système.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Pour activer le paramètre \"Applications\", cliquez ici pour installer PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Pour activer le paramètre \"Ignorer pour les applications\", cliquez ici pour installer PhoneProfilesPlusExtender.</string>
-    <string name="about_application_extender_source_code">Code source - Extender :</string>
+    <string name="about_application_extender_source_code">Code source - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">Vous pouvez configurer plusieurs chaînes. Séparez-les avec le caractère \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Profil par défaut</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Ce profil sera activé si aucun événement n’est en cours d’exécution.</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Veuillez installer la nouvelle version de PhoneProfilesPlusExtender. Les informations d\'installation sont présentes dans les paramètres qui en ont besoin.</string>
     <string name="important_info_accessibility_service_new_version_2">Cliquez ici pour installer la dernière version de PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Ne pas forcer l\'arrêt</string>
-    <string name="array_pref_force_stop">Forcer l\'arrêt</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force l\'arrêt des applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications dont on doit forcer l\'arrêt</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pour activer le paramètre \"Forcer l\'arrêt des applications\", cliquez ici pour installer PhoneProfilesPlusExtender.</string>
@@ -993,8 +990,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Déveloper</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Grand</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Petit</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Veuillez accorder la permission Téléphone dans PhoneProfilesPlusExtender. C\'est nécessaire pour recevoir des appels par Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Veuillez accorder la permission SMS dans PhoneProfilesPlusExtender. C\'est nécessaire pour recevoir des SMS/MMS par Extender.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Veuillez accorder la permission Téléphone dans PhoneProfilesPlusExtender. C\'est nécessaire pour recevoir des appels par PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Veuillez autoriser l\'envoi de SMS dans PhoneProfilesPlusExtender. Cette autorisation est nécessaire pour recevoir des SMS/MMS via PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Casques sans microphone</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender n\'est pas installé !</string>
     <string name="default_profile_name_battery_ok">Batterie Ok</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Peut ne pas fonctionner sur votre appareil.</string>
     <string name="application_is_starting_toast">démarrage…</string>
     <string name="application_is_started_toast">est démarré</string>
-    <string name="duration_end_acronym">de</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Barre d\'état</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Panneau des notifications</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Style de notification</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Nom du profil.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">tous les autres pour les événements</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Nom de l\'événement.</string>
-    <string name="activity_log_help_close">Fermer</string>
     <string name="event_preference_sensor_soundProfile_summary">Ce capteur va démarrer un événement en changeant les modes son ou les types \"Ne pas déranger\". Paramètres: modes sonores, types \"Ne pas déranger\".</string>
     <string name="event_type_soundProfile">Profil sonore</string>
     <string name="event_preferences_soundProfile_ringerModes">Modes de son</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">Quand l\'heure exacte est atteinte</string>
     <string name="profile_preferences_exactTime">Heure exacte</string>
     <string name="profile_preferences_category_end_of_activation">Fin de l\'activation</string>
-    <string name="end_of_activation_time_end_acronym">hf</string>
-    <string name="end_of_activation_duration_acronym">d</string>
-    <string name="end_of_activation_time_acronym">h</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Afficher la fin de l\'activation du profil</string>
-    <string name="event_delay_start_acronym">dd</string>
-    <string name="event_delay_end_acronym">df</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">après l\'heure exacte atteinte - annuler le profil</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">après l\'heure exacte atteinte - profil par défaut</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">après l\'heure exacte atteinte - redémarrer les événements</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">Voir la politique de confidentialité de PhoneProfilesPlus en utilisant</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Plus compact</string>
     <string name="altype_timezone_changed">fuseau horaire modifié</string>
-    <string name="altype_extender_accessibility_service_enabled">Service d\'accessibilité étendu interrompu</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Service d\'accessibilité étendu non activé</string>
-    <string name="altype_extender_accessibility_service_unbind">Service d\'accessibilité étendu délié</string>
+    <string name="altype_extender_accessibility_service_enabled">Service d\'accessibilité PhoneProfilesPlus Extender activé</string>
+    <string name="altype_extender_accessibility_service_not_enabled">Service d\'accessibilité PhoneProfilesPlus Extender désactivé</string>
+    <string name="altype_extender_accessibility_service_unbind">Service d\'accessibilité PhoneProfilesPlusExtender délié</string>
     <string name="check_releases_install_from_apk_note1">REMARQUE : L\'installation à partir de l\'apk téléchargé n\'est pas recommandée pour Android 13+ pour des raisons de sécurité. Utiliser à la place</string>
     <string name="check_releases_install_from_apk_note2_ppp">, si votre appareil n\'est pas pris en charge par le magasin d\'applications et que vous voulez installer PhoneProfilesPlus à partir de celui-ci.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, si votre appareil n\'est pas pris en charge par le magasin d\'applications et que vous voulez installer PhoneProfilesPlusExtender à partir de celui-ci.</string>
@@ -2209,7 +2199,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Appels sortants</string>
     <string name="array_event_pref_call_screening_direction_all">Tous les appels</string>
     <string name="event_name_copy_from_profile_block_calls">Bloquer les appels</string>
-    <string name="important_info_phone_call_to_call_screening">Pour chaque profil avec le paramètre configuré \"Appels téléphoniques\"\/\"Bloquer les appels\", un nouvel événement est généré avec le capteur \"Filtrage des appels\". Cet événement a le paramètre \"Exécution d\'événement\" désactivé. Le paramètre \"Appels téléphoniques\" des profils est supprimé.</string>
     <string name="profile_preferences_category_send_sms">Envoyer des SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Groupes de contacts</string>
     <string name="profile_preference_sendSMSContacts">Contacts</string>
@@ -2255,9 +2244,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Protection pour le confort des yeux</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">S\'il n\'est pas possible d\'accorder cette autorisation, il se peut que les paramètres restreints de PhoneProfilesPlus ne soient pas autorisés. Cliquez ici pour l\'autoriser.</string>
     <string name="permission_why_profile_vpn">pour activer/désactiver le VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">Le besoin d\'avoir activé « Dessiner sur les applications » de façon permanente a été supprimé. Parce que ce droit est dans les « paramètres restreints » et s\'il est activé, les applications bancaires et les sites Web, les paiements pour les biens, les services, etc. peut être bloqué ou avoir besoin de désactiver « Dessiner sur les applications » dans PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Il est recommandé d\'installer la nouvelle version de PPPPutSettings (1.1), où il y a un changement qui ne nécessite pas « Dessiner sur les applications ». Pour les versions antérieures à 1.1, les paramètres marqués avec (S) exigeront toujours ce droit.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Pour certains paramètres de profil, « Dessiner sur les applications » est toujours nécessaire, par exemple pour « Exécuter des applications, des raccourcis, des intentions ».</string>
     <string name="color_value">Valeur de la couleur</string>
     <string name="location_geofence_editor_location_name">Nom du lieu</string>
     <string name="application_editor_intent_action_custom_label">Action personnalisée</string>
@@ -2278,4 +2264,19 @@
     <string name="profile_preferences_types_shizuku_permission_show_help">Aide</string>
     <string name="event_preference_callSendSMS_info_summary">Ce paramètre est pour \"Événement d\'appel\"=\"Appel manqué\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Lumière\" est la lumière ambiante détectée par le capteur de luminosité.</string>
+    <string name="array_pref_atEndDo_none">Aucun</string>
+    <string name="array_pref_launcher_switch_profiles">Changer de profil (pour seulement 2 profils configurés)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copié dans le presse-papiers</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Indicateur de préférences</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Le type de couleur de l\'icône sera utilisé à la fois pour l\'icône de profil et l\'indicateur de préférences.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Utiliser une couleur dynamique pour l\'indicateur</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">La luminosité du texte sera utilisée à la fois pour le texte et pour l\'icône « Redémarrer les événements ».</string>
+    <string name="important_info_quick_guide_editor_1">Les profils et les événements sont configurés dans l\'éditeur, que vous pouvez appeler via l\'activateur. Dans l\'éditeur, vous pouvez ajouter, dupliquer, mettre à jour et supprimer des profils et des événements. L\'éditeur dispose d\'une barre de boutons inférieure qui vous permet de modifier la vue de l\'éditeur. Utilisez-la pour basculer entre les listes de profils et d\'événements.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Masquer les détails de l\'événement</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Masquer les détails de l\'événement dans la liste des événements de l\'éditeur.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Masquer les détails de l\'événement pour \"Ordre de démarrage\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Masquer les détails de l\'événement dans la liste des événements de l\'éditeur lorsque le filtre \"Ordre de démarrage\" est défini.</string>
+    <string name="array_pref_force_stop_with_pppe">Forcer l\'arrêt avec PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Forcer l\'arrêt avec la commande</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note : Peut ne pas fonctionner sur votre appareil.</string>
 </resources>

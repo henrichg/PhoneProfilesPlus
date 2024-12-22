@@ -174,6 +174,7 @@ class Permissions {
     private static final String PREF_CONTACTS_PERMISSION = "contactsPermission";
     private static final String PREF_LOCATION_PERMISSION = "locationPermission";
     private static final String PREF_MICROPHONE_PERMISSION = "microphonePermission";
+    //private static final String PREF_MODIFY_PHONE_PERMISSION = "modifyPhonePermission";
     private static final String PREF_PHONE_PERMISSION = "phonePermission";
     private static final String PREF_SENSORS_PERMISSION = "sensorsPermission";
     private static final String PREF_SMS_PERMISSION = "smsPermission";
@@ -734,16 +735,6 @@ class Permissions {
         }
     }
 
-    /*
-    static boolean checkNFC(Context context) {
-        try {
-            return (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    */
-
     static boolean checkRingtonePreference(Context context) {
         try {
             return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -774,21 +765,24 @@ class Permissions {
                 }
             }
             boolean grantedReadPhoneState = true;
+            //boolean grantedModifyPhoneState = true;
             if ((profile._deviceMobileData != 0) ||
                     //(profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
                     (profile._deviceNetworkType != 0) ||
                     (profile._deviceNetworkTypeSIM1 != 0) || (profile._deviceNetworkTypeSIM2 != 0) ||
                     (!profile._deviceDefaultSIMCards.equals("0|0|0")) ||
-                    (profile._deviceOnOffSIM1 != 0) || (profile._deviceOnOffSIM2 != 0))
+                    (profile._deviceOnOffSIM1 != 0) || (profile._deviceOnOffSIM2 != 0)) {
                 grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
-            //if (profile._deviceNFC != 0)
-            //    granted = checkNFC(context);
+                //if (profile._deviceMobileData != 0)
+                //    grantedModifyPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+            }
             if (permissions != null) {
                 if (!grantedWriteSettings)
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
                 if (!grantedReadPhoneState)
                     permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
-                //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
+                //if (!grantedModifyPhoneState)
+                //    permissions.add(new PermissionType(PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
             boolean grantedAccessCoarseLocation = true;
             boolean grantedAccessFineLocation = true;
@@ -822,6 +816,18 @@ class Permissions {
     static boolean checkPhone(Context context) {
         try {
             return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    static boolean checkModifyPhone(Context context) {
+        try {
+            boolean readPhoneState = ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
+            boolean accessNetworkState = Permissions.hasPermission(context, Manifest.permission.ACCESS_NETWORK_STATE);
+//            PPApplicationStatic.logE("[MOBILE_DATA] Permissions.checkModifyPhone", "readPhoneState="+readPhoneState);
+//            PPApplicationStatic.logE("[MOBILE_DATA] Permissions.checkModifyPhone", "accessNetworkState="+accessNetworkState);
+
+            return (readPhoneState && accessNetworkState);
         } catch (Exception e) {
             return false;
         }
@@ -3006,6 +3012,7 @@ class Permissions {
         editor.putBoolean(PREF_CONTACTS_PERMISSION, Permissions.checkContacts(context));
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
+        //editor.putBoolean(PREF_MODIFY_PHONE_PERMISSION, Permissions.checkModifyPhone(context));
         editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
         editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(/*context*/));
         editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(/*context*/));
@@ -3067,6 +3074,11 @@ class Permissions {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_SMS_PERMISSION, false);
     }
+
+//    static boolean getModifyPhonePermission(Context context) {
+//        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+//        return preferences.getBoolean(PREF_MODIFY_PHONE_PERMISSION, false);
+//    }
 
     static boolean getPhonePermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);

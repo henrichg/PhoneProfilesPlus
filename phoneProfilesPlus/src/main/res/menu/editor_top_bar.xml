@@ -106,18 +106,22 @@
             <item android:id="@+id/menu_email_to_author"
                 android:title="@string/menu_email_to_author"
                 android:orderInCategory="100"
+                android:icon="@drawable/ic_email"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_export_and_email_to_author"
                 android:title="@string/menu_export_and_email_to_author"
                 android:orderInCategory="101"
+                android:icon="@drawable/ic_email"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_email_debug_logs_to_author"
                 android:title="@string/menu_email_debug_logs_to_author"
                 android:orderInCategory="102"
+                android:icon="@drawable/ic_email"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_discord"
                 android:title="@string/menu_discord"
                 android:orderInCategory="103"
+                android:icon="@drawable/ic_discord"
                 app:showAsAction="never">
                 <menu>
                     <item android:id="@+id/menu_discord_server"
@@ -133,18 +137,26 @@
             <item android:id="@+id/menu_xda_developers"
                 android:title="@string/menu_xda_developers"
                 android:orderInCategory="104"
+                android:icon="@drawable/ic_xda_developers"
                 app:showAsAction="never" />
-            <item android:id="@+id/menu_twitter"
-                android:title="@string/menu_twitter"
-                android:orderInCategory="105"
-                app:showAsAction="never" />
+<!--            <item android:id="@+id/menu_twitter"-->
+<!--                android:title="@string/menu_twitter"-->
+<!--                android:orderInCategory="105"-->
+<!--                app:showAsAction="never" />-->
             <item android:id="@+id/menu_reddit"
                 android:title="@string/menu_reddit"
                 android:orderInCategory="106"
+                android:icon="@drawable/ic_reddit"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_bluesky"
                 android:title="@string/menu_bluesky"
                 android:orderInCategory="106"
+                android:icon="@drawable/ic_bluesky"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_mastodon"
+                android:title="@string/menu_mastodon"
+                android:orderInCategory="107"
+                android:icon="@drawable/ic_mastodon"
                 app:showAsAction="never" />
         </menu>
     </item>
@@ -164,22 +176,27 @@
             <item android:id="@+id/menu_check_in_droidify"
                 android:title="@string/menu_check_releases_droidify"
                 android:orderInCategory="102"
+                android:icon="@drawable/ic_droidify"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_neostore"
                 android:title="@string/menu_check_releases_neostore"
                 android:orderInCategory="103"
+                android:icon="@drawable/ic_neostore"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_fdroid"
                 android:title="@string/menu_check_releases_fdroid"
                 android:orderInCategory="104"
+                android:icon="@drawable/ic_fdroid"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_apkpure"
                 android:title="@string/menu_check_releases_apkpure"
                 android:orderInCategory="105"
+                android:icon="@drawable/ic_apkpure"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_github"
                 android:title="@string/menu_check_releases_github"
                 android:orderInCategory="110"
+                android:icon="@drawable/ic_github"
                 app:showAsAction="never" />
         </menu>
 

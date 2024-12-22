@@ -111,7 +111,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
                                         null, null, "");
 
-                                dataWrapper2.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper2.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
                             }
 
                         } catch (Exception e) {

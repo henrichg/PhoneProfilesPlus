@@ -518,7 +518,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
-                                dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             } else {
                                 doActivateProfile = true;
 
@@ -555,7 +555,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
-                                dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
+                                dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }
 

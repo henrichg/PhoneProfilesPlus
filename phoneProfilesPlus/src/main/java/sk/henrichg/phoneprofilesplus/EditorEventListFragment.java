@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
@@ -53,6 +54,7 @@ public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
     DataWrapper activityDataWrapper;
+    EditorActivity activity;
 
     private View rootView;
     LinearLayout activatedProfileHeader;
@@ -171,6 +173,8 @@ public class EditorEventListFragment extends Fragment
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
         //loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
+        activity = (EditorActivity) getActivity();
+
         //getActivity().getIntent();
 
         //noinspection deprecation
@@ -279,8 +283,6 @@ public class EditorEventListFragment extends Fragment
         listView.addFooterView(footerView, null, false);
         */
 
-        Activity activity = getActivity();
-
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -289,8 +291,8 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        ((EditorActivity) activity).addEventDialog = new AddEventDialog(activity, this);
-                        ((EditorActivity) activity).addEventDialog.show();
+                        activity.addEventDialog = new AddEventDialog(activity, this);
+                        activity.addEventDialog.show();
                     }
                 }
                 return true;
@@ -337,6 +339,7 @@ public class EditorEventListFragment extends Fragment
 
         orderSelectedItem = ApplicationPreferences.editorOrderSelectedItem;
 
+        /*
         LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_events_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             //noinspection DataFlowIssue
@@ -344,15 +347,41 @@ public class EditorEventListFragment extends Fragment
         else
             //noinspection DataFlowIssue
             bottomBarOrderRoot.setVisibility(VISIBLE);
+        */
 
+        TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
         orderSpinner = view.findViewById(R.id.editor_events_list_bottom_bar_order);
+        SwitchCompat hideEventDetaildSwitch = view.findViewById(R.id.editor_events_list_hide_event_details);
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+            //noinspection DataFlowIssue
+            orderLabel.setVisibility(GONE);
+            orderSpinner.setVisibility(GONE);
+            //noinspection DataFlowIssue
+            hideEventDetaildSwitch.setVisibility(VISIBLE);
+            hideEventDetaildSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder);
+            hideEventDetaildSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                SharedPreferences preferences = activityDataWrapper.context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, isChecked);
+                editor.apply();
+                ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder = isChecked;
+                // must be called reloadActivity(), because must by invocked fragment layout with/without event details
+                GlobalGUIRoutines.reloadActivity(activity, false);
+            });
+        } else {
+            //noinspection DataFlowIssue
+            orderLabel.setVisibility(VISIBLE);
+            orderSpinner.setVisibility(VISIBLE);
+            //noinspection DataFlowIssue
+            hideEventDetaildSwitch.setVisibility(GONE);
+        }
 
 //        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
 //            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
 //        else
 //            orderSpinner.setVisibility(VISIBLE);
 
-        TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
+        //TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
         //noinspection DataFlowIssue
         orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
 
@@ -414,7 +443,7 @@ public class EditorEventListFragment extends Fragment
         final boolean _generatePredefinedProfiles;
         boolean defaultEventsGenerated = false;
 
-        final boolean applicationEditorPrefIndicator;
+        final boolean applicationEditorNotHideEventDetails;
 
         //Handler progressBarHandler;
         //Runnable progressBarRunnable;
@@ -430,7 +459,7 @@ public class EditorEventListFragment extends Fragment
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+            applicationEditorNotHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
         }
 
         @Override
@@ -447,7 +476,7 @@ public class EditorEventListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
+            _dataWrapper.fillProfileList(true, applicationEditorNotHideEventDetails);
             _dataWrapper.fillEventList();
             _dataWrapper.fillEventTimelineList();
 
@@ -535,7 +564,8 @@ public class EditorEventListFragment extends Fragment
 
                     fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
+                            ApplicationPreferences.applicationEditorPrefIndicator);
                     fragment.updateHeader(profile);
 
                     fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -2033,7 +2063,7 @@ public class EditorEventListFragment extends Fragment
     private static class RefreshGUIAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         long activatedProfileId;
-        Profile profileFromDataWrapper;
+        Profile profileFromDataWrapperForHeader;
 
         boolean doNotRefresh = false;
 
@@ -2069,7 +2099,7 @@ public class EditorEventListFragment extends Fragment
                     }
 
                     if (activatedProfileId != -1) {
-                        profileFromDataWrapper = dataWrapper.getProfileById(activatedProfileId, true,
+                        profileFromDataWrapperForHeader = dataWrapper.getProfileByIdFromDB(activatedProfileId, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                     }
 
@@ -2152,9 +2182,9 @@ public class EditorEventListFragment extends Fragment
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     if (!doNotRefresh) {
                         if (activatedProfileId != -1) {
-                            if (profileFromDataWrapper != null)
-                                profileFromDataWrapper._checked = true;
-                            fragment.updateHeader(profileFromDataWrapper);
+                            if (profileFromDataWrapperForHeader != null)
+                                profileFromDataWrapperForHeader._checked = true;
+                            fragment.updateHeader(profileFromDataWrapperForHeader);
                         } else {
                             fragment.updateHeader(null);
                         }

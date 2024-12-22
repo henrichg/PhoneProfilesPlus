@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">Trillingen bij aanraken</string>
     <string name="menu_activity_log_reload">Opnieuw laden</string>
     <string name="event_preferences_atEndDo">En doe</string>
-    <string name="array_pref_atEndDo_none">Geen</string>
     <string name="array_pref_atEndDo_undoneProfile">Profiel ongedaan maken</string>
     <string name="array_pref_atEndDo_restartEvents">Events herstarten</string>
     <string name="event_preference_profile_restartEvents">Herstarten</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Accessoire sensor:</b> Start event wanneer bijvoorbeeld je een koptelefoon aansluit.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC sensor:</b> Start een gebeurtenis via NFC tags.]]></string>
     <string name="important_info_quick_guide_events_3">Als je handmatig een profiel activeert (niet door een event) stoppen alle events (onderbroken). Events starten niet bij handmatig profiel activeren. Je kunt deze instelling via de \"Handmatig activeren wijzigen bij de event parameters.</string>
-    <string name="important_info_quick_guide_editor_1">Profielen en evenementen configureer je in de Editor die je via de Activator kunt starten. Binnen de Editor kun je toevoegen, dupliceren, bijwerken en verwijderen van profielen en evenementen. De Editor heeft links een zijpaneel waarmee je de weergave van de Editor kunt wijzigen. Gebruik dit om te schakelen tussen de profiel- en eventlijsten.</string>
     <string name="event_preferences_noPauseByManualActivation">Pauzeer niet door handmatige activering</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Pauzeer dit event niet door handmatige profiel activering tijdens uitvoeren</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag naam niet geconfigureerd.</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Om \"Negeren voor programma\'s\" toe te staan geef je PhoneProfilesPlusExtender toegang bij \"Instellingen voor toegankelijkheid\".</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Om Programma-parameters aan te zetten klik je hier om PhoneProfilesPlusExtender installeren.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Om negeren Programma-parameters aan te zetten klik je hier om PhoneProfilesPlusExtender te installeren.</string>
-    <string name="about_application_extender_source_code">Broncode - Extender:</string>
+    <string name="about_application_extender_source_code">Broncode - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">Je kunt meer teksten configureren. Scheidt deze met het karakter \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Standaardprofiel</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Dit profiel wordt actief zodra er geen event loopt. Klik hierop om dit te configureren.</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Installeer de nieuwe versie van PhoneProfilesPlusExtender. Meer informatie over de installatie vind je bij de opties die PhoneProfilesPlusExtender gebruiken.</string>
     <string name="important_info_accessibility_service_new_version_2">Klik hier om de nieuwste versie van PhoneProfilesPlusExtender te installeren.</string>
     <string name="array_pref_no_force_stop">Stoppen niet forceren</string>
-    <string name="array_pref_force_stop">Stoppen forceren</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Forceer stoppen programma\'s</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Programma\'s forceren het te stoppen</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Om \"Forceer stoppen programma\" mogelijk te maken hier kliķken om PhoneProfilesPlusExtender te installeren.</string>
@@ -993,8 +990,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Uitbreidbaar</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Groot</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Klein</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Geef de machtiging Telefoon in PhoneProfilesPlusExtender. Is vereist voor het ontvangen van oproepen door Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Geef machtiging voor SMS in PhoneProfilesPlusExtender. Is vereist voor het ontvangen van SMS/MMS door Extender.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Geef de machtiging Telefoon in PhoneProfilesPlusExtender. Is vereist voor het ontvangen van oproepen door PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Geef een machtiging voor SMS in PhoneProfilesPlusExtender. Dit is nodig voor het ontvangen van SMS/MMS door PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Hoofdtelefoons zonder microfoon</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is niet geïnstalleerd!</string>
     <string name="default_profile_name_battery_ok">batterij OK</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Werkt mogelijk niet helemaal op je apparaat.</string>
     <string name="application_is_starting_toast">start…</string>
     <string name="application_is_started_toast">is gestart</string>
-    <string name="duration_end_acronym">nl</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Status balk</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notificatie paneel</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Notificatiestijl</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profielnaam.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen voor events</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Eventnaam.</string>
-    <string name="activity_log_help_close">Sluiten</string>
     <string name="event_preference_sensor_soundProfile_summary">Deze sensor start een event door te schakelen tussen de Geluidsmodi of \"Niet storen\" types. Parameters: Geluidsmodi: \"Niet storen\" types.</string>
     <string name="event_type_soundProfile">Geluidsprofiel</string>
     <string name="event_preferences_soundProfile_ringerModes">Geluidsmodus</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">Wanneer exacte tijd bereikt</string>
     <string name="profile_preferences_exactTime">Exacte tijd</string>
     <string name="profile_preferences_category_end_of_activation">Einde van activering</string>
-    <string name="end_of_activation_time_end_acronym">te</string>
-    <string name="end_of_activation_duration_acronym">d</string>
-    <string name="end_of_activation_time_acronym">t</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Toon einde van profiel activatie</string>
-    <string name="event_delay_start_acronym">sv</string>
-    <string name="event_delay_end_acronym">ev</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">na bereiken exacte tijd - Profiel ongedaan maken</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">na bereiken exacte tijd - standaardprofiel</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">na bereiken exacte tijd - events herstarten</string>
@@ -1908,7 +1898,7 @@
     <string name="install_pppps_text4">Opmerking: Doee Android versie voor PPPPutSettings is 5.1. Om deze reden niet compatibel met Google Play Protect. Maar PPPPutSettings is veilig, alleen PhoneProfilesPlus mag het gebruiken.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is niet geïnstalleerd!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPPutSettings niet geinstalleerd</string>
-    <string name="about_application_pppps_source_code">Broncode - PPPPutSettings:</string>
+    <string name="about_application_pppps_source_code">Broncode - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">Meldingen LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Altijd aan schermweergave</string>
     <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">Bekijk PhoneProfilesPlus Privacybeleid met</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Compacter</string>
     <string name="altype_timezone_changed">tijdzone gewijzigd</string>
-    <string name="altype_extender_accessibility_service_enabled">Uitbreiding toegankelijkheidsservice aangezet</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Uitbreiding toegankelijkheidsservice niet aangezet</string>
-    <string name="altype_extender_accessibility_service_unbind">Uitbreiding toegankelijkheidsservice niet gekoppeld</string>
+    <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender toegankelijkheidsservice staat aan</string>
+    <string name="altype_extender_accessibility_service_not_enabled">PhoneProfilesPlusExtender toegankelijkheidsservice staat uit</string>
+    <string name="altype_extender_accessibility_service_unbind">PhoneProfilesPlusExtender toegankelijkheidsservice losgekoppeld</string>
     <string name="check_releases_install_from_apk_note1">OPMERKING: Installatie van de gedownloade apk wordt niet aanbevolen voor Android 13+ om veiligheidsredenen. Gebruik in plaats daarvan</string>
     <string name="check_releases_install_from_apk_note2_ppp">, als je apparaat niet wordt ondersteund in de App-winkel en installeer PhoneProfilesPlus vanuit je apparaat.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, als je apparaat niet wordt ondersteund door de App-winkel en PhoneProfilesPlusExtender daar vandaan te installeren.</string>
@@ -2209,7 +2199,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Uitgaande oproepen</string>
     <string name="array_event_pref_call_screening_direction_all">Alle oproepen</string>
     <string name="event_name_copy_from_profile_block_calls">Oproepen blokkeren</string>
-    <string name="important_info_phone_call_to_call_screening">Voor elk profiel met geconfigureerde parameter \"Telefonische oproepen\" \/\"Blokkeer oproepen\" wordt een nieuw event gegenereerd met de \"Oproepscherm\" sensor. Dit event heeft de parameter \"Event run\" uitgeschakeld. \"Telefonische oproepen\" parameter uit profielen is verwijderd.</string>
     <string name="profile_preferences_category_send_sms">Sms verzenden</string>
     <string name="profile_preference_sendSMSContactGroups">Contactgroepen</string>
     <string name="profile_preference_sendSMSContacts">Contacten</string>
@@ -2255,9 +2244,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Oogcomfortschild</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Als het niet mogelijk is om toegang tot meldingen in te schakelen zijn er misschien nog niet toegestane instellingen voor PhoneProfilesPlus. Klik hier om toe te staan.</string>
     <string name="permission_why_profile_vpn">voor aan-/uitzetten VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">De noodzaak om \"Weergeven over apps\" permanent aan te zetten is verwijderd. Omdat deze toestemming een \"Beperkte instelling\" is kan het, als ingeschakeld, banktoepassingen en websites, betalingen voor goederen, diensten, enzovoort blokkeren. \"Weergeven over apps\" moet je dan uitschakelen in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Installeer de nieuwe versie van PPutSettings (1.1) waarbij de toestemming \"Weergeven over apps\" niet meer nodig is. Voor versies eerder dan 1.1 hebben parameters die met (S) zijn gemarkeerd nog steeds deze toestemming nodig.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Voor sommige profiel parameters is nog steeds \"Weergegeven over apps\" nodig. Bijvoorbeeld voor starten \"Programma\'s, snelkoppelingen, intents\".</string>
     <string name="color_value">Kleurwaarde</string>
     <string name="location_geofence_editor_location_name">Locatienaam</string>
     <string name="application_editor_intent_action_custom_label">Aangepaste actie</string>
@@ -2278,4 +2264,19 @@
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
     <string name="event_preference_callSendSMS_info_summary">Deze parameter is voor \"Oproep event\"=\"Gemiste oproep\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Licht\" is omgevingslicht gedetecteerd door de sensor van het lichtsensor.</string>
+    <string name="array_pref_atEndDo_none">Geen</string>
+    <string name="array_pref_launcher_switch_profiles">Wissel profielen (indien 2 profielen geconfigureerd)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Gekopieerd naar klembord</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Voorkeuren indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Pictogram kleurtype gebruik je voor profielpictogram en voorkeuren indicator.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Gebruik dynamische kleur voor indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Teksthelderheid zal zowel voor tekst als voor \"Herstart gebeurtenissen\" pictogram worden gebruikt.</string>
+    <string name="important_info_quick_guide_editor_1">Profielen en gebeurtenissen configureer je in de Editor die je via de Activator kunt starten. Binnen de Editor kun je toevoegen, dupliceren, bijwerken en verwijderen van profielen en evenementen. De editor heeft een knop onderaan, waarmee je de weergave van de Editor kunt wijzigen. Gebruik deze om te schakelen tussen de profiel- en gebeurtenislijsten.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Verberg details van afspraak</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Verberg event details in Editor event lijst.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Verberg event details voor \"Start volgorde\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Verberg event details in de event lijst van de editor wanneer het \"Start volgorde\" filter is ingesteld.</string>
+    <string name="array_pref_force_stop_with_pppe">Stoppen forceren met PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Forceer stoppen met opdracht</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Opmerking: Werkt mogelijk niet op jouw apparaat.</string>
 </resources>

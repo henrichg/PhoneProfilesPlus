@@ -19,9 +19,9 @@
                 <color android:color="@color/rippleOvalItemBackgroundColor"/>
             </item>
 
-<!--            <item android:state_activated="true">-->
-<!--                <color android:color="@color/rippleOvalItemBackgroundColor"/>-->
-<!--            </item>-->
+            <item android:state_activated="true">
+                <color android:color="@color/rippleOvalItemBackgroundColor"/>
+            </item>
 
             <item>
                 <color android:color="@android:color/transparent"/>

@@ -6,23 +6,26 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+/** @noinspection unused*/
 public class RestartEventsWithDelayWorker extends Worker {
 
+/*
     private final Context context;
 
     static final String WORK_TAG_1 = "restartEventsWithDelay1Work";
     static final String WORK_TAG_2 = "restartEventsWithDelay2Work";
-
+*/
     public RestartEventsWithDelayWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        this.context = context;
+        //this.context = context;
     }
 
     @NonNull
     @Override
     public Result doWork() {
+        /*
         try {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- START");
@@ -61,7 +64,8 @@ public class RestartEventsWithDelayWorker extends Worker {
             PPApplicationStatic.recordException(e);
             return Result.failure();
         }
-        //return Result.success();
+        */
+        return Result.success();
     }
 
 }

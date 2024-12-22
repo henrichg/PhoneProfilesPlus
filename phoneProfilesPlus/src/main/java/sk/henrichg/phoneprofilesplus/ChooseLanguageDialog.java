@@ -47,6 +47,8 @@ class ChooseLanguageDialog
 
         mDialog = dialogBuilder.create();
 
+        listView = layout.findViewById(R.id.choose_language_dlg_listview);
+        /*
         mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
@@ -55,9 +57,8 @@ class ChooseLanguageDialog
 
             doShow();
         });
-
-        listView = layout.findViewById(R.id.choose_language_dlg_listview);
-        help = layout.findViewById(R.id.choose_language_dlg_help);
+        */
+        doShow();
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -93,6 +94,8 @@ class ChooseLanguageDialog
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+
+        help = layout.findViewById(R.id.choose_language_dlg_help);
         //noinspection DataFlowIssue
         help.setText(sbt);
         help.setMovementMethod(LinkMovementMethod.getInstance());
@@ -195,10 +198,12 @@ class ChooseLanguageDialog
             }
         }
 
-//        Log.e("ChooseLanguageDialog.doShow", "activity.selectedLanguage="+activity.selectedLanguage);
-        ChooseLanguageAdapter chooseLanguageAdapter = new ChooseLanguageAdapter(this, activity, languageNameChoices);
-        listView.setAdapter(chooseLanguageAdapter);
-        listView.setSelection(activity.selectedLanguage);
+        if (listView != null) {
+//            Log.e("ChooseLanguageDialog.doShow", "activity.selectedLanguage="+activity.selectedLanguage);
+            ChooseLanguageAdapter chooseLanguageAdapter = new ChooseLanguageAdapter(this, activity, languageNameChoices);
+            listView.setAdapter(chooseLanguageAdapter);
+            listView.setSelection(activity.selectedLanguage);
+        }
 
     }
 

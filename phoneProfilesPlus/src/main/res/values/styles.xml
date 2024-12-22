@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="EmptyAppCompatActivity" parent="Theme.AppCompat.Dialog">
         <item name="android:windowDisablePreview">true</item>
@@ -90,6 +91,8 @@
         <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
 
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
+
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
     </style>
 <!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
 <!--    Border of dialog is diplayed correctly withotu this attribute.-->
@@ -105,10 +108,17 @@
         <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
 
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
+
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
     </style>
 <!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
 <!--    Border of dialog is diplayed correctly withotu this attribute.-->
 <!--    <item name="android:background">@color/activityBackgroundColor</item>-->
+
+    <style name="CustomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:background">@drawable/pp_alert_button_background_selector</item>

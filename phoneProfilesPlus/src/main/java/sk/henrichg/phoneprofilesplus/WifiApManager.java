@@ -116,7 +116,7 @@ final class WifiApManager {
                     // 13 => AP ON
                     canScan = wifiApState == 11;*/
             return wifiApManager.isWifiAPEnabled();
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -134,7 +134,7 @@ final class WifiApManager {
                 return false;
         } catch (Throwable e) {
             //Log.e("WifiApManager.isWifiAPEnabledA30", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
+            //PPApplicationStatic.recordException(e);
             return false;
         }
     }
@@ -144,7 +144,7 @@ final class WifiApManager {
             /*WifiApManager wifiApManager = */
             new WifiApManager(context);
             return true;
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             return false;
         }
     }

@@ -83,15 +83,6 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-
-            preference.updateInterface(0, false);
-        });
-
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
         //noinspection DataFlowIssue
@@ -223,6 +214,15 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             Intent intent5 = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
             prefContext.sendBroadcast(intent5);
         });
+
+        //mDialog.setOnShowListener(dialog -> {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+
+            preference.updateInterface(0, false);
+        //});
 
         return mDialog;
     }

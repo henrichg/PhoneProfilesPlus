@@ -11,8 +11,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,11 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import java.lang.ref.WeakReference;
 
@@ -71,6 +67,8 @@ public class ActivityLogActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -304,6 +302,9 @@ public class ActivityLogActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_activity_log_help) {
+            Intent intent = new Intent(getBaseContext(), ActivityLogHelpActivity.class);
+            startActivity(intent);
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.activity_log_help_title);
             dialogBuilder.setCancelable(true);
@@ -414,6 +415,7 @@ public class ActivityLogActivity extends AppCompatActivity
 
             if (!isFinishing())
                 dialog.show();
+             */
             return true;
         }
         else {
@@ -425,6 +427,8 @@ public class ActivityLogActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             unregisterReceiver(addedActivityLogBroadcastReceiver);

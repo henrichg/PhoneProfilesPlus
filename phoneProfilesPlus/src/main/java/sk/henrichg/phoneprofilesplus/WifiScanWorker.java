@@ -101,6 +101,7 @@ public class WifiScanWorker extends Worker {
                 wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             if (EventStatic.getGlobalEventsRunning(context)) {
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanWorker.doWork", "xxxxxxxxx startScanner");
                 startScanner(context, false);
             }
 
@@ -111,6 +112,7 @@ public class WifiScanWorker extends Worker {
 //                long start1 = System.currentTimeMillis();
 //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
 //                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiScanWorker.doWork", "shortInterval=false");
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanWorker.doWork", "xxxxxxxxx sheduleWork");
                 WifiScanWorker.scheduleWork(appContext, false);
 //                long finish = System.currentTimeMillis();
 //                long timeElapsed = finish - start1;

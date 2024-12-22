@@ -93,6 +93,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -258,6 +260,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
+
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
@@ -1314,6 +1319,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!smsPermission);
             }
+//            if (!permissionsChanged) {
+//                // !!! must before of Permissions.checkPhone()
+//                boolean modifyPhonePermission = Permissions.checkModifyPhone(context);
+//                permissionsChanged = Permissions.getModifyPhonePermission(context) != modifyPhonePermission;
+//                // finish Editor when permission is disabled
+//                finishActivity = permissionsChanged && (!modifyPhonePermission);
+//            }
             if (!permissionsChanged) {
                 boolean phonePermission = Permissions.checkPhone(context);
                 permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
@@ -1674,7 +1686,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplicationStatic.restartBluetoothScanner(context);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
@@ -1683,7 +1695,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
@@ -1694,7 +1706,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
@@ -1716,7 +1728,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
@@ -1728,7 +1740,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.locationGeofenceEditorActivity.getLastLocation();*/
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
@@ -1745,7 +1757,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {

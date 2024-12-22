@@ -60,6 +60,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetListUseDynamicColors;
         String applicationWidgetListBackgroundColorNightModeOff;
         String applicationWidgetListBackgroundColorNightModeOn;
+        boolean applicationWidgetListPrefIndicatorUseDynamicColor;
+
+        int setRestartEventsLightness = 0;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -91,6 +94,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
             applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
             applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
+            applicationWidgetListPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetListRoundedCorners) {
@@ -117,8 +121,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
-                if (Build.VERSION.SDK_INT < 31)
+                if (Build.VERSION.SDK_INT < 31) {
                     applicationWidgetListUseDynamicColors = false;
+                    applicationWidgetListPrefIndicatorUseDynamicColor = false;
+                }
+
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetListChangeColorsByNightMode &&
                         (!applicationWidgetListUseDynamicColors))) {
@@ -135,6 +142,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        setRestartEventsLightness = -1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
@@ -148,6 +156,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = "0";
                         applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        setRestartEventsLightness = 1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
@@ -379,6 +388,17 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         int blueText = redText;
 
         int restartEventsLightness = redText;
+        if (setRestartEventsLightness == -1) {
+            restartEventsLightness = restartEventsLightness - 0x1F;
+            if (restartEventsLightness < 0x00)
+                restartEventsLightness = 0x00;
+        }
+        else
+        if (setRestartEventsLightness == 1) {
+            restartEventsLightness = restartEventsLightness + 0x1F;
+            if (restartEventsLightness > 0xFF)
+                restartEventsLightness = 0xFF;
+        }
         int separatorLightness = redText;
 
         //------------------
@@ -618,7 +638,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
                     if (applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0")) {
-                        if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetListUseDynamicColors)
+                        if ((Build.VERSION.SDK_INT >= 31) &&
+                                (applicationWidgetListUseDynamicColors ||
+                                applicationWidgetListPrefIndicatorUseDynamicColor))
                             indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
                         else
                             indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
@@ -737,7 +759,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }*/
 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
+                    applicationWidgetListIconColor.equals("0") &&
+                    (applicationWidgetListUseDynamicColors ||
+                     applicationWidgetListPrefIndicatorUseDynamicColor))) {
                 bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);

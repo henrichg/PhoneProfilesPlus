@@ -27,6 +27,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     boolean activityStarted = false;
 
     private boolean showEditorPrefIndicator;
+    private boolean hideEditorEventDetails;
+    private boolean hideEditorEventDetailsForStartOrder;
     private boolean hideEditorHeaderOrBottomBar;
     //private String activeLanguage;
     private String activeTheme;
@@ -61,6 +63,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -116,6 +120,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         activeTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
         //activeNightModeOffTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
         showEditorPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
+        hideEditorEventDetails = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, false);
+        hideEditorEventDetailsForStartOrder = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, true);
         hideEditorHeaderOrBottomBar = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
         //showEditorHeader = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 
@@ -460,6 +466,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
 
+        EditorActivity.itemDragPerformed = false;
+
         try {
             unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
         } catch (Exception ignored) {}
@@ -603,6 +611,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             invalidateEditor = true;
         }*/
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator)
+        {
+            invalidateEditor = true;
+        }
+        if (hideEditorEventDetails != ApplicationPreferences.applicationEditorHideEventDetails)
+        {
+            invalidateEditor = true;
+        }
+        if (hideEditorEventDetailsForStartOrder != ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)
         {
             invalidateEditor = true;
         }

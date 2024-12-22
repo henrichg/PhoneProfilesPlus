@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+// is from reginer android.jar
 import android.app.RemoteServiceException;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+// is from reginer android.jar
 import android.os.DeadSystemException;
 import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;

@@ -91,8 +91,10 @@ public class MainWorker extends Worker {
 //                    PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "PPApplication.PACKAGE_NAME");
                     continue;
                 }
-//                else
+//                else {
 //                    PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
+//                    PPApplicationStatic.logE("[BLUETOOTH]  ****** MainWorker.doWork", "--------------- START tag=" + tag);
+//                }
 
                 switch (tag) {
                     case ORIENTATION_SCANNER_WORK_TAG:
@@ -229,7 +231,7 @@ public class MainWorker extends Worker {
                             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED,
                                     null, null, "");
 
-                            dataWrapper.restartEventsWithDelay(false, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:

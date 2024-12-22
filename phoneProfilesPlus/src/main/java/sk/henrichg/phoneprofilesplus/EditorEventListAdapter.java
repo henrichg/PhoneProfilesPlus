@@ -49,15 +49,20 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public EditorEventListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-            if (ApplicationPreferences.applicationEditorPrefIndicator)
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.listitem_editor_event_with_order, parent, false);
-            else
+            if (ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder) {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listitem_editor_event_no_indicator_with_order, parent, false);
+            } else {
+                if (!ApplicationPreferences.applicationEditorHideEventDetails)
+                    view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.listitem_editor_event_with_order, parent, false);
+                else
+                    view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.listitem_editor_event_no_indicator_with_order, parent, false);
+            }
         }
         else {
-            if (ApplicationPreferences.applicationEditorPrefIndicator)
+            if (!ApplicationPreferences.applicationEditorHideEventDetails)
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listitem_editor_event, parent, false);
             else
@@ -78,6 +83,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 holder.dragHandle.setOnTouchListener((v, event1) -> {
                     switch (event1.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            EditorActivity.itemDragPerformed = true;
                             mDragStartListener.onStartDrag(holder);
                             break;
                         case MotionEvent.ACTION_UP:
@@ -297,22 +303,26 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (refreshIcons) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] EditorEventListAdapter.notifyDataSetChanged", "DataWrapper.eventList");
             synchronized (activityDataWrapper.eventList) {
-                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+                boolean applicationEditorNotHideEventDetails =
+                        (!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                        ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                         (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)) &&
+                        ApplicationPreferences.applicationEditorPrefIndicator;
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
                     Profile profile;
                     if (event._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
                         profile = activityDataWrapper.getProfileById(event._fkProfileStart, true,
-                                applicationEditorPrefIndicator, false);
+                                applicationEditorNotHideEventDetails, false);
                         activityDataWrapper.refreshProfileIcon(profile, true,
-                                applicationEditorPrefIndicator);
+                                applicationEditorNotHideEventDetails);
                     }
                     if (event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
                         profile = activityDataWrapper.getProfileById(event._fkProfileEnd, true,
-                                applicationEditorPrefIndicator, false);
+                                applicationEditorNotHideEventDetails, false);
                         activityDataWrapper.refreshProfileIcon(profile, true,
-                                applicationEditorPrefIndicator);
+                                applicationEditorNotHideEventDetails);
                     }
                 }
             }
@@ -366,7 +376,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public void clearView() {
-        activityDataWrapper.restartEventsWithDelay(true, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+        // end of drag handler
+
+        activityDataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
     void showTargetHelps(Activity activity, View listItemView) {

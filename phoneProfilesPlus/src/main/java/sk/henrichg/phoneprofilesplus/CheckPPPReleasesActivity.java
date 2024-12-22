@@ -50,6 +50,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -163,6 +165,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //boolean appGalleryInstalled = (intent != null);
         intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
         boolean neostoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
+        boolean apkPureInstalled = (intent != null);
 
         boolean displayed = false;
 
@@ -215,6 +219,27 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
 
         if (!displayed) {
+            if ((store == -1) || (store == -2)) {
+                // -1: CheckPPPReleasesBroadcastReceiver
+                // -2: CheckCriticalPPPReleasesBroadcastReceiver
+
+                if (droidifyInstalled)
+                    checkInDroidIfy(activity, false);
+                else if (neostoreInstalled)
+                    checkInNeoStore(activity);
+                else if (fdroidInstalled)
+                    checkInFDroid(activity);
+                else if (apkPureInstalled)
+                    checkInAPKPure(activity);
+                else {
+                    if (Build.VERSION.SDK_INT < 33)
+                        checkInGitHub(activity, false);
+                    else {
+                        checkInDroidIfy(activity, true);
+                    }
+                }
+            }
+/*
             if (store == -1) {
                 // this is for
                 // - CheckPPPReleasesBroadcastReceiver
@@ -235,6 +260,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         checkInNeoStore(activity);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
+                    else if (apkPureInstalled)
+                        checkInAPKPure(activity);
                     else {
                         if (Build.VERSION.SDK_INT < 33)
                             checkInGitHub(activity, false);
@@ -252,6 +279,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     checkInDroidIfy(activity, true);
                 }
             }
+ */
         }
     }
 

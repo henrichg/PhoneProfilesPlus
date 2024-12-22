@@ -11,6 +11,7 @@
     <color name="activityDisabledTextColor">#B0B0B0</color>
     <color name="activityCommandBackgroundColor">#F0F0F0</color>
     <color name="activityPopupMenuBackgroundColor">#F7F7F7</color>
+    <color name="activityPopupMenuBorderColor">#e2d0bc</color>
     <color name="activityTitleTextColor">#000000</color>
     <color name="dialogTitleTextColor">#212121</color>
 
@@ -97,7 +98,6 @@
     <color name="dokiHeaderBackgroundColor">#F7F7F7</color>
 
     <color name="dialogBorderColor">#e3d8cc</color>
-    <color name="popupAndMenuBorderColor">#e2d0bc</color>
 <!--    <color name="profileIconBorderColor">#CCCCCC</color>-->
 <!--    <color name="cardViewBorderColor">#FFFFFF</color>-->
     <color name="buttonBorderColor">#e2d0bc</color>

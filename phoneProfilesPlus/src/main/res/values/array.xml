@@ -270,10 +270,12 @@
     <string-array name="launcherArray">
         <item>@string/array_pref_launcher_activator</item>
         <item>@string/array_pref_launcher_editor</item>
+        <item>@string/array_pref_launcher_switch_profiles</item>
     </string-array>
     <string-array name="launcherValues">
         <item>activator</item>
         <item>editor</item>
+        <item>switch_profiles</item>
     </string-array>
     <string-array name="locationServicePrefsArray">
         <item>@string/array_pref_no_show</item>
@@ -882,11 +884,13 @@
     </string-array>
     <string-array name="forceStopApplicationArray">
         <item>@string/array_pref_no_force_stop</item>
-        <item>@string/array_pref_force_stop</item>
+        <item>@string/array_pref_force_stop_with_pppe</item>
+        <item>@string/array_pref_force_stop_with_command</item>
     </string-array>
     <string-array name="forceStopApplicationValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     <string-array name="networkTypePrefsArray">
         <item>@string/array_pref_no_show</item>

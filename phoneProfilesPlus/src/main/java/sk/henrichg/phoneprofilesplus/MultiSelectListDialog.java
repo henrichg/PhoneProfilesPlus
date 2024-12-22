@@ -14,6 +14,7 @@ class MultiSelectListDialog
     final AlertDialog mDialog;
     final Activity activity;
 
+    /** @noinspection FieldCanBeLocal*/
     private final ListView listView;
 
     final int itemsRes;
@@ -40,9 +41,15 @@ class MultiSelectListDialog
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> doShow());
+        //mDialog.setOnShowListener(dialog -> doShow());
 
         listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
+        // moved from doShow(), better for dialog animation and
+        // also correct the displacement of the dialog
+        if (listView != null) {
+            MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
+            listView.setAdapter(listAdapter);
+        }
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -53,10 +60,10 @@ class MultiSelectListDialog
         });
     }
 
-    private void doShow() {
-        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
-        listView.setAdapter(listAdapter);
-    }
+//    private void doShow() {
+//        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
+//        listView.setAdapter(listAdapter);
+//    }
 
     void show() {
         if (!activity.isFinishing())

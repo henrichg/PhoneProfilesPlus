@@ -16,6 +16,7 @@ class SingleSelectListDialog
     final AlertDialog mDialog;
     final Activity activity;
 
+    /** @noinspection FieldCanBeLocal*/
     private final ListView listView;
     final DialogInterface.OnClickListener itemClick;
 
@@ -71,9 +72,15 @@ class SingleSelectListDialog
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> doShow());
+        //mDialog.setOnShowListener(dialog -> doShow());
 
         listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
+        // moved from doShow(), better for dialog animation and
+        // also correct the displacement of the dialog
+        if (listView != null) {
+            SingleSelectListDialogAdapter listAdapter = new SingleSelectListDialogAdapter(itemsRes, this);
+            listView.setAdapter(listAdapter);
+        }
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -88,11 +95,11 @@ class SingleSelectListDialog
         });
     }
 
-    private void doShow() {
-        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-        SingleSelectListDialogAdapter listAdapter = new SingleSelectListDialogAdapter(itemsRes, this);
-        listView.setAdapter(listAdapter);
-    }
+//    private void doShow() {
+//        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+//        SingleSelectListDialogAdapter listAdapter = new SingleSelectListDialogAdapter(itemsRes, this);
+//        listView.setAdapter(listAdapter);
+//    }
 
     void show() {
         if (!activity.isFinishing())

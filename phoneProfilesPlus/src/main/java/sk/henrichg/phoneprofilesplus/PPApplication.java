@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
+// is from reginer android.jar
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
@@ -60,9 +61,9 @@ public class PPApplication extends Application
     // this version code must by <= then version code in dependencies.gradle
     static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
     // TODO set it to false if you do not want to show News
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
     // TODO set it to false if you do not want to show notification
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     //// Extender versions
     // for this version will be displayed upgrade notification
@@ -130,7 +131,7 @@ public class PPApplication extends Application
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
-    static final String TWITTER_URL = "https://x.com/henrichg";
+//    static final String TWITTER_URL = "https://x.com/henrichg";
     static final String REDDIT_URL = "https://www.reddit.com/user/henrichg/";
     static final String BLUESKY_URL = "https://bsky.app/profile/henrichg.bsky.social";
     static final String DISCORD_SERVER_URL = "https://discord.com/channels/1258733423426670633/1258733424504737936";
@@ -139,6 +140,7 @@ public class PPApplication extends Application
     //static final String DISCORD_HELP_URL = "https://discord.com/channels/1258733423426670633/1261141698638250004";
     //static final String DISCORD_BUGS_URL = "https://discord.com/channels/1258733423426670633/1261143124827312192";
     //static final String DISCORD_SUGGESTIONS_URL = "https://discord.com/channels/1258733423426670633/1261143274895314976";
+    static final String MASTODON_URL = "https://mastodon.social/@henrichg";
 
     // This url is Donate button from https://www.paypal.com/buttons/, type "Donate".
     // In it is possible to get this url with "Get link".
@@ -314,6 +316,8 @@ public class PPApplication extends Application
                                                 //+"|[BLUETOOTH_CONNECT]"
                                                 //+"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
+                                                //+"|[BLUETOOTH]"
+                                                //+"|[MOBILE_DATA]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -903,6 +907,7 @@ public class PPApplication extends Application
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
     static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
+    static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
@@ -1104,6 +1109,7 @@ public class PPApplication extends Application
 
     volatile static ExecutorService basicExecutorPool = null;
     volatile static ExecutorService profileActiationExecutorPool = null;
+    volatile static ExecutorService activateProfileExecuteExecutorPool = null;
     volatile static ExecutorService soundModeExecutorPool = null;
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
@@ -1209,8 +1215,6 @@ public class PPApplication extends Application
     @Override
     public void onCreate()
     {
-        PPApplicationStatic.logE("################# PPApplication.onCreate", "onCreate() start");
-
         /* Hm this resets start, why?!
         if (DebugVersion.enabled) {
             if (!ACRA.isACRASenderServiceProcess()) {
@@ -1233,7 +1237,16 @@ public class PPApplication extends Application
         }*/
 
 
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate();
+
+        PPApplicationStatic.logE("################# PPApplication.onCreate", "onCreate() start");
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            PPApplicationStatic.logE("##### PPApplication.onCreate", "PPP version="+pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")");
+        } catch (Exception ignored) {}
 
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {
@@ -1279,8 +1292,6 @@ public class PPApplication extends Application
             PPApplicationStatic.logE("##### PPApplication.onCreate", "kill PPApplication - not good");
             return;
         }
-
-        PPApplicationStatic.logE("##### PPApplication.onCreate", "continue onCreate()");
 
         PPApplicationStatic.createBasicExecutorPool();
         PPApplicationStatic.createProfileActiationExecutorPool();
@@ -1553,6 +1564,8 @@ public class PPApplication extends Application
 
     @Override
     protected void attachBaseContext(Context base) {
+        EditorActivity.itemDragPerformed = false;
+
         //super.attachBaseContext(base);
         super.attachBaseContext(LocaleHelper.onAttach(base));
         //Reflection.unseal(base);
@@ -1639,6 +1652,7 @@ public class PPApplication extends Application
                 .withReportContent(reportContent)
                 .withAdditionalSharedPreferences(Arrays.asList(APPLICATION_PREFS_NAME));
 
+        PPApplicationStatic.createExclamationNotificationChannel(base, true);
         builder.withPluginConfigurations(
                 new NotificationConfigurationBuilder()
                         .withChannelName(getString(R.string.notification_channel_crash_report))
@@ -1650,6 +1664,7 @@ public class PPApplication extends Application
                         .withResDiscardButtonIcon(0)
                         .withSendOnClick(true)
                         .withColor(ContextCompat.getColor(base, R.color.errorColor))
+                        .withChannelId(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                         .withEnabled(true)
                         .build(),
                 new MailSenderConfigurationBuilder()
@@ -2011,21 +2026,10 @@ public class PPApplication extends Application
             try {
                 LocaleHelper.setApplicationLocale(appContext);
 
-                //ToastCompat msg = ToastCompat.makeText(appContext, text, length);
                 ToastCompat msg = ToastCompat.makeCustom(appContext,
                         R.layout.toast_layout, R.drawable.toast_background,
                         R.id.custom_toast_message, text,
                         length);
-
-                /*
-                Toast msg = new Toast(appContext);
-                View view = LayoutInflater.from(appContext).inflate(R.layout.toast_layout, null);
-                TextView txtMsg = view.findViewById(R.id.custom_toast_message);
-                txtMsg.setText(text);
-                view.setBackgroundResource(R.drawable.toast_background);
-                msg.setView(view);
-                msg.setDuration(length);
-                */
 
                 msg.show();
             } catch (Exception ignored) {
@@ -2033,8 +2037,6 @@ public class PPApplication extends Application
             }
         });
     }
-
-    //--------------------------------------------------------------
 
     // others ------------------------------------------------------------------
 

@@ -26,6 +26,11 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+// is from reginer android.jar
+import com.android.internal.view.menu.MenuBuilder;
+// is from reginer android.jar
+import com.android.internal.view.menu.MenuPopupHelper;
+
 /** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoQuickGuideHelpFragment extends Fragment {
 
@@ -88,6 +93,10 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
                 PopupMenu popup;
                 popup = new PopupMenu(activity, supportText, Gravity.START | Gravity.BOTTOM);
                 new MenuInflater(activity).inflate(R.menu.menu_support, popup.getMenu());
+                // used is MenuPopupHelper to show icons
+                MenuPopupHelper menuHelper = new MenuPopupHelper(activity, (MenuBuilder) popup.getMenu(), v);
+                menuHelper.setForceShowIcon(true);
+                //menuHelper.setGravity(Gravity.END);
 
                 Menu menu = popup.getMenu();
                 MenuItem menuItem = menu.findItem(R.id.menu_discord);
@@ -112,7 +121,8 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
                 popup.setOnMenuItemClickListener(activity::supportMenu);
 
                 if (!activity.isFinishing())
-                    popup.show();
+                    menuHelper.show();
+                    //popup.show();
             });
         }
 

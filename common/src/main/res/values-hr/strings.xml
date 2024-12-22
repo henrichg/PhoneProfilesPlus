@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">Vibracija pri dodiru</string>
     <string name="menu_activity_log_reload">Učitaj iznova</string>
     <string name="event_preferences_atEndDo">Više akcija</string>
-    <string name="array_pref_atEndDo_none">Nijedan</string>
     <string name="array_pref_atEndDo_undoneProfile">Poništi promene profila</string>
     <string name="array_pref_atEndDo_restartEvents">Ponovo pokreni događaje</string>
     <string name="event_preference_profile_restartEvents">Ponovo pokreni</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Senzor dodatne opreme:</b> Pokrenite događaj kada su, na primjer, povezane slušalice.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC senzor:</b> Pokretanje događaja sa NFC tagom.]]></string>
     <string name="important_info_quick_guide_events_3">Ako ručno aktivirate profil ( ne sa događajem) svi događaji koji rade će se završiti (pauzirati). Događaji se neće pokrenuti tokom ručne aktivacije. Svakako možete da da zaobiđete ovu opciju sa podešavanjima \"Ignoriši ručnu aktivaciju\" u parametrima događaja.</string>
-    <string name="important_info_quick_guide_editor_1">Profili i događaji su podešeni u uređivaču (Editoru), na koji se možete pozvati putem Aktivatora. Unutar uređivača možete dodavati, duplicirati, ažurirati i brisati profile i događaje. Uređivač ima ljevi bočni panel koji vam omogućuje promjenu prikaza uređivača. Koristite ga za prebacivanje između popisa profila i događaja.</string>
     <string name="event_preferences_noPauseByManualActivation">Nemojte pauzirati tokom ručne aktivacije</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Nemojte pauzirate ovaj pokrenuti događaj ako je profil ručno aktiviran</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Ime taga nije konfigurirano.</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Za omogućavanje parametra \"Ignoriši Aplikacije\" dozvolite \"Pristupačnost\" u postavkama sustava PhoneProfilesPlusExtender-a.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Za omogućavanje parametra \"Aplikacije\" klikni ovde za instalaciju PhoneProfilesPlusExtender-a.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Za omogućavanje parametra \"Ignoriraj Aplikacije\" klikni ovdje za instalaciju PhoneProfilesPlusExtender-a.</string>
-    <string name="about_application_extender_source_code">Izvorni kod - Extender:</string>
+    <string name="about_application_extender_source_code">Izvorni kod - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">Možete konfigurirati više zameniskih znakova. Razdvojite ih sa znakom \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Predodređeni profil</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Ovaj profil je aktivan kada nema pokrenutog događaja. Klikni ovdje za postavke.</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Instalirajte novu verziju PhoneProfilesPlusExtender-a. Više informacija o instalaciji se nalazi u parametru koji zahtjeva PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Nemojte prisilno zaustaviti</string>
-    <string name="array_pref_force_stop">Prisilno zaustavi</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Prisilno zaustaviti aplikacije</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikacije za prisilno zaustavljanje</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Za omogućavanje parametra \"Prislino zaustavi aplikacije\" klikni ovdje za instalaciju PhoneProfilesPlusExtender-a.</string>
@@ -993,8 +990,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Proširivo</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Veće</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Maleno</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Omogući dozvolu za telefon u PhoneProfilesPlusExtender-u. Neophodna je za prijem poziva sa Extenderom.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Omogući dozvolu za SMS u PhoneProfilesPlusExtender-u. Neophodna je za prijem SMS/MMS sa Extenderom.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Omogući dozvolu za telefon u PhoneProfilesPlusExtender-u. Neophodna je za prijem poziva sa PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Slušalice bez mikrofona</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender nije instaliran!</string>
     <string name="default_profile_name_battery_ok">OK baterija</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Neće da radi uopće sa vašim uređajem.</string>
     <string name="application_is_starting_toast">pokretanje u toku…</string>
     <string name="application_is_started_toast">pokrenuto</string>
-    <string name="duration_end_acronym">de</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Statusna traka</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Ploča obavijesti</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Stil obavijesti</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Naziv profila.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">sve ostalo za događaje</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Naziv događaja.</string>
-    <string name="activity_log_help_close">Zatvori</string>
     <string name="event_preference_sensor_soundProfile_summary">Ovaj senzor će pokrenuti događaj prebacivanjem Zvučnog profila ili \" Ne uznemiravaj\" tipa. Parametri: Zvučni profili, \"Ne uznemiravaj\" tipovi.</string>
     <string name="event_type_soundProfile">Profil za zvuk</string>
     <string name="event_preferences_soundProfile_ringerModes">Modovi zvuka</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
     <string name="profile_preferences_exactTime">Exact time</string>
     <string name="profile_preferences_category_end_of_activation">Završena aktivacija</string>
-    <string name="end_of_activation_time_end_acronym">te</string>
-    <string name="end_of_activation_duration_acronym">d</string>
-    <string name="end_of_activation_time_acronym">t</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Prikaži završetak aktivacije profila</string>
-    <string name="event_delay_start_acronym">ds</string>
-    <string name="event_delay_end_acronym">de</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
@@ -1908,7 +1898,7 @@
     <string name="install_pppps_text4">Note: Target Android version for PPPPutSettings is 5.1. For this reason is not compatible with Google Play Protect. But PPPPutSettings is safe, only PhoneProfilesPlus is allowed to use it.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
-    <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
+    <string name="about_application_pppps_source_code">Source code - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">LED svijetlo obavijesti</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Uvek uključen zaslon</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
     <string name="altype_timezone_changed">time zone changed</string>
-    <string name="altype_extender_accessibility_service_enabled">Extender accessibility service enbaled</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
-    <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
+    <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender accessibility service enbaled</string>
+    <string name="altype_extender_accessibility_service_not_enabled">PhoneProfilesPlusExtender accessibility service not enbaled</string>
+    <string name="altype_extender_accessibility_service_unbind">PhoneProfilesPlusExtender accessibility service unbinded</string>
     <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
     <string name="check_releases_install_from_apk_note2_ppp">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, if in your device is not supported application store, and install PhoneProfilesPlusExtender from it.</string>
@@ -2209,7 +2199,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Outgoing calls</string>
     <string name="array_event_pref_call_screening_direction_all">All calls</string>
     <string name="event_name_copy_from_profile_block_calls">Block calls</string>
-    <string name="important_info_phone_call_to_call_screening">For each profile with configured parameter \"Phone calls\"\/\"Block calls\", is generated new event with \"Call screening\" sensor. This event has the \"Event run\" parameter disabled. \"Phone calls\" parameter from profiles is removed.</string>
     <string name="profile_preferences_category_send_sms">Send SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Contact groups</string>
     <string name="profile_preference_sendSMSContacts">Contacts</string>
@@ -2255,9 +2244,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
     <string name="permission_why_profile_vpn">for enable/disable VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">It is recommended to install the new version of PPPPutSettings (1.1), where there is a change that does not require \"Draw over apps\". For versions earlier than 1.1, parameters marked with (S) will still require this right.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
     <string name="color_value">Color value</string>
     <string name="location_geofence_editor_location_name">Location name</string>
     <string name="application_editor_intent_action_custom_label">Custom action</string>
@@ -2278,4 +2264,19 @@
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
     <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="array_pref_atEndDo_none">Nijedan</string>
+    <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Preferences indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

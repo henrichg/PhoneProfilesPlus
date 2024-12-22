@@ -7,79 +7,43 @@
 
 <h1 id="changelog">PhoneProfilesPlus Zoznam zmien</h1>
 
-<h2 id="version2">Verzia: 7.0</h2>
+<h2 id="version2">Verzia: 7.0.1</h2>
 
 <ul lang="en">
-    <li>Add: "Call screening" event sensor (move of profile parameter "Phone call")</li>
-    <li>Add: Send SMS for missed call into Call senzor.</li>
-    <li>Add: Profile parameter "Clear notifications".</li>
-    <li>Add: "Eye comfort shield" profile parameter.</li>
-    <li>Add: "Night light" profile parameter.</li>
-    <li>Add: "(I) Night light settings" profile parameter.</li>
-    <li>Add: Profile parameter "Screen on/off".</li>
-    <li>Added but not tested and not used: Fix for dynamic colors in Samsung devices.</li>
-    <li>Change: Added "Applications" parameter into "Music sensor".</li>
-    <li>Change: Added filter into "Activity log".</li>
-    <li>Change: Changed 404 link in "Draw over apps" permission wth "Restricted settings" info dialog.</li>
-    <li>Change: Added support for "Restricted settings" if is required.</li>
-    <li>Change: Called PPPPS over the service.</li>
-    <li>Change: "Unlock device" changed to "Device lockscreen". Because this parameter enable/disable lockscreen.</li>
-    <li>Change: Removed support for Huawei AppGallery.</li>
-    <li>Change: Important info News about "Draw over apps".</li>
-    <li>Change: "Phone call" profile parameter and "Send SMS" preference changed to dialog preference.</li>
-    <li>Change: Added event state icon into popup about event states.</li>
-    <li>Change: Moved "Enable events run" at top of popup about event states, run/stop indicator.</li>
-    <li>Change: Added missing BT profiles into BT connected devices detector.</li>
-    <li>Change: Show dialog for start Shizuku, when is not running but is installed.</li>
-    <li>Change: New versions of PPPE and PPPPS.</li>
-    <li>Change: Added bullets into description in traffic light popup.</li>
-    <li>Change: Important info email link changed to Support popup menu.</li>
-    <li>Change: Increased PPPE REQUIRED version code.</li>
-    <li>Change: Added check for PPPPS REQUIRED version code, when must be used.</li>
-    <li>Change: new LATEST PPPPS version code.</li>
-    <li>Change: Added "Do not disturb access" into Settings/Permissions.</li>
-    <li>Change: Added "History of UI changes" into README.md</li>
-    <li>Change: Do not use hiding of header at scroll in Activator grid view.</li>
-    <li>Change: "Change wallpaper" profile parameter - wallpaper URI conversion to bitmap with MediaStore/ImageDecoder.</li>
-    <li>Change: README.md Added note about "Google Play Protect" dialog displayed during PPP installation.</li>
-    <li>Change: fastlane full_description: Added note about "Google Play Protect" dialog displayed during PPP installation.</li>
-    <li>Change: Added info about "Send SMS" in "Call sensor".</li>
-    <li>Change: Added info about "Check light" in "Orientation sensor".</li>
-    <li>Change: GUI: backgroung color, coponents colors, design.</li>
-    <li>Fix: GUI: coponents colors, design.</li>
-    <li>Fix: Fixed rectangle ripple for Android < 13.</li>
-    <li>Fix: Bad aligned color channels in AndroidClearChroma.</li>
-    <li>Fixed string in APKPure check PPP release dialog.</li>
-    <li>Fix: Fixed set volume when unlink is disabled and volumes are merged.</li>
-    <li>Fix: Do not stop event in EventsHandler even when is not good by sensors requirements.</li>
-    <li>Fix: Fixed installation of PPPE and PPPPS. Required is Droid-ify for API >= 33.</li>
-    <li>Fix: Fixed version code and name of PPPE a PPPPS.</li>
-    <li>Fix: Fixed not playing notification about profile activation when "Confirm activating profile" is disabled.</li>
-    <li>Fix: Fixed native notification style. Removed is big space in notification.</li>
-    <li>Fix: Fixed not working "Change to random image" in Android 14+.</li>
-    <li>Fixed layout of PPP compact notification for Samsung One UI 6.</li>
-    <li>Fix: Fixed notification without decorator for Samsung.</li>
-    <li>Fix: Maybe fixed not paused event even when is not good configured.</li>
-    <li>Fix: Check location permission only when is required.</li>
-    <li>Fix: Fixed deleted "Vibration intensity" in profile parameters screen.</li>
-    <li>Fix: "Vibration intensity" max. values for Android 14+.</li>
-    <li>Fix: Fixed SQLite TEXT constants.</li>
-    <li>Fix: Fixed activity log for installation of PPP.</li>
-    <li>Fix: Fixed check of SYSTEM_ALERT_WINDOW permission.</li>
-    <li>Fix: Fixed "Mobile cells scanning": was not possible to enable it, if Phone permission is not granted.</li>
-    <li>Fix: Added check for permissions in profile preferences screen for profile parameters in "Others".</li>
-    <li>Fix: Do not show red text for grant Shizuku, when Shizuku is started, but not granted, and is not used any parameter using (Z) parameters.</li>
-    <li>Fix: Mobile cells editor and Re-Scan button - enable it and ask for grant needed permissions.</li>
-    <li>Fix: "Change wallpaper" profile parameter and "Draw over apps" permission check.</li>
-    <li>Fix: Fixed change of wallpapers by "Change wallpaper" profile parameter.</li>
-    <li>Fix: Maybe fixed adding groups into contacts.</li>
-    <li>Fix: Detection of in system configured BT Names by its address.</li>
-    <li>Fix: Detection of configured BT. Better for multithreading.</li>
-    <li>Fix: Bluetooth sensor - Connection type=Connected.</li>
-    <li>Fix: Not working send e-mail with attachments in Android 15.</li>
-    <li>Fix: Do not ask for grant Shizuku if is PPPPS installed.</li>
-    <li>Fix: Fixed "Custom color dialog" for "Restart events icon".</li>
-    <li>Fix: Detection of BTLE devices (watch).</li>
+    <li>Add: "Force stop applications" with root.</li>
+    <li>Add: "Use dynamic color for indicator" to draw indicators with dynamic color if global "Use dynamic colors" is disabled. Widget One row and List.</li>
+    <li>Add: New parameter into Settings/Editor: "Hide event details".</li>
+    <li>Add: New parameter into Settings/Editor: "Hide event details for "Start order"".</li>
+    <li>Change: Removed splash screen at start of Editor.</li>
+    <li>Change: Acronyms strings changed to icons.</li>
+    <li>Change: "Screen timeout" profile parameter for OnePlus without Shizuku.</li>
+    <li>Change: Install PPP from installed store also for critical PPP version.</li>
+    <li>Change: Removed Twitter/X from support menus and README.md.</li>
+    <li>Change: Added Mastodon into README.md</li>
+    <li>Change: Added icons in "Support" menu items.</li>
+    <li>Change: Added icons in "Check app. releases" menu items.</li>
+    <li>Change: Allow "Notification sensor" when only application is configured (not needed is "Check text").</li>
+    <li>Change: "Notification sensor", fixed "Check text".</li>
+    <li>Change: "Switch profiles" into icon widget when are configured only 2 profiles.</li>
+    <li>Change: Delay for start of BT connected devices detector when is started from broadcast.</li>
+    <li>Change: Increased size of preference titles.</li>
+    <li>Change: Long click to Tasker command in Important info -> direct copy to clipboard.</li>
+    <li>Change: Reverted back height of PPP notification for Samsung devices in Amdroid 14+</li>
+    <li>Change: "Activity log"/"Help" as activity.</li>
+    <li>Change: Widgets: Rounded corners radius + opaqueness of background for API >= 31.</li>
+    <li>Change: Widgets: Added parameter "Use dynamic colors" for preferences indicator when global "Dynamic colors" is disabled.</li>
+    <li>Change: Call "Request ignore battery optimizations" from Settings/System/Battery optimization, if is not set.</li>
+    <li>Change: Vertically center of profile name in Activator header, if preferences indicator is disabled.</li>
+    <li>Change: Better detection of drag handle click.</li>
+    <li>Change: Added background dim for popup windows.</li>
+    <li>Change: Small changes in GUI.</li>
+    <li>Fix: "Call screening" sensor block calls, even when event is not running.</li>
+    <li>Fix: Animation of open/close dialogs.</li>
+    <li>Fix: Bluetooth enable/disable.</li>
+    <li>Fix: NFC enable/disable not working in Android 14.</li>
+    <li>Fix: Color of preference values in PPP Settings.</li>
+    <li>Fix: Maybe fixed bad notification exception at first PPP start.</li>
+    <li>Fix: Popup windows in API level < 30.</li>
 </ul>
 
 <ul>
@@ -91,7 +55,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0">Informácie o vydaní na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.1">Informácie o vydaní na GitHub.</a>
 </p>
 
 </body>

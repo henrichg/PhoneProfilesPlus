@@ -43,6 +43,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+// is from reginer android.jar
 import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.MediaStore;
@@ -65,6 +66,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.palette.graphics.Palette;
 
+// is from reginer android.jar
 import com.android.internal.telephony.ITelephony;
 import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.stericson.rootshell.execution.Command;
@@ -127,6 +129,7 @@ class ActivateProfileHelper {
     private static final String COMMAND_SERVICE_ROOT_WIFI = "wifi";
     private static final String COMMAND_SERVICE_ROOT_ISUB = "isub";
     private static final String COMMAND_AIRPLANE_MODE = "cmd connectivity airplane-mode";
+    private static final String COMMAND_AM_FORCE_STOP_APP = "am force-stop ";
 
     private static final String PPPPS_SETTINGS_TYPE_SYSTEM = "system";
     private static final String SETTINGS_PREF_VIBRATE_IN_NORMAL = "vibrate_in_normal";
@@ -158,6 +161,9 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
+//        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+
+        int RADIOS_SLEEP = 300;
         boolean firstSleepCalled = false;
 
         Context appContext = context.getApplicationContext();
@@ -174,7 +180,9 @@ class ActivateProfileHelper {
 
                             //noinspection ConstantConditions
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 sleep()");
+                                // 300
+                                GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
 
@@ -201,7 +209,9 @@ class ActivateProfileHelper {
                     if (profile._deviceOnOffSIM2 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 sleep()");
+                                GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
 
@@ -235,7 +245,9 @@ class ActivateProfileHelper {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
-                        GlobalUtils.sleep(300);
+                        // 300
+//                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceDefaultSIMCards sleep()");
+                        GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
 
@@ -281,7 +293,9 @@ class ActivateProfileHelper {
         if (profile._deviceNetworkType >= 100) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
 
@@ -297,7 +311,9 @@ class ActivateProfileHelper {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM1 sleep()");
+                                GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
 
@@ -309,7 +325,9 @@ class ActivateProfileHelper {
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+//                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM2 sleep()");
+                                GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
 
@@ -325,11 +343,20 @@ class ActivateProfileHelper {
         if (profile._deviceMobileData != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
 
-                boolean _isMobileData = isMobileData(appContext, 0);
+                boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
+                boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
+                boolean _isMobileDataSIM0 = isMobileData(appContext, 0);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM1="+_isMobileDataSIM1);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM2="+_isMobileDataSIM2);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileDataSIM0="+_isMobileDataSIM0);
+                boolean _isMobileData = (_isMobileDataSIM0 || _isMobileDataSIM1 || _isMobileDataSIM2);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(1) _isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
@@ -349,9 +376,13 @@ class ActivateProfileHelper {
                         _setMobileData = true;
                         break;
                 }
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "_setMobileData="+_setMobileData);
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.doExecuteForRadios", "(2) _isMobileData="+_isMobileData);
                 if (_setMobileData) {
                     setMobileData(appContext, _isMobileData, 0);
-                    GlobalUtils.sleep(200);
+                    // 200
+                    GlobalUtils.sleep(1000);
                 }
             }
         }
@@ -363,7 +394,8 @@ class ActivateProfileHelper {
                     if (profile._deviceMobileDataSIM1 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
 
@@ -402,7 +434,8 @@ class ActivateProfileHelper {
                     if (profile._deviceMobileDataSIM2 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (!firstSleepCalled) {
-                                GlobalUtils.sleep(300);
+                                // 300
+                                GlobalUtils.sleep(RADIOS_SLEEP);
                                 firstSleepCalled = true;
                             }
 
@@ -447,7 +480,9 @@ class ActivateProfileHelper {
         if (profile._deviceWiFiAP != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
 
@@ -546,7 +581,9 @@ class ActivateProfileHelper {
             if (profile._deviceWiFi != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!firstSleepCalled) {
-                        GlobalUtils.sleep(300);
+                        // 300
+//                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi sleep()");
+                        GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
 
@@ -617,7 +654,9 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                     if (!firstSleepCalled) {
-                        GlobalUtils.sleep(300);
+                        // 300
+//                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID sleep()");
+                        GlobalUtils.sleep(RADIOS_SLEEP);
                         firstSleepCalled = true;
                     }
 
@@ -714,13 +753,16 @@ class ActivateProfileHelper {
         if (profile._deviceBluetooth != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
 
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(1) isBluetoothEnabled="+isBluetoothEnabled);
                     boolean setBluetoothState = false;
                     switch (profile._deviceBluetooth) {
                         case 1:
@@ -740,6 +782,8 @@ class ActivateProfileHelper {
                             setBluetoothState = true;
                             break;
                     }
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "(2) isBluetoothEnabled="+isBluetoothEnabled);
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
@@ -749,12 +793,12 @@ class ActivateProfileHelper {
                         try {
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
                                 if (isBluetoothEnabled) {
-//                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
+//                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
                                     // adb shell cmd bluetooth_manager enable
                                     bluetoothAdapter.enable();
                                 }
                                 else {
-//                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
+//                                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
                                     // adb shell cmd bluetooth_manager disable
                                     bluetoothAdapter.disable();
                                 }
@@ -772,7 +816,9 @@ class ActivateProfileHelper {
         if (profile._deviceLocationMode != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
 
@@ -832,7 +878,9 @@ class ActivateProfileHelper {
         if (profile._deviceGPS != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     firstSleepCalled = true;
                 }
 
@@ -871,7 +919,9 @@ class ActivateProfileHelper {
         if (profile._deviceNFC != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!firstSleepCalled) {
-                    GlobalUtils.sleep(300);
+                    // 300
+//                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC sleep()");
+                    GlobalUtils.sleep(RADIOS_SLEEP);
                     //noinspection UnusedAssignment
                     firstSleepCalled = true;
                 }
@@ -927,21 +977,21 @@ class ActivateProfileHelper {
         return assistIsSet;
     }
 
-    private static void executeForRadios(Profile _profile, Context context, SharedPreferences _executedProfileSharedPreferences)
+    private static void executeForRadios(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences)
     {
-        if (_profile == null)
+        if (profile == null)
             return;
 
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
-            //Context appContext= appContextWeakRef.get();
-            Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
-            if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+            //Context appContext = appContextWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -1010,10 +1060,10 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+            //}
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     static boolean isAudibleRinging(int ringerMode, int zenMode/*, boolean onlyVibrateSilent*/) {
@@ -1841,23 +1891,23 @@ class ActivateProfileHelper {
                             int ppppsVersion = isPPPPutSettingsInstalled(appContext);
                             if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_SILENT, String.valueOf(lValue));
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_NORMAL, String.valueOf(lValue));
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_IN_SILENT, String.valueOf(lValue));
                                 } else if (PPApplication.deviceIsOnePlus) {
                                     // Must be set minimal to 2, because without this, in OnePlus will not vibrates
                                     // Exists another parameter "Vibration intesity", which sets specific intensity for OnePlus
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     switch (lValue) {
                                         case 1:
-                                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "2");
+                                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "2");
                                             break;
                                         case 0:
-                                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "0");
+                                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_RING_VIBRATION_INTENSITY, "0");
                                             break;
                                     }
                                 } else {
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                 }
                             }
                             else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
@@ -1989,13 +2039,13 @@ class ActivateProfileHelper {
                 if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                     if (PPApplication.deviceIsPixel) {
                         if (lValue > 0) {
-                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
-                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
+                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
+                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                         } else {
-                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
+                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                         }
                     } else {
-                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
+                        putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_NOTIFICATION_VIBRATION_INTENSITY, String.valueOf(lValue));
                     }
                 }
                 else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
@@ -2079,7 +2129,7 @@ class ActivateProfileHelper {
                             PPApplication.deviceIsOnePlus) {
 
                         if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
+                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = COMMAND_SETTINGS_PUT_SYSTEM + parameterName + " " + value;
@@ -2111,7 +2161,7 @@ class ActivateProfileHelper {
                         }
                     } else {
                         if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                            putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
+                            putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, parameterName, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1;
@@ -2251,7 +2301,7 @@ class ActivateProfileHelper {
             if ((lValueRinging > 0) || (lValueNotificaitons > 0) || (lValueTouchIntensity > 0)) {
                 int ppppsVersion = isPPPPutSettingsInstalled(context);
                 if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
+                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_PREF_VIBRATE_ON, "1");
             }
 
             if (profile.getVibrationIntensityRingingChange()) {
@@ -2960,7 +3010,7 @@ class ActivateProfileHelper {
                                             //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
 
                                             if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                                putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
+                                                putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, uri.toString());
                                             }
                                             else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
@@ -3001,7 +3051,7 @@ class ActivateProfileHelper {
                                             }
 
                                             if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                                putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
+                                                putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, uri.toString());
                                             }
                                             else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
@@ -3082,7 +3132,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
                                     if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
+                                        putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_SAMSUNG, "");
                                     }
                                     else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
@@ -3121,7 +3171,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
                                     if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
+                                        putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM1_HUAWEI, "");
                                     }
                                     else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
@@ -3219,7 +3269,7 @@ class ActivateProfileHelper {
                                             //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
                                             if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                                putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
+                                                putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, uri.toString());
                                             }
                                             else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                                 synchronized (PPApplication.rootMutex) {
@@ -3337,7 +3387,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
                                     if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
-                                        putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
+                                        putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_NOTIFICATION_SIM2_SAMSUNG, "");
                                     }
                                     else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                         synchronized (PPApplication.rootMutex) {
@@ -3443,9 +3493,9 @@ class ActivateProfileHelper {
 
                             if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_XIAOMI, value);
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_XIAOMI, value);
                                 else if (PPApplication.deviceIsOnePlus)
-                                    putSettingsParameter(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
+                                    putSettingsParameterWithPPPPS(context, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, PREF_RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
                             }
                             else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                                 synchronized (PPApplication.rootMutex) {
@@ -3556,18 +3606,18 @@ class ActivateProfileHelper {
             return null;
     }
 
-    static void executeForVolumes(Profile _profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences _executedProfileSharedPreferences) {
+    static void executeForVolumes(Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences executedProfileSharedPreferences) {
 //        PPApplicationStatic.recordException(new Exception("test"));
 
 
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-            Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
             if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3663,21 +3713,21 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setNotificationLed(Context context, final int value, SharedPreferences _executedProfileSharedPreferences) {
+    private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
 
             //Context appContext= appContextWeakRef.get();
             //Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) && (profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3693,7 +3743,7 @@ class ActivateProfileHelper {
                         final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
                         int ppppsVersion = isPPPPutSettingsInstalled(appContext);
                         if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                            putSettingsParameter(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
+                            putSettingsParameterWithPPPPS(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, NOTIFICATION_LIGHT_PULSE, String.valueOf(value));
                         else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = COMMAND_SETTINGS_PUT_SYSTEM + NOTIFICATION_LIGHT_PULSE + " " + value;
@@ -3736,21 +3786,21 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences _executedProfileSharedPreferences) {
+    private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
 
             //Context appContext= appContextWeakRef.get();
             //Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) && (profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3807,21 +3857,21 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
-    private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences _executedProfileSharedPreferences) {
+    private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-        final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
 
             //Context appContext= appContextWeakRef.get();
             //Profile profile = profileWeakRef.get();
-            SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) && (profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -3893,9 +3943,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setScreenOn(final Context context) {
@@ -3931,11 +3981,11 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setScreenOff(Profile _profile, final Context context) {
+    private static void setScreenOff(Profile profile, final Context context) {
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setScreenOff");
 
             if (PPApplication.blockProfileEventActions)
@@ -3943,7 +3993,7 @@ class ActivateProfileHelper {
                 return;
 
             //Context appContext= appContextWeakRef.get();
-            Profile profile = profileWeakRef.get();
+            //Profile profile = profileWeakRef.get();
             //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -3982,9 +4032,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     private static void setScreenOnOff(Profile profile, Context context) {
@@ -4123,18 +4173,18 @@ class ActivateProfileHelper {
     }
 
     private static void setRingerMode(AudioManager audioManager, final int ringerMode) {
-        final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(audioManager);
-        Runnable runnable = () -> {
-            AudioManager audioManager1 = audioManagerWeakRef.get();
-            audioManager1.setRingerMode(ringerMode);
-        };
-        PPApplicationStatic.createSoundModeExecutorPool();
-        PPApplication.soundModeExecutorPool.submit(runnable);
+        //final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(audioManager);
+        //Runnable runnable = () -> {
+            //AudioManager audioManager = audioManagerWeakRef.get();
+            audioManager.setRingerMode(ringerMode);
+        //};
+        //PPApplicationStatic.createSoundModeExecutorPool();
+        //PPApplication.soundModeExecutorPool.submit(runnable);
     }
 
     static void requestInterruptionFilter(Context context, final int zenMode) {
         final Context appContext = context.getApplicationContext();
-        Runnable runnable = () -> {
+        //Runnable runnable = () -> {
             try {
                 //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
@@ -4160,9 +4210,9 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-        };
-        PPApplicationStatic.createSoundModeExecutorPool();
-        PPApplication.soundModeExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createSoundModeExecutorPool();
+        //PPApplication.soundModeExecutorPool.submit(runnable);
     }
 
     private static Bitmap _changeWallpaperGetBitmapFromUri(String wallpaperUri, Context appContext) {
@@ -4597,9 +4647,9 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void changeImageWallpaper(Profile _profile, Context context) {
+    private static void changeImageWallpaper(Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
 
         boolean canChangeWallpaper = true;
@@ -4607,18 +4657,18 @@ class ActivateProfileHelper {
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
         if (Build.VERSION.SDK_INT >= 29) {
-            if ((_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
-                    (_profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
+            if ((profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_IMAGE_WITH) ||
+                    (profile._deviceWallpaperChange == Profile.CHANGE_WALLPAPER_LIVE)) {
                 canChangeWallpaper = Settings.canDrawOverlays(context);
             }
         }
 
         if (canChangeWallpaper) {
-            Runnable runnable = () -> {
+            //Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
                 //Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
+                //Profile profile = profileWeakRef.get();
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
                 if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -4642,13 +4692,13 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+            //};
+            //PPApplicationStatic.createProfileActiationExecutorPool();
+            //PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
-    private static void changeWallpaperFromFolder(Profile _profile, Context context) {
+    private static void changeWallpaperFromFolder(Profile profile, Context context) {
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
@@ -4661,13 +4711,13 @@ class ActivateProfileHelper {
 
 //            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "(1)");
             final Context appContext = context.getApplicationContext();
-            final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+            //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
             //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-            Runnable runnable = () -> {
+            //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
                 //Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
+                //Profile profile = profileWeakRef.get();
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
                 if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -4774,23 +4824,23 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+            //};
+            //PPApplicationStatic.createProfileActiationExecutorPool();
+            //PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
-    private static void executeForRunApplications(Profile _profile, Context context) {
-        if (_profile._deviceRunApplicationChange == 1)
+    private static void executeForRunApplications(Profile profile, Context context) {
+        if (profile._deviceRunApplicationChange == 1)
         {
             // startActivity from background: Android 10 (API level 29)
             // Exception:
             // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
             if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
                 final Context appContext = context.getApplicationContext();
-                final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+                //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
                 //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-                Runnable runnable = () -> {
+                //Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
                     if (PPApplication.blockProfileEventActions)
@@ -4798,50 +4848,50 @@ class ActivateProfileHelper {
                         return;
 
                     //Context appContext= appContextWeakRef.get();
-                    Profile profile = profileWeakRef.get();
+                    //Profile profile = profileWeakRef.get();
                     //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                    if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForRunApplications);
-                                wakeLock.acquire(10 * 60 * 1000);
+                    //if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForRunApplications);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
+
+                        //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+                        //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
+
+                        for (String split : splits) {
+//                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
+                            int startApplicationDelay = Application.getStartApplicationDelay(split);
+//                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
+                            if (Application.getStartApplicationDelay(split) > 0) {
+                                RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
+                            } else {
+//                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
+                                doExecuteForRunApplications(appContext, profile._name, split);
                             }
-
-                            String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
-
-                            //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-                            //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
-
-                            for (String split : splits) {
-    //                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
-                                int startApplicationDelay = Application.getStartApplicationDelay(split);
-    //                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
-                                if (Application.getStartApplicationDelay(split) > 0) {
-                                    RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
-                                } else {
-    //                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
-                                    doExecuteForRunApplications(appContext, profile._name, split);
-                                }
-                                GlobalUtils.sleep(1000);
-                            }
-                        } catch (Exception e) {
-    //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
+                            GlobalUtils.sleep(1000);
+                        }
+                    } catch (Exception e) {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
-                };
-                PPApplicationStatic.createProfileActiationExecutorPool();
-                PPApplication.profileActiationExecutorPool.submit(runnable);
+                    //}
+                //};
+                //PPApplicationStatic.createProfileActiationExecutorPool();
+                //PPApplication.profileActiationExecutorPool.submit(runnable);
             }
         }
     }
@@ -4965,59 +5015,72 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
-        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
-                (PPApplication.isRooted(false))) {
+        if (profile._deviceForceStopApplicationChange == 1) {
+            boolean enabled;
+            enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
+                    /*, "ActivateProfileHelper.execute (profile._deviceForceStopApplicationChange)"*/);
+            if (enabled) {
+                if (profile._lockDevice != 0)
+                    // not force stop if profile has lock device enabled
+                    return;
 
-            synchronized (PPApplication.rootMutex) {
-                processPID = -1;
-                String command1 = "pidof sk.henrichg.phoneprofilesplus";
-                Command command = new Command(0, false, command1) {
-                    @Override
-                    public void commandOutput(int id, String line) {
-                        super.commandOutput(id, line);
-                        try {
-                            processPID = Integer.parseInt(line);
-                        } catch (Exception e) {
-                            processPID = -1;
-                        }
-                    }
+                // For root (maybe also Shizuku - not needed PPPE
+                // "am force-stop com.google.android.calculator"
 
-                    @Override
-                    public void commandTerminated(int id, String reason) {
-                        super.commandTerminated(id, reason);
-                    }
-
-                    @Override
-                    public void commandCompleted(int id, int exitCode) {
-                        super.commandCompleted(id, exitCode);
-                    }
-                };
-
-
-                try {
-                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    PPApplication.commandWait(command);
-                    //if (processPID != -1) {
-                        boolean killed = roottools.killProcess(PPApplication.PACKAGE_NAME);
-                    //}
-                } catch (Exception ee) {
-                    Log.e("ActivateProfileHelper.executeForForceStopApplications", Log.getStackTraceString(ee));
+                String applications = profile._deviceForceStopApplicationPackageName;
+                if (!(applications.isEmpty() || (applications.equals("-")))) {
+                    Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                    intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
+                    intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
+                    appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                 }
             }
-        } else {*/
-            if (profile._lockDevice != 0)
-                // not force stop if profile has lock device enabled
-                return;
-
-            String applications = profile._deviceForceStopApplicationPackageName;
-            if (!(applications.isEmpty() || (applications.equals("-")))) {
-                Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
-                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
-                intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
-                appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+        }
+        else
+        if (profile._deviceForceStopApplicationChange == 2) {
+            boolean isRooted = RootUtils.isRooted(/*false*/);
+            if (ShizukuUtils.hasShizukuPermission()) {
+                String applications = profile._deviceForceStopApplicationPackageName;
+                String[] splits = applications.split(StringConstants.STR_SPLIT_REGEX);
+                for (String split : splits) {
+                    if (!split.isEmpty()) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
+                            try {
+                                ShizukuUtils.executeCommand(command1);
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.executeForForceStopApplications", Log.getStackTraceString(e));
+                            }
+                        }
+                    }
+                }
+            } else
+            if (isRooted &&
+                    (!ApplicationPreferences.applicationNeverAskForGrantRoot)) {
+                // device is rooted
+                String applications = profile._deviceForceStopApplicationPackageName;
+                String[] splits = applications.split(StringConstants.STR_SPLIT_REGEX);
+                for (String split : splits) {
+                    if (!split.isEmpty()) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
+                            Command command = new Command(0, /*false,*/ command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_AIPLANE_MODE);
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                                //PPApplicationStatic.recordException(e);
+                            }
+                        }
+                    }
+                }
             }
-        //}
+        }
     }
 
     /*
@@ -5529,6 +5592,131 @@ class ActivateProfileHelper {
         //// setup radio preferences
         ActivateProfileHelper.executeForRadios(profile, appContext, executedProfileSharedPreferences);
 
+        // enable/disable scanners
+        if (profile._applicationEnableWifiScanning != 0) {
+            boolean oldApplicationEventWifiEnableScanning = ApplicationPreferences.applicationEventWifiEnableScanning;
+            boolean newApplicationEventWifiEnableScanning =
+                    (profile._applicationEnableWifiScanning == 2) || (profile._applicationEnableWifiScanning == 3);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, newApplicationEventWifiEnableScanning);
+            if (profile._applicationEnableWifiScanning == 3)
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, String.valueOf(profile._applicationWifiScanInterval));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableWifiScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventWifiEnableScanning(appContext);
+            if (profile._applicationEnableWifiScanning == 3)
+                ApplicationPreferences.applicationEventWifiScanInterval(appContext);
+            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
+            if (oldApplicationEventWifiEnableScanning != newApplicationEventWifiEnableScanning) {
+//                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ActivateProfileHelper.execute", "profile._applicationEnableWifiScanning");
+                PPApplicationStatic.restartWifiScanner(appContext);
+            }
+        }
+        if (profile._applicationEnableBluetoothScanning != 0) {
+            boolean oldApplicationEventBluetoothEnableScanning = ApplicationPreferences.applicationEventBluetoothEnableScanning;
+            boolean newApplicationEventBluetoothEnableScanning =
+                    (profile._applicationEnableBluetoothScanning == 2) || (profile._applicationEnableBluetoothScanning == 3);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, newApplicationEventBluetoothEnableScanning);
+            if (profile._applicationEnableBluetoothScanning == 3) {
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, String.valueOf(profile._applicationBluetoothScanInterval));
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, String.valueOf(profile._applicationBluetoothLEScanDuration));
+            }
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableBluetoothScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext);
+            if (profile._applicationEnableBluetoothScanning == 3) {
+                ApplicationPreferences.applicationEventBluetoothScanInterval(appContext);
+                ApplicationPreferences.applicationEventBluetoothLEScanDuration(appContext);
+            }
+            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
+            if (oldApplicationEventBluetoothEnableScanning != newApplicationEventBluetoothEnableScanning) {
+                PPApplicationStatic.restartBluetoothScanner(appContext);
+            }
+        }
+        if (profile._applicationEnableLocationScanning != 0) {
+            boolean oldApplicationEventLocationEnableScanning = ApplicationPreferences.applicationEventLocationEnableScanning;
+            boolean newApplicationEventLocationEnableScanning =
+                    (profile._applicationEnableLocationScanning == 2) || (profile._applicationEnableLocationScanning == 3);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, newApplicationEventLocationEnableScanning);
+            if (profile._applicationEnableLocationScanning == 3)
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, String.valueOf(profile._applicationLocationScanInterval));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableLocationScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventLocationEnableScanning(appContext);
+            if (profile._applicationEnableLocationScanning == 3)
+                ApplicationPreferences.applicationEventLocationUpdateInterval(appContext);
+            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
+            if (oldApplicationEventLocationEnableScanning != newApplicationEventLocationEnableScanning) {
+                PPApplicationStatic.restartLocationScanner(appContext);
+            }
+        }
+        if (profile._applicationEnableMobileCellScanning != 0) {
+            boolean oldApplicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning;
+            boolean newApplicationEventMobileCellEnableScanning = profile._applicationEnableMobileCellScanning == 2;
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, newApplicationEventMobileCellEnableScanning);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableMobileCellScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
+            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
+            if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
+//                PPApplicationStatic.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
+                PPApplicationStatic.restartMobileCellsScanner(appContext);
+            }
+        }
+        if (profile._applicationEnableOrientationScanning != 0) {
+            boolean oldApplicationEventOrientationEnableScanning = ApplicationPreferences.applicationEventOrientationEnableScanning;
+            boolean newApplicationEventOrientationEnableScanning =
+                    (profile._applicationEnableOrientationScanning == 2) || (profile._applicationEnableOrientationScanning == 3);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, newApplicationEventOrientationEnableScanning);
+            if (profile._applicationEnableOrientationScanning == 3)
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, String.valueOf(profile._applicationOrientationScanInterval));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableOrientationScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
+            if (profile._applicationEnableOrientationScanning == 3)
+                ApplicationPreferences.applicationEventOrientationScanInterval(appContext);
+            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
+            if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
+//                PPApplicationStatic.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
+                PPApplicationStatic.restartOrientationScanner(appContext);
+            }
+        }
+        if (profile._applicationEnableNotificationScanning != 0) {
+            boolean oldApplicationEventNotificationEnableScanning = ApplicationPreferences.applicationEventNotificationEnableScanning;
+            boolean newApplicationEventNotificationEnableScanning = profile._applicationEnableNotificationScanning == 2;
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, newApplicationEventNotificationEnableScanning);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableNotificationScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventNotificationEnableScanning(appContext);
+            ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
+            if (oldApplicationEventNotificationEnableScanning != newApplicationEventNotificationEnableScanning) {
+                PPApplicationStatic.restartNotificationScanner(appContext);
+            }
+        }
+        if (profile._applicationEnablePeriodicScanning != 0) {
+            boolean oldApplicationEventPeriodicEnableScanning = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
+            boolean newApplicationEventPeriodicEnableScanning =
+                    (profile._applicationEnablePeriodicScanning == 2) || (profile._applicationEnablePeriodicScanning == 3);
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, newApplicationEventPeriodicEnableScanning);
+            if (profile._applicationEnablePeriodicScanning == 3)
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, String.valueOf(profile._applicationPeriodicScanInterval));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnablePeriodicScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(appContext);
+            if (profile._applicationEnablePeriodicScanning == 3)
+                ApplicationPreferences.applicationEventPeriodicScanningScanInterval(appContext);
+            ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
+            if (oldApplicationEventPeriodicEnableScanning != newApplicationEventPeriodicEnableScanning) {
+                PPApplicationStatic.restartPeriodicScanningScanner(appContext);
+            }
+        }
+
         // setup auto-sync
         try {
             boolean _isAutoSync = ContentResolver.getMasterSyncAutomatically();
@@ -5792,131 +5980,6 @@ class ActivateProfileHelper {
             }
         }
 
-        // enable/disable scanners
-        if (profile._applicationEnableWifiScanning != 0) {
-            boolean oldApplicationEventWifiEnableScanning = ApplicationPreferences.applicationEventWifiEnableScanning;
-            boolean newApplicationEventWifiEnableScanning =
-                    (profile._applicationEnableWifiScanning == 2) || (profile._applicationEnableWifiScanning == 3);
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, newApplicationEventWifiEnableScanning);
-            if (profile._applicationEnableWifiScanning == 3)
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, String.valueOf(profile._applicationWifiScanInterval));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableWifiScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventWifiEnableScanning(appContext);
-            if (profile._applicationEnableWifiScanning == 3)
-                ApplicationPreferences.applicationEventWifiScanInterval(appContext);
-            ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
-            if (oldApplicationEventWifiEnableScanning != newApplicationEventWifiEnableScanning) {
-//                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] ActivateProfileHelper.execute", "profile._applicationEnableWifiScanning");
-                PPApplicationStatic.restartWifiScanner(appContext);
-            }
-        }
-        if (profile._applicationEnableBluetoothScanning != 0) {
-            boolean oldApplicationEventBluetoothEnableScanning = ApplicationPreferences.applicationEventBluetoothEnableScanning;
-            boolean newApplicationEventBluetoothEnableScanning =
-                    (profile._applicationEnableBluetoothScanning == 2) || (profile._applicationEnableBluetoothScanning == 3);
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, newApplicationEventBluetoothEnableScanning);
-            if (profile._applicationEnableBluetoothScanning == 3) {
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, String.valueOf(profile._applicationBluetoothScanInterval));
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, String.valueOf(profile._applicationBluetoothLEScanDuration));
-            }
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableBluetoothScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext);
-            if (profile._applicationEnableBluetoothScanning == 3) {
-                ApplicationPreferences.applicationEventBluetoothScanInterval(appContext);
-                ApplicationPreferences.applicationEventBluetoothLEScanDuration(appContext);
-            }
-            ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
-            if (oldApplicationEventBluetoothEnableScanning != newApplicationEventBluetoothEnableScanning) {
-                PPApplicationStatic.restartBluetoothScanner(appContext);
-            }
-        }
-        if (profile._applicationEnableLocationScanning != 0) {
-            boolean oldApplicationEventLocationEnableScanning = ApplicationPreferences.applicationEventLocationEnableScanning;
-            boolean newApplicationEventLocationEnableScanning =
-                    (profile._applicationEnableLocationScanning == 2) || (profile._applicationEnableLocationScanning == 3);
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, newApplicationEventLocationEnableScanning);
-            if (profile._applicationEnableLocationScanning == 3)
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, String.valueOf(profile._applicationLocationScanInterval));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableLocationScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventLocationEnableScanning(appContext);
-            if (profile._applicationEnableLocationScanning == 3)
-                ApplicationPreferences.applicationEventLocationUpdateInterval(appContext);
-            ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
-            if (oldApplicationEventLocationEnableScanning != newApplicationEventLocationEnableScanning) {
-                PPApplicationStatic.restartLocationScanner(appContext);
-            }
-        }
-        if (profile._applicationEnableMobileCellScanning != 0) {
-            boolean oldApplicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning;
-            boolean newApplicationEventMobileCellEnableScanning = profile._applicationEnableMobileCellScanning == 2;
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, newApplicationEventMobileCellEnableScanning);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableMobileCellScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
-            ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
-            if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
-//                PPApplicationStatic.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
-                PPApplicationStatic.restartMobileCellsScanner(appContext);
-            }
-        }
-        if (profile._applicationEnableOrientationScanning != 0) {
-            boolean oldApplicationEventOrientationEnableScanning = ApplicationPreferences.applicationEventOrientationEnableScanning;
-            boolean newApplicationEventOrientationEnableScanning =
-                    (profile._applicationEnableOrientationScanning == 2) || (profile._applicationEnableOrientationScanning == 3);
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, newApplicationEventOrientationEnableScanning);
-            if (profile._applicationEnableOrientationScanning == 3)
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, String.valueOf(profile._applicationOrientationScanInterval));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableOrientationScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
-            if (profile._applicationEnableOrientationScanning == 3)
-                ApplicationPreferences.applicationEventOrientationScanInterval(appContext);
-            ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
-            if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
-//                PPApplicationStatic.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
-                PPApplicationStatic.restartOrientationScanner(appContext);
-            }
-        }
-        if (profile._applicationEnableNotificationScanning != 0) {
-            boolean oldApplicationEventNotificationEnableScanning = ApplicationPreferences.applicationEventNotificationEnableScanning;
-            boolean newApplicationEventNotificationEnableScanning = profile._applicationEnableNotificationScanning == 2;
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, newApplicationEventNotificationEnableScanning);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnableNotificationScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventNotificationEnableScanning(appContext);
-            ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
-            if (oldApplicationEventNotificationEnableScanning != newApplicationEventNotificationEnableScanning) {
-                PPApplicationStatic.restartNotificationScanner(appContext);
-            }
-        }
-        if (profile._applicationEnablePeriodicScanning != 0) {
-            boolean oldApplicationEventPeriodicEnableScanning = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
-            boolean newApplicationEventPeriodicEnableScanning =
-                    (profile._applicationEnablePeriodicScanning == 2) || (profile._applicationEnablePeriodicScanning == 3);
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, newApplicationEventPeriodicEnableScanning);
-            if (profile._applicationEnablePeriodicScanning == 3)
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, String.valueOf(profile._applicationPeriodicScanInterval));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, profile._applicationEnablePeriodicScanning == 1);
-            editor.apply();
-            ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(appContext);
-            if (profile._applicationEnablePeriodicScanning == 3)
-                ApplicationPreferences.applicationEventPeriodicScanningScanInterval(appContext);
-            ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
-            if (oldApplicationEventPeriodicEnableScanning != newApplicationEventPeriodicEnableScanning) {
-                PPApplicationStatic.restartPeriodicScanningScanner(appContext);
-            }
-        }
-
         // set heads-up notifications
         if (profile._headsUpNotifications != 0) {
             switch (profile._headsUpNotifications) {
@@ -6070,18 +6133,65 @@ class ActivateProfileHelper {
             dataWrapper.invalidateDataWrapper();
         }
 
-        if (profile._deviceForceStopApplicationChange == 1) {
-            boolean enabled;
-            enabled = PPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
-                            /*, "ActivateProfileHelper.execute (profile._deviceForceStopApplicationChange)"*/);
-            if (enabled) {
-                // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
-                ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
-            }
+        if (profile._deviceForceStopApplicationChange >= 1) {
+            // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
+            ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
         }
         else {
 //            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");
             executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
+        }
+    }
+
+    private static void _setScreenTimeount(int screenTimeoutValue, boolean forceSet, Context appContext) {
+        //removeScreenTimeoutAlwaysOnView(context);
+        //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+        if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
+            // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
+            if (PPApplication.lockDeviceActivityOnlyScreenOff)
+                PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = screenTimeoutValue;
+            else
+                PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = screenTimeoutValue;
+        }
+        else {
+            if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme ||
+                    (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT < 34))) {
+                int ppppsVersion = isPPPPutSettingsInstalled(appContext);
+                if (ppppsVersion >= PPApplication.VERSION_CODE_PPPPS_REQUIRED)
+                    putSettingsParameterWithPPPPS(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, Settings.System.SCREEN_OFF_TIMEOUT, String.valueOf(screenTimeoutValue));
+                else
+                if (ShizukuUtils.hasShizukuPermission()) {
+                    synchronized (PPApplication.rootMutex) {
+                        String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " "+screenTimeoutValue;
+                        try {
+                            ShizukuUtils.executeCommand(command1);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                        }
+                    }
+                } else
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
+                    synchronized (PPApplication.rootMutex) {
+                        String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " "+screenTimeoutValue;
+                        Command command = new Command(0, /*false,*/ command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                            RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                        }
+                    }
+                }
+                else {
+                    if (Settings.System.getInt(appContext.getContentResolver(),
+                            Settings.System.SCREEN_OFF_TIMEOUT, -1) != screenTimeoutValue)
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, screenTimeoutValue);
+                }
+            } else {
+                if (Settings.System.getInt(appContext.getContentResolver(),
+                        Settings.System.SCREEN_OFF_TIMEOUT, -1) != screenTimeoutValue)
+                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, screenTimeoutValue);
+            }
         }
     }
 
@@ -6102,352 +6212,25 @@ class ActivateProfileHelper {
         //   <item>9</item>
         switch (screenTimeout) {
             case 1: // 15 seconds
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 15000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 15000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 15000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                        }
-                    } else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 15000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                    }
-                }
+                _setScreenTimeount(15000, forceSet, appContext);
                 break;
             case 2: // 30 seconds
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 30000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 30000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 30000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 30000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
-                    }
-                }
+                _setScreenTimeount(30000, forceSet, appContext);
                 break;
             case 3: // 1 minute
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 60000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 60000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 60000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 60000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
-                    }
-                }
+                _setScreenTimeount(60000, forceSet, appContext);
                 break;
             case 4: // 2 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 120000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 120000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 120000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 120000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
-                    }
-                }
+                _setScreenTimeount(120000, forceSet, appContext);
                 break;
             case 5: // 10 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 600000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 600000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 600000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 600000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
-                    }
-                }
+                _setScreenTimeount(600000, forceSet, appContext);
                 break;
-            /*case 6:
-                //2147483647 = Integer.MAX_VALUE
-                //18000000   = 5 hours
-                //86400000   = 24 hours
-                //43200000   = 12 hours
-                removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 86400000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000);
-                break;*/
             case 7: // 5 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 300000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 300000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 300000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 300000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
-                    }
-                }
+                _setScreenTimeount(300000, forceSet, appContext);
                 break;
-            /*case 8:
-                removeScreenTimeoutAlwaysOnView(context);
-                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().lockDeviceActivity != null))
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = 86400000; //1800000;
-                else
-                    createScreenTimeoutAlwaysOnView(appContext);
-                break;*/
             case 9: // 30 minutes
-                //removeScreenTimeoutAlwaysOnView(context);
-                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
-                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet)) {
-                    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
-                    if (PPApplication.lockDeviceActivityOnlyScreenOff)
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff = 1800000;
-                    else
-                        PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock = 1800000;
-                }
-                else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-                        if (ShizukuUtils.hasShizukuPermission()) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
-                                try {
-                                    ShizukuUtils.executeCommand(command1);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                }
-                            }
-                        } else
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && RootUtils.isRooted(/*false*/)) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
-                                Command command = new Command(0, /*false,*/ command1);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                    RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_SCREEN_TIMEOUT);
-                                } catch (Exception e) {
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                }
-                            }
-                        }
-                        else {
-                            if (Settings.System.getInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_OFF_TIMEOUT, -1) != 1800000)
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
-                        }
-                    }
-                    else {
-                        if (Settings.System.getInt(appContext.getContentResolver(),
-                                Settings.System.SCREEN_OFF_TIMEOUT, -1) != 1800000)
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
-                    }
-                }
+                _setScreenTimeount(1800000, forceSet, appContext);
                 break;
         }
         setActivatedProfileScreenTimeoutWhenScreenOff(appContext, 0);
@@ -6736,6 +6519,7 @@ class ActivateProfileHelper {
         }
     }
 
+    @SuppressLint("MissingPermission")
     static boolean isMobileData(Context context, int simCard)
     {
         Context appContext = context.getApplicationContext();
@@ -6766,7 +6550,8 @@ class ActivateProfileHelper {
 
         try {
             boolean enabled = false;
-            if (Permissions.checkPhone(appContext.getApplicationContext())) {
+            if (Permissions.checkModifyPhone(appContext.getApplicationContext())) {
+//                PPApplicationStatic.logE("[MOBILE_DATA] ActivateProfileHelper.isMobileData", "granted READ_PHONE_STATE, ACCESS_NETWORK_STATE");
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {
@@ -6808,9 +6593,15 @@ class ActivateProfileHelper {
                             //enabled = adapter.getDataEnabled(0);
 
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                            if (telephonyManager != null)
-                                //noinspection deprecation
-                                enabled = telephonyManager.getDataEnabled();
+                            if (telephonyManager != null) {
+                                //if (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                                //if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
+                                    enabled = telephonyManager.isDataEnabled();
+                                //else {
+                                    //noinspection deprecation
+                                //    enabled = telephonyManager.getDataEnabled();
+                                //}
+                            }
                         }
                     }
                     else {
@@ -6821,10 +6612,16 @@ class ActivateProfileHelper {
                         //PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
 
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (telephonyManager != null)
-                            //noinspection deprecation
-                            enabled = telephonyManager.getDataEnabled();
+                        if (telephonyManager != null) {
+                            //if (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                            //if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE))
+                                enabled = telephonyManager.isDataEnabled();
+                            //else {
+                                //noinspection deprecation
+                            //    enabled = telephonyManager.getDataEnabled();
+                            //}
 //                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+                        }
                     }
                 }
             }
@@ -6881,9 +6678,10 @@ class ActivateProfileHelper {
             boolean sim2Exists = hasSIMCardData.hasSIM2;
             simExists = simExists && sim2Exists;
         }
+
         if (simExists)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkModifyPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
                 //if ((simCard == 0)) {
                     if (ShizukuUtils.hasShizukuPermission()) {
@@ -7612,19 +7410,19 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setPowerSaveMode(Profile _profile, final Context context, SharedPreferences _executedProfileSharedPreferences) {
-        if (_profile._devicePowerSaveMode != 0) {
+    private static void setPowerSaveMode(Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
+        if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
-            final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
-            final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-            Runnable runnable = () -> {
+            //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+            //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
+            //Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
 
                 //Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
 
-                if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+                //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
@@ -7703,18 +7501,18 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
-            };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+                //}
+            //};
+            //PPApplicationStatic.createProfileActiationExecutorPool();
+            //PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
 
-    private static void lockDevice(Profile _profile, final Context context) {
+    private static void lockDevice(Profile profile, final Context context) {
         final Context appContext = context.getApplicationContext();
-        final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
+        //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        Runnable runnable = () -> {
+        //Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
             if (PPApplication.blockProfileEventActions)
@@ -7722,7 +7520,7 @@ class ActivateProfileHelper {
                 return;
 
             //Context appContext= appContextWeakRef.get();
-            Profile profile = profileWeakRef.get();
+            //Profile profile = profileWeakRef.get();
             //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
             if (/*(appContext != null) &&*/ (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
@@ -7754,6 +7552,7 @@ class ActivateProfileHelper {
                             }
                             break;
                         case 2:
+                            // this is supported only for SDK < 28
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(/*false*/))) {
     //                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.lockDevice", "PPApplication.rootMutex");
@@ -7823,9 +7622,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        };
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+        //};
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplication.profileActiationExecutorPool.submit(runnable);
     }
 
     @SuppressLint("WrongConstant")
@@ -8067,7 +7866,10 @@ class ActivateProfileHelper {
                                                     }
                                                     boolean _isMobileData = false;
                                                     if (subscriptionType == SUBSCRIPTRION_DATA) {
-                                                        _isMobileData = isMobileData(appContext, 0);
+                                                        boolean _isMobileDataSIM1 = isMobileData(appContext, 1);
+                                                        boolean _isMobileDataSIM2 = isMobileData(appContext, 2);
+                                                        boolean _isMobileDataSIM0 = isMobileData(appContext, 0);
+                                                        _isMobileData = (_isMobileDataSIM0 || _isMobileDataSIM1 || _isMobileDataSIM2);
                                                         if (_isMobileData) {
                                                             setMobileData(context, false, 0);
                                                             //GlobalUtils.sleep(100);
@@ -9416,9 +9218,9 @@ class ActivateProfileHelper {
 
 //                        Log.e("ActivateProfileHelper.setScreenNightLight", "PPPPS");
                         if (profile._screenNightLight == 1)
-                            putSettingsParameter(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "1");
+                            putSettingsParameterWithPPPPS(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "1");
                         else
-                            putSettingsParameter(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "0");
+                            putSettingsParameterWithPPPPS(appContext, ppppsVersion, PPPPS_SETTINGS_TYPE_SYSTEM, SETTINGS_BLUE_LIGHT_FILTER, "0");
                         startBLFService = true;
                     }
                     else if (ShizukuUtils.hasShizukuPermission() && RootUtils.settingsBinaryExists(false)) {
@@ -9804,11 +9606,11 @@ class ActivateProfileHelper {
         }
     }
 
-    static void putSettingsParameter(Context context,
-                                     int ppppsVersion,
-                                     @SuppressWarnings("SameParameterValue") String settingsType,
-                                     String parameterName,
-                                     String parameterValue) {
+    static void putSettingsParameterWithPPPPS(Context context,
+                                              int ppppsVersion,
+                                              @SuppressWarnings("SameParameterValue") String settingsType,
+                                              String parameterName,
+                                              String parameterValue) {
         if (ppppsVersion <= PPApplication.VERSION_CODE_PPPPS_LATEST_WITHOUT_SERVICE) {
             // in version <= 70 service not exists in PPPPS
 

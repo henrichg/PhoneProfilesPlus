@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -17,6 +20,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,10 +31,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+// is from reginer android.jar
+import com.android.internal.view.menu.MenuBuilder;
+// is from reginer android.jar
+import com.android.internal.view.menu.MenuPopupHelper;
 
 /** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoHelpFragment extends Fragment {
@@ -64,6 +74,27 @@ public class ImportantInfoHelpFragment extends Fragment {
             return;
 
         final Context context = activity.getApplicationContext();
+
+        TextView taskerTextView = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
 
         activity.expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
         activity.expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
@@ -153,35 +184,35 @@ public class ImportantInfoHelpFragment extends Fragment {
 
 
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
-        TextView infoTextnews1 = view.findViewById(R.id.important_info_news_1);
+        /*TextView infoTextnews1 = view.findViewById(R.id.important_info_news_1);
         TextView infoTextnews2 = view.findViewById(R.id.important_info_news_2);
         TextView infoTextnews3 = view.findViewById(R.id.important_info_news_3);
-        TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);
+        TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);*/
         if (!news) {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
-            if (infoTextnews1 != null)
+            /*if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.GONE);
             if (infoTextnews2 != null)
                 infoTextnews2.setVisibility(View.GONE);
             if (infoTextnews3 != null)
                 infoTextnews3.setVisibility(View.GONE);
             if (infoTextnews4 != null)
-                infoTextnews4.setVisibility(View.GONE);
+                infoTextnews4.setVisibility(View.GONE);*/
         } else {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
             infoTextNews.setText("*** " + getString(R.string.important_info_news) + " ***");
 
             //TODO add textVews of News
-            if (infoTextnews1 != null)
+            /*if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.VISIBLE);
             if (infoTextnews2 != null)
                 infoTextnews2.setVisibility(View.VISIBLE);
             if (infoTextnews3 != null)
                 infoTextnews3.setVisibility(View.VISIBLE);
             if (infoTextnews4 != null)
-                infoTextnews4.setVisibility(View.VISIBLE);
+                infoTextnews4.setVisibility(View.VISIBLE);*/
         }
 
     }
@@ -672,6 +703,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     PopupMenu popup;
                     popup = new PopupMenu(activity, supportText, Gravity.START | Gravity.BOTTOM);
                     new MenuInflater(activity).inflate(R.menu.menu_support, popup.getMenu());
+                    // used is MenuPopupHelper to show icons
+                    MenuPopupHelper menuHelper = new MenuPopupHelper(activity, (MenuBuilder) popup.getMenu(), v);
+                    menuHelper.setForceShowIcon(true);
+                    //menuHelper.setGravity(Gravity.END);
 
                     Menu menu = popup.getMenu();
                     MenuItem menuItem = menu.findItem(R.id.menu_discord);
@@ -697,7 +732,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                     popup.setOnMenuItemClickListener(importantInfoActivity::supportMenu);
 
                     if (!activity.isFinishing())
-                        popup.show();
+                        menuHelper.show();
+                        //popup.show();
                 });
             }
 
@@ -908,6 +944,37 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+    }
+
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        final ImportantInfoActivity activity = (ImportantInfoActivity)getActivity();
+        if (activity == null)
+            return;
+
+        TextView taskerTextView = (TextView) v;
+        int id = taskerTextView.getId();
+        if ((id == R.id.activity_info_activate_profile_from_tasker_params) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_restart_events) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_stop_event))
+        {
+            // user has long pressed your TextView
+            //menu.add(0, v.getId(), 0, "Copy");
+
+            // place your TextView's text in clipboard
+            ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                //noinspection deprecation
+                clipboard.setText(taskerTextView.getText());
+                if ((Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                    // Xiaomi 13 lite, HyperOs, do not show toast
+
+                    PPApplication.showToast(activity, getString(R.string.importantinfo_tasker_command_copy_to_clipboard_toast), Toast.LENGTH_SHORT);
+                    //ToastCompat.makeText(activity, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 /*
     static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {

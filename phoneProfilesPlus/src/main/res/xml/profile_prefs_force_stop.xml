@@ -4,11 +4,11 @@
     app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
     app:key="prf_pref_forceStopApplicationsCategory" >
 
-    <Preference
-        app:key="prf_pref_forceStopApplicationsInfo"
-        app:title="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
-        app:summary=""
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="prf_pref_forceStopApplicationsInfo"-->
+<!--        app:title="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"-->
+<!--        app:summary=""-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
         app:summary="@string/array_pref_no_change"
@@ -17,6 +17,13 @@
         app:ppEntries="@array/forceStopApplicationArray"
         app:ppEntryValues="@array/forceStopApplicationValues"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_forceStopApplicationsInfo"
+        app:title="@string/array_pref_force_stop_with_pppe"
+        app:summary="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="prf_pref_deviceForceStopApplicationPackageName"

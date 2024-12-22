@@ -98,6 +98,8 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false);
 
         super.onCreate(savedInstanceState);
@@ -162,7 +164,7 @@ public class ActivatorActivity extends AppCompatActivity
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivatorActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(R.layout.popup_window_run_stop_indicator_for_activator, getDataWrapper(), ActivatorActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -184,6 +186,7 @@ public class ActivatorActivity extends AppCompatActivity
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                GlobalGUIRoutines.dimBehindPopupWindow(popup);
             }
         });
 
@@ -392,6 +395,8 @@ public class ActivatorActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);

@@ -110,8 +110,10 @@ public class DonationPayPalFragment extends Fragment {
         Button closeButton = view.findViewById(R.id.donation_paypal_activity_close);
         //noinspection DataFlowIssue
         closeButton.setOnClickListener(v -> {
-            if (getActivity() != null)
+            if (getActivity() != null) {
                 getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
         });
     }
 

@@ -34,6 +34,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+// is from reginer android.jar
 import com.android.internal.telephony.TelephonyIntents;
 
 import java.lang.ref.WeakReference;
@@ -2601,6 +2602,7 @@ class PhoneProfilesServiceStatic
                 //} else {
                 //    if (rescan) {
 //                        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.scheduleWifiWorker", "shortInterval=true");
+//                        PPApplicationStatic.logE("[BLUETOOTH] PhoneProfilesServiceStatic.scheduleWifiWorker", "########");
                         WifiScanWorker.scheduleWork(appContext, true);
                 //    }
                 //}
@@ -3522,6 +3524,7 @@ class PhoneProfilesServiceStatic
                                     registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false, appContext);
                                     registerWifiScannerReceiver(true, dataWrapper, false, appContext);
 //                                        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PhoneProfilesServiceStatic.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
+//                                    PPApplicationStatic.logE("[BLUETOOTH] PhoneProfilesService.doCommand", "******* SCANNER_RESTART_WIFI_SCANNER");
                                     scheduleWifiWorker(/*true,*/ dataWrapper/*, forScreenOn, false, false, true*/);
                                     AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;

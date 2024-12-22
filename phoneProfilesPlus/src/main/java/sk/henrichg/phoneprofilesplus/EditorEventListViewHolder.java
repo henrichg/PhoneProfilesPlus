@@ -62,7 +62,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         profileEndName = itemView.findViewById(R.id.event_list_item_profile_end_name);
         profileEndIcon = itemView.findViewById(R.id.event_list_item_profile_end_icon);
         ignoreManualActivationButton = itemView.findViewById(R.id.event_list_item_ignore_manual_activation);
-        if (ApplicationPreferences.applicationEditorPrefIndicator)
+        if ((!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                 (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)))
         {
             eventPreferencesDescription  = itemView.findViewById(R.id.event_list_item_preferences_description);
             //eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -205,7 +207,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //eventName.setTextColor(textColorSecondary);
             }
 
-            boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+            boolean applicationEditorNotHideEventDetails =
+                    (!ApplicationPreferences.applicationEditorHideEventDetails) &&
+                    ((filterType != EditorEventListFragment.FILTER_TYPE_START_ORDER) ||
+                     (!ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder));
 
             String _eventName;
             String eventStartOrder = "[O:" + event._startOrder + "] ";
@@ -258,7 +263,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), _eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             eventName.setText(sbt);
 
-            if (applicationEditorPrefIndicator)
+            if (applicationEditorNotHideEventDetails)
             {
                 if (eventPreferencesDescription != null) {
                     //String eventPrefDescription = event.getPreferencesDescription(context, true);
@@ -278,14 +283,15 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             */
             Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
-                    applicationEditorPrefIndicator, false);
+                    applicationEditorNotHideEventDetails &&
+                            ApplicationPreferences.applicationEditorPrefIndicator, false);
             if (profile != null)
             {
                 String profileName = profile._name;
                 if (event._manualProfileActivation)
                     profileName = StringConstants.STR_MANUAL_SPACE + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
+                   profileName = profileName + " [" + StringConstants.EVENT_DEALY_START + " " + StringFormatUtils.getDurationString(event._delayStart) + "] ";
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
@@ -314,7 +320,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (applicationEditorPrefIndicator)
+                if (ApplicationPreferences.applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -326,6 +332,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         } else
                             profileStartIndicator.setImageResource(R.drawable.ic_empty);
                     }
+                } else {
+                    if (profileStartIndicator != null)
+                        profileStartIndicator.setVisibility(View.GONE);
                 }
             }
             else
@@ -333,14 +342,19 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
                     profileStartName.setText(R.string.profile_preference_profile_end_no_activate);
                     profileStartIcon.setImageResource(R.drawable.ic_empty);
-                    if (applicationEditorPrefIndicator) {
+                    //if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (profileStartIndicator != null)
                             //profileStartIndicator.setImageResource(R.drawable.ic_empty);
                             profileStartIndicator.setVisibility(View.GONE);
-                    }
+                    //}
+                    //else {
+                    //    if (profileStartIndicator != null)
+                            //profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    //        profileStartIndicator.setVisibility(View.GONE);
+                    //}
                 //}
                 /*else {
                     profileStartName.setText(R.string.profile_preference_profile_not_set);
@@ -378,7 +392,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //    profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
-                        applicationEditorPrefIndicator, false);
+                        applicationEditorNotHideEventDetails &&
+                                ApplicationPreferences.applicationEditorPrefIndicator, false);
                 if (profile != null) {
                     String profileName;
                     //if (event._atEndHowUndo == 0) {
@@ -387,7 +402,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         else
                             profileName = profile._name;
                         if (event._delayEnd > 0)
-                            profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] " + profileName;
+                            profileName =  profileName + " ["  + StringConstants.EVENT_DEALY_END + " " + StringFormatUtils.getDurationString(event._delayEnd) + "]";
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                             profileName = profileName + " + " + context.getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -426,7 +441,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (applicationEditorPrefIndicator) {
+                    if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -437,11 +452,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             else
                                 profileEndIndicator.setImageResource(R.drawable.ic_empty);
                         }
+                    } else {
+                        if (profileEndIndicator != null)
+                            profileEndIndicator.setVisibility(View.GONE);
                     }
                 } else {
                     String profileName = "";
                     if (event._delayEnd > 0)
-                        profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] ";
+                       profileName = "[" +  StringConstants.EVENT_DEALY_END + " " + StringFormatUtils.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
                         if (event._manualProfileActivationAtEnd)
                             profileName = StringConstants.STR_MANUAL_SPACE;
@@ -459,14 +477,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     }
                     profileEndName.setText(profileName);
                     profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    if (applicationEditorPrefIndicator) {
+                    //if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (profileEndIndicator != null)
                             //profileEndIndicator.setImageResource(R.drawable.ic_empty);
                             profileEndIndicator.setVisibility(View.GONE);
-                    }
+                    //}
                 }
             }
 
@@ -491,6 +509,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //noinspection DataFlowIssue
                     popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
+                    GlobalGUIRoutines.dimBehindPopupWindow(popup);
                 }
             });
 

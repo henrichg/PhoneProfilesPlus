@@ -1207,6 +1207,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.getEventIgnoreManualActivation(this, event_id);
     }
 
+    List<Event> getCallScreeningEvents() {
+        return DatabaseHandlerEvents.getCallScreeningEvents(this);
+    }
+
 // EVENT TIMELINE ------------------------------------------------------------------
 
     // Adding time line

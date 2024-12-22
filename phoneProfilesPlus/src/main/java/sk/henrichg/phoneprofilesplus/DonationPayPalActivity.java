@@ -14,6 +14,8 @@ public class DonationPayPalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -31,6 +33,8 @@ public class DonationPayPalActivity extends AppCompatActivity {
         }
         */
 
+        // animation
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
@@ -60,6 +64,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

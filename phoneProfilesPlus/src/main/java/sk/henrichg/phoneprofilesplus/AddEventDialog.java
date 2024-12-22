@@ -93,7 +93,8 @@ class AddEventDialog
 
     void doOnItemSelected(int position)
     {
-        eventListFragment.startEventPreferencesActivity(null, position);
+        if (eventListFragment != null)
+            eventListFragment.startEventPreferencesActivity(null, position);
         mDialog.dismiss();
     }
 

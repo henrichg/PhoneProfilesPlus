@@ -298,7 +298,6 @@
     <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
     <string name="menu_activity_log_reload">Reload</string>
     <string name="event_preferences_atEndDo">More actions</string>
-    <string name="array_pref_atEndDo_none">None</string>
     <string name="array_pref_atEndDo_undoneProfile">Undo the profile</string>
     <string name="array_pref_atEndDo_restartEvents">Restart events</string>
     <string name="event_preference_profile_restartEvents">Restart</string>
@@ -683,7 +682,7 @@
     <string name="event_preference_activity_targetHelps_save_title">Save event</string>
     <string name="event_preference_activity_targetHelps_save_description">Click this to save event preference changes.</string>
     <string name="about_application_privacy_policy">Privacy Policy:</string>
-    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
+    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will be activated when no any event is running.</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
     <string name="profile_preferences_lockDevice">Lock device</string>
     <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
@@ -767,7 +766,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Accessories sensor:</b> Start an event when, for example, headphones are connected.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC sensor:</b> Start an event via NFC tags.]]></string>
     <string name="important_info_quick_guide_events_3">If you manually activate a profile (not by an event), all running events are ended (paused). Events will not start during manual profile activation. However, you can override this behavior via the \"Ignore manual activation\" setting in event parameters.</string>
-    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a left side panel, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
     <string name="event_preferences_noPauseByManualActivation">Do not pause during manual activation</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this running event if a profile is manually activated</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag name is not configured.</string>
@@ -786,7 +784,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">To enable \"Applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="about_application_extender_source_code">Source code - Extender:</string>
+    <string name="about_application_extender_source_code">Source code - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Default profile</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">This profile will activate when no event is running. Click this to configure it.</string>
@@ -855,7 +853,6 @@
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Do not force stop</string>
-    <string name="array_pref_force_stop">Force stop</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
@@ -999,8 +996,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
     <string name="default_profile_name_battery_ok">OK battery</string>
@@ -1249,7 +1246,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
     <string name="application_is_starting_toast">is starting…</string>
     <string name="application_is_started_toast">is started</string>
-    <string name="duration_end_acronym">de</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Notification style</string>
@@ -1566,7 +1562,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profile name.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">all others for events</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Event name.</string>
-    <string name="activity_log_help_close">Close</string>
     <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
     <string name="event_type_soundProfile">Sound profile</string>
     <string name="event_preferences_soundProfile_ringerModes">Sound modes</string>
@@ -1676,12 +1671,7 @@
     <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
     <string name="profile_preferences_exactTime">Exact time</string>
     <string name="profile_preferences_category_end_of_activation">End of activation</string>
-    <string name="end_of_activation_time_end_acronym">te</string>
-    <string name="end_of_activation_duration_acronym">d</string>
-    <string name="end_of_activation_time_acronym">t</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation</string>
-    <string name="event_delay_start_acronym">ds</string>
-    <string name="event_delay_end_acronym">de</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
@@ -1921,7 +1911,7 @@
     <string name="install_pppps_text4">Note: Target Android version for PPPPutSettings is 5.1. For this reason is not compatible with Google Play Protect. But PPPPutSettings is safe, only PhoneProfilesPlus is allowed to use it.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
-    <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
+    <string name="about_application_pppps_source_code">Source code - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">Notification LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On display</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
@@ -2018,9 +2008,9 @@
     <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
     <string name="altype_timezone_changed">time zone changed</string>
-    <string name="altype_extender_accessibility_service_enabled">Extender accessibility service enbaled</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
-    <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
+    <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender accessibility service enbaled</string>
+    <string name="altype_extender_accessibility_service_not_enabled">PhoneProfilesPlusExtender accessibility service not enbaled</string>
+    <string name="altype_extender_accessibility_service_unbind">PhoneProfilesPlusExtender accessibility service unbinded</string>
     <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
     <string name="check_releases_install_from_apk_note2_ppp">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, if in your device is not supported application store, and install PhoneProfilesPlusExtender from it.</string>
@@ -2195,7 +2185,6 @@
     <string name="menu_discord" translatable="false">Discord</string>
     <string name="menu_discord_server">PhoneProfilesPlus server</string>
     <string name="menu_discord_invitation">Server invitation</string>
-    <string name="menu_twitter" translatable="false">Twitter/X</string>
     <string name="menu_reddit" translatable="false">Reddit</string>
     <string name="menu_bluesky" translatable="false">Bluesky</string>
     <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
@@ -2233,7 +2222,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Outgoing calls</string>
     <string name="array_event_pref_call_screening_direction_all">All calls</string>
     <string name="event_name_copy_from_profile_block_calls">Block calls</string>
-    <string name="important_info_phone_call_to_call_screening">For each profile with configured parameter \"Phone calls\"\/\"Block calls\", is generated new event with \"Call screening\" sensor. This event has the \"Event run\" parameter disabled. \"Phone calls\" parameter from profiles is removed.</string>
     <string name="profile_preferences_category_send_sms">Send SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Contact groups</string>
     <string name="profile_preference_sendSMSContacts">Contacts</string>
@@ -2242,11 +2230,9 @@
     <string name="profile_preference_sendSMSSendSMS">Send SMS</string>
     <string name="profile_preference_sendSMSSMSText">SMS Text</string>
     <string name="altype_profileError_sendSMS">profile - error on send SMS</string>
-
     <string name="event_preference_callSendSMS">Send SMS</string>
     <string name="event_preference_callSMSText">SMS Text</string>
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\"), send SMS in Call sensor</string>
-
     <string name="profile_preferences_category_notifications">Notifications</string>
     <string name="profile_preferences_category_clear_notifications">Clear notifications</string>
     <string name="profile_preferences_clearNotificationsAccessSettings_summary">Please enable \"Notification access\". Without this, clear notification will not work.</string>
@@ -2257,7 +2243,6 @@
     <string name="profile_preferences_clearNotification_contacts_summary_text">Contacts:</string>
     <string name="profile_preferences_clearNotification_text_summary_text">Text</string>
     <string name="export_settings_delete_contacts_data_clear_notification">Contacts for profile parameter \"Clear notifications\"</string>
-
     <string name="event_preference_callScreeningNotInContacts">Tel. numbers not in contacts</string>
     <string name="altype_callScreening_blockedCall">Blocked call</string>
     <string name="activityLog_blockedCall_telNumber">tel. number:</string>
@@ -2271,7 +2256,6 @@
     <string name="activity_log_filter_restart_events">Restart of events</string>
     <string name="activity_log_filter_profile_activations">Profile activations</string>
     <string name="altype_applicationInstallation">application installation</string>
-
     <string name="profile_preferences_screenNightLight">(G1)(R) Night light</string>
     <string name="profile_preferences_screenNightLight_Xiaomi">(Z)(R) Reading mode</string>
     <string name="profile_preferences_screenNightLight_Huawei">Eye comfort</string>
@@ -2281,41 +2265,44 @@
     <string name="profile_preferences_screenNightLightPrefs_Samsung">(I) Eye comfort shield settings</string>
     <string name="profile_preferences_screenNightLightPrefs_Xiaomi">(I) Reading mode settings</string>
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Eye comfort shield</string>
-
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">If is not possible to grant this permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
-
     <string name="permission_why_profile_vpn">for enable/disable VPN</string>
-
-    <string name="important_info_draw_over_apps_not_needed_permanently1">The need to have \"Draw over apps\" permanently enabled has been removed. Because this right is in \"Restricted settings\" and if it is enabled, banking applications and websites, payments for goods, services, etc., may be blocked or require turning off \"Draw over apps\" in PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">It is recommended to install the new version of PPPPutSettings (1.1), where there is a change that does not require \"Draw over apps\". For versions earlier than 1.1, parameters marked with (S) will still require this right.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">For some profile parameters \"Draw over apps\" is still required, for example for \"Run applications, shortcuts, intents\".</string>
-
     <string name="color_value">Color value</string>
     <string name="location_geofence_editor_location_name">Location name</string>
     <string name="application_editor_intent_action_custom_label">Custom action</string>
-
     <string name="empty_list_content_description">Empty list</string>
     <string name="tone_content_description">Tone</string>
     <string name="profile_list_notification_right_arrow">Right arrow</string>
     <string name="profile_list_notification_left_arrow">Left arrow</string>
-
     <string name="mobile_cells_registration_cell_name_not_set">[ Not set ]</string>
-
     <string name="profile_preferences_deviceKeyguard">Device lock screen</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">This parameter switches On/Off the device lock screen. When set to Off, the lock screen will not appear when the screen is turned on.</string>
-
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
     <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
     <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
     <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
     <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
-
     <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
     <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-
     <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="array_pref_atEndDo_none">Nothing</string>
+    <string name="menu_mastodon" translatable="false">Mastodon</string>
+    <string name="array_pref_launcher_switch_profiles">Switch profiles (for only 2 profiles configured)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Copied to clipboard</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Preferences indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2360,8 +2347,8 @@
     <string name="extender_notification_channel_grant_permission">Grant permission</string>
     <string name="extender_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
     <string name="extender_notification_permission_title">Permission not granted</string>
-    <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
-    <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
+    <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open PPPE. In it use button for grant this permission.</string>
+    <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open PPPE. In it use button for grant this permission.</string>
     <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
     <string name="extender_enable_notificaitons_button">Enable</string>
     <string name="extender_menu_choose_language">Choose language</string>
@@ -2383,9 +2370,10 @@
     <string name="extender_menu_discord" translatable="false">Discord</string>
     <string name="extender_menu_discord_server">PhoneProfilesPlus server</string>
     <string name="extender_menu_discord_invitation">Server invitation</string>
-    <string name="extender_menu_twitter" translatable="false">Twitter/X</string>
     <string name="extender_menu_reddit" translatable="false">Reddit</string>
     <string name="extender_menu_bluesky" translatable="false">Bluesky</string>
+    <string name="extender_notification_channel_exclamation">Exclamation</string>
+    <string name="extender_menu_mastodon" translatable="false">Mastodon</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2423,9 +2411,9 @@
     <string name="pppputsettings_menu_discord" translatable="false">Discord</string>
     <string name="pppputsettings_menu_discord_server">PhoneProfilesPlus server</string>
     <string name="pppputsettings_menu_discord_invitation">Server invitation</string>
-    <string name="pppputsettings_menu_twitter" translatable="false">Twitter/X</string>
     <string name="pppputsettings_menu_reddit" translatable="false">Reddit</string>
     <string name="pppputsettings_menu_bluesky" translatable="false">Bluesky</string>
+    <string name="pppputsettings_menu_mastodon" translatable="false">Mastodon</string>
 
 </resources>
 

@@ -187,6 +187,7 @@ public class RelativePopupWindow extends PopupWindow {
         } else {
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, y);
         }
+        GlobalGUIRoutines.dimBehindPopupWindow(this);
     }
 
     private static int makeDropDownMeasureSpec(int measureSpec) {

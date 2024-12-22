@@ -9,6 +9,8 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false);
 
         super.onCreate(savedInstanceState);

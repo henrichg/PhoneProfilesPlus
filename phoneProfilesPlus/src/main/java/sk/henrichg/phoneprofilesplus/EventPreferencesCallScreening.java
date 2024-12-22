@@ -507,7 +507,7 @@ class EventPreferencesCallScreening extends EventPreferences {
         removeAlarm(context);
     }
 
-    boolean isPhoneNumberConfigured(List<Contact> contactList, String phoneNumber/*, DataWrapper dataWrapper*/) {
+    boolean isPhoneNumberConfigured(List<Contact> contactList, String phoneNumber) {
         boolean phoneNumberFound = false;
 
         //if (this._contactListType != CONTACT_LIST_TYPE_NOT_USE) {
@@ -803,6 +803,60 @@ class EventPreferencesCallScreening extends EventPreferences {
         }
     }
 
+    /*
+    void doHandleEventOnlyCheckPhoneNumberAndDirection(EventsHandler eventsHandler,
+                                                        String phoneNumber, int callDirection) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALL_SCREENING_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+
+                if (isIsCallScreeningHeld(eventsHandler.context)) {
+
+                    // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
+                    //Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "screeningActive="+screeningActive);
+//                    Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "phoneNumber="+phoneNumber);
+
+                    boolean phoneNumberFound = false;
+
+                    if ((_callDirection == CALL_DIRECTION_ALL) || (_callDirection == callDirection)) {
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "PPApplicationStatic.getContactsCache()");
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache != null) {
+                            List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEventOnlyCheckPhoneNumberAndDirection", "PPApplication.contactsCacheMutex");
+//                            PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "contactsCache.getList()");
+                            contactList = contactsCache.getList();
+                            phoneNumberFound = isPhoneNumberConfigured(contactList, phoneNumber);
+                            if (contactList != null)
+                                contactList.clear();
+                        }
+
+//                        Log.e("EventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection", "phoneNumberFound="+phoneNumberFound);
+
+                        eventsHandler.callScreeningPassed = phoneNumberFound;
+
+                    } else
+                        eventsHandler.callScreeningPassed = false;
+                } else
+                    eventsHandler.notAllowedCallScreening = false;
+
+                if (!eventsHandler.notAllowedCallScreening) {
+                    if (eventsHandler.callScreeningPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedCallScreening = true;
+
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                setSensorPassed(newSensorPassed);
+            }
+        }
+    }
+    */
+
     void doHandleEvent(EventsHandler eventsHandler) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
@@ -894,6 +948,7 @@ class EventPreferencesCallScreening extends EventPreferences {
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_CALL_SCREENING);
             }
         }
+
     }
 
 }

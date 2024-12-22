@@ -117,11 +117,11 @@ public class PhoneProfilesService extends Service
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
     //static final String EXTRA_RESTART_EVENTS = "restart_events";
-    static final String EXTRA_ALSO_RESCAN = "also_rescan";
-    static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
+    //static final String EXTRA_ALSO_RESCAN = "also_rescan";
+    //static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     //static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
     static final String EXTRA_MANUAL_RESTART = "manual_restart";
-    static final String EXTRA_LOG_TYPE = "log_type";
+    //static final String EXTRA_LOG_TYPE = "log_type";
     //static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
     //static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
@@ -735,12 +735,12 @@ public class PhoneProfilesService extends Service
                 //Permissions.setHyperOSWifiBluetoothDialogAppOp();
 
                 //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                int savedVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
+                PPApplication.firstStartAfterInstallation = savedVersionCode == 0;
 
-                PPApplication.firstStartAfterInstallation = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
-
-                // this save actual version
-                boolean applicationJustInstalled = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
-                boolean newVersion = doForPackageReplaced(appContext);
+                boolean applicationJustInstalled = PPApplication.firstStartAfterInstallation; //PPApplicationStatic.getSavedVersionCode(appContext) == 0;
+                // doForPackageReplaced() save actual version code
+                boolean newVersion = doForPackageReplaced(appContext, savedVersionCode);
                 if (newVersion) {
                     __activateProfiles = true;
                     __applicationStart = true;
@@ -941,13 +941,6 @@ public class PhoneProfilesService extends Service
                 //else
                 MobileCellsScanner.startAutoRegistration(appContext, true);
 
-                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, true*/);
-                // this also clears shared preferences
-                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
-//                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
-                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
-
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);
                 WifiScanWorker.setWifiEnabledForScan(appContext, false);
@@ -960,8 +953,15 @@ public class PhoneProfilesService extends Service
                 BluetoothScanWorker.setScanKilled(appContext, false);
 
                 // !!! registerReceiversAndWorkers moved into MainWorker.doAfterFirstStart
-                // in it is not PPP brioadcasts registration
+                // in it is not PPP broadcasts registration
                 PhoneProfilesServiceStatic.registerAllTheTimeRequiredPPPBroadcastReceivers(true, appContext);
+
+                List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, true*/);
+                // this also clears shared preferences
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+//                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 
                 PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
                 DonationBroadcastReceiver.setAlarm(appContext);
@@ -1153,8 +1153,8 @@ public class PhoneProfilesService extends Service
     }
 
     @SuppressLint("ObsoleteSdkInt")
-    private boolean doForPackageReplaced(Context appContext) {
-        int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
+    private boolean doForPackageReplaced(Context appContext, int oldVersionCode) {
+        //int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
         int actualVersionCode = 0;
         // save version code
         try {
@@ -1764,6 +1764,16 @@ public class PhoneProfilesService extends Service
                     editor.apply();
                 }
 
+                if (actualVersionCode <= 7235) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                    boolean prefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR,
+                            ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR_DEFAULT_VALUE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, !prefIndicator);
+                    editor.apply();
+                }
+
             }
 
             // Keep this !!! stop tap target for package replaced
@@ -1816,6 +1826,8 @@ public class PhoneProfilesService extends Service
 
         PPApplicationStatic.logE("PhoneProfilesService.onStartCommand", "intent="+intent);
         PPApplicationStatic.logE("PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+
+        EditorActivity.itemDragPerformed = false;
 
         //startForegroundNotification = true;
 

@@ -136,14 +136,20 @@ class PreferenceAllowed {
         return _isShiuzkuAvailable;
     }
 
-    private int isShiuzkuGranted() {
-        if (_isShiuzkuGranted == -1) {
-            if (ShizukuUtils.hasShizukuPermission())
-                _isShiuzkuGranted = 1;
-            else
-                _isShiuzkuGranted = 0;
-        }
-        return _isShiuzkuGranted;
+    private int isShiuzkuGranted(boolean checkAvailability) {
+        int available = 1;
+        if (checkAvailability)
+            available = isShiuzkuAvailable();
+        if (available == 1) {
+            if (_isShiuzkuGranted == -1) {
+                if (ShizukuUtils.hasShizukuPermission())
+                    _isShiuzkuGranted = 1;
+                else
+                    _isShiuzkuGranted = 0;
+            }
+            return _isShiuzkuGranted;
+        } else
+            return 0;
     }
 
     private int canExploitWifiTethering(Context context) {
@@ -180,7 +186,7 @@ class PreferenceAllowed {
             assistantParameter = Integer.parseInt(sharedPreferences.getString(preferenceKey, "0")) >= 4;
         }
 
-        if ((!assistantParameter) && (isShiuzkuGranted() == 1)) {
+        if ((!assistantParameter) && (isShiuzkuGranted(true) == 1)) {
             if (settingsBinaryExists(fromUIThread) == 1) {
                 if (profile != null) {
                     if (profile._deviceAirplaneMode != 0)
@@ -282,7 +288,7 @@ class PreferenceAllowed {
             }
 
             if (requiresRoot) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(true) == 1) {
                     preferenceAllowed = PREFERENCE_ALLOWED;
                 }
                 else
@@ -424,7 +430,7 @@ class PreferenceAllowed {
                 }
             }
             else
-            if (isShiuzkuGranted() == 1) {
+            if (isShiuzkuGranted(true) == 1) {
                 // not needed, used is "svc data enable/disable"
                 /*if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                     if (serviceBinaryExists(fromUIThread) == 1) {
@@ -449,13 +455,12 @@ class PreferenceAllowed {
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
-                    //HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
 
 //                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM1="+hasSIMCardData.hasSIM1);
 //                    PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "hasSIM2="+hasSIMCardData.hasSIM2);
 
-//                    boolean sim0Exists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
-                    boolean sim0Exists = telephonyManager.getPhoneCount() > 0;
+                    boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                     if (!sim0Exists) {
                         preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                         notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
@@ -873,12 +878,9 @@ class PreferenceAllowed {
                 if (profile != null) {
                     if (profile._deviceNFC != 0)
                         preferenceAllowed = PREFERENCE_ALLOWED;
-                }
-                else
+                } else
                     preferenceAllowed = PREFERENCE_ALLOWED;
-            }
-            else
-            if (isRooted() == 1) {
+            } else if (isRooted() == 1) {
 
                 if (profile != null) {
                     // test if grant root is disabled
@@ -889,9 +891,7 @@ class PreferenceAllowed {
                             return;
                         }
                     }
-                }
-                else
-                if (sharedPreferences != null) {
+                } else if (sharedPreferences != null) {
                     if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed = PREFERENCE_NOT_ALLOWED;
@@ -905,11 +905,9 @@ class PreferenceAllowed {
                 if (profile != null) {
                     if (profile._deviceNFC != 0)
                         preferenceAllowed = PREFERENCE_ALLOWED;
-                }
-                else
+                } else
                     preferenceAllowed = PREFERENCE_ALLOWED;
-            }
-            else {
+            } else {
                 preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                 if ((profile != null) && (profile._deviceNFC != 0)) {
@@ -949,7 +947,7 @@ class PreferenceAllowed {
                             preferenceAllowed = PREFERENCE_ALLOWED;
                     } else
                     if (PPApplication.rootMutex.transactionCode_setWifiApEnabled != -1) {
-                        if (isShiuzkuGranted() == 1) {
+                        if (isShiuzkuGranted(true) == 1) {
                             if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
                                 if (serviceBinaryExists(fromUIThread) == 1) {
                                     if (profile != null) {
@@ -1138,7 +1136,7 @@ class PreferenceAllowed {
 
         if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) || PPApplication.deviceIsOnePlus) {
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile._vibrateWhenRinging != 0)
@@ -1286,7 +1284,7 @@ class PreferenceAllowed {
                 String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
 
                 if (isShiuzkuAvailable() == 1) {
-                    if (isShiuzkuGranted() == 1) {
+                    if (isShiuzkuGranted(false) == 1) {
                         if (settingsBinaryExists(fromUIThread) == 1) {
                             if (profile != null) {
                                 if (profile._vibrateNotifications != 0)
@@ -1416,7 +1414,7 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_ALLOWED;
             } else
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile.getVibrationIntensityRingingChange())
@@ -1518,7 +1516,7 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_ALLOWED;
             } else
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile.getVibrationIntensityNotificationsChange())
@@ -1620,7 +1618,7 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_ALLOWED;
             } else
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile.getVibrationIntensityTouchInteractionChange())
@@ -1821,7 +1819,7 @@ class PreferenceAllowed {
 
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                    if (isShiuzkuGranted() == 1) {
+                    if (isShiuzkuGranted(true) == 1) {
                         if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                             if (serviceBinaryExists(fromUIThread) == 1) {
                                 if (profile == null)
@@ -1962,7 +1960,7 @@ class PreferenceAllowed {
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                        if (isShiuzkuGranted() == 1) {
+                        if (isShiuzkuGranted(true) == 1) {
                             if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                                 if (serviceBinaryExists(fromUIThread) == 1) {
                                     if (profile == null)
@@ -2106,7 +2104,7 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_ALLOWED;
             } else
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile._notificationLed != 0)
@@ -2529,7 +2527,7 @@ class PreferenceAllowed {
                     preferenceAllowed = PREFERENCE_ALLOWED;
             } else
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile._screenNightLight != 0)
@@ -2607,7 +2605,7 @@ class PreferenceAllowed {
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
             if (isShiuzkuAvailable() == 1) {
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(false) == 1) {
                     if (settingsBinaryExists(fromUIThread) == 1) {
                         if (profile != null) {
                             if (profile._screenNightLight != 0)
@@ -2819,7 +2817,7 @@ class PreferenceAllowed {
                 int phoneCount = telephonyManager.getPhoneCount();
 //                        PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
-                if (isShiuzkuGranted() == 1) {
+                if (isShiuzkuGranted(true) == 1) {
                     if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
                         if (phoneCount > 1) {
                             if (serviceBinaryExists(fromUIThread) == 1) {
@@ -2951,7 +2949,7 @@ class PreferenceAllowed {
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
         if (Build.VERSION.SDK_INT >= 29) {
-            if (isShiuzkuGranted() == 1) {
+            if (isShiuzkuGranted(true) == 1) {
                 if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
                     if (serviceBinaryExists(fromUIThread) == 1) {
                         //Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM", "(0) PREFERENCE_ALLOWED");
@@ -3142,7 +3140,7 @@ class PreferenceAllowed {
                             ppppsInstalled = isPPPPSInstalled(context) == 1;
                         }
                         if (isShiuzkuAvailable() == 1) {
-                            if (isShiuzkuGranted() == 1) {
+                            if (isShiuzkuGranted(false) == 1) {
                                 if (settingsBinaryExists(fromUIThread) == 1) {
                                     if (profile != null) {
                                         if ((profile._soundNotificationChangeSIM1 != 0) ||
@@ -3284,7 +3282,7 @@ class PreferenceAllowed {
                                 preferenceAllowed = PREFERENCE_ALLOWED;
                         } else
                         if (isShiuzkuAvailable() == 1) {
-                            if (isShiuzkuGranted() == 1) {
+                            if (isShiuzkuGranted(true) == 1) {
                                 if (settingsBinaryExists(fromUIThread) == 1) {
                                     if (profile != null) {
                                         if (profile._soundSameRingtoneForBothSIMCards != 0)
@@ -3434,13 +3432,21 @@ class PreferenceAllowed {
     }
 
     void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(
-            String preferenceKey, Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread, Context context*/) {
+            String preferenceKey, Profile profile, SharedPreferences sharedPreferences/*, boolean fromUIThread*/, Context context) {
 //        PPApplicationStatic.logE("[DUAL_SIM] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "*******************");
 
 //        Context appContext = context.getApplicationContext();
 
-        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme || PPApplication.deviceIsOnePlus) {
-            if (isShiuzkuGranted() == 1) {
+        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme ||
+                (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT < 34))) {
+            if (isPPPPSInstalled(context) == 1) {
+                if (profile != null) {
+                    if (profile.getVibrationIntensityNotificationsChange())
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+            } else
+            if (isShiuzkuGranted(true) == 1) {
                 preferenceAllowed = PREFERENCE_ALLOWED;
             } else if (isRooted() == 1) {
                 // device is rooted
@@ -3469,7 +3475,7 @@ class PreferenceAllowed {
                     if (profile._deviceScreenTimeout != 0) {
 //                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "(1) Shizuku not granted");
                         preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
                         notAllowedShizuku = true;
                     } else
                         preferenceAllowed = PREFERENCE_ALLOWED;
@@ -3479,7 +3485,7 @@ class PreferenceAllowed {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
 //                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "(2) Shizuku not granted");
                             preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                            notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
                             notAllowedShizuku = true;
                         } else
                             preferenceAllowed = PREFERENCE_ALLOWED;
@@ -3504,6 +3510,81 @@ class PreferenceAllowed {
 
     void isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED() {
         preferenceAllowed = PREFERENCE_ALLOWED;
+    }
+
+    void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION(
+                String preferenceKey, Profile profile, SharedPreferences sharedPreferences) {
+
+        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+        boolean rootRequired = false;
+        if (profile != null)
+            rootRequired = profile._deviceForceStopApplicationChange == 2;
+        else
+        if ((sharedPreferences != null) && (preferenceKey != null))
+            rootRequired = sharedPreferences.getString(preferenceKey, "0").equals("2");
+
+        if (rootRequired) {
+            if (isShiuzkuGranted(true) == 1) {
+                if (profile == null)
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+                else {
+                    if (profile._deviceNetworkType != 0)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                }
+            } else if (isRooted() == 1) {
+                // device is rooted
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if ((profile._deviceForceStopApplicationChange == 2)) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            return;
+                        }
+                    }
+                } else
+                //noinspection ConstantValue
+                if (sharedPreferences != null) {
+                    if (sharedPreferences.getString(preferenceKey, "0").equals("2")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
+                    }
+                }
+                if (profile == null)
+                    preferenceAllowed = PREFERENCE_ALLOWED;
+                else {
+                    if (profile._deviceForceStopApplicationChange == 2)
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                }
+            } else {
+                if (profile != null) {
+                    if (profile._deviceForceStopApplicationChange == 2) {
+//                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION", "(1) Shizuku not granted");
+                        preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                        notAllowedShizuku = true;
+                    } else
+                        preferenceAllowed = PREFERENCE_ALLOWED;
+                } else {
+                    //noinspection ConstantConditions
+                    if (sharedPreferences != null) {
+                        if (sharedPreferences.getString(preferenceKey, "0").equals("2")) {
+//                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION", "(2) Shizuku not granted");
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                            notAllowedShizuku = true;
+                        } else
+                            preferenceAllowed = PREFERENCE_ALLOWED;
+                    }
+                }
+            }
+        } else
+            preferenceAllowed = PREFERENCE_ALLOWED;
     }
 
 }

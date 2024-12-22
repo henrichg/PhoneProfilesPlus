@@ -35,7 +35,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
     // Layout widgets
     private AlertDialog mDialog;
+    /** @noinspection FieldCanBeLocal*/
     private TextView ppppsVersionText = null;
+    /** @noinspection FieldCanBeLocal*/
     private TextView ppppsLaunchText = null;
 
     @NonNull
@@ -68,7 +70,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> {
+        //mDialog.setOnShowListener(dialog -> {
             String prefVolumeDataSummary;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext);
             if (ppppsVersion == 0) {
@@ -91,7 +93,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             ppppsLaunchText.setText(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings);
 
             //enableViews();
-        });
+        //});
 
         return mDialog;
     }
@@ -339,7 +341,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             @Override
             public void onClick(@NonNull View textView) {
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                    // In One UI is bug in ststem downloader. Chrome, as default browser, do not downlaod
+                    // In One UI is bug in system downloader. Chrome, as default browser, do not downlaod
                     // For this reason used is DownloadManager
                     try {
                         String text = activity.getString(R.string.downloading_toast_text);

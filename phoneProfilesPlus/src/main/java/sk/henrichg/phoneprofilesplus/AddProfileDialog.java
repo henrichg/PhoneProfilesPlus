@@ -88,7 +88,8 @@ class AddProfileDialog
 
     void doOnItemSelected(int position)
     {
-        profileListFragment.startProfilePreferencesActivity(null, position);
+        if (profileListFragment != null)
+            profileListFragment.startProfilePreferencesActivity(null, position);
 
         //noinspection ForLoopReplaceableByForEach
         for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {

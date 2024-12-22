@@ -187,6 +187,8 @@ public class EditorActivity extends AppCompatActivity
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
 
+    static volatile boolean itemDragPerformed = false;
+
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
         private final RefreshGUIActivatorEditorListener listener;
@@ -197,6 +199,9 @@ public class EditorActivity extends AppCompatActivity
 
         @Override
         public void onReceive( Context context, Intent intent ) {
+            if (itemDragPerformed)
+                return;
+
             listener.refreshGUIFromListener(intent);
         }
     }
@@ -233,6 +238,8 @@ public class EditorActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
 
         //if (Build.VERSION.SDK_INT >= 34)
@@ -520,7 +527,7 @@ public class EditorActivity extends AppCompatActivity
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(R.layout.popup_window_run_stop_indicator, getDataWrapper(), EditorActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -542,6 +549,7 @@ public class EditorActivity extends AppCompatActivity
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                GlobalGUIRoutines.dimBehindPopupWindow(popup);
             }
         });
         
@@ -753,6 +761,8 @@ public class EditorActivity extends AppCompatActivity
         super.onDestroy();
 //        Log.e("EditorActivity.onDestroy", "xxxx");
 
+        EditorActivity.itemDragPerformed = false;
+
         unregisterReceiversInStop();
 
         if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
@@ -943,7 +953,7 @@ public class EditorActivity extends AppCompatActivity
 //        if (menuItem != null) {
 //            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
 //            if (intent != null)
-//                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_galaxy_store));
+//                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_galaxy_store));
 //            else
 //                menuItem.setTitle(R.string.menu_check_releases_galaxy_store);
 //        }
@@ -951,7 +961,7 @@ public class EditorActivity extends AppCompatActivity
 //        if (menuItem != null) {
 //            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
 //            if (intent != null)
-//                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_appgallery));
+//                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_appgallery));
 //            else
 //                menuItem.setTitle(R.string.menu_check_releases_appgallery);
 //        }
@@ -959,7 +969,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_droidify));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_droidify));
             else
                 menuItem.setTitle(R.string.menu_check_releases_droidify);
         }
@@ -967,7 +977,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_neostore));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_neostore));
             else
                 menuItem.setTitle(R.string.menu_check_releases_neostore);
         }
@@ -975,7 +985,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_fdroid));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_fdroid));
             else
                 menuItem.setTitle(R.string.menu_check_releases_fdroid);
         }
@@ -983,7 +993,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_apkpure));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_apkpure));
             else
                 menuItem.setTitle(R.string.menu_check_releases_apkpure);
         }
@@ -1499,18 +1509,18 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
-        else
-        if (itemId == R.id.menu_twitter) {
-            String url = PPApplication.TWITTER_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
+//        else
+//        if (itemId == R.id.menu_twitter) {
+//            String url = PPApplication.TWITTER_URL;
+//            intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse(url));
+//            try {
+//                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+//            } catch (Exception e) {
+//                PPApplicationStatic.recordException(e);
+//            }
+//            return true;
+//        }
         else
         if (itemId == R.id.menu_reddit) {
             String url = PPApplication.REDDIT_URL;
@@ -1526,6 +1536,18 @@ public class EditorActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_bluesky) {
             String url = PPApplication.BLUESKY_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_mastodon) {
+            String url = PPApplication.MASTODON_URL;
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
             try {
@@ -1652,6 +1674,8 @@ public class EditorActivity extends AppCompatActivity
             return false;
     }
 
+    // selectedView = 0=Profles/1=Events
+    // postion = selected filter item
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener/*, boolean startTargetHelps*/) {
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);

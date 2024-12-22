@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">触摸时震动</string>
     <string name="menu_activity_log_reload">重新加载</string>
     <string name="event_preferences_atEndDo">更多操作</string>
-    <string name="array_pref_atEndDo_none">无</string>
     <string name="array_pref_atEndDo_undoneProfile">撤销情景</string>
     <string name="array_pref_atEndDo_restartEvents">重新启动事件</string>
     <string name="event_preference_profile_restartEvents">重新启动</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>附件传感器</b>：当附件连接时启动事件，例如连接到耳机启动。]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC 传感器</b>：通过 NFC 标签启动事件。]]></string>
     <string name="important_info_quick_guide_events_3">如果手动激活情景(而非事件)，则所有正在运行的事件都将结束(暂停)。手动情景激活期间不会启动事件。但是，您可以通过事件参数中的“忽略手动激活”设置来覆盖此行为。</string>
-    <string name="important_info_quick_guide_editor_1">情景和事件在编辑器中配置，您可以通过激活清单调用。在编辑器中，您可以添加，复制，更新和删除情景和事件。编辑器有一个左侧面板，允许您更改编辑器视图。使用它在情景和事件列表之间切换。</string>
     <string name="event_preferences_noPauseByManualActivation">手动激活时不要暂停</string>
     <string name="event_preferences_noPauseByManualActivation_summary">如果手动激活情景，请勿暂停此运行事件</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">标签名称未配置。</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">要启用“忽略应用程序”参数，请在系统设置中允许PhoneProfilesPlusExtender “Accessibility ”。</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">要启用“Applications ”参数，请单击此处以安装PhoneProfilesPlusExtender。</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">要启用“忽略应用程序”参数，请单击此处以安装PhoneProfilesPlusExtender。</string>
-    <string name="about_application_extender_source_code">源代码 - 扩展器：</string>
+    <string name="about_application_extender_source_code">源代码 - PPPE：</string>
     <string name="pref_dlg_info_about_wildcards_4">您可以配置更多字符串。用字符分开 “|”.</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">默认情景</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">没有事件运行时，此情景将激活。单击此按钮进行配置。</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">请安装新版本的PhoneProfilesPlusExtender。有关安装的更多信息是参数，其中需要PhoneProfilesPlusExtender。</string>
     <string name="important_info_accessibility_service_new_version_2">点此安装最新版 PhoneProfilesPlusExtender</string>
     <string name="array_pref_no_force_stop">不要强制停止</string>
-    <string name="array_pref_force_stop">强制停止</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">强制停止应用</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">应用被强行终止</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">要启用“强制停止应用程序”参数，请单击此处以安装PhoneProfilesPlusExtender。</string>
@@ -993,8 +990,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">扩展</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">大</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">小</string>
-    <string name="event_preferences_call_LaunchExtender_summary">请在PhoneProfilesPlusExtender中授予权限电话。Extender接听电话所必需的。</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">请在PhoneProfilesPlusExtender中授予许可SMS。 Extender接收SMS / MMS时需要。</string>
+    <string name="event_preferences_call_LaunchExtender_summary">请在PhoneProfilesPlusExtender中授予权限电话。PhoneProfilesPlusExtender接听电话所必需的。</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">请给“PhoneProfilesPlusExtender”授予短信权限。“PhoneProfilesPlusExtender”接收短信/彩信时需要此权限。</string>
     <string name="array_event_pref_peripheralType_headphones">没有麦克风的耳机</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender未安装！</string>
     <string name="default_profile_name_battery_ok">好的电池</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">也许在您的设备上根本不工作。</string>
     <string name="application_is_starting_toast">正在启动…</string>
     <string name="application_is_started_toast">已启动</string>
-    <string name="duration_end_acronym">直到</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">状态栏</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">通知面板</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">通知样式</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">情景名称.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">所有其他事件</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">事件名称.</string>
-    <string name="activity_log_help_close">关闭</string>
     <string name="event_preference_sensor_soundProfile_summary">此传感器将通过切换声音模式或“勿扰”模式来启动事件。参数：声音模式，“勿扰”模式。</string>
     <string name="event_type_soundProfile">声音情景</string>
     <string name="event_preferences_soundProfile_ringerModes">声音模式</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">当准确时间到达时</string>
     <string name="profile_preferences_exactTime">准确时间</string>
     <string name="profile_preferences_category_end_of_activation">激活结束</string>
-    <string name="end_of_activation_time_end_acronym">结束时间</string>
-    <string name="end_of_activation_duration_acronym">持续</string>
-    <string name="end_of_activation_time_acronym">时间</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">显示情景激活结束</string>
-    <string name="event_delay_start_acronym">延迟开始</string>
-    <string name="event_delay_end_acronym">延迟结束</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">准确时间到达后-撤销情景</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">准确时间到达后-默认情景</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">准确时间到达后-重启事件</string>
@@ -1908,7 +1898,7 @@
     <string name="install_pppps_text4">注：PPPPutSettings 的目标安卓版本是5.1 ，因此与Google Play保护不兼容。 但 PPPPutSettings 是安全的，仅用于 PhoneProfilesPlus</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings 未安装 ！</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">未安装 PPPPutSettings</string>
-    <string name="about_application_pppps_source_code">源代码 - PPPPutSettings：</string>
+    <string name="about_application_pppps_source_code">源代码 - PPPPS：</string>
     <string name="profile_preferences_notificationLed_23">LED 通知</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) 始终显示</string>
     <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">查看 PhoneProfilesPlus 隐私政策</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">更紧凑</string>
     <string name="altype_timezone_changed">时区已更改</string>
-    <string name="altype_extender_accessibility_service_enabled">扩展无障碍服务已启用</string>
-    <string name="altype_extender_accessibility_service_not_enabled">扩展无障碍服务未启用</string>
-    <string name="altype_extender_accessibility_service_unbind">扩展无障碍服务未绑定</string>
+    <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExter 辅助功能已启用</string>
+    <string name="altype_extender_accessibility_service_not_enabled">PhoneProfilesPlusExture 辅助功能未启用</string>
+    <string name="altype_extender_accessibility_service_unbind">PhoneProfilesPlusExture 辅助功能已解除绑定</string>
     <string name="check_releases_install_from_apk_note1">注意：出于安全考虑，不建议Android 13以上的用户用下载的apk进行安装。请使用</string>
     <string name="check_releases_install_from_apk_note2_ppp">如果您的设备不支持应用商店，请安装 PhoneProfilesPlus。</string>
     <string name="check_releases_install_from_apk_note2_pppe">如果您的设备不支持应用商店，请安装 PhoneProfilesPlusExtender 。</string>
@@ -2209,7 +2199,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">去电</string>
     <string name="array_event_pref_call_screening_direction_all">所有通话</string>
     <string name="event_name_copy_from_profile_block_calls">骚扰拦截</string>
-    <string name="important_info_phone_call_to_call_screening">对于每个配置了参数“电话通话”/“骚扰拦截”的情景模式，都会生成带有“来电过滤”传感器的新事件。此事件的“事件运行”参数已被禁用。来自情景模式的“电话通话”参数已被移除。</string>
     <string name="profile_preferences_category_send_sms">发送短信</string>
     <string name="profile_preference_sendSMSContactGroups">联系人组</string>
     <string name="profile_preference_sendSMSContacts">联系人</string>
@@ -2255,27 +2244,39 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) 护眼护盾</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">若未授予此权限，PhoneProfilesPlus 将无法设置。点此授权。</string>
     <string name="permission_why_profile_vpn">启用/禁用 VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">\"在其他应用上绘制/显示\"权限被移除，由于此权限位于“受限设置”中，如果启用，一些银行类应用和网站支付可能会被阻止，需要 PhoneProfilesPlus 关闭“在其他应用上绘制/显示”。</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">建议安装新版本的PPPutSetting(1.1)，其不需要“在其他应用上绘制/显示”。 对于早于1.1的版本，用(S) 标记的参数仍然需要此权限。</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">对于某些情景参数，仍然需要\"在其他应用上绘制/显示\"，例如\"运行应用，快捷方式，intents\"。</string>
     <string name="color_value">颜色值</string>
     <string name="location_geofence_editor_location_name">位置名称</string>
     <string name="application_editor_intent_action_custom_label">自定义操作</string>
     <string name="empty_list_content_description">空列表</string>
-    <string name="tone_content_description">Tone</string>
+    <string name="tone_content_description">声音</string>
     <string name="profile_list_notification_right_arrow">右箭头</string>
     <string name="profile_list_notification_left_arrow">左箭头</string>
-    <string name="mobile_cells_registration_cell_name_not_set">[ Not set ]</string>
-    <string name="profile_preferences_deviceKeyguard">Device lock screen</string>
-    <string name="profile_preferences_deviceKeyguard_info_summary">This parameter switches On/Off the device lock screen. When set to Off, the lock screen will not appear when the screen is turned on.</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
-    <string name="profile_preferences_deviceScreenOnOff">Screen On/Off</string>
-    <string name="keep_screen_on_active_notification_description">\"Keep screen on\" is \"On\". To set it \"Off\", configure and activate profile with \"Keep screen on\"=\"Off\".</string>
-    <string name="permission_why_profile_screen_on_off">for switch screen on/off</string>
-    <string name="profile_preferences_deviceScreenOnOff_info_summary">When \"Screen On/Off\" is configured, \"Device lock screen\" is disabled and vice versa. Is not possible to configure both.</string>
-    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
-    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
-    <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
-    <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
+    <string name="mobile_cells_registration_cell_name_not_set">[未设置]</string>
+    <string name="profile_preferences_deviceKeyguard">设备锁屏界面</string>
+    <string name="profile_preferences_deviceKeyguard_info_summary">此参数可开启/关闭设备锁屏。当设置为“关闭”时，打开屏幕时锁屏将不会出现。</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">在系统中设置“屏幕超时”（通过情景模式激活）并不禁用“保持屏幕开启”。如果您想要“屏幕超时”在系统上起作用，您还需要将“保持屏幕开启”配置为“关闭”。</string>
+    <string name="profile_preferences_deviceScreenOnOff">屏幕开/关</string>
+    <string name="keep_screen_on_active_notification_description">“保持屏幕开启”是“开启”状态。若要将其设置为“关闭”，请配置并激活具有“保持屏幕开启=关闭”的情景模式。</string>
+    <string name="permission_why_profile_screen_on_off">开启/关闭屏幕</string>
+    <string name="profile_preferences_deviceScreenOnOff_info_summary">当\"屏幕开启/关闭\"被配置时，\"设备锁屏\"被禁用，反之亦然。无法两者配置。</string>
+    <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku已安装，但未运行。请打开 Shizuku 并从其应用程序中启动。</string>
+    <string name="profile_preferences_types_shizuku_permission_launch_shizuku">打开</string>
+    <string name="profile_preferences_types_shizuku_permission_show_help">帮助</string>
+    <string name="event_preference_callSendSMS_info_summary">此参数用于\"通话事件\"=\"漏接电话\"。</string>
+    <string name="event_preferences_orientation_checkLight_info">“光线”是指由轻型设备传感器检测到的环境光线。</string>
+    <string name="array_pref_atEndDo_none">无</string>
+    <string name="array_pref_launcher_switch_profiles">切换情景(只能配置 2 个情景)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">复制到剪贴板</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">配置指示灯</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">图标颜色类型将用于情景图标和配置指示灯。</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">指示灯使用动态颜色</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">文本亮度将用于文本和“重启事件”图标。</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

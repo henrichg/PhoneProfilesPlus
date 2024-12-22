@@ -45,6 +45,8 @@ public class LockDeviceActivity extends AppCompatActivity
     @SuppressLint({"WrongConstant", "InflateParams"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -224,6 +226,8 @@ public class LockDeviceActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         final Context appContext = getApplicationContext();
 

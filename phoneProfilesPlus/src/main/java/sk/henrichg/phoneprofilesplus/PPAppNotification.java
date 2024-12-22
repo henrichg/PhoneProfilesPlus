@@ -195,6 +195,7 @@ public class PPAppNotification {
                     notificationTextColor = "2";
                     break;
             }
+
             // is not possible to use decoration when notificication background is not "Native"
             useDecorator = useDecorator && notificationBackgroundColor.equals("0");
 
@@ -580,7 +581,7 @@ public class PPAppNotification {
         // notification title
         if (notificationNotificationStyle.equals("0")) {
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
-            if (contentView != null)
+            //if (contentView != null)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
         }
         else {
@@ -627,37 +628,37 @@ public class PPAppNotification {
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "1":
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     color = ContextCompat.getColor(appContext, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "5":
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     break;
                 default:
                     //int color = getResources().getColor(R.color.notificationBackground);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                     break;
             }
 
             if (notificationTextColor.equals("1")) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                if (contentView != null)
+                //if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
             } else if (notificationTextColor.equals("2")) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                if (contentView != null)
+                //if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
             } else {
                 if (Build.VERSION.SDK_INT == 28) {
@@ -669,11 +670,11 @@ public class PPAppNotification {
                     // For this, must be changed programmatically
                     if (useNightColor/* == 1*/) {
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                        if (contentView != null)
+                        //if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                     } else {
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                        if (contentView != null)
+                        //if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                     }
                 } else {
@@ -683,7 +684,7 @@ public class PPAppNotification {
                             // In One UI is not used Material You in motifications
                             //if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) {
                                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
-                                if (contentView != null)
+                                //if (contentView != null)
                                     contentView.setTextColor(R.id.notification_activated_profile_name, color);
                             //}
                         }

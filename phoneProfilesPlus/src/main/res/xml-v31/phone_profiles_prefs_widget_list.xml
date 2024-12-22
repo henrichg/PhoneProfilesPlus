@@ -138,6 +138,13 @@
         app:title="@string/phone_profiles_pref_applicationWidgetTextCategory"
         app:layout="@layout/mp_preference_category" >
 
+        <sk.henrichg.phoneprofilesplus.InformationPreference
+            app:key="applicationWidgetListLightnessTInfo"
+            app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+            app:summary="@string/phone_profiles_pref_applicationWidgetLightnessTInfo_summary"
+            app:infoText=""
+            app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
             app:summary="100%%"
@@ -152,6 +159,13 @@
         app:key="applicationWidgetListIconsCategory"
         app:title="@string/phone_profiles_pref_applicationWidgetIconsCategory"
         app:layout="@layout/mp_preference_category" >
+
+        <sk.henrichg.phoneprofilesplus.InformationPreference
+            app:key="applicationWidgetListIconColorInfo"
+            app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+            app:summary="@string/phone_profiles_pref_applicationWidgetIconColor_summary"
+            app:infoText=""
+            app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
@@ -175,6 +189,13 @@
             app:layout="@layout/mp_preference_material_widget"
             app:widgetLayout="@layout/preference_widget_custom_switch" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="applicationWidgetListPrefIndicatorCategory"
+        app:title="@string/phone_profiles_pref_applicationWidgetPrefIndicatorCategory"
+        app:layout="@layout/mp_preference_category" >
+
         <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetListPrefIndicator"
             app:title="@string/phone_profiles_pref_applicationPrefIndicator"
@@ -182,6 +203,14 @@
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget"
             app:widgetLayout="@layout/preference_widget_custom_switch" />
+
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationWidgetListPrefIndicatorUseDynamicColor"
+            app:title="@string/phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"

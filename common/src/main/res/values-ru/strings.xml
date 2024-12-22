@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
     <string name="menu_activity_log_reload">Обновить</string>
     <string name="event_preferences_atEndDo">И выполнить</string>
-    <string name="array_pref_atEndDo_none">Ничего</string>
     <string name="array_pref_atEndDo_undoneProfile">Отменить данный профиль</string>
     <string name="array_pref_atEndDo_restartEvents">Перезапустить события</string>
     <string name="event_preference_profile_restartEvents">Перезапустить</string>
@@ -546,7 +545,7 @@
     <string name="wifi_ssid_pref_dlg_all_ssids_chb">Все SSID</string>
     <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Все имена Bluetooth-устройств</string>
     <string name="editor_drawer_list_item_events_start_order">В порядке запуска</string>
-    <string name="editor_drawer_order_start_order">Времени начала</string>
+    <string name="editor_drawer_order_start_order">В порядке запуска</string>
     <string name="info_notification_event_priority_new">Каждое событие имеет \"Приоритет\". Событие не запустится, если уже выполняется событие с более высоким приоритетом.</string>
     <string name="info_notification_event_start_order">События запускаются в \"Порядке запуска\". Порядок запуска можно изменить в Редакторе, выбрав в левом боковом меню \"В порядке запуска\". События можно перетащить вверх/вниз с помощью \"упорядочивателя\".</string>
     <string name="info_notification_event_start_order_handler_icon">Упорядочиватель:</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Датчик аксессуаров:</b> Запуск события, когда, например, подключены наушники.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Датчик NFC:</b> Запуск события посредством NFC-меток.]]></string>
     <string name="important_info_quick_guide_events_3">Если вы активируете профиль вручную (не по событию), все запущенные события завершаются (приостанавливаются). Во время работы вручную активированного профиля события начинаться не будут. Тем не менее, вы можете переопределить это поведение, используя опцию \"Игнорировать ручную активацию\" в параметрах события.</string>
-    <string name="important_info_quick_guide_editor_1">Профили и События настраиваются в Редакторе, который можно вызвать через Активатор. В Редакторе можно добавлять, дублировать, обновлять и удалять профили и события. С помощью левой боковой панели Редактора можно изменить его содержимое. Используйте её для переключения между списками профилей и событий.</string>
     <string name="event_preferences_noPauseByManualActivation">Не приостанавливать вручную</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Не приостанавливать это запущенное событие при ручной активации профиля</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Имя метки не настроено.</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Чтобы включить параметр \"Игнорировать для приложений\", разрешите доступ службе PhoneProfilesPlusExtender в разделе \"Спец. возможности\" системных настроек.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Чтобы включить параметр \"Приложения\", нажмите сюда для установки PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Чтобы включить параметр \"Игнорировать для приложений\", нажмите сюда для установки PhoneProfilesPlusExtender.</string>
-    <string name="about_application_extender_source_code">Исходный код - Extender:</string>
+    <string name="about_application_extender_source_code">Исходный код - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">Можно настроить несколько строк. Разделитель - \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Профиль по умолчанию</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Этот профиль будет активирован, когда не выполняется ни одно событие. Нажмите сюда, чтобы настроить его.</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Установите, пожалуйста, новую версию PhoneProfilesPlusExtender. Дополнительные сведения об установке - в параметрах, для которых требуется PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Нажмите сюда, чтобы установить последнюю версию PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Не останавливать принудительно</string>
-    <string name="array_pref_force_stop">Останавливать принудительно</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Принудительная остановка приложений</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Приложения, которые нужно принудительно останавливать</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Чтобы включить параметр \"Принудительная остановка приложений\", нажмите сюда для установки PhoneProfilesPlusExtender.</string>
@@ -994,7 +991,7 @@
     <string name="phone_profiles_pref_notificationLayoutType_large">Большой</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Маленький</string>
     <string name="event_preferences_call_LaunchExtender_summary">Предоставьте, пожалуйста, PhoneProfilesPlusExtender разрешение \"Телефон\". Оно требуется для получения звонков.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Предоставьте, пожалуйста, PhoneProfilesPlusExtender разрешение \"SMS\". Оно требуется для получения SMS/MMS.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Предоставьте, пожалуйста, PhoneProfilesPlusExtender разрешение \"SMS\". Оно требуется для получения Extender\'ом SMS/MMS.</string>
     <string name="array_event_pref_peripheralType_headphones">Наушники без микрофона</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не установлен!</string>
     <string name="default_profile_name_battery_ok">Батарея заряжена</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Может не работать на вашем устройстве.</string>
     <string name="application_is_starting_toast">запускается…</string>
     <string name="application_is_started_toast">запущено</string>
-    <string name="duration_end_acronym">до</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Строка состояния</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Панель уведомлений</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Стиль уведомлений</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Название профиля.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">всё остальное по событиям</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Название события.</string>
-    <string name="activity_log_help_close">Закрыть</string>
     <string name="event_preference_sensor_soundProfile_summary">Этот датчик запускает событие по переключению режимов звука или типов режима \"Не беспокоить\". Параметры: \"Режимы звука\", \"Типы режима \"Не беспокоить\".</string>
     <string name="event_type_soundProfile">Звуковой профиль</string>
     <string name="event_preferences_soundProfile_ringerModes">Режимы звука</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">По достижении точного времени</string>
     <string name="profile_preferences_exactTime">Точное время</string>
     <string name="profile_preferences_category_end_of_activation">Окончание активации</string>
-    <string name="end_of_activation_time_end_acronym">во</string>
-    <string name="end_of_activation_duration_acronym">п</string>
-    <string name="end_of_activation_time_acronym">в</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Показывать время окончания активации профиля</string>
-    <string name="event_delay_start_acronym">зз</string>
-    <string name="event_delay_end_acronym">зо</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">по достижении точного времени - отмена профиля</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">по достижении точного времени - профиль по умолчанию</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">по достижении точного времени - перезапуск событий</string>
@@ -1908,7 +1898,7 @@
     <string name="install_pppps_text4">Примечание: приложение PPPPutSettings разработано для Android 5.1. По этой причине оно несовместимо с Google Play Защитой. Но приложение PPPPutSettings безопасно, его может использовать только PhoneProfilesPlus.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings не установлено!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPPutSettings не установлено</string>
-    <string name="about_application_pppps_source_code">Исходный код - PPPPutSettings:</string>
+    <string name="about_application_pppps_source_code">Исходный код - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">LED-уведомление</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On display</string>
     <string name="samsung_edge_panel_settings_description">Настройки панели Samsung Edge</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">Открыть Политику конфиденциальности PhoneProfilesPlus с помощью</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Ещё более компактная</string>
     <string name="altype_timezone_changed">часовой пояс изменён</string>
-    <string name="altype_extender_accessibility_service_enabled">Служба спец. возможностей для Extender\'а включена</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Служба спец. возможностей для Extender\'а не включена</string>
-    <string name="altype_extender_accessibility_service_unbind">Служба спец. возможностей для Extender\'а отвязана</string>
+    <string name="altype_extender_accessibility_service_enabled">Служба спец. возможностей для PhoneProfilesPlusExtender включена</string>
+    <string name="altype_extender_accessibility_service_not_enabled">Служба спец. возможностей для PhoneProfilesPlusExtender не включена</string>
+    <string name="altype_extender_accessibility_service_unbind">Служба спец. возможностей для PhoneProfilesPlusExtender отвязана</string>
     <string name="check_releases_install_from_apk_note1">ПРИМЕЧАНИЕ: На Android 13+ установка загруженного apk не рекомендуется по соображениям безопасности. Вместо этого используйте</string>
     <string name="check_releases_install_from_apk_note2_ppp">, если на вашем устройстве нет поддерживаемого магазина приложений, и установите PhoneProfilesPlus из него.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, если на вашем устройстве нет поддерживаемого магазина приложений, и установите PhoneProfilesPlusExtender из него.</string>
@@ -2209,7 +2199,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Исходящие вызовы</string>
     <string name="array_event_pref_call_screening_direction_all">Все вызовы</string>
     <string name="event_name_copy_from_profile_block_calls">Блокировать вызовы</string>
-    <string name="important_info_phone_call_to_call_screening">Для каждого профиля с настроенным параметром \"Вызовы\"/\"Блокировать вызовы\" создано новое событие с датчиком \"Фильтрация вызовов\". Параметр \"Запуск события\" такого события отключён. Параметр \"Вызовы\" из профилей удалён.</string>
     <string name="profile_preferences_category_send_sms">Отправить SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Группы контактов</string>
     <string name="profile_preference_sendSMSContacts">Контакты</string>
@@ -2255,9 +2244,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Комфорт для глаз</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Если предоставить это разрешение не получается, возможно, приложению PhoneProfilesPlus не разрешён доступ к настройкам. Чтобы разрешить его, нажмите сюда.</string>
     <string name="permission_why_profile_vpn">для включения/отключения VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">Необходимость в предоставлении разрешения \"Поверх других приложений\" удалена. Так как оно является частью \"Настроек с ограниченным доступом\", банковские приложения и сайты, платёжные системы и т.д. могут стать недоступны или требовать отзыва разрешения \"Поверх других приложений\" для PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Рекомендуется установить новую версию PPPPutSettings (1.1), которая больше не требует разрешения \"Поверх других приложений\". Для более ранних, чем 1.1, версий параметры, отмеченные буквой (S), всё ещё будут требовать наличие этого разрешения.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Однако для некоторых параметров профиля, например, для \"Запуска приложений, ярлыков, intent\'ов\" разрешение \"Поверх других приложений\" всё ещё необходимо.</string>
     <string name="color_value">Значение цвета</string>
     <string name="location_geofence_editor_location_name">Название местоположения</string>
     <string name="application_editor_intent_action_custom_label">Пользовательское действие</string>
@@ -2278,4 +2264,19 @@
     <string name="profile_preferences_types_shizuku_permission_show_help">Справка</string>
     <string name="event_preference_callSendSMS_info_summary">Этот параметр - для \"Состояние и тип вызова\"=\"Пропущенный вызов\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Освещённость\" - это окружающий свет, определяемый датчиком освещённости устройства.</string>
+    <string name="array_pref_atEndDo_none">Ничего</string>
+    <string name="array_pref_launcher_switch_profiles">Переключать профили (если настроено только 2 профиля)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Скопировано в буфер обмена</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Индикатор настроек</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Тип иконки будет использоваться и для иконки профиля, и для индикатора настроек.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Динамический цвет для индикатора</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Яркость текста будет использоваться и для текста, и для иконки перезапуска событий.</string>
+    <string name="important_info_quick_guide_editor_1">Профили и События настраиваются в Редакторе, который можно вызвать через Активатор. В Редакторе можно добавлять, дублировать, обновлять и удалять профили и события. С помощью нижней панели Редактора можно изменить его содержимое. Используйте её для переключения между списками профилей и событий.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Скрыть детали события</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Скрыть детали события в списке событий Редактора.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Скрыть детали события при фильтре \"В порядке запуска\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Скрыть детали события в списке событий Редактора, если установлен фильтр \"В порядке запуска\".</string>
+    <string name="array_pref_force_stop_with_pppe">Принудительная остановка через PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Принудительная остановка командой</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примечание: Может не работать на вашем устройстве.</string>
 </resources>

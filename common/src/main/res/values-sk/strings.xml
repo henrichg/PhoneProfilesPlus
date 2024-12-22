@@ -293,7 +293,6 @@
     <string name="profile_preferences_vibrationOnTouch">Vibrovanie pri klepnutí</string>
     <string name="menu_activity_log_reload">Znovu načítať</string>
     <string name="event_preferences_atEndDo">A urobiť</string>
-    <string name="array_pref_atEndDo_none">Nič</string>
     <string name="array_pref_atEndDo_undoneProfile">Vráť späť profil</string>
     <string name="array_pref_atEndDo_restartEvents">Reštart udalostí</string>
     <string name="event_preference_profile_restartEvents">Reštart</string>
@@ -762,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Senzor príslušenstva:</b> Štart udalosti, keď sú napríklad pripojené slúchadlá.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Senzor NFC:</b> Štart udalosť pomocou NFC tagov.]]></string>
     <string name="important_info_quick_guide_events_3">Ak ste manuálne aktivovali profil (nie udalosť), všetky bežiace udalosti sa ukončia (pozastavia). Udalosti sa nespustia počas manuálne aktivovaného profilu. Avšak môžete prepísať toto správanie prostredníctvom parametra \"Ignoruj manuálnu aktiváciu\" v nastaveniach udalosti.</string>
-    <string name="important_info_quick_guide_editor_1">Profily a udalosti sú nakonfigurované v Editore, ktorý si môžete vyvolať cez Aktivátor. V Editore môžete pridať, duplikovať, aktualizovať a odstrániť profily a udalosti. Editor má ľavý bočný panel, ktorý vám umožní zmeniť pohľad Editora. Použite ho na prepínanie medzi zoznamami profilov a udalostí.</string>
     <string name="event_preferences_noPauseByManualActivation">Nezastavuj manuálnou aktiváciou</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Nezastavovať túto udalosť manuálnou aktiváciou profilu ak je spustená</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Názov tagu nie je nakonfigurovaný.</string>
@@ -781,7 +779,7 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Povoľte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Ignorovať pre aplikácie\".</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Pre povolenie parametra \"Aplikácie\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Pre povolenie parametra \"Ignorovať pre aplikácie\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
-    <string name="about_application_extender_source_code">Zdrojový kód - Extender:</string>
+    <string name="about_application_extender_source_code">Zdrojový kód - PPPE:</string>
     <string name="pref_dlg_info_about_wildcards_4">Môžete nakonfigurovať viac reťazcov. Oddeľte ich znakom \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Predvolený profil</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Tento profil sa aktivuje, ak nebeží žiadna udalosť. Kliknite sem pre jeho nakonfigurovanie.</string>
@@ -850,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Prosím nainštalujte novú verziu PhoneProfilesPlusExtender. Ďalšie informácie o inštalácii sú v parametroch, ktoré PhoneProfilesPlusExtender vyžadujú.</string>
     <string name="important_info_accessibility_service_new_version_2">Kliknite sem pre nainštalovanie najnovšej verzie PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Nevynucovať zastavenie</string>
-    <string name="array_pref_force_stop">Vynucovať zastavenie</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Vynútiť zastavenie aplikácií</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikácie, ktorým vynútiť zastavenie</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pre povolenie parametra \"Vynútiť zastavenie aplikácií\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
@@ -993,8 +990,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Roztiahnuteľné</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Veľké</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Malé</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Prosím udeľte povolenie Telefón v PhoneProfilesPlusExtender. Je potrebné pre príjem hovorov Extenderom.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Prosím udeľte povolenie SMS v PhoneProfilesPlusExtender. Je potrebné pre príjem SMS/MMS Extenderom.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Prosím udeľte povolenie Telefón v PhoneProfilesPlusExtender. Je potrebné pre príjem hovorov PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Prosím udeľte povolenie SMS v PhoneProfilesPlusExtender. Je potrebné pre príjem SMS/MMS v PhoneProfilesPlusExtender.</string>
     <string name="array_event_pref_peripheralType_headphones">Slúchadlá bez mikrofónu</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender nie je nainštalovaný!</string>
     <string name="default_profile_name_battery_ok">OK batéria</string>
@@ -1124,13 +1121,13 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Usporiadať zoznam</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Podľa názvu bunky</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Podľa času pripojenia</string>
-    <string name="menu_export_and_email">Poslať nastavenia e-mailom</string>
-    <string name="menu_export_and_email_to_author">Poslať nastavenia e-mailom autorovi</string>
-    <string name="menu_email_debug_logs_to_author">Poslať e-mailom ladiace súbory autorovi</string>
+    <string name="menu_export_and_email">E-mail s nastaveniami</string>
+    <string name="menu_export_and_email_to_author">E-mail s nastaveniami autorovi</string>
+    <string name="menu_email_debug_logs_to_author">E-mailom s ladiacimi súbormi autorovi</string>
     <string name="menu_support">Podpora</string>
     <string name="email_debug_log_files_subject">Ladiace súbory</string>
     <string name="toast_debug_log_files_not_exists">Ladiace súbory neexistujú</string>
-    <string name="menu_email_to_author">Poslať e-mail autorovi</string>
+    <string name="menu_email_to_author">E-mail autorovi</string>
     <string name="ignore_battery_optimization_notification_title">Konfigurácia optimalizácie batérie</string>
     <string name="ignore_battery_optimization_notification_text">Prosím kliknite sem a pridajte PhoneProfilesPlus do \"Neoptimalizované\". Je to vyžadované pre správnu funkciu s vypnutou obrazovkou.</string>
     <string name="array_show_profile_in_activator_not_show">Nezobrazovať</string>
@@ -1240,7 +1237,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Vo vašom zariadení nemusí fungovať vôbec.</string>
     <string name="application_is_starting_toast">štartuje…</string>
     <string name="application_is_started_toast">je spustený</string>
-    <string name="duration_end_acronym">kt</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Stavový riadok</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Panel notifikácií</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">Štýl notifikácie</string>
@@ -1557,7 +1553,6 @@
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Názov profilu.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">všetky ostatné pre udalosti</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Názov udalosti.</string>
-    <string name="activity_log_help_close">Zavrieť</string>
     <string name="event_preference_sensor_soundProfile_summary">Tento senzor spustí udalosť na zmenu zvukových režimov alebo typov „Nerušiť“. Parametre: Zvukové režimy, typy „Nerušiť“.</string>
     <string name="event_type_soundProfile">Zvukový profil</string>
     <string name="event_preferences_soundProfile_ringerModes">Režimy zvukov</string>
@@ -1665,12 +1660,7 @@
     <string name="profile_preferences_afterExactTimeDo">Keď bude dosiahnutý presný čas</string>
     <string name="profile_preferences_exactTime">Presný čas</string>
     <string name="profile_preferences_category_end_of_activation">Koniec aktivácie</string>
-    <string name="end_of_activation_time_end_acronym">kč</string>
-    <string name="end_of_activation_duration_acronym">t</string>
-    <string name="end_of_activation_time_acronym">č</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Zobraziť koniec aktivácie profilu</string>
-    <string name="event_delay_start_acronym">šp</string>
-    <string name="event_delay_end_acronym">kp</string>
     <string name="altype_afterEndOfActivationTime_undoProfile">po dosiahnutí presného času - vrátiť späť profil</string>
     <string name="altype_afterEndOfActivationTime_defaultProfile">po dosiahnutí presného času - predvolený profil</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">po dosiahnutí presného času - reštart udalostí</string>
@@ -1908,7 +1898,7 @@
     <string name="install_pppps_text4">Poznámka: Cieľová verzia systému Android pre PPPPutSettings je 5.1. Z tohto dôvodu nie je kompatibilný s Google Play Protect. Ale PPPPutSettings je bezpečný, môže ho používať iba PhoneProfilesPlus.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings nie je nainštalovaný!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">nie je nainštalované PPPPutSettings</string>
-    <string name="about_application_pppps_source_code">Zdrojový kód - PPPPutSettings:</string>
+    <string name="about_application_pppps_source_code">Zdrojový kód - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">Notifikačná dióda</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-on displej</string>
     <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
@@ -2005,9 +1995,9 @@
     <string name="privacy_policy_web_browser_chooser">Zobraziť zásady ochrany osobných údajov PhoneProfilesPlus pomocou</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Viac kompaktný</string>
     <string name="altype_timezone_changed">časové pásmo zmenené</string>
-    <string name="altype_extender_accessibility_service_enabled">Služba dostupnosti pre Extender je povolená</string>
-    <string name="altype_extender_accessibility_service_not_enabled">Služba Dostupnosť pre Extender nie je povolená</string>
-    <string name="altype_extender_accessibility_service_unbind">Služba dostupnosti pre Extender je zrušená</string>
+    <string name="altype_extender_accessibility_service_enabled">Služba dostupnosti pre PhoneProfilesPlusExtender je povolená</string>
+    <string name="altype_extender_accessibility_service_not_enabled">Služba Dostupnosť pre PhoneProfilesPlusExtender nie je povolená</string>
+    <string name="altype_extender_accessibility_service_unbind">Služba dostupnosti pre PhoneProfilesPlusExtender je zrušená</string>
     <string name="check_releases_install_from_apk_note1">POZNÁMKA: Inštalácia zo stiahnutého súboru apk sa z bezpečnostných dôvodov neodporúča pre Android 13+. Namiesto toho použite</string>
     <string name="check_releases_install_from_apk_note2_ppp">, ak vo vašom zariadení nie je podporovaný obchod s aplikáciami, a nainštalujte si z neho PhoneProfilesPlus.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, ak vo vašom zariadení nie je podporovaný obchod s aplikáciami, a nainštalujte si z neho PhoneProfilesPlusExtender.</string>
@@ -2101,7 +2091,7 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(Z)(R) Typ mobilnej siete pre SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(Z)(R) Typ mobilnej siete pre SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(Z)(R) Predvolená SIM karta</string>
-    <string name="nfc_tag_pref_dlg_readNfcTag_title">Čítať NFC tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_title">Čítať NFC tag </string>
     <string name="nfc_tag_pref_dlg_readNfcTag_text">Čitať NFC tag zapísaný v PhonePorfilesPlus.</string>
     <string name="event_preferences_nfc_createReadNFCTagShortcut">Odkaz na \"Čítať NFC tag\"</string>
     <string name="event_preferences_nfc_createReadNFCTagShortcut_summary">Kliknite sem na vytvorenie odkazu na \"Čítať NFC tag\" v domovskom spúšťači.</string>
@@ -2177,7 +2167,7 @@
     <string name="menu_discord_invitation">Pozvánka na server</string>
     <string name="check_releases_apkpure_ppp_release">Vydanie PhoneProfilesPlus v ApkPure:</string>
     <string name="install_pppps_install_droidify_text">Nainštalujte si prosím Droid-ify. Vyžaduje sa pre inštaláciu PPPPutSettings. Potom znova nainštalujte PPPutSettings.</string>
-    <string name="profile_preference_phoneCallsSendSMS_summary_send">Odoslať SMS</string>
+    <string name="profile_preference_phoneCallsSendSMS_summary_send">Poslať SMS</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Neposlať SMS</string>
     <string name="popup_event_states_state">Stav:</string>
     <string name="popup_event_states_paused">Pozastavená</string>
@@ -2209,7 +2199,6 @@
     <string name="array_event_pref_call_screening_direction_outgoing">Odchádzajúce hovory</string>
     <string name="array_event_pref_call_screening_direction_all">Všetky hovory</string>
     <string name="event_name_copy_from_profile_block_calls">Blokovať hovory</string>
-    <string name="important_info_phone_call_to_call_screening">Pre každý profil s nakonfigurovaným parametrom \"Telefónne hovory\"\/\"Blokovať hovory\" je vygenerovaná nová udalosť so senzorom \"Kontrola hovorov\". Táto udalosť má zakázaný parameter \"Spustenie udalosti\". Parameter „Telefónne hovory“ z profilov je odstránený.</string>
     <string name="profile_preferences_category_send_sms">Poslať SMS</string>
     <string name="profile_preference_sendSMSContactGroups">Skupiny kontaktov</string>
     <string name="profile_preference_sendSMSContacts">Kontakty</string>
@@ -2255,9 +2244,6 @@
     <string name="profile_preferences_screenNightLight_Samsung">(S)(Z)(R) Štít pre pohodlie očí</string>
     <string name="grant_draw_over_apps_dialog_when_not_possible_text">Ak nie je možné udeliť toto povolenie, možno nie sú povolené obmedzené nastavenia pre PhoneProfilesPlus. Kliknutím sem to povolíte.</string>
     <string name="permission_why_profile_vpn">pre zapnutie/vypnutie VPN</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently1">Potreba mať natrvalo povolené \"Vykresliť cez ďalšie aplikácie\" bola odstránená. Pretože toto právo sa nachádza v časti \"Obmedzené nastavenia\" a ak je povolené, bankové aplikácie a webové stránky, platby za tovar, služby atď. môžu byť zablokované alebo môžu vyžadovať vypnutie funkcie \"Vykresliť cez ďalšie aplikácie\" v PhoneProfilesPlus.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently2">Odporúča sa nainštalovať novú verziu PPPPutSettings (1.1), kde je zmena, ktorá si nevyžaduje \"Vykresliť cez ďalšie aplikácie\". Pre verzie staršie ako 1.1 budú parametre označené (S) stále vyžadovať toto právo.</string>
-    <string name="important_info_draw_over_apps_not_needed_permanently3">Pre niektoré parametre profilu sa stále vyžaduje \"Vykresliť cez ďalšie aplikácie\", napríklad pre \"Spustiť aplikácie, odkazy, intenty\".</string>
     <string name="color_value">Hodnota farby</string>
     <string name="location_geofence_editor_location_name">Názov polohy</string>
     <string name="application_editor_intent_action_custom_label">Vlastná akcia</string>
@@ -2278,4 +2264,19 @@
     <string name="profile_preferences_types_shizuku_permission_show_help">Pomoc</string>
     <string name="event_preference_callSendSMS_info_summary">Tento parameter je pre \"Udalosť hovoru\"=\"Zmeškaný hovor\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Svetlo\" je okolité svetlo detekované snímačom svetla v zariadení.</string>
+    <string name="array_pref_atEndDo_none">Nič</string>
+    <string name="array_pref_launcher_switch_profiles">Prepnúť profily (len pre 2 nakonfigurované profily)</string>
+    <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Skopírované do schránky</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Indikátor parametrov</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Typ farby ikony sa použije pre ikonu profilu aj indikátor parametrov.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Použiť dynamickú farbu pre indikátor</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Svetlosť textu sa použije pre text aj ikonu „Reštart udalostí“.</string>
+    <string name="important_info_quick_guide_editor_1">Profily a udalosti sú nakonfigurované v Editore, ktorý si môžete vyvolať cez Aktivátor. V Editore môžete pridať, duplikovať, aktualizovať a odstrániť profily a udalosti. Editor má spodný panel tlačítok, ktorý vám umožní zmeniť pohľad Editora. Použite ho na prepínanie medzi zoznamami profilov a udalostí.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Skryť podrobnosti udalosti</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Skryť podrobnosti udalosti v zozname udalostí editora.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Skryť podrobnosti udalosti pre \"Poradie štartu\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Skryť podrobnosti udalosti v zozname udalostí editora, keď je nastavený filter \"Poradie štartu\".</string>
+    <string name="array_pref_force_stop_with_pppe">Vynútiť zastavenie pomocou PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Vynútiť zastavenie príkazom</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Poznámka: Vo vašom zariadení nemusí fungovať.</string>
 </resources>
