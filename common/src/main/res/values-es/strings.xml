@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Sensor de Accesorios:</b> Iniciar o Finalizar cuando, por ejemplo, se conecten los auriculares.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Sensor NFC:</b> Iniciar o Finalizar por etiquetas NFC.]]></string>
     <string name="important_info_quick_guide_events_3">Si activas manualmente un perfil (no mediante un evento), todos los eventos en funcionamiento finalizarán (se pondrán en pausa). Los eventos no se iniciarán durante la activación del perfil manual. Sin embargo, puedes anular este comportamiento activando la opción \"Ignorar activación manual\" en los parámetros del evento.</string>
-    <string name="important_info_quick_guide_editor_1">Los Perfiles y Eventos se configuran en el Editor, el cual se puede invocar desde el Activador. Dentro del editor puedes agregar, duplicar, actualizar y eliminar perfiles y eventos. El Editor tiene un panel a la izquierda, el cual te permite cambiar la vista del Editor. Úsala para cambiar entre las listas de perfiles y eventos.</string>
     <string name="event_preferences_noPauseByManualActivation">No pausar durante la activación manual</string>
     <string name="event_preferences_noPauseByManualActivation_summary">No pausar este evento en funcionamiento si un perfil se ha activado manualmente</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Nombre de etiqueta no configurado.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Por favor, instala la nueva versión de PhoneProfilesPlusExtender. Hay más información acerca de la instalación en los parámetros para los cuales se requiere PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Haz clic aquí para instalar la última versión de PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">No forzar detención</string>
-    <string name="array_pref_force_stop">Forzar detención</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Forzar detener aplicaciones</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplicaciones para forzar detención</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Para habilitar el parámetro \"Forzar detener aplicaciones\", haz clic aquí para instalar PhoneProfilesPlusExtender.</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">El tipo de color de icono se utilizará tanto para el icono del perfil como para el indicador de preferencias.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Usar color dinámico para el indicador</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">La luminosidad del texto se utilizará tanto para el icono de texto como para el icono de \"Reiniciar eventos\".</string>
+    <string name="important_info_quick_guide_editor_1">Los Perfiles y Eventos se configuran en el Editor, que puedes invocar desde el Activador. Dentro del editor puedes agregar, duplicar, actualizar y eliminar perfiles y eventos. El Editor tiene una barra inferior de botones, que te permite cambiar la vista del Editor. Úsala para cambiar entre las listas de perfiles y de eventos.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Ocultar detalles del evento</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Ocultar detalles del evento en la lista del Editor de eventos.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Ocultar detalles del evento para el filtro \"Orden de inicio\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Ocultar los detalles del evento en la lista del Editor de eventos cuando se establece el filtro \"Orden de inicio\".</string>
+    <string name="array_pref_force_stop_with_pppe">Forzar parada con PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Detener a la fuerza con comando</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

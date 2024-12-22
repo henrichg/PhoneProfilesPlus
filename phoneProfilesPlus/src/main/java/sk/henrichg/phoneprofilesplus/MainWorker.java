@@ -231,7 +231,7 @@ public class MainWorker extends Worker {
                             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED,
                                     null, null, "");
 
-                            dataWrapper.restartEventsWithDelay(false, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:

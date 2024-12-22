@@ -384,7 +384,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
 //        PPApplication.updateGUI(true, false, activityDataWrapper.context);
         // rescan is not needed when only order in Activator is changed
-        activityDataWrapper.restartEventsWithDelay(false, false, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+        activityDataWrapper.restartEventsWithDelay(/*false,*/ false, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
     void showTargetHelps(final Activity activity, final View listItemView) {

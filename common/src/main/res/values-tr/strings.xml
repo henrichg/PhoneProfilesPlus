@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Aksesuarları şartı:</b> Misalen, kulaklık bağlandığında, bir Durumu başlatmak.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC şartı:</b> Bir Durumu NFC etiketleri ile başlatın.]]></string>
     <string name="important_info_quick_guide_events_3">El ile bir Tercih (bir Durum tarafından değil) faaliyete geçirirseniz, çalışan durumların tamamı sona erer (fasıla verir). Durumlar, el ile Tercih faaliyete geçirme müddetince başlatılamaz. Fakat, bu hareketi \"El ile faaliyete geçirmeyi ihmal et\" Durum değeri ayarı hükümsüz kılabilirsiniz.</string>
-    <string name="important_info_quick_guide_editor_1">Tercih ve Durumlar, Muharrik ile ulaşılabilen Düzenleyici\'de ayarlanır. Düzenleyici içinde Tercih ve Durumları ilave etme, çoğaltma, güncelleştirme ve silme işlemleri yapabilirsiniz. Düzenleyicide görünümünü değiştirmenize imkân sağlayan bir sol yan panel büyüklüğe bulunur. Tercih ve Durum listeleri arasında geçiş yapmak için kullanabilirsiniz.</string>
     <string name="event_preferences_noPauseByManualActivation">El ile faaliyete geçirmeyle duraklatılmasın</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Bu Durum, el ile faaliyete geçirilmiş bir Tercih çalışırken durmasın</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Etiket ismi ayarlanmamış.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Lutfen PhoneProfilesPlusExtender yeni sürümünü yükleyin. Yükleme hakkında daha fazla malumat, PhoneProfilesPlusExtender\'ın gerekli olduğu değerlerde bulunuyor.</string>
     <string name="important_info_accessibility_service_new_version_2">PhoneProfilesPlusExtender\'ın son sürümünü kurmak için buraya dokunun.</string>
     <string name="array_pref_no_force_stop">Durdurmak için zorlama</string>
-    <string name="array_pref_force_stop">Durmaya zorla</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Uygulamaları durmaya zorla</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Zorla durdurulacak uygulamalar</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">\"Uygulamaları zorla durdur\" şartına izin vermeyi sağlayan PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Датчик аксесуарів:</b> Розпочати подію, коли, наприклад, під\'єднані навушники.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Датчик NFC:</b> Початок події через NFC мітки.]]></string>
     <string name="important_info_quick_guide_events_3">Якщо ви активуєте профіль вручну (не за подією), всі запущені події завершуються (призупиняються). Під час роботи вручну активованого профілю, події починатися не будуть. (А) Проте, ви можете змінити цю поведінку, використовуючи опцію \"Ігнорувати ручну активацію\" в параметрах події.</string>
-    <string name="important_info_quick_guide_editor_1">Профілі та Події налаштовуються у Редакторі, який можна викликати через Активатор. В Редакторі можна додавати, дублювати, оновлювати та вилучати профілі та події. За допомогою лівої бічної панелі Редактора можна змінити його вміст. Використовуйте її для перемикання між списками профілів і подій.</string>
     <string name="event_preferences_noPauseByManualActivation">Не призупиняти вручну</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Не призупиняти цю запущену подію якщо профіль запущено вручну</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Назву мітки не встановлено.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Будь ласка, встановіть нову версію PhoneProfilesPlusExtender. Додаткові відомості про встановлення - в параметрах, для яких потрібен PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Натисніть тут, щоб встановити останню версію PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Не зупиняти примусово</string>
-    <string name="array_pref_force_stop">Примусово припиняти</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Примусова зупинка застосунків</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Застосунки, які потрібно примусово зупиняти</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Щоб увімкнути параметр \"Примусова зупинка застосунків\", натисніть сюди для встановлення PhoneProfilesPlusExtender.</string>
@@ -2256,7 +2254,7 @@
     <string name="mobile_cells_registration_cell_name_not_set">[ Не вказано ]</string>
     <string name="profile_preferences_deviceKeyguard">Екран блокування</string>
     <string name="profile_preferences_deviceKeyguard_info_summary">Цей параметр вмикає/вимикає екран блокування пристрою. Коли встановлено на \"Вимкнено\" - екран блокування не з\'являється при увімкненні екрану.</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Setting \"Screen timeout\" in the system (by profile activation) does not disable \"Keep screen on\". You also need to configure \"Keep Screen On\" to \"Off\" if you want \"Screen Timeout\" to work on the system.</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary">Налаштування \"Час роботи екрану\" (якщо активація профілем) не вимикає опцію \"Залишити екран увімкненим\". Тому Вам потрібно вимкнути цю опцію щоб все запрацювало вірно.</string>
     <string name="profile_preferences_deviceScreenOnOff">Екран Увімк/Вимк</string>
     <string name="keep_screen_on_active_notification_description">\"Залишати екран увімкнутим\" - увімкнуто. Щоб вимкнути потрібно налаштувати й активувати профіль де \"Залишати екран увімкнутим\" - вимкнуто.</string>
     <string name="permission_why_profile_screen_on_off">для увімк/вимк екрана</string>
@@ -2269,8 +2267,16 @@
     <string name="array_pref_atEndDo_none">Нічого</string>
     <string name="array_pref_launcher_switch_profiles">Перемикнути профілі (тільки для двох налаштованих профілів)</string>
     <string name="importantinfo_tasker_command_copy_to_clipboard_toast">Скопійовано до буфера обміну</string>
-    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Preferences indicator</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
-    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
-    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorCategory">Індикатор налаштувань</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Тип кольору іконок буде використовуватися як для іконки профілю, так і для індикатора налаштувань.</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Використовувати динамічний колір для індикатора</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Світлість тексту буде використовуватися як для тексту, так і для іконки \"Перезапустити події\".</string>
+    <string name="important_info_quick_guide_editor_1">Профілі та Події налаштовуються у Редакторі, який можна викликати через Активатор. В Редакторі можна додавати, дублювати, оновлювати та вилучати профілі та події. За допомогою нижньої панелі Редактора можна змінити його вигляд. Використовуйте її для перемикання між списками профілів і подій.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Сховати подробиці події</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Приховати подробиці про подію у списку подій редактора.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Сховати подробиці про подію в списку редакторів, коли встановлено фільтр «Порядок запуску».</string>
+    <string name="array_pref_force_stop_with_pppe">Використати PPPE для примусової зупинки</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Примусово зупинити командою</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примітка: Може не працювати на вашому пристрої.</string>
 </resources>

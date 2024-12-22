@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Senzor dodatne opreme:</b> Pokrenite događaj kada su, na primjer, povezane slušalice.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC senzor:</b> Pokretanje događaja sa NFC tagom.]]></string>
     <string name="important_info_quick_guide_events_3">Ako ručno aktivirate profil ( ne sa događajem) svi događaji koji rade će se završiti (pauzirati). Događaji se neće pokrenuti tokom ručne aktivacije. Svakako možete da da zaobiđete ovu opciju sa podešavanjima \"Ignoriši ručnu aktivaciju\" u parametrima događaja.</string>
-    <string name="important_info_quick_guide_editor_1">Profili i događaji su podešeni u uređivaču (Editoru), na koji se možete pozvati putem Aktivatora. Unutar uređivača možete dodavati, duplicirati, ažurirati i brisati profile i događaje. Uređivač ima ljevi bočni panel koji vam omogućuje promjenu prikaza uređivača. Koristite ga za prebacivanje između popisa profila i događaja.</string>
     <string name="event_preferences_noPauseByManualActivation">Nemojte pauzirati tokom ručne aktivacije</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Nemojte pauzirate ovaj pokrenuti događaj ako je profil ručno aktiviran</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Ime taga nije konfigurirano.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Instalirajte novu verziju PhoneProfilesPlusExtender-a. Više informacija o instalaciji se nalazi u parametru koji zahtjeva PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Nemojte prisilno zaustaviti</string>
-    <string name="array_pref_force_stop">Prisilno zaustavi</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Prisilno zaustaviti aplikacije</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikacije za prisilno zaustavljanje</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Za omogućavanje parametra \"Prislino zaustavi aplikacije\" klikni ovdje za instalaciju PhoneProfilesPlusExtender-a.</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

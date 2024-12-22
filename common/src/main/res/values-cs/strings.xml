@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Senzor příslušenství:</b> Start události, když jsou například připojena sluchátka.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Senzor NFC:</b> Start události pomocí NFC tagů.]]></string>
     <string name="important_info_quick_guide_events_3">Pokud jste manuálně aktivovali profil (ne událost), všechny běžící události se ukončí (pozastaví). Události se nespustí během manuálně aktivovaného profilu. Nicméně můžete přepsat toto chování prostřednictvím parametru \"Ignoruj manuální aktivaci\" v nastaveních události.</string>
-    <string name="important_info_quick_guide_editor_1">Profily a události jsou nakonfigurovány v Editoru, který si můžete vyvolat přes Aktivátor. V Editoru můžete přidat, duplikovat, aktualizovat a odstranit profily a události. Editor má levý boční panel, který vám umožní změnit pohled Editoru. Použijte ho na přepínání mezi seznamy profilů a událostí.</string>
     <string name="event_preferences_noPauseByManualActivation">Nezastavuj manuální aktivací</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Nezastavovat tuto událost ruční aktivací profilu, pokud je událost spuštěna</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Název tagu není nakonfigurován.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Prosím nainstalujte novou verzi PhoneProfilesPlusExtender. Další informace o instalaci jsou v parametrech, které PhoneProfilesPlusExtender vyžaduje.</string>
     <string name="important_info_accessibility_service_new_version_2">Klikněte zde pro nainstalování nejnovější verze PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Nevynucovat zastavení</string>
-    <string name="array_pref_force_stop">Vynucovat zastavení</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Vynutit zastavení aplikací</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikace, u kterých vynutit zastavení</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pro povolení parametru \"Vynutit zastavení aplikací\", klikněte zde pro instalaci PhoneProfilesPlusExtender.</string>
@@ -2273,4 +2271,13 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Typ barvy ikony bude použit jak pro ikonu profilu, tak pro indikátor parametrů.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Použít dynamickou barvu pro indikátor</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Světlost textu bude použita jak pro text, tak pro ikonu \"Restart událostí\".</string>
+    <string name="important_info_quick_guide_editor_1">Profily a události jsou nakonfigurovány v Editoru, který si můžete vyvolat přes Aktivátor. V Editoru můžete přidat, duplikovat, aktualizovat a odstranit profily a události. Editor má spodní panel tlačítek, který vám umožní změnit pohled Editoru. Použijte ho na přepínání mezi seznamy profilů a událostí.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Skrýt podrobnosti události</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Skrýt podrobnosti události v seznamu událostí editoru.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Skrýt podrobnosti události pro \"Pořadí startu\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Skrýt podrobnosti události v seznamu událostí editoru, když je nastaven filtr \"Pořadí startu\".</string>
+    <string name="array_pref_force_stop_with_pppe">Vynutit zastavení pomocí PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Vynutit zastavení příkazem</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Poznámka: Ve vašem zařízení nemusí fungovat.</string>
+    <string name="pppputsettings_menu_discord_invitation">Pozvánka na server</string>
 </resources>

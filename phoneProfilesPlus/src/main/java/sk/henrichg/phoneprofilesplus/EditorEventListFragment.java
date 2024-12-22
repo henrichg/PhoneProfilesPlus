@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -292,8 +291,8 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        ((EditorActivity) activity).addEventDialog = new AddEventDialog(activity, this);
-                        ((EditorActivity) activity).addEventDialog.show();
+                        activity.addEventDialog = new AddEventDialog(activity, this);
+                        activity.addEventDialog.show();
                     }
                 }
                 return true;
@@ -360,17 +359,14 @@ public class EditorEventListFragment extends Fragment
             //noinspection DataFlowIssue
             hideEventDetaildSwitch.setVisibility(VISIBLE);
             hideEventDetaildSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder);
-            hideEventDetaildSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    SharedPreferences preferences = activityDataWrapper.context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, isChecked);
-                    editor.apply();
-                    ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder = isChecked;
-                    // must be called reloadActivity(), because must by invocked fragment layout with/without event details
-                    GlobalGUIRoutines.reloadActivity(activity, false);
-                }
+            hideEventDetaildSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                SharedPreferences preferences = activityDataWrapper.context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, isChecked);
+                editor.apply();
+                ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder = isChecked;
+                // must be called reloadActivity(), because must by invocked fragment layout with/without event details
+                GlobalGUIRoutines.reloadActivity(activity, false);
             });
         } else {
             //noinspection DataFlowIssue

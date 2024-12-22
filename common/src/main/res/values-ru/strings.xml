@@ -545,7 +545,7 @@
     <string name="wifi_ssid_pref_dlg_all_ssids_chb">Все SSID</string>
     <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Все имена Bluetooth-устройств</string>
     <string name="editor_drawer_list_item_events_start_order">В порядке запуска</string>
-    <string name="editor_drawer_order_start_order">Времени начала</string>
+    <string name="editor_drawer_order_start_order">В порядке запуска</string>
     <string name="info_notification_event_priority_new">Каждое событие имеет \"Приоритет\". Событие не запустится, если уже выполняется событие с более высоким приоритетом.</string>
     <string name="info_notification_event_start_order">События запускаются в \"Порядке запуска\". Порядок запуска можно изменить в Редакторе, выбрав в левом боковом меню \"В порядке запуска\". События можно перетащить вверх/вниз с помощью \"упорядочивателя\".</string>
     <string name="info_notification_event_start_order_handler_icon">Упорядочиватель:</string>
@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Датчик аксессуаров:</b> Запуск события, когда, например, подключены наушники.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Датчик NFC:</b> Запуск события посредством NFC-меток.]]></string>
     <string name="important_info_quick_guide_events_3">Если вы активируете профиль вручную (не по событию), все запущенные события завершаются (приостанавливаются). Во время работы вручную активированного профиля события начинаться не будут. Тем не менее, вы можете переопределить это поведение, используя опцию \"Игнорировать ручную активацию\" в параметрах события.</string>
-    <string name="important_info_quick_guide_editor_1">Профили и События настраиваются в Редакторе, который можно вызвать через Активатор. В Редакторе можно добавлять, дублировать, обновлять и удалять профили и события. С помощью левой боковой панели Редактора можно изменить его содержимое. Используйте её для переключения между списками профилей и событий.</string>
     <string name="event_preferences_noPauseByManualActivation">Не приостанавливать вручную</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Не приостанавливать это запущенное событие при ручной активации профиля</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Имя метки не настроено.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Установите, пожалуйста, новую версию PhoneProfilesPlusExtender. Дополнительные сведения об установке - в параметрах, для которых требуется PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_new_version_2">Нажмите сюда, чтобы установить последнюю версию PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Не останавливать принудительно</string>
-    <string name="array_pref_force_stop">Останавливать принудительно</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Принудительная остановка приложений</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Приложения, которые нужно принудительно останавливать</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Чтобы включить параметр \"Принудительная остановка приложений\", нажмите сюда для установки PhoneProfilesPlusExtender.</string>
@@ -992,7 +990,7 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Расширяемый</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Большой</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Маленький</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Предоставьте, пожалуйста, PhoneProfilesPlusExtender разрешение \"Телефон\". Оно требуется для получения звонков.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Предоставьте, пожалуйста, PhoneProfilesPlusExtender разрешение \"SMS\". Оно требуется для получения Extender\'ом SMS/MMS.</string>
     <string name="array_event_pref_peripheralType_headphones">Наушники без микрофона</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не установлен!</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Тип иконки будет использоваться и для иконки профиля, и для индикатора настроек.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Динамический цвет для индикатора</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Яркость текста будет использоваться и для текста, и для иконки перезапуска событий.</string>
+    <string name="important_info_quick_guide_editor_1">Профили и События настраиваются в Редакторе, который можно вызвать через Активатор. В Редакторе можно добавлять, дублировать, обновлять и удалять профили и события. С помощью нижней панели Редактора можно изменить его содержимое. Используйте её для переключения между списками профилей и событий.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Скрыть детали события</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Скрыть детали события в списке событий Редактора.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Скрыть детали события при фильтре \"В порядке запуска\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Скрыть детали события в списке событий Редактора, если установлен фильтр \"В порядке запуска\".</string>
+    <string name="array_pref_force_stop_with_pppe">Принудительная остановка через PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Принудительная остановка командой</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примечание: Может не работать на вашем устройстве.</string>
 </resources>

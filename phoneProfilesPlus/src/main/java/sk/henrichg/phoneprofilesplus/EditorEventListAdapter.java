@@ -380,7 +380,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public void clearView() {
         // end of drag handler
 
-        activityDataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+        activityDataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
     }
 
     void showTargetHelps(Activity activity, View listItemView) {

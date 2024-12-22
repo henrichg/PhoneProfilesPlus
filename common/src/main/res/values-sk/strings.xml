@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Senzor príslušenstva:</b> Štart udalosti, keď sú napríklad pripojené slúchadlá.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Senzor NFC:</b> Štart udalosť pomocou NFC tagov.]]></string>
     <string name="important_info_quick_guide_events_3">Ak ste manuálne aktivovali profil (nie udalosť), všetky bežiace udalosti sa ukončia (pozastavia). Udalosti sa nespustia počas manuálne aktivovaného profilu. Avšak môžete prepísať toto správanie prostredníctvom parametra \"Ignoruj manuálnu aktiváciu\" v nastaveniach udalosti.</string>
-    <string name="important_info_quick_guide_editor_1">Profily a udalosti sú nakonfigurované v Editore, ktorý si môžete vyvolať cez Aktivátor. V Editore môžete pridať, duplikovať, aktualizovať a odstrániť profily a udalosti. Editor má ľavý bočný panel, ktorý vám umožní zmeniť pohľad Editora. Použite ho na prepínanie medzi zoznamami profilov a udalostí.</string>
     <string name="event_preferences_noPauseByManualActivation">Nezastavuj manuálnou aktiváciou</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Nezastavovať túto udalosť manuálnou aktiváciou profilu ak je spustená</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Názov tagu nie je nakonfigurovaný.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Prosím nainštalujte novú verziu PhoneProfilesPlusExtender. Ďalšie informácie o inštalácii sú v parametroch, ktoré PhoneProfilesPlusExtender vyžadujú.</string>
     <string name="important_info_accessibility_service_new_version_2">Kliknite sem pre nainštalovanie najnovšej verzie PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Nevynucovať zastavenie</string>
-    <string name="array_pref_force_stop">Vynucovať zastavenie</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Vynútiť zastavenie aplikácií</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikácie, ktorým vynútiť zastavenie</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pre povolenie parametra \"Vynútiť zastavenie aplikácií\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Typ farby ikony sa použije pre ikonu profilu aj indikátor parametrov.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Použiť dynamickú farbu pre indikátor</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Svetlosť textu sa použije pre text aj ikonu „Reštart udalostí“.</string>
+    <string name="important_info_quick_guide_editor_1">Profily a udalosti sú nakonfigurované v Editore, ktorý si môžete vyvolať cez Aktivátor. V Editore môžete pridať, duplikovať, aktualizovať a odstrániť profily a udalosti. Editor má spodný panel tlačítok, ktorý vám umožní zmeniť pohľad Editora. Použite ho na prepínanie medzi zoznamami profilov a udalostí.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Skryť podrobnosti udalosti</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Skryť podrobnosti udalosti v zozname udalostí editora.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Skryť podrobnosti udalosti pre \"Poradie štartu\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Skryť podrobnosti udalosti v zozname udalostí editora, keď je nastavený filter \"Poradie štartu\".</string>
+    <string name="array_pref_force_stop_with_pppe">Vynútiť zastavenie pomocou PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Vynútiť zastavenie príkazom</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Poznámka: Vo vašom zariadení nemusí fungovať.</string>
 </resources>

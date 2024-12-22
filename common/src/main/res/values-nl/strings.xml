@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Accessoire sensor:</b> Start event wanneer bijvoorbeeld je een koptelefoon aansluit.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC sensor:</b> Start een gebeurtenis via NFC tags.]]></string>
     <string name="important_info_quick_guide_events_3">Als je handmatig een profiel activeert (niet door een event) stoppen alle events (onderbroken). Events starten niet bij handmatig profiel activeren. Je kunt deze instelling via de \"Handmatig activeren wijzigen bij de event parameters.</string>
-    <string name="important_info_quick_guide_editor_1">Profielen en evenementen configureer je in de Editor die je via de Activator kunt starten. Binnen de Editor kun je toevoegen, dupliceren, bijwerken en verwijderen van profielen en evenementen. De Editor heeft links een zijpaneel waarmee je de weergave van de Editor kunt wijzigen. Gebruik dit om te schakelen tussen de profiel- en eventlijsten.</string>
     <string name="event_preferences_noPauseByManualActivation">Pauzeer niet door handmatige activering</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Pauzeer dit event niet door handmatige profiel activering tijdens uitvoeren</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag naam niet geconfigureerd.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Installeer de nieuwe versie van PhoneProfilesPlusExtender. Meer informatie over de installatie vind je bij de opties die PhoneProfilesPlusExtender gebruiken.</string>
     <string name="important_info_accessibility_service_new_version_2">Klik hier om de nieuwste versie van PhoneProfilesPlusExtender te installeren.</string>
     <string name="array_pref_no_force_stop">Stoppen niet forceren</string>
-    <string name="array_pref_force_stop">Stoppen forceren</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Forceer stoppen programma\'s</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Programma\'s forceren het te stoppen</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Om \"Forceer stoppen programma\" mogelijk te maken hier kliķken om PhoneProfilesPlusExtender te installeren.</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Pictogram kleurtype gebruik je voor profielpictogram en voorkeuren indicator.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Gebruik dynamische kleur voor indicator</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Teksthelderheid zal zowel voor tekst als voor \"Herstart gebeurtenissen\" pictogram worden gebruikt.</string>
+    <string name="important_info_quick_guide_editor_1">Profielen en gebeurtenissen configureer je in de Editor die je via de Activator kunt starten. Binnen de Editor kun je toevoegen, dupliceren, bijwerken en verwijderen van profielen en evenementen. De editor heeft een knop onderaan, waarmee je de weergave van de Editor kunt wijzigen. Gebruik deze om te schakelen tussen de profiel- en gebeurtenislijsten.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Verberg details van afspraak</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Verberg event details in Editor event lijst.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Verberg event details voor \"Start volgorde\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Verberg event details in de event lijst van de editor wanneer het \"Start volgorde\" filter is ingesteld.</string>
+    <string name="array_pref_force_stop_with_pppe">Stoppen forceren met PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Forceer stoppen met opdracht</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Opmerking: Werkt mogelijk niet op jouw apparaat.</string>
 </resources>

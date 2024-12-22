@@ -677,7 +677,7 @@
     <string name="event_preference_activity_targetHelps_save_title">Save event</string>
     <string name="event_preference_activity_targetHelps_save_description">Click this to save event preference changes.</string>
     <string name="about_application_privacy_policy">Privacy Policy:</string>
-    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
+    <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will be activated when no any event is running.</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
     <string name="profile_preferences_lockDevice">Lock device</string>
     <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Accessories sensor:</b> Start an event when, for example, headphones are connected.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC sensor:</b> Start an event via NFC tags.]]></string>
     <string name="important_info_quick_guide_events_3">If you manually activate a profile (not by an event), all running events are ended (paused). Events will not start during manual profile activation. However, you can override this behavior via the \"Ignore manual activation\" setting in event parameters.</string>
-    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a left side panel, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
     <string name="event_preferences_noPauseByManualActivation">Do not pause during manual activation</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this running event if a profile is manually activated</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag name is not configured.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">कृपया PhoneProfilesPlusExtender का नया संस्करण स्थापित करें । स्थापना के बारे में अधिक जानकारी के लिए PhoneProfilesPlusExtender आवश्यक है जो पैरामीटर्स में है ।</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">बलपूर्वक न रोकें</string>
-    <string name="array_pref_force_stop">बंद करना बाध्‍य करें</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">बलपूर्वक रोकें आवेदन</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">आवेदन करने के लिए मजबूर इसे बंद</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">सक्षम करने के लिए \"बलपूर्वक अनुप्रयोग रोकें\" पैरामीटर, PhoneProfilesPlusExtender स्थापित करने के लिए यहां क्लिक करें ।</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

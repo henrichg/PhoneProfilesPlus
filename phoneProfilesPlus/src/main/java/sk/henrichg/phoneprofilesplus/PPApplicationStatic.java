@@ -143,8 +143,8 @@ class PPApplicationStatic {
         _cancelWork(BluetoothScanWorker.WORK_TAG, false);
         _cancelWork(BluetoothScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
-        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_1, false);
-        _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
+        //_cancelWork(RestartEventsWithDelayWorker.WORK_TAG_1, false);
+        //_cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, false);

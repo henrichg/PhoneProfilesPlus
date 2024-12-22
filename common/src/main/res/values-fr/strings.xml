@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Capteur d\'accessoires :</b> Démarrer un événement lorsque, par exemple, des écouteurs sont connectés.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>Capteur NFC:</b> Lancer un événement via les balises NFC.]]></string>
     <string name="important_info_quick_guide_events_3">Si vous activez manuellement un profil (et non par un événement), tous les événements en cours sont arrêtés (en pause). Les événements ne démarreront plus suite à l’activation manuelle d\'un profil. Toutefois, vous pouvez passer outre ce comportement via le paramètre \"Ignorer l’activation manuelle\" dans les paramètres de l’événement.</string>
-    <string name="important_info_quick_guide_editor_1">Profils et événements sont configurés dans l’éditeur que vous pouvez appeler par le biais de l’activateur. Dans l’éditeur, vous pouvez ajouter, dupliquer, mettre à jour et supprimer des profils et des événements. L’éditeur a un panneau latéral gauche, qui vous permet de modifier l’affichage de l’éditeur. Il permet de commuter entre les profils et les événements.</string>
     <string name="event_preferences_noPauseByManualActivation">Ne pas mettre en pause lors de l\'activation manuelle</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Ne pas mettre en pause cet événement lors de l\'activation manuelle d\'un profil</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Le nom de la balise n’est pas configuré.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Veuillez installer la nouvelle version de PhoneProfilesPlusExtender. Les informations d\'installation sont présentes dans les paramètres qui en ont besoin.</string>
     <string name="important_info_accessibility_service_new_version_2">Cliquez ici pour installer la dernière version de PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Ne pas forcer l\'arrêt</string>
-    <string name="array_pref_force_stop">Forcer l\'arrêt</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force l\'arrêt des applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications dont on doit forcer l\'arrêt</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pour activer le paramètre \"Forcer l\'arrêt des applications\", cliquez ici pour installer PhoneProfilesPlusExtender.</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Le type de couleur de l\'icône sera utilisé à la fois pour l\'icône de profil et l\'indicateur de préférences.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Utiliser une couleur dynamique pour l\'indicateur</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">La luminosité du texte sera utilisée à la fois pour le texte et pour l\'icône « Redémarrer les événements ».</string>
+    <string name="important_info_quick_guide_editor_1">Les profils et les événements sont configurés dans l\'éditeur, que vous pouvez appeler via l\'activateur. Dans l\'éditeur, vous pouvez ajouter, dupliquer, mettre à jour et supprimer des profils et des événements. L\'éditeur dispose d\'une barre de boutons inférieure qui vous permet de modifier la vue de l\'éditeur. Utilisez-la pour basculer entre les listes de profils et d\'événements.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Masquer les détails de l\'événement</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Masquer les détails de l\'événement dans la liste des événements de l\'éditeur.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Masquer les détails de l\'événement pour \"Ordre de démarrage\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Masquer les détails de l\'événement dans la liste des événements de l\'éditeur lorsque le filtre \"Ordre de démarrage\" est défini.</string>
+    <string name="array_pref_force_stop_with_pppe">Forcer l\'arrêt avec PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Forcer l\'arrêt avec la commande</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note : Peut ne pas fonctionner sur votre appareil.</string>
 </resources>

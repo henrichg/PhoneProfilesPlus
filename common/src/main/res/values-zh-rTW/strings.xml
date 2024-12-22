@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>配件感測器:</b> 例如，在連接耳機時啟動事件。]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC 感測器:</b> 透過 NFC 標籤啟動事件。]]></string>
     <string name="important_info_quick_guide_events_3">如果您手動啟動一個設定檔 (而非經由事件), 所有執行中的事件都將結束 (暫停). 事件不會在手動啟動的期間被觸發. 但是您可以透過事件參數中的 \"忽略手動啟動\" 設定來重寫此行為.</string>
-    <string name="important_info_quick_guide_editor_1">設定檔和事件在編輯器中設置，您可以透過啟動器調用它們。在編輯器中，您可以增加、複製、更新與刪除設定檔和事件。編輯器有一個左側面板，允許您變更編輯器檢視。用它在設定檔和事件清單之間切換。</string>
     <string name="event_preferences_noPauseByManualActivation">在手動啟動期間不要暫停</string>
     <string name="event_preferences_noPauseByManualActivation_summary">即使有設定檔被手動啟動, 也不要暫停這個執行中的事件.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">未設置標籤名稱。</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">請安裝新版的 PhoneProfilesPlusExtender。關於安裝的詳細資訊，請參閱需要 PhoneProfilesPlusExtender 的參數。</string>
     <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">不要強制停止</string>
-    <string name="array_pref_force_stop">強制停止</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">強制停止應用程式</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">強制停止它的應用程式</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">要啟用\"強制停止應用程式\"參數，按此處安裝 PhoneProfilesPlusExtender。</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Icon color type will be used both for profile icon and preferences indicator.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Use dynamic color for indicator</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Text lightness will be used both for text and \"Restart events\" icon.</string>
+    <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a bottom button bar, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
+    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
 </resources>

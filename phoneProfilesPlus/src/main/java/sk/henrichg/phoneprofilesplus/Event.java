@@ -2328,7 +2328,7 @@ class Event {
                     // Do not restart events when is event paused during restart events !!!
                     // do not reactivate profile to avoid infinite loop
 
-                    dataWrapper.restartEventsWithDelay(false, false, true, false, PPApplication.ALTYPE_UNDEFINED);
+                    dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
 
                     // keep wakelock awake 5 secods
                     // this may do restart after 5 seconds also in Doze mode

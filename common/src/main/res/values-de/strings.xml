@@ -761,7 +761,6 @@
     <string name="important_info_quick_guide_sensors_8"><![CDATA[<b>Zubehör-Ereignisse:</b> Starten eines Ereignisses, z. B. wenn Kopfhörer angeschlossen werden.]]></string>
     <string name="important_info_quick_guide_sensors_9"><![CDATA[<b>NFC Ereignisse:</b> starten Sie ein Ereignis über NFC Tags.]]></string>
     <string name="important_info_quick_guide_events_3">Wenn sie manuell ein Profil aktivieren, (nicht über ein Ereignis) werden alle laufenden Ereignisse pausiert. Es starten dann keine Ereignisse mehr, außer sie aktivieren die Option \"Ignoriere manuelle Aktivierung\" in einem oder mehreren Ereignissen.</string>
-    <string name="important_info_quick_guide_editor_1">Profile und Events werden im Editor eingestellt. Dieser ist über das Pop-Up Hauptfenster erreichbar. Dort können sie Profile und Events hinzufügen, duplizieren, aktualisieren und löschen. Der Editor hat links ein Menü um die Profil/Event Ansichten zu wechseln.</string>
     <string name="event_preferences_noPauseByManualActivation">Nicht bei manueller Aktivierung anhalten</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Das laufende Ereignis nicht anhalten, wenn ein Profil manuell aktiviert wurde</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag-Name ist nicht konfiguriert.</string>
@@ -849,7 +848,6 @@
     <string name="important_info_accessibility_service_new_version">Bitte installieren sie die neue Version des PhoneProfilesPlusExtender. Weitere Informationen über die Installation finden sie in den Parametern wozu der Extender benötigt wird.</string>
     <string name="important_info_accessibility_service_new_version_2">Klicken Sie hier, um die neueste Version von PhoneProfilesPlusExtender zu installieren.</string>
     <string name="array_pref_no_force_stop">Nicht abbrechen</string>
-    <string name="array_pref_force_stop">Abbrechen</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Zu beendende Programme</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Zu beendende Programme</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Sie müssen PhoneProfilesPlusExtender installieren um Programme automatisiert beenden zu können.</string>
@@ -1935,9 +1933,9 @@
     <string name="latest_pppps_release">New PPPPutSettings version</string>
     <string name="latest_pppps_release_notification">Click this notification to install new PPPPutSettings release.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Install PPPE</string>
-    <string name="pppextender_pref_dialog_launch_button">Launch PPPE</string>
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable</string>
+    <string name="pppextender_pref_dialog_install_button">PPPE installieren</string>
+    <string name="pppextender_pref_dialog_launch_button">PPPE starten</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Aktivieren/Deaktivieren</string>
     <string name="pppextender_pref_dialog_close_button">Schließen</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here for install/upgrade, enable/disable Accessibility settings, launch PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">Neue Version nötig. Hier klicken um PhoneProfilePlusExtender zu aktualisieren.</string>
@@ -2156,7 +2154,7 @@
     <string name="dash_clock_widget_info_2">Dash Clock Widget auf GitHub:</string>
     <string name="dash_clock_widget_info_3">APKMirror herunterladen:</string>
     <string name="shortcut_to_editor_dialog_title">Verknüpfung zum Editor</string>
-    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Verknüpfung zu „Mobilfunkzellen scannen”</string>
+    <string name="shortcut_to_mobile_cells_scanning_dialog_title">Verknüpfung zu „Mobile Zellen suchen”</string>
     <string name="shortcut_to_read_nfc_tag_dialog_title">Verknüpfung zu „NFC-Tag lesen”</string>
     <string name="shortcut_to_dialog_lablel">Name des Verknüpfungssymbols:</string>
     <string name="shortcut_to_dialog_create_button">Erstellen</string>
@@ -2273,4 +2271,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconColor_summary">Der Farbtyp des Symbols wird sowohl für das Profilsymbol als auch für die Einstellungsanzeige verwendet.</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Dynamische Farbe für Indikator verwenden</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Die Texthelligkeit wird sowohl für den Text als auch für das Symbol „Ereignisse neu starten“ verwendet.</string>
+    <string name="important_info_quick_guide_editor_1">Profile und Ereignisse werden im Editor konfiguriert, den Sie über den Aktivator aufrufen können. Im Editor können Sie Profile und Ereignisse hinzufügen, duplizieren, aktualisieren und löschen. Der Editor verfügt über eine untere Symbolleiste, mit der Sie die Ansicht des Editors ändern können. Mit ihr können Sie zwischen Profil- und Ereignislisten wechseln.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Ereignisdetails ausblenden</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Ereignisdetails in der Editor-Ereignisliste ausblenden.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Ereignisdetails für „Startreihenfolge“ ausblenden</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Ereignisdetails in der Ereignisliste des Editors ausblenden, wenn der Filter „Startreihenfolge“ festgelegt ist.</string>
+    <string name="array_pref_force_stop_with_pppe">Stopp mit PPPE erzwingen</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Stopp mit Befehl erzwingen</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Hinweis: Funktioniert möglicherweise nicht auf Ihrem Gerät.</string>
 </resources>

@@ -14,10 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -2489,9 +2485,10 @@ class DataWrapper {
     }
 
     // delay is in seconds
-    void restartEventsWithDelay(final boolean longDelay, final boolean alsoRescan, final boolean unblockEventsRun,
+    void restartEventsWithDelay(/*final boolean longDelay, */final boolean alsoRescan, final boolean unblockEventsRun,
                                 final boolean manualRestart, final int logType)
     {
+        /*
         if (longDelay) {
 
             Data workData = new Data.Builder()
@@ -2533,7 +2530,7 @@ class DataWrapper {
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-        } else {
+        } else*/ {
 //            PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** DataWrapper.restartEventsWithDelay", "schedule");
 
             final Context appContext = context.getApplicationContext();

@@ -117,11 +117,11 @@ public class PhoneProfilesService extends Service
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
     //static final String EXTRA_RESTART_EVENTS = "restart_events";
-    static final String EXTRA_ALSO_RESCAN = "also_rescan";
-    static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
+    //static final String EXTRA_ALSO_RESCAN = "also_rescan";
+    //static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     //static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
     static final String EXTRA_MANUAL_RESTART = "manual_restart";
-    static final String EXTRA_LOG_TYPE = "log_type";
+    //static final String EXTRA_LOG_TYPE = "log_type";
     //static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
     //static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
