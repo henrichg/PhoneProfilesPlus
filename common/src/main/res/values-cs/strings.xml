@@ -2272,12 +2272,11 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Použít dynamickou barvu pro indikátor</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Světlost textu bude použita jak pro text, tak pro ikonu \"Restart událostí\".</string>
     <string name="important_info_quick_guide_editor_1">Profily a události jsou nakonfigurovány v Editoru, který si můžete vyvolat přes Aktivátor. V Editoru můžete přidat, duplikovat, aktualizovat a odstranit profily a události. Editor má spodní panel tlačítek, který vám umožní změnit pohled Editoru. Použijte ho na přepínání mezi seznamy profilů a událostí.</string>
-    <string name="phone_profiles_pref_applicationHideEventDetails">Skrýt podrobnosti události</string>
-    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Skrýt podrobnosti události v seznamu událostí editoru.</string>
-    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Skrýt podrobnosti události pro \"Pořadí startu\"</string>
-    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Skrýt podrobnosti události v seznamu událostí editoru, když je nastaven filtr \"Pořadí startu\".</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Skrýt detaily události</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Skrýt detaily události v seznamu událostí editoru.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Skrýt detaily události pro \"Pořadí startu\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Skrýt detaily události v seznamu událostí editoru, když je nastaven filtr \"Pořadí startu\".</string>
     <string name="array_pref_force_stop_with_pppe">Vynutit zastavení pomocí PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Vynutit zastavení příkazem</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Poznámka: Ve vašem zařízení nemusí fungovat.</string>
-    <string name="pppputsettings_menu_discord_invitation">Pozvánka na server</string>
 </resources>
