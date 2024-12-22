@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -90,7 +89,6 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             EditorActivity.itemDragPerformed = true;
-                            Log.e("EditorProfileListAdapter.dragHandle.onTouch", "itemDragPerformed=true");
                             mDragStartListener.onStartDrag(holder);
                             break;
                         case MotionEvent.ACTION_UP:
