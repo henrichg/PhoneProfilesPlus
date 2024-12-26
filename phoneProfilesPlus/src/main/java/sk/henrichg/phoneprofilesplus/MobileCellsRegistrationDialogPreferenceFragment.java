@@ -107,8 +107,10 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             @Override
             public void afterTextChanged(Editable s) {
                 String value = mCellsName.getText().toString();
+                // ths is required!!!
                 startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                startButton.setEnabled(!value.isEmpty());
+                if (startButton != null)
+                    startButton.setEnabled(!value.isEmpty());
             }
         });
 
@@ -215,14 +217,12 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             prefContext.sendBroadcast(intent5);
         });
 
-        //mDialog.setOnShowListener(dialog -> {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
+        preference.updateInterface(0, false);
 
+        // required for set changes in dialog buttons
+        mDialog.setOnShowListener(dialog -> {
             preference.updateInterface(0, false);
-        //});
+        });
 
         return mDialog;
     }
@@ -263,7 +263,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
     }
 
     void updateInterface(long millisUntilFinished, boolean forceStop) {
-        if ((mDialog != null) && mDialog.isShowing()) {
+        if ((mDialog != null) /*&& mDialog.isShowing()*/) {
             boolean started = false;
             if ((preference.cellName == null) || preference.cellName.isEmpty())
                 mCellsName.setText(PPApplication.mobileCellsScannerCellsNameForAutoRegistration);
@@ -306,25 +306,27 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
                 mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.accent_color));
             */
 
-            String value = mCellsName.getText().toString();
-            boolean enable = !value.isEmpty();
-            /*if (started) {
-                if (MobileCellsScanner.isEventAdded(preference.event_id)) {
-                    if (MobileCellsScanner.getEventCount() == 1) {
-                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
-                        enable = false;
+            if (startButton != null) {
+                String value = mCellsName.getText().toString();
+                boolean enable = !value.isEmpty();
+                /*if (started) {
+                    if (MobileCellsScanner.isEventAdded(preference.event_id)) {
+                        if (MobileCellsScanner.getEventCount() == 1) {
+                            startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
+                            enable = false;
+                        }
+                        else
+                            startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
                     }
                     else
-                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
+                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
                 }
-                else
-                    startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
-            }
-            else*/
+                else*/
                 startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
-            startButton.setEnabled(enable);
+                startButton.setEnabled(enable);
 
-            stopButton.setEnabled(started);
+                stopButton.setEnabled(started);
+            }
         }
     }
 
