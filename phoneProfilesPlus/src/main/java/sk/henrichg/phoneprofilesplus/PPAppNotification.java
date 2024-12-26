@@ -89,6 +89,9 @@ public class PPAppNotification {
 
                 //notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 //notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+
+                // must be this to avoid Exception at first PPP start, because by this is loaded layout
+                notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
             notificationShowProfileIcon = false; // for small notification at start
             notificationProfileIconColor = "0";
@@ -106,7 +109,7 @@ public class PPAppNotification {
 
             notificationBackgroundCustomColor = 0xFFFFFFFF;
             notificationShowButtonExit = false;
-            notificationLayoutType = "2"; // only small layout
+            //notificationLayoutType = "2"; // only small layout
         }
         else {
             profile = dataWrapper.getActivatedProfileFromDB(false, false);
