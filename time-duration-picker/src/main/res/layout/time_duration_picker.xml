@@ -43,13 +43,22 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
 
+<!--            <TextView-->
+<!--                android:id="@+id/hoursLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"-->
+<!--                android:textColor="@color/pp_display_textColor"-->
+<!--                android:text="@string/time_duration_picker_hour_sign"-->
+<!--                tools:ignore="HardcodedText"/>-->
+
             <TextView
                 android:id="@+id/hoursLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
+                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Display"
                 android:textColor="@color/pp_display_textColor"
-                android:text="@string/time_duration_picker_hour_sign"
+                android:text=":"
                 tools:ignore="HardcodedText"/>
 
             <TextView
@@ -61,13 +70,22 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
 
+<!--            <TextView-->
+<!--                android:id="@+id/minutesLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"-->
+<!--                android:textColor="@color/pp_display_textColor"-->
+<!--                android:text="@string/time_duration_picker_minute_sign"-->
+<!--                tools:ignore="HardcodedText"/>-->
+
             <TextView
                 android:id="@+id/minutesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
+                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Display"
                 android:textColor="@color/pp_display_textColor"
-                android:text="@string/time_duration_picker_minute_sign"
+                android:text=":"
                 tools:ignore="HardcodedText"/>
 
             <TextView
@@ -79,14 +97,14 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
 
-            <TextView
-                android:id="@+id/secondsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
-                android:textColor="@color/pp_display_textColor"
-                android:text="@string/time_duration_picker_second_sign"
-                tools:ignore="HardcodedText"/>
+<!--            <TextView-->
+<!--                android:id="@+id/secondsLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"-->
+<!--                android:textColor="@color/pp_display_textColor"-->
+<!--                android:text="@string/time_duration_picker_second_sign"-->
+<!--                tools:ignore="HardcodedText"/>-->
         </LinearLayout>
 
         <RelativeLayout

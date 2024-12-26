@@ -8,7 +8,8 @@
         <item name="android:textSize">34sp</item>
     </style>
     <style name="TextAppearance.TimeDurationPicker.Unit">
-        <item name="android:textSize">12sp</item>
+<!--        <item name="android:textSize">12sp</item>-->
+        <item name="android:textSize">34sp</item>
     </style>
     <style name="TextAppearance.TimeDurationPicker.Button">
         <item name="android:textSize">@dimen/dialpladTextSize</item>
@@ -18,9 +19,12 @@
     <style name="TextAppearance.TimeDurationPicker.Display.Large">
         <item name="android:textSize">45sp</item>
     </style>
+<!--
     <style name="TextAppearance.TimeDurationPicker.Unit.Large">
         <item name="android:textSize">12sp</item>
+        <item name="android:textSize">45sp</item>
     </style>
+-->
     <style name="TextAppearance.TimeDurationPicker.Button.Large" tools:ignore="UnusedResources">
         <item name="android:textSize">34sp</item>
     </style>
@@ -35,21 +39,25 @@
     <style name="TextAppearance.TimeDurationPicker.Display.Large.Dark">
         <item name="android:textColor">@android:color/primary_text_dark</item>
     </style>
+<!--
     <style name="TextAppearance.TimeDurationPicker.Unit.Large.Dark">
         <item name="android:textColor">@android:color/primary_text_dark</item>
     </style>
+-->
 
     <style name="Widget"/>
     <style name="Widget.TimeDurationPicker">
         <item name="textAppearanceDisplay">@style/TextAppearance.TimeDurationPicker.Display</item>
-        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit</item>
+<!--        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit</item>-->
+        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Display</item>
         <item name="textAppearanceButton">@style/TextAppearance.TimeDurationPicker.Button</item>
         <item name="backspaceIcon">@drawable/ic_backspace</item>
         <item name="clearIcon">@drawable/ic_clear_r</item>
     </style>
     <style name="Widget.TimeDurationPicker.Large" tools:ignore="UnusedResources">
         <item name="textAppearanceDisplay">@style/TextAppearance.TimeDurationPicker.Display.Large</item>
-        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit.Large</item>
+<!--        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit.Large</item>-->
+        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Display.Large</item>
         <item name="textAppearanceButton">@style/TextAppearance.TimeDurationPicker.Button.Large</item>
     </style>
 
@@ -65,7 +73,8 @@
     <style name="Widget.TimeDurationPicker.Dialog">
         <item name="durationDisplayBackground">?colorControlActivated</item>
         <item name="textAppearanceDisplay">@style/TextAppearance.TimeDurationPicker.Display.Large.Dark</item>
-        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit.Large.Dark</item>
+<!--        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit.Large.Dark</item>-->
+        <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Display.Large.Dark</item>
     </style>
 
     <!-- internal stuff -->
