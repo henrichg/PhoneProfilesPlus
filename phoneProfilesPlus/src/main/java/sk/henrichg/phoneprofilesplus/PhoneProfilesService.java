@@ -269,14 +269,12 @@ public class PhoneProfilesService extends Service
                 notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
             } catch (Exception ignored) {}
         }*/
+
         // show notification to avoid ANR in api level 26+
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPAppNotification.showNotification");
 
-// TODO
-//        PPAppNotification.showNotification(getApplicationContext(),
-//                !isServiceRunning, isServiceRunning, true, true);
         PPAppNotification.showNotification(getApplicationContext(),
-                false, isServiceRunning, true, true);
+                !isServiceRunning, isServiceRunning, true, true);
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -1837,9 +1835,7 @@ public class PhoneProfilesService extends Service
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPAppNotification.showNotification");
-// TODO
-//        PPAppNotification.showNotification(appContext, !isServiceRunning, true, true, true);
-        PPAppNotification.showNotification(appContext, false, true, true, true);
+        PPAppNotification.showNotification(appContext, !isServiceRunning, true, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
         PPApplication.showToastForProfileActivation = (intent != null);
