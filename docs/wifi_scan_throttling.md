@@ -18,7 +18,7 @@ If you do not have adb installed on your PC:
 
 `adb shell settings put global wifi_scan_throttle_enabled 0`
 
-**NOTE:
+NOTE:
 - For some devices must be in Developer options enabled:
 - Xiaomi: "USB debugging (Security settings)".
 - Oppo, OnePlus: "Disable permission monitoring".

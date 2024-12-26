@@ -15,7 +15,7 @@ Configure your device:
 1. On your device, go into Settings > About > Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
 2. Go into Settings > Developer Options and enable USB Debugging.
 
-**NOTE:
+NOTE:
 - For some devices must be in Developer options enabled:
 - Xiaomi: "USB debugging (Security settings)".
 - Oppo, OnePlus: "Disable permission monitoring".
