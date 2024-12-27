@@ -21,9 +21,9 @@ If you do not have adb installed on your PC:
 4. After successful execution, all profile parameters marked with (G1) will be enabled.
 
 NOTE:
-For some devices must be in Developer options enabled:
-- Xiaomi: "USB debuging (Security settings)"
-- Oppo: "Disable permission monitoring".
+- For some devices must be in Developer options enabled:
+- Xiaomi: "USB debugging (Security settings)".
+- Oppo, OnePlus: "Disable permission monitoring".
 - Maybe similar option exists in another devices.
 
 Without this grant not working.
