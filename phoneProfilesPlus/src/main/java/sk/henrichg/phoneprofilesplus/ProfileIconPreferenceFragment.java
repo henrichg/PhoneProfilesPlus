@@ -107,8 +107,12 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
                         String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                                 getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
                                 " \"ThemeX: Extract Launcher Theme\". " +
-                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + StringConstants.TAG_BREAK_HTML +
+                                StringConstants.TAG_URL_LINK_START_HTML + "https://apkpure.com/themex-extract-launcher-theme/com.redphx.themex/download" + StringConstants.TAG_URL_LINK_START_URL_END_HTML+
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4)+
+                                StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML
+                                ;
+
                         DialogHelpPopupWindow.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, helpString, true);
                         return true;
                     }
