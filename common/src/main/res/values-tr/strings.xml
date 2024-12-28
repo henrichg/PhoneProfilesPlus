@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Zamanı Düzenle</string>
     <string name="backspace_button_tooltip">Silme tuşu</string>
     <string name="clear_button_tooltip">Temizle</string>
-    <string name="time_duration_picker_hour_sign">S</string>
-    <string name="time_duration_picker_minute_sign">d</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Uygulama bildirimi</string>
     <string name="editor_drawer_title_events_order">Sırala</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Durum sırası</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Simge paketindeki simgeleri kullanmak istiyorsanız, yüklü simge paketindeki simgeleri png dosyaları olarak çıkarma özelliğine sahip uygulamayı yükleyin.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Örnek uygulama için</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Eski, fakat en yeni Android sürümünde de çalışan bir uygulamadır.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Google Play\'de ara.</string>
     <string name="popup_window_close_button_name">Kapat</string>
     <string name="profile_preferences_indicator_image">Tercih ayarları göstergesi</string>
     <string name="profile_preferences_indicator_event_start_image">Durum Tercih ayarları göstergesinin başlangıcı</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

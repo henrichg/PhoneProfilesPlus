@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Editar tiempo</string>
     <string name="backspace_button_tooltip">Retroceso</string>
     <string name="clear_button_tooltip">Limpiar</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Notificación de aplicación</string>
     <string name="editor_drawer_title_events_order">Orden</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Orden de eventos</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Si quieres usar iconos de un paquete de iconos, instala una aplicación que tenga la capacidad de extraer como archivos png los iconos del paquete de iconos instalado.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Por ejemplo, aplicación</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Es una aplicación antigua, pero funcional, también en la versión más reciente de Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Buscar en Google Play.</string>
     <string name="popup_window_close_button_name">Cerrar</string>
     <string name="profile_preferences_indicator_image">Indicador de preferencias de perfil</string>
     <string name="profile_preferences_indicator_event_start_image">Indicador de preferencias de perfil de inicio de evento</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Forzar parada con PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Detener a la fuerza con comando</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

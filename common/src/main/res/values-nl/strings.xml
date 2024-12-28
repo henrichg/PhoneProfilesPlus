@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Bewerk tijd</string>
     <string name="backspace_button_tooltip">Backspace</string>
     <string name="clear_button_tooltip">Wissen</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Programmamelding</string>
     <string name="editor_drawer_title_events_order">Volgorde</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Events volgorde</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Als je iconen uit de icoon pakket wilt gebruiken, installeer dan een applicatie die iconen uit een icoon pakket kan uitpakken als png bestanden.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Bijvoorbeeld programma</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Het is oud, maar werkt ook in de nieuwste Android versie.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Zoek in Google Play.</string>
     <string name="popup_window_close_button_name">Sluiten</string>
     <string name="profile_preferences_indicator_image">Profiel voorkeuren indicator</string>
     <string name="profile_preferences_indicator_event_start_image">Begin van event profiel voorkeuren indicator</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Stoppen forceren met PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Forceer stoppen met opdracht</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Opmerking: Werkt mogelijk niet op jouw apparaat.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

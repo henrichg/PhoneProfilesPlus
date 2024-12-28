@@ -484,7 +484,7 @@ public class PPApplication extends Application
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
     static boolean romIsGalaxy = false;
-    static boolean romIsGalaxy611 = false;
+    //static boolean romIsGalaxy611 = false;
 
     static volatile boolean HAS_FEATURE_BLUETOOTH_LE = false;
     static volatile boolean HAS_FEATURE_WIFI = false;
@@ -1255,7 +1255,7 @@ public class PPApplication extends Application
         }
 
         romIsGalaxy = isGalaxyROM(getApplicationContext());
-        romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
+        //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
 
         // do not used because some dynamic notification, widgets has its own laypouts and in it
         // are colors configured = keep material componets lib to 1.10.0
@@ -2180,7 +2180,7 @@ public class PPApplication extends Application
         }
     }
     */
-
+    /*
     private static boolean isGalaxyROM611(Context appContext) {
         try {
             if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && isSemAvailable(appContext)) {
@@ -2198,6 +2198,7 @@ public class PPApplication extends Application
         }
         return false;
     }
+    */
 
     private static boolean isLG() {
         final String LGE = "lge";

@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Изменить время</string>
     <string name="backspace_button_tooltip">Назад</string>
     <string name="clear_button_tooltip">Очистить</string>
-    <string name="time_duration_picker_hour_sign">ч</string>
-    <string name="time_duration_picker_minute_sign">м</string>
-    <string name="time_duration_picker_second_sign">с</string>
     <string name="phone_profiles_pref_category_status_bar">Уведомления приложения</string>
     <string name="editor_drawer_title_events_order">Порядок</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Порядок событий</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Если вы хотите использовать иконки из набора иконок, установите приложение, умеющее извлекать иконки из установленного набора иконок в виде png-файлов.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Например, приложение</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Оно старое, но работает даже на последней версии Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Ищите его в Google Play.</string>
     <string name="popup_window_close_button_name">Закрыть</string>
     <string name="profile_preferences_indicator_image">Индикатор настроек профиля</string>
     <string name="profile_preferences_indicator_event_start_image">Индикатор параметров профиля для начала события</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Принудительная остановка через PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Принудительная остановка командой</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примечание: Может не работать на вашем устройстве.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Modifier l\'heure</string>
     <string name="backspace_button_tooltip">Retour en arrière</string>
     <string name="clear_button_tooltip">Effacer</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Application de notification</string>
     <string name="editor_drawer_title_events_order">Ordre</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Ordre des événements</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Si vous voulez utiliser des icônes à partir du pack d\'icônes, installez l\'application, qui a la possibilité d\'extraire les icônes du pack d\'icônes en tant que fichiers png.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Pour les applications exemples</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">C\'est une ancienne, mais fonctionnelle application même dans la dernière version d\'Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Recherchez-le dans Google Play.</string>
     <string name="popup_window_close_button_name">Fermer</string>
     <string name="profile_preferences_indicator_image">Indicateur des préférences du profil</string>
     <string name="profile_preferences_indicator_event_start_image">Début de l\'indicateur de préférences de profil d\'événement</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Forcer l\'arrêt avec PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Forcer l\'arrêt avec la commande</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note : Peut ne pas fonctionner sur votre appareil.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

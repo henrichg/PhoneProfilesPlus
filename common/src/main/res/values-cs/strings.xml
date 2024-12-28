@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Upravit čas</string>
     <string name="backspace_button_tooltip">Krok zpět</string>
     <string name="clear_button_tooltip">Vyčistit</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Notifikace aplikace</string>
     <string name="editor_drawer_title_events_order">Pořadí</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Pořadí událostí</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Chcete-li používat ikony z balíčku ikon, nainstalujte si aplikaci, která má schopnost extrahovat ikony z nainstalovaného balíčku ikon jako soubory png.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Například aplikaci</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Je to stará, ale funkční aplikace také v nejnovější verzi Androidu.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Vyhledejte ji v Google Play.</string>
     <string name="popup_window_close_button_name">Zavřít</string>
     <string name="profile_preferences_indicator_image">Indikátor parametrů profilu</string>
     <string name="profile_preferences_indicator_event_start_image">Indikátor parametrů profilu pro start události</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Vynutit zastavení pomocí PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Vynutit zastavení příkazem</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Poznámka: Ve vašem zařízení nemusí fungovat.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Chcete-li, stáhněte si jej z APKPure.</string>
 </resources>

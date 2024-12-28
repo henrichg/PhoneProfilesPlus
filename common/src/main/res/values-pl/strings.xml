@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Edytuj czas</string>
     <string name="backspace_button_tooltip">Kasuj</string>
     <string name="clear_button_tooltip">Wyczyść</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Powiadomienie z aplikacji</string>
     <string name="editor_drawer_title_events_order">Kolejność</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Kolejność zdarzeń</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Jeśli chcesz użyć ikon z pakietu ikon, zainstaluj aplikację, która ma możliwość wyodrębnienia ikon z zainstalowanego pakietu ikon jako pliki png.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Na przykład aplikacja</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Jest stara aplikacja, lecz działa również w najnowszej wersji Androida.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Można znaleźć ją na Google Play.</string>
     <string name="popup_window_close_button_name">Zamknij</string>
     <string name="profile_preferences_indicator_image">Wskaźnik parametrów profilu</string>
     <string name="profile_preferences_indicator_event_start_image">Wskaźnik parametrów profilu dla uruchomionego zdarzenia</string>
@@ -2272,11 +2268,12 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowPrefIndicatorUseDynamicColor">Użyj dynamicznego koloru dla wskaźnika</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTInfo_summary">Jasność tekstu będzie używana dla tekstu, jak również dla ikony \"Restartu zdarzeń\".</string>
     <string name="important_info_quick_guide_editor_1">Profile i Zdarzenia są konfigurowane w Edytorze, który można wywołać za pomocą Aktywatora. W Edytorze możesz dodać, powielić, zaktualizować i usunąć profile i zdarzenia. Edytor ma dolny pasek przycisków, który pozwala na zmianę widoku Edytora. Użyj go do przełączania pomiędzy listą profili a listą zdarzeń.</string>
-    <string name="phone_profiles_pref_applicationHideEventDetails">Hide event details</string>
-    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Hide event details in Editor events list.</string>
-    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
-    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Hide event details in the editor\'s event list when the \"Start order\" filter is set.</string>
-    <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
-    <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
-    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails">Ukryj szczegóły zdarzenia</string>
+    <string name="phone_profiles_pref_applicationHideEventDetails_summary">Ukryj szczegóły zdarzenia w Edytorze na liście zdarzeń.</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Ukryj szczegóły zdarzenia dla \"Porządku uruchamiania\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Ukryj szczegóły zdarzeń na liście zdarzeń edytora, gdy ustawiony jest filtr \"Porządku uruchamiania\".</string>
+    <string name="array_pref_force_stop_with_pppe">Wymuś zatrzymanie z PPPE</string>
+    <string name="array_pref_force_stop_with_command">(Z)(R) Wymuś zatrzymanie poleceniem</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Uwaga: Może nie działać w twoim urządzeniu.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

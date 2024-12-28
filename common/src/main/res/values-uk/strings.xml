@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Редагувати час</string>
     <string name="backspace_button_tooltip">Назад</string>
     <string name="clear_button_tooltip">Очистити</string>
-    <string name="time_duration_picker_hour_sign">г</string>
-    <string name="time_duration_picker_minute_sign">хв</string>
-    <string name="time_duration_picker_second_sign">сек</string>
     <string name="phone_profiles_pref_category_status_bar">Сповіщення застосунку</string>
     <string name="editor_drawer_title_events_order">Порядок</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Порядок подій</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Якщо Ви бажаєте використовувати іконки з пакета іконок, встановіть застосунок, що може витягти іконки з пакета встановлених іконок у вигляді png файлів.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Наприклад, застосунок</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Це старий застосунок, але працює навіть у новішій версії Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Шукайте його в Google Play.</string>
     <string name="popup_window_close_button_name">Закрити</string>
     <string name="profile_preferences_indicator_image">Індикатор налаштувань профілю</string>
     <string name="profile_preferences_indicator_event_start_image">Індикатор параметру профілю про початок події</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Використати PPPE для примусової зупинки</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Примусово зупинити командою</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примітка: Може не працювати на вашому пристрої.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

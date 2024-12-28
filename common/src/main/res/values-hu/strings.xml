@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Idő szerkesztése</string>
     <string name="backspace_button_tooltip">Visszatörlés</string>
     <string name="clear_button_tooltip">Törlés</string>
-    <string name="time_duration_picker_hour_sign">ó</string>
-    <string name="time_duration_picker_minute_sign">p</string>
-    <string name="time_duration_picker_second_sign">mp</string>
     <string name="phone_profiles_pref_category_status_bar">Alkalmazás értesítés</string>
     <string name="editor_drawer_title_events_order">Rendezés</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Események rendezése</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">If you want to use icons from icon pack, install application, which has capability to extract icons from installed icon pack as png files.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">For example application</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">It is old, but functional application also in newest Android version.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Search it in Google Play.</string>
     <string name="popup_window_close_button_name">Close</string>
     <string name="profile_preferences_indicator_image">Profile preferences indicator</string>
     <string name="profile_preferences_indicator_event_start_image">Start of event profile preferences indicator</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

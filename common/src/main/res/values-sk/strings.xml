@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Upraviť čas</string>
     <string name="backspace_button_tooltip">Krok späť</string>
     <string name="clear_button_tooltip">Vyčistiť</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Notifikácia aplikácie</string>
     <string name="editor_drawer_title_events_order">Poradie</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Poradie udalostí</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Ak chcete používať ikony z balíka ikon, nainštalujte si aplikáciu, ktorá má schopnosť extrahovať ikony z nainštalovaného balíka ikon ako súbory png.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Napríklad aplikáciu</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Je to stará, ale funkčná aplikácia aj v najnovšej verzii Androidu.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Vyhľadajte ju v Google Play.</string>
     <string name="popup_window_close_button_name">Zavrieť</string>
     <string name="profile_preferences_indicator_image">Indikátor parametrov profilu</string>
     <string name="profile_preferences_indicator_event_start_image">Indikátor parametrov profilu pre štart udalosti</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Vynútiť zastavenie pomocou PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Vynútiť zastavenie príkazom</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Poznámka: Vo vašom zariadení nemusí fungovať.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Ak chcete, stiahnite si ho z APKPure.</string>
 </resources>

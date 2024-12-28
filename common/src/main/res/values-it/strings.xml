@@ -1171,9 +1171,6 @@
     <string name="time_pref_dlg_edit_time_tooltip">Modifica orario</string>
     <string name="backspace_button_tooltip">Cancella</string>
     <string name="clear_button_tooltip">Elimina</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Notifica dell\'applicazione</string>
     <string name="editor_drawer_title_events_order">Ordine</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Ordine eventi</string>
@@ -1698,7 +1695,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Se desideri usare le icone dal pacchetto di icone, installa l\'applicazione, avente la capacità di estrarre le icone dal pacchetto di icone installato come file png.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Applicazione d\'esempio</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">È un\'applicazione vecchia ma funzionale, anche nella più recente versione Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Cercala su Google Play.</string>
     <string name="popup_window_close_button_name">Chiudi</string>
     <string name="profile_preferences_indicator_image">Indicatore di preferenze del profilo</string>
     <string name="profile_preferences_indicator_event_start_image">Inizio dell\'indicatore di preferenze del profilo dell\'evento</string>
@@ -2279,4 +2275,5 @@
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
 </resources>

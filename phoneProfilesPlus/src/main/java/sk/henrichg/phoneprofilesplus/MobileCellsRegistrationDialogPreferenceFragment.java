@@ -220,9 +220,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         preference.updateInterface(0, false);
 
         // required for set changes in dialog buttons
-        mDialog.setOnShowListener(dialog -> {
-            preference.updateInterface(0, false);
-        });
+        mDialog.setOnShowListener(dialog -> preference.updateInterface(0, false));
 
         return mDialog;
     }
