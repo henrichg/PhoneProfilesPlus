@@ -15,8 +15,8 @@
 <!--    <color name="error_in_preferences">#FF0000</color>-->
 
     <color name="profileindicatorColor_light">#2A75CB</color>
-    <color name="profileindicatorColorDisabled_light">#707070</color>
-    <color name="profileindicatorColorDisabledDynamic_light">#707070</color>
+    <color name="profileindicatorColorDisabled_light">#878787</color>
+    <color name="profileindicatorColorDisabledDynamic_light">#878787</color>
     <color name="profileindicatorColor_dark">#67ACF8</color>
     <color name="profileindicatorColorDisabled_dark">#c5c5c5</color>
     <color name="profileindicatorColorDisabledDynamic_dark">#c5c5c5</color>
