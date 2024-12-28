@@ -38,6 +38,7 @@ import java.util.List;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 
+@SuppressLint("WrongCommentType")
 class GlobalGUIRoutines {
 
     static final int ICON_SIZE_DP = 50;
@@ -773,37 +774,6 @@ class GlobalGUIRoutines {
                 int color = ta.getColor(0, 0);
                 ta.recycle();   // recycle TypedArray
 
-                /*
-                if (PPApplication.deviceIsSamsung) {
-                    // One UI 6.0 would be 60000, 6.1 would be 60100, 6.1.1 is 60101.
-                    if (!PPApplication.romIsGalaxy611) {
-                        // [retrieve pre-U palette tokens] else [normal logic]
-                        Log.e("GlobalGUIRoutines.getDynamicColor", "before 6.1.1");
-
-                    }// else {
-                    //    Log.e("GlobalGUIRoutines.getDynamicColor", "is 6.1.1");
-                    //}
-                }
-                */
-                /*
-                PackageManager packageManager = context.getPackageManager();
-                boolean isOneUI =
-                        (   packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile")
-                         || packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
-                String systemProperty = SystemProperties.get("ro.build.version.oneui");
-                Log.e("GlobalGUIRoutines.getDynamicColor", "systemProperty="+systemProperty);
-                boolean isBeforeOneUI611 = false;
-                try {
-                    //(systemProperty != null) &&
-                    isBeforeOneUI611 = (Integer.parseInt(systemProperty) < 60101);
-                } catch (Exception ignored) {}
-                // One UI 6.0 would be 60000, 6.1 would be 60100, 6.1.1 is 60101.
-                if (isOneUI && isBeforeOneUI611) {
-                    // [retrieve pre-U palette tokens] else [normal logic]
-                    Log.e("GlobalGUIRoutines.getDynamicColor", "before 6.1.1");
-                }
-                */
-
                 return color;
             }
         }
@@ -1097,7 +1067,7 @@ class GlobalGUIRoutines {
     }
     */
 
-    /**
+    /*
      * Converts an HSL color value to RGB. Conversion formula
      * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
      * Assumes h, s, and l are contained in the set [0, 1] and
@@ -1108,7 +1078,6 @@ class GlobalGUIRoutines {
      * @param l       The lightness
      * @return int array, the RGB representation
      * @noinspection JavadocLinkAsPlainText
-     */
     static int[] hslToRgb(float h, float s, float l){
         float r, g, b;
 
@@ -1128,7 +1097,9 @@ class GlobalGUIRoutines {
     static int to255(float v) {
         return (int)Math.min(255,256*v);
     }
-    /** Helper method that converts hue to rgb */
+    */
+
+    /* Helper method that converts hue to rgb
     static float hueToRgb(float p, float q, float t) {
         if (t < 0f)
             t += 1f;
@@ -1142,8 +1113,9 @@ class GlobalGUIRoutines {
             return p + (q - p) * (2f/3f - t) * 6f;
         return p;
     }
+    */
 
-    /**
+    /*
      * Converts an RGB color value to HSL. Conversion formula
      * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
      * Assumes pR, pG, and bpBare contained in the set [0, 255] and
@@ -1154,7 +1126,6 @@ class GlobalGUIRoutines {
      * @param pB       The blue color value
      * @return float array, the HSL representation
      * @noinspection JavadocLinkAsPlainText
-     */
     static float[] rgbToHsl(int pR, int pG, int pB) {
         float r = pR / 255f;
         float g = pG / 255f;
@@ -1188,6 +1159,7 @@ class GlobalGUIRoutines {
         float[] hsl = {h, s, l};
         return hsl;
     }
+    */
 
     static void dimBehindPopupWindow(PopupWindow popupWindow) {
         View container;
