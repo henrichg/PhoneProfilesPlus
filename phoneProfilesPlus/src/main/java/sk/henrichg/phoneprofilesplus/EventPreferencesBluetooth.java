@@ -559,18 +559,18 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         break;
                                     default:
                                         // check in bounded devices
-                                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "--- check by name from sensor");
+//                                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "--- check by name from sensor");
                                         for (BluetoothDeviceData data : boundedDevicesList) {
                                             connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, data, _bluetoothName);
                                             if (connected[i]) {
-                                                PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bounded is connected="+_bluetoothName);
+//                                                PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "bounded is connected="+_bluetoothName);
                                                 break;
                                             }
                                         }
                                         if (!connected[i]) {
                                             // check by name
                                             connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, _bluetoothName);
-                                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "by name is connected="+_bluetoothName);
+//                                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "by name is connected="+_bluetoothName);
                                         }
                                         break;
                                 }
