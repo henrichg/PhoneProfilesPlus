@@ -439,7 +439,7 @@ class PPApplicationStatic {
             File path = PPApplication.getInstance().getApplicationContext().getExternalFilesDir(null);
             File logFile = new File(path, PPApplication.LOG_FILENAME);
 
-            if (logFile.length() > 1024 * 10000)
+            if (logFile.length() > 1024 * 100000)
                 resetLog();
 
             if (!logFile.exists()) {
