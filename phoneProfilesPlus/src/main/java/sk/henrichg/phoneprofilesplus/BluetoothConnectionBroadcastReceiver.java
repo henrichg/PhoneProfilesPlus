@@ -106,10 +106,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             //callEventHandler(appContext);
                             BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
-                            if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) ||
+                            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
+                                    action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) ||
                                     action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+                                // must be called, required is also for SENSOR_TYPE_RADIO_SWITCH
                                 callEventHandler(appContext);
                             }
+
                             /*
                             List<BluetoothDeviceData> connectedDevices = getConnectedDevices(appContext);
 
