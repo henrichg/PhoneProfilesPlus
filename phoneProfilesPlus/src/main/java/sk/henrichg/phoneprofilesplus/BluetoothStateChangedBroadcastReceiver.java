@@ -128,6 +128,9 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         // refresh bounded devices
                         BluetoothScanWorker.fillBoundedDevicesList(appContext);
                     }
+
+                    BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
+
                 } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
