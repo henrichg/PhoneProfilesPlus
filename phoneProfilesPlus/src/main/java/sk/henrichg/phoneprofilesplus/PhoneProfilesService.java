@@ -958,6 +958,7 @@ public class PhoneProfilesService extends Service
                 // in it is not PPP broadcasts registration
                 PhoneProfilesServiceStatic.registerAllTheTimeRequiredPPPBroadcastReceivers(true, appContext);
 
+                BluetoothScanWorker.fillBoundedDevicesList(appContext);
                 List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, true*/);
                 // this also clears shared preferences

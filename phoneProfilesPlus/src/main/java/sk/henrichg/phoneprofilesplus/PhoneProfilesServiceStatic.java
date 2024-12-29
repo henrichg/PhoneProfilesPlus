@@ -581,6 +581,7 @@ class PhoneProfilesServiceStatic
                 PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
                 IntentFilter intentFilter15 = new IntentFilter();
                 intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+                intentFilter15.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
                 appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
             }
 

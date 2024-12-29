@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -56,19 +57,11 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
 //                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothState=STATE_ON");
 
-                            //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
-                            //{
-                            //if (ApplicationPreferences.prefEventBluetoothScanRequest) {
-                            //    BluetoothScanWorker.startCLScan(appContext);
-                            //} else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
-                            //    BluetoothScanWorker.startLEScan(appContext);
-                            //} else
                             if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
                                     ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
                                 // refresh bounded devices
                                 BluetoothScanWorker.fillBoundedDevicesList(appContext);
                             }
-                            //}
 
 //                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call Detector");
                             BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
@@ -111,6 +104,41 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
+                //}
+            };
+            PPApplicationStatic.createEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
+        }
+        if ((action != null) && action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
+            //noinspection ExtractMethodRecommender
+            final Context appContext = context.getApplicationContext();
+            Runnable runnable = () -> {
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothStateChangedBroadcastReceiver_onReceive);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                            ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
+                        // refresh bounded devices
+                        BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                    }
+                } catch (Exception e) {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
                 //}
             };
             PPApplicationStatic.createEventsHandlerExecutor();

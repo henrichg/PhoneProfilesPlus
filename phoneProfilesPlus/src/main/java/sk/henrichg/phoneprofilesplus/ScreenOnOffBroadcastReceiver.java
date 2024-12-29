@@ -238,6 +238,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 // WARNING: must be called after PPApplication.isScreenOn = true;
                 setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
+                if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                        ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
+                    // refresh bounded devices
+                    BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                }
 //                PPApplicationStatic.logE("ScreenOnOffBroadcastReceiver.onReceive", "screen==ON, call Detector");
                 BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 

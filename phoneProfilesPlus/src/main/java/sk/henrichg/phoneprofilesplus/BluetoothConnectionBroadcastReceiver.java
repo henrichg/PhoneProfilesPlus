@@ -387,6 +387,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
+                    /* do not add device without adress
                     if (!found) {
                         for (BluetoothDeviceData connectedDevice : connectedDevices) {
                             String connectedName = connectedDevice.getName();
@@ -396,7 +397,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 break;
                             }
                         }
-                    }
+                    }*/
                     if (!found) {
                         connectedDevices.add(newDevice);
                     }
@@ -411,7 +412,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty()) {
                 // is device connected to any external bluetooth device ???
-
                 return (connectedDevices != null) && (!connectedDevices.isEmpty());
             }
             else {
@@ -438,14 +438,14 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                             if (!found) {
-                                /*for (BluetoothDeviceData connectedDevice : connectedDevices) {
-                                    String connectedName = connectedDevice.getName().trim().toUpperCase();
-                                    if ((!connectedName.isEmpty()) &&
-                                            connectedName.equalsIgnoreCase(deviceDataName)) {
-                                        found = true;
-                                        break;
-                                    }
-                                }*/
+                                //for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                                //    String connectedName = connectedDevice.getName().trim().toUpperCase();
+                                //    if ((!connectedName.isEmpty()) &&
+                                //            connectedName.equalsIgnoreCase(deviceDataName)) {
+                                //        found = true;
+                                //        break;
+                                //    }
+                                //}
                                 for (BluetoothDeviceData connectedDevice : connectedDevices) {
                                     String connectedName = connectedDevice.getName().trim().toUpperCase();
                                     if ((!connectedName.isEmpty()) &&
@@ -462,17 +462,27 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     else {
                         // is sensorDeviceName connected ???
 
+                        PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "(1)");
+                        PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "deviceData="+deviceData);
+                        PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "sensorDeviceName="+sensorDeviceName);
+
                         // get connected device by address
                         // deviceData is from bounded devices and bounded devices are with address
                         BluetoothDeviceData connectedDevice = null;
                         if (deviceData != null) {
                             String deviceDataAddress = deviceData.getAddress();
+                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "deviceDataAddress="+deviceDataAddress);
                             if (!deviceDataAddress.isEmpty()) {
+                                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "connectedDevices.size="+connectedDevices.size());
                                 for (BluetoothDeviceData _connectedDevice : connectedDevices) {
+                                    PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "(2)");
                                     String _connectedDeviceAddress = _connectedDevice.getAddress();
+                                    PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "_connectedDevice.getName()="+_connectedDevice.getName());
+                                    PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "_connectedDevice.getAddress()="+_connectedDevice.getAddress());
                                     if ((!_connectedDeviceAddress.isEmpty()) &&
                                             _connectedDeviceAddress.equals(deviceDataAddress)) {
                                         connectedDevice = _connectedDevice;
+                                        PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "(3)");
                                         break;
                                     }
                                 }
@@ -488,6 +498,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 if ((!connectedName.isEmpty()) &&
                                         Wildcard.match(connectedName, sensorName, '_', '%', true)) {
                                     // configured connected device in system is sensorDeviceName
+                                    PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "(1) found=true");
                                     return true;
                                 }
                             }
@@ -500,6 +511,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                     if ((!connectedName.isEmpty()) &&
                                             Wildcard.match(connectedName, sensorName, '_', '%', true)) {
                                         // connected device in system is sensorDeviceName
+                                        PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "(2) found=true");
                                         return true;
                                     }
                                 }
@@ -507,6 +519,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 }
+                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "found=false");
                 return false;
             }
         //}
