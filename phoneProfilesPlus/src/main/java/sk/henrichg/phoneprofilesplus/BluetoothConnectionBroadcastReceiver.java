@@ -9,6 +9,10 @@ import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
@@ -99,6 +103,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 
+                            //callEventHandler(appContext);
+                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
+
+                            if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) ||
+                                    action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+                                callEventHandler(appContext);
+                            }
                             /*
                             List<BluetoothDeviceData> connectedDevices = getConnectedDevices(appContext);
 
@@ -123,9 +134,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                             saveConnectedDevices(connectedDevices, appContext);
                             */
-
-                            //callEventHandler(appContext);
-                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
                         }
 
@@ -525,7 +533,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         //}
     }
 
-    /*
     private void callEventHandler(final Context appContext) {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
@@ -543,7 +550,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 new OneTimeWorkRequest.Builder(MainWorker.class)
                         .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG)
                         //.setInputData(workData)
-                        .setInitialDelay(10, TimeUnit.SECONDS)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
@@ -551,15 +558,15 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
 
-                //                            //if (PPApplicationStatic.logEnabled()) {
-                //                            ListenableFuture<List<WorkInfo>> statuses;
-                //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
-                //                            try {
-                //                                List<WorkInfo> workInfoList = statuses.get();
-                //                            } catch (Exception ignored) {
-                //                            }
-                //                            //}
-                //
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
 //                PPApplicationStatic.logE("[WORKER_CALL] BluetoothConnectionBroadcastReceiver.callEventHandler", "xxx");
                 //workManager.enqueue(worker);
                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
@@ -569,7 +576,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             PPApplicationStatic.recordException(e);
         }
     }
-    */
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
