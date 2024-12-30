@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+/** @noinspection unused*/
 public class PPLinearLayoutManager extends LinearLayoutManager {
 
     public PPLinearLayoutManager(Context context) {
