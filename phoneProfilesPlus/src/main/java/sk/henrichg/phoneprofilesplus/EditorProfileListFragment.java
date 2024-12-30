@@ -33,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -174,7 +173,7 @@ public class EditorProfileListFragment extends Fragment
         activeProfileName = view.findViewById(R.id.editor_profiles_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.editor_profiles_activated_profile_icon);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        PPLinearLayoutManager layoutManager = new PPLinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_profiles_list);
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //noinspection DataFlowIssue

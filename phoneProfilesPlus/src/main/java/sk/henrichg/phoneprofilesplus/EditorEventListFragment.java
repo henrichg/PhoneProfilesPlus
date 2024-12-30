@@ -37,7 +37,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -210,7 +209,7 @@ public class EditorEventListFragment extends Fragment
         activeProfileName = view.findViewById(R.id.editor_events_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.editor_events_activated_profile_icon);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        PPLinearLayoutManager layoutManager = new PPLinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //noinspection DataFlowIssue
@@ -243,8 +242,6 @@ public class EditorEventListFragment extends Fragment
 //                }
 
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem != 0)
                             activatedProfileHeader.setVisibility(View.GONE);
 
                             bottomToolbar.setVisibility(VISIBLE);
@@ -262,8 +259,6 @@ public class EditorEventListFragment extends Fragment
 //                }
 
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem == 0)
                             activatedProfileHeader.setVisibility(VISIBLE);
 
                             bottomToolbar.setVisibility(View.GONE);
