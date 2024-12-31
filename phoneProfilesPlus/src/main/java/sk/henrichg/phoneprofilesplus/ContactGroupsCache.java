@@ -205,7 +205,7 @@ class ContactGroupsCache {
                                 for (Contact contact : _contactList) {
                                     //Log.e("ContactGroupsCache.getContactGroupList", "inside query contact.contactId="+contact.contactId);
                                     if (contact.contactId == contactId) {
-                                        if (!contact.phoneNumber.isEmpty()) {
+                                        if ((contact.phoneNumber != null) && (!contact.phoneNumber.isEmpty())) {
                                             if (contact.groups == null)
                                                 contact.groups = new ArrayList<>();
                                             if (!contact.groups.contains(contactGroupId)) {
