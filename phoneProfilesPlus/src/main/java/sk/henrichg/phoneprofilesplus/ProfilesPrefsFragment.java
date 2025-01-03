@@ -2151,6 +2151,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
             if (preference != null)
                 preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
+            if (preference != null)
+                preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
+            if (preference != null)
+                preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
+            if (preference != null)
+                preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
+            if (preference != null)
+                preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+            if (preference != null)
+                preference.refreshListView();
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)) {
             ConnectToSSIDDialogPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);

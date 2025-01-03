@@ -48,6 +48,7 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
         linlaProgress = view.findViewById(R.id.ringtone_pref_dlg_linla_progress);
 
         listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
+        //listView.setEmptyView(view.findViewById(R.id.ringtone_pref_dlg_list_empty));
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -75,6 +76,8 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
                 if (preference != null)
                     preference.refreshListView();
             }, 200);
+        } else {
+            hideProgress();
         }
 
     }
