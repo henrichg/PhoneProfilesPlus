@@ -325,8 +325,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             };
-            PPApplicationStatic.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+            PPApplicationStatic.createProfileActivationDurationExecutorPool();
+            PPApplication.profileActivationDurationExecutorPool.submit(runnable);
         }
         else {
             _doWork(/*false,*/ appContext, profileId, forRestartEvents, manualRestart, startupSource);

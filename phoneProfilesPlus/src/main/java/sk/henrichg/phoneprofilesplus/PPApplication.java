@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -906,8 +907,10 @@ public class PPApplication extends Application
     static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
     static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
+
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
     static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
+
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
@@ -1108,9 +1111,14 @@ public class PPApplication extends Application
     static volatile Location lastLocation = null;
 
     volatile static ExecutorService basicExecutorPool = null;
-    volatile static ExecutorService profileActiationExecutorPool = null;
+    //volatile static ExecutorService profileActiationExecutorPool = null;
+    //volatile static ExecutorService soundModeExecutorPool = null;
     volatile static ExecutorService activateProfileExecuteExecutorPool = null;
-    volatile static ExecutorService soundModeExecutorPool = null;
+    volatile static ExecutorService profileVolumesExecutorPool = null;
+    volatile static ExecutorService profileRadiosExecutorPool = null;
+    volatile static ExecutorService profileRunApplicationsExecutorPool = null;
+    volatile static ExecutorService profileIteractivePreferencesExecutorPool = null;
+    volatile static ExecutorService profileActivationDurationExecutorPool = null;
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;
@@ -1294,8 +1302,13 @@ public class PPApplication extends Application
         }
 
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplicationStatic.createSoundModeExecutorPool();
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplicationStatic.createSoundModeExecutorPool();
+        PPApplicationStatic.createProfileVolumesExecutorPool();
+        PPApplicationStatic.createProfileRadiosExecutorPool();
+        PPApplicationStatic.createProfileRunApplicationsExecutorPool();
+        PPApplicationStatic.createProfileIteractivePreferencesExecutorPool();
+        PPApplicationStatic.createProfileActivationDurationExecutorPool();
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplicationStatic.createScannersExecutor();
         PPApplicationStatic.createPlayToneExecutor();

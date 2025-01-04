@@ -2448,17 +2448,41 @@ class PPApplicationStatic {
         if (PPApplication.basicExecutorPool == null)
             PPApplication.basicExecutorPool = Executors.newCachedThreadPool();
     }
+    /*
     static void createProfileActiationExecutorPool() {
         if (PPApplication.profileActiationExecutorPool == null)
             PPApplication.profileActiationExecutorPool = Executors.newCachedThreadPool();
     }
+    */
     static void createActivateProfileExecuteExecutorPool() {
         if (PPApplication.activateProfileExecuteExecutorPool == null)
             PPApplication.activateProfileExecuteExecutorPool = Executors.newCachedThreadPool();
     }
+    /*
     static void createSoundModeExecutorPool() {
         if (PPApplication.soundModeExecutorPool == null)
             PPApplication.soundModeExecutorPool = Executors.newCachedThreadPool();
+    }
+    */
+    static void createProfileVolumesExecutorPool() {
+        if (PPApplication.profileVolumesExecutorPool == null)
+            PPApplication.profileVolumesExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileRadiosExecutorPool() {
+        if (PPApplication.profileRadiosExecutorPool == null)
+            PPApplication.profileRadiosExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileRunApplicationsExecutorPool() {
+        if (PPApplication.profileRunApplicationsExecutorPool == null)
+            PPApplication.profileRunApplicationsExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileIteractivePreferencesExecutorPool() {
+        if (PPApplication.profileIteractivePreferencesExecutorPool == null)
+            PPApplication.profileIteractivePreferencesExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileActivationDurationExecutorPool() {
+        if (PPApplication.profileActivationDurationExecutorPool == null)
+            PPApplication.profileActivationDurationExecutorPool = Executors.newCachedThreadPool();
     }
     static void createEventsHandlerExecutor() {
         if (PPApplication.eventsHandlerExecutor == null)

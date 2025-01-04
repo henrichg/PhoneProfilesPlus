@@ -985,7 +985,7 @@ class ActivateProfileHelper {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        //Runnable runnable = () -> {
+        Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
             //Context appContext = appContextWeakRef.get();
@@ -1061,9 +1061,9 @@ class ActivateProfileHelper {
                     }
                 }
             //}
-        //};
-        //PPApplicationStatic.createProfileActiationExecutorPool();
-        //PPApplication.profileActiationExecutorPool.submit(runnable);
+        };
+        PPApplicationStatic.createProfileRadiosExecutorPool();
+        PPApplication.profileRadiosExecutorPool.submit(runnable);
     }
 
     static boolean isAudibleRinging(int ringerMode, int zenMode/*, boolean onlyVibrateSilent*/) {
@@ -3613,7 +3613,7 @@ class ActivateProfileHelper {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        //Runnable runnable = () -> {
+        Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
             //Profile profile = profileWeakRef.get();
@@ -3713,9 +3713,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        //};
-        //PPApplicationStatic.createProfileActiationExecutorPool();
-        //PPApplication.profileActiationExecutorPool.submit(runnable);
+        };
+        PPApplicationStatic.createProfileVolumesExecutorPool();
+        PPApplication.profileVolumesExecutorPool.submit(runnable);
     }
 
     private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
