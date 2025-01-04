@@ -986,12 +986,13 @@ class ActivateProfileHelper {
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
         Runnable runnable = () -> {
+            synchronized (PPApplication.profileActivationRadioMutex) {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
-            //Context appContext = appContextWeakRef.get();
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
-            //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+                //Context appContext = appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+                //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -1060,7 +1061,8 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            //}
+                //}
+            }
         };
         PPApplicationStatic.createProfileRadiosExecutorPool();
         PPApplication.profileRadiosExecutorPool.submit(runnable);
@@ -3614,61 +3616,63 @@ class ActivateProfileHelper {
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
         Runnable runnable = () -> {
+            synchronized (PPApplication.profileActivationVolumeMutex) {
+
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
-            if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+                if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForVolumes);
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForVolumes);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    //boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences, false);
+                        //boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences, false);
 
-                    final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
-                    if ((profile._volumeRingerMode != 0) ||
-                            profile.getVolumeRingtoneChange() ||
-                            profile.getVolumeNotificationChange() ||
-                            profile.getVolumeSystemChange() ||
-                            profile.getVolumeDTMFChange()) {
+                        if ((profile._volumeRingerMode != 0) ||
+                                profile.getVolumeRingtoneChange() ||
+                                profile.getVolumeNotificationChange() ||
+                                profile.getVolumeSystemChange() ||
+                                profile.getVolumeDTMFChange()) {
 
-                        // sleep for change of ringer mode and volumes
-                        // because may be changed by another profile or from outside of PPP
-                        GlobalUtils.sleep(500);
+                            // sleep for change of ringer mode and volumes
+                            // because may be changed by another profile or from outside of PPP
+                            GlobalUtils.sleep(500);
 
-                        PPApplication.ringerModeInternalChange = true;
+                            PPApplication.ringerModeInternalChange = true;
 
-                        if (canChangeZenMode(appContext)) {
+                            if (canChangeZenMode(appContext)) {
 
-                            if (linkUnlinkVolumes == PhoneCallsListener.LINKMODE_NONE)
-                                // call this only when it is not called for link unlink
-                                // (from PhoneCallListener)
-                                ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
+                                if (linkUnlinkVolumes == PhoneCallsListener.LINKMODE_NONE)
+                                    // call this only when it is not called for link unlink
+                                    // (from PhoneCallListener)
+                                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
 
-                            int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
-                            if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
-                                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                                if (Permissions.checkPhone(appContext))
-                                    linkUnlink = linkUnlinkVolumes;
-                            }
+                                int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
+                                if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                                    if (Permissions.checkPhone(appContext))
+                                        linkUnlink = linkUnlinkVolumes;
+                                }
 
-                            changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
-                            changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
+                                changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
+                                changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                            /*
-                            if ((Build.VERSION.SDK_INT >= 34) &&
-                                ((getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY) ||
-                                 ((profile._volumeRingerMode == Profile.RINGERMODE_ZENMODE) && (profile._volumeZenMode == Profile.ZENMODE_PRIORITY)))) {
-                                requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
-                                setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
-                                setSoundMode(appContext, profile, audioManager, forProfileActivation, executedProfileSharedPreferences);
-                            } else {*/
+                                /*
+                                if ((Build.VERSION.SDK_INT >= 34) &&
+                                    ((getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY) ||
+                                     ((profile._volumeRingerMode == Profile.RINGERMODE_ZENMODE) && (profile._volumeZenMode == Profile.ZENMODE_PRIORITY)))) {
+                                    requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
+                                    setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
+                                    setSoundMode(appContext, profile, audioManager, forProfileActivation, executedProfileSharedPreferences);
+                                } else {*/
                                 setSoundMode(appContext, profile, audioManager, forProfileActivation, executedProfileSharedPreferences);
 
                                 GlobalUtils.sleep(500);
@@ -3678,37 +3682,38 @@ class ActivateProfileHelper {
 
                                 setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
 
-                            //}
+                                //}
+                            }
+                        } else {
+
+                            PPApplication.ringerModeInternalChange = true;
+
+                            //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+
+                            /*if ((Build.VERSION.SDK_INT >= 34) &&
+                                (getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY)) {
+                                requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
+                                setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
+                                requestInterruptionFilter(appContext, SYSTEM_ZENMODE_PRIORITY);
+                            } else*/
+                            setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                         }
-                    } else {
 
-                        PPApplication.ringerModeInternalChange = true;
+                        PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
+                        //DisableVolumesInternalChangeWorker.enqueueWork();
 
-                        //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
-
-                        /*if ((Build.VERSION.SDK_INT >= 34) &&
-                            (getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY)) {
-                            requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
-                            setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
-                            requestInterruptionFilter(appContext, SYSTEM_ZENMODE_PRIORITY);
-                        } else*/
-                            setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
-                    }
-
-                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
-                    //DisableVolumesInternalChangeWorker.enqueueWork();
-
-                    //if (noErrorSetTone) {
-                    setTones(appContext, profile, executedProfileSharedPreferences);
-                    //}
-                } catch (Exception e) {
+                        //if (noErrorSetTone) {
+                        setTones(appContext, profile, executedProfileSharedPreferences);
+                        //}
+                    } catch (Exception e) {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }

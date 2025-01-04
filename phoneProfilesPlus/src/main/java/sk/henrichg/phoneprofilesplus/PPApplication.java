@@ -909,6 +909,8 @@ public class PPApplication extends Application
 
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
     static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
+    static final ProfileActivationRadioMutex profileActivationRadioMutex = new ProfileActivationRadioMutex();
+    static final ProfileActivationVolumeMutex profileActivationVolumeMutex = new ProfileActivationVolumeMutex();
 
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
