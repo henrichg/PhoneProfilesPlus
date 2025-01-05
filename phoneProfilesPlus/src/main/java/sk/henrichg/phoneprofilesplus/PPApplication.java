@@ -907,9 +907,15 @@ public class PPApplication extends Application
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
     static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
 
+    // synchronization of dtaa reuired for profile activation
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
+    // synchronizacion for call of ActivateProfileHelper.execute()
     static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
+    // synchronization for call of radio ActivateProfileHelper.executeForRadios()
+    // - is required, to avoid paralel running of this method
     static final ProfileActivationRadioMutex profileActivationRadioMutex = new ProfileActivationRadioMutex();
+    // synchronization for call of radio ActivateProfileHelper.executeForVolumes()
+    // - is required, to avoid paralel running of this method
     static final ProfileActivationVolumeMutex profileActivationVolumeMutex = new ProfileActivationVolumeMutex();
 
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
@@ -1114,12 +1120,20 @@ public class PPApplication extends Application
     volatile static ExecutorService basicExecutorPool = null;
     //volatile static ExecutorService profileActiationExecutorPool = null;
     //volatile static ExecutorService soundModeExecutorPool = null;
+
+    // for call of ActivateProfileHelper.execute()
     volatile static ExecutorService activateProfileExecuteExecutorPool = null;
+    // for call of ActivateProfileHelper.executeForVolumes()
+    // - required for increase speed of profile activation
     volatile static ExecutorService profileVolumesExecutorPool = null;
+    // for call of ActivateProfileHelper.executeForRadios()
+    // - required for increase speed of profile activation
     volatile static ExecutorService profileRadiosExecutorPool = null;
+
     volatile static ExecutorService profileRunApplicationsExecutorPool = null;
     volatile static ExecutorService profileIteractivePreferencesExecutorPool = null;
     volatile static ExecutorService profileActivationDurationExecutorPool = null;
+
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;

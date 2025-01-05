@@ -1064,6 +1064,7 @@ class ActivateProfileHelper {
                 //}
             }
         };
+        // required for increase speed of profile activation
         PPApplicationStatic.createProfileRadiosExecutorPool();
         PPApplication.profileRadiosExecutorPool.submit(runnable);
     }
@@ -3719,6 +3720,7 @@ class ActivateProfileHelper {
                 }
             }
         };
+        // required for increase speed of profile activation
         PPApplicationStatic.createProfileVolumesExecutorPool();
         PPApplication.profileVolumesExecutorPool.submit(runnable);
     }
