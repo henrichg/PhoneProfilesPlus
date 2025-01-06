@@ -4180,46 +4180,36 @@ class ActivateProfileHelper {
     }
 
     private static void setRingerMode(AudioManager audioManager, final int ringerMode) {
-        //final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(audioManager);
-        //Runnable runnable = () -> {
-            //AudioManager audioManager = audioManagerWeakRef.get();
-            audioManager.setRingerMode(ringerMode);
-        //};
-        //PPApplicationStatic.createSoundModeExecutorPool();
-        //PPApplication.soundModeExecutorPool.submit(runnable);
+        audioManager.setRingerMode(ringerMode);
     }
 
     static void requestInterruptionFilter(Context context, final int zenMode) {
         final Context appContext = context.getApplicationContext();
-        //Runnable runnable = () -> {
-            try {
-                //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
-                switch (zenMode) {
-                    case SYSTEM_ZENMODE_ALL:
-                        //noinspection ConstantConditions
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
-                        break;
-                    case SYSTEM_ZENMODE_PRIORITY:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_PRIORITY;
-                        break;
-                    case SYSTEM_ZENMODE_NONE:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_NONE;
-                        break;
-                    case SYSTEM_ZENMODE_ALARMS:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALARMS;
-                        break;
-                }
-                NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null)
-                    mNotificationManager.setInterruptionFilter(interruptionFilter);
-                //}
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
+        try {
+            //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+            int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
+            switch (zenMode) {
+                case SYSTEM_ZENMODE_ALL:
+                    //noinspection ConstantConditions
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
+                    break;
+                case SYSTEM_ZENMODE_PRIORITY:
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_PRIORITY;
+                    break;
+                case SYSTEM_ZENMODE_NONE:
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_NONE;
+                    break;
+                case SYSTEM_ZENMODE_ALARMS:
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALARMS;
+                    break;
             }
-        //};
-        //PPApplicationStatic.createSoundModeExecutorPool();
-        //PPApplication.soundModeExecutorPool.submit(runnable);
+            NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (mNotificationManager != null)
+                mNotificationManager.setInterruptionFilter(interruptionFilter);
+            //}
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
     }
 
     private static Bitmap _changeWallpaperGetBitmapFromUri(String wallpaperUri, Context appContext) {
