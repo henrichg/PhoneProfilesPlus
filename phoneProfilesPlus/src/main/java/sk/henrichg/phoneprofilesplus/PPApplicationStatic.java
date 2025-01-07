@@ -2524,6 +2524,10 @@ class PPApplicationStatic {
         if (PPApplication.updateGuiExecutor == null)
             PPApplication.updateGuiExecutor = Executors.newSingleThreadScheduledExecutor();
     }
+    static void createBluetoothConnectedDevicesDetectorExecutor() {
+        if (PPApplication.bluetoothConnectedDevicesDetectorExecutor == null)
+            PPApplication.bluetoothConnectedDevicesDetectorExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
 
     static void startHandlerThreadBroadcast(/*String from*/) {
         if (PPApplication.handlerThreadBroadcast == null) {

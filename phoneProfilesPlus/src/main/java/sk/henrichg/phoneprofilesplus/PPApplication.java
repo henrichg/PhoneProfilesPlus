@@ -1144,6 +1144,7 @@ public class PPApplication extends Application
     volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
     volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
     volatile static ScheduledExecutorService updateGuiExecutor = null;
+    volatile static ScheduledExecutorService bluetoothConnectedDevicesDetectorExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureUpdateGuiExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
@@ -1334,6 +1335,7 @@ public class PPApplication extends Application
         PPApplicationStatic.createDelayedEventsHandlerExecutor();
         PPApplicationStatic.createDelayedProfileActivationExecutor();
         PPApplicationStatic.createUpdateGuiExecutor();
+        PPApplicationStatic.createBluetoothConnectedDevicesDetectorExecutor();
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
         PPApplicationStatic.startHandlerThreadBroadcast();

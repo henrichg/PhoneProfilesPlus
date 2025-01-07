@@ -404,36 +404,6 @@ class BluetoothConnectedDevicesDetector {
                 if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                     if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
 
-                        // workaround for check connection status of bounded devices
-                        // working also for BLE devices
-                        @SuppressLint("MissingPermission")
-                        Set<BluetoothDevice> boundedDevices = bluetoothAdapter.getBondedDevices();
-                        if (boundedDevices != null) {
-                            boolean deviceDetected = false;
-                            for (BluetoothDevice boundedDevice : boundedDevices) {
-                                try {
-                                    Method m = BluetoothDevice.class.getMethod("isConnected");
-                                    Boolean o = (Boolean) m.invoke(boundedDevice);
-                                    if ((o != null) && o) {
-                                        deviceDetected = true;
-//                                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(****) device connected=" + boundedDevice.getName());
-//                                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(****) address=" + boundedDevice.getAddress());
-                                        final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
-                                        List<BluetoothDevice> detectedDevices = new ArrayList<>();
-                                        detectedDevices.add(boundedDevice);
-                                        addConnectedDevices(detectedDevices, connectedDevicesToAdd);
-                                        final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                                        BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
-                                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
-                                    }
-                                } catch (Exception e) {
-                                    Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
-                                }
-                            }
-                            if (_callEventHandler && deviceDetected)
-                                callEventHandler();
-                        }
-
                         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
                         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
                         //if (Build.VERSION.SDK_INT < 29)
@@ -450,6 +420,41 @@ class BluetoothConnectedDevicesDetector {
                             bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.LE_AUDIO);
                         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.SAP);
 
+                        // workaround for check connection status of bounded devices
+                        // working also for BLE devices
+                        // must be called with delay, because immediate call after
+                        //   BluetoothDevice.ACTION_ACL_CONNECTED may not detect BT device as connected
+                        Runnable runnable = () -> {
+                            @SuppressLint("MissingPermission")
+                            Set<BluetoothDevice> boundedDevices = bluetoothAdapter.getBondedDevices();
+                            if (boundedDevices != null) {
+                                boolean deviceDetected = false;
+                                for (BluetoothDevice boundedDevice : boundedDevices) {
+                                    try {
+                                        Method m = BluetoothDevice.class.getMethod("isConnected");
+                                        Boolean o = (Boolean) m.invoke(boundedDevice);
+                                        if ((o != null) && o) {
+                                            deviceDetected = true;
+//                                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(****) device connected=" + boundedDevice.getName());
+//                                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(****) address=" + boundedDevice.getAddress());
+                                            final List<BluetoothDeviceData> connectedDevicesToAdd = new ArrayList<>();
+                                            List<BluetoothDevice> detectedDevices = new ArrayList<>();
+                                            detectedDevices.add(boundedDevice);
+                                            addConnectedDevices(detectedDevices, connectedDevicesToAdd);
+                                            final List<BluetoothDeviceData> connectedDevices = BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                                            BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices, connectedDevicesToAdd);
+                                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
+                                    }
+                                }
+                                if (_callEventHandler && deviceDetected)
+                                    callEventHandler();
+                            }
+                        };
+                        PPApplicationStatic.createBluetoothConnectedDevicesDetectorExecutor();
+                        PPApplication.bluetoothConnectedDevicesDetectorExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
 
