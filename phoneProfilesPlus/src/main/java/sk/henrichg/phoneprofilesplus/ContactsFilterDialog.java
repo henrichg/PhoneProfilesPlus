@@ -137,7 +137,7 @@ class ContactsFilterDialog {
                 if (contactsCache == null) {
                     // cache not created, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
-                    PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
+                    PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/, false);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
@@ -150,7 +150,7 @@ class ContactsFilterDialog {
                         if (contactList == null) {
                             // not cached, cache it
 //                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
-                            PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
+                            PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/, false);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/

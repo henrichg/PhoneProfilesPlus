@@ -956,6 +956,7 @@ public class PPApplication extends Application
     static volatile ApplicationsCache applicationsCache;
     static volatile ContactsCache contactsCache;
     static volatile ContactGroupsCache contactGroupsCache;
+    static int repeatCreateContactCacheIfSQLError = 0;
 
     static volatile KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")

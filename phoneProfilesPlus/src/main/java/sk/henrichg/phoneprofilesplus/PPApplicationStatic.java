@@ -2693,7 +2693,8 @@ class PPApplicationStatic {
 
     // contacts and contact groups cache -----------------
 
-    static void createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/)
+    static boolean createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/
+                                        , boolean repeatIfSQLError)
     {
         if (clear) {
             if (PPApplication.contactsCache != null) {
@@ -2704,7 +2705,8 @@ class PPApplicationStatic {
         if (PPApplication.contactsCache == null)
             PPApplication.contactsCache = new ContactsCache();
 //        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactsCache", "contactsCache.getContactList()");
-        PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/);
+        //Log.e("PPApplicationStatic.createContactsCache", "repeatIfSQLError="+repeatIfSQLError);
+        return PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/, repeatIfSQLError);
     }
 
     static ContactsCache getContactsCache()
@@ -2712,7 +2714,8 @@ class PPApplicationStatic {
         return PPApplication.contactsCache;
     }
 
-    static void createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
+    static boolean createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/
+                                            , boolean repeatIfSQLError)
     {
         if (clear) {
             if (PPApplication.contactGroupsCache != null) {
@@ -2723,7 +2726,8 @@ class PPApplicationStatic {
         if (PPApplication.contactGroupsCache == null)
             PPApplication.contactGroupsCache = new ContactGroupsCache();
 //        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactGroupsCache", "contactGroupsCache.getContactGroupList()");
-        PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/);
+        //Log.e("PPApplicationStatic.createContactGroupsCache", "repeatIfSQLError="+repeatIfSQLError);
+        return PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/, repeatIfSQLError);
     }
 
     static ContactGroupsCache getContactGroupsCache()

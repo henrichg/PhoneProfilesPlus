@@ -29,7 +29,6 @@ class ContactsContentObserver extends ContentObserver {
     }
     */
 
-    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void enqueueContactsContentObserverWorker() {
         if (PPApplicationStatic.getApplicationStarted(true, true)) {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -48,13 +47,15 @@ class ContactsContentObserver extends ContentObserver {
                     Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", Log.getStackTraceString(e));
                 }
 
+                //Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", "PPApplication.repeatCreateContactCacheIfSQLError="+PPApplication.repeatCreateContactCacheIfSQLError);
                 OneTimeWorkRequest worker;
-                if (running) {
+                if (running || PPApplication.repeatCreateContactCacheIfSQLError > 0) {
                     // is already running enqueue work with delay
                     worker =
                             new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
                                     .addTag(ContactsContentObserverWorker.WORK_TAG)
-                                    .setInitialDelay(1, TimeUnit.MINUTES)
+                                    //.setInitialDelay(1, TimeUnit.MINUTES)
+                                    .setInitialDelay(30, TimeUnit.SECONDS)
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                 }
@@ -90,6 +91,7 @@ class ContactsContentObserver extends ContentObserver {
 //            return;
 
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "call of enqueueContactsContentObserverWorker()");
+        PPApplication.repeatCreateContactCacheIfSQLError = 0;
         enqueueContactsContentObserverWorker();
     }
 

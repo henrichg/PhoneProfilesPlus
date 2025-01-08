@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ class ContactGroupsCache {
         return name;
     }
 
-    void getContactGroupList(Context context/*, boolean fixEvents*//*, boolean forceCache*/) {
+    boolean getContactGroupList(Context context/*, boolean fixEvents*//*, boolean forceCache*/
+                                    , boolean repeatIfSQLError) {
         //if ((cached || caching) && (!forceCache)) return;
 
         caching = true;
@@ -49,7 +51,7 @@ class ContactGroupsCache {
         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null) {
             caching = false;
-            return;
+            return false;
         }
 
         ArrayList<ContactGroup> _contactGroupList = new ArrayList<>();
@@ -342,6 +344,31 @@ class ContactGroupsCache {
             _contactList.clear();
 
             cached = false;
+            return true; // do not call it in loop
+        } catch (SQLiteException ee) {
+            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            if (repeatIfSQLError) {
+                cached = false;
+                return false;
+            } else {
+                PPApplicationStatic.recordException(ee);
+
+                _contactGroupList.clear();
+                clearGroups(_contactList);
+                //contactsCache.clearGroups(_contactListWithoutNumber);
+
+//            PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsCache.getContactGroupList", "(4) PPApplication.contactsCacheMutex");
+                synchronized (PPApplication.contactsCacheMutex) {
+                    contactsCache.updateContacts(_contactList/*, false*/);
+                    //contactsCache.updateContacts(_contactListWithoutNumber, true);
+
+                    updateContactGroups(_contactGroupList);
+                }
+                _contactList.clear();
+
+                cached = false;
+                return true; // do not call it in loop
+            }
         } catch (Exception e) {
 //            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -360,12 +387,14 @@ class ContactGroupsCache {
             _contactList.clear();
 
             cached = false;
+            return true; // do not call it in loop
         }
 
         //if (dataWrapper != null)
         //    dataWrapper.invalidateDataWrapper();
 
         caching = false;
+        return true;
     }
 
     /*

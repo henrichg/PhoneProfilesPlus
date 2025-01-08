@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ class ContactsCache {
         caching = false;
     }
 
-    void getContactList(Context context, boolean fixEvents)
+    boolean getContactList(Context context, boolean fixEvents, boolean repeatIfSQLError)
     {
         //if ((cached || caching) && (!forceCache)) return;
 
@@ -421,6 +422,26 @@ class ContactsCache {
             }
 
             cached = false;
+            return true; // do not call it in loop
+        } catch (SQLiteException ee) {
+            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            if (repeatIfSQLError) {
+                cached = false;
+                return false;
+            } else {
+                PPApplicationStatic.recordException(ee);
+
+                _contactList.clear();
+                //_contactListWithoutNumber.clear();
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ContactsCache.getContactList", "(3) PPApplication.contactsCacheMutex");
+                synchronized (PPApplication.contactsCacheMutex) {
+                    updateContacts(_contactList/*, false*/);
+                    //updateContacts(_contactListWithoutNumber, true);
+                }
+
+                cached = false;
+                return true; // do not call it in loop
+            }
         } catch (Exception e) {
             //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -434,12 +455,14 @@ class ContactsCache {
             }
 
             cached = false;
+            return true; // do not call it in loop
         }
 
         //if (dataWrapper != null)
         //    dataWrapper.invalidateDataWrapper();
 
         caching = false;
+        return true;
     }
 
 /*
