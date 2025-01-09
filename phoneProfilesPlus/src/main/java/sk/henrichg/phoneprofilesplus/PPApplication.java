@@ -906,8 +906,7 @@ public class PPApplication extends Application
     static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
     static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
-
-    // synchronization of dtaa reuired for profile activation
+    // synchronization of data reuired for profile activation
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
     // synchronizacion for call of ActivateProfileHelper.execute()
     static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
@@ -917,7 +916,6 @@ public class PPApplication extends Application
     // synchronization for call of radio ActivateProfileHelper.executeForVolumes()
     // - is required, to avoid paralel running of this method
     static final ProfileActivationVolumeMutex profileActivationVolumeMutex = new ProfileActivationVolumeMutex();
-
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
