@@ -570,7 +570,8 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         if (!connected[i]) {
                                             // check by name
                                             connected[i] = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(connectedDevices, null, _bluetoothName);
-                                            PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "by name is connected="+_bluetoothName);
+                                            if (connected[i])
+                                                PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "by name is connected="+_bluetoothName);
                                         }
                                         break;
                                 }
@@ -600,7 +601,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     }
                                 }
                                 if (eventsHandler.bluetoothPassed)
-                                    // not use scanner data
+                                    // not use scanner data - not needed if is connected
                                     done = true;
                             }
                         } else {
@@ -612,7 +613,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                 eventsHandler.bluetoothPassed = (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED);
                             }
                         }
-                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "eventsHandler.bluetoothPassed="+eventsHandler.bluetoothPassed);
+                        PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "*** eventsHandler.bluetoothPassed="+eventsHandler.bluetoothPassed + "  event="+_event._name + " ****");
                     } else {
                         PPApplicationStatic.logE("EventPreferencesBluetooth.doHandleEvent", "*** bluetooth not enabled ***");
                         if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
