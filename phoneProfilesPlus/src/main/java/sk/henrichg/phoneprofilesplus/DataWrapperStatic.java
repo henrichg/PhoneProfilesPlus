@@ -596,6 +596,9 @@ class DataWrapperStatic {
             }
         }
 
+        //profileBitmap = Bitmap.createScaledBitmap(
+        //        profileBitmap, GlobalGUIRoutines.dpToPx(10), GlobalGUIRoutines.dpToPx(10), false);
+
         if (restartEvents) {
             /*shortcutIntent = new Intent(context.getApplicationContext(), ActionForExternalApplicationActivity.class);
             shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);*/
