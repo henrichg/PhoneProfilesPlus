@@ -57,15 +57,15 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             //    return;
 
             //final boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
-            final String newName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
-            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "newName="+newName);
 
             // this is important, because ACTION_NAME_CHANGED is called very often
             if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                final String newName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
                 if (newName == null) {
                     return;
                 }
                 try {
+                    PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "newName="+newName);
                     if ((_device != null) && newName.equals(_device.getName())) {
                         return;
                     }
