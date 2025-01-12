@@ -32,7 +32,7 @@
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
 
-    <sk.henrichg.phoneprofilesplus.InformationnPreference
+    <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="applicationWidgetListCompactGridInfo"
         app:title="@string/phone_profiles_pref_applicationCompactGrid"
         app:summary="@string/phone_profiles_pref_applicationCompactGrid_info_summary"
