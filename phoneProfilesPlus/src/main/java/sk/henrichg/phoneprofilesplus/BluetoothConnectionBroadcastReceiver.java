@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.PowerManager;
 import android.os.SystemClock;
 
 import androidx.work.ExistingWorkPolicy;
@@ -15,7 +14,6 @@ import androidx.work.WorkManager;
 
 import com.google.gson.Gson;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -50,7 +48,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "action="+action);
 //            Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] action="+action);
 
-            BluetoothDevice _device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            final BluetoothDevice _device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "device="+_device);
             if (_device != null)
                 PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "device="+_device.getName());
@@ -84,79 +82,12 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             //noinspection ExtractMethodRecommender
             final Context appContext = context.getApplicationContext();
 
-            final WeakReference<BluetoothDevice> deviceWeakRef = new WeakReference<>(_device);
-            Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
-//                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] start of executor");
-
-                //Context appContext= appContextWeakRef.get();
-                BluetoothDevice device = deviceWeakRef.get();
-
-                if (/*(appContext != null) &&*/ (device != null)) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothConnectionBroadcastReceiver_onReceive);
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        if (EventStatic.getGlobalEventsRunning(appContext)) {
-
-                            //callEventHandler(appContext);
-                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
-
-                            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
-                                    action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED) ||
-                                    action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
-                                // must be called, required is also for SENSOR_TYPE_RADIO_SWITCH
-                                callEventHandler(appContext);
-                            }
-
-                            /*
-                            List<BluetoothDeviceData> connectedDevices = getConnectedDevices(appContext);
-
-                            try {
-                                switch (action) {
-                                    case BluetoothDevice.ACTION_ACL_CONNECTED:
-                                        addConnectedDevice(connectedDevices, device);
-                                        break;
-                                    case BluetoothDevice.ACTION_NAME_CHANGED:
-                                        //noinspection ConstantConditions
-                                        if (newName != null) {
-                                            changeDeviceName(connectedDevices, device, newName);
-                                        }
-                                        break;
-                                    default:
-                                        removeConnectedDevice(connectedDevices, device);
-                                        break;
-                                }
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-
-                            saveConnectedDevices(connectedDevices, appContext);
-                            */
-
-                        }
-
-                    } catch (Exception e) {
-//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-                }
-            };
-            //PPApplicationStatic.createEventsHandlerExecutor();
-            //PPApplication.eventsHandlerExecutor.submit(runnable);
-            PPApplicationStatic.createDelayedEventsHandlerExecutor();
-            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            if (_device != null) {
+                // in it is used Runnable with depaly 5 seconds
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
+                // in it is used w0rk with delay 8 seconds
+                callEventHandler(appContext);
+            }
         }
 
     }
@@ -553,7 +484,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 new OneTimeWorkRequest.Builder(MainWorker.class)
                         .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG)
                         //.setInputData(workData)
-                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        .setInitialDelay(8, TimeUnit.SECONDS) // 8 because 5 is for getConnectedDevices
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
