@@ -796,19 +796,21 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     for (String valueCell : splits) {
-                                        boolean cellIdEquals = false;
-                                        long vCellId = Long.parseLong(valueCell);
-                                        if (vCellId <= Integer.MAX_VALUE)
-                                            cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
-                                        else if (vCellId != Long.MAX_VALUE)
-                                            cellIdEquals = vCellId == cell.cellIdLong;
-                                        if (cellIdEquals) {
-                                            db.deleteMobileCell(cell.cellId, cell.cellIdLong);
-                                            preference.removeCellId(cell.cellId, cell.cellIdLong);
-                                            if ((cell.name != null) && (!cell.name.isEmpty())) {
-                                                if (deletedCellNames.length() > 0)
-                                                    deletedCellNames.append("|");
-                                                deletedCellNames.append(cell.name);
+                                        if (!valueCell.isEmpty()) {
+                                            boolean cellIdEquals = false;
+                                            long vCellId = Long.parseLong(valueCell);
+                                            if (vCellId <= Integer.MAX_VALUE)
+                                                cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
+                                            else if (vCellId != Long.MAX_VALUE)
+                                                cellIdEquals = vCellId == cell.cellIdLong;
+                                            if (cellIdEquals) {
+                                                db.deleteMobileCell(cell.cellId, cell.cellIdLong);
+                                                preference.removeCellId(cell.cellId, cell.cellIdLong);
+                                                if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                                    if (deletedCellNames.length() > 0)
+                                                        deletedCellNames.append("|");
+                                                    deletedCellNames.append(cell.name);
+                                                }
                                             }
                                         }
                                     }
@@ -849,15 +851,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     boolean isSelected = false;
                                     for (String valueCell : splits) {
-                                        boolean cellIdEquals = false;
-                                        long vCellId = Long.parseLong(valueCell);
-                                        if (vCellId <= Integer.MAX_VALUE)
-                                            cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
-                                        else if (vCellId != Long.MAX_VALUE)
-                                            cellIdEquals = vCellId == cell.cellIdLong;
-                                        if (cellIdEquals) {
-                                            isSelected = true;
-                                            break;
+                                        if (!valueCell.isEmpty()) {
+                                            boolean cellIdEquals = false;
+                                            long vCellId = Long.parseLong(valueCell);
+                                            if (vCellId <= Integer.MAX_VALUE)
+                                                cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
+                                            else if (vCellId != Long.MAX_VALUE)
+                                                cellIdEquals = vCellId == cell.cellIdLong;
+                                            if (cellIdEquals) {
+                                                isSelected = true;
+                                                break;
+                                            }
                                         }
                                     }
                                     if (!isSelected) {
