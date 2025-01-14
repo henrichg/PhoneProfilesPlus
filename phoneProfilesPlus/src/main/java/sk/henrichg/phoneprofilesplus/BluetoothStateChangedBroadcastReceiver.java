@@ -64,6 +64,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
 
 //                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call Detector");
+                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "(1) called BluetoothStateChangedBroadcastReceiver.getConnectedDevices");
                             BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
                         }
 
@@ -129,6 +130,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         BluetoothScanWorker.fillBoundedDevicesList(appContext);
                     }
 
+                    PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "(2) called BluetoothStateChangedBroadcastReceiver.getConnectedDevices");
                     BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
                 } catch (Exception e) {

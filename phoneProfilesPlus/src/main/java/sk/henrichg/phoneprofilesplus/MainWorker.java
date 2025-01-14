@@ -123,6 +123,7 @@ public class MainWorker extends Worker {
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                            Log.e("MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
+                            PPApplicationStatic.logE("[IN_LISTENER] MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(new int[]{
                                     EventsHandler.SENSOR_TYPE_RADIO_SWITCH,

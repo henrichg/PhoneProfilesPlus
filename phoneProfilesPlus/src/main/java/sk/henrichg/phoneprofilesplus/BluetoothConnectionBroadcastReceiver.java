@@ -84,6 +84,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             if (_device != null) {
                 // in it is used Runnable with depaly 5 seconds
+                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "called BluetoothConnectedDevicesDetector.getConnectedDevices");
                 BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
                 // in it is used w0rk with delay 8 seconds
                 callEventHandler(appContext);
