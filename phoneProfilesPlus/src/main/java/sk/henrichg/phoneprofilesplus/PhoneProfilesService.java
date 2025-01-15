@@ -1777,6 +1777,52 @@ public class PhoneProfilesService extends Service
                     editor.apply();
                 }
 
+                if (actualVersionCode <= 7250) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(appContext.getApplicationContext());
+
+                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightModeDefaultValue())) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (nightModeOn) {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
+                        } else {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
+                        }
+                        editor.apply();
+                    }
+                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetListChangeColorsByNightModeDefaultValue())) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (nightModeOn) {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
+                        } else {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
+                        }
+                        editor.apply();
+                    }
+                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetIconChangeColorsByNightModeDefaultValue())) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (nightModeOn) {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
+                        } else {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
+                        }
+                        editor.apply();
+                    }
+                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightModeDefaultValue())) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (nightModeOn) {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
+                        } else {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
+                        }
+                        editor.apply();
+                    }
+                }
+
             }
 
             // Keep this !!! stop tap target for package replaced
