@@ -50,6 +50,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         String applicationSamsungEdgeBackgroundColorNightModeOff;
         String applicationSamsungEdgeBackgroundColorNightModeOn;
 
+        int setSettingsLightness = 0;
+
 //        PPApplicationStatic.logE("[SYNCHRONIZED] SamsungEdgeProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
@@ -84,10 +86,10 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                         //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                         applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
-                        //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
-                        applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
                         applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        setSettingsLightness = -1;
                         //break;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
@@ -95,10 +97,10 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                         //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                         applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
-                        //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
-                        applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
                         applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        setSettingsLightness = 1;
                         //break;
                     }
                 }
@@ -212,6 +214,21 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         //int blueText = redText;
 
         int settingsLightness = redText;
+        if (setSettingsLightness == -1) {
+            // nigthNodeOn = true
+            // GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87
+            settingsLightness = 0xE0 - 0x1F;
+            //if (settingsLightness < 0x00)
+            //    settingsLightness = 0x00;
+        }
+        else
+        if (setSettingsLightness == 1) {
+            // nigthNodeOn = false
+            // GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12
+            settingsLightness = 0x20 + 0x1F;
+            //if (settingsLightness > 0xFF)
+            //    settingsLightness = 0xFF;
+        }
 
         // header
         if (applicationSamsungEdgeHeader) {
@@ -309,15 +326,36 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
 
             red = 0xFF;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) red = 0x00;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) red = 0x20;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) red = 0x40;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) red = 0x60;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) red = 0x80;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) red = 0xA0;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) red = 0xC0;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) red = 0xE0;
-            //if (applicationWidgetListLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) red = 0xFF;
+            switch (applicationSamsungEdgeLightnessT) {
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                    red = 0x00;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                    red = 0x20;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                    red = 0x40;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                    red = 0x60;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
+                    red = 0x80;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                    red = 0xA0;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                    red = 0xC0;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                    red = 0xE0;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                    //noinspection ConstantConditions
+                    red = 0xFF;
+                    break;
+            }
             green = red; blue = red;
             widget.setTextColor(R.id.widget_samsung_edge_header_profile_name, Color.argb(0xFF, red, green, blue));
             widget.setTextViewTextSize(R.id.widget_samsung_edge_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
@@ -333,15 +371,36 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }*/
 
             red = 0xFF;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) red = 0x00;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) red = 0x20;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) red = 0x40;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) red = 0x60;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) red = 0x80;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) red = 0xA0;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) red = 0xC0;
-            if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) red = 0xE0;
-            //if (applicationWidgetListLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) red = 0xFF;
+            switch (applicationSamsungEdgeLightnessT) {
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                    red = 0x00;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                    red = 0x20;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                    red = 0x40;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                    red = 0x60;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
+                    red = 0x80;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                    red = 0xA0;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                    red = 0xC0;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                    red = 0xE0;
+                    break;
+                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                    //noinspection ConstantConditions
+                    red = 0xFF;
+                    break;
+            }
             //noinspection ConstantConditions
             green = red;
             //noinspection ConstantConditions

@@ -153,7 +153,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetIconShowBorder = false; // do not show border
                         applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                        applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         //applicationWidgetIconColor = "0"; // icon type = colorful
                         applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //break;
@@ -166,7 +166,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetIconShowBorder = false; // do not show border
                         applicationWidgetIconLightnessBorder = "0";
-                        applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         //applicationWidgetIconColor = "0"; // icon type = colorful
                         applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //break;

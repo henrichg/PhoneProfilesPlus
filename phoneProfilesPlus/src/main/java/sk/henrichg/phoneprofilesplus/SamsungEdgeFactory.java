@@ -209,8 +209,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             //switch (nightModeFlags) {
                             if (nightModeOn) {
                                 //case Configuration.UI_MODE_NIGHT_YES:
-
-                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                                //applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                                 applicationSamsungEdgeBackgroundType = true; // background type = color
                                 applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
                                 //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
@@ -218,8 +217,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             } else {
                                 //case Configuration.UI_MODE_NIGHT_NO:
                                 //case Configuration.UI_MODE_NIGHT_UNDEFINED:
-
-                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                                //applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                                 applicationSamsungEdgeBackgroundType = true; // background type = not color
                                 applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
                                 //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
@@ -261,23 +259,36 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 int red = 0xFF;
                 int green;
                 int blue;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0))
-                    red = 0x00;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
-                    red = 0x20;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
-                    red = 0x40;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
-                    red = 0x60;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50))
-                    red = 0x80;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62))
-                    red = 0xA0;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75))
-                    red = 0xC0;
-                if (applicationSamsungEdgeLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87))
-                    red = 0xE0;
-                //if (applicationWidgetListLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) red = 0xFF;
+                switch (applicationSamsungEdgeLightnessT) {
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                        red = 0x00;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                        red = 0x20;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                        red = 0x40;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                        red = 0x60;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
+                        red = 0x80;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                        red = 0xA0;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                        red = 0xC0;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                        red = 0xE0;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                        //noinspection ConstantConditions
+                        red = 0xFF;
+                        break;
+                }
                 green = red;
                 blue = red;
                 if (!applicationSamsungEdgeHeader) {

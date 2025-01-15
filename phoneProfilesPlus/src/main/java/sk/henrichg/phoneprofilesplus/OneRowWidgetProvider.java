@@ -160,7 +160,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetOneRowShowBorder = false; // do not show border
                         applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                        applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         setRestartEventsLightness = -1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                         applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
@@ -175,7 +175,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetOneRowShowBorder = false; // do not show border
                         applicationWidgetOneRowLightnessBorder = "0";
-                        applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         setRestartEventsLightness = 1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                         applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
@@ -446,15 +446,19 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             int restartEventsLightness = redText;
             if (setRestartEventsLightness == -1) {
-                restartEventsLightness = restartEventsLightness - 0x1F;
-                if (restartEventsLightness < 0x00)
-                    restartEventsLightness = 0x00;
+                // nigthNodeOn = true
+                // GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87
+                restartEventsLightness = 0xE0 - 0x1F;
+                //if (restartEventsLightness < 0x00)
+                //    restartEventsLightness = 0x00;
             }
             else
             if (setRestartEventsLightness == 1) {
-                restartEventsLightness = restartEventsLightness + 0x1F;
-                if (restartEventsLightness > 0xFF)
-                    restartEventsLightness = 0xFF;
+                // nigthNodeOn = false
+                // GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12
+                restartEventsLightness = 0x20 + 0x1F;
+                //if (restartEventsLightness > 0xFF)
+                //    restartEventsLightness = 0xFF;
             }
 
             boolean isIconResourceID;

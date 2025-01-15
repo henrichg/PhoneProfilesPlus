@@ -141,7 +141,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                        applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         setRestartEventsLightness = -1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
@@ -155,7 +155,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = "0";
-                        applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         setRestartEventsLightness = 1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
@@ -389,15 +389,19 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         int restartEventsLightness = redText;
         if (setRestartEventsLightness == -1) {
-            restartEventsLightness = restartEventsLightness - 0x1F;
-            if (restartEventsLightness < 0x00)
-                restartEventsLightness = 0x00;
+            // nigthNodeOn = true
+            // GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87
+            restartEventsLightness = 0xE0 - 0x1F;
+            //if (restartEventsLightness < 0x00)
+            //    restartEventsLightness = 0x00;
         }
         else
         if (setRestartEventsLightness == 1) {
-            restartEventsLightness = restartEventsLightness + 0x1F;
-            if (restartEventsLightness > 0xFF)
-                restartEventsLightness = 0xFF;
+            // nigthNodeOn = false
+            // GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12
+            restartEventsLightness = 0x20 + 0x1F;
+            //if (restartEventsLightness > 0xFF)
+            //    restartEventsLightness = 0xFF;
         }
         int separatorLightness = redText;
 

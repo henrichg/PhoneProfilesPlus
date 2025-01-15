@@ -150,7 +150,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         if (nightModeOn) {
                             //case Configuration.UI_MODE_NIGHT_YES:
 
-                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                            //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                             //break;
@@ -158,7 +158,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             //case Configuration.UI_MODE_NIGHT_NO:
                             //case Configuration.UI_MODE_NIGHT_UNDEFINED:
 
-                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                             //break;
