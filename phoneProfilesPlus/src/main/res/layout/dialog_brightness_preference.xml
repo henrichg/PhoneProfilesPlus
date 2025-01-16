@@ -53,6 +53,8 @@
                 android:id="@+id/brightnessPrefDialogAutomatic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/brightness_pref_dialog_automatic_chb" />
@@ -69,6 +71,8 @@
                 android:id="@+id/brightnessPrefDialogLevel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/brightness_pref_dialog_level_chb" />

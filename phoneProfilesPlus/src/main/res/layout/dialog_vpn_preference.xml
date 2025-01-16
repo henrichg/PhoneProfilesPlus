@@ -66,6 +66,8 @@
                     android:id="@+id/vpnPrefDialogEnableVPNEnableRB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/vpn_profile_pref_dlg_enable_vpn"/>
@@ -73,6 +75,8 @@
                     android:id="@+id/vpnPrefDialogEnableVPNDisableRB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/vpn_profile_pref_dlg_disable_vpn"/>
@@ -180,6 +184,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="-5dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:checked="false"
                 android:focusable="false"
                 android:buttonTint="@color/checkbox_radiobutton_color"

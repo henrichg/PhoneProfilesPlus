@@ -46,6 +46,8 @@
                 android:id="@+id/volumePrefDialogSharedProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/volume_pref_dialog_default_profile_chb" />

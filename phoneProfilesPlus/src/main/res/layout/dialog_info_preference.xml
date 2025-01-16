@@ -49,6 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="-5dp"
             android:layout_marginTop="15dp"
+            android:drawableStart="@android:color/transparent"
+            android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
             android:buttonTint="@color/checkbox_radiobutton_color"
             android:text=""
             android:visibility="gone" />

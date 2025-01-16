@@ -45,6 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_start_activator"/>
@@ -54,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_start_editor"/>
@@ -63,6 +67,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_restart_events"/>
@@ -72,6 +78,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_enable_disable_events_run"/>

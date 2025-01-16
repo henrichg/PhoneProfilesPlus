@@ -147,4 +147,5 @@
     <dimen name="spinner_padding_horizontal">4dp</dimen>
     <dimen name="spinner_padding_vertical">2dp</dimen>
 
+    <dimen name="checkbox_radiobitton_drawable_padding">8dp</dimen>
 </resources>
