@@ -146,6 +146,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT = "categoryProfileListNotificationRoot";
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT = "categorySamsungEdgePanelRoot";
+    static final String PREF_WIDGET_PANEL_CATEGORY_ROOT = "categoryWidgetPanelRoot";
     static final String PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT = "categoryWidgetDashClockRoot";
     static final String PREF_CALL_SCREENING_CATEGORY_ROOT = "categoryCallScreeningRoot";
 
@@ -532,6 +533,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategoryScreen != null)
                     setCategorySummary(preferenceCategoryScreen);
             }
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_PANEL_CATEGORY_ROOT);
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
             preferenceCategoryScreen = findPreference(PREF_CALL_SCREENING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
@@ -2748,6 +2751,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (Build.VERSION.SDK_INT >= 30)
                 setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE);
         }
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_HEADER);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_VERTICAL_POSITION);
+        if (Build.VERSION.SDK_INT >= 30)
+            setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE);
+
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND);
@@ -2980,6 +2996,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean keyIsWidgetOneRowChangeColorByNightMode = false;
         boolean keyIsWidgetListChangeColorByNightMode = false;
         boolean keyIsSamsungEdgeChangeColorByNightMode = false;
+        boolean keyIsWidgetPanelChangeColorByNightMode = false;
         boolean keyIsWidgetOneRowProfileListChangeColorByNightMode = false;
         boolean keyIsWidgetIconUseDynamicColors = false;
         boolean keyIsWidgetOneRowUseDynamicColors = false;
@@ -2996,6 +3013,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE)) {
             keyIsSamsungEdgeChangeColorByNightMode = true;
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE)) {
+            keyIsWidgetPanelChangeColorByNightMode = true;
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE)) {
             keyIsWidgetOneRowProfileListChangeColorByNightMode = true;
@@ -3017,12 +3037,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean changeWidgetOneRowColorsByNightMode = false;
         boolean changeWidgetListColorsByNightMode = false;
         boolean changeSamsungEdgeColorsByNightMode = false;
+        boolean changeWidgetPanelColorsByNightMode = false;
         boolean changeWidgetOneRowProfileListColorsByNightMode = false;
         if (Build.VERSION.SDK_INT >= 30) {
             changeWidgetIconColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, false);
             changeWidgetOneRowColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, false);
             changeWidgetListColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, false);
             changeSamsungEdgeColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, false);
+            changeWidgetPanelColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE, false);
             changeWidgetOneRowProfileListColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE, false);
         }
 
@@ -3057,6 +3079,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
         boolean monochromeIconSamsungEdge =
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, "0").equals("1");
+        boolean monochromeIconWidgetPanel =
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR, "0").equals("1");
         boolean monochromeIconShortcut =
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0").equals("1");
         boolean monochromeIconOneRowProfileList =
@@ -3509,6 +3533,55 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (_preference != null) {
                 //_preference.setEnabled(false);
                 _preference.setEnabled(monochromeIconSamsungEdge);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE) || keyIsWidgetPanelChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetPanelColorsByNightMode);
+            if (changeWidgetPanelColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            } else {
+                if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE, false)) {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                } else {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR) || keyIsWidgetPanelChangeColorByNightMode) {
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR);
+            //if (_preference != null)
+            //    _preference.setEnabled(!changeWidgetPanelColorsByNightMode);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS);
+            if (changeWidgetPanelColorsByNightMode) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconWidgetPanel);
+                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS);
+            if (_preference != null) {
+                //_preference.setEnabled(false);
+                _preference.setEnabled(monochromeIconWidgetPanel);
             }
         }
 
@@ -4863,6 +4936,25 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _value.append(StringConstants.STR_BULLET);
                 _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
             }
+        }
+        if (key.equals(PREF_WIDGET_PANEL_CATEGORY_ROOT)) {
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetPanelVerticalPosition));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+            _value.append(StringConstants.STR_BULLET);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT)) {
             _value.append(getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification));

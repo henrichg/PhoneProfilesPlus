@@ -253,6 +253,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 case PhoneProfilesPrefsFragment.PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
                     break;
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_PANEL_CATEGORY_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsWidgetPanel();
+                    break;
                 case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRowProfileList();
                     break;

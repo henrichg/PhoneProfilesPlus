@@ -784,6 +784,9 @@
             android:name=".ProfileListWidgetServiceCompactGrid"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
+            android:name=".PanelWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
             android:name=".SamsungEdgeService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service

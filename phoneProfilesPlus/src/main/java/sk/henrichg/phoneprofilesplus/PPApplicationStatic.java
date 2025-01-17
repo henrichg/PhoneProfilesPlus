@@ -961,6 +961,21 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListIconColor(context);
             ApplicationPreferences.notificationProfileListIconLightness(context);
             ApplicationPreferences.notificationProfileListCustomIconLightness(context);
+
+            ApplicationPreferences.applicationWidgetPanelHeader(context);
+            ApplicationPreferences.applicationWidgetPanelBackground(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessB(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessT(context);
+            ApplicationPreferences.applicationWidgetPanelIconColor(context);
+            ApplicationPreferences.applicationWidgetPanelIconLightness(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundType(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetPanelCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetPanelVerticalPosition(context);
+            ApplicationPreferences.applicationWidgetPanelChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOff(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOn(context);
+
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
             ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(context);

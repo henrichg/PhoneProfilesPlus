@@ -333,6 +333,8 @@ public class PhoneProfilesService extends Service
                 new IntentFilter(ProfileListWidgetProvider.ACTION_REFRESH_LISTWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.edgePanelBroadcastReceiver,
                 new IntentFilter(SamsungEdgeProvider.ACTION_REFRESH_EDGEPANEL));
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.widgetPanelBroadcastReceiver,
+                new IntentFilter(SamsungEdgeProvider.ACTION_REFRESH_PANELWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver,
                 new IntentFilter(OneRowProfileListWidgetProvider.ACTION_REFRESH_ONEROWPROFILELISTWIDGET));
 
@@ -1539,6 +1541,15 @@ public class PhoneProfilesService extends Service
                                     ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
                             editor.apply();
                         }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase(OLD_BROWN_COLOR)) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
                     }
 
                     // remove all not used non-named mobile cells
@@ -1818,6 +1829,16 @@ public class PhoneProfilesService extends Service
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
                         } else {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
+                        }
+                        editor.apply();
+                    }
+                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetPanelChangeColorsByNightModeDefaultValue())) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (nightModeOn) {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
+                        } else {
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
                         }
                         editor.apply();
                     }

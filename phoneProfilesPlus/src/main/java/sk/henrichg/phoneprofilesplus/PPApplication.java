@@ -946,6 +946,7 @@ public class PPApplication extends Application
     static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
     static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
     static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
+    static final PanelWidgetDatasetChangedMutex panelWidgetDatasetChangedMutex = new PanelWidgetDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
     static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
 
@@ -1001,6 +1002,7 @@ public class PPApplication extends Application
     static final OneRowWidgetProvider oneRowWidgetBroadcastReceiver = new OneRowWidgetProvider();
     static final ProfileListWidgetProvider listWidgetBroadcastReceiver = new ProfileListWidgetProvider();
     static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
+    static final PanelWidgetProvider panelWidgetBroadcastReceiver = new PanelWidgetProvider();
     static final OneRowProfileListWidgetProvider oneRowProfileListWidgetBroadcastReceiver = new OneRowProfileListWidgetProvider();
 
     static volatile TimeChangedReceiver timeChangedReceiver = null;
@@ -1863,6 +1865,11 @@ public class PPApplication extends Application
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
+        }
+        try {
+            PanelWidgetProvider.updateWidgets(context/*, true*/);
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
         }
 
         // dash clock extension
