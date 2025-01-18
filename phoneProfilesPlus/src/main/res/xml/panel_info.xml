@@ -14,7 +14,7 @@
     android:description="@string/panel_widget_description"
     android:widgetCategory="home_screen"
 
-    android:configure="sk.henrichg.phoneprofilesplus.LaunchPanelConfigurationActivity"
+    android:configure="sk.henrichg.phoneprofilesplus.LaunchPanelWidgetConfigurationActivity"
     android:widgetFeatures="reconfigurable"
     tools:targetApi="p" />
     <!--    android:widgetFeatures="reconfigurable|configuration_optional" />-->

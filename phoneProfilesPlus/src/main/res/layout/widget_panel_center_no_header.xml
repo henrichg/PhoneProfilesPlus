@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_panel_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/widget_panel_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/widget_panel_buttonsDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+            android:background="@color/dialogDividerColor" />
+
+        <ImageView
+            android:id="@+id/widget_panel_settings"
+            android:layout_width="@dimen/widget_panel_settings_icon_size"
+            android:layout_height="@dimen/widget_panel_settings_icon_size"
+            android:layout_marginBottom="5dp"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_widget_settings"
+            android:contentDescription="@string/widget_panel_settings_description"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/widget_ripple_panel_settings" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widget_panel_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/widget_panel_bottom_bar">
+
+        <LinearLayout
+            android:id="@+id/widget_panel_liLa1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            tools:ignore="UselessParent">
+
+            <GridView
+                android:id="@+id/widget_panel_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:columnWidth="70dp"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
+                android:verticalSpacing="5dp"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
+                android:divider="@android:color/transparent"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:listSelector="@drawable/widget_list_item" />
+
+            <TextView
+                android:id="@+id/widget_panel_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/profile_list_empty"
+                android:gravity="center"
+                android:textSize="21dp"
+                tools:ignore="SpUsage" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

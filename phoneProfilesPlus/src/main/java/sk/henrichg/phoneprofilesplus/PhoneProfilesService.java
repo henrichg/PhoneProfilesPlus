@@ -333,8 +333,8 @@ public class PhoneProfilesService extends Service
                 new IntentFilter(ProfileListWidgetProvider.ACTION_REFRESH_LISTWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.edgePanelBroadcastReceiver,
                 new IntentFilter(SamsungEdgeProvider.ACTION_REFRESH_EDGEPANEL));
-        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.widgetPanelBroadcastReceiver,
-                new IntentFilter(SamsungEdgeProvider.ACTION_REFRESH_PANELWIDGET));
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.panelWidgetBroadcastReceiver,
+                new IntentFilter(PanelWidgetProvider.ACTION_REFRESH_PANELWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver,
                 new IntentFilter(OneRowProfileListWidgetProvider.ACTION_REFRESH_ONEROWPROFILELISTWIDGET));
 
@@ -479,6 +479,9 @@ public class PhoneProfilesService extends Service
         } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.edgePanelBroadcastReceiver);
+        } catch (Exception ignored) {}
+        try {
+            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.panelWidgetBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver);
