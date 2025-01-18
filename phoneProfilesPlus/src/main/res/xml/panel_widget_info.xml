@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:minWidth="200dp"
     android:minHeight="400dp"
-    android:minResizeWidth="200dp"
+    android:minResizeWidth="100dp"
     android:minResizeHeight="400dp"
     android:initialLayout="@layout/empty_widget"
     android:resizeMode="horizontal|vertical"
