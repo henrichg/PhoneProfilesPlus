@@ -155,15 +155,15 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsSamsungEdgePanel" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
-        app:title="@string/phone_profiles_pref_category_profile_list_notification"
-        app:key="categoryProfileListNotificationRoot"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsProfileListNotification" />
-
-    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:title="@string/phone_profiles_pref_category_widget_panel"
         app:key="categoryWidgetPanelRoot"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsWidgetPanel" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/phone_profiles_pref_category_profile_list_notification"
+        app:key="categoryProfileListNotificationRoot"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsProfileListNotification" />
 
 </androidx.preference.PreferenceScreen>
