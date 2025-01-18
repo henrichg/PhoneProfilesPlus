@@ -1147,6 +1147,16 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="widgetPanelVerticalPositionArray">
+        <item>@string/array_pref_samsungEdgeVerticalPosition_top</item>
+        <item>@string/array_pref_samsungEdgeVerticalPosition_center</item>
+        <item>@string/array_pref_samsungEdgeVerticalPosition_bottom</item>
+    </string-array>
+    <string-array name="widgetPanelVerticalPositionValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="mobileCellsSortArray">
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_name</item>
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_connection</item>

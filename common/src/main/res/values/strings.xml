@@ -2305,6 +2305,10 @@
     <string name="phone_profiles_pref_category_widget_panel">Widget: Panel</string>
     <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">Vertical position</string>
     <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
+    <string name="widget_panel_settings_description">Panel widget settings</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Info abount new Panel widget</string>
+    <string name="panel_widget_description">Profile activation or Restart events with vertical widget panel</string>
+    <string name="widget_label_panel">Panel</string>
 
     <!-- **************************************************************************************** -->
 

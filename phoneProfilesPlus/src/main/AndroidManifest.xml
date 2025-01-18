@@ -576,6 +576,15 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
+            android:name=".LaunchWidgetPanelConfigurationActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:launchMode="singleInstance"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
             android:name=".LogCrashActivity"
             android:label="">
         </activity>
@@ -748,6 +757,20 @@
             <meta-data
                 android:name="com.samsung.android.cocktail.provider"
                 android:resource="@xml/samsung_edge"/>
+        </receiver>
+        <receiver
+            android:name=".PanelWidgetProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_panel">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/panel_widget_info"/>
         </receiver>
         <receiver
             android:name=".OneRowProfileListWidgetProvider"

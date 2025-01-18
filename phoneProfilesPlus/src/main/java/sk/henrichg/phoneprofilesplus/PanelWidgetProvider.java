@@ -435,9 +435,13 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                 // && applicationWidgetOneRowUseDynamicColors
             )) {*/
         //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
+
+        /*
         bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_settings, true, context);
         bitmap = BitmapManipulator.monochromeBitmap(bitmap, settingsLightness);
         widget.setImageViewBitmap(R.id.widget_panel_settings, bitmap);
+        */
+
         //}
         /*} else {
             // good, color of this is as in notification ;-)
@@ -468,9 +472,11 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             widget.setViewVisibility(R.id.widget_panel_header_restart_events, View.GONE);
         */
 
-        Intent intentSettings = new Intent(context, LaunchPanelWidgetConfigurationActivity.class);
+        /*
+        Intent intentSettings = new Intent(context, LaunchWidgetPanelConfigurationActivity.class);
         PendingIntent pIntentSettings = PendingIntent.getActivity(context, 3, intentSettings, PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setOnClickPendingIntent(R.id.widget_panel_settings, pIntentSettings);
+        */
 
         /*if (!applicationWidgetPanelGridLayout)
             widget.setRemoteAdapter(R.id.widget_panel, svcIntent);

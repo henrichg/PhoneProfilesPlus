@@ -528,6 +528,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
             preferenceCategoryScreen = findPreference(PREF_SHORTCUT_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+
             if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
                 preferenceCategoryScreen = findPreference(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT);
                 if (preferenceCategoryScreen != null)

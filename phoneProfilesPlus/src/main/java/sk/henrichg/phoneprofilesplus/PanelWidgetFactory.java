@@ -342,7 +342,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                     extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
                 i.putExtras(extras);
-                row.setOnClickFillInIntent(R.id.widget_samsung_edge_item, i);
+                row.setOnClickFillInIntent(R.id.widget_panel_item, i);
 
             }
 

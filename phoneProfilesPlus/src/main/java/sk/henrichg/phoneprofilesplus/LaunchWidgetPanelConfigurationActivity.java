@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LaunchPanelWidgetConfigurationActivity extends AppCompatActivity {
+public class LaunchWidgetPanelConfigurationActivity extends AppCompatActivity {
 
     int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
