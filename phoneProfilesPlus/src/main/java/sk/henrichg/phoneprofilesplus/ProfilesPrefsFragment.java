@@ -7534,7 +7534,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
             String sEndOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
-            int endOfActivationType = Integer.parseInt(sEndOfActivationType);
+            int endOfActivationType = 0;
+            if (sEndOfActivationType != null)
+                endOfActivationType = Integer.parseInt(sEndOfActivationType);
             Preference durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
             Preference endOfActivationTimePreference = prefMng.findPreference(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME);
             if (durationPreference != null)

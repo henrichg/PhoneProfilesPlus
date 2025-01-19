@@ -252,11 +252,6 @@
 <!--                android:value="true" />-->
 <!--        </service>-->
 
-        <!-- this is for Galaxy Apps - !!! do not use it, because will no be posible to upgrade app in Glaxy Store -->
-<!--        <meta-data-->
-<!--            android:name="com.samsung.android.cocktail.mode"-->
-<!--            android:value="edge_single_plus" />-->
-
         <!-- !!! android:theme must be set here -->
         <activity
             android:name=".ActivatorActivity"
@@ -567,15 +562,6 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".LaunchSamsungEdgeConfigurationActivity"
-            android:exported="true"
-            android:excludeFromRecents="true"
-            android:label=""
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:launchMode="singleInstance"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
-        <activity
             android:name=".LaunchWidgetPanelConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
@@ -746,19 +732,6 @@
                 android:resource="@xml/profile_list_widget_info"/>
         </receiver>
         <receiver
-            android:name=".SamsungEdgeProvider"
-            android:enabled="true"
-            android:exported="true"
-            tools:ignore="ExportedReceiver">
-            <intent-filter>
-                <action android:name="com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="com.samsung.android.cocktail.provider"
-                android:resource="@xml/samsung_edge"/>
-        </receiver>
-        <receiver
             android:name=".PanelWidgetProvider"
             android:enabled="true"
             android:exported="true"
@@ -808,9 +781,6 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".PanelWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS" />
-        <service
-            android:name=".SamsungEdgeService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".PhoneProfilesDashClockExtension"

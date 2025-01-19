@@ -29,9 +29,6 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkManager;
 
-import com.samsung.android.sdk.SsdkUnsupportedException;
-import com.samsung.android.sdk.look.Slook;
-
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.config.CoreConfigurationBuilder;
@@ -945,7 +942,6 @@ public class PPApplication extends Application
     static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
     static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
     static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
-    static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
     static final PanelWidgetDatasetChangedMutex panelWidgetDatasetChangedMutex = new PanelWidgetDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
     static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
@@ -1001,7 +997,6 @@ public class PPApplication extends Application
     static final IconWidgetProvider iconWidgetBroadcastReceiver = new IconWidgetProvider();
     static final OneRowWidgetProvider oneRowWidgetBroadcastReceiver = new OneRowWidgetProvider();
     static final ProfileListWidgetProvider listWidgetBroadcastReceiver = new ProfileListWidgetProvider();
-    static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
     static final PanelWidgetProvider panelWidgetBroadcastReceiver = new PanelWidgetProvider();
     static final OneRowProfileListWidgetProvider oneRowProfileListWidgetBroadcastReceiver = new OneRowProfileListWidgetProvider();
 
@@ -1183,11 +1178,6 @@ public class PPApplication extends Application
 
     // !! this must be here
     volatile static boolean blockProfileEventActions = false;
-
-    // Samsung Look instance
-    public volatile static Slook sLook = null;
-    public volatile static boolean sLookCocktailPanelEnabled = false;
-    //public static boolean sLookCocktailBarEnabled = false;
 
     //static final Random requestCodeForAlarm = new Random();
 
@@ -1554,36 +1544,6 @@ public class PPApplication extends Application
 
         //Log.d("PPApplication.onCreate","xxx");
 
-        // Samsung Look initialization
-        sLook = new Slook();
-        try {
-            sLook.initialize(this);
-            // true = The Device supports Edge Single Mode, Edge Single Plus Mode, and Edge Feeds Mode.
-            sLookCocktailPanelEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_PANEL);
-            //Log.e("***** PPApplication.onCreate", "sLookCocktailPanelEnabled="+sLookCocktailPanelEnabled);
-            // true = The Device supports Edge Immersive Mode feature.
-            //sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
-        } catch (SsdkUnsupportedException e) {
-            sLook = null;
-            switch (e.getType()) {
-                case SsdkUnsupportedException.VENDOR_NOT_SUPPORTED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: VENDOR_NOT_SUPPORTED");
-                    break;
-                case SsdkUnsupportedException.DEVICE_NOT_SUPPORTED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: DEVICE_NOT_SUPPORTED");
-                    break;
-                case SsdkUnsupportedException.LIBRARY_NOT_INSTALLED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_NOT_INSTALLED");
-                    break;
-                case SsdkUnsupportedException.LIBRARY_UPDATE_IS_REQUIRED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_UPDATE_IS_REQUIRED");
-                    break;
-                case SsdkUnsupportedException.LIBRARY_UPDATE_IS_RECOMMENDED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_UPDATE_IS_RECOMMENDED");
-                    break;
-            }
-        }
-
         startPPServiceWhenNotStarted(this);
     }
 
@@ -1858,14 +1818,6 @@ public class PPApplication extends Application
             PPApplicationStatic.recordException(e);
         }
 
-        // Samsung edge panel
-        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-            try {
-                SamsungEdgeProvider.updateWidgets(context/*, true*/);
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        }
         try {
             PanelWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {

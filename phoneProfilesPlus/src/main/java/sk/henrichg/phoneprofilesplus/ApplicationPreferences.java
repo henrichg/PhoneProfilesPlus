@@ -139,14 +139,6 @@ class ApplicationPreferences {
     static volatile boolean applicationEventUsePriority;
     static volatile boolean applicationUnlinkRingerNotificationVolumes;
     static volatile int applicationForceSetMergeRingNotificationVolumes;
-    //static volatile boolean applicationSamsungEdgePrefIndicator;
-    static volatile boolean applicationSamsungEdgeHeader;
-    static volatile String applicationSamsungEdgeBackground;
-    static volatile String applicationSamsungEdgeLightnessB;
-    static volatile String applicationSamsungEdgeLightnessT;
-    static volatile String applicationSamsungEdgeIconColor;
-    static volatile String applicationSamsungEdgeIconLightness;
-    //static volatile boolean applicationSamsungEdgeGridLayout;
     static volatile boolean applicationEventLocationScanOnlyWhenScreenIsOn;
     static volatile boolean applicationEventWifiScanOnlyWhenScreenIsOn;
     static volatile boolean applicationEventBluetoothScanOnlyWhenScreenIsOn;
@@ -159,8 +151,6 @@ class ApplicationPreferences {
     static volatile String applicationWidgetListBackgroundColor;
     static volatile boolean applicationWidgetIconBackgroundType;
     static volatile String applicationWidgetIconBackgroundColor;
-    static volatile boolean applicationSamsungEdgeBackgroundType;
-    static volatile String applicationSamsungEdgeBackgroundColor;
     //static volatile boolean applicationEventWifiEnableWifi;
     //static volatile boolean applicationEventBluetoothEnableBluetooth;
     static volatile boolean applicationEventWifiScanIfWifiOff;
@@ -197,14 +187,12 @@ class ApplicationPreferences {
     static volatile boolean  applicationWidgetListCustomIconLightness;
     static volatile boolean applicationWidgetOneRowCustomIconLightness;
     static volatile boolean applicationWidgetIconCustomIconLightness;
-    static volatile boolean applicationSamsungEdgeCustomIconLightness;
     //static volatile boolean notificationDarkBackground;
     static volatile boolean notificationUseDecoration;
     static volatile String notificationLayoutType;
     static volatile String notificationBackgroundColor;
     //static volatile String applicationNightModeOffTheme;
     static volatile boolean applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
-    static volatile String applicationSamsungEdgeVerticalPosition;
     static volatile int notificationBackgroundCustomColor;
     //static volatile boolean notificationNightMode;
     static volatile boolean applicationEditorHideHeaderOrBottomBar;
@@ -232,7 +220,6 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetIconChangeColorsByNightMode;
     static volatile boolean applicationWidgetOneRowChangeColorsByNightMode;
     static volatile boolean applicationWidgetListChangeColorsByNightMode;
-    static volatile boolean applicationSamsungEdgeChangeColorsByNightMode;
     static volatile boolean applicationForceSetBrightnessAtScreenOn;
     static volatile boolean notificationShowRestartEventsAsButton;
     static volatile String notificationProfileIconColor;
@@ -253,8 +240,6 @@ class ApplicationPreferences {
     static volatile String  applicationWidgetOneRowBackgroundColorNightModeOn;
     static volatile String  applicationWidgetListBackgroundColorNightModeOff;
     static volatile String  applicationWidgetListBackgroundColorNightModeOn;
-    static volatile String  applicationSamsungEdgeBackgroundColorNightModeOff;
-    static volatile String  applicationSamsungEdgeBackgroundColorNightModeOn;
     static volatile String applicationWidgetIconLayoutHeight;
     static volatile boolean applicationWidgetIconFillBackground;
     static volatile boolean applicationWidgetOneRowFillBackground;
@@ -466,14 +451,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
     //static final String PREF_NOTIFICATION_THEME = "notificationTheme";
     static final String PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES = "applicationForceSetMergeRingNotificationVolumes";
-    //private static final String PREF_APPLICATION_SAMSUNG_EDGE_PREF_INDICATOR = "applicationSamsungEdgePrefIndicator";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_HEADER = "applicationSamsungEdgeHeader";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND = "applicationSamsungEdgeBackground";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B = "applicationSamsungEdgeLightnessB";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T = "applicationSamsungEdgeLightnessT";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR = "applicationSamsungEdgeIconColor";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS = "applicationSamsungEdgeIconLightness";
-    //private static final String PREF_APPLICATION_SAMSUNG_EDGE_GRID_LAYOUT= "applicationSamsungEdgeGridLayout";
     static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventLocationScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventWifiScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventBluetoothScanOnlyWhenScreenIsOn";
@@ -486,8 +463,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR = "applicationWidgetListBackgroundColor";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE = "applicationWidgetIconBackgroundType";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR = "applicationWidgetIconBackgroundColor";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE = "applicationSamsungEdgeBackgroundType";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR = "applicationSamsungEdgeBackgroundColor";
     static final String PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING = "applicationEventWifiEnableScannig";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF = "applicationEventWifiScanIfWifiOff";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING = "applicationEventBluetoothEnableScannig";
@@ -518,14 +493,12 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS = "applicationWidgetListCustomIconLightness";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS = "applicationWidgetOneRowCustomIconLightness";
     static final String PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS = "applicationWidgetIconCustomIconLightness";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS = "applicationSamsungEdgeCustomIconLightness";
     //static final String PREF_NOTIFICATION_DARK_BACKGROUND = "notificationDarkBackground";
     static final String PREF_NOTIFICATION_USE_DECORATION = "notificationUseDecoration";
     static final String PREF_NOTIFICATION_LAYOUT_TYPE = "notificationLayoutType";
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR = "notificationBackgroundColor";
     //static final String PREF_APPLICATION_NIGHT_MODE_OFF_THEME = "applicationNightModeOffTheme";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
     static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
     //static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
     static final String PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR = "applicationEditorHideHeaderOrBottomBar";
@@ -555,7 +528,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetIconChangeColorsByNightMode";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetOneRowChangeColorsByNightMode";
     static final String PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetListChangeColorsByNightMode";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE = "applicationSamsungEdgeChangeColorsByNightMode";
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR = "notificationProfileIconColor";
     static final String PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS = "notificationProfileIconLightness";
     static final String PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS = "notificationCustomProfileIconLightness";
@@ -573,8 +545,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetOneRowBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetListBackgroundColorNightModeOff";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetListBackgroundColorNightModeOn";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationSamsungEdgeBackgroundColorNightModeOff";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT = "applicationWidgetIconLayoutHeight";
     static final String PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND = "applicationWidgetIconFillBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND = "applicationWidgetOneRowFillBackground";
@@ -1226,61 +1196,6 @@ class ApplicationPreferences {
         applicationForceSetMergeRingNotificationVolumes = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
     }
 
-    /*
-    static boolean applicationSamsungEdgePrefIndicator(Context context) {
-        applicationSamsungEdgePrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_PREF_INDICATOR, false);
-        return applicationSamsungEdgePrefIndicator;
-    }
-    */
-
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE = true;
-    static void applicationSamsungEdgeHeader(Context context) {
-        applicationSamsungEdgeHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_HEADER, PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE);
-    }
-
-    static private final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static private final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
-    static String applicationSamsungEdgeBackgroundDefaultValue() {
-        String defaultValue;
-        if (Build.VERSION.SDK_INT >= 30)
-            // change by night mode is by default enabled, and for this reason set also opaqueness of background to 100
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P;
-        else
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M;
-        return defaultValue;
-    }
-    static void applicationSamsungEdgeBackground(Context context) {
-        applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, applicationSamsungEdgeBackgroundDefaultValue());
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B_DEFAULT_VALUE = "0";
-    static void applicationSamsungEdgeLightnessB(Context context) {
-        applicationSamsungEdgeLightnessB = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static void applicationSamsungEdgeLightnessT(Context context) {
-        applicationSamsungEdgeLightnessT = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR_DEFAULT_VALUE = "0";
-    static void applicationSamsungEdgeIconColor(Context context) {
-        applicationSamsungEdgeIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR_DEFAULT_VALUE);
-        //return applicationSamsungEdgeIconColor;
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static void applicationSamsungEdgeIconLightness(Context context) {
-        applicationSamsungEdgeIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS_DEFAULT_VALUE);
-    }
-
-    /*
-    static boolean applicationSamsungEdgeGridLayout(Context context) {
-        applicationSamsungEdgeGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_GRID_LAYOUT, true);
-        return applicationSamsungEdgeGridLayout;
-    }
-    */
-
     static final boolean PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE = false;
     static void applicationEventLocationScanOnlyWhenScreenIsOn(Context context) {
         applicationEventLocationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);
@@ -1338,16 +1253,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_DEFAULT_VALUE = "-1"; // white color
     static void applicationWidgetIconBackgroundColor(Context context) {
         applicationWidgetIconBackgroundColor = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_DEFAULT_VALUE);
-    }
-
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE_DEFAULT_VALUE = false;
-    static void applicationSamsungEdgeBackgroundType(Context context) {
-        applicationSamsungEdgeBackgroundType = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_DEFAULT_VALUE = "-1"; // white color
-    static void applicationSamsungEdgeBackgroundColor(Context context) {
-        applicationSamsungEdgeBackgroundColor = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_DEFAULT_VALUE);
     }
 
     /*
@@ -1543,11 +1448,6 @@ class ApplicationPreferences {
         applicationWidgetIconCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
-    static void applicationSamsungEdgeCustomIconLightness(Context context) {
-        applicationSamsungEdgeCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
-    }
-
     /*
     static boolean notificationDarkBackground(Context context) {
         notificationDarkBackground = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_DARK_BACKGROUND, false);
@@ -1601,11 +1501,6 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE = true;
     static void applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(Context context) {
         applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE = "0";
-    static void applicationSamsungEdgeVerticalPosition(Context context) {
-        applicationSamsungEdgeVerticalPosition = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE);
     }
 
     static final int PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE = 0xFFFFFFFF;
@@ -1991,27 +1886,6 @@ class ApplicationPreferences {
         applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetListChangeColorsByNightModeDefaultValue(/*context*/));
     }
 
-    static private final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
-    static private final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
-    static boolean applicationSamsungEdgeChangeColorsByNightModeDefaultValue() {
-        boolean defaultValue;
-        if (Build.VERSION.SDK_INT >= 30)
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P;
-        else
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L;
-        return defaultValue;
-    }
-    static void applicationSamsungEdgeChangeColorsByNightMode(Context context) {
-        /*if (DebugVersion.enabled) {
-            SharedPreferences mySPrefs = getSharedPreferences(context);
-            SharedPreferences.Editor editor = mySPrefs.edit();
-            editor.remove(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE);
-            editor.apply();
-        }*/
-
-        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, applicationSamsungEdgeChangeColorsByNightModeDefaultValue());
-    }
-
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE = "0";
     static void notificationProfileIconColor(Context context) {
         notificationProfileIconColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_ICON_COLOR, PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE);
@@ -2108,18 +1982,6 @@ class ApplicationPreferences {
     static void applicationWidgetListBackgroundColorNightModeOn(Context context) {
         PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
-    }
-
-    static String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
-    static void applicationSamsungEdgeBackgroundColorNightModeOff(Context context) {
-        PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
-        applicationSamsungEdgeBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
-    }
-
-    static String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
-    static void applicationSamsungEdgeBackgroundColorNightModeOn(Context context) {
-        PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
-        applicationSamsungEdgeBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE = "2";

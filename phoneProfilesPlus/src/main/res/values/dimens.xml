@@ -68,8 +68,7 @@
     <dimen name="widget_restart_events_marginEnd">5dp</dimen>
     <dimen name="image_button_size">42dp</dimen>
     <dimen name="image_button_padding">9dp</dimen>
-    <dimen name="samsung_edge_settings_icon_size">40dp</dimen>
-    <dimen name="widget_panel_settings_icon_size">40dp</dimen>
+<!--    <dimen name="widget_panel_settings_icon_size">40dp</dimen>-->
 
     <dimen name="alert_dialog_top_padding">10dp</dimen>
 

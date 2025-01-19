@@ -331,8 +331,6 @@ public class PhoneProfilesService extends Service
                 new IntentFilter(OneRowWidgetProvider.ACTION_REFRESH_ONEROWWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.listWidgetBroadcastReceiver,
                 new IntentFilter(ProfileListWidgetProvider.ACTION_REFRESH_LISTWIDGET));
-        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.edgePanelBroadcastReceiver,
-                new IntentFilter(SamsungEdgeProvider.ACTION_REFRESH_EDGEPANEL));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.panelWidgetBroadcastReceiver,
                 new IntentFilter(PanelWidgetProvider.ACTION_REFRESH_PANELWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver,
@@ -476,9 +474,6 @@ public class PhoneProfilesService extends Service
         } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.listWidgetBroadcastReceiver);
-        } catch (Exception ignored) {}
-        try {
-            LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.edgePanelBroadcastReceiver);
         } catch (Exception ignored) {}
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.panelWidgetBroadcastReceiver);
@@ -1535,15 +1530,6 @@ public class PhoneProfilesService extends Service
                                     ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
                             editor.apply();
                         }
-                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
-                                ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
-                        if (backgroundColorNightModeOn.equalsIgnoreCase(OLD_BROWN_COLOR)) {
-                            // color is set to old brown color, this change it to new gray color
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
-                                    ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
-                            editor.apply();
-                        }
                         backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON,
                                 ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
                         if (backgroundColorNightModeOn.equalsIgnoreCase(OLD_BROWN_COLOR)) {
@@ -1822,16 +1808,6 @@ public class PhoneProfilesService extends Service
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
                         } else {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
-                        }
-                        editor.apply();
-                    }
-                    if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE,
-                            ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightModeDefaultValue())) {
-                        SharedPreferences.Editor editor = preferences.edit();
-                        if (nightModeOn) {
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87);
-                        } else {
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12);
                         }
                         editor.apply();
                     }

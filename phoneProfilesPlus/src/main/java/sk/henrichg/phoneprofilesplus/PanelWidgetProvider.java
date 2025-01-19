@@ -50,7 +50,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         String applicationWidgetPanelBackgroundColorNightModeOff;
         String applicationWidgetPanelBackgroundColorNightModeOn;
 
-        int setSettingsLightness = 0;
+        //int setSettingsLightness = 0;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PanelWidgetProvider.buildLayout", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -89,7 +89,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         //applicationWidgetPanelIconColor = "0"; // icon type = colorful
                         applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                        setSettingsLightness = -1;
+                        //setSettingsLightness = -1;
                         //break;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
@@ -100,7 +100,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         //applicationWidgetPanelIconColor = "0"; // icon type = colorful
                         applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                        setSettingsLightness = 1;
+                        //setSettingsLightness = 1;
                         //break;
                     }
                 }
@@ -179,6 +179,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             alpha = 0xFF;
         widget.setInt(R.id.widget_panel_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
 
+        /*
         int redText = 0xFF;
         switch (applicationWidgetPanelLightnessT) {
             case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
@@ -229,6 +230,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             //if (settingsLightness > 0xFF)
             //    settingsLightness = 0xFF;
         }
+        */
 
         // header
         if (applicationWidgetPanelHeader) {
@@ -429,7 +431,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         }
         ////////////////////////////////////////////////
 
-        Bitmap bitmap;
+        //Bitmap bitmap;
         /*if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetPanelChangeColorsByNightMode &&
                 applicationWidgetPanelIconColor.equals("0")
                 // && applicationWidgetOneRowUseDynamicColors

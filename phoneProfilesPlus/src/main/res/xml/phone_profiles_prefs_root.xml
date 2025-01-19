@@ -143,12 +143,6 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsShortcut" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
-        app:title="@string/phone_profiles_pref_category_samsung_edge_panel"
-        app:key="categorySamsungEdgePanelRoot"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsSamsungEdgePanel" />
-
-    <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:title="@string/phone_profiles_pref_category_widget_panel"
         app:key="categoryWidgetPanelRoot"
         app:layout="@layout/mp_preference_material_widget"

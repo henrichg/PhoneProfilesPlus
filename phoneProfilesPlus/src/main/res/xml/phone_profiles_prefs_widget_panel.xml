@@ -11,8 +11,8 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
-        app:title="@string/phone_profiles_pref_applicationSamsungEdgeVerticalPosition"
-        app:summary="@string/array_pref_samsungEdgeVerticalPosition_top"
+        app:title="@string/phone_profiles_pref_applicationWidgetPanelVerticalPosition"
+        app:summary="@string/array_pref_widgetPanelVerticalPosition_top"
         app:key="applicationWidgetPanelVerticalPosition"
         app:defaultValue="0"
         app:ppEntries="@array/widgetPanelVerticalPositionArray"

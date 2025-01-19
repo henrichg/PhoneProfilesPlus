@@ -813,14 +813,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventUsePriority(context);
             ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
             ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context);
-            //ApplicationPreferences.applicationSamsungEdgePrefIndicator(context);
-            ApplicationPreferences.applicationSamsungEdgeHeader(context);
-            ApplicationPreferences.applicationSamsungEdgeBackground(context);
-            ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
-            ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
-            ApplicationPreferences.applicationSamsungEdgeIconColor(context);
-            ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
-            //ApplicationPreferences.applicationSamsungEdgeGridLayout(context);
             ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context);
@@ -833,8 +825,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListBackgroundColor(context);
             ApplicationPreferences.applicationWidgetIconBackgroundType(context);
             ApplicationPreferences.applicationWidgetIconBackgroundColor(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundType(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context);
             //ApplicationPreferences.applicationEventWifiEnableWifi(context);
             //ApplicationPreferences.applicationEventBluetoothEnableBluetooth(context);
             ApplicationPreferences.applicationEventWifiScanIfWifiOff(context);
@@ -873,14 +863,12 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListCustomIconLightness(context);
             ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
             ApplicationPreferences.applicationWidgetIconCustomIconLightness(context);
-            ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
             //ApplicationPreferences.notificationDarkBackground(context);
             ApplicationPreferences.notificationUseDecoration(context);
             ApplicationPreferences.notificationLayoutType(context);
             ApplicationPreferences.notificationBackgroundColor(context);
             //ApplicationPreferences.applicationNightModeOffTheme(context);
             ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
-            ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
             ApplicationPreferences.notificationBackgroundCustomColor(context);
             //ApplicationPreferences.notificationNightMode(context);
             ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(context);
@@ -908,7 +896,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetListChangeColorsByNightMode(context);
-            ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode(context);
             ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
             ApplicationPreferences.notificationProfileIconColor(context);
             ApplicationPreferences.notificationProfileIconLightness(context);
@@ -926,8 +913,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetIconLayoutHeight(context);
             ApplicationPreferences.applicationWidgetIconFillBackground(context);
             ApplicationPreferences.applicationWidgetOneRowFillBackground(context);
