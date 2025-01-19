@@ -2742,26 +2742,24 @@ class PPApplicationStatic {
     // check if Pixel Launcher is default --------------------------------------------------
 
     static boolean isPixelLauncherDefault(Context context) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (context != null) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    ResolveInfo defaultLauncher;
-                    //if (Build.VERSION.SDK_INT < 33)
-                    //noinspection deprecation
-                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    //else
-                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
-                    return (defaultLauncher == null) ||
-                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                                "com.google.android.apps.nexuslauncher");
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+                //if (defaultLauncher != null)
+                //    Log.e("PPApplicationStatic.isPixelLauncherDefault", "package="+defaultLauncher.activityInfo.packageName);
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                            "com.google.android.apps.nexuslauncher");
+            } catch (Exception e) {
                 return false;
+            }
         }
         else
             return false;
@@ -2770,30 +2768,26 @@ class PPApplicationStatic {
     // check if One UI 4 Samsung Launcher is default --------------------------------------------------
 
     static boolean isOneUILauncherDefault(Context context) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (context != null) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
 
-                    //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
-                    ResolveInfo defaultLauncher;
-                    //if (Build.VERSION.SDK_INT < 33)
-                    //noinspection deprecation
-                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    //else
-                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
-                    return (defaultLauncher == null) ||
-                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                            "com.sec.android.app.launcher");
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                        "com.sec.android.app.launcher");
+            } catch (Exception e) {
                 return false;
+            }
         }
         else
             return false;
@@ -2802,31 +2796,56 @@ class PPApplicationStatic {
     // check if One UI 4 Samsung Launcher is default --------------------------------------------------
 
     static boolean isMIUILauncherDefault(Context context) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (context != null) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
 
-                    //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
-                    ResolveInfo defaultLauncher;
-                    //if (Build.VERSION.SDK_INT < 33)
-                    //noinspection deprecation
-                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    //else
-                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
-                    //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
-                    return (defaultLauncher == null) ||
-                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                            "com.miui.home");
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
+                //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                        "com.miui.home");
+            } catch (Exception e) {
                 return false;
+            }
+        }
+        else
+            return false;
+    }
+
+    // check if SmartLauncher is default --------------------------------------------------
+
+    static boolean isSmartLauncherDefault(Context context) {
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+
+                //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+
+                //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                                "ginlemon.flowerfree");
+            } catch (Exception e) {
+                return false;
+            }
         }
         else
             return false;

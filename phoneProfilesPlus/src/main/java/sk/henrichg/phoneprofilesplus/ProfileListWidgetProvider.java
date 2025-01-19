@@ -105,23 +105,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
 
             if (Build.VERSION.SDK_INT >= 30) {
-                if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                        PPApplicationStatic.isOneUILauncherDefault(context) ||
-                        PPApplicationStatic.isMIUILauncherDefault(context)) {
-                    ApplicationPreferences.applicationWidgetListRoundedCorners = true;
-                    ApplicationPreferences.applicationWidgetListRoundedCornersRadius = 15;
-                    //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS,
-                            ApplicationPreferences.applicationWidgetListRoundedCorners);
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
-                            String.valueOf(ApplicationPreferences.applicationWidgetListRoundedCornersRadius));
-                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                    //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
-                    editor.apply();
-                    //applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
-                    applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
-                    //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                if (Build.VERSION.SDK_INT >= 31) {
+                    if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                            PPApplicationStatic.isOneUILauncherDefault(context) ||
+                            PPApplicationStatic.isMIUILauncherDefault(context) ||
+                            PPApplicationStatic.isSmartLauncherDefault(context)) {
+                        ApplicationPreferences.applicationWidgetListRoundedCorners = true;
+                        ApplicationPreferences.applicationWidgetListRoundedCornersRadius = 15;
+                        //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS,
+                                ApplicationPreferences.applicationWidgetListRoundedCorners);
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
+                                String.valueOf(ApplicationPreferences.applicationWidgetListRoundedCornersRadius));
+                        //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                        //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
+                        editor.apply();
+                        //applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
+                        applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
+                        //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                    }
                 }
                 if (Build.VERSION.SDK_INT < 31) {
                     applicationWidgetListUseDynamicColors = false;
@@ -539,15 +542,21 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         int roundedBackground = 0;
         int roundedBorder = 0;
-        if (PPApplicationStatic.isPixelLauncherDefault(context)) {
+        if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isPixelLauncherDefault(context)) {
             roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
             roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-        } else if (PPApplicationStatic.isOneUILauncherDefault(context)) {
+        } else
+        if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isOneUILauncherDefault(context)) {
             roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
             roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-        }else if (PPApplicationStatic.isMIUILauncherDefault(context)) {
+        }else
+        if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isMIUILauncherDefault(context)) {
             roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
             roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
+        } else
+        if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isSmartLauncherDefault(context)) {
+            roundedBackground = R.drawable.rounded_widget_background_smart_launcher;
+            roundedBorder = R.drawable.rounded_widget_border_smart_launcher;
         } else {
             switch (applicationWidgetListRoundedCornersRadius) {
                 case 1:

@@ -23,7 +23,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.providers.settings.GlobalSettingsProto;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -1901,7 +1900,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplicationStatic.isPixelLauncherDefault(activity) ||
                     PPApplicationStatic.isOneUILauncherDefault(activity) ||
-                    PPApplicationStatic.isMIUILauncherDefault(activity)) {
+                    PPApplicationStatic.isMIUILauncherDefault(activity) ||
+                    PPApplicationStatic.isSmartLauncherDefault(activity)) {
                 //preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
                 //if (preference != null)
                 //    preference.setVisible(false);
@@ -1930,6 +1930,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setVisible(false);
 
+                /* TODO Panel widget support for rounded corners
+                //preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS);
+                //if (preference != null)
+                //    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
+                */
             }
             if (PPApplication.deviceIsPixel) {
                 PPListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
