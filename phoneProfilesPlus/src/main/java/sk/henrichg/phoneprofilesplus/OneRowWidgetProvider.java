@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -100,7 +99,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
             applicationWidgetOneRowLightnessTChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowLightnessTChangeByNightMode;
-            Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowLightnessTChangeByNightMode="+ApplicationPreferences.applicationWidgetOneRowLightnessTChangeByNightMode);
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
             applicationWidgetOneRowFillBackground = ApplicationPreferences.applicationWidgetOneRowFillBackground;
