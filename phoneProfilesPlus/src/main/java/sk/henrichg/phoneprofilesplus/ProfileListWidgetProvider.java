@@ -61,6 +61,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetListBackgroundColorNightModeOff;
         String applicationWidgetListBackgroundColorNightModeOn;
         boolean applicationWidgetListPrefIndicatorUseDynamicColor;
+        boolean applicationWidgetListLightnessTChangeByNightMode;
 
         int setRestartEventsLightness = 0;
 
@@ -83,6 +84,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
             applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
+            applicationWidgetListLightnessTChangeByNightMode = ApplicationPreferences.applicationWidgetListLightnessTChangeByNightMode;
             applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
 
@@ -141,7 +143,29 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+
                         //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        if (applicationWidgetListLightnessTChangeByNightMode) {
+                            switch (applicationWidgetListLightnessT) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, applicationWidgetListLightnessT);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetListLightnessT = applicationWidgetListLightnessT;
+                        }
+
                         setRestartEventsLightness = -1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
@@ -155,7 +179,29 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetListShowBorder = false; // do not show border
                         applicationWidgetListLightnessBorder = "0";
+
                         //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        if (applicationWidgetListLightnessTChangeByNightMode) {
+                            switch (applicationWidgetListLightnessT) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, applicationWidgetListLightnessT);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetListLightnessT = applicationWidgetListLightnessT;
+                        }
+
                         setRestartEventsLightness = 1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
                         applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;

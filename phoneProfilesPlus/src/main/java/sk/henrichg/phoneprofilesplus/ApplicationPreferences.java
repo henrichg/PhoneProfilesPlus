@@ -289,6 +289,10 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetPanelChangeColorsByNightMode;
     static volatile String  applicationWidgetPanelBackgroundColorNightModeOff;
     static volatile String  applicationWidgetPanelBackgroundColorNightModeOn;
+    static volatile boolean applicationWidgetIconLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetListLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetPanelLightnessTChangeByNightMode;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -603,6 +607,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetPanelChangeColorsByNightMode";
     static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetPanelBackgroundColorNightModeOff";
     static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetPanelBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetIconLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetListLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelLightnessTChangeByNightMode";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2466,6 +2474,26 @@ class ApplicationPreferences {
     static void applicationWidgetPanelBackgroundColorNightModeOn(Context context) {
         PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetPanelBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetIconLightnessTChangeByNightMode(Context context) {
+        applicationWidgetIconLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowLightnessTChangeByNightMode(Context context) {
+        applicationWidgetOneRowLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListLightnessTChangeByNightMode(Context context) {
+        applicationWidgetListLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelLightnessTChangeByNightMode(Context context) {
+        applicationWidgetPanelLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
     }
 
 }

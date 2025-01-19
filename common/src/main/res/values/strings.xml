@@ -2301,6 +2301,7 @@
     <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget.</string>
     <string name="show_profile_in_activator_not_show_toast">Profile will not be displayed in Activator, List widget</string>
     <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Change text lightness by Dark mode</string>
 
     <!-- **************************************************************************************** -->
 

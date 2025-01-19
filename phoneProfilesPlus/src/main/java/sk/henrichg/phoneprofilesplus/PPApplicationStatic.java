@@ -960,6 +960,10 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetPanelChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOn(context);
+            ApplicationPreferences.applicationWidgetIconLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetListLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessTChangeByNightMode(context);
 
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
