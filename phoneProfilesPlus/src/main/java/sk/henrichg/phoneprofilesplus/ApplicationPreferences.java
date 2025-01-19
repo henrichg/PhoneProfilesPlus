@@ -2491,7 +2491,7 @@ class ApplicationPreferences {
         applicationWidgetListLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = true;
     static void applicationWidgetPanelLightnessTChangeByNightMode(Context context) {
         applicationWidgetPanelLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
     }
