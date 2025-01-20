@@ -964,6 +964,11 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowLightnessTChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetListLightnessTChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetPanelLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetPanelShowBorder(context);
+            ApplicationPreferences.applicationWidgetPanelRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetPanelRoundedCornersRadius(context);
+            ApplicationPreferences.applicationWidgetPanelUseDynamicColors(context);
 
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);

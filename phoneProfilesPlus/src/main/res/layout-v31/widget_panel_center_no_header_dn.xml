@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/pppColorSemitransparent">
+    android:background="?android:attr/colorBackground"
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight">
 
     <ImageView
         android:id="@+id/widget_panel_background"
@@ -13,8 +14,9 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
+        android:tint="?android:attr/colorBackground"
         android:visibility="gone"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,UseAppTint" />
 
     <LinearLayout
         android:id="@+id/widget_panel_profiles"
@@ -55,6 +57,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/profile_list_empty"
                 android:gravity="center"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="21dp"
                 tools:ignore="SpUsage" />
 
@@ -68,7 +71,8 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
+        android:tint="?android:attr/textColorSecondary"
         android:visibility="gone"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,UseAppTint" />
 
 </FrameLayout>

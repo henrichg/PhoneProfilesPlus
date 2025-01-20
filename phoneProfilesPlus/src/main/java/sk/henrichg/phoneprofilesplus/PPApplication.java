@@ -1818,6 +1818,7 @@ public class PPApplication extends Application
             PPApplicationStatic.recordException(e);
         }
 
+        // pane widget
         try {
             PanelWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {

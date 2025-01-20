@@ -293,6 +293,11 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetOneRowLightnessTChangeByNightMode;
     static volatile boolean applicationWidgetListLightnessTChangeByNightMode;
     static volatile boolean applicationWidgetPanelLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetPanelRoundedCorners;
+    static volatile int applicationWidgetPanelRoundedCornersRadius;
+    static volatile String applicationWidgetPanelLightnessBorder;
+    static volatile boolean applicationWidgetPanelShowBorder;
+    static volatile boolean applicationWidgetPanelUseDynamicColors;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -611,6 +616,11 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowLightnessTChangeByNightMode";
     static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetListLightnessTChangeByNightMode";
     static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER = "applicationWidgetPanelLightnessBorder";
+    static final String PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER = "applicationWidgetPanelShowBorder";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS = "applicationWidgetPanelRoundedCorners";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS = "applicationWidgetPanelRoundedCornersRadius";
+    static final String PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS = "applicationWidgetPanelUseDynamicColors";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2387,19 +2397,20 @@ class ApplicationPreferences {
         applicationWidgetPanelHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_HEADER, PREF_APPLICATION_WIDGET_PANEL_HEADER_DEFAULT_VALUE);
     }
 
-    static private final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_30P = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static private final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_30M = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
-    static String applicationWidgetPanelBackgroundDefaultValue() {
+    static private final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static private final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+    static String applicationWidgetPanelBackgroundDefaultValue(/*Context context*/) {
         String defaultValue;
-        if (Build.VERSION.SDK_INT >= 30)
-            // change by night mode is by default enabled, and for this reason set also opaqueness of background to 100
-            defaultValue = PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_30P;
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetPanelUseDynamicColors)
+            defaultValue = PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
-            defaultValue = PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_30M;
+            defaultValue = PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
     static void applicationWidgetPanelBackground(Context context) {
-        applicationWidgetPanelBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND, applicationWidgetPanelBackgroundDefaultValue());
+        applicationWidgetPanelBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND, applicationWidgetPanelBackgroundDefaultValue(/*context*/));
     }
 
     static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -2494,6 +2505,31 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = true;
     static void applicationWidgetPanelLightnessTChangeByNightMode(Context context) {
         applicationWidgetPanelLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void applicationWidgetPanelLightnessBorder(Context context) {
+        applicationWidgetPanelLightnessBorder = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelShowBorder(Context context) {
+        applicationWidgetPanelShowBorder = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER, PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_DEFAULT_VALUE = true;
+    static void applicationWidgetPanelRoundedCorners(Context context) {
+        applicationWidgetPanelRoundedCorners = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS, PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
+    static void applicationWidgetPanelRoundedCornersRadius(Context context) {
+        applicationWidgetPanelRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
+    static void applicationWidgetPanelUseDynamicColors(Context context) {
+        applicationWidgetPanelUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
 }
