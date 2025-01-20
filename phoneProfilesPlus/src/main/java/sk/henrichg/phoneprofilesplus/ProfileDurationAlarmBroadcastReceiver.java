@@ -386,7 +386,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
-                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, false, dataWrapper),
                                     "");
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
@@ -466,7 +466,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE;
                                     PPApplicationStatic.addActivityLog(appContext, logType,
                                             null,
-                                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, false, dataWrapper),
                                             "");
                                 }
                             //}
@@ -483,7 +483,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
-                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, false, dataWrapper),
                                     "");
                         }
 
@@ -514,7 +514,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS;
                                 PPApplicationStatic.addActivityLog(appContext, logType,
                                         null,
-                                        DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                        DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, false, dataWrapper),
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
@@ -540,7 +540,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE;
                             PPApplicationStatic.addActivityLog(appContext, logType,
                                     null,
-                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, false, dataWrapper),
                                     "");
 
                             dataWrapper.activateProfileAfterDuration(activateProfileId, startupSource);
@@ -551,7 +551,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     logType = PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS;
                                 PPApplicationStatic.addActivityLog(appContext, logType,
                                         null,
-                                        DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
+                                        DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, false, dataWrapper),
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop

@@ -516,7 +516,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             if (profile != null) {
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
+                profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, dataWrapper);
             } else {
                 // create empty profile and set icon resource
                 profile = new Profile();

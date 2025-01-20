@@ -1654,7 +1654,7 @@ class DataWrapper {
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
                     null,
-                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, this),
+                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, false, this),
                     "");
         }
 
@@ -1779,7 +1779,7 @@ class DataWrapper {
 //            return;
 
         try {
-            String profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
+            String profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, false, this);
             PPApplication.showToast(context.getApplicationContext(),
                     context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profileName + " " +
                             context.getString(R.string.toast_profile_activated_1),

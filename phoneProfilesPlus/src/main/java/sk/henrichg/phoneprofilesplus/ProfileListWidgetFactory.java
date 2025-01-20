@@ -329,7 +329,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     } else {
                         // hm, interesting, how to set bold style for RemoteView text ;-)
                         Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
-                                "", true, true, applicationWidgetListGridLayout, dataWrapper);
+                                "", true, true, applicationWidgetListGridLayout, false, dataWrapper);
                         Spannable sb = new SpannableString(profileName);
                         sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);

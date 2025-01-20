@@ -428,9 +428,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 if (applicationWidgetIconShowProfileDuration)
-                    profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", true, true, true, dataWrapper);
+                    profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", true, true, true, true, dataWrapper);
                 else
-                    profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", false, true, false, dataWrapper);
+                    profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, false, "", false, true, false, true, dataWrapper);
             } else {
                 // create empty profile and set icon resource
                 profile = new Profile();

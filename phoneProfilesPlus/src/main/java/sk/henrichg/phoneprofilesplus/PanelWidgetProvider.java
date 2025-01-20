@@ -318,7 +318,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         applicationWidgetPanelCustomIconLightness);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, true, true, dataWrapper);
+                profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, true, true, true, dataWrapper);
             }
             else
             {

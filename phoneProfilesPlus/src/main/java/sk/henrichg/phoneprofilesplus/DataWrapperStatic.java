@@ -221,7 +221,7 @@ class DataWrapperStatic {
 
     static private Spannable _getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper, Context context)
+            boolean durationInNextLine, boolean eventNameInNextLine, DataWrapper dataWrapper, Context context)
     {
         if (profile == null)
             return new SpannableString("");
@@ -242,11 +242,17 @@ class DataWrapperStatic {
                 manualIndicators = StringConstants.STR_MANUAL;
 
             String _eventName = getLastStartedEventName(dataWrapper, profile, context);
-            if (!_eventName.equals("?"))
-                eventName = "[" +  StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
+            if (!_eventName.equals("?")) {
+                if (eventNameInNextLine)
+                    eventName = StringConstants.CHAR_NEW_LINE;
+                eventName = eventName + "[" + StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
+            }
 
-            if (!manualIndicators.isEmpty())
+            if (!manualIndicators.isEmpty()) {
+                if (eventNameInNextLine)
+                    eventName = StringConstants.CHAR_NEW_LINE;
                 eventName = manualIndicators + " " + eventName;
+            }
         }
 
         if (!PPApplicationStatic.getApplicationStarted(true, false))
@@ -287,10 +293,10 @@ class DataWrapperStatic {
 
     static Spannable getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper) {
+            boolean durationInNextLine, boolean eventNameInNextLine, DataWrapper dataWrapper) {
         Context context = dataWrapper.context;
         LocaleHelper.setApplicationLocale(context);
-        return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, context);
+        return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, eventNameInNextLine, dataWrapper, context);
     }
 
     static String getProfileNameWithManualIndicatorAsString(
@@ -299,8 +305,9 @@ class DataWrapperStatic {
             boolean addDuration,
             @SuppressWarnings("SameParameterValue") boolean multiLine,
             @SuppressWarnings("SameParameterValue") boolean durationInNextLine,
+            @SuppressWarnings("SameParameterValue") boolean eventNameInNextLine,
             DataWrapper dataWrapper) {
-        Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
+        Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, eventNameInNextLine, dataWrapper);
         Spannable sbt = new SpannableString(sProfileName);
         Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);
         for (Object span : spansToRemove) {
