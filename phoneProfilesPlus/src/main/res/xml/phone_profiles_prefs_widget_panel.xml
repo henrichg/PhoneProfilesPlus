@@ -4,10 +4,10 @@
     app:key="categoryWidgetPanel"
     app:title="@string/phone_profiles_pref_category_widget_panel">
 
-    <Preference
+    <sk.henrichg.phoneprofilesplus.InformationClicablePreference
         app:key="applicationWidgetPanelInfo"
         app:title="@string/phone_profiles_pref_application_widget_panel_info"
-        app:summary=""
+        app:summary="@string/phone_profiles_pref_application_widget_panel_info_sumary"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference

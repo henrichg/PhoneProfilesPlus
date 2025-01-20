@@ -188,6 +188,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO = "applicationWidgetDashClockInfo";
     private static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO = "applicationWidgetOneRowLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO = "applicationWidgetListLightnessTInfo";
+    private static final String PREF_APPLICATION_WIDGET_PANEL_INFO = "applicationWidgetPanelInfo";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -2266,6 +2267,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        preference = prefMng.findPreference(PREF_APPLICATION_WIDGET_PANEL_INFO);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(preference120 -> {
+                Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "PREF_APPLICATION_WIDGET_PANEL_INFO preference clicked");
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(
+                        "https://play.google.com/store/apps/details?id=com.fossor.panels"));
+                intent.setPackage("com.android.vending");
+                startActivity(intent);
+
+                return false;
+            });
+        }
+
     }
 
     private void doOnActivityCreatedBatterySaver(String key, PhoneProfilesPrefsActivity activity) {
@@ -2931,6 +2947,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
         setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
         setSummary(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
+        setSummary(PREF_APPLICATION_WIDGET_PANEL_INFO);
 
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, true, activity.getApplicationContext());
         if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
