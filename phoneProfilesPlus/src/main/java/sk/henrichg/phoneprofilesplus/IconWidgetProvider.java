@@ -79,6 +79,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconFillBackgroundWidth;
         boolean applicationWidgetIconLightnessTChangeByNightMode;
         boolean applicationWidgetIconLightnessBorderChangeByNightMode;
+        boolean applicationWidgetIconLightnessChangeByNightMode;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] IconWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -100,6 +101,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
             applicationWidgetIconLightnessBorderChangeByNightMode = ApplicationPreferences.applicationWidgetIconLightnessBorderChangeByNightMode;
+            applicationWidgetIconLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetIconLightnessChangeByNightMode;
 
             if (Build.VERSION.SDK_INT < 30)
                 applicationWidgetIconChangeColorsByNightMode = false;
@@ -202,10 +204,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
                         }
-
-                        //applicationWidgetIconColor = "0"; // icon type = colorful
-                        applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                        //break;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -257,10 +255,55 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
                         }
-
-                        //applicationWidgetIconColor = "0"; // icon type = colorful
-                        applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                        //break;
+                    }
+                }
+                if ((/*PPApplication.isPixelLauncherDefault(context) ||*/
+                        applicationWidgetIconChangeColorsByNightMode)) {
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    if (nightModeOn) {
+                        //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        if (applicationWidgetIconLightnessChangeByNightMode) {
+                            switch (applicationWidgetIconLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, applicationWidgetIconLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetIconLightness = applicationWidgetIconLightness;
+                        }
+                    } else {
+                        //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        if (applicationWidgetIconLightnessChangeByNightMode) {
+                            switch (applicationWidgetIconLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, applicationWidgetIconLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetIconLightness = applicationWidgetIconLightness;
+                        }
                     }
                 }
             }

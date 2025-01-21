@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -105,7 +106,6 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
             String applicationWidgetPanelBackgroundColor;
             String applicationWidgetPanelBackgroundColorNightModeOff;
             String applicationWidgetPanelBackgroundColorNightModeOn;
-            //boolean applicationWidgetPanelPrefIndicatorUseDynamicColor;
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] ProfilePanelWidgetFactory.getViewAt", "PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
@@ -127,13 +127,10 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                 applicationWidgetPanelBackgroundColor = ApplicationPreferences.applicationWidgetPanelBackgroundColor;
                 applicationWidgetPanelBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOff;
                 applicationWidgetPanelBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOn;
-                //applicationWidgetPanelPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetPanelPrefIndicatorUseDynamicColor;
 
                 if (Build.VERSION.SDK_INT >= 30) {
-                    if (Build.VERSION.SDK_INT < 31) {
+                    if (Build.VERSION.SDK_INT < 31)
                         applicationWidgetPanelUseDynamicColors = false;
-                        //applicationWidgePanelPrefIndicatorUseDynamicColor = false;
-                    }
                     if (//PPApplication.isPixelLauncherDefault(context) ||
                             (applicationWidgetPanelChangeColorsByNightMode &&
                                     (!applicationWidgetPanelUseDynamicColors))) {
@@ -395,12 +392,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         boolean applicationWidgetPanelCustomIconLightness;
         boolean applicationWidgetPanelHeader;
         boolean applicationWidgetPanelChangeColorsByNightMode;
-        boolean applicationWidgetPanelUseDynamicColors;
-        //boolean applicationWidgetPanelBackgroundType;
-        //String applicationWidgetPanelBackgroundColor;
-        //String applicationWidgetPanelLightnessB;
-        //String applicationWidgetPanelBackgroundColorNightModeOff;
-        //String applicationWidgetPanelBackgroundColorNightModeOn;
+        boolean applicationWidgetPanelIconLightnessChangeByNightMode;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PanelWidgetFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -408,25 +400,15 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
             applicationWidgetPanelIconColor = ApplicationPreferences.applicationWidgetPanelIconColor;
             applicationWidgetPanelCustomIconLightness = ApplicationPreferences.applicationWidgetPanelCustomIconLightness;
             applicationWidgetPanelHeader = ApplicationPreferences.applicationWidgetPanelHeader;
+            applicationWidgetPanelIconLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetPanelIconLightnessChangeByNightMode;
 
             if (Build.VERSION.SDK_INT < 30)
                 applicationWidgetPanelChangeColorsByNightMode = false;
             else
                 applicationWidgetPanelChangeColorsByNightMode = ApplicationPreferences.applicationWidgetPanelChangeColorsByNightMode;
 
-            applicationWidgetPanelUseDynamicColors = ApplicationPreferences.applicationWidgetPanelUseDynamicColors;
-            //applicationWidgetPanelBackgroundType = ApplicationPreferences.applicationWidgetPanelBackgroundType;
-            //applicationWidgetPanelBackgroundColor = ApplicationPreferences.applicationWidgetPanelBackgroundColor;
-            //applicationWidgetPanelLightnessB = ApplicationPreferences.applicationWidgetPanelLightnessB;
-            //applicationWidgetPanelBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOff;
-            //applicationWidgetPanelBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOn;
-
             if (Build.VERSION.SDK_INT >= 30) {
-                if (Build.VERSION.SDK_INT < 31) {
-                    applicationWidgetPanelUseDynamicColors = false;
-                }
-                if (applicationWidgetPanelChangeColorsByNightMode &&
-                        (!applicationWidgetPanelUseDynamicColors)) {
+                if (applicationWidgetPanelChangeColorsByNightMode) {
                     boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -434,20 +416,52 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
-                        //applicationWidgetPanelIconColor = "0"; // icon type = colorful
-                        applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                        //applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOn)); // color of background
-                        //applicationWidgetPanelPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
-                        //break;
+                        //applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        if (applicationWidgetPanelIconLightnessChangeByNightMode) {
+                            switch (applicationWidgetPanelIconLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetIconLightness = applicationWidgetPanelIconLightness;
+                        }
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
 
-                        //applicationWidgetPanelIconColor = "0"; // icon type = colorful
-                        applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                        //applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOff)); // color of background
-                        //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
-                        //break;
+                        //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        if (applicationWidgetPanelIconLightnessChangeByNightMode) {
+                            switch (applicationWidgetPanelIconLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
+                        }
                     }
                 }
             }

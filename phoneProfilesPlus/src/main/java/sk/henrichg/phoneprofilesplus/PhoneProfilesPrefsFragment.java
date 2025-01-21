@@ -3403,10 +3403,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)
-                || keyIsWidgetIconUseDynamicColors || keyIsWidgetIconChangeColorByNightMode) {
-            boolean enableIconLightness = true;
-            if (changeWidgetIconColorsByNightMode)
-                enableIconLightness = !useDynamicColorsWidgetIcon;
+                || keyIsWidgetIconChangeColorByNightMode) {
+            //boolean enableIconLightness = true;
+            //if (changeWidgetIconColorsByNightMode)
+            //    enableIconLightness = !useDynamicColorsWidgetIcon;
+            //noinspection UnnecessaryLocalVariable
+            boolean enableIconLightness = changeWidgetIconColorsByNightMode;
 
             Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR);
             //if (_preference != null)
@@ -3668,10 +3670,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR)
-                || keyIsWidgetPanelUseDynamicColors || keyIsWidgetPanelChangeColorByNightMode) {
-            boolean enableIconLightness = true;
-            if (changeWidgetPanelColorsByNightMode)
-                enableIconLightness = !useDynamicColorsWidgetPanel;
+                || keyIsWidgetPanelChangeColorByNightMode) {
+            //boolean enableIconLightness = true;
+            //if (changeWidgetPanelColorsByNightMode)
+            //    enableIconLightness = !useDynamicColorsWidgetPanel;
+            //noinspection UnnecessaryLocalVariable
+            boolean enableIconLightness = changeWidgetIconColorsByNightMode;
 
             Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS);
