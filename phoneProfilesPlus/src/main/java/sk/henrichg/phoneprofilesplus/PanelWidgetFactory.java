@@ -402,7 +402,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         //String applicationWidgetPanelBackgroundColorNightModeOff;
         //String applicationWidgetPanelBackgroundColorNightModeOn;
 
-//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PanelWidgetFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetPanelIconLightness = ApplicationPreferences.applicationWidgetPanelIconLightness;
             applicationWidgetPanelIconColor = ApplicationPreferences.applicationWidgetPanelIconColor;
@@ -453,7 +453,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
             }
         }
 
-        //Log.e("ProfileListWidgetFactory.onDataSetChanged", "applicationWidgetListHeader="+applicationWidgetListHeader);
+        //Log.e("PanelWidgetFactory.onDataSetChanged", "applicationWidgetListHeader="+applicationWidgetListHeader);
 
         DataWrapper _dataWrapper = createProfilesDataWrapper(true,
                 applicationWidgetPanelIconLightness,
@@ -496,7 +496,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         }
         _dataWrapper.invalidateDataWrapper();
 
-//        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.profileListWidgetDatasetChangedMutex");
+//        PPApplicationStatic.logE("[SYNCHRONIZED] PanelWidgetFactory.onDataSetChanged", "PPApplication.profileListWidgetDatasetChangedMutex");
         synchronized (PPApplication.panelWidgetDatasetChangedMutex) {
 
             if (dataWrapper != null)

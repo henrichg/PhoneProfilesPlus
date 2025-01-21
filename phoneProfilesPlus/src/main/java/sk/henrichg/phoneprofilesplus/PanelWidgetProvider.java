@@ -985,11 +985,11 @@ public class PanelWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(Context context, final AppWidgetManager appWidgetManager,
                                           final int appWidgetId, final Bundle newOptions)
     {
-//        PPApplicationStatic.logE("[IN_LISTENER] ProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PanelWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onAppWidgetOptionsChanged");
 
             //Context appContext= appContextWeakRef.get();
             //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
