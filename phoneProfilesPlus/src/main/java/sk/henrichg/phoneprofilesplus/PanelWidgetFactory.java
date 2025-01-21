@@ -106,6 +106,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
             String applicationWidgetPanelBackgroundColor;
             String applicationWidgetPanelBackgroundColorNightModeOff;
             String applicationWidgetPanelBackgroundColorNightModeOn;
+            boolean applicationWidgetPanelLightnessTChangeByNightMode;
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] ProfilePanelWidgetFactory.getViewAt", "PPApplication.applicationPreferencesMutex");
             synchronized (PPApplication.applicationPreferencesMutex) {
@@ -127,13 +128,14 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                 applicationWidgetPanelBackgroundColor = ApplicationPreferences.applicationWidgetPanelBackgroundColor;
                 applicationWidgetPanelBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOff;
                 applicationWidgetPanelBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOn;
+                applicationWidgetPanelLightnessTChangeByNightMode = ApplicationPreferences.applicationWidgetPanelLightnessTChangeByNightMode;
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (Build.VERSION.SDK_INT < 31)
                         applicationWidgetPanelUseDynamicColors = false;
                     if (//PPApplication.isPixelLauncherDefault(context) ||
                             (applicationWidgetPanelChangeColorsByNightMode &&
-                                    (!applicationWidgetPanelUseDynamicColors))) {
+                            (!applicationWidgetPanelUseDynamicColors))) {
                         boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(appContext);
                         //int nightModeFlags =
                         //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -142,6 +144,28 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                             //case Configuration.UI_MODE_NIGHT_YES:
 
                             //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                            if (applicationWidgetPanelLightnessTChangeByNightMode) {
+                                switch (applicationWidgetPanelLightnessT) {
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                        break;
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                        break;
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                        break;
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                        break;
+                                }
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
+                                editor.apply();
+                                ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
+                            } else
+                                applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+
                             applicationWidgetPanelBackgroundType = true; // background type = color
                             applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOn)); // color of background
                             //break;
@@ -150,6 +174,29 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                             //case Configuration.UI_MODE_NIGHT_UNDEFINED:
 
                             //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            if (applicationWidgetPanelLightnessTChangeByNightMode) {
+                                switch (applicationWidgetPanelLightnessT) {
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                        break;
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                        break;
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                        break;
+                                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                        applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                        break;
+                                }
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
+                                editor.apply();
+                                ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
+                            } else
+                                applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+
                             applicationWidgetPanelBackgroundType = true; // background type = color
                             applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOff)); // color of background
                             //break;
@@ -435,8 +482,9 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
                             editor.apply();
-                            ApplicationPreferences.applicationWidgetIconLightness = applicationWidgetPanelIconLightness;
-                        }
+                            ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
+                        } else
+                            applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -461,7 +509,8 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
-                        }
+                        } else
+                            applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                     }
                 }
             }

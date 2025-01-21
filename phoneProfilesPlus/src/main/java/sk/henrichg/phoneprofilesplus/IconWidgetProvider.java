@@ -182,7 +182,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, applicationWidgetIconLightnessT);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessT = applicationWidgetIconLightnessT;
-                        }
+                        } else
+                            applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         //applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         if (applicationWidgetIconLightnessBorderChangeByNightMode) {
                             switch (applicationWidgetIconLightnessBorder) {
@@ -203,7 +204,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, applicationWidgetIconLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
-                        }
+                        } else
+                            applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -233,7 +235,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, applicationWidgetIconLightnessT);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessT = applicationWidgetIconLightnessT;
-                        }
+                        } else
+                            applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         //applicationWidgetIconLightnessBorder = "0";
                         if (applicationWidgetIconLightnessBorderChangeByNightMode) {
                             switch (applicationWidgetIconLightnessBorder) {
@@ -254,7 +257,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, applicationWidgetIconLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
-                        }
+                        } else
+                            applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
                     }
                 }
                 if ((/*PPApplication.isPixelLauncherDefault(context) ||*/
@@ -281,7 +285,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, applicationWidgetIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightness = applicationWidgetIconLightness;
-                        }
+                        } else
+                            applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                     } else {
                         //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         if (applicationWidgetIconLightnessChangeByNightMode) {
@@ -303,7 +308,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, applicationWidgetIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightness = applicationWidgetIconLightness;
-                        }
+                        } else
+                            applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                     }
                 }
             }

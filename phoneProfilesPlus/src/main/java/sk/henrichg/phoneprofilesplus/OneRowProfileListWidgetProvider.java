@@ -215,8 +215,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, applicationWidgetOneRowProfileListLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
-                        }
-
+                        } else
+                            applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
@@ -247,8 +247,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, applicationWidgetOneRowProfileListLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
-                        }
-
+                        } else
+                            applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                         applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
                     }
                 }
@@ -275,7 +275,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, applicationWidgetOneRowProfileListIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness = applicationWidgetOneRowProfileListIconLightness;
-                        }
+                        } else
+                            applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                     } else {
                         //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         if (applicationWidgetOneRowProfileListIconLightnessChangeByNightMode) {
@@ -297,7 +298,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, applicationWidgetOneRowProfileListIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness = applicationWidgetOneRowProfileListIconLightness;
-                        }
+                        } else
+                            applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                     }
                 }
             }
