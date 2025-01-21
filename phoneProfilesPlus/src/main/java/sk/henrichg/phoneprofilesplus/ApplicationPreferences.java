@@ -298,6 +298,11 @@ class ApplicationPreferences {
     static volatile String applicationWidgetPanelLightnessBorder;
     static volatile boolean applicationWidgetPanelShowBorder;
     static volatile boolean applicationWidgetPanelUseDynamicColors;
+    static volatile boolean applicationWidgetIconLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetListLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetPanelLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -621,6 +626,11 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS = "applicationWidgetPanelRoundedCorners";
     static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS = "applicationWidgetPanelRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS = "applicationWidgetPanelUseDynamicColors";
+    static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetIconLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetListLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2530,6 +2540,31 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetPanelUseDynamicColors(Context context) {
         applicationWidgetPanelUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetIconLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetIconLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetOneRowLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetListLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetPanelLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
     }
 
 }

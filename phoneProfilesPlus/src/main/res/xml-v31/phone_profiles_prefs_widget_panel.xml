@@ -81,7 +81,6 @@
             app:key="applicationWidgetPanelBackgroundColor"
             app:defaultValue="-1"
             app:layout="@layout/mp_preference_material_widget" />
-
         <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetPanelShowBorder"
             app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
@@ -95,7 +94,12 @@
             app:defaultValue="100"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
-
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationWidgetPanelLightnessBorderChangeByNightMode"
+            app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationWidgetPanelRoundedCornersRadius"
             app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"
@@ -104,7 +108,6 @@
             app:min="1"
             app:max="15"
             app:layout="@layout/mp_preference_material_widget" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

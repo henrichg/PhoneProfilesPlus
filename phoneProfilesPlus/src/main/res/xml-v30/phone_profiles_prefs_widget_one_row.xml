@@ -97,13 +97,12 @@
             app:defaultValue="100"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
-
-    <!--    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference-->
-    <!--        app:key="applicationWidgetOneRowRoundedCorners"-->
-    <!--        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"-->
-    <!--        app:defaultValue="true"-->
-    <!--        app:layout="@layout/mp_preference_material_widget"
-            app:widgetLayout="@layout/preference_widget_custom_switch" />-->
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationWidgetOneRowLightnessBorderChangeByNightMode"
+            app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationWidgetOneRowRoundedCornersRadius"
             app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"
