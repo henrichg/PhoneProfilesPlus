@@ -2304,6 +2304,7 @@
     <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Change text lightness by Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Change border lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Change icon lightness by Dark mode</string>
 
     <!-- **************************************************************************************** -->
 

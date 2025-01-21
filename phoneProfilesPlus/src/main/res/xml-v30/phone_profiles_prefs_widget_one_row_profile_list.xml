@@ -143,6 +143,12 @@
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationWidgetOneRowProfileListIconLightnessChangeByNightMode"
+            app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationWidgetOneRowProfileListCustomIconLightness"
             app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
             app:defaultValue="false"

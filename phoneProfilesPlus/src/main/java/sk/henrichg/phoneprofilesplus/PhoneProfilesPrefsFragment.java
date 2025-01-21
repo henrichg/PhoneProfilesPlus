@@ -2928,6 +2928,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);
@@ -3112,48 +3117,48 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T)
                 || keyIsWidgetListUseDynamicColors || keyIsWidgetListChangeColorByNightMode) {
-            boolean enableLightnessBorder = true;
+            boolean enableLightnessT = true;
             if (changeWidgetListColorsByNightMode)
-                enableLightnessBorder = !useDynamicColorsWidgetList;
+                enableLightnessT = !useDynamicColorsWidgetList;
 
             Preference _preference = prefMng.findPreference(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T)
                 || keyIsWidgetOneRowUseDynamicColors || keyIsWidgetOneRowChangeColorByNightMode) {
-            boolean enableLightnessBorder = true;
+            boolean enableLightnessT = true;
             if (changeWidgetOneRowColorsByNightMode)
-                enableLightnessBorder = !useDynamicColorsWidgetOneRow;
+                enableLightnessT = !useDynamicColorsWidgetOneRow;
 
             Preference _preference = prefMng.findPreference(PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T)
                 || keyIsWidgetIconUseDynamicColors || keyIsWidgetIconChangeColorByNightMode) {
-            boolean enableLightnessBorder = true;
+            boolean enableLightnessT = true;
             if (changeWidgetIconColorsByNightMode)
-                enableLightnessBorder = !useDynamicColorsWidgetIcon;
+                enableLightnessT = !useDynamicColorsWidgetIcon;
 
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS) || keyIsWidgetOneRowProfileListUseDynamicColors) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS);
@@ -3397,12 +3402,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR) || keyIsWidgetIconChangeColorByNightMode) {
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)
+                || keyIsWidgetIconUseDynamicColors || keyIsWidgetIconChangeColorByNightMode) {
+            boolean enableIconLightness = true;
+            if (changeWidgetIconColorsByNightMode)
+                enableIconLightness = !useDynamicColorsWidgetIcon;
+
             Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR);
             //if (_preference != null)
             //    _preference.setEnabled(!changeWidgetIconColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
-            if (changeWidgetIconColorsByNightMode) {
+            if (!enableIconLightness) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
@@ -3412,83 +3422,100 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconIcon);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconIcon);
+                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconIcon);
+                }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR) || keyIsWidgetOneRowChangeColorByNightMode) {
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR)
+                || keyIsWidgetOneRowUseDynamicColors || keyIsWidgetOneRowChangeColorByNightMode) {
+            boolean enableIconLightness = true;
+            if (changeWidgetOneRowColorsByNightMode)
+                enableIconLightness = !useDynamicColorsWidgetOneRow;
+
             Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
-            //if (_preference != null)
-            //    _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
-            //noinspection IfStatementWithIdenticalBranches
-            if (changeWidgetOneRowColorsByNightMode) {
+            if (!enableIconLightness) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(monochromeIconOneRow);
-                }
-                /*
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
-                if (_preference != null) {
-                    if (useDynamicColorsWidgetOneRow)
-                        _preference.setEnabled(false);
-                    else
-                        _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
-                }
-                */
             } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconOneRow);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconOneRow);
                 }
-                /*
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+            if (!enableIconLightness) {
                 if (_preference != null) {
-                    _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
+                    _preference.setEnabled(false);
                 }
-                */
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconOneRow);
+                }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR) || keyIsWidgetIconChangeColorByNightMode) {
-            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR);
-            //if (_preference != null)
-            //    _preference.setEnabled(!changeWidgetListColorsByNightMode);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)
+                || keyIsWidgetListUseDynamicColors || keyIsWidgetListChangeColorByNightMode) {
+            boolean enableIconLightness = true;
+            if (changeWidgetListColorsByNightMode)
+                enableIconLightness = !useDynamicColorsWidgetList;
+
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
-            //noinspection IfStatementWithIdenticalBranches
-            if (changeWidgetListColorsByNightMode) {
+            if (!enableIconLightness) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(monochromeIconList);
-                }
-                /*
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(false);
-                }
-                */
             } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconList);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconList);
                 }
-                /*
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+            if (!enableIconLightness) {
                 if (_preference != null) {
-                    _preference.setEnabled(preferenceIndicatorsListEnabled);
+                    _preference.setEnabled(false);
                 }
-                */
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconList);
+                }
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR)) {
@@ -3502,25 +3529,39 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(monochromeIconShortcut);
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR) || keyIsWidgetOneRowProfileListChangeColorByNightMode) {
-            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR);
-            //if (_preference != null)
-            //    _preference.setEnabled(!changeWidgetOneRowProfileListColorsByNightMode);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR)
+                || keyIsWidgetOneRowProfileListUseDynamicColors || keyIsWidgetOneRowProfileListChangeColorByNightMode) {
+            boolean enableIconLightness = true;
+            if (changeWidgetOneRowProfileListColorsByNightMode)
+                enableIconLightness = !useDynamicColorsWidgetOneRowProfileList;
+
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS);
-            //noinspection IfStatementWithIdenticalBranches
-            if (changeWidgetOneRowProfileListColorsByNightMode) {
+            if (!enableIconLightness) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
-                }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(monochromeIconOneRowProfileList);
                 }
             } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconOneRowProfileList);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconOneRowProfileList);
+                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconOneRowProfileList);
                 }
@@ -3571,13 +3612,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //        _preference.setEnabled(roundedCornersIconEnabled);
         //}
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME) || keyIsWidgetIconUseDynamicColors) {
-            boolean enableLightnessBorder = true;
+            boolean enableLightnessT = true;
             if (changeWidgetIconColorsByNightMode)
-                enableLightnessBorder = !useDynamicColorsWidgetIcon;
+                enableLightnessT = !useDynamicColorsWidgetIcon;
 
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
             if (_preference != null) {
-                if (!enableLightnessBorder) {
+                if (!enableLightnessT) {
                     _preference.setEnabled(false);
                 } else {
                     _preference.setEnabled(!hideProfileNameIcon);
@@ -3585,7 +3626,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE);
             if (_preference != null) {
-                if (!enableLightnessBorder) {
+                if (!enableLightnessT) {
                     _preference.setEnabled(false);
                 } else {
                     _preference.setEnabled(!hideProfileNameIcon);
@@ -3626,12 +3667,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR) || keyIsWidgetPanelChangeColorByNightMode) {
-            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR);
-            //if (_preference != null)
-            //    _preference.setEnabled(!changeWidgetPanelColorsByNightMode);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR)
+                || keyIsWidgetPanelUseDynamicColors || keyIsWidgetPanelChangeColorByNightMode) {
+            boolean enableIconLightness = true;
+            if (changeWidgetPanelColorsByNightMode)
+                enableIconLightness = !useDynamicColorsWidgetPanel;
+
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS);
-            if (changeWidgetPanelColorsByNightMode) {
+            if (!enableIconLightness) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
@@ -3641,9 +3685,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS);
-            if (_preference != null) {
-                //_preference.setEnabled(false);
-                _preference.setEnabled(monochromeIconWidgetPanel);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconWidgetPanel);
+                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+            if (!enableIconLightness) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconWidgetPanel);
+                }
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER) ||
@@ -3679,16 +3738,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T)
                 || keyIsWidgetPanelUseDynamicColors || keyIsWidgetPanelChangeColorByNightMode) {
-            boolean enableLightnessBorder = true;
+            boolean enableLightnessT = true;
             if (changeWidgetPanelColorsByNightMode)
-                enableLightnessBorder = !useDynamicColorsWidgetPanel;
+                enableLightnessT = !useDynamicColorsWidgetPanel;
 
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
-                _preference.setEnabled(enableLightnessBorder);
+                _preference.setEnabled(enableLightnessT);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF) ||
