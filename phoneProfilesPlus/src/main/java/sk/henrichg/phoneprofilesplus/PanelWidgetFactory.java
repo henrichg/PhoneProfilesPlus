@@ -485,7 +485,7 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         newProfileList.sort(new PanelWidgetFactory.ProfileComparator());
 
         Profile restartEvents = null;
-        if ((!applicationWidgetPanelHeader) &&
+        if (/*(!applicationWidgetPanelHeader) &&*/
                 EventStatic.getGlobalEventsRunning(context)) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
