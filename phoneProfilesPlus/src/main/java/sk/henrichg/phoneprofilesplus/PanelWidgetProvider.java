@@ -58,6 +58,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetPanelRoundedCorners;
         int applicationWidgetPanelRoundedCornersRadius;
         boolean applicationWidgetPanelUseDynamicColors;
+        boolean applicationWidgetPanelLightnessBorderChangeByNightMode;
 
         //int setSettingsLightness = 0;
 
@@ -78,6 +79,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             applicationWidgetPanelLightnessBorder = ApplicationPreferences.applicationWidgetPanelLightnessBorder;
             applicationWidgetPanelRoundedCorners = ApplicationPreferences.applicationWidgetPanelRoundedCorners;
             applicationWidgetPanelRoundedCornersRadius = ApplicationPreferences.applicationWidgetPanelRoundedCornersRadius;
+            applicationWidgetPanelLightnessBorderChangeByNightMode = ApplicationPreferences.applicationWidgetPanelLightnessBorderChangeByNightMode;
 
             if (Build.VERSION.SDK_INT < 30)
                 applicationWidgetPanelChangeColorsByNightMode = false;
@@ -133,7 +135,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetPanelBackground = "75"; // opaque of backgroud = 75%
                         applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetPanelShowBorder = false; // do not show border
-                        applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
 
                         //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         if (applicationWidgetPanelLightnessTChangeByNightMode) {
@@ -156,6 +157,27 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
                         }
+                        //applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        if (applicationWidgetPanelLightnessBorderChangeByNightMode) {
+                            switch (applicationWidgetPanelLightnessBorder) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, applicationWidgetPanelLightnessBorder);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetPanelLightnessBorder = applicationWidgetPanelLightnessBorder;
+                        }
 
                         //applicationWidgetPanelIconColor = "0"; // icon type = colorful
                         applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
@@ -168,7 +190,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         //applicationWidgetPanelBackground = "75"; // opaque of backgroud = 75%
                         applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetPanelShowBorder = false; // do not show border
-                        applicationWidgetPanelLightnessBorder = "0";
 
                         //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         if (applicationWidgetPanelLightnessTChangeByNightMode) {
@@ -190,6 +211,27 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
+                        }
+                        //applicationWidgetPanelLightnessBorder = "0";
+                        if (applicationWidgetPanelLightnessBorderChangeByNightMode) {
+                            switch (applicationWidgetPanelLightnessBorder) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, applicationWidgetPanelLightnessBorder);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetPanelLightnessBorder = applicationWidgetPanelLightnessBorder;
                         }
 
                         //applicationWidgetPanelIconColor = "0"; // icon type = colorful

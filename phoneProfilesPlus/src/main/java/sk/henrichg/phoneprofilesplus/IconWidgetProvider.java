@@ -78,6 +78,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconFillBackgroundHeight;
         boolean applicationWidgetIconFillBackgroundWidth;
         boolean applicationWidgetIconLightnessTChangeByNightMode;
+        boolean applicationWidgetIconLightnessBorderChangeByNightMode;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] IconWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -98,6 +99,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
+            applicationWidgetIconLightnessBorderChangeByNightMode = ApplicationPreferences.applicationWidgetIconLightnessBorderChangeByNightMode;
 
             if (Build.VERSION.SDK_INT < 30)
                 applicationWidgetIconChangeColorsByNightMode = false;
@@ -157,7 +159,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         applicationWidgetIconBackgroundType = true; // background type = color
                         applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetIconShowBorder = false; // do not show border
-                        applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
 
                         //applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         if (applicationWidgetIconLightnessTChangeByNightMode) {
@@ -180,6 +181,27 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessT = applicationWidgetIconLightnessT;
                         }
+                        //applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        if (applicationWidgetIconLightnessBorderChangeByNightMode) {
+                            switch (applicationWidgetIconLightnessBorder) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, applicationWidgetIconLightnessBorder);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
+                        }
 
                         //applicationWidgetIconColor = "0"; // icon type = colorful
                         applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
@@ -192,7 +214,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         applicationWidgetIconBackgroundType = true; // background type = color
                         applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetIconShowBorder = false; // do not show border
-                        applicationWidgetIconLightnessBorder = "0";
 
                         //applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         if (applicationWidgetIconLightnessTChangeByNightMode) {
@@ -214,6 +235,27 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, applicationWidgetIconLightnessT);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessT = applicationWidgetIconLightnessT;
+                        }
+                        //applicationWidgetIconLightnessBorder = "0";
+                        if (applicationWidgetIconLightnessBorderChangeByNightMode) {
+                            switch (applicationWidgetIconLightnessBorder) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, applicationWidgetIconLightnessBorder);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
                         }
 
                         //applicationWidgetIconColor = "0"; // icon type = colorful
