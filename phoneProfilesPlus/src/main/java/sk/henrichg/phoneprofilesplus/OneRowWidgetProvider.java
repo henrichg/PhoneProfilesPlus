@@ -211,8 +211,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, applicationWidgetOneRowLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowLightnessBorder = applicationWidgetOneRowLightnessBorder;
-                        } else
-                            applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        } //else
+                            //applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         setRestartEventsLightness = -1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                         applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
@@ -269,8 +269,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, applicationWidgetOneRowLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowLightnessBorder = applicationWidgetOneRowLightnessBorder;
-                        } else
-                            applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
+                        } //else
+                            //applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
 
                         setRestartEventsLightness = 1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
@@ -867,8 +867,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
 
                 if (applicationWidgetOneRowShowBorder) {
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                            applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                    //if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
+                    //        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                    if ((Build.VERSION.SDK_INT >= 31) && (applicationWidgetOneRowUseDynamicColors)) {
+                        int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                        if (dynamicColor != 0) {
+                            dynamicColor = GlobalGUIRoutines.changeLigtnessOfColor(dynamicColor, redBorder);
+                            remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", dynamicColor);
+                        }
+                        else
+                            remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                    } else
                         remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }
 

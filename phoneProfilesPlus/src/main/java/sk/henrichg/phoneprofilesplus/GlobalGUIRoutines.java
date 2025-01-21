@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -1180,4 +1181,16 @@ class GlobalGUIRoutines {
             wm.updateViewLayout(container, p);
         }
     }
+
+    static int changeLigtnessOfColor(int color, int lightness) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
+        //if (hsv[1] < 0.45f)
+        //    hsv[1] = 0.45f;  // saturation component
+        //if (forLightTheme)
+        hsv[2] = lightness / 255f;
+        return Color.HSVToColor(hsv);
+    }
+
 }

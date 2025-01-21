@@ -204,8 +204,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, applicationWidgetIconLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
-                        } else
-                            applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        }// else
+                            //applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -257,8 +257,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, applicationWidgetIconLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetIconLightnessBorder = applicationWidgetIconLightnessBorder;
-                        } else
-                            applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
+                        }// else
+                            //applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
                     }
                 }
                 if ((/*PPApplication.isPixelLauncherDefault(context) ||*/
@@ -1246,8 +1246,17 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alphaBackground);
 
                 if (applicationWidgetIconShowBorder) {
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
-                            applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
+                    //if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
+                    //        applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors))
+                    if ((Build.VERSION.SDK_INT >= 31) && (applicationWidgetIconUseDynamicColors)) {
+                        int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                        if (dynamicColor != 0) {
+                            dynamicColor = GlobalGUIRoutines.changeLigtnessOfColor(dynamicColor, redBorder);
+                            remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", dynamicColor);
+                        }
+                        else
+                            remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                    } else
                         remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }
                 /*} else {

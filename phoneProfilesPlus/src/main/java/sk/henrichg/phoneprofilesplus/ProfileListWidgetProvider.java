@@ -192,8 +192,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, applicationWidgetListLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetListLightnessBorder = applicationWidgetListLightnessBorder;
-                        } else
-                            applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        } //else
+                            //applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
 
                         setRestartEventsLightness = -1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
@@ -250,8 +250,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, applicationWidgetListLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetListLightnessBorder = applicationWidgetListLightnessBorder;
-                        } else
-                            applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
+                        } //else
+                            //applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
 
                         setRestartEventsLightness = 1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
@@ -744,16 +744,19 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alphaBackground);
 
         if (applicationWidgetListShowBorder) {
-            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+            //if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+            //        applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                 widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-            /*else {
-                // but must be removed android:tint in layout
-                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
-                if (color != 0) {
-                    widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", color);
+            if ((Build.VERSION.SDK_INT >= 31) && (applicationWidgetListUseDynamicColors)) {
+                int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                if (dynamicColor != 0) {
+                    dynamicColor = GlobalGUIRoutines.changeLigtnessOfColor(dynamicColor, redBorder);
+                    widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", dynamicColor);
                 }
-            }*/
+                else
+                    widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+            } else
+                widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
         }
         /*}
         else {

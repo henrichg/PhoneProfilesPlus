@@ -215,8 +215,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, applicationWidgetOneRowProfileListLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
-                        } else
-                            applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        }// else
+                            //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
@@ -247,8 +247,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, applicationWidgetOneRowProfileListLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
-                        } else
-                            applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                        }// else
+                            //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                         applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
                     }
                 }
@@ -721,8 +721,17 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             remoteViews.setInt(R.id.widget_one_row_profile_list_background, "setImageAlpha", alphaBackground);
 
             if (applicationWidgetOneRowProfileListShowBorder) {
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
-                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
+                //if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                //        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
+                if ((Build.VERSION.SDK_INT >= 31) && (applicationWidgetOneRowProfileListUseDynamicColors)) {
+                    int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                    if (dynamicColor != 0) {
+                        dynamicColor = GlobalGUIRoutines.changeLigtnessOfColor(dynamicColor, redBorder);
+                        remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", dynamicColor);
+                    }
+                    else
+                        remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                } else
                     remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
             }
 

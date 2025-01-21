@@ -177,8 +177,8 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, applicationWidgetPanelLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessBorder = applicationWidgetPanelLightnessBorder;
-                        } else
-                            applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        } //else
+                            //applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         //setSettingsLightness = -1;
                         //break;
                     } else {
@@ -231,8 +231,8 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, applicationWidgetPanelLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessBorder = applicationWidgetPanelLightnessBorder;
-                        } else
-                            applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
+                        } //else
+                            //applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
                         //setSettingsLightness = 1;
                         //break;
                     }
@@ -665,8 +665,17 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         widget.setInt(R.id.widget_panel_background, "setImageAlpha", alphaBackground);
 
         if (applicationWidgetPanelShowBorder) {
-            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetPanelChangeColorsByNightMode &&
-                    applicationWidgetPanelIconColor.equals("0") && applicationWidgetPanelUseDynamicColors))
+            //if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetPanelChangeColorsByNightMode &&
+            //        applicationWidgetPanelIconColor.equals("0") && applicationWidgetPanelUseDynamicColors))
+            if ((Build.VERSION.SDK_INT >= 31) && (applicationWidgetPanelUseDynamicColors)) {
+                int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                if (dynamicColor != 0) {
+                    dynamicColor = GlobalGUIRoutines.changeLigtnessOfColor(dynamicColor, redBorder);
+                    widget.setInt(R.id.widget_panel_rounded_border, "setColorFilter", dynamicColor);
+                }
+                else
+                    widget.setInt(R.id.widget_panel_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+            } else
                 widget.setInt(R.id.widget_panel_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
         }
 
