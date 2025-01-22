@@ -215,7 +215,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         setRestartEventsLightness = -1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        //applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
                         //break;
                     } else {
@@ -274,7 +274,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                         setRestartEventsLightness = 1;
                         //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        //applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                         //break;
                     }

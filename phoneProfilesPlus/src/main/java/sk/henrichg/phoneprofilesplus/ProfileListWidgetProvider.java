@@ -197,7 +197,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                         setRestartEventsLightness = -1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
-                        applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        //applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
                         //break;
                     } else {
@@ -255,7 +255,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                         setRestartEventsLightness = 1;
                         //applicationWidgetListIconColor = "0"; // icon type = colorful
-                        applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        //applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                         //break;
                     }
