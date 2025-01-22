@@ -3550,12 +3550,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR)
-                || keyIsWidgetOneRowProfileListChangeColorByNightMode) {
+                || keyIsWidgetOneRowProfileListUseDynamicColors || keyIsWidgetOneRowProfileListChangeColorByNightMode) {
             /*boolean enableIconLightness = true;
             if (changeWidgetOneRowProfileListColorsByNightMode)
                 enableIconLightness = !useDynamicColorsWidgetOneRowProfileList;*/
             //noinspection UnnecessaryLocalVariable
-            boolean enableIconLightness = keyIsWidgetOneRowProfileListChangeColorByNightMode;
+            boolean enableIconLightness = changeWidgetOneRowProfileListColorsByNightMode;
 
             Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS);
@@ -3588,6 +3588,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(monochromeIconOneRowProfileList);
                 }
             }
+            boolean enableLightnessArrows = true;
+            if (changeWidgetOneRowProfileListColorsByNightMode)
+                enableLightnessArrows = !useDynamicColorsWidgetOneRowProfileList;
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
+            if (_preference != null)
+                _preference.setEnabled((!useDynamicColorsWidgetOneRowProfileList) && enableLightnessArrows);
         }
 
         //if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS)) {

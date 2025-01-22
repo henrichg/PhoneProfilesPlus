@@ -118,6 +118,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetOneRowProfileListFillBackground;
         boolean applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode;
         boolean applicationWidgetOneRowProfileListIconLightnessChangeByNightMode;
+        boolean applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowProfileListWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -139,6 +140,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius;
             applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode;
             applicationWidgetOneRowProfileListIconLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListIconLightnessChangeByNightMode;
+            applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetOneRowProfileListRoundedCorners) {
@@ -217,7 +219,28 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
                         }// else
                             //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                        applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
+                        if (applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, applicationWidgetOneRowProfileListArrowsMarkLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness = applicationWidgetOneRowProfileListArrowsMarkLightness;
+                        } else
+                            applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
+
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -249,7 +272,27 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
                         }// else
                             //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
-                        applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
+                        if (applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, applicationWidgetOneRowProfileListArrowsMarkLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness = applicationWidgetOneRowProfileListArrowsMarkLightness;
+                        } else
+                            applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
                     }
                 }
                 if (applicationWidgetOneRowProfileListChangeColorsByNightMode) {

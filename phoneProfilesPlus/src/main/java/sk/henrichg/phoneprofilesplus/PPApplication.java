@@ -207,7 +207,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -268,7 +268,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
-                                                +"|[IN_LISTENER]"
+//                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
 //                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
@@ -310,8 +310,8 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-                                                +"|[BLUETOOTH_CONNECT]"
-                                                +"|EventPreferencesBluetooth.doHandleEvent"
+//                                                +"|[BLUETOOTH_CONNECT]"
+//                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
                                                 //+"|[MOBILE_DATA]"
