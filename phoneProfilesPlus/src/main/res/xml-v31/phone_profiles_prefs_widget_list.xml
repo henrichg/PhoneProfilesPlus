@@ -228,6 +228,12 @@
             app:defaultValue="50"
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationWidgetListPrefIndicatorLightnessChangeByNightMode"
+            app:title="@string/phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
 

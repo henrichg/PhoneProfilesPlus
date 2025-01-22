@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -81,6 +82,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetOneRowLightnessTChangeByNightMode;
         boolean applicationWidgetOneRowLightnessBorderChangeByNightMode;
         boolean applicationWidgetOneRowIconLightnessChangeByNightMode;
+        boolean applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode;
 
         int setRestartEventsLightness = 0;
 
@@ -106,6 +108,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowFillBackground = ApplicationPreferences.applicationWidgetOneRowFillBackground;
             applicationWidgetOneRowLightnessBorderChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowLightnessBorderChangeByNightMode;
             applicationWidgetOneRowIconLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowIconLightnessChangeByNightMode;
+            applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetOneRowRoundedCorners) {
@@ -327,6 +330,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             ApplicationPreferences.applicationWidgetOneRowIconLightness = applicationWidgetOneRowIconLightness;
                         } else
                             applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                    }
+                }
+                if (applicationWidgetOneRowChangeColorsByNightMode &&
+                        (!applicationWidgetOneRowUseDynamicColors) &&
+                        (!applicationWidgetOneRowPrefIndicatorUseDynamicColor)) {
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    if (nightModeOn) {
+                        if (applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowPrefIndicatorLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, applicationWidgetOneRowPrefIndicatorLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness = applicationWidgetOneRowPrefIndicatorLightness;
+                        } else
+                            applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
+                    } else {
+                        if (applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowPrefIndicatorLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, applicationWidgetOneRowPrefIndicatorLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness = applicationWidgetOneRowPrefIndicatorLightness;
+                        } else
+                            applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
                     }
                 }
             }

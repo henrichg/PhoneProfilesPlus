@@ -308,6 +308,8 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetListIconLightnessChangeByNightMode;
     static volatile boolean applicationWidgetPanelIconLightnessChangeByNightMode;
     static volatile boolean applicationWidgetOneRowProfileListIconLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetListPrefIndicatorLightnessChangeByNightMode;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -641,6 +643,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetListIconLightnessChangeByNightMode";
     static final String PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelIconLightnessChangeByNightMode";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListIconLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetListPrefIndicatorLightnessChangeByNightMode";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -2600,6 +2604,16 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
     static void applicationWidgetOneRowProfileListIconLightnessChangeByNightMode(Context context) {
         applicationWidgetOneRowProfileListIconLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode(Context context) {
+        applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListPrefIndicatorLightnessChangeByNightMode(Context context) {
+        applicationWidgetListPrefIndicatorLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
     }
 
 }

@@ -596,6 +596,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListBackgroundColorNightModeOn;
         boolean applicationWidgetListPrefIndicatorUseDynamicColor;
         boolean applicationWidgetListIconLightnessChangeByNightMode;
+        boolean applicationWidgetListPrefIndicatorLightnessChangeByNightMode;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListWidgetFactory.onDataSetChanged", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -619,6 +620,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
             applicationWidgetListPrefIndicatorUseDynamicColor = ApplicationPreferences.applicationWidgetListPrefIndicatorUseDynamicColor;
             applicationWidgetListIconLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetListIconLightnessChangeByNightMode;
+            applicationWidgetListPrefIndicatorLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetListPrefIndicatorLightnessChangeByNightMode;
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (Build.VERSION.SDK_INT < 31) {
@@ -692,6 +694,56 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                         //break;
+                    }
+                }
+                if (applicationWidgetListChangeColorsByNightMode &&
+                        (!applicationWidgetListUseDynamicColors) &&
+                        (!applicationWidgetListPrefIndicatorUseDynamicColor)) {
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    if (nightModeOn) {
+                        if (applicationWidgetListPrefIndicatorLightnessChangeByNightMode) {
+                            switch (applicationWidgetListPrefIndicatorLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, applicationWidgetListPrefIndicatorLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetListPrefIndicatorLightness = applicationWidgetListPrefIndicatorLightness;
+                        } else
+                            applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
+                    } else {
+                        if (applicationWidgetListPrefIndicatorLightnessChangeByNightMode) {
+                            switch (applicationWidgetListPrefIndicatorLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, applicationWidgetListPrefIndicatorLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetListPrefIndicatorLightness = applicationWidgetListPrefIndicatorLightness;
+                        } else
+                            applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
                     }
                 }
             }

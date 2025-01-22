@@ -979,6 +979,8 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListIconLightnessChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetPanelIconLightnessChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListIconLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicatorLightnessChangeByNightMode(context);
 
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
