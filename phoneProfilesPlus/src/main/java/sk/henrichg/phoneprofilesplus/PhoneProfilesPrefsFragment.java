@@ -3569,15 +3569,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             //}
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
-            if (!enableIconLightness) {
+            /*if (!enableIconLightness) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
-            } else {
+            } else {*/
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconOneRowProfileList);
                 }
-            }
+            //}
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
             if (!enableIconLightness) {
                 if (_preference != null) {
