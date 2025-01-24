@@ -410,21 +410,45 @@ class BluetoothConnectedDevicesDetector {
                                 }
                             };
 
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
+                            try {
+                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
+                            } catch (Exception ignored) {}
+                            try {
+                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
+                            } catch (Exception ignored) {}
                             //if (Build.VERSION.SDK_INT < 29)
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-                            if (Build.VERSION.SDK_INT >= 29)
-                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEARING_AID);
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT);
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT_SERVER);
-                            if (Build.VERSION.SDK_INT >= 33)
-                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HAP_CLIENT);
-                            if (Build.VERSION.SDK_INT >= 28)
-                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HID_DEVICE);
-                            if (Build.VERSION.SDK_INT >= 33)
-                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.LE_AUDIO);
-                            bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.SAP);
+                            try {
+                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+                            } catch (Exception ignored) {}
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                try {
+                                    bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEARING_AID);
+                                } catch (Exception ignored) {}
+                            }
+                            try {
+                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT);
+                            } catch (Exception ignored) {}
+                            try {
+                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.GATT_SERVER);
+                            } catch (Exception ignored) {}
+                            if (Build.VERSION.SDK_INT >= 33) {
+                                try {
+                                    bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HAP_CLIENT);
+                                } catch (Exception ignored) {}
+                            }
+                            if (Build.VERSION.SDK_INT >= 28) {
+                                try {
+                                    bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HID_DEVICE);
+                                } catch (Exception ignored) {}
+                            }
+                            if (Build.VERSION.SDK_INT >= 33) {
+                                try {
+                                    bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.LE_AUDIO);
+                                } catch (Exception ignored) {}
+                            }
+                            try {
+                                bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.SAP);
+                            } catch (Exception ignored) {}
 
                             if (_callEventHandler)
                                 callEventHandler();
