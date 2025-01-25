@@ -577,10 +577,10 @@ Fix: Popup windows in API level < 30.
 
 Panel News:
 Od OneUI 7 už nie sú podporované Edge Panels od aplikácií tretích strán. A preto aj z PPP bol odstánený.
-Vytvorená bola náhrada, widged s názvom "Panel". Dá sa používať ako štandardný widget, ale je možné ho
-použiť aj v aplikácii "Panels", ktorá vie nahradiť Edge Panels z OneUI. Výhodou je, že je aplikáciu možné
+Vytvorená bola náhrada, widged s názvom \"Panel\". Dá sa používať ako štandardný widget, ale je možné ho
+použiť aj v aplikácii \"Panels\", ktorá vie nahradiť Edge Panels z OneUI. Výhodou je, že je aplikáciu možné
 použiť aj v iných zariadeniach, nie len v tých od Samsung.
-Linka na "Panels" aplikáciu: https://play.google.com/store/apps/details?id=com.fossor.panels
+Linka na \"Panels\" aplikáciu: https://play.google.com/store/apps/details?id=com.fossor.panels
 
 
 
