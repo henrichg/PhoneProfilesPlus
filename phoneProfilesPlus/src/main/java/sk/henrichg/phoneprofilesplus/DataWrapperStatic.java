@@ -249,7 +249,7 @@ class DataWrapperStatic {
             }
 
             if (!manualIndicators.isEmpty()) {
-                if (eventNameInNextLine)
+                if ((eventNameInNextLine) && (!manualIndicators.equals(StringConstants.STR_MANUAL)))
                     eventName = StringConstants.CHAR_NEW_LINE;
                 eventName = manualIndicators + " " + eventName;
             }
