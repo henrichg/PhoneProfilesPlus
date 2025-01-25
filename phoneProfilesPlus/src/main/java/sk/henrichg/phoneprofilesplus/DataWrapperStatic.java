@@ -248,11 +248,8 @@ class DataWrapperStatic {
                 eventName = eventName + "[" + StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
             }
 
-            if (!manualIndicators.isEmpty()) {
-                if (eventNameInNextLine && (!manualIndicators.equals(StringConstants.STR_MANUAL)))
-                    eventName = StringConstants.CHAR_NEW_LINE;
+            if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;
-            }
         }
 
         if (!PPApplicationStatic.getApplicationStarted(true, false))
