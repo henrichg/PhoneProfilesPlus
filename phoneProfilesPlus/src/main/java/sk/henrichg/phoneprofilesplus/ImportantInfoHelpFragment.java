@@ -944,6 +944,45 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        if (PPApplication.SHOW_IMPORTANT_INFO_NEWS) {
+            TextView panelsAppLink = view.findViewById(R.id.important_info_news_3_PanelsAppLink);
+            if (panelsAppLink != null) {
+                String str1 = fragment.getString(R.string.important_info_edge_panel_replacement3) + ": ";
+                String str2 = str1 + "https://play.google.com/store/apps/details?id=com.fossor.panels" + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                Spannable spannable = new SpannableString(str2);
+                //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        String url;
+                        url = "https://play.google.com/store/apps/details?id=com.fossor.panels";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                };
+                spannable.setSpan(clickableSpan, str1.length(), str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                panelsAppLink.setText(spannable);
+                panelsAppLink.setMovementMethod(LinkMovementMethod.getInstance());
+            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                getString(R.string.important_info_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                true, activity);*/
+            }
+        }
     }
 
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
@@ -1246,4 +1285,5 @@ public class ImportantInfoHelpFragment extends Fragment {
 
     }
 */
+
 }

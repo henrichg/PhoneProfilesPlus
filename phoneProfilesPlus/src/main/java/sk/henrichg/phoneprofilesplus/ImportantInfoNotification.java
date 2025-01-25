@@ -160,6 +160,7 @@ class ImportantInfoNotification {
         if (afterInstall)
             news = true;
 
+        Log.e("ImportantInfoNotification.canShowInfoNotification", "news="+news);
         return news;
     }
 
