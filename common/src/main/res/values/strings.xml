@@ -2298,7 +2298,7 @@
     <string name="array_pref_widgetPanelVerticalPosition_top">Top</string>
     <string name="array_pref_widgetPanelVerticalPosition_center">Center</string>
     <string name="array_pref_widgetPanelVerticalPosition_bottom">Bottom</string>
-    <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets and. You can also directly activate a profile through the List widget, Panel widget and shortcut to the profile.</string>
+    <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets. You can also directly activate a profile through the List widget, Panel widget and shortcut to the profile.</string>
     <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget, Panel widget.</string>
     <string name="show_profile_in_activator_not_show_toast">Profile will not be displayed in Activator, List widget, Panel widget</string>
     <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget, Panel widget</string>
