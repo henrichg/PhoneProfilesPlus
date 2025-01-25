@@ -30,7 +30,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 
     //private DataWrapper dataWrapper;
 
-    static final String ACTION_REFRESH_PANELWIDGET = PPApplication.PACKAGE_NAME + ".REFRESH_PANELWIDGET";
+    static final String ACTION_REFRESH_PANELWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_PANELWIDGET";
 
     private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, /*boolean largeLayout,*/ DataWrapper dataWrapper) {
         Intent svcIntent = new Intent(context, PanelWidgetService.class);
@@ -1015,7 +1015,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget
-        PPApplicationStatic.logE("[IN_BROADCAST] PanelWidgetProvider.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] PanelWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 

@@ -90,7 +90,8 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(int position) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PanelWidgetFactory.getViewAt", "PPApplication.panelWidgetDatasetChangedMutex");
         synchronized (PPApplication.panelWidgetDatasetChangedMutex) {
-            Context appContext = context.getApplicationContext();
+
+            Context appContext = context;
             LocaleHelper.setApplicationLocale(appContext);
 
             RemoteViews row;
