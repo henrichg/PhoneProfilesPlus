@@ -100,7 +100,24 @@
 <!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
 <!--    Border of dialog is diplayed correctly withotu this attribute.-->
 <!--    <item name="android:background">@color/activityBackgroundColor</item>-->
+<!--
+    <style name="AlertDialogStyleDayNightNarrow" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@drawable/pp_dialog_background</item>
+        <item name="colorAccent">@color/accent_color</item>
 
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+
+        <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
+
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
+
+        <item name="android:windowMinWidthMinor">@dimen/alertDialogNarrow_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@dimen/alertDialogNarrow_min_width_major</item>
+    </style>
+-->
     <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>

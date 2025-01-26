@@ -72,9 +72,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="15dp"
-                    android:layout_marginEnd="5dp"
                     android:scrollbars="none"
                     android:clipToPadding="false"
                     app:fastScrollAutoHide="false"
@@ -87,6 +84,8 @@
                     app:fastScrollThumbColor="@color/fastScrollThumbPPColor"
                     app:fastScrollTrackColor="@color/fastScrollTrackPPColor"
                     app:fastScrollThumbInactiveColor="@color/fastScrollThumbInactivePPColor" />
+<!--            android:paddingStart="10dp"-->
+<!--            android:paddingEnd="15dp"-->
 
 <!--            </RelativeLayout>-->
 
@@ -104,10 +103,11 @@
                 android:id="@+id/run_applications_editor_dialog_liLa1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginStart="3dp"
                 android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
                 android:layout_marginBottom="5dp">
+<!--                android:paddingStart="15dp"-->
+<!--                android:paddingEnd="15dp"-->
 
                 <ImageView
                     android:id="@+id/run_applications_editor_dialog_selectedIcon"
@@ -132,45 +132,27 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/run_applications_editor_dialog_reLa2"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/run_applications_editor_dialog_startApplicationDelay_root"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp">
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/run_applications_editor_dialog_addIntent"
-                    android:layout_width="@dimen/image_button_size"
-                    android:layout_height="@dimen/image_button_size"
-                    android:padding="@dimen/image_button_padding"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBottom="@id/run_applications_editor_dialog_startApplicationDelay_root"
-                    android:src="@drawable/ic_button_add"
-                    app:tint="@color/accent_color"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="@string/applications_editor_dialog_add_button_tooltip"
-                    android:background="@drawable/editor_ripple_item_right_button" />
-
-                <LinearLayout
-                    android:id="@+id/run_applications_editor_dialog_startApplicationDelay_root"
+                <TextView
+                    android:id="@+id/run_applications_editor_dialog_startApplicationDelay_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/run_applications_editor_dialog_addIntent"
-                    android:orientation="vertical"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:layout_marginStart="5dp"
+                    android:textSize="16sp"
+                    android:text="@string/applications_editor_dialog_startApplicationDelay" />
 
-                    <TextView
-                        android:id="@+id/run_applications_editor_dialog_startApplicationDelay_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textSize="16sp"
-                        android:text="@string/applications_editor_dialog_startApplicationDelay" />
-
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <TextView
                         android:id="@+id/run_applications_editor_dialog_startApplicationDelay"
                         android:layout_width="wrap_content"
@@ -184,12 +166,22 @@
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:background="@drawable/pp_button_background_selector" />
-                    <!--                android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"-->
-                    <!--                android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"-->
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/run_applications_editor_dialog_addIntent"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="20dp"
+                        android:padding="@dimen/image_button_padding"
+                        android:src="@drawable/ic_button_add"
+                        app:tint="@color/accent_color"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@string/applications_editor_dialog_add_button_tooltip"
+                        android:background="@drawable/editor_ripple_item_right_button" />
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

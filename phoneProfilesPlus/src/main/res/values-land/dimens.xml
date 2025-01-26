@@ -58,8 +58,8 @@
     <dimen name="dialog_min_width_major">85%</dimen>
 <!--    <dimen name="dialog_fixed_width_minor">80%</dimen>-->
 <!--    <dimen name="dialog_fixed_width_major">80%</dimen>-->
-    <dimen name="alertDialog_min_width_minor">90%</dimen>
-    <dimen name="alertDialog_min_width_major">90%</dimen>
+    <dimen name="alertDialog_min_width_minor">75%</dimen>
+    <dimen name="alertDialog_min_width_major">75%</dimen>
 
     <dimen name="bottom_navigation_side_margins">30dp</dimen>
 

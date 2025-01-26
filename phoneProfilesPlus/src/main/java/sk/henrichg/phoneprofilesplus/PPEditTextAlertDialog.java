@@ -32,7 +32,7 @@ class PPEditTextAlertDialog {
         this.neutralClick = _neutralClick;
         */
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity/*, R.style.AlertDialogStyleDayNightNarrow*/);
         dialogBuilder.setTitle(_title);
         dialogBuilder.setCancelable(true);
         //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
