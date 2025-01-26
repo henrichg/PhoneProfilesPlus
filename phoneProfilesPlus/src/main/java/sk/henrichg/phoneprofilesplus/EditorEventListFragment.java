@@ -61,6 +61,7 @@ public class EditorEventListFragment extends Fragment
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     Toolbar bottomToolbar;
+    Toolbar editorSubToolbar;
     RelativeLayout viewNoData;
     private LinearLayout progressBar;
     private AppCompatSpinner orderSpinner;
@@ -218,6 +219,8 @@ public class EditorEventListFragment extends Fragment
 
         activatedProfileHeader = view.findViewById(R.id.editor_events_activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_events_list_bottom_bar);
+        //noinspection DataFlowIssue
+        editorSubToolbar = getActivity().findViewById(R.id.editor_subToolbar);
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
@@ -234,34 +237,34 @@ public class EditorEventListFragment extends Fragment
                     public void onHide() {
                         //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
                         //    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-//                if (!hideAnimatorHeader.isRunning()) {
-//                    hideAnimatorHeader.start();
-//                }
-//                if (!showAnimatorBottomBar.isRunning()) {
-//                    showAnimatorBottomBar.start();
-//                }
+        //                if (!hideAnimatorHeader.isRunning()) {
+        //                    hideAnimatorHeader.start();
+        //                }
+        //                if (!showAnimatorBottomBar.isRunning()) {
+        //                    showAnimatorBottomBar.start();
+        //                }
 
                         if (!layoutTransition.isRunning()) {
-                            activatedProfileHeader.setVisibility(View.GONE);
-
-                            bottomToolbar.setVisibility(VISIBLE);
+                            activatedProfileHeader.setVisibility(GONE);
+                            editorSubToolbar.setVisibility(GONE);
+                            bottomToolbar.setVisibility(GONE);
                         }
                     }
 
                     @Override
                     public void onShow() {
                         //if (activatedProfileHeader.getMeasuredHeight() == 0)
-//                if (!showAnimatorHeader.isRunning()) {
-//                    showAnimatorHeader.start();
-//                }
-//                if (!hideAnimatorBottomBar.isRunning()) {
-//                    hideAnimatorBottomBar.start();
-//                }
+        //                if (!showAnimatorHeader.isRunning()) {
+        //                    showAnimatorHeader.start();
+        //                }
+        //                if (!hideAnimatorBottomBar.isRunning()) {
+        //                    hideAnimatorBottomBar.start();
+        //                }
 
                         if (!layoutTransition.isRunning()) {
+                            bottomToolbar.setVisibility(VISIBLE);
                             activatedProfileHeader.setVisibility(VISIBLE);
-
-                            bottomToolbar.setVisibility(View.GONE);
+                            editorSubToolbar.setVisibility(VISIBLE);
                         }
                     }
                 });

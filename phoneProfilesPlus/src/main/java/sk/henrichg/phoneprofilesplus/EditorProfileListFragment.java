@@ -49,11 +49,13 @@ public class EditorProfileListFragment extends Fragment
 
     DataWrapper activityDataWrapper;
 
+
     private View rootView;
     LinearLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
+    Toolbar editorSubToolbar;
     Toolbar bottomToolbar;
     RelativeLayout viewNoData;
     private LinearLayout progressBar;
@@ -182,6 +184,8 @@ public class EditorProfileListFragment extends Fragment
 
         activatedProfileHeader = view.findViewById(R.id.editor_profiles_activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_profiles_list_bottom_bar);
+        //noinspection DataFlowIssue
+        editorSubToolbar = getActivity().findViewById(R.id.editor_subToolbar);
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
@@ -195,15 +199,15 @@ public class EditorProfileListFragment extends Fragment
                 listView.addOnScrollListener(new HidingRecyclerViewScrollListener(1) {
                     @Override
                     public void onHide() {
-                /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                    hideAnimator.start();*/
+                        /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                            (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
+                            hideAnimator.start();*/
                         if (!layoutTransition.isRunning()) {
                             //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
                             //if (firstVisibleItem != 0)
                             activatedProfileHeader.setVisibility(GONE);
-
-                            bottomToolbar.setVisibility(View.VISIBLE);
+                            editorSubToolbar.setVisibility(GONE);
+                            bottomToolbar.setVisibility(GONE);
                         }
                     }
 
@@ -214,9 +218,9 @@ public class EditorProfileListFragment extends Fragment
                         if (!layoutTransition.isRunning()) {
                             //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
                             //if (firstVisibleItem == 0)
-                            activatedProfileHeader.setVisibility(View.VISIBLE);
-
-                            bottomToolbar.setVisibility(GONE);
+                            bottomToolbar.setVisibility(VISIBLE);
+                            activatedProfileHeader.setVisibility(VISIBLE);
+                            editorSubToolbar.setVisibility(VISIBLE);
                         }
                     }
                 });

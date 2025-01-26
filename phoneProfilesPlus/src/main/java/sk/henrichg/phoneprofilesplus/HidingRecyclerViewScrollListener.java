@@ -1,9 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.view.View;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
@@ -56,6 +53,8 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
         }
         else {*/
             if (dy < 0) {
+                // scrolled up (this shows items at bottom)
+
                 //distanceHide = 0;
                 //if (distanceShow > THRESHOLD)
                 //    distanceShow -= dy;
@@ -65,6 +64,8 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
                 //}
             }
             if (dy > 0) {
+                // scrolled down (this shows items at top)
+
                 //distanceShow = 0;
                 //if (distanceHide < THRESHOLD)
                 //    distanceHide += dy;
@@ -76,6 +77,7 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
         //}
     }
 
+    /*
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
@@ -84,14 +86,12 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
         //RecyclerView.SCROLL_STATE_DRAGGING <-- This state may be what you are looking for.
         //RecyclerView.SCROLL_STATE_SETTLING
 
-        /*
-        if (newState == RecyclerView.SCROLL_STATE_IDLE)
-            Log.e("HidingRecyclerViewScrollListener.onScrollStateChanged", "newStatex=SCROLL_STATE_IDLE");
-        if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
-            Log.e("HidingRecyclerViewScrollListener.onScrollStateChanged", "newStatex=SCROLL_STATE_DRAGGING");
-        if (newState == RecyclerView.SCROLL_STATE_SETTLING)
-            Log.e("HidingRecyclerViewScrollListener.onScrollStateChanged", "newStatex=SCROLL_STATE_SETTLING");
-        */
+        //if (newState == RecyclerView.SCROLL_STATE_IDLE)
+        //    Log.e("HidingRecyclerViewScrollListener.onScrollStateChanged", "newStatex=SCROLL_STATE_IDLE");
+        //if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
+        //    Log.e("HidingRecyclerViewScrollListener.onScrollStateChanged", "newStatex=SCROLL_STATE_DRAGGING");
+        //if (newState == RecyclerView.SCROLL_STATE_SETTLING)
+        //    Log.e("HidingRecyclerViewScrollListener.onScrollStateChanged", "newStatex=SCROLL_STATE_SETTLING");
 
         if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -136,6 +136,7 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
             }
         }
     }
+    */
 
     abstract void onHide();
     abstract void onShow();
