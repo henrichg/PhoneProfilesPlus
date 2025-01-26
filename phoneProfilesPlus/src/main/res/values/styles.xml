@@ -93,6 +93,9 @@
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
 
         <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
+
+        <item name="android:windowMinWidthMinor">@dimen/alertDialog_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@dimen/alertDialog_min_width_major</item>
     </style>
 <!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
 <!--    Border of dialog is diplayed correctly withotu this attribute.-->
