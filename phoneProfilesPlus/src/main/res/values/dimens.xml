@@ -11,10 +11,14 @@
     <dimen name="content_inset_end">0dp</dimen>
     <dimen name="content_inset_start_with_navigation">15dp</dimen>
 
-    <dimen name="editor_profiles_item_buttons_end_margin">2dp</dimen>
-    <dimen name="editor_events_item_buttons_end_margin">0dp</dimen>
-
+    <dimen name="activator_toolbar_paddingBottom">3dp</dimen>
     <dimen name="activator_toolbar_height">29dp</dimen>
+    <dimen name="activator_header_marginBottom">5dp</dimen>
+    <dimen name="activator_header_paddingTopBototm">6dp</dimen>
+    <dimen name="activator_header_profile_icon_size">40dp</dimen>
+    <dimen name="activator_header_profile_name_size">16sp</dimen>
+    <dimen name="activator_header_profile_preferences_indicator_height">15dp</dimen>
+
     <dimen name="run_stop_indicator_width">54dp</dimen>
     <dimen name="run_stop_indicator_height">28dp</dimen>
     <dimen name="run_stop_indicator_margin_top">0dp</dimen>
@@ -29,6 +33,33 @@
 
     <dimen name="activator_transparent_padding_top_bottom">15dp</dimen>
     <dimen name="activator_transparent_padding_left_right">0dp</dimen>
+
+    <dimen name="editor_toolbar_height">45dp</dimen>
+    <dimen name="editor_toolbar_filter_marginStart">13dp</dimen>
+    <dimen name="editor_toolbar_filter_textSize">18dp</dimen>
+    <dimen name="editor_header_marginBottom">5dp</dimen>
+    <dimen name="editor_header_paddingTopBototm">6dp</dimen>
+    <dimen name="editor_header_profile_icon_size">40dp</dimen>
+    <dimen name="editor_header_profile_name_size">16sp</dimen>
+    <dimen name="editor_header_profile_preferences_indicator_height">15dp</dimen>
+
+    <dimen name="editor_profiles_item_buttons_end_margin">2dp</dimen>
+    <dimen name="editor_events_item_buttons_end_margin">0dp</dimen>
+
+    <dimen name="listItem_profile_icon_size">40dp</dimen>
+    <dimen name="listItem_profile_name_size">16sp</dimen>
+    <dimen name="profile_preferences_indicator_height">15dp</dimen>
+    <dimen name="listItem_profileList_paddingTopBototm_height">9dp</dimen>
+    <dimen name="listItem_profileList_withIndicator_height">54dp</dimen>
+    <dimen name="listItem_profileList_withoutIndicator_height">48dp</dimen>
+    <dimen name="listItem_height">48dp</dimen>
+    <dimen name="listItem_editorEventList_paddingTopBototm_height">5dp</dimen>
+    <dimen name="listItem_editorEventList_eventName_size">16sp</dimen>
+    <dimen name="listItem_editorEventList_description_size">14sp</dimen>
+    <dimen name="listItem_editorEventList_profileName_size">14sp</dimen>
+    <dimen name="listItem_profileGrid_paddingTop_height">7dp</dimen>
+
+    <dimen name="profile_preferences_indicator_in_event_height">13dp</dimen>
 
     <dimen name="dialog_min_width_minor">85%</dimen>
     <dimen name="dialog_min_width_major">85%</dimen>
@@ -109,9 +140,6 @@
     <dimen name="profile_icon_notification_icon_size">35dp</dimen>
     <dimen name="profile_icon_notification_compat_no_decoration_icon_size">21dp</dimen>
     <dimen name="profile_name_notification_margin">10dp</dimen>
-
-    <dimen name="profile_preferences_indicator_height">15dp</dimen>
-    <dimen name="profile_preferences_indicator_in_event_height">13dp</dimen>
 
     <dimen name="icon_widget_height_more_compact">60dp</dimen>
     <dimen name="icon_widget_height">70dp</dimen>

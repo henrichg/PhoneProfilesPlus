@@ -11,7 +11,7 @@
         android:id="@+id/act_prof_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
+        android:paddingBottom="@dimen/activator_toolbar_paddingBottom"
         android:orientation="vertical"
         android:elevation="0dp">
 

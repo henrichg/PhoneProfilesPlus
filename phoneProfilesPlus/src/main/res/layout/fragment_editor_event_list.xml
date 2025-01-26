@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="-6dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/editor_header_marginBottom"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="@dimen/editor_header_paddingTopBototm"
+        android:paddingBottom="@dimen/editor_header_paddingTopBototm"
         android:layout_alignParentTop="true" >
 
         <LinearLayout
@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/editor_events_activated_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/editor_header_profile_icon_size"
+                android:layout_height="@dimen/editor_header_profile_icon_size"
                 android:layout_marginStart="1dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
@@ -67,7 +67,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="@dimen/editor_header_profile_name_size"
                     android:textStyle="bold"
                     android:textColor="@color/accent_color"
                     android:background="@android:color/transparent"
@@ -82,7 +82,7 @@
                 <ImageView
                     android:id="@+id/editor_events_activated_profile_pref_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_preferences_indicator_height"
+                    android:layout_height="@dimen/editor_header_profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="3dp"
                     android:adjustViewBounds="true"

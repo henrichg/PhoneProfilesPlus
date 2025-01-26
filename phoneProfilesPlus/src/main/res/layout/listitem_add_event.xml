@@ -4,8 +4,8 @@
     android:id="@+id/event_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
+    android:paddingTop="@dimen/listItem_editorEventList_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_editorEventList_paddingTopBototm_height"
     android:orientation="horizontal">
 
     <RadioButton
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/event_name_default"
-            android:textSize="16sp"
+            android:textSize="@dimen/listItem_editorEventList_eventName_size"
             android:textStyle="bold"
             android:textColor="@color/activityNormalTextColor"
             android:scrollHorizontally="true"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="14sp"
+            android:textSize="@dimen/listItem_editorEventList_description_size"
             android:textColor="@color/activityNormalTextColor"
             android:scrollHorizontally="true"
             tools:ignore="SmallSp"/>
@@ -79,7 +79,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/listItem_editorEventList_profileName_size"
                     android:textStyle="bold"
                     android:textColor="@color/activityNormalTextColor"
                     android:ellipsize="end"
@@ -135,7 +135,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/listItem_editorEventList_profileName_size"
                     android:textStyle="bold"
                     android:textColor="@color/activityNormalTextColor"
                     android:ellipsize="end"
