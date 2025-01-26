@@ -26,7 +26,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_log_subToolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/editor_toolbar_height"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="15dp">
@@ -65,8 +65,8 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="@dimen/activity_log_tab_paddingTopBottom"
+            android:paddingBottom="@dimen/activity_log_tab_paddingTopBottom">
 
             <TextView
                 android:id="@+id/activity_log_header_color"

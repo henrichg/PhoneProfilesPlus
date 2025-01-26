@@ -49,6 +49,8 @@
     <dimen name="listItem_editorEventList_profileName_size">14sp</dimen>
     <dimen name="listItem_profileGrid_paddingTop_height">7dp</dimen>
 
+    <dimen name="activity_log_tab_paddingTopBottom">10dp</dimen>
+
     <dimen name="dialog_min_width_minor">65%</dimen>
     <dimen name="dialog_min_width_major">65%</dimen>
 <!--    <dimen name="dialog_fixed_width_minor">80%</dimen>-->
