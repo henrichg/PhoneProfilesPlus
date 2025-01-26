@@ -247,7 +247,16 @@ public class EditorEventListFragment extends Fragment
                         if (!layoutTransition.isRunning()) {
                             activatedProfileHeader.setVisibility(GONE);
                             editorSubToolbar.setVisibility(GONE);
-                            bottomToolbar.setVisibility(GONE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onHide");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(GONE);
+                            }, 100);
+                            //});
                         }
                     }
 
@@ -262,7 +271,16 @@ public class EditorEventListFragment extends Fragment
         //                }
 
                         if (!layoutTransition.isRunning()) {
-                            bottomToolbar.setVisibility(VISIBLE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onShow");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(VISIBLE);
+                            }, 100);
+                            //});
                             activatedProfileHeader.setVisibility(VISIBLE);
                             editorSubToolbar.setVisibility(VISIBLE);
                         }

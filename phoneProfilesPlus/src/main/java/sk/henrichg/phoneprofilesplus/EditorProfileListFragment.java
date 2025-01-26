@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -199,26 +200,35 @@ public class EditorProfileListFragment extends Fragment
                 listView.addOnScrollListener(new HidingRecyclerViewScrollListener(1) {
                     @Override
                     public void onHide() {
-                        /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                            (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                            hideAnimator.start();*/
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem != 0)
                             activatedProfileHeader.setVisibility(GONE);
                             editorSubToolbar.setVisibility(GONE);
-                            bottomToolbar.setVisibility(GONE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onHide");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(GONE);
+                            }, 100);
+                            //});
                         }
                     }
 
                     @Override
                     public void onShow() {
-                    /*if (activatedProfileHeader.getMeasuredHeight() == 0)
-                        showAnimator.start();*/
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem == 0)
-                            bottomToolbar.setVisibility(VISIBLE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onShow");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(VISIBLE);
+                            }, 100);
+                            //});
                             activatedProfileHeader.setVisibility(VISIBLE);
                             editorSubToolbar.setVisibility(VISIBLE);
                         }
