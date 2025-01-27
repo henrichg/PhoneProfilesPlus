@@ -537,41 +537,73 @@ Pre API >= 34:
 
 --------------
 
-PPP:
-Add: "Force stop applications" with root.
-Add: "Use dynamic color for indicator" to draw indicators with dynamic color if global "Use dynamic colors" is disabled. Widget One row and List.
-Add: New parameter into Settings/Editor: "Hide event details".
-Add: New parameter into Settings/Editor: "Hide event details for "Start order"".
-Change: Removed splash screen at start of Editor.
-Change: Acronyms strings changed to icons.
-Change: "Screen timeout" profile parameter for OnePlus without Shizuku.
-Change: Install PPP from installed store also for critical PPP version.
-Change: Removed Twitter/X from support menus and README.md.
-Change: Added Mastodon into README.md
-Change: Added icons in "Support" menu items.
-Change: Added icons in "Check app. releases" menu items.
-Change: Allow "Notification sensor" when only application is configured (not needed is "Check text").
-Change: "Notification sensor", fixed "Check text".
-Change: "Switch profiles" into icon widget when are configured only 2 profiles.
-Change: Delay for start of BT connected devices detector when is started from broadcast.
-Change: Increased size of preference titles.
-Change: Long click to Tasker command in Important info -> direct copy to clipboard.
-Change: Reverted back height of PPP notification for Samsung devices in Amdroid 14+
-Change: "Activity log"/"Help" as activity.
-Change: Widgets: Rounded corners radius + opaqueness of background for API >= 31.
-Change: Widgets: Added parameter "Use dynamic colors" for preferences indicator when global "Dynamic colors" is disabled.
-Change: Call "Request ignore battery optimizations" from Settings/System/Battery optimization, if is not set.
-Change: Vertically center of profile name in Activator header, if preferences indicator is disabled.
-Change: Better detection of drag handle click.
-Change: Added background dim for popup windows.
-Change: Small changes in GUI.
-Fix: "Call screening" sensor block calls, even when event is not running.
-Fix: Animation of open/close dialogs.
-Fix: Bluetooth enable/disable.
-Fix: NFC enable/disable not working in Android 14.
-Fix: Color of preference values in PPP Settings.
-Fix: Maybe fixed bad notification exception at first PPP start.
-Fix: Popup windows in API level < 30.
+Tot je layout pre landscape dialog:
+
+Takto ma vypadat dialog rozdeleny na 2 casti:
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/run_applications_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <View
+            android:id="@+id/run_applications_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialogDividerColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/run_applications_editor_dialog_buttonBarDivider2"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dialogDividerColor" />
+
+</RelativeLayout>
+
+
 
 
 

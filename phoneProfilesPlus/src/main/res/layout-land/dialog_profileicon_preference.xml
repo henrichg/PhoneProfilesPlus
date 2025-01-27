@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true">
 
         <View
-            android:id="@+id/run_applications_pref_dlg_titleBarDivider"
+            android:id="@+id/profileicon_pref_dlg_titleBarDivider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
@@ -31,7 +31,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:layout_marginEnd="10dp">
 
@@ -136,7 +136,7 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/run_applications_editor_dialog_buttonBarDivider2"
+        android:id="@+id/profileicon_dialog_buttonBarDivider2"
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"
         android:layout_height="@dimen/divider_height"
