@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/applications_multiselect_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <View
+            android:id="@+id/applications_multiselect_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialogDividerColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <LinearLayout
+                    android:id="@+id/applications_multiselect_pref_dlg_linla_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+                    <LinearLayout
+                        android:id="@+id/applications_multiselect_pref_dlg_linla_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone" >
+
+                        <ProgressBar
+                            android:id="@+id/applications_multiselect_pref_dlg_progress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dialog_progressbar_padding"
+                            style="?android:attr/progressBarStyle"
+                            android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+                    </LinearLayout>
+
+                    <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+                        android:id="@+id/applications_multiselect_pref_dlg_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="15dp"
+                        android:scrollbars="none"
+                        android:clipToPadding="false"
+                        app:fastScrollAutoHide="false"
+                        app:fastScrollThumbWidth="@dimen/fastScrollThumbWidth"
+                        app:fastScrollTrackWidth="@dimen/fastScrollTrackWidth"
+                        app:fastScrollPopupTextSize="44sp"
+                        app:fastScrollPopupBackgroundSize="70dp"
+                        app:fastScrollPopupBgColor="@color/fastScrollPopupBackgroundPPColor"
+                        app:fastScrollPopupTextColor="@color/fastScrollPopupTextPPColor"
+                        app:fastScrollThumbColor="@color/fastScrollThumbPPColor"
+                        app:fastScrollTrackColor="@color/fastScrollTrackPPColor"
+                        app:fastScrollThumbInactiveColor="@color/fastScrollThumbInactivePPColor" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/applications_multiselect_pref_dlg_unselect_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/pref_dlg_change_selection_button_unselect_all"
+                    android:minHeight="@dimen/button_min_height"
+                    android:paddingStart="@dimen/button_padding"
+                    android:paddingEnd="@dimen/button_padding"
+                    android:minWidth="@dimen/button_min_width"
+                    android:textColor="@color/action_button_text_color"
+                    android:textStyle="bold"
+                    android:background="@drawable/pp_button_background_selector"
+                    style="?android:attr/borderlessButtonStyle" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/applications_multiselect_dialog_buttonBarDivider2"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dialogDividerColor" />
+
+</RelativeLayout>
