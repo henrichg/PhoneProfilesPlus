@@ -988,7 +988,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         final Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
-        PPApplicationStatic.logE("[IN_LISTENER] PanelWidgetProvider.onUpdate", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PanelWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             //final int[] _cocktailIds = cocktailIds;
 
