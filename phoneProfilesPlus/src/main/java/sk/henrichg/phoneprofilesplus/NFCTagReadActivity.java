@@ -147,7 +147,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this, false);
 
     }
 

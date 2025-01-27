@@ -133,7 +133,7 @@
                     android:id="@+id/write_nfc_tag_writeNameToTagAndAddName"
                     android:layout_width="200dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:layout_below="@+id/write_nfc_tag_root3"
                     android:layout_centerInParent="true"
