@@ -10,6 +10,7 @@
     android:orientation="vertical"
     tools:context=".LocationGeofenceEditorActivityOSM">
 
+<!--
 <androidx.appcompat.widget.Toolbar
     android:id="@+id/location_editor_toolbar"
     android:layout_width="match_parent"
@@ -21,6 +22,7 @@
     app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
     app:navigationIcon="?attr/homeAsUpIndicator"
     android:elevation="1dp"/>
+-->
 
 <RelativeLayout
     android:id="@+id/location_editor_root"
@@ -28,7 +30,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
-    tools:context=".LocationGeofenceEditorActivityOSM">
+    tools:context=".LocationGeofenceEditorActivityOSM"
+    tools:ignore="UselessParent">
 
     <LinearLayout
         android:id="@+id/location_editor_et_btn3"
@@ -278,12 +281,14 @@
         android:layout_alignParentTop="true"
         >
 
+        <!--
         <View
             android:id="@+id/location_editor_titleDivider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_alignParentTop="true"
             android:background="@color/dialogDividerColor" />
+        -->
 
         <LinearLayout
             android:id="@+id/location_editor_address_linla"

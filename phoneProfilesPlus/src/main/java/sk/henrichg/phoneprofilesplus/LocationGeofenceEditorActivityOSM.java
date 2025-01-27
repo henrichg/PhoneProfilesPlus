@@ -28,7 +28,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -139,14 +138,16 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         setContentView(R.layout.activity_location_geofence_editor_osm);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        /*
         Toolbar toolbar = findViewById(R.id.location_editor_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.location_editor_title);
-            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
+            getSupportActionBar().setElevation(0);
         }
+        */
 
         //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 
@@ -761,7 +762,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     }
                 }
             };
-            errorLocationHandler.postDelayed(errorLocationRunnable, 15000);
+            errorLocationHandler.postDelayed(errorLocationRunnable, 30000);
         }
 
         boolean locationEnabled = false;
