@@ -51,7 +51,7 @@ public class ErrorNotificationActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        //GlobalGUIRoutines.lockScreenOrientation(this, false);
 
         // set theme and language for dialog alert ;-)
         GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
@@ -132,7 +132,7 @@ public class ErrorNotificationActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        GlobalGUIRoutines.unlockScreenOrientation(this);
+        //GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
