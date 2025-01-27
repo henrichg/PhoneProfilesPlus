@@ -51,7 +51,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
 
         final Activity activity = this;
 
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this, false);
 
         // set theme and language for dialog alert ;-)
         GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
