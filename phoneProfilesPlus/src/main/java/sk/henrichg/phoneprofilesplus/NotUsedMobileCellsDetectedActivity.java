@@ -87,7 +87,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
         cellNamesList = new ArrayList<>();
 
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        //GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         // set theme and language for dialog alert ;-)
         GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
@@ -304,7 +304,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        GlobalGUIRoutines.unlockScreenOrientation(this);
+        //GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
