@@ -46,6 +46,24 @@
                     android:layout_weight="2"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/location_editor_map_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <ProgressBar
+                            android:id="@+id/location_editor_map_loading_progress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dialog_progressbar_padding"
+                            style="?android:attr/progressBarStyleLarge"
+                            android:indeterminateDrawable="@drawable/ic_progressbar"
+                            tools:ignore="TooDeepLayout" />
+
+                    </LinearLayout>
+
                     <RelativeLayout
                         android:id="@+id/location_editor_linla_map"
                         android:layout_width="match_parent"
@@ -62,6 +80,12 @@
                             android:layout_alignParentBottom="true"
                             android:orientation="vertical" >
 
+                            <View
+                                android:id="@+id/location_editor_mapDivider"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/divider_height"
+                                android:background="@color/dialogDividerColor" />
+
                             <TextView
                                 android:id="@+id/location_editor_address_text"
                                 android:layout_width="match_parent"
@@ -73,37 +97,14 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"/>
 
-                            <View
-                                android:id="@+id/location_editor_mapDivider"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/divider_height"
-                                android:background="@color/dialogDividerColor" />
-
                         </LinearLayout>
 
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
-                            android:layout_alignParentTop="true">
-
-                            <LinearLayout
-                                android:id="@+id/location_editor_map_loading"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical" >
-
-                                <ProgressBar
-                                    android:id="@+id/location_editor_map_loading_progress"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/dialog_progressbar_padding"
-                                    style="?android:attr/progressBarStyleLarge"
-                                    android:indeterminateDrawable="@drawable/ic_progressbar"
-                                    tools:ignore="TooDeepLayout" />
-
-                            </LinearLayout>
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/location_editor_address_linla" >
 
                             <org.osmdroid.views.MapView
                                 android:id="@+id/location_editor_map"
