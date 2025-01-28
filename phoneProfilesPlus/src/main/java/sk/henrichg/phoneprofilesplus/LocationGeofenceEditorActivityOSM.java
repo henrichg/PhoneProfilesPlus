@@ -89,8 +89,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
      */
     //private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
-    private Location mLastLocation = null;
-    private Location mLocation = null;
+    private Location mActualLocation = null;
+    private Location mGeofenceLocation = null;
 
     private long geofenceId;
     private Geofence geofence;
@@ -156,9 +156,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
         if (geofenceId > 0) {
             geofence = DatabaseHandler.getInstance(getApplicationContext()).getGeofence(geofenceId);
-            mLocation = new Location("LOC");
-            mLocation.setLatitude(geofence._latitude);
-            mLocation.setLongitude(geofence._longitude);
+            mGeofenceLocation = new Location("LOC");
+            mGeofenceLocation.setLatitude(geofence._latitude);
+            mGeofenceLocation.setLongitude(geofence._longitude);
         }
         if (geofence == null) {
             geofenceId = 0;
@@ -248,10 +248,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint point) {
-                if (mLocation == null)
-                    mLocation = new Location("LOC");
-                mLocation.setLatitude(point.getLatitude());
-                mLocation.setLongitude(point.getLongitude());
+                if (mGeofenceLocation == null)
+                    mGeofenceLocation = new Location("LOC");
+                mGeofenceLocation.setLatitude(point.getLatitude());
+                mGeofenceLocation.setLongitude(point.getLongitude());
                 refreshActivity(true, false);
 
                 return true;
@@ -383,10 +383,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //noinspection DataFlowIssue
         okButton.setOnClickListener(v -> {
             String name = geofenceNameEditText.getText().toString();
-            if ((!name.isEmpty()) && (mLocation != null)) {
+            if ((!name.isEmpty()) && (mGeofenceLocation != null)) {
                 geofence._name = name;
-                geofence._latitude = mLocation.getLatitude();
-                geofence._longitude = mLocation.getLongitude();
+                geofence._latitude = mGeofenceLocation.getLatitude();
+                geofence._longitude = mGeofenceLocation.getLongitude();
 
                 if (geofenceId > 0) {
                     DatabaseHandler.getInstance(getApplicationContext()).updateGeofence(geofence);
@@ -431,12 +431,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         IMapController _mapController = mMap.getController();
                         switch (which) {
                             case 0:
-                                if (mLocation != null)
-                                    _mapController.setCenter(new GeoPoint(mLocation));
+                                if (mGeofenceLocation != null)
+                                    _mapController.setCenter(new GeoPoint(mGeofenceLocation));
                                 break;
                             case 1:
-                                if (mLastLocation != null)
-                                    _mapController.setCenter(new GeoPoint(mLastLocation));
+                                if (mActualLocation != null)
+                                    _mapController.setCenter(new GeoPoint(mActualLocation));
                                 else {
                                     PPAlertDialog alert = new PPAlertDialog(
                                             getString(R.string.location_editor_title),
@@ -462,8 +462,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                 break;
                             case 2:
                                 //getLastLocation();
-                                if (mLastLocation != null) {
-                                    mLocation = new Location(mLastLocation);
+                                if (mActualLocation != null) {
+                                    mGeofenceLocation = new Location(mActualLocation);
                                     refreshActivity(true, true);
                                 } else {
                                     PPAlertDialog alert = new PPAlertDialog(
@@ -632,7 +632,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     private double calcZoom() {
         double zoom;
-        if (mLocation == null)
+        if (mGeofenceLocation == null)
             zoom = 15f;
         else {
             DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -640,7 +640,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
 //            int mapHeight = Math.round(mMap.getHeight() / metrics.scaledDensity);
 
-            zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
+            zoom = calcZoom(geofence._radius * 2, mapWidth, mGeofenceLocation.getLatitude());
 
             if (zoom > MAX_ZOOM_LEVEL)
                 zoom = MAX_ZOOM_LEVEL;
@@ -655,24 +655,24 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //            Log.e("LocationGeofenceEditorActivityOSM.updateEditedMarker", "setMapCamera="+setMapCamera);
 //            Log.e("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom level="+mMap.getZoomLevelDouble());
 
-            if (mLastLocation != null) {
+            if (mActualLocation != null) {
                 if (currentLocationOverlay != null) {
                     mMap.getOverlays().remove(currentLocationOverlay);
                     //mMap.invalidate();
                 }
-                currentLocationOverlay = new LocationGeofenceEditorCurrentLocationOverlayOSM(new GeoPoint(mLastLocation), mLastLocation.getAccuracy(),
+                currentLocationOverlay = new LocationGeofenceEditorCurrentLocationOverlayOSM(new GeoPoint(mActualLocation), mActualLocation.getAccuracy(),
                         ContextCompat.getColor(this, R.color.mapLastLocationMarkerFillColor),
                         ContextCompat.getColor(this, R.color.mapLastLocationMarkerStrokeColor));
                 mMap.getOverlays().add(currentLocationOverlay);
                 mMap.invalidate();
             }
 
-            if (mLocation != null) {
+            if (mGeofenceLocation != null) {
                 if (geofenceOverlay != null) {
                     mMap.getOverlays().remove(geofenceOverlay);
                     //mMap.invalidate();
                 }
-                geofenceOverlay = new LocationGeofenceEditorGeofenceOverlayOSM(new GeoPoint(mLocation), geofence._radius,
+                geofenceOverlay = new LocationGeofenceEditorGeofenceOverlayOSM(new GeoPoint(mGeofenceLocation), geofence._radius,
                         ContextCompat.getColor(this, R.color.mapEditedLocationMarkerFillColor),
                         ContextCompat.getColor(this, R.color.mapEditedLocationMarkerStrokeColor));
                 mMap.getOverlays().add(geofenceOverlay);
@@ -682,7 +682,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     //mMap.invalidate();
                 }
                 editedMarker = new Marker(mMap);
-                editedMarker.setPosition(new GeoPoint(mLocation));
+                editedMarker.setPosition(new GeoPoint(mGeofenceLocation));
                 editedMarker.setIcon(AppCompatResources.getDrawable(this, R.drawable.ic_edited_location_marker));
                 //editedMarker.setDefaultIcon();
                 editedMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -695,10 +695,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     try {
                         mapController.setZoom(calcZoom());
 
-                        GeoPoint startPoint = new GeoPoint(mLocation.getLatitude(), mLocation.getLongitude());
+                        GeoPoint startPoint = new GeoPoint(mGeofenceLocation.getLatitude(), mGeofenceLocation.getLongitude());
                         mapController.setCenter(startPoint);
                     } catch (StackOverflowError e) {
-                        GeoPoint startPoint = new GeoPoint(mLocation.getLatitude(), mLocation.getLongitude());
+                        GeoPoint startPoint = new GeoPoint(mGeofenceLocation.getLatitude(), mGeofenceLocation.getLongitude());
                         mapController.setCenter(startPoint);
                     }
                 }
@@ -716,7 +716,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             //if (mLocation != null) {
                 // Determine whether a geo-coder is available.
                 if (Geocoder.isPresent()) {
-                    if (mLocation != null) {
+                    if (mGeofenceLocation != null) {
                         startWorkerForFetchAddress(false);
                         enableAddressButton = true;
                     }
@@ -731,7 +731,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             }
 
             String name = geofenceNameEditText.getText().toString();
-            okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
+            okButton.setEnabled((!name.isEmpty()) && (mGeofenceLocation != null));
         }
         else {
             okButton.setEnabled(false);
@@ -812,7 +812,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
                 LocationGeofenceEditorActivityOSM activity = activityWeakRef.get();
                 if ((activity != null) && !activity.isFinishing() && !activity.isDestroyed()) {
-                    if (activity.mLastLocation == null) {
+                    if (activity.mActualLocation == null) {
                         activity.showErrorLocationDialog();
                     }
                 }
@@ -903,7 +903,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     private void getGeofenceAddress(/*boolean updateName*/) {
         try {
-            if (mLocation != null) {
+            if (mGeofenceLocation != null) {
                 startWorkerForFetchAddress(true);
             }
             //mAddressRequested = true;
@@ -920,8 +920,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         startService(intent);*/
 
         Data workData = new Data.Builder()
-                .putDouble(WORKRES_LATITUDE_EXTRA, mLocation.getLatitude())
-                .putDouble(WORKRES_LONGITUDE_EXTRA, mLocation.getLongitude())
+                .putDouble(WORKRES_LATITUDE_EXTRA, mGeofenceLocation.getLatitude())
+                .putDouble(WORKRES_LONGITUDE_EXTRA, mGeofenceLocation.getLongitude())
                 .putBoolean(WORKRES_UPDATE_NAME_EXTRA, updateName)
                 .build();
 
@@ -1335,19 +1335,19 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     private void doUpdatedLocation(Location oldLastLocation) {
-        if ((oldLastLocation == null) && (mLastLocation == null)) {
+        if ((oldLastLocation == null) && (mActualLocation == null)) {
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
             String provider = mLocationManager.getBestProvider(criteria, false);
             if ((provider != null) && (!provider.isEmpty())) {
                 if (Permissions.checkLocation(getApplicationContext()))
-                    mLastLocation = mLocationManager.getLastKnownLocation(provider);
+                    mActualLocation = mLocationManager.getLastKnownLocation(provider);
             }
         }
-        if (mLocation == null) {
-            if (mLastLocation != null) {
-                mLocation = new Location(mLastLocation);
+        if (mGeofenceLocation == null) {
+            if (mActualLocation != null) {
+                mGeofenceLocation = new Location(mActualLocation);
                 if (mapIsLoading.getVisibility() != View.GONE)
                     mapIsLoading.setVisibility(View.GONE);
                 if (mMap.getVisibility() != View.VISIBLE) {
@@ -1365,7 +1365,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             }
 
             String name = geofenceNameEditText.getText().toString();
-            okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
+            okButton.setEnabled((!name.isEmpty()) && (mGeofenceLocation != null));
 
             radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
             updateEditedMarker(oldLastLocation == null);
@@ -1379,8 +1379,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             //if (location == null)
             //    return;
 
-            final Location oldLastLocation = mLastLocation;
-            mLastLocation = location;
+            final Location oldLastLocation = mActualLocation;
+            mActualLocation = location;
             doUpdatedLocation(oldLastLocation);
         }
 
