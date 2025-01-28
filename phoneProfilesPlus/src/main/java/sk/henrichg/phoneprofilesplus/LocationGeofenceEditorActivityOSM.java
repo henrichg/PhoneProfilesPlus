@@ -1337,14 +1337,16 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     private void doUpdatedLocation(Location oldLastLocation) {
         if (mLocation == null) {
-            mLocation = new Location(mLastLocation);
-            if (mapIsLoading.getVisibility() != View.GONE)
-                mapIsLoading.setVisibility(View.GONE);
-            if (mMap.getVisibility() != View.VISIBLE) {
-                mMap.setVisibility(View.VISIBLE);
-                addressText.setVisibility(View.VISIBLE);
+            if (mLastLocation != null) {
+                mLocation = new Location(mLastLocation);
+                if (mapIsLoading.getVisibility() != View.GONE)
+                    mapIsLoading.setVisibility(View.GONE);
+                if (mMap.getVisibility() != View.VISIBLE) {
+                    mMap.setVisibility(View.VISIBLE);
+                    addressText.setVisibility(View.VISIBLE);
+                }
+                refreshActivity(true, true);
             }
-            refreshActivity(true, true);
         } else {
             if (mapIsLoading.getVisibility() != View.GONE)
                 mapIsLoading.setVisibility(View.GONE);
