@@ -51,12 +51,12 @@
 
     <dimen name="activity_log_tab_paddingTopBottom">10dp</dimen>
 
-    <dimen name="dialog_min_width_minor">45%</dimen>
-    <dimen name="dialog_min_width_major">45%</dimen>
+    <dimen name="dialog_min_width_minor">65%</dimen>
+    <dimen name="dialog_min_width_major">65%</dimen>
 <!--    <dimen name="dialog_fixed_width_minor">40%</dimen>-->
 <!--    <dimen name="dialog_fixed_width_major">40%</dimen>-->
-    <dimen name="alertDialog_min_width_minor">45%</dimen>
-    <dimen name="alertDialog_min_width_major">45%</dimen>
+    <dimen name="alertDialog_min_width_minor">65%</dimen>
+    <dimen name="alertDialog_min_width_major">65%</dimen>
 
     <dimen name="bottom_navigation_side_margins">60dp</dimen>
 
