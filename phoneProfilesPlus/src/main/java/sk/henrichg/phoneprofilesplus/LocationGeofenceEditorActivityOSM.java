@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static sk.henrichg.phoneprofilesplus.ActivatorTargetHelpsActivity.activity;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -437,12 +439,56 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                             case 1:
                                 if (mLastLocation != null)
                                     _mapController.setCenter(new GeoPoint(mLastLocation));
+                                else {
+                                    PPAlertDialog alert = new PPAlertDialog(
+                                            getString(R.string.location_editor_title),
+                                            getString(R.string.location_editor_title_not_actual_location),
+                                            getString(android.R.string.ok),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true, true,
+                                            false, false,
+                                            true,
+                                            false,
+                                            this
+                                    );
+                                    if (!isFinishing())
+                                        alert.show();
+                                }
                                 break;
                             case 2:
                                 //getLastLocation();
-                                if (mLastLocation != null)
+                                if (mLastLocation != null) {
                                     mLocation = new Location(mLastLocation);
-                                refreshActivity(true, true);
+                                    refreshActivity(true, true);
+                                } else {
+                                    PPAlertDialog alert = new PPAlertDialog(
+                                            getString(R.string.location_editor_title),
+                                            getString(R.string.location_editor_title_not_actual_location),
+                                            getString(android.R.string.ok),
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true, true,
+                                            false, false,
+                                            true,
+                                            false,
+                                            this
+                                    );
+                                    if (!isFinishing())
+                                        alert.show();
+                                }
                                 break;
                             default:
                         }
@@ -499,6 +545,17 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
+            // update map with location, if is set from geofence
+            Handler handler = new Handler(getMainLooper());
+            final WeakReference<LocationGeofenceEditorActivityOSM> activityWeakRef = new WeakReference<>(this);
+            Runnable runnable = () -> {
+                //PPApplicationStatic.logE("[HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.onStart");
+                LocationGeofenceEditorActivityOSM activity = activityWeakRef.get();
+                if ((activity != null) && !activity.isFinishing() && !activity.isDestroyed())
+                    activity.doUpdatedLocation(null);
+            };
+            handler.postDelayed(runnable, 500);
+
             startLocationUpdates(true);
             refreshActivity(false, false);
         }
@@ -1278,6 +1335,31 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         return zoom256 + x;
     }
 
+    private void doUpdatedLocation(Location oldLastLocation) {
+        if (mLocation == null) {
+            mLocation = new Location(mLastLocation);
+            if (mapIsLoading.getVisibility() != View.GONE)
+                mapIsLoading.setVisibility(View.GONE);
+            if (mMap.getVisibility() != View.VISIBLE) {
+                mMap.setVisibility(View.VISIBLE);
+                addressText.setVisibility(View.VISIBLE);
+            }
+            refreshActivity(true, true);
+        } else {
+            if (mapIsLoading.getVisibility() != View.GONE)
+                mapIsLoading.setVisibility(View.GONE);
+            if (mMap.getVisibility() != View.VISIBLE) {
+                mMap.setVisibility(View.VISIBLE);
+                addressText.setVisibility(View.VISIBLE);
+            }
+
+            String name = geofenceNameEditText.getText().toString();
+            okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
+
+            radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
+            updateEditedMarker(oldLastLocation == null);
+        }
+    }
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(@NonNull Location location) {
@@ -1287,32 +1369,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             //    return;
 
             final Location oldLastLocation = mLastLocation;
-
             mLastLocation = location;
-
-            if (mLocation == null) {
-                mLocation = new Location(mLastLocation);
-                if (mapIsLoading.getVisibility() != View.GONE)
-                    mapIsLoading.setVisibility(View.GONE);
-                if (mMap.getVisibility() != View.VISIBLE) {
-                    mMap.setVisibility(View.VISIBLE);
-                    addressText.setVisibility(View.VISIBLE);
-                }
-                refreshActivity(true, true);
-            } else {
-                if (mapIsLoading.getVisibility() != View.GONE)
-                    mapIsLoading.setVisibility(View.GONE);
-                if (mMap.getVisibility() != View.VISIBLE) {
-                    mMap.setVisibility(View.VISIBLE);
-                    addressText.setVisibility(View.VISIBLE);
-                }
-
-                String name = geofenceNameEditText.getText().toString();
-                okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
-
-                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
-                updateEditedMarker(oldLastLocation == null);
-            }
+            doUpdatedLocation(oldLastLocation);
         }
 
         public void onProviderDisabled(@NonNull String provider) {
