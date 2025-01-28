@@ -532,7 +532,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        //GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (checkOnlineStatusBroadcatReceiver == null) {
             checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver(this);
@@ -568,7 +568,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         } catch (Exception ignored) {}
         checkOnlineStatusBroadcatReceiver = null;
 
-        GlobalGUIRoutines.unlockScreenOrientation(this);
+        //GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
