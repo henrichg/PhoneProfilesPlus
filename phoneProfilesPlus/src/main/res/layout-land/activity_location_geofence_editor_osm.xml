@@ -80,11 +80,13 @@
                             android:layout_alignParentBottom="true"
                             android:orientation="vertical" >
 
+                            <!--
                             <View
                                 android:id="@+id/location_editor_mapDivider"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/divider_height"
                                 android:background="@color/dialogDividerColor" />
+                            -->
 
                             <TextView
                                 android:id="@+id/location_editor_address_text"
