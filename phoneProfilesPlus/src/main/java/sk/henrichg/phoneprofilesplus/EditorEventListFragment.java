@@ -232,7 +232,7 @@ public class EditorEventListFragment extends Fragment
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                 //layoutTransition.setDuration(500);
 
-                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(2) {
+                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(/*2*/) {
                     @Override
                     public void onHide() {
                         //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&

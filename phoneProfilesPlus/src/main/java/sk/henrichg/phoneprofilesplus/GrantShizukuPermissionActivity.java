@@ -123,7 +123,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        GlobalGUIRoutines.lockScreenOrientation(this, false);
+        GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
 
         if (Shizuku.isPreV11()) {
             // Pre-v11 is unsupported

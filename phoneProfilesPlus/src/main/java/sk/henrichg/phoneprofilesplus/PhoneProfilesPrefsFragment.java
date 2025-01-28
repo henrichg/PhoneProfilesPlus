@@ -3099,8 +3099,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             useDynamicColorsWidgetOneRow = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS, false);
             useDynamicColorsWidgetList = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, false);
             useDynamicColorsWidgetOneRowProfileList = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS, false);
-            useDynamicColorsWidgetOneRowPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR, false);;
-            useDynamicColorsWidgetListPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR, false);;
+            useDynamicColorsWidgetOneRowPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR, false);
+            useDynamicColorsWidgetListPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR, false);
             useDynamicColorsWidgetPanel = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS, false);
         }
 

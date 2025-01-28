@@ -74,10 +74,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            if (_device != null) {
+//            if (_device != null) {
 //                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.name=" + _device.getName());
 //                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "[2] device.address=" + _device.getAddress());
-            }
+//            }
 
             //noinspection ExtractMethodRecommender
             final Context appContext = context.getApplicationContext();

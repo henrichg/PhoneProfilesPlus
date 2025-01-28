@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -197,7 +196,7 @@ public class EditorProfileListFragment extends Fragment
                 final LayoutTransition layoutTransition = profilesListFragment.getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(1) {
+                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(/*1*/) {
                     @Override
                     public void onHide() {
                         if (!layoutTransition.isRunning()) {

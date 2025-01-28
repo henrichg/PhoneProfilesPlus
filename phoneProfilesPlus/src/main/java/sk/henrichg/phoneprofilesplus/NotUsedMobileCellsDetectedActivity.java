@@ -301,11 +301,13 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             mDialog.show();
     }
 
+    /*
     @Override
     protected void onStop() {
         super.onStop();
-        //GlobalGUIRoutines.unlockScreenOrientation(this);
+        GlobalGUIRoutines.unlockScreenOrientation(this);
     }
+    */
 
     @Override
     public void finish()

@@ -3925,7 +3925,7 @@ public class EditorActivity extends AppCompatActivity
             if (activity != null) {
                 pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.backupProgressDialog.setCancelable(false);
                 activity.backupProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4115,7 +4115,7 @@ public class EditorActivity extends AppCompatActivity
                     pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
                 }
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.restoreProgressDialog.setCancelable(false);
                 activity.restoreProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4401,7 +4401,7 @@ public class EditorActivity extends AppCompatActivity
             if (activity != null) {
                 doImport = true;
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.importProgressDialog.setCancelable(false);
                 activity.importProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4637,7 +4637,7 @@ public class EditorActivity extends AppCompatActivity
 
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.exportProgressDialog.setCancelable(false);
                 activity.exportProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())

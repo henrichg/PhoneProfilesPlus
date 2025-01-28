@@ -817,9 +817,9 @@ class GlobalGUIRoutines {
     */
 
     @SuppressLint("SourceLockedOrientationActivity")
-    static void lockScreenOrientation(Activity activity, boolean toDefault) {
+    static void lockScreenOrientation(Activity activity/*, boolean toDefault*/) {
         try {
-            if ((Build.VERSION.SDK_INT != 26) && (!toDefault)) {
+            if ((Build.VERSION.SDK_INT != 26)/* && (!toDefault)*/) {
                 int currentOrientation = activity.getResources().getConfiguration().orientation;
                 if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);

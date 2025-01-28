@@ -168,7 +168,7 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/location_dialog_buttonBarDivider2"
+        android:id="@+id/location_pref_dlg_buttonBarDivider2"
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"
         android:layout_height="@dimen/divider_height"

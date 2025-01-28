@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
 
-    final int fragmentType;
+    //final int fragmentType;
 
     //private static final int THRESHOLD = 200;
     //private int scrolledDistance = 0;
@@ -13,9 +13,9 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
     //private int distanceShow = 0;
     //private int distanceHide = 0;
 
-    HidingRecyclerViewScrollListener(int fragmentType) {
+    HidingRecyclerViewScrollListener(/*int fragmentType*/) {
         super();
-        this.fragmentType = fragmentType;
+        //this.fragmentType = fragmentType;
     }
 
     @Override
