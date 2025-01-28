@@ -1335,8 +1335,19 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         return zoom256 + x;
     }
 
+    @SuppressLint("MissingPermission")
     private void doUpdatedLocation(Location oldLastLocation) {
         if (mLocation == null) {
+            if (mLastLocation == null) {
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+                String provider = mLocationManager.getBestProvider(criteria, false);
+                if ((provider != null) && (!provider.isEmpty())) {
+                    if (Permissions.checkLocation(getApplicationContext()))
+                        mLastLocation = mLocationManager.getLastKnownLocation(provider);
+                }
+            }
             if (mLastLocation != null) {
                 mLocation = new Location(mLastLocation);
                 if (mapIsLoading.getVisibility() != View.GONE)
