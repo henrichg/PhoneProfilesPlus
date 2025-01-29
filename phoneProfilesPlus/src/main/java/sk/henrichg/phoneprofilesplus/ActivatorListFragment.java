@@ -168,7 +168,7 @@ public class ActivatorListFragment extends Fragment {
             final LayoutTransition layoutTransition = activateListFragment.getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-            absListView.setOnScrollListener(new HidingAbsListViewScrollListener() {
+            absListView.setOnScrollListener(new ActivatorAutoHideShowHeaderScrollListener() {
                 @Override
                 public void onHide() {
                     /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&

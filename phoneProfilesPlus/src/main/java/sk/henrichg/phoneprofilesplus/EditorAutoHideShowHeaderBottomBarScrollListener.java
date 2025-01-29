@@ -3,7 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
+abstract class EditorAutoHideShowHeaderBottomBarScrollListener extends RecyclerView.OnScrollListener {
 
     //final int fragmentType;
 
@@ -13,7 +13,7 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
     //private int distanceShow = 0;
     //private int distanceHide = 0;
 
-    HidingRecyclerViewScrollListener(/*int fragmentType*/) {
+    EditorAutoHideShowHeaderBottomBarScrollListener(/*int fragmentType*/) {
         super();
         //this.fragmentType = fragmentType;
     }

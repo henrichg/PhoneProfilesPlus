@@ -2,7 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.widget.AbsListView;
 
-abstract class HidingAbsListViewScrollListener implements AbsListView.OnScrollListener {
+abstract class ActivatorAutoHideShowHeaderScrollListener implements AbsListView.OnScrollListener {
 
     private int mLastFirstVisibleItem;
 
