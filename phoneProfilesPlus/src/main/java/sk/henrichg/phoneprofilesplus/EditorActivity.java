@@ -3178,11 +3178,14 @@ public class EditorActivity extends AppCompatActivity
 
         // In single-pane mode, simply start the profile preferences activity
         // for the profile position.
-        if (((profile != null) ||
-            (editMode == PPApplication.EDIT_MODE_INSERT) ||
-            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
-            && (editMode != PPApplication.EDIT_MODE_DELETE))
-            startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
+        if ((profile != null) ||
+                (editMode == PPApplication.EDIT_MODE_INSERT) ||
+                (editMode == PPApplication.EDIT_MODE_DUPLICATE)) {
+            if (editMode != PPApplication.EDIT_MODE_DELETE)
+                startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
+            else
+                redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
+        }
     }
 
     void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
@@ -3361,11 +3364,14 @@ public class EditorActivity extends AppCompatActivity
             ((EditorEventListFragment) fragment).updateBottomMenu();
         }
 
-        if (((event != null) ||
+        if ((event != null) ||
             (editMode == PPApplication.EDIT_MODE_INSERT) ||
-            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
-            && (editMode != PPApplication.EDIT_MODE_DELETE))
-            startEventPreferenceActivity(event, editMode, predefinedEventIndex);
+            (editMode == PPApplication.EDIT_MODE_DUPLICATE)) {
+            if (editMode != PPApplication.EDIT_MODE_DELETE)
+                startEventPreferenceActivity(event, editMode, predefinedEventIndex);
+            else
+                redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
+        }
     }
 
     void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
