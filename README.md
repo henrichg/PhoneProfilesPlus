@@ -134,7 +134,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - guava - https://github.com/google/guava
-- AutoService = https://github.com/google/auto/tree/main/service
+- AutoService - https://github.com/google/auto/tree/main/service
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
