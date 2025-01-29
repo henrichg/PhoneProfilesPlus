@@ -254,8 +254,8 @@ public class PhoneProfilesService extends Service
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "before show profile notification");
 
-        boolean isServiceRunning = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, true);
-        PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "------- service is running (in foreground)="+isServiceRunning);
+        //boolean isServiceRunning = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        //PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "------- service is running (in foreground)="+isServiceRunning);
 
         /*
         // delete notification if is displayed
@@ -273,8 +273,7 @@ public class PhoneProfilesService extends Service
         // show notification to avoid ANR in api level 26+
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPAppNotification.showNotification");
 
-        PPAppNotification.showNotification(getApplicationContext(),
-                !isServiceRunning, isServiceRunning, true, true);
+        PPAppNotification.showNotification(getApplicationContext(), true, false, true, true);
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -1880,7 +1879,9 @@ public class PhoneProfilesService extends Service
 
         //startForegroundNotification = true;
 
-        boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
+        boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
+        PPApplicationStatic.logE("PhoneProfilesService.onStartCommand", "------- service is running="+isServiceRunning);
+
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPAppNotification.showNotification");
         PPAppNotification.showNotification(appContext, !isServiceRunning, true, true, true);
 
