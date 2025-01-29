@@ -105,7 +105,8 @@
         <item name="android:scrollbarThumbHorizontal">@color/scrollbarColor</item>
         <item name="android:scrollbarSize">@dimen/scrollbar_size</item>
 
-        <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>
+<!--        <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>-->
+<!--        <item name="android:lineSpacingMultiplier">0.9</item>-->
 
     </style>
 
