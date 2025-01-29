@@ -555,7 +555,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             handler.postDelayed(runnable, 500);
 
             startLocationUpdates(true);
+            //
             refreshActivity(false, false);
+            showDialogIfIsNotOnline(this);
         }
     }
 
@@ -1397,8 +1399,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         }
     };
 
-    @Override
-    public void showDialogAndRefreshFromListener(Context context) {
+    private void showDialogIfIsNotOnline(Context context) {
         if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
             if (!isFinishing()) {
                 PPAlertDialog dialog = new PPAlertDialog(
@@ -1423,7 +1424,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     dialog.show();
             }
         }
+    }
 
+    @Override
+    public void showDialogAndRefreshFromListener(Context context) {
+        showDialogIfIsNotOnline(context);
         if (!isFinishing())
             refreshActivity(true, CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
     }
