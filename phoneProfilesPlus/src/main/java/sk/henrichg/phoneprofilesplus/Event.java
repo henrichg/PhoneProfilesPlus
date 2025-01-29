@@ -1080,9 +1080,9 @@ class Event {
                 boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
                 String summary = context.getString(R.string.event_preferences_event_priorityInfo_summary);
                 if (applicationEventUsePriority)
-                    summary = context.getString(R.string.event_preferences_priority_appSettings_enabled) + StringConstants.STR_DOUBLE_NEWLINE + summary;
+                    summary = context.getString(R.string.event_preferences_priority_appSettings_enabled) + StringConstants.STR_SEPARATOR_LINE + summary;
                 else {
-                    summary = context.getString(R.string.event_preferences_priority_appSettings_disabled) + StringConstants.STR_DOUBLE_NEWLINE + summary + StringConstants.CHAR_NEW_LINE+
+                    summary = context.getString(R.string.event_preferences_priority_appSettings_disabled) + StringConstants.STR_SEPARATOR_LINE + summary + StringConstants.CHAR_NEW_LINE+
                             context.getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary);
                 }
                 preference.setSummary(summary);

@@ -369,7 +369,7 @@ class EventPreferencesTime extends EventPreferences {
                 //int titleColor;
                 if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                     //if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                         //titleColor = ContextCompat.getColor(context, R.color.altype_error);
                     //}
@@ -385,10 +385,10 @@ class EventPreferencesTime extends EventPreferences {
                                     ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     } else {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     }
                     //titleColor = 0;
@@ -439,17 +439,17 @@ class EventPreferencesTime extends EventPreferences {
                 int titleColor;
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     if (_timeType != TIME_TYPE_EXACT) {
-                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
+                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_SEPARATOR_LINE+
                                 summary;
                         titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     } else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE+
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_SEPARATOR_LINE+
                                 summary;
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT+
                             summary;
                     titleColor = 0;
                 }

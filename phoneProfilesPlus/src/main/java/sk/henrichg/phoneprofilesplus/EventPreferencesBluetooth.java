@@ -215,17 +215,17 @@ class EventPreferencesBluetooth extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) {
                         int connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1"));
                         if ((connectionType == 1) || (connectionType == 3)) {
-                            summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
+                            summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_SEPARATOR_LINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                             titleColor = ContextCompat.getColor(context, R.color.errorColor);
                         } else {
-                            summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
+                            summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_SEPARATOR_LINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                             titleColor = 0;
                         }
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                         titleColor = 0;
                     }
@@ -236,10 +236,10 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                     } else {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                     }
                     titleColor = 0;
@@ -271,17 +271,17 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     int connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1"));
                     if ((connectionType == 1) || (connectionType == 3)) {
-                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *" + StringConstants.STR_SEPARATOR_LINE +
                                 summary;
                         titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_SEPARATOR_LINE +
                                 summary;
                         titleColor = 0;
                     }
                 } else {
-                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT +
                             summary;
                     titleColor = 0;
                 }

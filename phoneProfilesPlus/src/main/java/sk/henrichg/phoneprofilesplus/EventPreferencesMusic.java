@@ -146,10 +146,10 @@ class EventPreferencesMusic extends EventPreferences {
             if (preference != null) {
                 String summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettings_summary);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
-                    summary = "* " + context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
+                    summary = "* " + context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsDisabled_summary) + "! *" + StringConstants.STR_SEPARATOR_LINE +
                             summary;
                 } else {
-                    summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                    summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsEnabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT +
                             summary;
                 }
                 preference.setSummary(summary);
