@@ -52,7 +52,7 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
             onShow();
         }
         else {*/
-            if (dy < 0) {
+            if (dy < -2) {
                 // scrolled up (this shows items at bottom)
 
                 //distanceHide = 0;
