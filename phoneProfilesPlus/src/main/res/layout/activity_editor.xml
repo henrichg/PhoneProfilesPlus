@@ -63,7 +63,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="?attr/toolbarTheme"
                 app:popupTheme="?attr/toolbarPopupMenu"
-                app:titleTextAppearance="@style/EditorToolbarTitleText"
+                app:titleTextAppearance="@style/ActivityToolbarTitleText"
                 app:contentInsetEnd="@dimen/content_inset_end"
                 app:contentInsetStart="20dp"
                 app:contentInsetStartWithNavigation="20dp"

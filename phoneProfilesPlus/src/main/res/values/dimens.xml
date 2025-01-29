@@ -164,10 +164,9 @@
 
     <dimen name="one_row_profile_list_marker_height">3dp</dimen>
 
-    <dimen name="title_text_size">17sp</dimen>
-<!--    <dimen name="subtitle_text_size">15sp</dimen>-->
-    <dimen name="subtitle_text_size">16dp</dimen>
-    <dimen name="editor_title_text_size">18sp</dimen>
+    <dimen name="preference_title_text_size">17sp</dimen>
+    <dimen name="preference_subtitle_text_size">16dp</dimen>
+    <dimen name="activity_title_text_size">18sp</dimen>
 
     <dimen name="auto_size_max_text_size">16dp</dimen>
     <dimen name="auto_size_max_text_size_fill">20dp</dimen>

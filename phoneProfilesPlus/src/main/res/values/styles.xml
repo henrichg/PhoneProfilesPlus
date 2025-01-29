@@ -232,17 +232,17 @@
     </style>
 
     <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textSize">@dimen/preference_title_text_size</item>
         <item name="android:textColor">@color/activityTitleTextColor</item>
     </style>
 
     <style name="PreferenceToolbarSubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="android:textSize">@dimen/subtitle_text_size</item>
+        <item name="android:textSize">@dimen/preference_subtitle_text_size</item>
         <item name="android:textColor">@color/activitySecondaryTextColor</item>
     </style>
 
-    <style name="EditorToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">@dimen/editor_title_text_size</item>
+    <style name="ActivityToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/activity_title_text_size</item>
         <item name="android:textColor">@color/activityTitleTextColor</item>
     </style>
 

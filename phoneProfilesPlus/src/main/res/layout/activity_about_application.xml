@@ -15,6 +15,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
         app:contentInsetEnd="@dimen/content_inset_end"
         app:contentInsetStart="@dimen/content_inset_start"
         app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
