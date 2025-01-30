@@ -63,7 +63,8 @@
 <!--    <color name="popupAndMenuBorderColor">#48382a</color>-->
 <!--    <color name="scrollbarColor">#404040</color>-->
 <!--    <color name="scrollbarColor">#47382b</color>-->
-    <color name="scrollbarColor">#48382a</color>
+    <color name="scrollbarThumbColor">#ff48382a</color>
+    <color name="scrollbarTrackColor">#4548382a</color>
 
 <!--    <color name="dialogBorderColor">#3f3f3f</color>-->
     <color name="dialogBorderColor">#36302c</color>
