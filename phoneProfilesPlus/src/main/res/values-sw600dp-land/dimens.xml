@@ -28,7 +28,7 @@
 <!--    <dimen name="activator_fixed_width_major">80%</dimen>-->
 
     <dimen name="editor_toolbar_height">45dp</dimen>
-    <dimen name="editor_toolbar_filter_marginStart">13dp</dimen>
+    <dimen name="editor_toolbar_filter_marginStart">8dp</dimen>
     <dimen name="editor_toolbar_filter_textSize">18dp</dimen>
     <dimen name="editor_header_marginBottom">5dp</dimen>
     <dimen name="editor_header_paddingTopBototm">6dp</dimen>
@@ -49,6 +49,7 @@
     <dimen name="listItem_editorEventList_profileName_size">14sp</dimen>
     <dimen name="listItem_profileGrid_paddingTop_height">7dp</dimen>
 
+    <dimen name="activity_log_filter_marginStart">7dp</dimen>
     <dimen name="activity_log_tab_paddingTopBottom">10dp</dimen>
 
     <dimen name="dialog_min_width_minor">65%</dimen>
@@ -65,5 +66,7 @@
     <dimen name="popup_window_run_stop_indicator_width">400dp</dimen>
 
     <bool name="forceHideHeaderOrBottomBar">false</bool>
+
+    <dimen name="dialog_with_edittext_paddingStart">25dp</dimen>
 
 </resources>

@@ -52,6 +52,7 @@
     <dimen name="listItem_editorEventList_profileName_size">11sp</dimen>
     <dimen name="listItem_profileGrid_paddingTop_height">2dp</dimen>
 
+    <dimen name="activity_log_filter_marginStart">17dp</dimen>
     <dimen name="activity_log_tab_paddingTopBottom">5dp</dimen>
 
     <dimen name="dialog_min_width_minor">85%</dimen>
@@ -68,5 +69,7 @@
     <dimen name="popup_window_run_stop_indicator_width">350dp</dimen>
 
     <bool name="forceHideHeaderOrBottomBar">true</bool>
+
+    <dimen name="dialog_with_edittext_paddingStart">125dp</dimen>
 
 </resources>
