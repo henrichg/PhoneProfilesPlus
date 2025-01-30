@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/days_of_week_pref_dlg_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
         android:id="@+id/days_of_week_pref_dlg_rootX"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <View
             android:id="@+id/days_of_week_pref_dlg_titleBarDivider"
@@ -33,12 +35,14 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:orientation="vertical">
 
                 <ListView
                     android:id="@+id/days_of_week_pref_dlg_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:paddingEnd="15dp"
@@ -48,7 +52,7 @@
                     android:fadeScrollbars="false"
                     android:divider="@android:color/transparent"
                     android:listSelector="?attr/listViewItemBackground"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="NestedWeights,RtlSymmetry" />
 
             </LinearLayout>
 
@@ -89,8 +93,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_below="@id/days_of_week_pref_dlg_rootX"
         android:background="@color/dialogDividerColor" />
 
-</RelativeLayout>
+</LinearLayout>
 

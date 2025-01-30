@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/not_used_mobile_cells_dlg_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
         android:id="@+id/not_used_mobile_cells_pref_dlg_rootX"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <View
             android:id="@+id/not_used_mobile_cells_dlg_titleBarDivider"
@@ -120,7 +121,8 @@
                 <ListView
                     android:id="@+id/not_used_mobile_cells_dlg_cell_names"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:clipToPadding="false"
@@ -143,7 +145,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_below="@id/not_used_mobile_cells_pref_dlg_rootX"
         android:background="@color/dialogDividerColor" />
 
-</RelativeLayout>
+</LinearLayout>

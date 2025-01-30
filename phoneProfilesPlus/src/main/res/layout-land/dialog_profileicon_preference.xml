@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profileicon_pref_dlg_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
         android:id="@+id/profileicon_pref_dlg_rootX"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <View
             android:id="@+id/profileicon_pref_dlg_titleBarDivider"
@@ -33,12 +36,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
 
                 <GridView
                     android:id="@+id/profileicon_pref_dlg_gridview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:padding="5dp"
                     android:columnWidth="60dp"
                     android:gravity="center"
@@ -50,7 +55,8 @@
                     android:clipToPadding="false"
                     android:listSelector="?attr/listViewItemBackground"
                     android:scrollbarStyle="outsideOverlay"
-                    android:fadeScrollbars="false" />
+                    android:fadeScrollbars="false"
+                    tools:ignore="NestedWeights" />
 
             </LinearLayout>
 
@@ -142,7 +148,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_below="@id/profileicon_pref_dlg_rootX"
         android:background="@color/dialogDividerColor" />
 
-</RelativeLayout>
+</LinearLayout>

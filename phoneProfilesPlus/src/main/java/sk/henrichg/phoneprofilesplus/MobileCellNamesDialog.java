@@ -130,8 +130,12 @@ class MobileCellNamesDialog {
                 }
             });
         }
-        else
+        else {
             cellName.setVisibility(View.GONE);
+            RelativeLayout cellNameRelLa = layout.findViewById(R.id.mobile_cell_names_dlg_name_rella);
+            //noinspection DataFlowIssue
+            cellNameRelLa.setVisibility(View.GONE);
+        }
 
         linlaProgress = layout.findViewById(R.id.mobile_cell_names_dlg_linla_progress);
         rellaDialog = layout.findViewById(R.id.mobile_cell_names_dlg_rella_dialog);
