@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mobile_cells_pref_dlg_rella_data"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="start"
     android:paddingTop="@dimen/alert_dialog_top_padding" >
 
     <LinearLayout
         android:id="@+id/mobile_cells_pref_dlg_linla_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentTop="true">
 
@@ -79,7 +79,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="vertical">
 
@@ -330,7 +330,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/mobile_cells_pref_dlg_linla_listview"
         android:background="@color/dialogDividerColor" />
 
 </RelativeLayout>

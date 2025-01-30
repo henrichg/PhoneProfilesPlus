@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/run_applications_editor_dialog_filter"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
+        android:id="@+id/run_applications_editor_dialog_rootX"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentTop="true">
 
@@ -49,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
             android:baselineAligned="false"
@@ -58,7 +59,7 @@
             <RelativeLayout
                 android:id="@+id/run_applications_editor_dialog_listView_rella"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2">
 
     <!--            <RelativeLayout-->
@@ -196,7 +197,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/run_applications_editor_dialog_rootX"
         android:background="@color/dialogDividerColor" />
 
 </RelativeLayout>

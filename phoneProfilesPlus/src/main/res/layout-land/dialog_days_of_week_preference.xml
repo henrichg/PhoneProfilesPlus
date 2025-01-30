@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/days_of_week_pref_dlg_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
+        android:id="@+id/days_of_week_pref_dlg_rootX"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentTop="true">
 
@@ -24,7 +24,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
             android:baselineAligned="false"
@@ -32,7 +32,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2">
 
                 <ListView
@@ -89,7 +89,8 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/days_of_week_pref_dlg_rootX"
         android:background="@color/dialogDividerColor" />
 
 </RelativeLayout>
+
