@@ -38,8 +38,8 @@ class StringConstants {
     //•••••
     //⎻⎻⎻⎻
     //⎼⎼⎼⎼
-    static final String STR_SEPARATOR_LINE = "\n◦ ◦ ◦ ◦ ◦\n";
-    static final String STR_SEPARATOR_WITH_DOT = ".\n◦ ◦ ◦ ◦ ◦\n";
+    static final String STR_SEPARATOR_LINE = "\n◦   ◦   ◦\n";
+    static final String STR_SEPARATOR_WITH_DOT = ".\n◦   ◦   ◦\n";
 
     static final String STR_MANUAL = "[M]";
     static final String STR_MANUAL_SPACE = "[M] ";
@@ -49,7 +49,7 @@ class StringConstants {
     static final String TAG_BREAK_HTML = "<br>";
     static final String TAG_DOUBLE_BREAK_HTML = "<br><br>";
 
-    static final String TAG_SEPARATOR_BREAK_HTML = "<br>◦ ◦ ◦ ◦ ◦<br>";
+    static final String TAG_SEPARATOR_BREAK_HTML = "<br>◦   ◦   ◦<br>";
 
     static final String TAG_BOLD_START_HTML = "<b>";
     static final String TAG_BOLD_END_HTML = "</b>";
