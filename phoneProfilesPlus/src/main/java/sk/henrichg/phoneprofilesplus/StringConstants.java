@@ -31,7 +31,7 @@ class StringConstants {
     static final String STR_NEWLINE_WITH_COLON = ":\n";
     static final String STR_DOUBLE_NEWLINE = "\n\n";
     static final String STR_DOUBLE_NEWLINE_WITH_SPACE = " \n\n";
-    static final String STR_DOUBLE_NEWLINE_WITH_DOT = ".\n\n";
+    //static final String STR_DOUBLE_NEWLINE_WITH_DOT = ".\n\n";
 
     //∙∙∙∙∙
     //◦◦◦◦◦

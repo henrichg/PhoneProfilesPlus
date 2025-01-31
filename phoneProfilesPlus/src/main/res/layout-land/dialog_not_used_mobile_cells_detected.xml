@@ -130,7 +130,8 @@
                     android:scrollbarStyle="outsideOverlay"
                     android:fadeScrollbars="false"
                     android:divider="@android:color/transparent"
-                    android:listSelector="?attr/listViewItemBackground" />
+                    android:listSelector="?attr/listViewItemBackground"
+                    tools:ignore="NestedWeights" />
 
             </LinearLayout>
 

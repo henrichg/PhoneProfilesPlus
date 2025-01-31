@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,7 +42,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     private boolean activityStarted = false;
     boolean firstStartOfPPP = false;
-    boolean privacyPolicyDisplayed = false;
+    //boolean privacyPolicyDisplayed = false;
 
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
