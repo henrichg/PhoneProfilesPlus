@@ -141,7 +141,6 @@
     <View
         android:id="@+id/not_used_mobile_cells_dialog_buttonBarDivider2"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"

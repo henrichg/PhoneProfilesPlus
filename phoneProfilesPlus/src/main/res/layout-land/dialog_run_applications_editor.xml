@@ -194,7 +194,6 @@
     <View
         android:id="@+id/run_applications_editor_dialog_buttonBarDivider2"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"

@@ -205,7 +205,6 @@
     <View
         android:id="@+id/mobile_cell_names_dialog_buttonBarDivider2"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
