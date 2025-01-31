@@ -29,8 +29,8 @@
             android:id="@+id/custom_color_chroma_color_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingStart="@dimen/divider_margin"
+            android:paddingEnd="@dimen/divider_margin"
             android:paddingTop="10dp"
             android:paddingBottom="13dp"
             />

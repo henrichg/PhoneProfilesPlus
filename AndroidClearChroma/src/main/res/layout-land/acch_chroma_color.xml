@@ -20,6 +20,7 @@
         android:layout_toEndOf="@id/acch_color_view"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:scrollbarStyle="outsideOverlay"
         android:fadeScrollbars="false" >
 
         <LinearLayout
