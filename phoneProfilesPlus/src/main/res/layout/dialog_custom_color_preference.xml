@@ -31,10 +31,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingStart="@dimen/divider_margin"
-            android:paddingEnd="@dimen/divider_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="13dp"
-            />
+            android:paddingEnd="@dimen/divider_margin" />
 
 <!--    </LinearLayout>-->
 

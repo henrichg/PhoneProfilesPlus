@@ -11,6 +11,8 @@
         android:id="@+id/acch_color_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:maxHeight="@dimen/acch_color_view_height"
         android:background="@drawable/acch_color_background"
         android:src="@android:color/black"
@@ -21,11 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
         android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="13dp"
             android:orientation="vertical">
 
             <RelativeLayout
