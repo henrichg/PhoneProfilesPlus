@@ -235,7 +235,7 @@ public class ActivatorActivity extends AppCompatActivity
 
                 refreshGUI(/*true,*/ false);
 
-                showPrivacyPolicy();
+                //showPrivacyPolicy();
             }
         }
         else {
@@ -246,7 +246,7 @@ public class ActivatorActivity extends AppCompatActivity
         //-----------------------------------------------------------------------------------------
 
     }
-
+    /*
     private void showPrivacyPolicy() {
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             if (firstStartOfPPP && (!privacyPolicyDisplayed)) {
@@ -262,6 +262,7 @@ public class ActivatorActivity extends AppCompatActivity
             }
         }
     }
+    */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
