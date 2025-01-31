@@ -28,7 +28,7 @@
 <!--    <dimen name="activator_fixed_width_major">80%</dimen>-->
 
     <dimen name="editor_toolbar_height">45dp</dimen>
-    <dimen name="editor_toolbar_filter_marginStart">8dp</dimen>
+    <dimen name="editor_toolbar_filter_marginStart">5dp</dimen>
     <dimen name="editor_toolbar_filter_textSize">18dp</dimen>
     <dimen name="editor_header_marginBottom">5dp</dimen>
     <dimen name="editor_header_paddingTopBototm">6dp</dimen>
@@ -67,6 +67,6 @@
 
     <bool name="forceHideHeaderOrBottomBar">false</bool>
 
-    <dimen name="dialog_with_edittext_paddingStart">25dp</dimen>
+    <dimen name="dialog_with_edittext_paddingStart">95dp</dimen>
 
 </resources>
