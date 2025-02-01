@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,6 +37,8 @@ public class ActivityLogActivity extends AppCompatActivity
     private ActivityLogAdapter activityLogAdapter;
     private TextView addedNewLogsText;
     AppCompatSpinner filterSpinner;
+    Toolbar subToolbar;
+    LinearLayout listHeader;
 
     private int selectedFilter = 0;
 
@@ -189,6 +193,35 @@ public class ActivityLogActivity extends AppCompatActivity
         progressLinearLayout = findViewById(R.id.activity_log_linla_progress);
         listView.setVisibility(View.GONE);
         progressLinearLayout.setVisibility(View.VISIBLE);
+
+        subToolbar = findViewById(R.id.activity_log_subToolbar);
+        listHeader = findViewById(R.id.activity_log_liLa2);
+
+        ViewGroup activityLogRoot = findViewById(R.id.activity_log_root);
+        //noinspection DataFlowIssue
+        final LayoutTransition layoutTransition = activityLogRoot.getLayoutTransition();
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+
+        if (GlobalGUIRoutines.areSystemAnimationsEnabled(getApplicationContext())) {
+            if (getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
+                listView.setOnScrollListener(new ActivityLogAutoHideShowListHeaderScrollListener() {
+                    @Override
+                    public void onHide() {
+                        if (!layoutTransition.isRunning()) {
+                            listHeader.setVisibility(View.GONE);
+                            subToolbar.setVisibility(View.GONE);
+                        }
+                    }
+                    @Override
+                    public void onShow() {
+                        if (!layoutTransition.isRunning()) {
+                            subToolbar.setVisibility(View.VISIBLE);
+                            listHeader.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+            }
+        }
 
         addedActivityLogBroadcastReceiver = new AddedActivityLogBroadcastReceiver(this);
         int receiverFlags = 0;

@@ -22,8 +22,8 @@ abstract class EditorAutoHideShowHeaderBottomBarScrollListener extends RecyclerV
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-//        Log.e("HidingRecyclerViewScrollListener.onScrolled", "dx="+dx);
-//        Log.e("HidingRecyclerViewScrollListener.onScrolled", "dy="+dy);
+//        Log.e("EditorAutoHideShowHeaderBottomBarScrollListener.onScrolled", "dx="+dx);
+//        Log.e("EditorAutoHideShowHeaderBottomBarScrollListener.onScrolled", "dy="+dy);
 
         //int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         //show views if first item is first visible position and views are hidden

@@ -9,6 +9,7 @@
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity">
 
     <androidx.appcompat.widget.Toolbar
