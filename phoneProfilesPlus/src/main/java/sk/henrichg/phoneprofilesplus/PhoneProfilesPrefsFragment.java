@@ -231,11 +231,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
 
-        // must be set only when state == null, because without this, generated is exception on orientation change:
-        // java.lang.NullPointerException: Attempt to invoke virtual method 'android.widget.ScrollBarDrawable
-        // android.widget.ScrollBarDrawable.mutate()' on a null object reference
-        if (state == null)
-            view.setScrollbarFadingEnabled(false);
+        // WARNING: must be in base_styles_phoneprofilestheme_preferences_daynight:
+        //             <item name="android:scrollbars">vertical</item>
+        view.setScrollbarFadingEnabled(false);
 
         return view;
     }
