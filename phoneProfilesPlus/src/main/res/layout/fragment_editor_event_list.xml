@@ -132,8 +132,8 @@
             android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"/>
+            android:scrollbarStyle="outsideOverlay"/>
+<!--            android:fadeScrollbars="false"/>-->
 
         <RelativeLayout
             android:id="@+id/editor_events_list_empty"

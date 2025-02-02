@@ -98,8 +98,8 @@
             android:stretchMode="columnWidth"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:listSelector="?attr/listViewItemBackground"
-            android:fadeScrollbars="false" />
+            android:listSelector="?attr/listViewItemBackground"/>
+<!--            android:fadeScrollbars="false" />-->
 <!--        android:drawSelectorOnTop="true"-->
 
         <RelativeLayout

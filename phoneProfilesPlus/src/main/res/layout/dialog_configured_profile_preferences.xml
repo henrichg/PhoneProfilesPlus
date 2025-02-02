@@ -50,9 +50,9 @@
             android:clipToPadding="false"
             android:choiceMode="singleChoice"
             android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"
             android:divider="@android:color/transparent"
             android:listSelector="@android:color/transparent" />
+<!--        android:fadeScrollbars="false"-->
 
         <View
             android:id="@+id/profile_pref_dlg_listview_buttonBarDivider"

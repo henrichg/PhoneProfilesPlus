@@ -70,8 +70,8 @@
             android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false" />
+            android:scrollbarStyle="outsideOverlay"/>
+<!--            android:fadeScrollbars="false" />-->
 
         <View
             android:id="@+id/run_applications_pref_dlg_buttonBarDivider"

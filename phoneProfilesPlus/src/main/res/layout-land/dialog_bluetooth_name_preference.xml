@@ -91,7 +91,6 @@
                         android:clipToPadding="false"
                         android:choiceMode="singleChoice"
                         android:scrollbarStyle="outsideOverlay"
-                        android:fadeScrollbars="false"
                         android:divider="@android:color/transparent"
                         android:listSelector="?attr/listViewItemBackground"
                         tools:ignore="RtlSymmetry" />
@@ -99,6 +98,7 @@
 <!--                    android:paddingBottom="5dp"-->
 <!--                    android:paddingStart="15dp"-->
 <!--                    android:paddingEnd="15dp"-->
+<!--                    android:fadeScrollbars="false"-->
 
                     </LinearLayout>
 

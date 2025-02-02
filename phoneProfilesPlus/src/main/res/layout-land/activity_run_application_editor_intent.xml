@@ -117,8 +117,8 @@
         android:paddingStart="@dimen/run_application_editor_intent_activity_width"
         android:paddingEnd="@dimen/run_application_editor_intent_activity_width"
         android:layout_above="@id/application_editor_intent_buttons"
-        android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false">
+        android:scrollbarStyle="outsideOverlay">
+<!--        android:fadeScrollbars="false">-->
 
         <LinearLayout
             android:id="@+id/application_editor_intent_liLa1"

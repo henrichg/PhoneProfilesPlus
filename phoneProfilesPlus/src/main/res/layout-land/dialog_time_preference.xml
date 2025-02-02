@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false">
+        android:scrollbarStyle="outsideOverlay">
+<!--        android:fadeScrollbars="false">-->
 
         <LinearLayout
             android:id="@+id/time_pref_dlg_root2"

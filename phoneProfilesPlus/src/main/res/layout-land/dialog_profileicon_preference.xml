@@ -55,8 +55,8 @@
                     android:clipToPadding="false"
                     android:listSelector="?attr/listViewItemBackground"
                     android:scrollbarStyle="outsideOverlay"
-                    android:fadeScrollbars="false"
                     tools:ignore="NestedWeights" />
+<!--                android:fadeScrollbars="false"-->
 
             </LinearLayout>
 

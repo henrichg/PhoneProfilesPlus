@@ -108,6 +108,9 @@
 <!--        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>-->
 
         <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>
+
+        <item name="android:fadeScrollbars">false</item>
+
     </style>
 
 </resources>

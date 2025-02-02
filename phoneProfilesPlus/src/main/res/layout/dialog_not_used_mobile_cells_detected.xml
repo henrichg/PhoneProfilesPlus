@@ -105,11 +105,11 @@
                 android:clipToPadding="false"
                 android:choiceMode="singleChoice"
                 android:scrollbarStyle="outsideOverlay"
-                android:fadeScrollbars="false"
                 android:divider="@android:color/transparent"
                 android:listSelector="?attr/listViewItemBackground" />
 <!--            android:paddingStart="15dp"-->
 <!--            android:paddingEnd="15dp"-->
+<!--            android:fadeScrollbars="false"-->
 
             <LinearLayout
                 android:id="@+id/not_used_mobile_cells_dlg_et_btn"

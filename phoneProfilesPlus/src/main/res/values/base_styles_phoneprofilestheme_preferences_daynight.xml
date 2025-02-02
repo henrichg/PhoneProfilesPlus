@@ -110,6 +110,9 @@
 
 <!--        <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>-->
 <!--        <item name="android:lineSpacingMultiplier">0.8</item>-->
+
+        <item name="android:fadeScrollbars">false</item>
+
     </style>
 
 </resources>

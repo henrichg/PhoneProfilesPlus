@@ -18,8 +18,8 @@
             android:layout_marginEnd="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="12dp"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false" >
+            android:scrollbarStyle="outsideOverlay">
+<!--            android:fadeScrollbars="false" >-->
 
             <LinearLayout
                 android:id="@+id/run_stop_indicator_popup_window_liLa1"

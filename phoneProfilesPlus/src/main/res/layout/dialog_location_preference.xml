@@ -68,9 +68,9 @@
             android:clipToPadding="false"
             android:choiceMode="singleChoice"
             android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"
             android:divider="@android:color/transparent"
             android:listSelector="?attr/listViewItemBackground" />
+<!--        android:fadeScrollbars="false"-->
 
         <View
             android:id="@+id/location_pref_dlg_buttonBarDivider"
