@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_important_info_force_scroll_root"
@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
+    android:orientation="vertical"
     android:fitsSystemWindows="false">
 
     <LinearLayout
         android:id="@+id/activity_important_info_force_scroll_toolbar_linla"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_important_info_force_scroll_toolbar"
@@ -44,9 +44,7 @@
     <LinearLayout
         android:id="@+id/activity_important_info_force_scroll_frLa1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/activity_important_info_force_scroll_toolbar_linla"
-        android:layout_above="@id/activity_important_info_force_scroll_liLa2">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/activity_important_info_force_scroll_container"
@@ -56,40 +54,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/activity_important_info_force_scroll_liLa2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/divider_margin"
-        android:layout_marginEnd="@dimen/divider_margin"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
-
-        <View
-            android:id="@+id/activity_important_info_force_scroll_button_divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:background="@color/dialogDividerColor" />
-
-        <Button
-            android:id="@+id/activity_important_info_force_scroll_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:minHeight="@dimen/button_min_height"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
-            android:minWidth="@dimen/button_min_width"
-            android:textColor="@color/action_button_text_color"
-            android:textStyle="bold"
-            android:background="@drawable/pp_button_background_selector"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/donation_activity_close"
-            style="?android:attr/borderlessButtonStyle"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

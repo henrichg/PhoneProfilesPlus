@@ -53,10 +53,6 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
                 .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollFragment")
                 .commitAllowingStateLoss();
 
-        Button closeButton = findViewById(R.id.activity_important_info_force_scroll_close);
-        //noinspection DataFlowIssue
-        closeButton.setOnClickListener(v -> finish());
-
     }
 
     @Override
