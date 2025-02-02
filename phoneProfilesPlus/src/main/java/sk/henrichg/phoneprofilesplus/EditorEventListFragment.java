@@ -511,11 +511,12 @@ public class EditorEventListFragment extends Fragment
 
             _dataWrapper.getEventTimelineList(true);
 
-            if ((fragment != null) && fragment.getActivity() != null) {
-                for (Event event : _dataWrapper.eventList)
+            for (Event event : _dataWrapper.eventList) {
+                if ((fragment != null) && fragment.getActivity() != null) {
                     event._peferencesDecription = StringFormatUtils.fromHtml(
                             event.getPreferencesDescription(fragment.getActivity(), _dataWrapper, true),
-                            true,  false, 0, 0, true);
+                            true, false, 0, 0, true);
+                }
             }
 
             if ((fragment != null) && (fragment.getActivity() != null)) {
