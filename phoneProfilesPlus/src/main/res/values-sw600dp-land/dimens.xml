@@ -74,4 +74,6 @@
 
     <dimen name="seekbar_margin">100dp</dimen>
 
+    <dimen name="run_application_editor_intent_activity_width">100dp</dimen>
+
 </resources>

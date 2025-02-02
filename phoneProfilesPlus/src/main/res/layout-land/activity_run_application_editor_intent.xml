@@ -190,29 +190,37 @@
 <!--                android:background="@color/dialogDividerColor"-->
 <!--                android:visibility="invisible" />-->
 
-            <TextView
-                android:id="@+id/application_editor_intent_textView2"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/application_editor_intent_intent_type"/>
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/application_editor_intent_intent_type_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginTop="5dp"
-                android:paddingStart="@dimen/spinner_padding_horizontal"
-                android:paddingEnd="@dimen/spinner_padding_horizontal"
-                android:paddingTop="@dimen/spinner_padding_vertical"
-                android:paddingBottom="@dimen/spinner_padding_vertical"
-                android:popupElevation="0dp"
-                android:entries="@array/runApplicationEditorIntentIntentTypeArray"
-                android:background="@drawable/spinner_background"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/application_editor_intent_intent_type"/>
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/application_editor_intent_intent_type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginEnd="18dp"
+                    android:paddingStart="@dimen/spinner_padding_horizontal"
+                    android:paddingEnd="@dimen/spinner_padding_horizontal"
+                    android:paddingTop="@dimen/spinner_padding_vertical"
+                    android:paddingBottom="@dimen/spinner_padding_vertical"
+                    android:popupElevation="0dp"
+                    android:entries="@array/runApplicationEditorIntentIntentTypeArray"
+                    android:background="@drawable/spinner_background"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+            </LinearLayout>
 
 <!--            <View-->
 <!--                android:id="@+id/application_editor_intent_divider2"-->
@@ -350,35 +358,43 @@
 <!--                android:background="@color/dialogDividerColor"-->
 <!--                android:visibility="invisible" />-->
 
-            <TextView
-                android:id="@+id/application_editor_intent_textView5"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/application_editor_intent_action"/>
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/application_editor_intent_action_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginTop="5dp"
-                android:paddingStart="@dimen/spinner_padding_horizontal"
-                android:paddingEnd="@dimen/spinner_padding_horizontal"
-                android:paddingTop="@dimen/spinner_padding_vertical"
-                android:paddingBottom="@dimen/spinner_padding_vertical"
-                android:popupElevation="0dp"
-                android:entries="@array/runApplicationEditorIntentActionArray"
-                android:background="@drawable/spinner_background"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
-
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/application_editor_intent_textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/application_editor_intent_action"/>
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/application_editor_intent_action_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginEnd="18dp"
+                    android:paddingStart="@dimen/spinner_padding_horizontal"
+                    android:paddingEnd="@dimen/spinner_padding_horizontal"
+                    android:paddingTop="@dimen/spinner_padding_vertical"
+                    android:paddingBottom="@dimen/spinner_padding_vertical"
+                    android:popupElevation="0dp"
+                    android:entries="@array/runApplicationEditorIntentActionArray"
+                    android:background="@drawable/spinner_background"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginEnd="19dp">
+                android:layout_marginEnd="19dp"
+                android:layout_marginBottom="10dp">
                 <EditText
                     android:id="@+id/application_editor_intent_action_edit"
                     android:layout_width="match_parent"
@@ -553,46 +569,53 @@
 <!--                android:background="@color/dialogDividerColor"-->
 <!--                android:visibility="invisible" />-->
 
-            <TextView
-                android:id="@+id/application_editor_intent_textView8"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/application_editor_intent_categories"/>
-            <RelativeLayout
-                android:id="@+id/application_editor_intent_reLa1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="15dp" >
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/application_editor_intent_category_btn"
-                    android:layout_width="@dimen/image_button_size"
-                    android:layout_height="@dimen/image_button_size"
-                    android:padding="@dimen/image_button_padding"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_button_edit"
-                    app:tint="@color/accent_color"
-                    android:background="@drawable/editor_ripple_item_right_button"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="@string/application_editor_intent_edit_category_button_tooltip"/>
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
                 <TextView
-                    android:id="@+id/application_editor_intent_category_value"
+                    android:id="@+id/application_editor_intent_textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_toStartOf = "@id/application_editor_intent_category_btn"
+                    android:layout_marginStart="19dp"
                     android:textSize="16sp"
-                    android:text=""
-                    android:hint="@string/application_editor_intent_hint_not_selected" />
-            </RelativeLayout>
+                    android:textStyle="bold"
+                    android:text="@string/application_editor_intent_categories"/>
+                <RelativeLayout
+                    android:id="@+id/application_editor_intent_reLa1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="15dp" >
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/application_editor_intent_category_btn"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
+                        android:padding="@dimen/image_button_padding"
+                        android:layout_alignParentEnd="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_button_edit"
+                        app:tint="@color/accent_color"
+                        android:background="@drawable/editor_ripple_item_right_button"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@string/application_editor_intent_edit_category_button_tooltip"/>
+                    <TextView
+                        android:id="@+id/application_editor_intent_category_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf = "@id/application_editor_intent_category_btn"
+                        android:textSize="16sp"
+                        android:text=""
+                        android:hint="@string/application_editor_intent_hint_not_selected" />
+                </RelativeLayout>
+            </LinearLayout>
 
 <!--            <View-->
 <!--                android:id="@+id/application_editor_intent_divider6"-->
@@ -605,46 +628,54 @@
 <!--                android:background="@color/dialogDividerColor"-->
 <!--                android:visibility="invisible" />-->
 
-            <TextView
-                android:id="@+id/application_editor_intent_textView9"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
+                android:orientation="horizontal"
                 android:layout_marginBottom="10dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/application_editor_intent_flags"/>
-            <RelativeLayout
-                android:id="@+id/application_editor_intent_reLa2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="15dp" >
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/application_editor_intent_flags_btn"
-                    android:layout_width="@dimen/image_button_size"
-                    android:layout_height="@dimen/image_button_size"
-                    android:padding="@dimen/image_button_padding"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_button_edit"
-                    app:tint="@color/accent_color"
-                    android:background="@drawable/editor_ripple_item_right_button"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="@string/application_editor_intent_edit_flags_button_tooltip"/>
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
                 <TextView
-                    android:id="@+id/application_editor_intent_flags_value"
+                    android:id="@+id/application_editor_intent_textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
+                    android:layout_marginStart="19dp"
                     android:textSize="16sp"
-                    android:text=""
-                    android:hint="@string/application_editor_intent_hint_not_selected" />
-            </RelativeLayout>
+                    android:textStyle="bold"
+                    android:text="@string/application_editor_intent_flags"/>
+                <RelativeLayout
+                    android:id="@+id/application_editor_intent_reLa2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="15dp" >
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/application_editor_intent_flags_btn"
+                        android:layout_width="@dimen/image_button_size"
+                        android:layout_height="@dimen/image_button_size"
+                        android:padding="@dimen/image_button_padding"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_button_edit"
+                        app:tint="@color/accent_color"
+                        android:background="@drawable/editor_ripple_item_right_button"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@string/application_editor_intent_edit_flags_button_tooltip"/>
+                    <TextView
+                        android:id="@+id/application_editor_intent_flags_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
+                        android:textSize="16sp"
+                        android:text=""
+                        android:hint="@string/application_editor_intent_hint_not_selected" />
+                </RelativeLayout>
+            </LinearLayout>
 
 <!--            <View-->
 <!--                android:id="@+id/application_editor_intent_divider7"-->
