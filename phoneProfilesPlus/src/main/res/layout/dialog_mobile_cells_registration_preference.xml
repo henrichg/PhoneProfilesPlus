@@ -48,7 +48,9 @@
                 android:orientation="vertical"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/seekbar_margin"
+                android:layout_marginEnd="@dimen/seekbar_margin" >
 
                 <TextView
                     android:id="@+id/duration_pref_dlg_value"

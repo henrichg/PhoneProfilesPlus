@@ -75,4 +75,6 @@
     <dimen name="tablayout_height">35dp</dimen>
     <dimen name="tab_indicator_height">2dp</dimen>
 
+    <dimen name="seekbar_margin">80dp</dimen>
+
 </resources>

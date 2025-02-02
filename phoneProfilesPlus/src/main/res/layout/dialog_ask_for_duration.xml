@@ -129,7 +129,9 @@
                 android:id="@+id/ask_for_duration_dlg_liLa1"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/seekbar_margin"
+                android:layout_marginEnd="@dimen/seekbar_margin" >
 
                 <LinearLayout
                     android:id="@+id/ask_for_duration_dlg_liLa4"

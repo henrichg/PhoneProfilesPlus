@@ -129,8 +129,8 @@
                 android:id="@+id/ask_for_duration_dlg_durations_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginStart="@dimen/seekbar_margin"
+                android:layout_marginEnd="@dimen/seekbar_margin"
                 android:layout_gravity="center_horizontal"
                 android:stretchColumns="1">
 

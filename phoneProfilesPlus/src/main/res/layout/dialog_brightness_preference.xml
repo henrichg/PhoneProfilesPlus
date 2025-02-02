@@ -90,6 +90,8 @@
                 android:id="@+id/brightnessPrefDialogSeekbar"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_marginStart="@dimen/seekbar_margin"
+                android:layout_marginEnd="@dimen/seekbar_margin"
                 android:minHeight="3dp"
                 android:maxHeight="3dp"
                 android:progressDrawable="@drawable/seek_bar_drawable"
