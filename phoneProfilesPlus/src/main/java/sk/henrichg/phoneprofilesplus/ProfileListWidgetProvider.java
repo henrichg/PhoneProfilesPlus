@@ -769,6 +769,74 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     roundedBackground = R.drawable.rounded_widget_background_15;
                     roundedBorder = R.drawable.rounded_widget_border_15;
                     break;
+                case 16:
+                    roundedBackground = R.drawable.rounded_widget_background_16;
+                    roundedBorder = R.drawable.rounded_widget_border_16;
+                    break;
+                case 17:
+                    roundedBackground = R.drawable.rounded_widget_background_17;
+                    roundedBorder = R.drawable.rounded_widget_border_17;
+                    break;
+                case 18:
+                    roundedBackground = R.drawable.rounded_widget_background_18;
+                    roundedBorder = R.drawable.rounded_widget_border_18;
+                    break;
+                case 19:
+                    roundedBackground = R.drawable.rounded_widget_background_19;
+                    roundedBorder = R.drawable.rounded_widget_border_19;
+                    break;
+                case 20:
+                    roundedBackground = R.drawable.rounded_widget_background_20;
+                    roundedBorder = R.drawable.rounded_widget_border_20;
+                    break;
+                case 21:
+                    roundedBackground = R.drawable.rounded_widget_background_21;
+                    roundedBorder = R.drawable.rounded_widget_border_21;
+                    break;
+                case 22:
+                    roundedBackground = R.drawable.rounded_widget_background_22;
+                    roundedBorder = R.drawable.rounded_widget_border_22;
+                    break;
+                case 23:
+                    roundedBackground = R.drawable.rounded_widget_background_23;
+                    roundedBorder = R.drawable.rounded_widget_border_23;
+                    break;
+                case 24:
+                    roundedBackground = R.drawable.rounded_widget_background_24;
+                    roundedBorder = R.drawable.rounded_widget_border_24;
+                    break;
+                case 25:
+                    roundedBackground = R.drawable.rounded_widget_background_25;
+                    roundedBorder = R.drawable.rounded_widget_border_25;
+                    break;
+                case 26:
+                    roundedBackground = R.drawable.rounded_widget_background_26;
+                    roundedBorder = R.drawable.rounded_widget_border_26;
+                    break;
+                case 27:
+                    roundedBackground = R.drawable.rounded_widget_background_27;
+                    roundedBorder = R.drawable.rounded_widget_border_27;
+                    break;
+                case 28:
+                    roundedBackground = R.drawable.rounded_widget_background_28;
+                    roundedBorder = R.drawable.rounded_widget_border_28;
+                    break;
+                case 29:
+                    roundedBackground = R.drawable.rounded_widget_background_29;
+                    roundedBorder = R.drawable.rounded_widget_border_29;
+                    break;
+                case 30:
+                    roundedBackground = R.drawable.rounded_widget_background_30;
+                    roundedBorder = R.drawable.rounded_widget_border_30;
+                    break;
+                case 31:
+                    roundedBackground = R.drawable.rounded_widget_background_31;
+                    roundedBorder = R.drawable.rounded_widget_border_31;
+                    break;
+                case 32:
+                    roundedBackground = R.drawable.rounded_widget_background_32;
+                    roundedBorder = R.drawable.rounded_widget_border_32;
+                    break;
             }
         }
         if (roundedBackground != 0)
