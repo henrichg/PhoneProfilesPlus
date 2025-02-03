@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/github_assets_screenshot_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
-    android:layout_marginEnd="@dimen/activity_margin_end">
+    android:layout_marginEnd="@dimen/activity_margin_end"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/github_assets_screenshot_activity_toolbar"
@@ -31,7 +32,8 @@
     <ScrollView
         android:id="@+id/github_assets_screenshot_activity_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay" >
 <!--        android:fadeScrollbars="false">-->
 
@@ -67,14 +69,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="@dimen/divider_margin"
-        android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_alignParentBottom="true">
+        android:layout_marginEnd="@dimen/divider_margin">
 
         <View
             android:id="@+id/github_assets_screenshot_activity_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:layout_marginTop="20dp"
             android:background="@color/dialogDividerColor" />
 
         <Button
@@ -98,4 +98,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

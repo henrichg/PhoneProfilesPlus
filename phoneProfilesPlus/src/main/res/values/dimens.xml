@@ -181,7 +181,7 @@
 
     <dimen name="checkbox_radiobitton_drawable_padding">8dp</dimen>
 
-    <dimen name="dialog_with_edittext_paddingStart">0dp</dimen>
+    <dimen name="dialog_with_edittext_padding">0dp</dimen>
 
     <dimen name="tablayout_height">50dp</dimen>
     <dimen name="tab_indicator_height">4dp</dimen>

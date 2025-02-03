@@ -70,7 +70,7 @@
 
     <bool name="forceHideHeaderOrBottomBar">true</bool>
 
-    <dimen name="dialog_with_edittext_paddingStart">125dp</dimen>
+    <dimen name="dialog_with_edittext_padding">62dp</dimen>
 
     <dimen name="tablayout_height">35dp</dimen>
     <dimen name="tab_indicator_height">2dp</dimen>

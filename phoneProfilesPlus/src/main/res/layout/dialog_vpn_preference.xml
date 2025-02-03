@@ -85,7 +85,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:paddingStart="@dimen/dialog_with_edittext_padding"
+                android:paddingEnd="@dimen/dialog_with_edittext_padding">
                 <EditText
                     android:id="@+id/vpnPrefDialogProfileName"
                     android:layout_width="match_parent"
@@ -133,7 +135,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:paddingStart="@dimen/dialog_with_edittext_padding"
+                android:paddingEnd="@dimen/dialog_with_edittext_padding">
                 <EditText
                     android:id="@+id/vpnPrefDialogTunnelName"
                     android:layout_width="match_parent"

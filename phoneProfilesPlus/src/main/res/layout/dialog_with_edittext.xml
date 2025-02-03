@@ -44,7 +44,8 @@
             android:layout_marginEnd="25dp"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="15dp"
-            android:paddingStart="@dimen/dialog_with_edittext_paddingStart"
+            android:paddingStart="@dimen/dialog_with_edittext_padding"
+            android:paddingEnd="@dimen/dialog_with_edittext_padding"
             tools:ignore="RtlSymmetry" >
 
             <EditText
