@@ -76,4 +76,7 @@
 
     <dimen name="run_application_editor_intent_activity_width">100dp</dimen>
 
+    <dimen name="add_event_red_text_padding">5dp</dimen>
+    <dimen name="add_event_red_text_size">16sp</dimen>
+
 </resources>

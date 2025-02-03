@@ -75,9 +75,9 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
-                android:paddingTop="5dp"
+                android:paddingTop="@dimen/add_event_red_text_padding"
                 android:textColor="@color/errorColor"
-                android:textSize="16sp"
+                android:textSize="@dimen/add_event_red_text_size"
                 android:text="@string/event_pref_dialog_help"
                 android:visibility="gone"/>
 
