@@ -67,21 +67,6 @@
                     android:text="@string/color_value" />
             </RelativeLayout>
 
-<!--            <EditText-->
-<!--                android:id="@+id/acch_color_edit"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:imeOptions="actionDone|actionGo|actionSend"-->
-<!--                android:inputType="textCapCharacters|textNoSuggestions"-->
-<!--                android:textSize="20sp"-->
-<!--                android:importantForAutofill="no"-->
-<!--                tools:ignore="LabelFor" />-->
-        <!--    android:digits="0123456789ABCDEF"-->
-        <!--    android:maxLength="9"-->
-
             <LinearLayout
                 android:id="@+id/acch_channel_container"
                 android:layout_width="match_parent"

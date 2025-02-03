@@ -73,26 +73,6 @@
                 android:text="" />
         </RelativeLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/dialog_with_edittext_label"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="7dp"-->
-<!--            android:text=""-->
-<!--            android:textSize="16sp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/dialog_with_edittext_edit"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:importantForAutofill="no"-->
-<!--            android:inputType="textNoSuggestions"-->
-<!--            android:textSize="18sp"-->
-<!--            android:clickable="true"-->
-<!--            android:focusable="true"-->
-<!--            tools:ignore="LabelFor" />-->
-
 <!--    </LinearLayout>-->
 
 <!--</ScrollView>-->

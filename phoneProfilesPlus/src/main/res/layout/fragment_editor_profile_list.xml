@@ -46,20 +46,6 @@
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical" >
 
-<!--
-                <TextView
-                    android:id="@+id/editor_profiles_activated_profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/accent_color" />
--->
                 <EditText
                     android:id="@+id/editor_profiles_activated_profile_name"
                     android:layout_width="wrap_content"

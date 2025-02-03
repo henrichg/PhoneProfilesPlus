@@ -256,19 +256,6 @@
                     android:text="@string/location_geofence_editor_location_name" />
             </RelativeLayout>
 
-<!--            <EditText-->
-<!--                android:id="@+id/location_editor_geofence_name"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="15dp"-->
-<!--                android:layout_marginEnd="15dp"-->
-<!--                android:layout_toStartOf = "@id/location_editor_address_btn"-->
-<!--                android:layout_centerVertical="true"-->
-<!--                android:selectAllOnFocus="true"-->
-<!--                android:inputType="textNoSuggestions"-->
-<!--                android:importantForAutofill="no"-->
-<!--                tools:ignore="LabelFor"/>-->
-
         </RelativeLayout>
 
     </LinearLayout>

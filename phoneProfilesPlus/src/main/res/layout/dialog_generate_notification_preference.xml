@@ -144,24 +144,6 @@
                     android:text="@string/generate_notification_pref_dialog_notification_title" />
             </RelativeLayout>
 
-<!--            <TextView-->
-<!--                android:id="@+id/generateNotificationPrefDialogNotificationTitleLabel"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:textSize="16sp"-->
-<!--                android:text="@string/generate_notification_pref_dialog_notification_title" />-->
-<!--            <EditText-->
-<!--                android:id="@+id/generateNotificationPrefDialogNotificationTitle"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:selectAllOnFocus="true"-->
-<!--                android:hint="@string/generated_notification_intent_hint_not_set"-->
-<!--                android:textColorHint="@color/activityDisabledTextColor"-->
-<!--                android:inputType="textNoSuggestions"-->
-<!--                android:importantForAutofill="no" />-->
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -192,23 +174,6 @@
                     android:background="@color/activityBackgroundColor"
                     android:text="@string/generate_notification_pref_dialog_notification_body" />
             </RelativeLayout>
-
-<!--            <TextView-->
-<!--                android:id="@+id/generateNotificationPrefDialogNotificationBodyLabel"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:textSize="16sp"-->
-<!--                android:text="@string/generate_notification_pref_dialog_notification_body" />-->
-<!--            <EditText-->
-<!--                android:id="@+id/generateNotificationPrefDialogNotificationBody"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:selectAllOnFocus="true"-->
-<!--                android:hint="@string/generated_notification_intent_hint_not_set"-->
-<!--                android:textColorHint="@color/activityDisabledTextColor"-->
-<!--                android:inputType="textNoSuggestions|textMultiLine"-->
-<!--                android:importantForAutofill="no" />-->
 
         </LinearLayout>
 
