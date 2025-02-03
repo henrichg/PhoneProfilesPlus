@@ -50,7 +50,7 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.AndroidClearChroma.main" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll.main" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.noobcameraflash.main" />
-    <orderEntry type="library" name="Gradle: org.lsposed.hiddenapibypass:hiddenapibypass:4.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.lsposed.hiddenapibypass:hiddenapibypass:6.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.12.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.12.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.12.0@aar" level="project" />

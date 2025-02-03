@@ -90,7 +90,9 @@ dependencies {
     //implementation 'androidx.multidex:multidex:2.0.1'
 
     /// for usage of @hidden Android API
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+    // https://mvnrepository.com/artifact/org.lsposed.hiddenapibypass/hiddenapibypass
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.0' //4.3
+    //implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:+' // not good, generates warning
 
     /// ACRA
     implementation 'com.google.guava:guava:33.4.0-android' //33.3.1-android' //33.3.0-android"
