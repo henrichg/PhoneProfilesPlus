@@ -132,8 +132,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (Build.VERSION.SDK_INT >= 31) {
                     if (PPApplicationStatic.isPixelLauncherDefault(context) ||
                             PPApplicationStatic.isOneUILauncherDefault(context) ||
-                            PPApplicationStatic.isMIUILauncherDefault(context) ||
-                            PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            PPApplicationStatic.isMIUILauncherDefault(context)/* ||
+                            PPApplicationStatic.isSmartLauncherDefault(context)*/) {
                         ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
                         ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
                         //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
@@ -823,11 +823,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isMIUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
-                } else
+                } /*else
                 if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isSmartLauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_smart_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_smart_launcher;
-                } else {
+                }*/ else {
                     switch (applicationWidgetOneRowRoundedCornersRadius) {
                         case 1:
                             roundedBackground = R.drawable.rounded_widget_background_1;
