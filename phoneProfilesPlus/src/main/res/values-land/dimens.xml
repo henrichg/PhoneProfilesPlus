@@ -87,5 +87,7 @@
     <dimen name="listItem_secondary_text_size">12sp</dimen>
     <dimen name="listItem_paddingTopBototm_height">4dp</dimen>
     <dimen name="listItem_run_applications_preference_icon_size">35dp</dimen>
+    <!-- must be larger then in portrait, because of missing radio button -->
+    <dimen name="listItem_single_selection_without_rb_margin">4dp</dimen>
 
 </resources>

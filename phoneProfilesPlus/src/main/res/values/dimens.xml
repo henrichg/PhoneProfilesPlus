@@ -198,5 +198,6 @@
     <dimen name="listItem_secondary_text_size">14sp</dimen>
     <dimen name="listItem_paddingTopBototm_height">7dp</dimen>
     <dimen name="listItem_run_applications_preference_icon_size">40dp</dimen>
+    <dimen name="listItem_single_selection_without_rb_margin">3dp</dimen>
 
 </resources>
