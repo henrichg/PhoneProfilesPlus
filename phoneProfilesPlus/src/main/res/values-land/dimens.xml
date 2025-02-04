@@ -90,4 +90,6 @@
     <!-- must be larger then in portrait, because of missing radio button -->
     <dimen name="listItem_single_selection_without_rb_margin">4dp</dimen>
 
+    <dimen name="dialog_choose_language_help_pading">5dp</dimen>
+
 </resources>

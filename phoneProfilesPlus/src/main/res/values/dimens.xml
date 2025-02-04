@@ -200,4 +200,6 @@
     <dimen name="listItem_run_applications_preference_icon_size">40dp</dimen>
     <dimen name="listItem_single_selection_without_rb_margin">3dp</dimen>
 
+    <dimen name="dialog_choose_language_help_pading">10dp</dimen>
+
 </resources>
