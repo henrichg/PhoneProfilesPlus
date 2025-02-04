@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height">
 
     <RadioButton
         android:id="@+id/ringtone_pref_dlg_item_radiobtn"
@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/ringtone_pref_dlg_item_rigtone_type_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/listItem_icon_size"
+        android:layout_height="@dimen/listItem_icon_size"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/tone_content_description"
         android:src="@drawable/ic_ringtone_system" />
@@ -39,16 +39,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="@dimen/listItem_label_text_size"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/ringtone_pref_dlg_item_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-3dp"
+            android:layout_marginTop="0dp"
             android:text=""
-            android:textSize="13sp"
+            android:textSize="@dimen/listItem_secondary_text_size"
             android:textColor="@color/preferenceSummaryTextColor"/>
 
     </LinearLayout>

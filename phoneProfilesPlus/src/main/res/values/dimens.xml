@@ -48,7 +48,7 @@
 
     <dimen name="listItem_profile_icon_size">40dp</dimen>
     <dimen name="listItem_profile_name_size">16sp</dimen>
-    <dimen name="profile_preferences_indicator_height">15dp</dimen>
+<dimen name="profile_preferences_indicator_height">15dp</dimen>
     <dimen name="listItem_profileList_paddingTopBototm_height">9dp</dimen>
     <dimen name="listItem_profileList_withIndicator_height">54dp</dimen>
     <dimen name="listItem_profileList_withoutIndicator_height">48dp</dimen>
@@ -192,5 +192,11 @@
 
     <dimen name="add_event_red_text_padding">5dp</dimen>
     <dimen name="add_event_red_text_size">16sp</dimen>
+
+    <dimen name="listItem_icon_size">45dp</dimen>
+    <dimen name="listItem_label_text_size">16sp</dimen>
+    <dimen name="listItem_secondary_text_size">14sp</dimen>
+    <dimen name="listItem_paddingTopBototm_height">7dp</dimen>
+    <dimen name="listItem_run_applications_preference_icon_size">40dp</dimen>
 
 </resources>

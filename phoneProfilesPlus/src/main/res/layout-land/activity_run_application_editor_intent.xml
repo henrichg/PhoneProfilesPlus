@@ -912,7 +912,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="TooManyViews">
                 <TextView
                     android:id="@+id/application_editor_intent_extra_4_param"
                     android:layout_width="wrap_content"

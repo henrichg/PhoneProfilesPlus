@@ -3,8 +3,8 @@
     android:id="@+id/wifi_ssid_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="7dp"
-    android:paddingBottom="7dp">
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height" >
 
     <LinearLayout
         android:id="@+id/wifi_ssid_pref_dlg_item_buttons_root"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="@dimen/listItem_label_text_size" />
 
     </LinearLayout>
 

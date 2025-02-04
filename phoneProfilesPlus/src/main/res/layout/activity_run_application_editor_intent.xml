@@ -920,7 +920,8 @@
                         android:paddingEnd="5dp"
                         android:textStyle="bold"
                         android:background="@color/activityBackgroundColor"
-                        android:text="@string/application_editor_intent_extra_key" />
+                        android:text="@string/application_editor_intent_extra_key"
+                        tools:ignore="TooManyViews" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -2,9 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.widget.AbsListView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 abstract class ActivityLogAutoHideShowListHeaderScrollListener implements AbsListView.OnScrollListener {
 
     private int mLastFirstVisibleItem;

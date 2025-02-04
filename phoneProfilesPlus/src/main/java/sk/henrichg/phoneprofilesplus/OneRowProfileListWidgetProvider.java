@@ -655,8 +655,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
             }
 
-            int roundedBackground = 0;
-            int roundedBorder = 0;
+            int roundedBackground;
+            int roundedBorder;
             if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isPixelLauncherDefault(context)) {
                 roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                 roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
@@ -673,136 +673,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 roundedBackground = R.drawable.rounded_widget_background_smart_launcher;
                 roundedBorder = R.drawable.rounded_widget_border_smart_launcher;
             }*/ else {
-                switch (applicationWidgetOneRowProfileListRoundedCornersRadius) {
-                    case 1:
-                        roundedBackground = R.drawable.rounded_widget_background_1;
-                        roundedBorder = R.drawable.rounded_widget_border_1;
-                        break;
-                    case 2:
-                        roundedBackground = R.drawable.rounded_widget_background_2;
-                        roundedBorder = R.drawable.rounded_widget_border_2;
-                        break;
-                    case 3:
-                        roundedBackground = R.drawable.rounded_widget_background_3;
-                        roundedBorder = R.drawable.rounded_widget_border_3;
-                        break;
-                    case 4:
-                        roundedBackground = R.drawable.rounded_widget_background_4;
-                        roundedBorder = R.drawable.rounded_widget_border_4;
-                        break;
-                    case 5:
-                        roundedBackground = R.drawable.rounded_widget_background_5;
-                        roundedBorder = R.drawable.rounded_widget_border_5;
-                        break;
-                    case 6:
-                        roundedBackground = R.drawable.rounded_widget_background_6;
-                        roundedBorder = R.drawable.rounded_widget_border_6;
-                        break;
-                    case 7:
-                        roundedBackground = R.drawable.rounded_widget_background_7;
-                        roundedBorder = R.drawable.rounded_widget_border_7;
-                        break;
-                    case 8:
-                        roundedBackground = R.drawable.rounded_widget_background_8;
-                        roundedBorder = R.drawable.rounded_widget_border_8;
-                        break;
-                    case 9:
-                        roundedBackground = R.drawable.rounded_widget_background_9;
-                        roundedBorder = R.drawable.rounded_widget_border_9;
-                        break;
-                    case 10:
-                        roundedBackground = R.drawable.rounded_widget_background_10;
-                        roundedBorder = R.drawable.rounded_widget_border_10;
-                        break;
-                    case 11:
-                        roundedBackground = R.drawable.rounded_widget_background_11;
-                        roundedBorder = R.drawable.rounded_widget_border_11;
-                        break;
-                    case 12:
-                        roundedBackground = R.drawable.rounded_widget_background_12;
-                        roundedBorder = R.drawable.rounded_widget_border_12;
-                        break;
-                    case 13:
-                        roundedBackground = R.drawable.rounded_widget_background_13;
-                        roundedBorder = R.drawable.rounded_widget_border_13;
-                        break;
-                    case 14:
-                        roundedBackground = R.drawable.rounded_widget_background_14;
-                        roundedBorder = R.drawable.rounded_widget_border_14;
-                        break;
-                    case 15:
-                        roundedBackground = R.drawable.rounded_widget_background_15;
-                        roundedBorder = R.drawable.rounded_widget_border_15;
-                        break;
-                    case 16:
-                        roundedBackground = R.drawable.rounded_widget_background_16;
-                        roundedBorder = R.drawable.rounded_widget_border_16;
-                        break;
-                    case 17:
-                        roundedBackground = R.drawable.rounded_widget_background_17;
-                        roundedBorder = R.drawable.rounded_widget_border_17;
-                        break;
-                    case 18:
-                        roundedBackground = R.drawable.rounded_widget_background_18;
-                        roundedBorder = R.drawable.rounded_widget_border_18;
-                        break;
-                    case 19:
-                        roundedBackground = R.drawable.rounded_widget_background_19;
-                        roundedBorder = R.drawable.rounded_widget_border_19;
-                        break;
-                    case 20:
-                        roundedBackground = R.drawable.rounded_widget_background_20;
-                        roundedBorder = R.drawable.rounded_widget_border_20;
-                        break;
-                    case 21:
-                        roundedBackground = R.drawable.rounded_widget_background_21;
-                        roundedBorder = R.drawable.rounded_widget_border_21;
-                        break;
-                    case 22:
-                        roundedBackground = R.drawable.rounded_widget_background_22;
-                        roundedBorder = R.drawable.rounded_widget_border_22;
-                        break;
-                    case 23:
-                        roundedBackground = R.drawable.rounded_widget_background_23;
-                        roundedBorder = R.drawable.rounded_widget_border_23;
-                        break;
-                    case 24:
-                        roundedBackground = R.drawable.rounded_widget_background_24;
-                        roundedBorder = R.drawable.rounded_widget_border_24;
-                        break;
-                    case 25:
-                        roundedBackground = R.drawable.rounded_widget_background_25;
-                        roundedBorder = R.drawable.rounded_widget_border_25;
-                        break;
-                    case 26:
-                        roundedBackground = R.drawable.rounded_widget_background_26;
-                        roundedBorder = R.drawable.rounded_widget_border_26;
-                        break;
-                    case 27:
-                        roundedBackground = R.drawable.rounded_widget_background_27;
-                        roundedBorder = R.drawable.rounded_widget_border_27;
-                        break;
-                    case 28:
-                        roundedBackground = R.drawable.rounded_widget_background_28;
-                        roundedBorder = R.drawable.rounded_widget_border_28;
-                        break;
-                    case 29:
-                        roundedBackground = R.drawable.rounded_widget_background_29;
-                        roundedBorder = R.drawable.rounded_widget_border_29;
-                        break;
-                    case 30:
-                        roundedBackground = R.drawable.rounded_widget_background_30;
-                        roundedBorder = R.drawable.rounded_widget_border_30;
-                        break;
-                    case 31:
-                        roundedBackground = R.drawable.rounded_widget_background_31;
-                        roundedBorder = R.drawable.rounded_widget_border_31;
-                        break;
-                    case 32:
-                        roundedBackground = R.drawable.rounded_widget_background_32;
-                        roundedBorder = R.drawable.rounded_widget_border_32;
-                        break;
-                }
+                roundedBackground = getRoundedBackgroundDrawable(applicationWidgetOneRowProfileListRoundedCornersRadius);
+                roundedBorder = getRoundedBorderDrawable(applicationWidgetOneRowProfileListRoundedCornersRadius);
             }
             if (roundedBackground != 0)
                 remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_background, roundedBackground);
@@ -946,6 +818,149 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             profile.releasePreferencesIndicator();
         }*/
         dataWrapper.invalidateDataWrapper();
+    }
+
+    private static int getRoundedBackgroundDrawable(int applicationWidgetListRoundedCornersRadius) {
+        switch (applicationWidgetListRoundedCornersRadius) {
+            case 1:
+                return R.drawable.rounded_widget_background_1;
+            case 2:
+                return  R.drawable.rounded_widget_background_2;
+            case 3:
+                return  R.drawable.rounded_widget_background_3;
+            case 4:
+                return  R.drawable.rounded_widget_background_4;
+            case 5:
+                //noinspection DuplicateBranchesInSwitch
+                return  R.drawable.rounded_widget_background_5;
+            case 6:
+                return  R.drawable.rounded_widget_background_6;
+            case 7:
+                return  R.drawable.rounded_widget_background_7;
+            case 8:
+                return  R.drawable.rounded_widget_background_8;
+            case 9:
+                return  R.drawable.rounded_widget_background_9;
+            case 10:
+                return  R.drawable.rounded_widget_background_10;
+            case 11:
+                return  R.drawable.rounded_widget_background_11;
+            case 12:
+                return  R.drawable.rounded_widget_background_12;
+            case 13:
+                return  R.drawable.rounded_widget_background_13;
+            case 14:
+                return  R.drawable.rounded_widget_background_14;
+            case 15:
+                return  R.drawable.rounded_widget_background_15;
+            case 16:
+                return  R.drawable.rounded_widget_background_16;
+            case 17:
+                return  R.drawable.rounded_widget_background_17;
+            case 18:
+                return  R.drawable.rounded_widget_background_18;
+            case 19:
+                return  R.drawable.rounded_widget_background_19;
+            case 20:
+                return  R.drawable.rounded_widget_background_20;
+            case 21:
+                return  R.drawable.rounded_widget_background_21;
+            case 22:
+                return  R.drawable.rounded_widget_background_22;
+            case 23:
+                return  R.drawable.rounded_widget_background_23;
+            case 24:
+                return  R.drawable.rounded_widget_background_24;
+            case 25:
+                return  R.drawable.rounded_widget_background_25;
+            case 26:
+                return  R.drawable.rounded_widget_background_26;
+            case 27:
+                return  R.drawable.rounded_widget_background_27;
+            case 28:
+                return  R.drawable.rounded_widget_background_28;
+            case 29:
+                return  R.drawable.rounded_widget_background_29;
+            case 30:
+                return  R.drawable.rounded_widget_background_30;
+            case 31:
+                return  R.drawable.rounded_widget_background_31;
+            case 32:
+                return  R.drawable.rounded_widget_background_32;
+            default:
+                return  R.drawable.rounded_widget_background_5;
+        }
+    }
+    private static int getRoundedBorderDrawable(int applicationWidgetListRoundedCornersRadius) {
+        switch (applicationWidgetListRoundedCornersRadius) {
+            case 1:
+                return  R.drawable.rounded_widget_border_1;
+            case 2:
+                return  R.drawable.rounded_widget_border_2;
+            case 3:
+                return  R.drawable.rounded_widget_border_3;
+            case 4:
+                return  R.drawable.rounded_widget_border_4;
+            case 5:
+                //noinspection DuplicateBranchesInSwitch
+                return  R.drawable.rounded_widget_border_5;
+            case 6:
+                return  R.drawable.rounded_widget_border_6;
+            case 7:
+                return  R.drawable.rounded_widget_border_7;
+            case 8:
+                return  R.drawable.rounded_widget_border_8;
+            case 9:
+                return  R.drawable.rounded_widget_border_9;
+            case 10:
+                return  R.drawable.rounded_widget_border_10;
+            case 11:
+                return  R.drawable.rounded_widget_border_11;
+            case 12:
+                return  R.drawable.rounded_widget_border_12;
+            case 13:
+                return  R.drawable.rounded_widget_border_13;
+            case 14:
+                return  R.drawable.rounded_widget_border_14;
+            case 15:
+                return  R.drawable.rounded_widget_border_15;
+            case 16:
+                return  R.drawable.rounded_widget_border_16;
+            case 17:
+                return  R.drawable.rounded_widget_border_17;
+            case 18:
+                return  R.drawable.rounded_widget_border_18;
+            case 19:
+                return  R.drawable.rounded_widget_border_19;
+            case 20:
+                return  R.drawable.rounded_widget_border_20;
+            case 21:
+                return  R.drawable.rounded_widget_border_21;
+            case 22:
+                return  R.drawable.rounded_widget_border_22;
+            case 23:
+                return  R.drawable.rounded_widget_border_23;
+            case 24:
+                return  R.drawable.rounded_widget_border_24;
+            case 25:
+                return  R.drawable.rounded_widget_border_25;
+            case 26:
+                return  R.drawable.rounded_widget_border_26;
+            case 27:
+                return  R.drawable.rounded_widget_border_27;
+            case 28:
+                return  R.drawable.rounded_widget_border_28;
+            case 29:
+                return  R.drawable.rounded_widget_border_29;
+            case 30:
+                return  R.drawable.rounded_widget_border_30;
+            case 31:
+                return  R.drawable.rounded_widget_border_31;
+            case 32:
+                return  R.drawable.rounded_widget_border_32;
+            default:
+                return  R.drawable.rounded_widget_border_5;
+        }
     }
 
     @Override

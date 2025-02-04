@@ -3,8 +3,8 @@
     android:id="@+id/mobile_cells_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height">
 
     <LinearLayout
         android:id="@+id/mobile_cells_pref_dlg_item_buttons_root"
@@ -60,14 +60,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="16sp" />
+                android:textSize="@dimen/listItem_label_text_size" />
 
             <TextView
                 android:id="@+id/mobile_cells_pref_dlg_item_lastConnectedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp" />
+                android:textSize="@dimen/listItem_secondary_text_size"
+                android:textColor="@color/preferenceSummaryTextColor" />
 
         </LinearLayout>
 
