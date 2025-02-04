@@ -2266,7 +2266,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         preference = prefMng.findPreference(PREF_APPLICATION_WIDGET_PANEL_INFO);
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference120 -> {
-                Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "PREF_APPLICATION_WIDGET_PANEL_INFO preference clicked");
+                //Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "PREF_APPLICATION_WIDGET_PANEL_INFO preference clicked");
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(
