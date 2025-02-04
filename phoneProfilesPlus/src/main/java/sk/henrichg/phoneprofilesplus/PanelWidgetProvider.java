@@ -151,12 +151,14 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
-                        } else
-                            applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                            */
+                        } //else
+                            //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                         //applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         if (applicationWidgetPanelLightnessBorderChangeByNightMode) {
                             switch (applicationWidgetPanelLightnessBorder) {
@@ -173,10 +175,12 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, applicationWidgetPanelLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessBorder = applicationWidgetPanelLightnessBorder;
+                            */
                         } //else
                             //applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                         //setSettingsLightness = -1;
@@ -205,12 +209,14 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
-                        } else
-                            applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            */
+                        } //else
+                            //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                         //applicationWidgetPanelLightnessBorder = "0";
                         if (applicationWidgetPanelLightnessBorderChangeByNightMode) {
                             switch (applicationWidgetPanelLightnessBorder) {
@@ -227,10 +233,12 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, applicationWidgetPanelLightnessBorder);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelLightnessBorder = applicationWidgetPanelLightnessBorder;
+                            */
                         } //else
                             //applicationWidgetPanelLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;;
                         //setSettingsLightness = 1;
@@ -256,12 +264,14 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
-                        } else
-                            applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                            */
+                        } //else
+                            //applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                     } else {
                         //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         if (applicationWidgetPanelIconLightnessChangeByNightMode) {
@@ -279,12 +289,14 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
-                        } else
-                            applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                            */
+                        } //else
+                            //applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                     }
                 }
             }

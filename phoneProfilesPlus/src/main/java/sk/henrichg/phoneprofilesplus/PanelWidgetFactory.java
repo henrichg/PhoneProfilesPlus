@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -160,12 +159,14 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                                         applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                         break;
                                 }
+                                /*
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                                 editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
                                 editor.apply();
                                 ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
-                            } else
-                                applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                                */
+                            } //else
+                                //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
 
                             applicationWidgetPanelBackgroundType = true; // background type = color
                             applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOn)); // color of background
@@ -191,12 +192,14 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                                         applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                         break;
                                 }
+                                /*
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                                 editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, applicationWidgetPanelLightnessT);
                                 editor.apply();
                                 ApplicationPreferences.applicationWidgetPanelLightnessT = applicationWidgetPanelLightnessT;
-                            } else
-                                applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                                */
+                            } //else
+                                //applicationWidgetPanelLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
 
                             applicationWidgetPanelBackgroundType = true; // background type = color
                             applicationWidgetPanelBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetPanelBackgroundColorNightModeOff)); // color of background
@@ -480,12 +483,14 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                                     applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
-                        } else
-                            applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                            */
+                        } //else
+                            //applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -506,12 +511,14 @@ class PanelWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                                     applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, applicationWidgetPanelIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetPanelIconLightness = applicationWidgetPanelIconLightness;
-                        } else
-                            applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                            */
+                        } //else
+                            //applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                     }
                 }
             }

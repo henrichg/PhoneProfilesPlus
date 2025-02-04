@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -167,12 +166,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                         applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                         break;
                                 }
+                                /*
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                                 editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, applicationWidgetListLightnessT);
                                 editor.apply();
                                 ApplicationPreferences.applicationWidgetListLightnessT = applicationWidgetListLightnessT;
-                            } else
-                                applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                                */
+                            } //else
+                                //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
 
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
@@ -197,12 +198,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                         applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                         break;
                                 }
+                                /*
                                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                                 editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, applicationWidgetListLightnessT);
                                 editor.apply();
                                 ApplicationPreferences.applicationWidgetListLightnessT = applicationWidgetListLightnessT;
-                            } else
-                                applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                                */
+                            } //else
+                                //applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
 
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
@@ -653,12 +656,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, applicationWidgetListIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetListIconLightness = applicationWidgetListIconLightness;
-                        } else
-                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                            */
+                        } //else
+                            //applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
 
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
@@ -684,12 +689,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, applicationWidgetListIconLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetListIconLightness = applicationWidgetListIconLightness;
-                        } else
-                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                            */
+                        } //else
+                            //applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
 
                         applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
@@ -716,12 +723,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, applicationWidgetListPrefIndicatorLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetListPrefIndicatorLightness = applicationWidgetListPrefIndicatorLightness;
-                        } else
-                            applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
+                            */
+                        } //else
+                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
                     } else {
                         if (applicationWidgetListPrefIndicatorLightnessChangeByNightMode) {
                             switch (applicationWidgetListPrefIndicatorLightness) {
@@ -738,12 +747,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
                                     break;
                             }
+                            /*
                             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, applicationWidgetListPrefIndicatorLightness);
                             editor.apply();
                             ApplicationPreferences.applicationWidgetListPrefIndicatorLightness = applicationWidgetListPrefIndicatorLightness;
-                        } else
-                            applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
+                            */
+                        } //else
+                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
                     }
                 }
             }
