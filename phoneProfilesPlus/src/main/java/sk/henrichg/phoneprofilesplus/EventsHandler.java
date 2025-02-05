@@ -348,7 +348,7 @@ class EventsHandler {
             }*/
             // TODO lepsie asi bude toto, testuj!!
             if (isRestart) {
-                dataWrapper.pauseAllEvents(false, false, false, false);
+                dataWrapper.pauseAllEvents(false, false, false, true);
             }
 
 // ---- Special for sensors which requires calendar data - START -----------
