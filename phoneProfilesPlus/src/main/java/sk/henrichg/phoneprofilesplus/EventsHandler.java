@@ -1613,7 +1613,7 @@ class EventsHandler {
 
     private void sortEventsByStartOrderDesc(List<Event> eventList)
     {
-        class PriorityComparator implements Comparator<Event> {
+        class StartOrderComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 int res = 0;
                 if ((lhs != null) && (rhs != null))
@@ -1622,7 +1622,7 @@ class EventsHandler {
             }
         }
 
-        eventList.sort(new PriorityComparator());
+        eventList.sort(new StartOrderComparator());
     }
 
 }
