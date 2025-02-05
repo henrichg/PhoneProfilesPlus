@@ -537,71 +537,37 @@ Pre API >= 34:
 
 --------------
 
-Tot je layout pre landscape dialog:
+EventsHandler.sortEventsByStartOrderDesc(dataWrapper.eventList);
+-  toto sortuje udalosti podla _startOrder. S najvyssou by mali byt hore.
 
-Takto ma vypadat dialog rozdeleny na 2 casti:
+Cize EventsHandler prechadza udalosti od spodnych (ked mam zobrazenie podal start orderu)
+a merguje tie profily, ktorim sa spusti udalost.
 
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/run_applications_pref_dlg_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+Prioritu potom testuje v Event.startEvent()
+Ak bezi udalost s vyssou prioritou, testovana udalost sa nespusti.
+Ake udalosti bezia sa beria z tych co sa vratia z DataWrapper.getEventTimelineList();
+Cize sa postupne meni tento timeline list, ako sa postupne spustau udalosti.
+Kedze tie sa spustaju podla _startOrder (od navysiieho po najnizsi), _startOrder ma urcujucu funkciu
+pri tomto.
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true">
+No ale preco sa stava, ze sa zobrazuje udalost "Noc doma", ale aktivny profil Doma?
+Podla poradia aj Priority by sa mal zobrazovat profil Spanok.
+Opravi to az restart udalosti. Alebo si to zle pamatam? Kua fix.
+Musis porozmyslat co by sa naozaj mohlo stavat.
 
-        <View
-            android:id="@+id/run_applications_pref_dlg_titleBarDivider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginStart="@dimen/divider_margin"
-            android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialogDividerColor" />
+A nakoniec zisti, aky profil beries, ktory je aktivovany. Mal by to byt _checked=true.
+Ano berie ten co je _checked=true.
+No a este zisti, ktory profil da _checked=true.
+Pri mergovani, kazdy profil, ktory mergujem sa nastavi _checked=true.
+Cize nakoniec, zostane checked ten, ktory prejde mergovanim ako posledny.
+Posledny je dany startOrder a musel prejst sitom priority.
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/divider_margin"
-            android:layout_marginEnd="@dimen/divider_margin"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
+No a teda, co sa stane kua mne niekedy? Odkedy som zmenil prioritu "Noc doma" na 6, to robi.
+Spusti vobec udalost "Noc doma"? Musis cakat na stav, kedy sa to stane,
+ze co vlastne presne zobrazuje a ake udalosti bezia.
 
 
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/run_applications_editor_dialog_buttonBarDivider2"
-        android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_height="@dimen/divider_height"
-        android:layout_marginStart="@dimen/divider_margin"
-        android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_alignParentBottom="true"
-        android:background="@color/dialogDividerColor" />
-
-</RelativeLayout>
 
 
 
