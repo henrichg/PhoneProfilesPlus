@@ -962,7 +962,7 @@ class DataWrapper {
     }
 
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean ignoreGlobalPrefs, boolean activateReturnProfile,
-                        boolean manualRestart)
+                        boolean forRestartEvents, boolean manualRestart)
     {
         // blockEvents == true -> manual profile activation is set
         EventStatic.setEventsBlocked(context, blockEvents);
@@ -986,7 +986,7 @@ class DataWrapper {
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
 //                            Log.e("DataWrapper.pauseAllEvents", "pause event");
-                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, mergedProfile, false, true, manualRestart, true);
+                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, mergedProfile, false, forRestartEvents, manualRestart, true);
                         }
                     }
 
@@ -1032,7 +1032,7 @@ class DataWrapper {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEventsForGlobalStopEvents", "PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
-                        dataWrapper.pauseAllEvents(true, false, true, false, false);
+                        dataWrapper.pauseAllEvents(true, false, true, false, false, false);
                     }
 
                 } catch (Exception e) {
@@ -1551,7 +1551,7 @@ class DataWrapper {
 
             // pause all events
             // for forceRun events set system events and block all events
-            pauseAllEvents(false, true, true, false, false);
+            pauseAllEvents(false, true, true, false, false, false);
 
             PPApplication.lockRefresh = false;
         }
