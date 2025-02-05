@@ -566,6 +566,8 @@ No a teda, co sa stane kua mne niekedy? Odkedy som zmenil prioritu "Noc doma" na
 Spusti vobec udalost "Noc doma"? Musis cakat na stav, kedy sa to stane,
 ze co vlastne presne zobrazuje a ake udalosti bezia.
 
+Takze som pridal, ked sa robi restar udalosti, do EventsHandler pauseAllEvents(). Sice on riesil aj restart, ale podla
+mna zle. Myslim si ze najprv treba vsetky udalosti pauznut, lebo to co tam uz je, asi sposobuje tuto divnu chybu.
 
 
 
