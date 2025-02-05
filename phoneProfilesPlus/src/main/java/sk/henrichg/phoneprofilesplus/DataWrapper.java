@@ -983,7 +983,7 @@ class DataWrapper {
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
 //                            Log.e("DataWrapper.pauseAllEvents", "pause event");
-                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, null, false, false, false, true);
+                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, null, false, true, false, true);
                         }
                     }
 
@@ -1029,7 +1029,7 @@ class DataWrapper {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEventsForGlobalStopEvents", "PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
-                        dataWrapper.pauseAllEvents(true, false, true, false);
+                        dataWrapper.pauseAllEvents(true, false, true, true);
                     }
 
                 } catch (Exception e) {
