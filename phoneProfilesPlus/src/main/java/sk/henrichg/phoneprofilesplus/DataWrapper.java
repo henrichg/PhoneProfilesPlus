@@ -961,7 +961,7 @@ class DataWrapper {
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
-    // pauses all events
+    /** @noinspection SameParameterValue*/ // pauses all events
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean ignoreGlobalPrefs, boolean activateReturnProfile)
     {
         // blockEvents == true -> manual profile activation is set
@@ -1029,7 +1029,7 @@ class DataWrapper {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEventsForGlobalStopEvents", "PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
-                        dataWrapper.pauseAllEvents(true, false, true, true);
+                        dataWrapper.pauseAllEvents(true, false, true, false);
                     }
 
                 } catch (Exception e) {
