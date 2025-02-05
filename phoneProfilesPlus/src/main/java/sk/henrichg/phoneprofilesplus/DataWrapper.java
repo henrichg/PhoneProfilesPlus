@@ -961,7 +961,6 @@ class DataWrapper {
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
-    /** @noinspection SameParameterValue*/ // pauses all events
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean ignoreGlobalPrefs, boolean activateReturnProfile)
     {
         // blockEvents == true -> manual profile activation is set
@@ -972,6 +971,9 @@ class DataWrapper {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEvents", "DataWrapper.eventList");
         synchronized (eventList) {
             fillEventList();
+
+            Profile mergedProfile = DataWrapperStatic.getNonInitializedProfile("", "", 0);
+
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
@@ -983,7 +985,7 @@ class DataWrapper {
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
 //                            Log.e("DataWrapper.pauseAllEvents", "pause event");
-                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, null, false, true, false, true);
+                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, mergedProfile, false, true, false, true);
                         }
                     }
 
