@@ -569,15 +569,6 @@ ze co vlastne presne zobrazuje a ake udalosti bezia.
 Takze som pridal, ked sa robi restar udalosti, do EventsHandler pauseAllEvents(). Sice on riesil aj restart, ale podla
 mna zle. Myslim si ze najprv treba vsetky udalosti pauznut, lebo to co tam uz je, asi sposobuje tuto divnu chybu.
 
-Takze pauseAllEvents() neaktivuje profil, nerobi restart a dufam, ze ani undo.
-event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false, false, true);
-
-Ale malo by sa v tomto pripade dovolit aktivivat return profile, lebo to EventsHandler robi{
-event.pauseEvent(dataWrapper, true, false, false, true, mergedProfile, !forRestartEvents, forRestartEvents, manualRestart, true);
-
-Takze sa to chova inac. Kua.
-Upravil som, uz sa to hadam bude chovat rovnako.
-
 
 
 
