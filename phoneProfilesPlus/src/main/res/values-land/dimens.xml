@@ -79,7 +79,7 @@
 
     <dimen name="run_application_editor_intent_activity_width">60dp</dimen>
 
-    <dimen name="add_event_red_text_padding">3dp</dimen>
+    <dimen name="add_event_red_text_padding">0dp</dimen>
     <dimen name="add_event_red_text_size">14sp</dimen>
 
     <dimen name="listItem_icon_size">40dp</dimen>
@@ -94,5 +94,7 @@
 
     <dimen name="filter_button_min_height">34dp</dimen>
     <dimen name="filter_button_text_size">14sp</dimen>
+
+    <dimen name="alert_dialog_top_padding">0dp</dimen>
 
 </resources>
