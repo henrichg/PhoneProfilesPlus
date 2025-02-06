@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/calendars_multiselect_pref_dlg_root"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 

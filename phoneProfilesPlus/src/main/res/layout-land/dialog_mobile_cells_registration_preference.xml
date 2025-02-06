@@ -225,6 +225,7 @@
                     android:id="@+id/mobile_cells_registration_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
 
@@ -232,7 +233,6 @@
                     android:id="@+id/mobile_cells_registration_remaining_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:textSize="15sp"
                     android:text="00:00:00"
