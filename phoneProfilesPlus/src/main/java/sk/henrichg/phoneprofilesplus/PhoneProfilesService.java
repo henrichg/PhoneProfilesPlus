@@ -994,6 +994,34 @@ public class PhoneProfilesService extends Service
 
                 if (__activateProfiles) {
                     editor = ApplicationPreferences.getEditor(appContext);
+                    if (ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventWifiEnableScanning = true;
+                    }
+                    if (ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventBluetoothEnableScanning = true;
+                    }
+                    if (ApplicationPreferences.applicationEventLocationDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventBluetoothEnableScanning = true;
+                    }
+                    if (ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventMobileCellEnableScanning = true;
+                    }
+                    if (ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventOrientationEnableScanning = true;
+                    }
+                    if (ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventNotificationEnableScanning = true;
+                    }
+                    if (ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, true);
+                        ApplicationPreferences.applicationEventPeriodicScanningEnableScanning = true;
+                    }
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
