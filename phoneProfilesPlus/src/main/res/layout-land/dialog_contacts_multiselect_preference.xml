@@ -28,7 +28,7 @@
             android:paddingEnd="@dimen/layout_as_button_padding"
             android:minHeight="@dimen/filter_button_min_height"
             android:gravity="center_vertical"
-            android:textSize="16sp"
+            android:textSize="@dimen/filter_button_text_size"
             android:textColor="@color/accent_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"

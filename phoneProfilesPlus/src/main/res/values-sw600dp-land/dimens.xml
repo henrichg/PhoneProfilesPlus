@@ -88,4 +88,7 @@
 
     <dimen name="dialog_choose_language_help_pading">10dp</dimen>
 
+    <dimen name="filter_button_min_height">38dp</dimen>
+    <dimen name="filter_button_text_size">16sp</dimen>
+
 </resources>
