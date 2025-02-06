@@ -486,7 +486,8 @@ class ActivateProfileHelper {
                     firstSleepCalled = true;
                 }
 
-                if (Build.VERSION.SDK_INT < 30) {
+                //if (Build.VERSION.SDK_INT < 30) { // Android 10 fix for not granted TETHER_PRIVILEGED
+                if (Build.VERSION.SDK_INT < 29) {
                     WifiApManager wifiApManager = null;
                     try {
                         wifiApManager = new WifiApManager(appContext);
@@ -7129,8 +7130,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-            else if (Build.VERSION.SDK_INT < 30) {
-                // for Android 9, 10
+//            else if (Build.VERSION.SDK_INT < 30) { // Android 10 fix for not granted TETHER_PRIVILEGED
+            else if (Build.VERSION.SDK_INT < 29) {
+                // for Android 9 //, 10
                 //Context appContext = context.getApplicationContext();
                 //if (WifiApManager.canExploitWifiTethering(appContext)) {
                     if (enable)

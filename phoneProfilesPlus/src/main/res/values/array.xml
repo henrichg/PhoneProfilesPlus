@@ -1603,13 +1603,13 @@
         <item>@string/notification_channel_profile_list</item>
     </string-array>
 
-    <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
+    <string-array name="wifiAPArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_wifiAPModeArray_on_keepWifi</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
-    <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
+    <string-array name="wifiAPValues">
         <item>0</item>
         <item>1</item>
         <item>4</item>

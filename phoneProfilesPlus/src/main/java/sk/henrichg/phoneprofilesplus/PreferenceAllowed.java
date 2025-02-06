@@ -1057,7 +1057,9 @@ class PreferenceAllowed {
                         notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
-                } else if (Build.VERSION.SDK_INT < 30) {
+                }
+                //else if (Build.VERSION.SDK_INT < 30) { // Android 10 fix for not granted TETHER_PRIVILEGED
+                else if (Build.VERSION.SDK_INT < 29) {
                     if (canExploitWifiTethering(appContext) == 1) {
                         if (profile != null) {
                             if (profile._deviceWiFiAP != 0)
