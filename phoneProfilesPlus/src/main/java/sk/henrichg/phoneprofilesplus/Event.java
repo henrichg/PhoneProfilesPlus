@@ -2489,8 +2489,10 @@ class Event {
             if (allowRestart)
                 alType = PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS;
         }
-        else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
-            alType = PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE;
+        else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
+            if (allowRestart)
+                alType = PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE;
+        }
 
         PPApplicationStatic.addActivityLog(context.getApplicationContext(), alType, _name, null, "");
     }
