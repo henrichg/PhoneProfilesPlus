@@ -1184,23 +1184,16 @@ class DataWrapper {
     {
         if (startedFromService) {
             if (ApplicationPreferences.applicationActivate &&
-                    ApplicationPreferences.applicationStartEvents) {
-                //restartEvents(false, false, true, false, useHandler);
+                    ApplicationPreferences.applicationStartEvents)
                 restartEventsWithRescan(true, false, useHandler, manualRestart, false, false);
-//                restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
-            }
             else {
-                //Event.setGlobalEventsRunning(context, false);
                 PPApplicationStatic.setApplicationFullyStarted(context);
 //                PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] DataWrapper.startEventsAtFirstStart", "xxx");
                 activateProfileAtFirstStart();
             }
         }
-        else {
-            //restartEvents(false, false, true, false, useHandler);
+        else
             restartEventsWithRescan(true, false, useHandler, manualRestart, false, false);
-//            restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
-        }
     }
 
     // this is called in boot or first start application

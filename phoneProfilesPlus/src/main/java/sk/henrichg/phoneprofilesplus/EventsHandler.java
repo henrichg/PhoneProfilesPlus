@@ -338,18 +338,9 @@ class EventsHandler {
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
 
-            // tu musim na restart udalosti sa tvarit, ze nic nebezi, to kvoli priorite
-            //  restart udalosti = zacat odznova z cistym stitom
-            //  no uvidime :
-            //  Lenze toto sposobi, ze sa udalosti normalne nezastavia. Maju sa vobec?
-            /*if (isRestart) {
-                dataWrapper.clearEventTimelineList();
-                DatabaseHandler.getInstance(context).deleteAllEventTimelines();
-            }*/
-            // TODO lepsie asi bude toto, testuj!!
-            if (isRestart) {
+            // pause all events for Restart events
+            if (isRestart)
                 dataWrapper.pauseAllEvents(false, false, false, true, true, manualRestart);
-            }
 
 // ---- Special for sensors which requires calendar data - START -----------
             boolean saveCalendarStartEndTime = false;
