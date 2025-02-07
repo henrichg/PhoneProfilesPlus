@@ -1,81 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/connect_to_ssid_pref_dlg_root"
+    android:id="@+id/dialog_connect_to_ssid_preference_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/connect_to_ssid_pref_dlg_linla_progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone" >
-
-        <ProgressBar
-            android:id="@+id/connect_to_ssid_pref_dlg_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dialog_progressbar_padding"
-            style="?android:attr/progressBarStyle"
-            android:indeterminateDrawable="@drawable/ic_progressbar" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/connect_to_ssid_pref_dlg_root2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/connect_to_ssid_pref_dlg_titleBarDivider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginStart="@dimen/divider_margin"
-            android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialogDividerColor" />
-
-        <ListView
-            android:id="@+id/connect_to_ssid_pref_dlg_listview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:clipToPadding="false"
-            android:choiceMode="singleChoice"
-            android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent"
-            android:listSelector="?attr/listViewItemBackground" />
-<!--        android:fadeScrollbars="false"-->
-
-        <View
-            android:id="@+id/connect_to_ssid_pref_dlg_buttonBarDivider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginStart="@dimen/divider_margin"
-            android:layout_marginEnd="@dimen/divider_margin"
-            android:layout_marginBottom="3dp"
-            android:background="@color/dialogDividerColor" />
-
-        <TextView
-            android:id="@+id/connect_to_ssid_pref_dlg_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:paddingTop="10dp"
-            android:textSize="14sp"
-            android:text="@string/connect_to_ssid_dialog_help"
-            android:textColor="@color/accent_color"
-            android:clickable="true"
-            android:focusable="true"/>
-
-    </LinearLayout>
+    <include  layout="@layout/dialog_connect_to_ssid_preference_portr" />
 
 </FrameLayout>

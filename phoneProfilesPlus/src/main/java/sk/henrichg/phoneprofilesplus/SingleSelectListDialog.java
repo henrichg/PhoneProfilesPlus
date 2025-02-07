@@ -29,7 +29,7 @@ class SingleSelectListDialog
                            int _itemsRes, int _itemValue,
                            DialogInterface.OnClickListener _itemClick,
                            DialogInterface.OnCancelListener _cancelListener,
-                           boolean hideButtonsDivider,
+                           //boolean hideButtonsDivider,
                            Activity _activity) {
         this.activity = _activity;
         this.itemsRes = _itemsRes;
@@ -63,10 +63,10 @@ class SingleSelectListDialog
             dialogBuilder.setOnCancelListener(_cancelListener);
 
         View buttonsDivider = layout.findViewById(R.id.pp_list_pref_dlg_buttonBarDivider);
-        if (hideButtonsDivider)
+        //if (hideButtonsDivider)
             //noinspection DataFlowIssue
-            buttonsDivider.setVisibility(View.GONE);
-        else
+        //    buttonsDivider.setVisibility(View.GONE);
+        //else
             //noinspection DataFlowIssue
             buttonsDivider.setVisibility(View.VISIBLE);
 

@@ -769,7 +769,7 @@ public class EditorProfileListFragment extends Fragment
                     }
                 },
                 null,
-                false,
+                //false,
                 getActivity());
         dialog.show();
 
@@ -1227,7 +1227,7 @@ public class EditorProfileListFragment extends Fragment
                         }
                     },
                     null,
-                    false,
+                    //false,
                     getActivity());
             dialog.show();
 

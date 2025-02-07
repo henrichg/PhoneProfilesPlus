@@ -66,7 +66,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
                             }
                         },
                         dialog12 -> finish(),
-                        false,
+                        //false,
                         this);
 
                 if (!isFinishing())

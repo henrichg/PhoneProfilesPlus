@@ -492,7 +492,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         }
                     },
                     null,
-                    false,
+                    //false,
                     this);
 
             changeLocationDialog.show();
@@ -508,9 +508,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     getString(R.string.alert_button_yes),
                     getString(R.string.alert_button_no),
                     null, null,
-                    (dialog1, which) -> {
-                        getGeofenceAddress(/*true*/);
-                    },
+                    (dialog1, which) -> getGeofenceAddress(/*true*/),
                     (dialog2, which) -> finish(),
                     null,
                     null,

@@ -1004,7 +1004,7 @@ public class EditorEventListFragment extends Fragment
                     }
                 },
                 null,
-                false,
+                //false,
                 getActivity());
         dialog.show();
 
@@ -1952,7 +1952,7 @@ public class EditorEventListFragment extends Fragment
                     }
                 },
                 null,
-                false,
+                //false,
                 getActivity());
         dialog.show();
 

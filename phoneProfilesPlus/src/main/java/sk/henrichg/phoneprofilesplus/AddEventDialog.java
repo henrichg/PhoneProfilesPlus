@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ class AddEventDialog
     final LinearLayout rellaData;
     final ListView listView;
     final TextView help;
+    final SwitchCompat hideEventDetailsSwitch;
+    boolean hideEventDetailsValue;
 
     final List<Event> eventList = new ArrayList<>();
 
@@ -69,6 +72,10 @@ class AddEventDialog
 
         listView = layout.findViewById(R.id.event_pref_dlg_listview);
         help = layout.findViewById(R.id.event_pref_dlg_help);
+        hideEventDetailsSwitch = layout.findViewById(R.id.event_hide_event_details);
+        if (hideEventDetailsSwitch != null)
+            hideEventDetailsSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetails);
+        hideEventDetailsValue = ApplicationPreferences.applicationEditorHideEventDetails;
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -84,6 +91,17 @@ class AddEventDialog
             }, 200);
         });
 
+        if (hideEventDetailsSwitch != null) {
+            hideEventDetailsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (!activity.isFinishing()) {
+                    hideEventDetailsValue = isChecked;
+                    getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+                    getEventsAsyncTask.execute();
+                    //((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+                    //listView.invalidate();
+                }
+            });
+        }
     }
 
     private void doShow() {
@@ -99,7 +117,7 @@ class AddEventDialog
     }
 
     void show() {
-        if (!activity.isFinishing())
+        if ((activity != null) && (!activity.isFinishing()))
             mDialog.show();
     }
 

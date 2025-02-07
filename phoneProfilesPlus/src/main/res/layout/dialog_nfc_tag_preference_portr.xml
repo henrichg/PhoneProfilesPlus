@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nfc_tag_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <LinearLayout 
+        android:id="@+id/nfc_tag_pref_dlg_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+        
+        <ProgressBar
+            android:id="@+id/nfc_tag_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dialog_progressbar_padding"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nfc_tag_pref_dlg_linla_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/nfc_tag_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialogDividerColor" />
+
+        <RelativeLayout
+            android:id="@+id/nfc_tag_pref_dlg_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/nfc_tag_pref_dlg_empty_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/ic_empty_list"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/empty_list_content_description" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/nfc_tag_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent"
+            android:listSelector="?attr/listViewItemBackground" />
+<!--        android:fadeScrollbars="false"-->
+
+        <View
+            android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialogDividerColor" />
+
+        <RelativeLayout
+            android:id="@+id/nfc_tag_pref_dlg_et_btn2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/nfc_tag_pref_dlg_helpIcon"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_button_help"
+                app:tint="@color/accent_color"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/help_button_tooltip"/>
+<!--            android:layout_centerVertical="true"-->
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/nfc_tag_pref_dlg_changeSelection"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_helpIcon"
+                android:src="@drawable/ic_button_select"
+                app:tint="@color/accent_color"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/nfc_tag_pref_dlg_select_button_tooltip"/>
+<!--            android:layout_centerVertical="true"-->
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/nfc_tag_pref_dlg_addIcon"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:padding="@dimen/image_button_padding"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_changeSelection"
+                android:src="@drawable/ic_button_add"
+                app:tint="@color/accent_color"
+                android:background="@drawable/editor_ripple_item_right_button"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/nfc_tag_pref_dlg_add_button_tooltip"/>
+<!--            android:layout_centerVertical="true"-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf = "@id/nfc_tag_pref_dlg_addIcon">
+                <EditText
+                    android:id="@+id/nfc_tag_pref_dlg_bt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/EditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/nfc_tag_pref_dlg_hint" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</merge>

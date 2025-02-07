@@ -203,7 +203,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                 //dialog.dismiss();
                             },
                             null,
-                            false,
+                            //false,
                             getActivity());
 
                     mSelectorDialog.show();

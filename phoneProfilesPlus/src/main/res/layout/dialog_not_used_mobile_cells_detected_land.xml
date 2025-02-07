@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/not_used_mobile_cells_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <LinearLayout
+        android:id="@+id/not_used_mobile_cells_pref_dlg_rootX"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/not_used_mobile_cells_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialogDividerColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/not_used_mobile_cells_dlg_cell_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/not_used_mobile_cells_detected_cell_id"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/not_used_mobile_cells_dlg_connection_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/not_used_mobile_cells_detected_connection_time"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/not_used_mobile_cells_dlg_cell_names_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mobile_cell_names_dialog_title"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+                    <EditText
+                        android:id="@+id/not_used_mobile_cells_dlg_cell_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/edit_text_border"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:selectAllOnFocus="true"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        android:hint="@string/application_editor_intent_hint_not_set"
+                        style="@style/EditTextStyle"
+                        tools:ignore="LabelFor" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:background="@color/activityBackgroundColor"
+                        android:text="@string/mobile_cells_pref_dlg_cell_name_hint" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/not_used_mobile_cells_dlg_linla_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ProgressBar
+                        android:id="@+id/not_used_mobile_cells_dlg_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dialog_progressbar_padding"
+                        style="?android:attr/progressBarStyle"
+                        android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/not_used_mobile_cells_dlg_cell_names"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:clipToPadding="false"
+                    android:choiceMode="singleChoice"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:divider="@android:color/transparent"
+                    android:listSelector="?attr/listViewItemBackground"
+                    tools:ignore="NestedWeights" />
+<!--                android:fadeScrollbars="false"-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/not_used_mobile_cells_dialog_buttonBarDivider2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialogDividerColor" />
+
+</merge>

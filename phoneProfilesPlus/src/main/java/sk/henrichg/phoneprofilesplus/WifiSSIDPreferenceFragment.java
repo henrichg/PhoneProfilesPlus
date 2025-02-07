@@ -196,7 +196,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 refreshListView(false, "");
                             },
                             null,
-                            false,
+                            //false,
                             getActivity());
 
                     mSelectorDialog.show();

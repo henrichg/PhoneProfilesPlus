@@ -80,7 +80,7 @@
     <dimen name="run_application_editor_intent_activity_width">60dp</dimen>
 
     <dimen name="add_event_red_text_padding">0dp</dimen>
-    <dimen name="add_event_red_text_size">14sp</dimen>
+    <dimen name="add_event_red_text_size">16sp</dimen>
 
     <dimen name="listItem_icon_size">40dp</dimen>
     <dimen name="listItem_label_text_size">14sp</dimen>

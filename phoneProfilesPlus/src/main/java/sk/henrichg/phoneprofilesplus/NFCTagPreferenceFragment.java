@@ -199,7 +199,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 //dialog.dismiss();
                             },
                             null,
-                            false,
+                            //false,
                             (Activity) prefContext);
 
                     mSelectorDialog.show();

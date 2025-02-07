@@ -82,7 +82,11 @@ class AddEventAdapter extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationNotHideEditorHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
+        boolean applicationNotHideEditorHideEventDetails;
+        if (dialog.hideEventDetailsSwitch != null)
+            applicationNotHideEditorHideEventDetails = !dialog.hideEventDetailsValue;
+        else
+            applicationNotHideEditorHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
 
         if (convertView == null)
         {

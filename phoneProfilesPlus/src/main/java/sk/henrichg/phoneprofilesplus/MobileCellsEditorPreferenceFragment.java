@@ -309,7 +309,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     //dialog.dismiss();
                                 },
                                 null,
-                                false,
+                                //false,
                                 (Activity) prefContext);
 
                         mRenameDialog.show();
@@ -361,7 +361,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 //dialog.dismiss();
                             },
                             null,
-                            false,
+                            //false,
                             (Activity) prefContext);
 
                     mSelectorDialog.show();
@@ -384,7 +384,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 refreshListView(false, false/*, Integer.MAX_VALUE*/);
                             },
                             null,
-                            false,
+                            //false,
                             getActivity());
                     mSortDialog.show();
                 }
