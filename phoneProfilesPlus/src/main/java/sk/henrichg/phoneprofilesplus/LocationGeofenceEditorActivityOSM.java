@@ -502,22 +502,28 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(v -> {
-            SingleSelectListDialog renameGeofenceDialog = new SingleSelectListDialog(
-                    false,
+            PPAlertDialog dialog = new PPAlertDialog(
                     getString(R.string.location_editor_rename_with_address_button_tooltip),
-                    null,
-                    R.array.locationEditorRenameLocationArray,
-                    SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
-                    (dialog, which) -> {
-                        if (which == 0) {
-                            getGeofenceAddress(/*true*/);
-                        }
+                    getString(R.string.location_editor_rename_with_address_message),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        getGeofenceAddress(/*true*/);
                     },
+                    (dialog2, which) -> finish(),
                     null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
                     true,
-                    this);
+                    false,
+                    this
+            );
 
-            renameGeofenceDialog.show();
+            if (!isFinishing())
+                dialog.show();
         });
 
         if (geofence != null)

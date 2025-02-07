@@ -2312,6 +2312,7 @@
     <string name="important_info_edge_panel_replacement3">Link to the \"Panels\" application</string>
 
     <string name="location_editor_title_not_actual_location">Sorry, the actual location is not currently being determined. Please wait for it to be determined.</string>
+    <string name="location_editor_rename_with_address_message">Rename location name with actual address?</string>
 
     <!-- **************************************************************************************** -->
 
