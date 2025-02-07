@@ -3,7 +3,9 @@
     android:id="@+id/dialog_mobile_cells_registration_preference_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <include  layout="@layout/dialog_mobile_cells_registration_preference_portr" />
 

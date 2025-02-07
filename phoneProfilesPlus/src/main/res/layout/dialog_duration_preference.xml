@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_duration_preference_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
 
     <include  layout="@layout/dialog_duration_preference_portr" />
 

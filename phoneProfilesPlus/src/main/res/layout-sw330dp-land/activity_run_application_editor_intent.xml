@@ -3,7 +3,10 @@
     android:id="@+id/activity_run_application_editor_intent_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
+    android:orientation="vertical"
+    android:fitsSystemWindows="false">
 
     <include  layout="@layout/activity_run_application_editor_intent_land" />
 

@@ -5,8 +5,7 @@
     android:id="@+id/profileicon_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/profileicon_pref_dlg_rootX"

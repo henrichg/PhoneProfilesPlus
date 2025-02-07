@@ -3,8 +3,8 @@
     android:id="@+id/dialog_add_event_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--    android:layout_weight="1"-->
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <include  layout="@layout/dialog_add_event_portr" />
 

@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
-    tools:ignore="MissingDefaultResource">
+    android:paddingTop="@dimen/alert_dialog_top_padding" >
     <!--    android:layout_weight="1"-->
 
     <LinearLayout

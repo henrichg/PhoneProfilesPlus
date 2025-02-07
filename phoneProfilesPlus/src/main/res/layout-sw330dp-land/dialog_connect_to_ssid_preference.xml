@@ -3,7 +3,8 @@
     android:id="@+id/dialog_connect_to_ssid_preference_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <include  layout="@layout/dialog_connect_to_ssid_preference_land" />
 

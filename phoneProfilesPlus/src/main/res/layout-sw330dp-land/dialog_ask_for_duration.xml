@@ -3,7 +3,9 @@
     android:id="@+id/dialog_ask_for_duration_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
 
     <include  layout="@layout/dialog_ask_for_duration_land" />
 

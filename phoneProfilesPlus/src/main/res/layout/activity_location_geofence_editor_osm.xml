@@ -3,6 +3,8 @@
     android:id="@+id/activity_location_geofence_editor_osm_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
     android:orientation="vertical">
 
     <include  layout="@layout/activity_location_geofence_editor_osm_portr" />
