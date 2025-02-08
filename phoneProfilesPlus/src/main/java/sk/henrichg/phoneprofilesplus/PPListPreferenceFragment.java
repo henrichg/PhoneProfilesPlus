@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class PPListPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -15,6 +16,12 @@ public class PPListPreferenceFragment extends PreferenceDialogFragmentCompat {
     private PPListPreference preference;
 
     //private PPListPreferenceAdapter listAdapter;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

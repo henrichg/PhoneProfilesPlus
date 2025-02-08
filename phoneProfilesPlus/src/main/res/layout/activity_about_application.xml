@@ -92,8 +92,8 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/important_info_left_margin"
                 android:paddingEnd="@dimen/important_info_right_margin"
-                android:paddingTop="@dimen/alert_dialog_top_padding"
-                android:paddingBottom="@dimen/alert_dialog_top_padding"
+                android:paddingTop="@dimen/dialog_title_divider_paddingTop"
+                android:paddingBottom="@dimen/dialog_title_divider_paddingTop"
                 android:orientation="vertical">
                 <!--        android:paddingTop="@dimen/important_info_top_margin"-->
                 <!--        android:paddingBottom="@dimen/important_info_bottom_margin"-->

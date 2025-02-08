@@ -54,7 +54,12 @@ class MobileCellNamesDialog {
         cellNamesList = new ArrayList<>();
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle((showFilterItems) ? R.string.mobile_cell_names_dialog_filter_title : R.string.mobile_cell_names_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                (showFilterItems) ?
+                        activity.getString(R.string.mobile_cell_names_dialog_filter_title) :
+                        activity.getString(R.string.mobile_cell_names_dialog_title),
+                null);
+        //dialogBuilder.setTitle((showFilterItems) ? R.string.mobile_cell_names_dialog_filter_title : R.string.mobile_cell_names_dialog_title);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

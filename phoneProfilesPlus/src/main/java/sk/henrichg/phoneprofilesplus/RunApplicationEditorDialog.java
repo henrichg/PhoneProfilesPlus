@@ -89,7 +89,9 @@ class RunApplicationEditorDialog
         applicationList = new ArrayList<>();
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.applications_editor_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             //if (cachedApplicationList != null) {

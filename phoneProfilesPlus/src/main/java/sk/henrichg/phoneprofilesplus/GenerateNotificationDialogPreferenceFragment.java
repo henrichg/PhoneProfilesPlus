@@ -41,6 +41,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
     private TextView notificationTitleLabel = null;
     private TextView notificationBodyLabel = null;
 
+//TODO title
+
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
@@ -50,7 +52,9 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.profile_preferences_generateNotification);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.profile_preferences_generateNotification), null);
+        //dialogBuilder.setTitle(R.string.profile_preferences_generateNotification);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);

@@ -46,6 +46,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
     static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
 
+//TODO title
+
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
@@ -55,7 +57,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.pppextender_pref_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.pppextender_pref_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.pppextender_pref_dialog_title);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(R.string.pppextender_pref_dialog_close_button, null);
@@ -227,7 +231,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         }
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(R.string.install_extender_dialog_title));
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_extender_dialog_title), null);
+        //dialogBuilder.setTitle(activity.getString(R.string.install_extender_dialog_title));
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
@@ -385,7 +391,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         } catch (Exception ignored) {}
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_extender_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -470,6 +478,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         if (droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.install_extender_dialog_title), null);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
             LayoutInflater inflater = activity.getLayoutInflater();

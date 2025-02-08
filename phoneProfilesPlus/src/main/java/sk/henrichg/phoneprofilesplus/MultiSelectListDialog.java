@@ -29,7 +29,9 @@ class MultiSelectListDialog
         this.itemValues = _itemValues;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(_titleRes));
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(_titleRes), null);
+        //dialogBuilder.setTitle(activity.getString(_titleRes));
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

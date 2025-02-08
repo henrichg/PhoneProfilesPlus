@@ -49,7 +49,9 @@ class ContactsFilterDialog {
         contactsFilterList = new ArrayList<>();
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.contacts_filter_dialog_filter_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.contacts_filter_dialog_filter_title), null);
+        //dialogBuilder.setTitle(R.string.contacts_filter_dialog_filter_title);
         dialogBuilder.setCancelable(true);
         //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

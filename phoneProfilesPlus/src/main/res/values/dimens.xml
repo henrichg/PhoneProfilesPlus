@@ -106,8 +106,6 @@
     <dimen name="image_button_padding">9dp</dimen>
 <!--    <dimen name="widget_panel_settings_icon_size">40dp</dimen>-->
 
-    <dimen name="alert_dialog_top_padding">10dp</dimen>
-
     <dimen name="important_info_top_margin">15dp</dimen>
     <dimen name="important_info_left_margin">15dp</dimen>
     <dimen name="important_info_right_margin">15dp</dimen>
@@ -204,8 +202,10 @@
 
     <dimen name="filter_button_text_size">16sp</dimen>
 
+    <dimen name="dialog_title_divider_paddingTop">10dp</dimen>
     <dimen name="dialog_title_text_size">18sp</dimen>
     <dimen name="single_selection_title_text_size">17sp</dimen>
     <dimen name="single_selection_subtitle_text_size">16dp</dimen>
+    <dimen name="single_selection_title_paddingTop">15dp</dimen>
 
 </resources>

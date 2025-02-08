@@ -25,10 +25,13 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -1191,6 +1194,32 @@ class GlobalGUIRoutines {
         //if (forLightTheme)
         hsv[2] = lightness / 255f;
         return Color.HSVToColor(hsv);
+    }
+
+    static void setCustomDialogTitle(Context context, AlertDialog.Builder dialogBuilder,
+                                     boolean showSubtitle, CharSequence _title, CharSequence _subtitle) {
+        //String s = _title.toString();
+        //if (s.startsWith(StringConstants.CHAR_BULLET +" "))
+        //    _title = TextUtils.replace(_title, new String[]{StringConstants.CHAR_BULLET +" "}, new CharSequence[]{""});
+
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        if (showSubtitle) {
+            @SuppressLint("InflateParams")
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
+            TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
+            titleText.setText(_title);
+            TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
+            //noinspection DataFlowIssue
+            subtitleText.setText(_subtitle);
+            dialogBuilder.setCustomTitle(titleView);
+        } else {
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtihout_subtitle, null);
+            TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
+            titleText.setText(_title);
+            dialogBuilder.setCustomTitle(titleView);
+        }
     }
 
 }

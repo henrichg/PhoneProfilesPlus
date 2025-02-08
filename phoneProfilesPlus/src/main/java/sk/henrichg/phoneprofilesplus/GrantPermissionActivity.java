@@ -1146,7 +1146,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         GlobalGUIRoutines.setLanguage(this);
 
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                        dialogBuilder.setTitle(R.string.permissions_alert_title);
+                        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                activity.getString(R.string.permissions_alert_title), null);
+                        //dialogBuilder.setTitle(R.string.permissions_alert_title);
                         dialogBuilder.setMessage(R.string.permissions_access_notification_policy_not_allowed_confirm);
                         dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                             @Override

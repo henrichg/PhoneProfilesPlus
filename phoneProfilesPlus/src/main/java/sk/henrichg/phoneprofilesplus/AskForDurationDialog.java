@@ -82,8 +82,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //mInteractive = true/*interactive*/;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-
-        // custom dialog title
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, true,
+                activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
+                activity.getString(R.string.profile_preferences_duration));
+        /*// custom dialog title
         LayoutInflater layoutInflater = LayoutInflater.from(activity);
         @SuppressLint("InflateParams")
         View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
@@ -93,7 +95,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
         //noinspection DataFlowIssue
         subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
-        dialogBuilder.setCustomTitle(titleView);
+        dialogBuilder.setCustomTitle(titleView);*/
 
         /*
         dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + "\n" +

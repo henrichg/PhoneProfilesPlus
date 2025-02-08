@@ -33,7 +33,9 @@ class PPEditTextAlertDialog {
         */
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity/*, R.style.AlertDialogStyleDayNightNarrow*/);
-        dialogBuilder.setTitle(_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                _title, null);
+        //dialogBuilder.setTitle(_title);
         dialogBuilder.setCancelable(true);
         //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

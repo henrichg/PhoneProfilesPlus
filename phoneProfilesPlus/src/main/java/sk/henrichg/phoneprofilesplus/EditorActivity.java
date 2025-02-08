@@ -2287,127 +2287,6 @@ public class EditorActivity extends AppCompatActivity
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     appContext.getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
-/*                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                        DocumentFile pickedDir;
-                        final Uri treeUri;
-                        final Activity activity;
-
-                        final int requestCode;
-                        int ok = 1;
-
-                        private BackupAsyncTask(int requestCode, Uri treeUri, Activity activity) {
-                            this.treeUri = treeUri;
-                            this.requestCode = requestCode;
-                            this.activity = activity;
-
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.backup_settings_alert_title);
-
-                            LayoutInflater inflater = (activity.getLayoutInflater());
-                            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                            dialogBuilder.setView(layout);
-
-                            backupProgressDialog = dialogBuilder.create();
-
-                        }
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-
-                            pickedDir = DocumentFile.fromTreeUri(appContext, treeUri);
-
-                            GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                            backupProgressDialog.setCancelable(false);
-                            backupProgressDialog.setCanceledOnTouchOutside(false);
-                            if (!activity.isFinishing())
-                                backupProgressDialog.show();
-                        }
-
-                        @Override
-                        protected Integer doInBackground(Void... params) {
-                            if (pickedDir != null) {
-                                if (pickedDir.canWrite()) {
-                                    if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
-                                        // if directory exists, create new = "PhoneProfilesPlus (x)"
-                                        // create subdirectory
-                                        pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
-                                        if (pickedDir == null) {
-                                            // error for create directory
-                                            ok = 0;
-                                        }
-                                    }
-                                }
-                                else {
-                                    // pickedDir is not writable
-                                    ok = 0;
-                                }
-
-                                if (ok == 1) {
-                                    if (pickedDir.canWrite()) {
-                                        File applicationDir = appContext.getExternalFilesDir(null);
-
-                                        ok = copyToBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, getApplicationContext());
-                                        if (ok == 1)
-                                            ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
-                                    }
-                                    else {
-                                        // cannot copy backup files, pickedDir is not writable
-                                        ok = 0;
-                                    }
-                                }
-
-                            }
-                            else {
-                                // pickedDir is null
-                                ok = 0;
-                            }
-
-                            return ok;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Integer result) {
-                            super.onPostExecute(result);
-
-                            if (!isFinishing()) {
-                                if ((backupProgressDialog != null) && backupProgressDialog.isShowing()) {
-                                    if (!isDestroyed())
-                                        backupProgressDialog.dismiss();
-                                    backupProgressDialog = null;
-                                }
-                                GlobalGUIRoutines.unlockScreenOrientation(activity);
-                            }
-
-                            if (result == 0) {
-                                if (!activity.isFinishing()) {
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                    dialogBuilder.setTitle(R.string.backup_settings_alert_title);
-                                    dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog = dialogBuilder.create();
-
-                                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    //            @Override
-                                    //            public void onShow(DialogInterface dialog) {
-                                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    //                if (positive != null) positive.setAllCaps(false);
-                                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    //                if (negative != null) negative.setAllCaps(false);
-                                    //            }
-                                    //        });
-
-                                    dialog.show();
-                                }
-                            }
-                            else {
-                                PPApplication.showToast(appContext, getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
-                            }
-                        }
-                    }
- */
-
                     backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this);
                     backupAsyncTask.execute();
                 }
@@ -2530,7 +2409,6 @@ public class EditorActivity extends AppCompatActivity
 
     private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult/*, int sharedProfileResult*/)
     {
-        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
         if (importExport == IMPORTEXPORT_IMPORT)
             title = getString(R.string.import_profiles_alert_title);
@@ -3036,17 +2914,21 @@ public class EditorActivity extends AppCompatActivity
 
             final EditorActivity activity = this;
 
+            CharSequence title;
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             if (share)
-                dialogBuilder.setTitle(R.string.menu_share_settings);
+                title = getString(R.string.menu_share_settings);
             else
             if (toAuthor)
-                dialogBuilder.setTitle(R.string.menu_export_and_email_to_author);
+                title = getString(R.string.menu_export_and_email_to_author);
             else
             if (email)
-                dialogBuilder.setTitle(R.string.menu_export_and_email);
+                title = getString(R.string.menu_export_and_email);
             else
-                dialogBuilder.setTitle(R.string.menu_export);
+                title = getString(R.string.menu_export);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                    title, null);
+
             dialogBuilder.setCancelable(true);
             //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
@@ -3911,7 +3793,9 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.backup_settings_alert_title), null);
+            //dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4094,10 +3978,13 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            CharSequence title;
             if (share)
-                dialogBuilder.setTitle(R.string.restore_shared_settings_alert_title);
+                title = activity.getString(R.string.restore_shared_settings_alert_title);
             else
-                dialogBuilder.setTitle(R.string.restore_settings_alert_title);
+                title = activity.getString(R.string.restore_settings_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                    title, null);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4375,7 +4262,9 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.import_profiles_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.import_profiles_alert_title), null);
+            //dialogBuilder.setTitle(R.string.import_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4613,7 +4502,9 @@ public class EditorActivity extends AppCompatActivity
             this.deleteClearNotifications = deleteClearNotifications;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.export_profiles_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.export_profiles_alert_title), null);
+            //dialogBuilder.setTitle(R.string.export_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4901,10 +4792,12 @@ public class EditorActivity extends AppCompatActivity
                         }
                     } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                activity.getString(R.string.backup_settings_alert_title), null);
+                        //dialogBuilder.setTitle(R.string.backup_settings_alert_title);
                         LayoutInflater inflater = (activity).getLayoutInflater();
                         View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                         dialogBuilder.setView(layout);
-                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
                         boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
 

@@ -37,7 +37,8 @@ class ChooseLanguageDialog
         languages = new ArrayList<>();
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_choose_language);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.menu_choose_language), null);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

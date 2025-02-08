@@ -115,7 +115,9 @@ public class ErrorNotificationActivity extends AppCompatActivity {
             finish();
         } else {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(title);
+            GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
+                                title, null);
+            //dialogBuilder.setTitle(title);
             dialogBuilder.setMessage(R.string.no_error_dialog_message);
             dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> finish());
             dialogBuilder.setOnDismissListener(dialog -> finish());

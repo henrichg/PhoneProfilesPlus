@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -35,6 +36,12 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
     boolean wifiEnabled;
     private RefreshListView1AsyncTask asyncTask1 = null;
     private RefreshListView2AsyncTask asyncTask2 = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

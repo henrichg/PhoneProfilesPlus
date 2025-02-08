@@ -22,7 +22,9 @@ class GenerateNotificationAfterClickDialog
         this.activity = activity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.generate_notification_after_click_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.generate_notification_after_click_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.generate_notification_after_click_dialog_title);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

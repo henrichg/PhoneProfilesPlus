@@ -58,7 +58,9 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
         //GlobalGUIRoutines.setLanguage(this);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.phone_profiles_pref_drawOverlaysPermissions);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.phone_profiles_pref_drawOverlaysPermissions), null);
+        //dialogBuilder.setTitle(R.string.phone_profiles_pref_drawOverlaysPermissions);
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
             boolean ok = false;
             if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {

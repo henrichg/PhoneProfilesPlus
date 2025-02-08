@@ -2435,7 +2435,9 @@ class PPApplicationStatic {
     static void showDoNotKillMyAppDialog(final Activity activity) {
         if (activity != null) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle), null);
+            //dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
             LayoutInflater inflater = activity.getLayoutInflater();

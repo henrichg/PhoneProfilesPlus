@@ -44,6 +44,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
+//TODO title
 
     @SuppressLint("SetTextI18n")
     @NonNull
@@ -54,7 +55,9 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(preference.getTitle());
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                            preference.getDialogTitle(), null);
+        //dialogBuilder.setTitle(preference.getTitle());
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);

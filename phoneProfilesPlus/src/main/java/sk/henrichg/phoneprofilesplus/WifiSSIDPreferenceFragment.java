@@ -59,6 +59,8 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private RefreshListViewAsyncTask rescanAsyncTask;
 
+//TODO title
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -67,7 +69,9 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.event_preferences_wifi_ssid);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.event_preferences_wifi_ssid), null);
+        //dialogBuilder.setTitle(R.string.event_preferences_wifi_ssid);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {

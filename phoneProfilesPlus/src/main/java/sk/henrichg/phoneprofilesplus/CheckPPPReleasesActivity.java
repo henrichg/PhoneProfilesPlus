@@ -296,7 +296,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = null;
         if (!refreshOpenedDialog) {
             dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.menu_check_github_releases);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.menu_check_github_releases), null);
+            //dialogBuilder.setTitle(R.string.menu_check_github_releases);
         }
 
         String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
@@ -513,7 +515,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInFDroid(final Activity activity) {
         // org.fdroid.fdroid
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.menu_check_github_releases), null);
+        //dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
         String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         try {
@@ -702,349 +706,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     }
 
-/*
-    @SuppressLint("InflateParams")
-    private void checkInGalaxyStore(final Activity activity, boolean galaxyStoreInstalled) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
-
-        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-        try {
-            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")"+StringConstants.TAG_BOLD_END_HTML;
-        } catch (Exception e) {
-            message = StringConstants.TAG_BREAK_HTML;
-        }
-
-        if (!galaxyStoreInstalled) {
-            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_web_galaxy_store_install_restriction);
-        }
-
-        View layout;
-        LayoutInflater inflater = activity.getLayoutInflater();
-        layout = inflater.inflate(R.layout.dialog_for_galaxy_store, null);
-        dialogBuilder.setView(layout);
-
-        TextView text;
-        text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
-        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
-        text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
-
-        if (!galaxyStoreInstalled) {
-            if (Build.VERSION.SDK_INT >= 33) {
-                TextView text2 = layout.findViewById(R.id.dialog_for_galaxy_store_apk_installation);
-                text2.setVisibility(View.VISIBLE);
-                String store;
-                //if (PPApplication.deviceIsSamsung)
-                    store = activity.getString(R.string.install_ppp_store_galaxystore);
-                //else
-                //    store = activity.getString(R.string.install_ppp_store_droidify);
-                String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
-                        " " + store +
-                        activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
-                text2.setText(str);
-            }
-        }
-
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setCancelable(true);
-
-        int buttonRes = R.string.check_releases_go_to_galaxy_store;
-        if (galaxyStoreInstalled)
-            buttonRes = R.string.check_releases_open_galaxy_store;
-        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
-            Intent intent;
-            if (galaxyStoreInstalled)
-                intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplus"));
-            else {
-                String url = PPApplication.GALAXY_STORE_PPP_RELEASES_URL;
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-            }
-            try {
-                activity.startActivity(intent);
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            activity.finish();
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
-        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        alertDialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!activity.isFinishing())
-            alertDialog.show();
-
-    }
-*/
-/*
-    private void checkInAmazonAppstore(final Activity activity) {
-        // com.amazon.venezia
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
-
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
-        try {
-            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
-        } catch (Exception e) {
-            message = "<br>";
-        }
-
-        View layout;
-        LayoutInflater inflater = activity.getLayoutInflater();
-        layout = inflater.inflate(R.layout.dialog_for_amazon_appstore, null);
-        dialogBuilder.setView(layout);
-
-        TextView text;
-        text = layout.findViewById(R.id.dialog_for_amazon_appstore_info_text);
-        text.setText(message);
-
-        boolean amazonStoreInstalled = false;
-        PackageManager pm = activity.getPackageManager();
-        try {
-            pm.getPackageInfo("com.amazon.venezia", PackageManager.GET_ACTIVITIES);
-            amazonStoreInstalled = true;
-        } catch (Exception ignored) {}
-
-        if (!amazonStoreInstalled) {
-            text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
-            text.setVisibility(View.VISIBLE);
-            CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
-            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " »»";
-            Spannable sbt = new SpannableString(str2);
-            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    ds.setColor(ds.linkColor);    // you can use custom color
-                    ds.setUnderlineText(false);    // this remove the underline
-                }
-
-                @Override
-                public void onClick(@NonNull View textView) {
-                    String url = PPApplication.AMAZON_APPSTORE_APPLICATION_URL;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                }
-            };
-            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-            text.setText(sbt);
-            text.setMovementMethod(LinkMovementMethod.getInstance());
-        } else {
-            text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
-            text.setVisibility(View.GONE);
-        }
-
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setCancelable(true);
-
-        final boolean _amazonStoreInstalled = amazonStoreInstalled;
-        int buttonRes = R.string.check_releases_go_to_amazon_appstore;
-        if (amazonStoreInstalled)
-            buttonRes = R.string.check_releases_open_amazon_appstore;
-
-        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
-
-            if (_amazonStoreInstalled) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
-                intent.setPackage("com.amazon.venezia");
-                try {
-                    activity.startActivity(intent);
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            } else {
-                String url = PPApplication.AMAZON_APPSTORE_PPP_RELEASES_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-            activity.finish();
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
-        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        alertDialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!activity.isFinishing())
-            alertDialog.show();
-
-    }
-*/
-/*
-    @SuppressLint("InflateParams")
-    private void checkInHuaweiAppGallery(final Activity activity) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
-
-        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-        try {
-            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")"+StringConstants.TAG_BOLD_END_HTML;
-        } catch (Exception e) {
-            message = StringConstants.TAG_BREAK_HTML;
-        }
-
-        View layout;
-        LayoutInflater inflater = activity.getLayoutInflater();
-        layout = inflater.inflate(R.layout.dialog_for_appgallery, null);
-        dialogBuilder.setView(layout);
-
-        TextView text;
-        text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
-        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
-        text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
-
-        boolean appGalleryInstalled = false;
-        PackageManager pm = activity.getPackageManager();
-        try {
-            pm.getPackageInfo(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
-            appGalleryInstalled = true;
-        } catch (Exception ignored) {}
-
-        text = layout.findViewById(R.id.dialog_for_appgallery_application);
-        View buttonsDivider = layout.findViewById(R.id.dialog_for_appgallery_buttonsDivider);
-        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
-            text.setVisibility(View.GONE);
-            //buttonsDivider.setVisibility(View.GONE);
-        } else {
-            if (!appGalleryInstalled) {
-                text.setVisibility(View.VISIBLE);
-                buttonsDivider.setVisibility(View.VISIBLE);
-                CharSequence str1 = activity.getString(R.string.check_releases_appgallery_ppp_release);
-                CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-                Spannable sbt = new SpannableString(str2);
-                sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                ClickableSpan clickableSpan = new ClickableSpan() {
-                    @Override
-                    public void updateDrawState(TextPaint ds) {
-                        ds.setColor(ds.linkColor);    // you can use custom color
-                        ds.setUnderlineText(false);    // this remove the underline
-                    }
-
-                    @Override
-                    public void onClick(@NonNull View textView) {
-
-                        String url = PPApplication.HUAWEI_APPGALLERY_PPP_RELEASES_URL;
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        try {
-                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
-                    }
-                };
-                sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-                text.setText(sbt);
-                text.setMovementMethod(LinkMovementMethod.getInstance());
-
-                if (Build.VERSION.SDK_INT >= 33) {
-                    TextView text2 = layout.findViewById(R.id.dialog_for_appgallery_apk_installation);
-                    text2.setVisibility(View.VISIBLE);
-                    String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
-                            " " + activity.getString(R.string.install_ppp_store_appgallery) +
-                            activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
-                    text2.setText(str);
-                }
-            } else {
-                text.setVisibility(View.GONE);
-                buttonsDivider.setVisibility(View.GONE);
-            }
-        }
-
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setCancelable(true);
-
-        //PackageManager packageManager = activity.getPackageManager();
-        //Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
-
-        final boolean _appGalleryInstalled = appGalleryInstalled;
-        int buttonRes = R.string.alert_button_install_store;
-        if (appGalleryInstalled)
-            buttonRes = R.string.check_releases_open_appgallery;
-
-        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
-            if (_appGalleryInstalled) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
-                try {
-                    activity.startActivity(intent);
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            } else {
-                String url = PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-            activity.finish();
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
-        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        alertDialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!activity.isFinishing())
-            alertDialog.show();
-
-    }
-*/
     @SuppressLint("InflateParams")
     private void checkInAPKPure(final Activity activity) {
         // https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.menu_check_github_releases), null);
+        //dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
         String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         try {
@@ -1191,7 +859,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     @SuppressLint("InflateParams")
     private void checkInDroidIfy(final Activity activity, boolean forGitHub) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.menu_check_github_releases), null);
+        //dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
         String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         try {
@@ -1343,7 +1013,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     @SuppressLint("InflateParams")
     private void checkInNeoStore(final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.menu_check_github_releases), null);
+        //dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
         String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
         try {

@@ -40,7 +40,9 @@ class AddEventDialog
         this.activity = activity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.new_event_predefined_events_dialog);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.new_event_predefined_events_dialog), null);
+        //dialogBuilder.setTitle(R.string.new_event_predefined_events_dialog);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

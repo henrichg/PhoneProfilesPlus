@@ -11,12 +11,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
     private InfoDialogPreference preference;
     private Context context;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

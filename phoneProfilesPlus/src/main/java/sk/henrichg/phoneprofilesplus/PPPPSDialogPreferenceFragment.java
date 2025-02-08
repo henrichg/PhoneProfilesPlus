@@ -40,6 +40,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     /** @noinspection FieldCanBeLocal*/
     private TextView ppppsLaunchText = null;
 
+//TODO title
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -48,7 +50,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.pppps_pref_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.pppps_pref_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.pppps_pref_dialog_title);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(R.string.pppps_pref_dialog_close_button, null);
@@ -132,7 +136,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         }
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_pppps_dialog_title), null);
+        //dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
@@ -292,7 +298,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         }
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_pppps_dialog_title), null);
+        //dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_install_pppps_34, null);
@@ -557,7 +565,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         } catch (Exception ignored) {}
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_pppps_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -642,7 +652,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             if (droidifyInstalled || neostoreInstalled || fdroidInstalled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+                GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                        activity.getString(R.string.install_pppps_dialog_title), null);
+                //dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
 
                 LayoutInflater inflater = activity.getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog_install_pppps_from_store, null);

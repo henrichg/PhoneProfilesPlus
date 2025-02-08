@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -20,6 +21,12 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
     private AppCompatSpinner voiceSpinner = null;
     private AppCompatSpinner smsSpinner = null;
     private AppCompatSpinner dataSpinner = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

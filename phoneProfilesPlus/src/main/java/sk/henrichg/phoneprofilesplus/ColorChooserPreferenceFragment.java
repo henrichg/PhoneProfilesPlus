@@ -26,6 +26,12 @@ public class ColorChooserPreferenceFragment extends PreferenceDialogFragmentComp
 
     private ColorChooserPreference preference;
 
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
@@ -128,9 +134,10 @@ public class ColorChooserPreferenceFragment extends PreferenceDialogFragmentComp
             if (index == -2) {
                 if (getActivity() != null) {
                     // custom color
-                    //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.context);
-                    dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
+                    GlobalGUIRoutines.setCustomDialogTitle(preference.context, dialogBuilder, false,
+                            preference.context.getString(R.string.colorChooser_pref_dialog_title), null);
+                    //dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
                     dialogBuilder.setCancelable(true);
 
                     //LayoutInflater inflater = getLayoutInflater();

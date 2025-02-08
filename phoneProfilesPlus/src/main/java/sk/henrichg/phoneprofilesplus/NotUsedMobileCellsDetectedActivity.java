@@ -94,7 +94,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         //GlobalGUIRoutines.setLanguage(this);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.not_used_mobile_cells_detected_title);
+        GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
+                getString(R.string.not_used_mobile_cells_detected_title), null);
+        //dialogBuilder.setTitle(R.string.not_used_mobile_cells_detected_title);
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             // 1. test existence of mobile cell id in table, may be deleted
             // 2. test existence of event in table, may be deleted

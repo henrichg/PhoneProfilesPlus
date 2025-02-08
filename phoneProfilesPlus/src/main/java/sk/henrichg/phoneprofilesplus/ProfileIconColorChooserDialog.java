@@ -36,7 +36,9 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         this.activity = activity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.colorChooser_pref_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
@@ -188,7 +190,9 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             if (index == -2) {
                 // custom color
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
+                GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                        activity.getString(R.string.colorChooser_pref_dialog_title), null);
+                //dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
                 dialogBuilder.setCancelable(true);
                 dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

@@ -85,6 +85,12 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private DeleteCellNamesFromEventsAsyncTask deleteCellNamesFromEventsAsyncTask = null;
     private RenameCellNamesFromEventsAsyncTask renameCellNamesFromEventsAsyncTask = null;
 
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(Context context)
@@ -1006,18 +1012,6 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     boolean focusable = true; // lets taps outside the popup also dismiss it
                     fragment.popupWindow = new PopupWindow(popupView, width, height, focusable);
                     fragment.popupWindow.showAtLocation(fragment.cellsListView, Gravity.CENTER, 0, 0);
-
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                    dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationEventMobileCellConfigureCells);
-
-                    LayoutInflater inflater = LayoutInflater.from(prefContext);
-                    View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                    dialogBuilder.setView(layout);
-
-                    fragment.progressDialog = dialogBuilder.create();
-                    fragment.progressDialog.show();
-                    */
                 }
             }
         }

@@ -275,7 +275,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);
+        GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
+                getString(R.string.event_preferences_location_radius_label), null);
+        //dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);
         dialogBuilder.setCancelable(true);
 
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {

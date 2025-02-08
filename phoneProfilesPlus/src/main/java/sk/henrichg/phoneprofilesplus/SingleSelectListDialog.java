@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,8 @@ class SingleSelectListDialog
         this.itemClick = _itemClick;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        if (_showSubtitle) {
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, _showSubtitle, _title, _subtitle);
+        /*if (_showSubtitle) {
             // custom dialog title
             LayoutInflater layoutInflater = LayoutInflater.from(activity);
             @SuppressLint("InflateParams")
@@ -50,7 +52,7 @@ class SingleSelectListDialog
             subtitleText.setText(_subtitle);
             dialogBuilder.setCustomTitle(titleView);
         } else
-            dialogBuilder.setTitle(_title);
+            dialogBuilder.setTitle(_title);*/
 
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);

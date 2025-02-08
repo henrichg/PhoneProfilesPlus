@@ -60,6 +60,8 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
     private RefreshListViewAsyncTask rescanAsyncTask;
 
+// TODO title
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -68,7 +70,9 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.event_preferences_bluetooth_adapter_name);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.event_preferences_bluetooth_adapter_name), null);
+        //dialogBuilder.setTitle(R.string.event_preferences_bluetooth_adapter_name);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel,  (dialog, which) -> {
