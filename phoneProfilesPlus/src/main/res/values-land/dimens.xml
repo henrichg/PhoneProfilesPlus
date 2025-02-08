@@ -97,4 +97,8 @@
 
     <dimen name="alert_dialog_top_padding">0dp</dimen>
 
+    <dimen name="dialog_title_text_size">16sp</dimen>
+    <dimen name="single_selection_title_text_size">15sp</dimen>
+    <dimen name="single_selection_subtitle_text_size">14dp</dimen>
+
 </resources>

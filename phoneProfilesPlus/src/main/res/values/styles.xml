@@ -226,7 +226,7 @@
     </style>
 
     <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/dialog_title_text_size</item>
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">3</item>
     </style>

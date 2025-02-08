@@ -13,7 +13,7 @@
         android:id="@+id/custom_dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/preference_title_text_size"
+        android:textSize="@dimen/single_selection_title_text_size"
         android:textColor="@color/dialogTitleTextColor"
         android:text="" />
 <!--    android:textStyle="bold"-->
@@ -22,7 +22,7 @@
         android:id="@+id/custom_dialog_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/preference_subtitle_text_size"
+        android:textSize="@dimen/single_selection_subtitle_text_size"
         android:textColor="@color/activitySecondaryTextColor"
         android:text=""
         tools:ignore="SpUsage" />
