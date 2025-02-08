@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_profileicon_preference_root"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -8,4 +8,4 @@
 
     <include  layout="@layout/dialog_profileicon_preference_portr" />
 
-</LinearLayout>
+</RelativeLayout>
