@@ -945,9 +945,9 @@ class DatabaseHandlerProfiles {
                     // unlink shortcuts from profile
                     String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
-                        boolean shortcut = Application.isShortcut(split);
+                        boolean shortcut = CApplication.isShortcut(split);
                         if (shortcut) {
-                            long shortcutId = Application.getShortcutId(split);
+                            long shortcutId = CApplication.getShortcutId(split);
                             instance.deleteShortcut(shortcutId);
                         }
                     }

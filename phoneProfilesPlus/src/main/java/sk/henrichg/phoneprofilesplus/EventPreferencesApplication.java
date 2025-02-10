@@ -117,8 +117,8 @@ class EventPreferencesApplication extends EventPreferences {
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                     String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
-                        String packageName = Application.getPackageName(splits[0]);
-                        String activityName = Application.getActivityName(splits[0]);
+                        String packageName = CApplication.getPackageName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         PackageManager packageManager = context.getPackageManager();
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
@@ -484,7 +484,7 @@ class EventPreferencesApplication extends EventPreferences {
 
             String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
-                String packageName = Application.getPackageName(split);
+                String packageName = CApplication.getPackageName(split);
                 if (packageName.equals(_packageName)) {
                     packageNameFound = true;
                     break;
@@ -518,7 +518,7 @@ class EventPreferencesApplication extends EventPreferences {
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = _applications.split(StringConstants.STR_SPLIT_REGEX);
                         for (String split : splits) {
-                            String packageName = Application.getPackageName(split);
+                            String packageName = CApplication.getPackageName(split);
 
                             if (foregroundApplication.equals(packageName)) {
                                 if (_startTime > 0) {

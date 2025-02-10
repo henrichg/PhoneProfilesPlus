@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import androidx.fragment.app.DialogFragment;
 public class PPEditTextAlertDialog extends DialogFragment {
     private AlertDialog mDialog;
     private AppCompatActivity activity;
-    private EditText editText;
 
     private CharSequence title;
     private CharSequence label;
@@ -94,7 +92,7 @@ public class PPEditTextAlertDialog extends DialogFragment {
             //noinspection DataFlowIssue
             messageText.setText(label);
 
-            editText = layout.findViewById(R.id.dialog_with_edittext_edit);
+            EditText editText = layout.findViewById(R.id.dialog_with_edittext_edit);
             //noinspection DataFlowIssue
             editText.setText(initialEditValue);
             editText.requestFocus();

@@ -89,21 +89,18 @@ public class MobileCellNamesDialog extends DialogFragment {
                 if (positiveClick != null)
                     dialogBuilder.setPositiveButton(android.R.string.ok, positiveClick);
                 else {
-                    dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //if (preference == null) {
-                            //if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                            //    ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
-                            //}
-                            //} else
-                            if (preference instanceof MobileCellsRegistrationDialogPreference) {
-                                //noinspection DataFlowIssue
-                                ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
-                            } else if (preference instanceof MobileCellsEditorPreference) {
-                                //noinspection DataFlowIssue
-                                ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
-                            }
+                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        //if (preference == null) {
+                        //if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                        //    ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
+                        //}
+                        //} else
+                        if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                            //noinspection DataFlowIssue
+                            ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
+                        } else if (preference instanceof MobileCellsEditorPreference) {
+                            //noinspection DataFlowIssue
+                            ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                         }
                     });
                 }
@@ -115,12 +112,9 @@ public class MobileCellNamesDialog extends DialogFragment {
 
             mDialog = dialogBuilder.create();
 
-            mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    asyncTask = new ShowDialogAsyncTask(fragment, activity);
-                    asyncTask.execute();
-                }
+            mDialog.setOnShowListener(dialog -> {
+                asyncTask = new ShowDialogAsyncTask(fragment, activity);
+                asyncTask.execute();
             });
 
             cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);

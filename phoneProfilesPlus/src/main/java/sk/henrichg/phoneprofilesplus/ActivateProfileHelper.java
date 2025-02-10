@@ -4865,9 +4865,9 @@ class ActivateProfileHelper {
 
                         for (String split : splits) {
 //                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
-                            int startApplicationDelay = Application.getStartApplicationDelay(split);
+                            int startApplicationDelay = CApplication.getStartApplicationDelay(split);
 //                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
-                            if (Application.getStartApplicationDelay(split) > 0) {
+                            if (CApplication.getStartApplicationDelay(split) > 0) {
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
 //                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
@@ -4898,8 +4898,8 @@ class ActivateProfileHelper {
         Intent appIntent;
         PackageManager packageManager = context.getPackageManager();
 
-        if (Application.isShortcut(runApplicationData)) {
-            long shortcutId = Application.getShortcutId(runApplicationData);
+        if (CApplication.isShortcut(runApplicationData)) {
+            long shortcutId = CApplication.getShortcutId(runApplicationData);
             if (shortcutId > 0) {
                 Shortcut shortcut = DatabaseHandler.getInstance(context).getShortcut(shortcutId);
                 if (shortcut != null) {
@@ -4931,9 +4931,9 @@ class ActivateProfileHelper {
                         null, profileName, "");
             }
         } else
-        if (Application.isIntent(runApplicationData)) {
+        if (CApplication.isIntent(runApplicationData)) {
             //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "Intent");
-            long intentId = Application.getIntentId(runApplicationData);
+            long intentId = CApplication.getIntentId(runApplicationData);
             //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "intentId="+intentId);
             if (intentId > 0) {
                 PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
@@ -4985,7 +4985,7 @@ class ActivateProfileHelper {
                         null, profileName, "");
             }
         } else {
-            String packageName = Application.getPackageName(runApplicationData);
+            String packageName = CApplication.getPackageName(runApplicationData);
             appIntent = packageManager.getLaunchIntentForPackage(packageName);
             if (appIntent != null) {
                 appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -5045,7 +5045,7 @@ class ActivateProfileHelper {
                     if (!split.isEmpty()) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
-                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
+                            command1 = COMMAND_AM_FORCE_STOP_APP + CApplication.getPackageName(split);
                             try {
                                 ShizukuUtils.executeCommand(command1);
                             } catch (Exception e) {
@@ -5064,7 +5064,7 @@ class ActivateProfileHelper {
                     if (!split.isEmpty()) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
-                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
+                            command1 = COMMAND_AM_FORCE_STOP_APP + CApplication.getPackageName(split);
                             Command command = new Command(0, /*false,*/ command1);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -8875,7 +8875,7 @@ class ActivateProfileHelper {
                                         String[] splits = profile._clearNotificationApplications.split(StringConstants.STR_SPLIT_REGEX);
                                         for (String split : splits) {
                                             // get only package name = remove activity
-                                            String packageName = Application.getPackageName(split);
+                                            String packageName = CApplication.getPackageName(split);
                                             // search for package name in saved package names
                                             StatusBarNotification activeNotification = isNotificationActive(profile,
                                                     statusBarNotification,

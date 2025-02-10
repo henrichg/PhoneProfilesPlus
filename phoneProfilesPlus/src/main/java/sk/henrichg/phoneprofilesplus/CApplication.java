@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-class Application  implements Parcelable {
+class CApplication implements Parcelable {
     int type = TYPE_APPLICATION;
     String appLabel = "";
     String packageName = "";
@@ -21,7 +21,7 @@ class Application  implements Parcelable {
     static final int TYPE_SHORTCUT = 2;
     static final int TYPE_INTENT = 3;
 
-    Application() {
+    CApplication() {
     }
 
     @NonNull
@@ -229,7 +229,7 @@ class Application  implements Parcelable {
             return 0;
     }
 
-    private Application(Parcel in) {
+    private CApplication(Parcel in) {
         this.type = in.readInt();
         this.appLabel = in.readString();
         this.packageName = in.readString();
@@ -259,13 +259,13 @@ class Application  implements Parcelable {
         dest.writeInt(this.startApplicationDelay);
     }
 
-    public static final Parcelable.Creator<Application> CREATOR = new Parcelable.Creator<>() {
-        public Application createFromParcel(Parcel source) {
-            return new Application(source);
+    public static final Parcelable.Creator<CApplication> CREATOR = new Parcelable.Creator<>() {
+        public CApplication createFromParcel(Parcel source) {
+            return new CApplication(source);
         }
 
-        public Application[] newArray(int size) {
-            return new Application[size];
+        public CApplication[] newArray(int size) {
+            return new CApplication[size];
         }
     };
 

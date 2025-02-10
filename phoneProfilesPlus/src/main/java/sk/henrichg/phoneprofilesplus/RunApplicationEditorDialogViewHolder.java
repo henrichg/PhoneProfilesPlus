@@ -18,7 +18,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
 
     private final RunApplicationEditorDialog dialog;
 
-    private Application application;
+    private CApplication application;
 
     RunApplicationEditorDialogViewHolder(View itemView, /*Context context,*/ RunApplicationEditorDialog d)
     {
@@ -47,7 +47,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
         itemView.setOnClickListener(this);
     }
 
-    void bindApplication(Application application, int position) {
+    void bindApplication(CApplication application, int position) {
         this.application = application;
 
         // Display Application data

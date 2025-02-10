@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,12 +55,12 @@ public class RunApplicationEditorDialog extends DialogFragment
     private AppCompatSpinner filterSpinner;
 
 
-    private List<Application> cachedApplicationList;
-    List<Application> applicationList;
+    private List<CApplication> cachedApplicationList;
+    List<CApplication> applicationList;
 
-    private Application editedApplication;
+    private CApplication editedApplication;
 
-    private Application selectedApplication;
+    private CApplication selectedApplication;
     private int startApplicationDelay = 0;
 
     private String[] filterValues;
@@ -82,13 +81,14 @@ public class RunApplicationEditorDialog extends DialogFragment
     public RunApplicationEditorDialog() {
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
     public RunApplicationEditorDialog(AppCompatActivity activity, RunApplicationsDialogPreference preference,
-                               final Application application)
+                                      final CApplication _application)
     {
         this.preference = preference;
         this.activity = activity;
-        this.editedApplication = application;
-        this.selectedApplication = application;
+        this.editedApplication = _application;
+        this.selectedApplication = _application;
         if (editedApplication != null)
             startApplicationDelay = editedApplication.startApplicationDelay;
         applicationList = new ArrayList<>();
@@ -191,13 +191,13 @@ public class RunApplicationEditorDialog extends DialogFragment
 
             if (editedApplication != null) {
                 switch (editedApplication.type) {
-                    case Application.TYPE_APPLICATION:
+                    case CApplication.TYPE_APPLICATION:
                         selectedFilter = 0;
                         break;
-                    case Application.TYPE_SHORTCUT:
+                    case CApplication.TYPE_SHORTCUT:
                         selectedFilter = 1;
                         break;
-                    case Application.TYPE_INTENT:
+                    case CApplication.TYPE_INTENT:
                         selectedFilter = 2;
                         break;
                 }
@@ -288,12 +288,12 @@ public class RunApplicationEditorDialog extends DialogFragment
         if (selectedFilter == 2) {
             if (preference.intentDBList != null) {
                 for (PPIntent ppIntent : preference.intentDBList) {
-                    Application _application = new Application();
-                    _application.type = Application.TYPE_INTENT;
+                    CApplication _application = new CApplication();
+                    _application.type = CApplication.TYPE_INTENT;
                     _application.intentId = ppIntent._id;
                     _application.appLabel = ppIntent._name;
                     if (selectedApplication != null) {
-                        if (selectedApplication.type == Application.TYPE_INTENT) {
+                        if (selectedApplication.type == CApplication.TYPE_INTENT) {
                             if (selectedApplication.intentId == _application.intentId)
                                 selectedPosition = pos;
                         }
@@ -306,21 +306,21 @@ public class RunApplicationEditorDialog extends DialogFragment
         }
 
         if (cachedApplicationList != null) {
-            for (Application _application : cachedApplicationList) {
+            for (CApplication _application : cachedApplicationList) {
                 boolean add = false;
-                if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
+                if ((selectedFilter == 0) && (_application.type == CApplication.TYPE_APPLICATION))
                     add = true;
-                if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
+                if ((selectedFilter == 1) && (_application.type == CApplication.TYPE_SHORTCUT))
                     add = true;
                 if (add) {
                     if (selectedApplication != null) {
                         switch (selectedApplication.type) {
-                            case Application.TYPE_APPLICATION:
+                            case CApplication.TYPE_APPLICATION:
                                 if (selectedApplication.packageName.equals(_application.packageName)) {
                                     selectedPosition = pos;
                                 }
                                 break;
-                            case Application.TYPE_SHORTCUT:
+                            case CApplication.TYPE_SHORTCUT:
                                 if (selectedApplication.packageName.equals(_application.packageName) &&
                                         selectedApplication.activityName.equals(_application.activityName)) {
                                     selectedPosition = pos;
@@ -335,14 +335,14 @@ public class RunApplicationEditorDialog extends DialogFragment
         }
     }
 
-    private Application getSelectedApplication() {
+    private CApplication getSelectedApplication() {
         if (selectedFilter == 2) {
             if (preference.intentDBList != null) {
                 int pos = 0;
                 for (PPIntent ppIntent : preference.intentDBList) {
                     if (pos == selectedPosition) {
-                        Application _application = new Application();
-                        _application.type = Application.TYPE_INTENT;
+                        CApplication _application = new CApplication();
+                        _application.type = CApplication.TYPE_INTENT;
                         _application.intentId = ppIntent._id;
                         _application.appLabel = ppIntent._name;
 
@@ -356,11 +356,11 @@ public class RunApplicationEditorDialog extends DialogFragment
         if (cachedApplicationList != null) {
             // search filtered application in cachedApplicationList
             int pos = 0;
-            for (Application _application : cachedApplicationList) {
+            for (CApplication _application : cachedApplicationList) {
                 boolean search = false;
-                if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
+                if ((selectedFilter == 0) && (_application.type == CApplication.TYPE_APPLICATION))
                     search = true;
-                if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
+                if ((selectedFilter == 1) && (_application.type == CApplication.TYPE_SHORTCUT))
                     search = true;
                 if (search) {
                     if (pos == selectedPosition) {
@@ -390,13 +390,13 @@ public class RunApplicationEditorDialog extends DialogFragment
                 mSelectedAppIcon.setVisibility(View.GONE);
             String appName = "";
             switch (selectedApplication.type) {
-                case Application.TYPE_APPLICATION:
+                case CApplication.TYPE_APPLICATION:
                     appName = RUN_APPLICATIONS_TYPE_MARK_APPLICATION;
                     break;
-                case Application.TYPE_SHORTCUT:
+                case CApplication.TYPE_SHORTCUT:
                     appName = RUN_APPLICATIONS_TYPE_MARK_SHORTCUT;
                     break;
-                case Application.TYPE_INTENT:
+                case CApplication.TYPE_INTENT:
                     appName = RUN_APPLICATIONS_TYPE_MARK_INTENT;
                     break;
             }
@@ -452,10 +452,10 @@ public class RunApplicationEditorDialog extends DialogFragment
         popup = new PopupMenu(context, view, Gravity.END);
 
         int position = (int) view.getTag();
-        final Application application = applicationList.get(position);
+        final CApplication application = applicationList.get(position);
 
         boolean canDelete = true;
-        if (application.type == Application.TYPE_INTENT) {
+        if (application.type == CApplication.TYPE_INTENT) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
                     canDelete = /*(ppIntent._usedCount == 0) &&*/
@@ -478,7 +478,7 @@ public class RunApplicationEditorDialog extends DialogFragment
             }
             else
             if (itemId == R.id.applications_intent_editor_dlg_item_menu_duplicate) {
-                Application newApplication = duplicateIntent(application);
+                CApplication newApplication = duplicateIntent(application);
                 startEditor(newApplication);
                 return true;
             }
@@ -508,7 +508,7 @@ public class RunApplicationEditorDialog extends DialogFragment
                         false, false,
                         true,
                         false,
-                        (AppCompatActivity) activity
+                        activity
                 );
 
                 if (!activity.isFinishing())
@@ -525,7 +525,7 @@ public class RunApplicationEditorDialog extends DialogFragment
             popup.show();
     }
 
-    private void startEditor(Application application) {
+    private void startEditor(CApplication application) {
         Intent intent = new Intent(activity, RunApplicationEditorIntentActivity.class);
         intent.putExtra(EXTRA_APPLICATION, application);
         PPIntent ppIntent;
@@ -551,11 +551,11 @@ public class RunApplicationEditorDialog extends DialogFragment
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private Application duplicateIntent(Application originalApplication) {
+    private CApplication duplicateIntent(CApplication originalApplication) {
         if (originalApplication == null)
             return null;
 
-        Application newApplication = null;
+        CApplication newApplication = null;
         PPIntent newPPIntent = null;
 
         if (preference.intentDBList != null) {
@@ -574,7 +574,7 @@ public class RunApplicationEditorDialog extends DialogFragment
 
             fillApplicationList();
 
-            for (Application application : applicationList) {
+            for (CApplication application : applicationList) {
                 if (application.intentId == newPPIntent._id) {
                     newApplication = application;
                     break;
@@ -589,7 +589,7 @@ public class RunApplicationEditorDialog extends DialogFragment
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void deleteIntent(Application application) {
+    private void deleteIntent(CApplication application) {
         if (application == null)
             return;
 

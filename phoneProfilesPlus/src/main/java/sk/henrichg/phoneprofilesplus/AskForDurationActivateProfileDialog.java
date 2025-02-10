@@ -193,6 +193,7 @@ public class AskForDurationActivateProfileDialog extends DialogFragment
                             dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
                     dialog.listView.setAdapter(adapter);
 
+                    //noinspection ExtractMethodRecommender
                     int position;
                     long iProfileId;
                     iProfileId = afterDoProfile;

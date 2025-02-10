@@ -41,7 +41,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     private ImageView packageIcon3;
     private ImageView packageIcon4;
 
-    final List<Application> applicationList;
+    final List<CApplication> applicationList;
 
     public ApplicationsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -99,10 +99,10 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         // change checked state by value
         if (PPApplicationStatic.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
+            List<CApplication> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                for (Application application : cachedApplicationList) {
+                for (CApplication application : cachedApplicationList) {
                     application.checked = false;
                     for (String split : splits) {
                         String packageName;
@@ -130,7 +130,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 int i = 0;
                 int ich = 0;
                 while (i < applicationList.size()) {
-                    Application application = applicationList.get(i);
+                    CApplication application = applicationList.get(i);
                     if (removePPApplications == 1) {
                         if (
                                 application.packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
@@ -224,7 +224,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     else
                     if (Application.isIntent(splits[0])) {
                     } else*/ {
-                        String activityName = Application.getActivityName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
@@ -239,7 +239,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                             }
                         } else {
                             Intent intent = new Intent();
-                            intent.setClassName(Application.getPackageName(splits[0]), activityName);
+                            intent.setClassName(CApplication.getPackageName(splits[0]), activityName);
                             ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                             if (info != null)
                                 prefDataSummary = info.loadLabel(packageManager).toString();
@@ -268,7 +268,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         StringBuilder _value = new StringBuilder();
         if (applicationList != null)
         {
-            for (Application application : applicationList)
+            for (CApplication application : applicationList)
             {
                 if (application.checked)
                 {
@@ -345,7 +345,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             }
             else*/
                 {
-                    String activityName = Application.getActivityName(splits[0]);
+                    String activityName = CApplication.getActivityName(splits[0]);
                     if (activityName.isEmpty()) {
                         try {
                             app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
@@ -362,7 +362,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         }
                     } else {
                         Intent intent = new Intent();
-                        intent.setClassName(Application.getPackageName(splits[0]), activityName);
+                        intent.setClassName(CApplication.getPackageName(splits[0]), activityName);
                         ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                         if (info != null) {
                             packageIcon.setImageDrawable(info.loadIcon(packageManager));
@@ -407,7 +407,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     if (Application.isIntent(splits[i])) {
                     } else*/
                         {
-                            String activityName = Application.getActivityName(splits[i]);
+                            String activityName = CApplication.getActivityName(splits[i]);
                             if (activityName.isEmpty()) {
                                 try {
                                     app = packageManager.getApplicationInfo(splits[i], PackageManager.MATCH_ALL);
@@ -424,7 +424,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                 }
                             } else {
                                 Intent intent = new Intent();
-                                intent.setClassName(Application.getPackageName(splits[i]), activityName);
+                                intent.setClassName(CApplication.getPackageName(splits[i]), activityName);
                                 ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
 
                                 if (info != null) {

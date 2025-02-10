@@ -90,12 +90,9 @@ public class ContactsFilterDialog extends DialogFragment {
 
             mDialog = dialogBuilder.create();
 
-            mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    asyncTask = new ShowDialogAsyncTask(fragment, activity);
-                    asyncTask.execute();
-                }
+            mDialog.setOnShowListener(dialog -> {
+                asyncTask = new ShowDialogAsyncTask(fragment, activity);
+                asyncTask.execute();
             });
 
             contactsFilterListView = layout.findViewById(R.id.contacts_filter_dlg_listview);

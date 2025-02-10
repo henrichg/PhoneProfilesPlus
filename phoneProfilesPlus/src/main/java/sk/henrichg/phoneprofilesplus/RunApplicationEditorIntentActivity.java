@@ -32,7 +32,7 @@ import java.util.List;
 /** @noinspection ExtractMethodRecommender*/
 public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
-    private Application application = null;
+    private CApplication application = null;
     private PPIntent ppIntent = null;
 
     private int startApplicationDelay;

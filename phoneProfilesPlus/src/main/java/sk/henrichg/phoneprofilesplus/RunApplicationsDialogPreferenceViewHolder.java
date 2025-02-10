@@ -24,7 +24,7 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
     private final AppCompatImageButton imageViewMenu;
     private final TextView textViewStartApplicationDelay;
 
-    private Application application;
+    private CApplication application;
 
     private final Context context;
     private final RunApplicationsDialogPreference preference;
@@ -46,12 +46,12 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         itemView.setOnClickListener(this);
     }
 
-    void bindApplication(Application application) {
+    void bindApplication(CApplication application) {
 
         // 4. Bind the data to the ViewHolder
         this.application = application;
 
-        if (this.application.type != Application.TYPE_INTENT) {
+        if (this.application.type != CApplication.TYPE_INTENT) {
             if (PPApplicationStatic.getApplicationsCache() != null) {
                 Bitmap icon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(application/*, false*/);
                 if (icon == null)
@@ -76,9 +76,9 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         }
         textViewAppName.setText(text);
         boolean errorColor = false;
-        if ((application.type == Application.TYPE_SHORTCUT) && (application.shortcutId == 0))
+        if ((application.type == CApplication.TYPE_SHORTCUT) && (application.shortcutId == 0))
             errorColor = true;
-        if ((application.type == Application.TYPE_INTENT) && (application.intentId == 0))
+        if ((application.type == CApplication.TYPE_INTENT) && (application.intentId == 0))
             errorColor = true;
         setTextStyle(textViewAppName, errorColor);
 

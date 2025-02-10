@@ -21,7 +21,6 @@ public class PPAlertDialog extends DialogFragment
         implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
     private AlertDialog mDialog;
     private AppCompatActivity activity;
-    private TextView messageText;
 
     private CharSequence title;
     private CharSequence message;
@@ -119,7 +118,7 @@ public class PPAlertDialog extends DialogFragment
 
             //mDialog.setOnShowListener(dialog -> doShow());
 
-            messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
+            TextView messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
             //noinspection DataFlowIssue
             messageText.setText(message);
             messageText.setMovementMethod(new PPLinkMovementMethod(this, activity));

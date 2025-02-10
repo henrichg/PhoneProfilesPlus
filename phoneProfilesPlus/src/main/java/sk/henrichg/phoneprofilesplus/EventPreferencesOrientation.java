@@ -253,8 +253,8 @@ class EventPreferencesOrientation extends EventPreferences {
                 } else if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
                     String[] splits = this._ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
-                        String packageName = Application.getPackageName(splits[0]);
-                        String activityName = Application.getActivityName(splits[0]);
+                        String packageName = CApplication.getPackageName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         PackageManager packageManager = context.getPackageManager();
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
@@ -1005,7 +1005,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                             String[] splits = _ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                                             for (String split : splits) {
                                                 if (!split.isEmpty()) {
-                                                    String packageName = Application.getPackageName(split);
+                                                    String packageName = CApplication.getPackageName(split);
 //                                                PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "packageName="+packageName);
 
                                                     if (foregroundApplication.equals(packageName)) {
