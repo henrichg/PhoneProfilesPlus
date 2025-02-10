@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
@@ -557,7 +558,7 @@ public class ActivatorListFragment extends Fragment {
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
             else
-                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
+                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, (AppCompatActivity) getActivity());
         }
     }
 

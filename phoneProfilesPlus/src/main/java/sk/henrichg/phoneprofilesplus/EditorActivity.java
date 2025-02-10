@@ -238,6 +238,8 @@ public class EditorActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
@@ -749,10 +751,10 @@ public class EditorActivity extends AppCompatActivity
 
         unregisterReceiversInStop();
 
-        if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
-            addProfileDialog.mDialog.dismiss();
-        if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
-            addEventDialog.mDialog.dismiss();
+        //if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
+        //    addProfileDialog.mDialog.dismiss();
+        //if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
+        //    addEventDialog.mDialog.dismiss();
     }
 
     @Override
@@ -1405,6 +1407,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -1413,7 +1416,7 @@ public class EditorActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -1430,6 +1433,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     false,
@@ -1438,7 +1442,7 @@ public class EditorActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -1470,7 +1474,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_choose_language) {
             ChooseLanguageDialog chooseLanguageDialog = new ChooseLanguageDialog(this);
-            chooseLanguageDialog.show();
+            chooseLanguageDialog.showDialog();
             return true;
         }
         else
@@ -2213,6 +2217,7 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2221,7 +2226,7 @@ public class EditorActivity extends AppCompatActivity
                     );
 
                     if (!isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -2256,6 +2261,7 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2264,7 +2270,7 @@ public class EditorActivity extends AppCompatActivity
                     );
 
                     if (!isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -2326,6 +2332,7 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2333,7 +2340,7 @@ public class EditorActivity extends AppCompatActivity
                             this
                     );
 
-                    dialog.show();
+                    dialog.showDialog();
                 }
             }
         }
@@ -2445,6 +2452,7 @@ public class EditorActivity extends AppCompatActivity
                     GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
                 },
                 null,
+                null,
                 true, true,
                 false, false,
                 false,
@@ -2453,7 +2461,7 @@ public class EditorActivity extends AppCompatActivity
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -2682,6 +2690,7 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
@@ -2690,7 +2699,7 @@ public class EditorActivity extends AppCompatActivity
                                 );
 
                                 if (!isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         }
 
@@ -2733,6 +2742,7 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
@@ -2741,11 +2751,12 @@ public class EditorActivity extends AppCompatActivity
                                 );
 
                                 if (!isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         }
                     }
                 },
+                null,
                 null,
                 null,
                 null,
@@ -2758,7 +2769,7 @@ public class EditorActivity extends AppCompatActivity
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -2897,6 +2908,7 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 false,
@@ -2905,7 +2917,7 @@ public class EditorActivity extends AppCompatActivity
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void doExportData(final boolean email, final boolean toAuthor, final boolean share)
@@ -3224,6 +3236,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -3232,7 +3245,7 @@ public class EditorActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -3892,6 +3905,7 @@ public class EditorActivity extends AppCompatActivity
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -3899,7 +3913,7 @@ public class EditorActivity extends AppCompatActivity
                                 activity
                         );
 
-                        dialog.show();
+                        dialog.showDialog();
                     }
                 } else {
                     PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
@@ -4126,6 +4140,7 @@ public class EditorActivity extends AppCompatActivity
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -4133,7 +4148,7 @@ public class EditorActivity extends AppCompatActivity
                                 activity
                         );
 
-                        dialog.show();
+                        dialog.showDialog();
                     }
                 } else {
                     if (share)
@@ -4857,6 +4872,7 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
@@ -4865,7 +4881,7 @@ public class EditorActivity extends AppCompatActivity
                                 );
 
                                 if (!activity.isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         });
                         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -143,11 +144,11 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             }
         });
 
-        mContactsFilterDialog = new ContactsFilterDialog((Activity)prefContext, preference.withoutNumbers, preference);
+        mContactsFilterDialog = new ContactsFilterDialog((AppCompatActivity) prefContext, preference.withoutNumbers, preference);
         contactsFilter.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
-                    mContactsFilterDialog.show();
+                    mContactsFilterDialog.showDialog();
         });
 
     }

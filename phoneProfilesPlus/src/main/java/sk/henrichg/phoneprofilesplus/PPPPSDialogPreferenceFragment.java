@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -39,8 +40,6 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     private TextView ppppsVersionText = null;
     /** @noinspection FieldCanBeLocal*/
     private TextView ppppsLaunchText = null;
-
-//TODO title
 
     @NonNull
     @Override
@@ -805,15 +804,16 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        getActivity()
+                        (AppCompatActivity) getActivity()
                 );
 
                 if (!getActivity().isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }

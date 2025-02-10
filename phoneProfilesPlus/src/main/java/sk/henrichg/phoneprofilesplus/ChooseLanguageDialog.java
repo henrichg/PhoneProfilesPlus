@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -14,93 +16,104 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Locale;
 
 /** @noinspection ExtractMethodRecommender*/
-class ChooseLanguageDialog
+public class ChooseLanguageDialog extends DialogFragment
 {
-    final AlertDialog mDialog;
-    final EditorActivity activity;
+    private AlertDialog mDialog;
+    EditorActivity activity;
 
-    final ListView listView;
-    final TextView help;
+    private ListView listView;
+    private TextView help;
 
-    final ArrayList<Language> languages;
+    private ArrayList<Language> languages;
 
-    ChooseLanguageDialog(EditorActivity activity)
+    public ChooseLanguageDialog()
+    {
+    }
+
+    public ChooseLanguageDialog(EditorActivity activity)
     {
         this.activity = activity;
+    }
 
-        languages = new ArrayList<>();
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (EditorActivity) getActivity();
+        this.languages = new ArrayList<>();
+        if (this.activity != null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.menu_choose_language), null);
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
-                activity.getString(R.string.menu_choose_language), null);
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_choose_language, null);
+            dialogBuilder.setView(layout);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_choose_language, null);
-        dialogBuilder.setView(layout);
+            mDialog = dialogBuilder.create();
 
-        mDialog = dialogBuilder.create();
+            listView = layout.findViewById(R.id.choose_language_dlg_listview);
+            /*
+            mDialog.setOnShowListener(dialog -> {
+    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+    //                if (positive != null) positive.setAllCaps(false);
+    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+    //                if (negative != null) negative.setAllCaps(false);
 
-        listView = layout.findViewById(R.id.choose_language_dlg_listview);
-        /*
-        mDialog.setOnShowListener(dialog -> {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-
+                doShow();
+            });
+            */
             doShow();
-        });
-        */
-        doShow();
 
-        //noinspection DataFlowIssue
-        listView.setOnItemClickListener((parent, item, position, id) -> {
-            ChooseLanguageViewHolder viewHolder = (ChooseLanguageViewHolder) item.getTag();
-            if (viewHolder != null)
-                viewHolder.radioButton.setChecked(true);
-            doOnItemSelected(position);
-        });
+            //noinspection DataFlowIssue
+            listView.setOnItemClickListener((parent, item, position, id) -> {
+                ChooseLanguageViewHolder viewHolder = (ChooseLanguageViewHolder) item.getTag();
+                if (viewHolder != null)
+                    viewHolder.radioButton.setChecked(true);
+                doOnItemSelected(position);
+            });
 
-        String str1 = activity.getString(R.string.about_application_translations);
-        String str2 = str1 + " " + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-        Spannable sbt = new SpannableString(str2);
-        //sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                //ds.bgColor = Color.GRAY;
-                ds.setUnderlineText(false);    // this remove the underline
-            }
-
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = PPApplication.CROWDIN_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
+            String str1 = activity.getString(R.string.about_application_translations);
+            String str2 = str1 + " " + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable sbt = new SpannableString(str2);
+            //sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    //ds.bgColor = Color.GRAY;
+                    ds.setUnderlineText(false);    // this remove the underline
                 }
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
 
-        help = layout.findViewById(R.id.choose_language_dlg_help);
-        //noinspection DataFlowIssue
-        help.setText(sbt);
-        help.setMovementMethod(LinkMovementMethod.getInstance());
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.CROWDIN_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
 
+            help = layout.findViewById(R.id.choose_language_dlg_help);
+            //noinspection DataFlowIssue
+            help.setText(sbt);
+            help.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        return mDialog;
     }
 
     private void doShow() {
@@ -226,14 +239,15 @@ class ChooseLanguageDialog
                 activity.defaultLanguage, activity.defaultCountry, activity.defaultScript, true);
 
         GlobalGUIRoutines.reloadActivity(activity, false);
-        mDialog.dismiss();
+        dismiss();
 
         PPApplication.updateGUI(true, false, activity);
     }
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            //mDialog.show();
+            show(activity.getSupportFragmentManager(), "CHOOSE_LANGUAGE_DIALOG");
     }
 
     private static class Language {

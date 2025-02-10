@@ -93,6 +93,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);
@@ -617,6 +619,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     null,
                     dialog3 -> finish(),
                     null,
+                    null,
                     true, true,
                     false, false,
                     false,
@@ -625,7 +628,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             //}
         }
         else {
@@ -1109,6 +1112,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             requestPermissions(3, withRationale);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
                         false,
@@ -1117,7 +1121,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 /*}
                 else {
                     //if (requestCode == WRITE_SETTINGS_REQUEST_CODE)
@@ -1269,6 +1273,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             requestPermissions(4, withRationale);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
                         false,
@@ -1277,7 +1282,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 /*}
                 else {
                     //if (requestCode == DRAW_OVERLAYS_REQUEST_CODE)

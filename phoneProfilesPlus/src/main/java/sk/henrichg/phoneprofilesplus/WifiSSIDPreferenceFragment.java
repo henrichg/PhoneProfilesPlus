@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
@@ -58,8 +59,6 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
     RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
-
-//TODO title
 
     @NonNull
     @Override
@@ -201,9 +200,9 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                             },
                             null,
                             //false,
-                            getActivity());
+                            (AppCompatActivity) getActivity());
 
-                    mSelectorDialog.show();
+                    mSelectorDialog.showDialog();
                 }
         });
 
@@ -399,8 +398,8 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             preference.resetSummary();
         }*/
 
-        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
-            mSelectorDialog.mDialog.dismiss();
+        if (mSelectorDialog != null)
+            mSelectorDialog.dismiss();
 
         WifiScanWorker.setScanRequest(prefContext, false);
         WifiScanWorker.setWaitForResults(prefContext, false);
@@ -451,16 +450,17 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
                                     false,
-                                    getActivity()
+                                    (AppCompatActivity) getActivity()
                             );
 
                             if (getActivity() != null)
                                 if (!getActivity().isFinishing())
-                                    dialog.show();
+                                    dialog.showDialog();
                         }
                     }
                 });
@@ -579,15 +579,16 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             } else if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_copy_name) {

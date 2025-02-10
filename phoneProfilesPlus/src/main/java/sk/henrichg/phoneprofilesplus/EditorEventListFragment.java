@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -307,8 +308,8 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        activity.addEventDialog = new AddEventDialog(activity, this);
-                        activity.addEventDialog.show();
+                        activity.addEventDialog = new AddEventDialog(activity/*, this*/);
+                        activity.addEventDialog.showDialog();
                     }
                 }
                 return true;
@@ -1005,8 +1006,8 @@ public class EditorEventListFragment extends Fragment
                 },
                 null,
                 //false,
-                getActivity());
-        dialog.show();
+                (AppCompatActivity) getActivity());
+        dialog.showDialog();
 
 
 /*
@@ -1077,15 +1078,16 @@ public class EditorEventListFragment extends Fragment
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
                 false,
-                getActivity()
+                (AppCompatActivity) getActivity()
         );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void deleteAllEvents()
@@ -1145,15 +1147,16 @@ public class EditorEventListFragment extends Fragment
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    getActivity()
+                    (AppCompatActivity) getActivity()
             );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -1953,8 +1956,8 @@ public class EditorEventListFragment extends Fragment
                 },
                 null,
                 //false,
-                getActivity());
-        dialog.show();
+                (AppCompatActivity) getActivity());
+        dialog.showDialog();
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();

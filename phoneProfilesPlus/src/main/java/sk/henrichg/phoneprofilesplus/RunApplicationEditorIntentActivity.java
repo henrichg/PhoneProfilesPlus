@@ -78,6 +78,8 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
@@ -236,7 +238,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             }
         });
 
-        final Activity activity = this;
+        final AppCompatActivity activity = this;
 
         categoryTextView = findViewById(R.id.application_editor_intent_category_value);
         categoryArray = getResources().getStringArray(R.array.runApplicationEditorIntentCategoryArray);
@@ -275,7 +277,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         //categoryTextView.setText(categoryValue);
                         categoryTextView.setText(value.toString());
                     }, this);
-            dialog.show();
+            dialog.showDialog();
         });
 
         flagsTextView = findViewById(R.id.application_editor_intent_flags_value);
@@ -314,7 +316,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         //flagsTextView.setText(flagsValue);
                         flagsTextView.setText(value.toString());
                     }, this);
-            dialog.show();
+            dialog.showDialog();
         });
 
         intentExtraKeyName1 = findViewById(R.id.application_editor_intent_extra_key_1);
@@ -587,6 +589,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
@@ -595,7 +598,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 );
 
                 if (!isFinishing())
-                    mDialog.show();
+                    mDialog.showDialog();
             }
             else {
                 boolean customAction = saveIntent();
@@ -613,6 +616,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -621,7 +625,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     );
 
                     if (!isFinishing())
-                        mDialog.show();
+                        mDialog.showDialog();
                 }
                 else
                 if (ppIntent._intentType == 1) {
@@ -640,6 +644,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
@@ -648,7 +653,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             );
 
                             if (!isFinishing())
-                                mDialog.show();
+                                mDialog.showDialog();
                         }
                     }
                 }
@@ -699,6 +704,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -707,7 +713,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         );
 
                         if (!isFinishing())
-                            mDialog.show();
+                            mDialog.showDialog();
                     }
                 }
             }

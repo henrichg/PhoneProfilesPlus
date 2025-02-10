@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -45,8 +46,6 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     private TextView extenderAccessibilitySettingsSummary = null;
 
     static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
-
-//TODO title
 
     @SuppressLint("SetTextI18n")
     @NonNull
@@ -682,15 +681,16 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        getActivity()
+                        (AppCompatActivity) getActivity()
                 );
 
                 if (!getActivity().isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }
@@ -726,15 +726,16 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    activity
+                    (AppCompatActivity) activity
             );
 
             if (!activity.isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
 
     }

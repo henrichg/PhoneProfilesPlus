@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -119,12 +120,12 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             popupWindow.dismiss();
         //if ((progressDialog != null) && progressDialog.isShowing())
         //    progressDialog.dismiss();
-        if ((mRenameDialog != null) && mRenameDialog.mDialog.isShowing())
-            mRenameDialog.mDialog.dismiss();
-        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
-            mSelectorDialog.mDialog.dismiss();
-        if ((mSortDialog != null) && mSortDialog.mDialog.isShowing())
-            mSortDialog.mDialog.dismiss();
+        if (mRenameDialog != null)
+            mRenameDialog.dismiss();
+        if (mSelectorDialog != null)
+            mSelectorDialog.dismiss();
+        if (mSortDialog != null)
+            mSortDialog.dismiss();
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
@@ -248,11 +249,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             preference.refreshListView(false, false/*, Integer.MAX_VALUE*/);
         });
 
-        mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)prefContext, preference, true, null);
+        mMobileCellsFilterDialog = new MobileCellNamesDialog((AppCompatActivity)prefContext, preference, true, null);
         cellFilter.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
-                    mMobileCellsFilterDialog.show();
+                    mMobileCellsFilterDialog.showDialog();
         });
 
         /*
@@ -283,7 +284,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         case 0:
                                         case 1:
                                             mobileCellNamesDialog = new MobileCellNamesDialog(
-                                                    (Activity) prefContext, preference, false,
+                                                    (AppCompatActivity) prefContext, preference, false,
                                                     (dialog1, which1) -> {
                                                         EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                                         if (cellName != null) {
@@ -294,11 +295,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                             renameCellNamesFromEventsAsyncTask.execute();
                                                         }
                                                     });
-                                            mobileCellNamesDialog.show();
+                                            mobileCellNamesDialog.showDialog();
                                             break;
                                         case 2:
                                             mobileCellNamesDialog = new MobileCellNamesDialog(
-                                                    (Activity) prefContext, preference, false,
+                                                    (AppCompatActivity) prefContext, preference, false,
                                                     (dialog1, which12) -> {
                                                         EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                                         if (cellName != null) {
@@ -309,16 +310,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                             renameCellNamesFromEventsAsyncTask.execute();
                                                         }
                                                     });
-                                            mobileCellNamesDialog.show();
+                                            mobileCellNamesDialog.showDialog();
                                             break;
                                     }
                                     //dialog.dismiss();
                                 },
                                 null,
                                 //false,
-                                (Activity) prefContext);
+                                (AppCompatActivity) getActivity());
 
-                        mRenameDialog.show();
+                        mRenameDialog.showDialog();
                     }
                 }
         });
@@ -342,7 +343,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         break;
                                     case 1:
                                         MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                                                (Activity) prefContext, preference, false,
+                                                (AppCompatActivity) prefContext, preference, false,
                                                 (dialog1, which1) -> {
                                                     EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                                     if (cellName != null) {
@@ -353,7 +354,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                         refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                                     }
                                                 });
-                                        mobileCellNamesDialog.show();
+                                        mobileCellNamesDialog.showDialog();
                                         break;
                                     case 2:
                                         preference.value = "";
@@ -368,9 +369,9 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             },
                             null,
                             //false,
-                            (Activity) prefContext);
+                            (AppCompatActivity) getActivity());
 
-                    mSelectorDialog.show();
+                    mSelectorDialog.showDialog();
                 }
         });
         final AppCompatImageButton sortIcon = view.findViewById(R.id.mobile_cells_pref_dlg_sort);
@@ -391,8 +392,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             },
                             null,
                             //false,
-                            getActivity());
-                    mSortDialog.show();
+                            (AppCompatActivity) getActivity());
+                    mSortDialog.showDialog();
                 }
         });
 
@@ -453,7 +454,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             addCellButtonSIM1.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM1 != null) {
                     MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                            (Activity) prefContext, preference, false,
+                            (AppCompatActivity) prefContext, preference, false,
                             (dialog1, which) -> {
                                 EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                 if (cellName != null) {
@@ -467,7 +468,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     refreshListView(false, false/*, preference.registeredCellDataSIM1.cellId*/);
                                 }
                             });
-                    mobileCellNamesDialog.show();
+                    mobileCellNamesDialog.showDialog();
                 }
             });
             addCellButtonSIM2 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim2);
@@ -476,7 +477,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             addCellButtonSIM2.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM2 != null) {
                     MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                            (Activity) prefContext, preference, false,
+                            (AppCompatActivity) prefContext, preference, false,
                             (dialog1, which) -> {
                                 EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                 if (cellName != null) {
@@ -490,7 +491,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     refreshListView(false, false/*, preference.registeredCellDataSIM2.cellId*/);
                                 }
                             });
-                    mobileCellNamesDialog.show();
+                    mobileCellNamesDialog.showDialog();
                 }
             });
         } else {
@@ -500,7 +501,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             addCellButtonDefault.setOnClickListener(v -> {
                 if (preference.registeredCellDataDefault != null) {
                     MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                            (Activity) prefContext, preference, false,
+                            (AppCompatActivity) prefContext, preference, false,
                             (dialog1, which) -> {
                                 EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                 if (cellName != null) {
@@ -514,7 +515,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     refreshListView(false, false/*, preference.registeredCellDataDefault.cellId*/);
                                 }
                             });
-                    mobileCellNamesDialog.show();
+                    mobileCellNamesDialog.showDialog();
                 }
             });
         }
@@ -618,16 +619,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
                                     false,
-                                    getActivity()
+                                    (AppCompatActivity) getActivity()
                             );
 
                             if (getActivity() != null)
                                 if (!getActivity().isFinishing())
-                                    dialog.show();
+                                    dialog.showDialog();
                         }
                     }
                 });
@@ -773,15 +775,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             }
@@ -829,15 +832,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             } else if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_unselected) {
@@ -888,15 +892,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             } else {

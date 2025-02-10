@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
@@ -59,8 +60,6 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
     RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
-
-// TODO title
 
     @NonNull
     @Override
@@ -208,9 +207,9 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             },
                             null,
                             //false,
-                            getActivity());
+                            (AppCompatActivity) getActivity());
 
-                    mSelectorDialog.show();
+                    mSelectorDialog.showDialog();
                 }
         });
 
@@ -403,8 +402,8 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             preference.resetSummary();
         }*/
 
-        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
-            mSelectorDialog.mDialog.dismiss();
+        if (mSelectorDialog != null)
+            mSelectorDialog.dismiss();
 
         BluetoothScanWorker.setScanRequest(prefContext, false);
         BluetoothScanWorker.setWaitForResults(prefContext, false);
@@ -459,16 +458,17 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
                                         false,
-                                        getActivity()
+                                        (AppCompatActivity) getActivity()
                                 );
 
                                 if (getActivity() != null)
                                     if (!getActivity().isFinishing())
-                                        dialog.show();
+                                        dialog.showDialog();
                             }
                         }
                     }
@@ -588,15 +588,16 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             }

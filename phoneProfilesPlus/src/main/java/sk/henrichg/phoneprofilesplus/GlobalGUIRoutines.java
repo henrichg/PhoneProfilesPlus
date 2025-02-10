@@ -32,6 +32,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -44,6 +45,8 @@ import mobi.upod.timedurationpicker.TimeDurationPicker;
 
 @SuppressLint("WrongCommentType")
 class GlobalGUIRoutines {
+
+    static int countScreenOrientationLocks = 0;
 
     static final int ICON_SIZE_DP = 50;
 
@@ -820,7 +823,7 @@ class GlobalGUIRoutines {
     */
 
     @SuppressLint("SourceLockedOrientationActivity")
-    static void lockScreenOrientation(Activity activity/*, boolean toDefault*/) {
+    static void lockScreenOrientation(Activity activity) {
         try {
             if ((Build.VERSION.SDK_INT != 26)/* && (!toDefault)*/) {
                 int currentOrientation = activity.getResources().getConfiguration().orientation;
@@ -829,10 +832,10 @@ class GlobalGUIRoutines {
                 } else {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 }
-            }
-            else
+            } else
                 // this set device to default orientation (for mobile to portrait, for 10' tablets to landscape)
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            ++countScreenOrientationLocks;
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplicationStatic.recordException(e);
@@ -841,7 +844,10 @@ class GlobalGUIRoutines {
 
     static void unlockScreenOrientation(Activity activity) {
         try {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            if (countScreenOrientationLocks <= 1)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            if (countScreenOrientationLocks > 0)
+                --countScreenOrientationLocks;
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplicationStatic.recordException(e);
@@ -873,7 +879,7 @@ class GlobalGUIRoutines {
                                        final boolean forActivator,
                                        final boolean forShowInActivator,
                                        final boolean forRunStopEvent,
-                                       final Activity activity) {
+                                       final AppCompatActivity activity) {
         if (activity == null)
             return;
 
@@ -1026,6 +1032,7 @@ class GlobalGUIRoutines {
                         null,
                         null,
                         null,
+                        null,
                         true/*!forActivator*/, true/*!forActivator*/,
                         false, false,
                         false,
@@ -1034,7 +1041,7 @@ class GlobalGUIRoutines {
                 );
 
                 if (!activity.isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }
@@ -1203,6 +1210,7 @@ class GlobalGUIRoutines {
         //    _title = TextUtils.replace(_title, new String[]{StringConstants.CHAR_BULLET +" "}, new CharSequence[]{""});
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
+        //noinspection IfStatementWithIdenticalBranches
         if (showSubtitle) {
             @SuppressLint("InflateParams")
             View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
@@ -1214,6 +1222,7 @@ class GlobalGUIRoutines {
             subtitleText.setText(_subtitle);
             dialogBuilder.setCustomTitle(titleView);
         } else {
+            @SuppressLint("InflateParams")
             View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtihout_subtitle, null);
             TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
             //noinspection DataFlowIssue

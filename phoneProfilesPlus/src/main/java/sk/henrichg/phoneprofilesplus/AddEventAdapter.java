@@ -194,7 +194,7 @@ class AddEventAdapter extends BaseAdapter {
                 holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())
                 {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.getActivity(), profile._iconBitmap);
                     if (bitmap != null)
                         holder.profileStartIcon.setImageBitmap(bitmap);
                     else {
@@ -309,7 +309,7 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndName.setText(profileName);
                     holder.profileEndName.setTextColor(defaultColor);
                     if (profile.getIsIconResourceID()) {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.getActivity(), profile._iconBitmap);
                         if (bitmap != null)
                             holder.profileEndIcon.setImageBitmap(bitmap);
                         else {

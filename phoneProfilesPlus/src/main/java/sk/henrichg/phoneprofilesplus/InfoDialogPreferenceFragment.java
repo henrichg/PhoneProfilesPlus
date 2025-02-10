@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
@@ -111,14 +112,15 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        activity
+                        (AppCompatActivity) activity
                 );
 
-                dialog2.show();
+                dialog2.showDialog();
             }
         }
         if (showDroidifyInstallationSite) {

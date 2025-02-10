@@ -2,10 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -17,10 +19,13 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,36 +40,36 @@ import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 /** @noinspection ExtractMethodRecommender*/
-class RunApplicationEditorDialog
+public class RunApplicationEditorDialog extends DialogFragment
 {
 
-    private final RunApplicationsDialogPreference preference;
-    private final RunApplicationEditorDialogAdapter listAdapter;
-    final Activity activity;
+    private RunApplicationsDialogPreference preference;
+    private RunApplicationEditorDialogAdapter listAdapter;
+    private  AppCompatActivity activity;
 
-    private final AlertDialog mDialog;
-    private final TextView mDelayValue;
-    private final TimeDurationPickerDialog mDelayValueDialog;
-    private final ImageView mSelectedAppIcon;
-    private final TextView mSelectedAppName;
-    private final AppCompatImageButton addButton;
-    private final AppCompatSpinner filterSpinner;
+    private AlertDialog mDialog;
+    private TextView mDelayValue;
+    private TimeDurationPickerDialog mDelayValueDialog;
+    private ImageView mSelectedAppIcon;
+    private TextView mSelectedAppName;
+    private AppCompatImageButton addButton;
+    private AppCompatSpinner filterSpinner;
 
 
-    private final List<Application> cachedApplicationList;
-    final List<Application> applicationList;
+    private List<Application> cachedApplicationList;
+    List<Application> applicationList;
 
-    private final Application editedApplication;
+    private Application editedApplication;
 
     private Application selectedApplication;
     private int startApplicationDelay = 0;
 
-    private final String[] filterValues;
+    private String[] filterValues;
 
     int selectedPosition = -1;
     int selectedFilter = 0;
 
-    private final FastScrollRecyclerView listView;
+    private FastScrollRecyclerView listView;
 
     static final int RESULT_INTENT_EDITOR = 3100;
     static final String EXTRA_APPLICATION = "application";
@@ -74,89 +79,97 @@ class RunApplicationEditorDialog
     static final String RUN_APPLICATIONS_TYPE_MARK_SHORTCUT = "(S) ";
     static final String RUN_APPLICATIONS_TYPE_MARK_INTENT = "(I) ";
 
+    public RunApplicationEditorDialog() {
+    }
 
-    RunApplicationEditorDialog(Activity activity, RunApplicationsDialogPreference preference,
+    public RunApplicationEditorDialog(AppCompatActivity activity, RunApplicationsDialogPreference preference,
                                final Application application)
     {
         this.preference = preference;
         this.activity = activity;
-
         this.editedApplication = application;
         this.selectedApplication = application;
         if (editedApplication != null)
             startApplicationDelay = editedApplication.startApplicationDelay;
-
         applicationList = new ArrayList<>();
+    }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
-                activity.getString(R.string.applications_editor_dialog_title), null);
-        //dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            //if (cachedApplicationList != null) {
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            GlobalGUIRoutines.lockScreenOrientation(activity);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.applications_editor_dialog_title), null);
+            //dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                //if (cachedApplicationList != null) {
                 preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
-            //}
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+                //}
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_run_applications_editor, null);
-        dialogBuilder.setView(layout);
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_run_applications_editor, null);
+            dialogBuilder.setView(layout);
 
-        mDialog = dialogBuilder.create();
+            mDialog = dialogBuilder.create();
 
-        mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
-        //noinspection DataFlowIssue
-        mDelayValue.setText(StringFormatUtils.getDurationString(startApplicationDelay));
+            mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
+            //noinspection DataFlowIssue
+            mDelayValue.setText(StringFormatUtils.getDurationString(startApplicationDelay));
 
-        mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
-        mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
+            mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
+            mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
 
-        LinearLayout delayValueRoot = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay_root);
-        //noinspection DataFlowIssue
-        TooltipCompat.setTooltipText(delayValueRoot, activity.getString(R.string.applications_editor_dialog_edit_delay_tooltip));
-        mDelayValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
-            int iValue = (int) duration / 1000;
+            LinearLayout delayValueRoot = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay_root);
+            //noinspection DataFlowIssue
+            TooltipCompat.setTooltipText(delayValueRoot, activity.getString(R.string.applications_editor_dialog_edit_delay_tooltip));
+            mDelayValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
+                int iValue = (int) duration / 1000;
 
-            if (iValue < 0)
-                iValue = 0;
-            if (iValue > 86400)
-                iValue = 86400;
+                if (iValue < 0)
+                    iValue = 0;
+                if (iValue > 86400)
+                    iValue = 86400;
 
-            mDelayValue.setText(StringFormatUtils.getDurationString(iValue));
+                mDelayValue.setText(StringFormatUtils.getDurationString(iValue));
 
-            startApplicationDelay = iValue;
-        }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
-        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
-        delayValueRoot.setOnClickListener(view -> {
-            mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
-            if (!activity.isFinishing())
-                    mDelayValueDialog.show();
-        }
-        );
+                startApplicationDelay = iValue;
+            }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
+            GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
+            delayValueRoot.setOnClickListener(view -> {
+                        mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
+                        if (!activity.isFinishing())
+                            mDelayValueDialog.show();
+                    }
+            );
 
-        mDialog.setOnShowListener(dialog -> {
+            mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            if (selectedPosition == -1) {
-                Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null)
-                    positive.setEnabled(false);
-            }
-        });
+                if (selectedPosition == -1) {
+                    Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null)
+                        positive.setEnabled(false);
+                }
+            });
 
-        filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
-        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
-                activity,
-                R.layout.ppp_spinner,
-                activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
-        //noinspection DataFlowIssue
-        filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+            filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
+            PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
+                    activity,
+                    R.layout.ppp_spinner,
+                    activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
+            spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
+            //noinspection DataFlowIssue
+            filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
 //        filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.spinner_control_color));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
@@ -172,91 +185,99 @@ class RunApplicationEditorDialog
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }*/
-        filterSpinner.setAdapter(spinnerAdapter);
+            filterSpinner.setAdapter(spinnerAdapter);
 
-        filterValues= activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterValues);
+            filterValues= activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterValues);
 
-        if (editedApplication != null) {
-            switch (editedApplication.type) {
-                case Application.TYPE_APPLICATION:
-                    selectedFilter = 0;
-                    break;
-                case Application.TYPE_SHORTCUT:
-                    selectedFilter = 1;
-                    break;
-                case Application.TYPE_INTENT:
-                    selectedFilter = 2;
-                    break;
-            }
-        }
-
-        int position = Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter));
-        if (position == -1)
-            position = 0;
-        filterSpinner.setSelection(position);
-        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @SuppressLint("NotifyDataSetChanged")
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((PPSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
-
-                selectedFilter = Integer.parseInt(filterValues[position]);
-                if (selectedFilter == 2)
-                    //noinspection DataFlowIssue
-                    addButton.setVisibility(View.VISIBLE);
-                else
-                    //noinspection DataFlowIssue
-                    addButton.setVisibility(View.GONE);
-
-                fillApplicationList();
-                //noinspection DataFlowIssue
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
-                listView.setAdapter(null);
-                listView.setAdapter(listAdapter);
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
-                listAdapter.notifyDataSetChanged();
-                //listView.setAdapter(listAdapter);
-
-                RecyclerView.LayoutManager lm = listView.getLayoutManager();
-                if (lm != null) {
-                    if (selectedPosition > -1)
-                        lm.scrollToPosition(selectedPosition);
-                    else
-                        lm.scrollToPosition(0);
+            if (editedApplication != null) {
+                switch (editedApplication.type) {
+                    case Application.TYPE_APPLICATION:
+                        selectedFilter = 0;
+                        break;
+                    case Application.TYPE_SHORTCUT:
+                        selectedFilter = 1;
+                        break;
+                    case Application.TYPE_INTENT:
+                        selectedFilter = 2;
+                        break;
                 }
             }
 
-            public void onNothingSelected(AdapterView<?> parent) {
+            int position = Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter));
+            if (position == -1)
+                position = 0;
+            filterSpinner.setSelection(position);
+            filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @SuppressLint("NotifyDataSetChanged")
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((PPSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+
+                    selectedFilter = Integer.parseInt(filterValues[position]);
+                    if (selectedFilter == 2)
+                        //noinspection DataFlowIssue
+                        addButton.setVisibility(View.VISIBLE);
+                    else
+                        //noinspection DataFlowIssue
+                        addButton.setVisibility(View.GONE);
+
+                    fillApplicationList();
+                    //noinspection DataFlowIssue
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                    listView.setAdapter(null);
+                    listView.setAdapter(listAdapter);
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                    listAdapter.notifyDataSetChanged();
+                    //listView.setAdapter(listAdapter);
+
+                    RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                    if (lm != null) {
+                        if (selectedPosition > -1)
+                            lm.scrollToPosition(selectedPosition);
+                        else
+                            lm.scrollToPosition(0);
+                    }
+                }
+
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+
+            addButton  = layout.findViewById(R.id.run_applications_editor_dialog_addIntent);
+            //noinspection DataFlowIssue
+            TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
+            addButton.setOnClickListener(view -> startEditor(null));
+
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
+            listView = layout.findViewById(R.id.run_applications_editor_dialog_listview);
+            //noinspection DataFlowIssue
+            listView.setLayoutManager(layoutManager);
+            listView.setHasFixedSize(true);
+
+            if (PPApplicationStatic.getApplicationsCache() == null)
+                PPApplicationStatic.createApplicationsCache(false);
+
+            cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
+
+            fillApplicationList();
+            updateSelectedAppViews();
+
+            listAdapter = new RunApplicationEditorDialogAdapter(this);
+            listView.setAdapter(listAdapter);
+
+            if (selectedPosition > -1) {
+                RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                if (lm != null)
+                    lm.scrollToPosition(selectedPosition);
             }
-        });
-
-        addButton  = layout.findViewById(R.id.run_applications_editor_dialog_addIntent);
-        //noinspection DataFlowIssue
-        TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
-        addButton.setOnClickListener(view -> startEditor(null));
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
-        listView = layout.findViewById(R.id.run_applications_editor_dialog_listview);
-        //noinspection DataFlowIssue
-        listView.setLayoutManager(layoutManager);
-        listView.setHasFixedSize(true);
-
-        if (PPApplicationStatic.getApplicationsCache() == null)
-            PPApplicationStatic.createApplicationsCache(false);
-
-        cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
-
-        fillApplicationList();
-        updateSelectedAppViews();
-
-        listAdapter = new RunApplicationEditorDialogAdapter(this);
-        listView.setAdapter(listAdapter);
-
-        if (selectedPosition > -1) {
-            RecyclerView.LayoutManager lm = listView.getLayoutManager();
-            if (lm != null)
-                lm.scrollToPosition(selectedPosition);
         }
+        return mDialog;
+    }
+
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (activity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
     }
 
     private void fillApplicationList() {
@@ -482,15 +503,16 @@ class RunApplicationEditorDialog
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        activity
+                        (AppCompatActivity) activity
                 );
 
                 if (!activity.isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
 
                 return true;
             }
@@ -517,6 +539,7 @@ class RunApplicationEditorDialog
         intent.putExtra(EXTRA_PP_INTENT, ppIntent);
         intent.putExtra(RunApplicationEditorIntentActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
+        //noinspection deprecation
         activity.startActivityForResult(intent, RESULT_INTENT_EDITOR);
     }
 
@@ -612,9 +635,9 @@ class RunApplicationEditorDialog
         preference.updateGUI();
     }
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            show(activity.getSupportFragmentManager(), "RUN_APPLICATION_EDITOR_DIALOG");
     }
 
 }

@@ -173,6 +173,8 @@ public class RestartEventsIconColorChooserPreferenceFragment extends PreferenceD
             Integer index = (Integer) v.getTag();
             if (index == -2) {
                 if (getActivity() != null) {
+                    // TODO z toho sprav DialogFragment - nerotovatelny
+
                     // custom color
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.context);
                     GlobalGUIRoutines.setCustomDialogTitle(preference.context, dialogBuilder, false,

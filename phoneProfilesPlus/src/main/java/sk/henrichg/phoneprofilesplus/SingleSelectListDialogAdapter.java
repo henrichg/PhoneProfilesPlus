@@ -18,10 +18,10 @@ class SingleSelectListDialogAdapter extends BaseAdapter
     {
         this.dialog = dialog;
 
-        this.items = dialog.activity.getResources().getStringArray(itemsRes);
+        this.items = dialog.getResources().getStringArray(itemsRes);
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
-        inflater = LayoutInflater.from(dialog.activity);
+        inflater = LayoutInflater.from(dialog.getContext());
     }
 
     public int getCount() {
@@ -73,8 +73,8 @@ class SingleSelectListDialogAdapter extends BaseAdapter
                 int pos = (Integer) rb.getTag();
                 dialog.itemValue = pos;
                 rb.setChecked(true);
-                dialog.itemClick.onClick(dialog.mDialog, pos);
-                dialog.mDialog.dismiss();
+                dialog.itemClick.onClick(dialog.getDialog(), pos);
+                dialog.dismiss();
             });
         }
 

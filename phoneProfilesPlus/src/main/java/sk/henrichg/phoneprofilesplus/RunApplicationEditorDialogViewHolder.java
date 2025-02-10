@@ -61,7 +61,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
         radioBtn.setTag(position);
 
         if (imageViewMenu != null) {
-            TooltipCompat.setTooltipText(imageViewMenu, dialog.activity.getString(R.string.tooltip_options_menu));
+            TooltipCompat.setTooltipText(imageViewMenu, dialog.getString(R.string.tooltip_options_menu));
             imageViewMenu.setTag(position);
             imageViewMenu.setOnClickListener(v -> dialog.showEditMenu(imageViewMenu));
         }

@@ -28,6 +28,8 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        final Activity activity = this;
+        final AppCompatActivity activity = this;
 
         GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
 
@@ -86,6 +88,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
                         null,
                         null,
                         null,
+                        null,
                         dialog1 -> finish(),
                         null,
                         true, true,
@@ -96,7 +99,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
                 );
 
                 if (!activity.isFinishing())
-                    dialog2.show();
+                    dialog2.showDialog();
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel,  (dialog, which) -> finish());
@@ -143,6 +146,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -150,7 +154,7 @@ public class GrantDrawOverAppsActivity extends AppCompatActivity {
                             activity
                     );
 
-                    dialog2.show();
+                    dialog2.showDialog();
                 }
             };
             sbt.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -99,15 +100,16 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        getActivity()
+                        (AppCompatActivity) getActivity()
                 );
 
                 if ((getActivity() != null) && (!getActivity().isFinishing()))
-                    dialog.show();
+                    dialog.showDialog();
             }
 
         });

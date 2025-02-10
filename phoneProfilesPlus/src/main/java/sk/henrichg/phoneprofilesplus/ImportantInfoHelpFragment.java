@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -259,15 +260,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
                                 false,
-                                activity
+                                (AppCompatActivity) activity
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                 });
             } else {
@@ -303,15 +305,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            activity
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             });
         }
@@ -342,15 +345,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            activity
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             });
         }
@@ -387,15 +391,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            activity
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             });
         }

@@ -122,6 +122,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, false, false, false, true, false);
@@ -452,6 +454,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                             null,
                                             null,
                                             null,
+                                            null,
                                             true, true,
                                             false, false,
                                             true,
@@ -459,7 +462,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                             this
                                     );
                                     if (!isFinishing())
-                                        alert.show();
+                                        alert.showDialog();
                                 }
                                 break;
                             case 2:
@@ -480,6 +483,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                             null,
                                             null,
                                             null,
+                                            null,
                                             true, true,
                                             false, false,
                                             true,
@@ -487,7 +491,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                             this
                                     );
                                     if (!isFinishing())
-                                        alert.show();
+                                        alert.showDialog();
                                 }
                                 break;
                             default:
@@ -497,7 +501,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     //false,
                     this);
 
-            changeLocationDialog.show();
+            changeLocationDialog.showDialog();
         });
 
         addressButton = findViewById(R.id.location_editor_address_btn);
@@ -515,6 +519,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -523,7 +528,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         });
 
         if (geofence != null)
@@ -781,6 +786,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
@@ -789,7 +795,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                             );
 
                             if (!isFinishing())
-                                _dialog.show();
+                                _dialog.showDialog();
                         }
 
                         errorLocationDisplayed = false;
@@ -797,6 +803,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     (dialog12, which) -> errorLocationDisplayed = false,
                     null,
                     dialog13 -> errorLocationDisplayed = false,
+                    null,
                     null,
                     true, true,
                     false, false,
@@ -806,7 +813,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -1419,6 +1426,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         false,
@@ -1427,7 +1435,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }

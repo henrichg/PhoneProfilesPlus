@@ -20,8 +20,6 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
 
     //private RadioButton phoneProfilesSilentRB;
 
-//TODO title
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

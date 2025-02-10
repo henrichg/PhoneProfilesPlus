@@ -599,6 +599,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -607,7 +608,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -644,6 +645,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -652,7 +654,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -763,6 +765,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -771,7 +774,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -805,6 +808,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -813,7 +817,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -847,6 +851,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -855,7 +860,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -889,6 +894,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -897,7 +903,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -938,6 +944,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
@@ -946,7 +953,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             );
 
                             if (!activity.isFinishing())
-                                dialog.show();
+                                dialog.showDialog();
                         }
                     } else {
                         try {
@@ -972,6 +979,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
@@ -980,7 +988,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             );
 
                             if (!activity.isFinishing())
-                                dialog.show();
+                                dialog.showDialog();
                         }
                     }
                     return false;
@@ -1015,6 +1023,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -1023,7 +1032,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -1102,6 +1111,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -1110,7 +1120,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });
@@ -1146,6 +1156,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 false,
@@ -1154,7 +1165,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -1241,6 +1252,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -1249,7 +1261,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -1286,6 +1298,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -1294,7 +1307,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                     return false;
                 });
@@ -1341,6 +1354,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -1349,7 +1363,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });
@@ -1395,6 +1409,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -1403,7 +1418,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });
@@ -1437,6 +1452,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -1445,7 +1461,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });
@@ -1490,6 +1506,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             false,
@@ -1498,7 +1515,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                     return false;
                 });
             }
@@ -1548,6 +1565,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                                 null,
                                                 null,
                                                 null,
+                                                null,
                                                 true, true,
                                                 false, false,
                                                 true,
@@ -1556,9 +1574,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                         );
 
                                         if (!activity.isFinishing())
-                                            dialog2.show();
+                                            dialog2.showDialog();
                                     }
                                 },
+                                null,
                                 null,
                                 null,
                                 null,
@@ -1571,7 +1590,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                         return false;
                     });
                 }
@@ -1678,6 +1697,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                             null,
                                             null,
                                             null,
+                                            null,
                                             true, true,
                                             false, false,
                                             true,
@@ -1686,9 +1706,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     );
 
                                     if (!activity.isFinishing())
-                                        dialog2.show();
+                                        dialog2.showDialog();
                                 }
                             },
+                            null,
                             null,
                             null,
                             null,
@@ -1701,7 +1722,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                     return false;
                 });
             }
@@ -1897,7 +1918,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 activity
                         );
                         if (!activity.isFinishing())
-                            editTextDialog.show();
+                            editTextDialog.showDialog();
 
                         return false;
                     });
@@ -2004,7 +2025,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 activity
                         );
                         if (!activity.isFinishing())
-                            editTextDialog.show();
+                            editTextDialog.showDialog();
 
                         return false;
                     });
@@ -2069,6 +2090,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -2077,7 +2099,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog2.show();
+                            dialog2.showDialog();
                     }
                     return false;
                 });
@@ -2141,6 +2163,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2149,7 +2172,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });

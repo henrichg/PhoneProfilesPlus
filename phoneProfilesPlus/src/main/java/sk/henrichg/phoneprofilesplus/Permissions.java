@@ -18,6 +18,7 @@ import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
@@ -3199,15 +3200,16 @@ class Permissions {
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 false,
                                 false,
-                                activity
+                                (AppCompatActivity) activity
                         );
 
                         if (!activity.isFinishing())
-                            dialog2.show();
+                            dialog2.showDialog();
                     }
                 },
                 (dialog2, which) -> {
@@ -3216,6 +3218,7 @@ class Permissions {
                         profilesFragment.setRedTextToPreferences();
                     }
                 },
+                null,
                 null,
                 null,
                 (buttonView, isChecked) -> {
@@ -3231,11 +3234,11 @@ class Permissions {
                 checkBoxChecked, checkBoxEnabled,
                 false,
                 false,
-                activity
+                (AppCompatActivity) activity
         );
 
         if (!activity.isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     static void grantG1Permission(final ProfilesPrefsFragment fragment, final Activity activity) {
@@ -3268,6 +3271,7 @@ class Permissions {
                 },
                 null,
                 null,
+                null,
                 (buttonView, isChecked) -> {
                     if (fragment != null) {
                         SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
@@ -3281,11 +3285,11 @@ class Permissions {
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission, true,
                 false,
                 false,
-                activity
+                (AppCompatActivity) activity
         );
 
         if (!activity.isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     static boolean grantNotificationsPermission(final Activity activity) {
@@ -3327,30 +3331,32 @@ class Permissions {
                                             null,
                                             null,
                                             null,
+                                            null,
                                             true, true,
                                             false, false,
                                             true,
                                             false,
-                                            activity
+                                            (AppCompatActivity) activity
                                     );
 
                                     if (!activity.isFinishing())
-                                        _dialog.show();
+                                        _dialog.showDialog();
                                 }
                             },
                             null,
                             null,
                             null,
                             null,
+                            null,
                             false, false,
                             false, false,
                             false,
                             false,
-                            activity
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
 
                     return true;
                 }
@@ -3387,15 +3393,16 @@ class Permissions {
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     false,
                     false,
-                    activity
+                    (AppCompatActivity) activity
             );
 
             if (!activity.isFinishing())
-                dialog.show();
+                dialog.showDialog();
 
         } else {
             if (ShizukuUtils.isShizukuInstalled(activity.getApplicationContext()) > 0) {
@@ -3428,14 +3435,15 @@ class Permissions {
                         },
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        activity
+                        (AppCompatActivity) activity
                 );
                 if ((!activity.isFinishing()))
-                    dialog.show();
+                    dialog.showDialog();
             } else {
                 Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
                 intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);

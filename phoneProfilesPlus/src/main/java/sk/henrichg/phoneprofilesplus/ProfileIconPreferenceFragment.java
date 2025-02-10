@@ -13,6 +13,7 @@ import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -152,9 +153,9 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
 
     private void showCustomColorChooser() {
         if (getActivity() != null) {
-            ProfileIconColorChooserDialog colorDialog = new ProfileIconColorChooserDialog((Activity) prefContext, preference);
+            ProfileIconColorChooserDialog colorDialog = new ProfileIconColorChooserDialog((AppCompatActivity) prefContext, preference);
             if (!getActivity().isFinishing())
-                colorDialog.show();
+                colorDialog.showDialog();
         }
 
         /*

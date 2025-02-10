@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -43,8 +44,6 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
     private Button startButton;
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
-
-//TODO title
 
     @SuppressLint("SetTextI18n")
     @NonNull
@@ -188,11 +187,11 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         }
         );
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)prefContext, preference, false, null);
+        mMobileCellNamesDialog = new MobileCellNamesDialog((AppCompatActivity) prefContext, preference, false, null);
         mCellsName.setOnClickListener(view -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
-                    mMobileCellNamesDialog.show();
+                    mMobileCellNamesDialog.showDialog();
         }
         );
 

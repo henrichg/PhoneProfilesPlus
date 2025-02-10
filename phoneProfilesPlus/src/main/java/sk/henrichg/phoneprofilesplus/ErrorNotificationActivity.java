@@ -3,9 +3,11 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ public class ErrorNotificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);
@@ -114,20 +118,26 @@ public class ErrorNotificationActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
-                                title, null);
-            //dialogBuilder.setTitle(title);
-            dialogBuilder.setMessage(R.string.no_error_dialog_message);
-            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> finish());
-            dialogBuilder.setOnDismissListener(dialog -> finish());
-
-            mDialog = dialogBuilder.create();
-            //mDialog.setCancelable(false);
-            //mDialog.setCanceledOnTouchOutside(false);
-
+            PPAlertDialog dialog = new PPAlertDialog(
+                    title,
+                    getString(R.string.no_error_dialog_message),
+                    getString(android.R.string.ok),
+                    null,
+                    null, null,
+                    (dialog1, which) -> finish(),
+                    null,
+                    null,
+                    null,
+                    dialog2 -> finish(),
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    false,
+                    this
+            );
             if (!isFinishing())
-                mDialog.show();
+                dialog.showDialog();
         }
     }
 

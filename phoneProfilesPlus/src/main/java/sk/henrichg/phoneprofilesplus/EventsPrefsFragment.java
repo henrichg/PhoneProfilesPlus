@@ -569,6 +569,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -577,7 +578,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     //}
                 }
                 return false;
@@ -623,6 +624,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -631,7 +633,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     //}
                 }
                 return false;
@@ -665,6 +667,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -673,7 +676,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     //}
                 }
                 return false;
@@ -717,6 +720,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
@@ -725,7 +729,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             );
 
                             if (!activity.isFinishing())
-                                dialog.show();
+                                dialog.showDialog();
                         //}
                     }
                     return false;
@@ -772,6 +776,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -780,7 +785,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     //}
                 }
                 return false;
@@ -858,6 +863,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -866,7 +872,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     //}
                 }
                 return false;
@@ -1228,6 +1234,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -1236,7 +1243,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     //}
                 }
                 return false;
@@ -1325,7 +1332,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 activity
                         );
                         if (!activity.isFinishing())
-                            editTextDialog.show();
+                            editTextDialog.showDialog();
 
                         return false;
                     });
@@ -1363,6 +1370,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -1371,7 +1379,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });

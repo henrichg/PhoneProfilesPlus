@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -1807,9 +1808,9 @@ class DataWrapper {
 
             if (profile._askForDuration) {
                 if (!_activity.isFinishing()) {
-                    AskForDurationDialog dlg = new AskForDurationDialog(_activity, _profile, _dataWrapper,
+                    AskForDurationDialog dlg = new AskForDurationDialog((AppCompatActivity) _activity, _profile, _dataWrapper,
                             /*monochrome, monochromeValue,*/ _startupSource);
-                    dlg.show();
+                    dlg.showDialog();
                 }
             }
             else {
@@ -1865,15 +1866,16 @@ class DataWrapper {
                             finishActivity(_startupSource, false, _activity);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        activity
+                        (AppCompatActivity) activity
                 );
 
                 if (!activity.isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
         else
@@ -1883,9 +1885,9 @@ class DataWrapper {
 
             if (profile._askForDuration/* && interactive*/) {
                 if (!activity.isFinishing()) {
-                    AskForDurationDialog dlg = new AskForDurationDialog(activity, profile, this,
+                    AskForDurationDialog dlg = new AskForDurationDialog((AppCompatActivity) activity, profile, this,
                             /*monochrome, monochromeValue,*/ startupSource);
-                    dlg.show();
+                    dlg.showDialog();
                 }
             }
             else {
@@ -2431,15 +2433,16 @@ class DataWrapper {
                             activity.finish();
                     },
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    activity
+                    (AppCompatActivity) activity
             );
 
             if (!activity.isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else
         {
@@ -2650,15 +2653,16 @@ class DataWrapper {
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    activity
+                    (AppCompatActivity) activity
             );
 
             if (!activity.isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else {
             if (globalRunStopEvents(false, true)) {
@@ -2700,15 +2704,16 @@ class DataWrapper {
                 null,
                 dialogInterface -> activity.finish(),
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
                 false,
-                activity
+                (AppCompatActivity) activity
         );
 
         if (!activity.isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     boolean globalRunStopEvents(boolean stop, boolean manualRestart) {

@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -251,8 +252,8 @@ public class EditorProfileListFragment extends Fragment
             if (itemId == R.id.menu_add_profile) {
                 if (profileListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        ((EditorActivity) activity).addProfileDialog = new AddProfileDialog(activity, this);
-                        ((EditorActivity) activity).addProfileDialog.show();
+                        ((EditorActivity) activity).addProfileDialog = new AddProfileDialog((EditorActivity) activity/*, this*/);
+                        ((EditorActivity) activity).addProfileDialog.showDialog();
                     }
                 }
                 return true;
@@ -770,8 +771,8 @@ public class EditorProfileListFragment extends Fragment
                 },
                 null,
                 //false,
-                getActivity());
-        dialog.show();
+                (AppCompatActivity) getActivity());
+        dialog.showDialog();
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -831,15 +832,16 @@ public class EditorProfileListFragment extends Fragment
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
                 false,
-                getActivity()
+                (AppCompatActivity) getActivity()
         );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void deleteAllProfiles()
@@ -903,15 +905,16 @@ public class EditorProfileListFragment extends Fragment
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    getActivity()
+                    (AppCompatActivity) getActivity()
             );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -1021,7 +1024,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
         else
-            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, (AppCompatActivity) getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1228,8 +1231,8 @@ public class EditorProfileListFragment extends Fragment
                     },
                     null,
                     //false,
-                    getActivity());
-            dialog.show();
+                    (AppCompatActivity) getActivity());
+            dialog.showDialog();
 
 /*
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -1332,7 +1335,7 @@ public class EditorProfileListFragment extends Fragment
 */
         }
         else
-            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, (AppCompatActivity) getActivity());
     }
 
     void showTargetHelps() {

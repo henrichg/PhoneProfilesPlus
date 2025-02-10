@@ -13,6 +13,8 @@ public class LaunchWidgetOneRowProfileListConfigurationActivity extends AppCompa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);

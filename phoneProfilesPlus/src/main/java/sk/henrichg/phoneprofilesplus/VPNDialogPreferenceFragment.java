@@ -39,8 +39,6 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     private RadioButton disableVPNRBtn = null;
     private CheckBox doNotSwith = null;
 
-//TODO title
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

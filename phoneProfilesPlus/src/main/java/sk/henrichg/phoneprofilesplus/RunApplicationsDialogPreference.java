@@ -18,6 +18,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -686,15 +687,16 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            fragment.getActivity()
+                            (AppCompatActivity) fragment.getActivity()
                     );
 
                     if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
 
                 return true;
@@ -713,8 +715,8 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         if (fragment != null) {
             if (fragment.getActivity() != null)
                 if (!fragment.getActivity().isFinishing()) {
-                    mEditorDialog = new RunApplicationEditorDialog(fragment.getActivity(), this, application);
-                    mEditorDialog.show();
+                    mEditorDialog = new RunApplicationEditorDialog((AppCompatActivity) fragment.getActivity(), this, application);
+                    mEditorDialog.showDialog();
                 }
         }
     }

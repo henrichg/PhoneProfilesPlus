@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -1489,6 +1490,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                             null,
                                             null,
                                             null,
+                                            null,
                                             true, true,
                                             false, false,
                                             true,
@@ -1497,9 +1499,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     );
 
                                     if (!activity.isFinishing())
-                                        dialog2.show();
+                                        dialog2.showDialog();
                                 }
                             },
+                            null,
                             null,
                             null,
                             null,
@@ -1512,7 +1515,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                     return false;
                 });
             }
@@ -1726,6 +1729,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -1734,7 +1738,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return false;
             });
@@ -7749,15 +7753,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if (!getActivity().isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -7784,15 +7789,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        getActivity()
+                        (AppCompatActivity) getActivity()
                 );
 
                 if (!getActivity().isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }
@@ -7827,15 +7833,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        getActivity()
+                        (AppCompatActivity) getActivity()
                 );
 
                 if (!getActivity().isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }

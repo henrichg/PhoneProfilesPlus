@@ -101,6 +101,8 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);
@@ -205,6 +207,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
                 null,
                 dialog3 -> finish(),
                 null,
+                null,
                 true, true,
                 false, false,
                 false,
@@ -213,7 +216,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
 }

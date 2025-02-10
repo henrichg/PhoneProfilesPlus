@@ -41,8 +41,6 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
     private TextView notificationTitleLabel = null;
     private TextView notificationBodyLabel = null;
 
-//TODO title
-
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override

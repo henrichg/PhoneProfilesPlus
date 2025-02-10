@@ -1,38 +1,59 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 // added support for click to message links
 // supported is all from InfoDialogPreferencesFragment.onLinkClickedListener()
-class PPAlertDialog implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
-    final AlertDialog mDialog;
-    final Activity activity;
-    final TextView messageText;
-    final CharSequence title;
-    final boolean cancelDialogAtLinkClick;
+public class PPAlertDialog extends DialogFragment
+        implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
+    private AlertDialog mDialog;
+    private AppCompatActivity activity;
+    private TextView messageText;
 
-    /*
-    final DialogInterface.OnClickListener positiveClick;
-    final DialogInterface.OnClickListener negativeClick;
-    final DialogInterface.OnClickListener neutralClick;
-    */
+    private CharSequence title;
+    private CharSequence message;
+    private CharSequence positiveText;
+    private CharSequence negativeText;
+    private CharSequence neutralText;
+    private CharSequence checkBoxText;
+    private DialogInterface.OnClickListener positiveClick;
+    private DialogInterface.OnClickListener negativeClick;
+    private DialogInterface.OnClickListener neutralClick;
+    private DialogInterface.OnCancelListener cancelListener;
+    private DialogInterface.OnDismissListener dismissListener;
+    private CompoundButton.OnCheckedChangeListener checkBoxListener;
+    private boolean cancelable;
+    private boolean canceledOnTouchOutside;
+    private boolean checBoxChecked;
+    private boolean checkBoxEnabled;
+    private boolean hideButtonBarDivider;
+    private boolean cancelDialogAtLinkClick;
 
-    PPAlertDialog(CharSequence _title, CharSequence _message,
+    public PPAlertDialog() {
+    }
+
+    public PPAlertDialog(CharSequence _title, CharSequence _message,
                   CharSequence _positiveText, CharSequence _negativeText,
-                  @SuppressWarnings("SameParameterValue") CharSequence _neutralText,
+                  CharSequence _neutralText,
                   CharSequence _checkBoxText,
                   DialogInterface.OnClickListener _positiveClick,
                   DialogInterface.OnClickListener _negativeClick,
-                  @SuppressWarnings("SameParameterValue") DialogInterface.OnClickListener _neutralClick,
+                  DialogInterface.OnClickListener _neutralClick,
                   DialogInterface.OnCancelListener _cancelListener,
+                  DialogInterface.OnDismissListener _dismissListener,
                   CompoundButton.OnCheckedChangeListener _checkBoxListener,
                   boolean _cancelable,
                   boolean _canceledOnTouchOutside,
@@ -40,66 +61,97 @@ class PPAlertDialog implements PPLinkMovementMethod.OnPPLinkMovementMethodListen
                   boolean _checkBoxEnabled,
                   boolean _hideButtonBarDivider,
                   boolean _cancelDialogAtLinkClick,
-                  Activity _activity) {
+                  AppCompatActivity _activity) {
         this.activity = _activity;
-        this.cancelDialogAtLinkClick = _cancelDialogAtLinkClick;
-        /*
+        this.title = _title;
+        this.message = _message;
+        this.positiveText = _positiveText;
+        this.negativeText = _negativeText;
+        this.neutralText = _neutralText;
+        this.checkBoxText = _checkBoxText;
         this.positiveClick = _positiveClick;
         this.negativeClick = _negativeClick;
         this.neutralClick = _neutralClick;
-        */
+        this.cancelListener = _cancelListener;
+        this.dismissListener = _dismissListener;
+        this.checkBoxListener = _checkBoxListener;
+        this.cancelable = _cancelable;
+        this.canceledOnTouchOutside = _canceledOnTouchOutside;
+        this.checBoxChecked = _checBoxChecked;
+        this.checkBoxEnabled = _checkBoxEnabled;
+        this.hideButtonBarDivider = _hideButtonBarDivider;
+        this.cancelDialogAtLinkClick = _cancelDialogAtLinkClick;
+    }
 
-        this.title = _title;
+    @SuppressLint("DialogFragmentCallbacksDetector")
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            GlobalGUIRoutines.lockScreenOrientation(activity);
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
-                                _title, null);
-        //dialogBuilder.setTitle(_title);
-        dialogBuilder.setCancelable(true);
-        //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    title, null);
+            //dialogBuilder.setTitle(_title);
+            dialogBuilder.setCancelable(true);
+            //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_info_preference, null);
-        dialogBuilder.setView(layout);
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_info_preference, null);
+            dialogBuilder.setView(layout);
 
-        dialogBuilder.setPositiveButton(_positiveText, _positiveClick);
-        if (_negativeText != null)
-            dialogBuilder.setNegativeButton(_negativeText, _negativeClick);
-        if (_neutralText != null)
-            dialogBuilder.setNeutralButton(_neutralText, _neutralClick);
+            dialogBuilder.setPositiveButton(positiveText, positiveClick);
+            if (negativeText != null)
+                dialogBuilder.setNegativeButton(negativeText, negativeClick);
+            if (neutralText != null)
+                dialogBuilder.setNeutralButton(neutralText, neutralClick);
 
-        if (_cancelListener != null)
-            dialogBuilder.setOnCancelListener(_cancelListener);
+            if (cancelListener != null)
+                dialogBuilder.setOnCancelListener(cancelListener);
+            if (dismissListener != null)
+                dialogBuilder.setOnDismissListener(dismissListener);
 
-        dialogBuilder.setCancelable(_cancelable);
+            dialogBuilder.setCancelable(cancelable);
 
-        mDialog = dialogBuilder.create();
+            mDialog = dialogBuilder.create();
 
-        //mDialog.setOnShowListener(dialog -> doShow());
+            //mDialog.setOnShowListener(dialog -> doShow());
 
-        messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
-        //noinspection DataFlowIssue
-        messageText.setText(_message);
-
-        View buttonsDivider = layout.findViewById(R.id.info_pref_dialog_buttonBarDivider);
-        if (_hideButtonBarDivider)
+            messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
             //noinspection DataFlowIssue
-            buttonsDivider.setVisibility(View.GONE);
-        else
-            //noinspection DataFlowIssue
-            buttonsDivider.setVisibility(View.VISIBLE);
+            messageText.setText(message);
+            messageText.setMovementMethod(new PPLinkMovementMethod(this, activity));
 
-        mDialog.setCanceledOnTouchOutside(_canceledOnTouchOutside);
+            View buttonsDivider = layout.findViewById(R.id.info_pref_dialog_buttonBarDivider);
+            if (hideButtonBarDivider)
+                //noinspection DataFlowIssue
+                buttonsDivider.setVisibility(View.GONE);
+            else
+                //noinspection DataFlowIssue
+                buttonsDivider.setVisibility(View.VISIBLE);
 
-        if (_checkBoxListener != null) {
-            CheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
-            //noinspection DataFlowIssue
-            checkBox.setText(_checkBoxText);
-            checkBox.setEnabled(_checkBoxEnabled);
-            checkBox.setChecked(_checBoxChecked);
-            checkBox.setOnCheckedChangeListener(_checkBoxListener);
-            checkBox.setVisibility(View.VISIBLE);
+            mDialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
+
+            if (checkBoxListener != null) {
+                CheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
+                //noinspection DataFlowIssue
+                checkBox.setText(checkBoxText);
+                checkBox.setEnabled(checkBoxEnabled);
+                checkBox.setChecked(checBoxChecked);
+                checkBox.setOnCheckedChangeListener(checkBoxListener);
+                checkBox.setVisibility(View.VISIBLE);
+            }
+
         }
+        return mDialog;
+    }
+
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (activity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
     }
 
     /*
@@ -110,11 +162,10 @@ class PPAlertDialog implements PPLinkMovementMethod.OnPPLinkMovementMethodListen
     }
     */
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
-
-        messageText.setMovementMethod(new PPLinkMovementMethod(this, activity));
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing())) {
+            show(activity.getSupportFragmentManager(), "PP_ALERT_DIALOG");
+        }
     }
 
     @Override
