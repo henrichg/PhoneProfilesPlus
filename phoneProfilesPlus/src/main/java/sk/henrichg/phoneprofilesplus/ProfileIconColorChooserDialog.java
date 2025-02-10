@@ -22,10 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.gridlayout.widget.GridLayout;
 
-import com.kunzisoft.androidclearchroma.IndicatorMode;
-import com.kunzisoft.androidclearchroma.colormode.ColorMode;
-import com.kunzisoft.androidclearchroma.view.ChromaColorView;
-
 public class ProfileIconColorChooserDialog extends DialogFragment implements View.OnClickListener {
 
     private ProfileIconPreference profileIconPreference;
@@ -211,36 +207,13 @@ public class ProfileIconColorChooserDialog extends DialogFragment implements Vie
         if (v.getTag() != null) {
             Integer index = (Integer) v.getTag();
             if (index == -2) {
-                // TODO z toho sprav DialogFragment - nerotovatelny
-
                 // custom color
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
-                        activity.getString(R.string.colorChooser_pref_dialog_title), null);
-                //dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
-                dialogBuilder.setCancelable(true);
-                dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-                LayoutInflater inflater = activity.getLayoutInflater();
-                View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
-                dialogBuilder.setView(layout);
-
-                final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
-                //noinspection DataFlowIssue
-                chromaColorView.setCurrentColor(profileIconPreference.customColor);
-                chromaColorView.setColorMode(ColorMode.values()[0]);
-                chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
-
-                dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    int color = chromaColorView.getCurrentColor();
-                    profileIconPreference.setCustomColor(true, color);
-                    mDialog.dismiss();
-                });
-                dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-                AlertDialog dialog = dialogBuilder.create();
-                if (!activity.isFinishing())
-                    dialog.show();
+                ColorChooserCustomColorDialog dialog = new ColorChooserCustomColorDialog(
+                        activity, mDialog,
+                        null, profileIconPreference, null
+                );
+                if ((getActivity() != null) && (!getActivity().isFinishing()))
+                    dialog.showDialog();
             }
             else {
                 int color = defaultColor;
