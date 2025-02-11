@@ -93,7 +93,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private Location mGeofenceLocation = null;
 
     private long geofenceId;
-    private Geofence geofence;
+    Geofence geofence;
 
     //private AddressResultReceiver mResultReceiver;
     //private boolean mAddressRequested = false;
@@ -103,16 +103,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private TextView addressText;
     private Button okButton;
     //private TextView radiusLabel;
-    private TextView radiusValue;
+    TextView radiusValue;
     private PPNumberPicker numberPicker;
     private LinearLayout mapIsLoading;
 
     private AlertDialog valueDialog;
 
+    boolean nightModeOn;
+
     private LocationGeofenceEditorOnlineStatusBroadcastReceiver checkOnlineStatusBroadcatReceiver = null;
 
-    private static final int MIN_RADIUS = 20;
-    private static final int MAX_RADIUS = 500 * 1000;
+    static final int MIN_RADIUS = 20;
+    static final int MAX_RADIUS = 500 * 1000;
 
     // must be less then 20 because in 20+ map tiles are not loaded :-(
     private static final double MAX_ZOOM_LEVEL = 19.99999d;
@@ -182,11 +184,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
 
-        //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(getApplicationContext());
+        //nightModeOn = GlobalGUIRoutines.isNightModeEnabled(getApplicationContext());
 //                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
         String applicationTheme = ApplicationPreferences.applicationTheme(this, true);
-        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+        nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
         /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
@@ -276,6 +278,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         TooltipCompat.setTooltipText(radiusValue, getString(R.string.location_pref_dlg_edit_radius_tooltip));
         radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
+        /*
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
                 getString(R.string.event_preferences_location_radius_label), null);
@@ -286,19 +289,19 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             boolean persist = true;
             BigDecimal number = numberPicker.getEnteredNumber();
             if (isSmaller(number) || isBigger(number)) {
-            /*String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
-            mNumberPicker.getErrorView().setText(errorText);
-            mNumberPicker.getErrorView().show();*/
+//            String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
+//            mNumberPicker.getErrorView().setText(errorText);
+//            mNumberPicker.getErrorView().show();
                 persist = false;
             } else if (isSmaller(number)) {
-            /*String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
-            mNumberPicker.getErrorView().setText(errorText);
-            mNumberPicker.getErrorView().show();*/
+//            String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
+//            mNumberPicker.getErrorView().setText(errorText);
+//            mNumberPicker.getErrorView().show();
                 persist = false;
             } else if (isBigger(number)) {
-            /*String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
-            mNumberPicker.getErrorView().setText(errorText);
-            mNumberPicker.getErrorView().show();*/
+//            String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
+//            mNumberPicker.getErrorView().setText(errorText);
+//            mNumberPicker.getErrorView().show();
                 persist = false;
             }
 
@@ -324,12 +327,13 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
         numberPicker.setNumber(Math.round(geofence._radius), null, null);
 
-        if (/*ApplicationPreferences.applicationTheme(this, true).equals("dark")*/nightModeOn)
+        if (nightModeOn)
             numberPicker.setTheme(R.style.BetterPickersDialogFragment);
         else
             numberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);
 
         valueDialog = dialogBuilder.create();
+        */
 
 //        valueDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -342,8 +346,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //        });
 
         radiusValue.setOnClickListener(view -> {
-            if (!(isFinishing()))
-                valueDialog.show();
+            if (!(isFinishing())) {
+                BetterNumberPickerDialog dialog = new BetterNumberPickerDialog(this);
+                dialog.showDialog();
+                //valueDialog.show();
+            }
         });
 
 
@@ -662,7 +669,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         return zoom;
     }
 
-    private void updateEditedMarker(boolean setMapCamera) {
+    void updateEditedMarker(boolean setMapCamera) {
         if (mMap != null) {
 
 //            Log.e("LocationGeofenceEditorActivityOSM.updateEditedMarker", "setMapCamera="+setMapCamera);
@@ -1026,11 +1033,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         }
     }
 
-    private boolean isBigger(BigDecimal number) {
+    boolean isBigger(BigDecimal number) {
         return number.compareTo(BigDecimal.valueOf(MAX_RADIUS)) > 0;
     }
 
-    private boolean isSmaller(BigDecimal number) {
+    boolean isSmaller(BigDecimal number) {
         return number.compareTo(BigDecimal.valueOf(MIN_RADIUS)) < 0;
     }
 

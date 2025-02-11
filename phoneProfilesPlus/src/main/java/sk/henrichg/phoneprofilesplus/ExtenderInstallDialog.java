@@ -15,7 +15,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -80,16 +79,13 @@ public class ExtenderInstallDialog extends DialogFragment
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
-        Log.e("ExtenderInstallDialog.onCancel", "sssssssssss");
         if (activity != null) {
             //GlobalGUIRoutines.unlockScreenOrientation(activity);
 
             boolean finishActivity = false;
             Bundle arguments = getArguments();
-            if (arguments != null) {
+            if (arguments != null)
                 finishActivity = arguments.getBoolean(ExtenderDialogPreferenceFragment.EXTRA_FINISH_ACTIVITY, false);
-                Log.e("ExtenderInstallDialog.onCancel", "finishActivity="+finishActivity);
-            }
             if (finishActivity)
                 activity.finish();
         }
