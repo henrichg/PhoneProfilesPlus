@@ -109,7 +109,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     private AlertDialog valueDialog;
 
-    boolean nightModeOn;
+    private boolean nightModeOn;
 
     private LocationGeofenceEditorOnlineStatusBroadcastReceiver checkOnlineStatusBroadcatReceiver = null;
 
@@ -277,73 +277,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(radiusValue, getString(R.string.location_pref_dlg_edit_radius_tooltip));
         radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
-
-        /*
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
-                getString(R.string.event_preferences_location_radius_label), null);
-        //dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);
-        dialogBuilder.setCancelable(true);
-
-        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            boolean persist = true;
-            BigDecimal number = numberPicker.getEnteredNumber();
-            if (isSmaller(number) || isBigger(number)) {
-//            String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
-//            mNumberPicker.getErrorView().setText(errorText);
-//            mNumberPicker.getErrorView().show();
-                persist = false;
-            } else if (isSmaller(number)) {
-//            String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
-//            mNumberPicker.getErrorView().setText(errorText);
-//            mNumberPicker.getErrorView().show();
-                persist = false;
-            } else if (isBigger(number)) {
-//            String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
-//            mNumberPicker.getErrorView().setText(errorText);
-//            mNumberPicker.getErrorView().show();
-                persist = false;
-            }
-
-            if (persist) {
-                geofence._radius = numberPicker.getNumber().floatValue();
-                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
-                updateEditedMarker(true);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_better_number_preference, null);
-        dialogBuilder.setView(layout);
-
-        numberPicker = layout.findViewById(R.id.better_number_picker);
-        // Initialize state
-        //noinspection DataFlowIssue
-        numberPicker.setMin(BigDecimal.valueOf(MIN_RADIUS));
-        numberPicker.setMax(BigDecimal.valueOf(MAX_RADIUS));
-        numberPicker.setPlusMinusVisibility(View.INVISIBLE);
-        numberPicker.setDecimalVisibility(View.INVISIBLE);
-        //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
-        numberPicker.setNumber(Math.round(geofence._radius), null, null);
-
-        if (nightModeOn)
-            numberPicker.setTheme(R.style.BetterPickersDialogFragment);
-        else
-            numberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);
-
-        valueDialog = dialogBuilder.create();
-        */
-
-//        valueDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
 
         radiusValue.setOnClickListener(view -> {
             if (!(isFinishing())) {

@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -2434,6 +2435,7 @@ class PPApplicationStatic {
 
     static void showDoNotKillMyAppDialog(final Activity activity) {
         if (activity != null) {
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
                     activity.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle), null);
@@ -2461,9 +2463,13 @@ class PPApplicationStatic {
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
+            */
 
-            if (!activity.isFinishing())
-                dialog.show();
+            if (!activity.isFinishing()) {
+                DontKillMyAppDialog dialog = new DontKillMyAppDialog((AppCompatActivity) activity);
+                dialog.showDialog();
+                //dialog.show();
+            }
         }
 
     }

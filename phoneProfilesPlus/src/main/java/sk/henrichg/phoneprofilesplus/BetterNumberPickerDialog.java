@@ -83,7 +83,9 @@ public class BetterNumberPickerDialog extends DialogFragment
             //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
             numberPicker.setNumber(Math.round(activity.geofence._radius), null, null);
 
-            if (/*ApplicationPreferences.applicationTheme(this, true).equals("dark")*/activity.nightModeOn)
+            String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
+            boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+            if (/*ApplicationPreferences.applicationTheme(this, true).equals("dark")*/nightModeOn)
                 numberPicker.setTheme(R.style.BetterPickersDialogFragment);
             else
                 numberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);
@@ -102,7 +104,7 @@ public class BetterNumberPickerDialog extends DialogFragment
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing()))
             //mDialog.show();
-            show(activity.getSupportFragmentManager(), "COLOR_CHOOSER_CUSTOM_COLOR_DIALOG");
+            show(activity.getSupportFragmentManager(), "BETTER_NUMBER_PICKET_DIALOG");
     }
 
 }
