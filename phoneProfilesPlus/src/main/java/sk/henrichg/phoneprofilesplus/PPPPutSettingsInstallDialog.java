@@ -101,7 +101,7 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
 
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "EXTENDER_INSTALL_DIALOG");
+            show(activity.getSupportFragmentManager(), "PPPPS_INSTALL_DIALOG");
     }
 
     @SuppressLint("InflateParams")
