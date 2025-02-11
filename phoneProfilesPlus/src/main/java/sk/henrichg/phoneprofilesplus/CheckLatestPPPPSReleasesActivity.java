@@ -59,7 +59,7 @@ public class CheckLatestPPPPSReleasesActivity extends AppCompatActivity
             //GlobalGUIRoutines.setLanguage(this);
 
 //            PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");
-            PPPPSDialogPreferenceFragment.installPPPPutSettings(this, null, true);
+            PPPPSDialogPreferenceFragment.installPPPPutSettings(this, /*null,*/ true);
         }
         else {
             if (isFinishing())

@@ -15,7 +15,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -44,8 +43,6 @@ public class CheckPPPReleasesDialog extends DialogFragment
         this.activity = (CheckPPPReleasesActivity) getActivity();
         if (this.activity != null) {
             //GlobalGUIRoutines.lockScreenOrientation(activity);
-
-            Log.e("CheckPPPReleasesDialog.onCreateDialog", "xxxxxxxxxxxxxxxxx");
 
             int store = 0;
             Bundle arguments = getArguments();
@@ -92,7 +89,6 @@ public class CheckPPPReleasesDialog extends DialogFragment
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
-        Log.e("CheckPPPReleasesDialog.onCancel", "sssssssssss");
         if (activity != null) {
             //GlobalGUIRoutines.unlockScreenOrientation(activity);
             activity.finish();
@@ -101,7 +97,7 @@ public class CheckPPPReleasesDialog extends DialogFragment
 
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "COLOR_CHOOSER_CUSTOM_COLOR_DIALOG");
+            show(activity.getSupportFragmentManager(), "CHECK_PPP_RELEASES_DIALOG");
     }
 
     @SuppressLint("SetTextI18n")
@@ -111,7 +107,6 @@ public class CheckPPPReleasesDialog extends DialogFragment
             boolean newVersionCritical,
             boolean criticalCheck
     ) {
-        Log.e("CheckPPPReleasesActivity.checkInGitHub", "xxxxxxxxxxxxxxxxx");
         int pppVersionCode = 0;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -812,7 +807,6 @@ public class CheckPPPReleasesDialog extends DialogFragment
 //            }
 //        });
 
-        Log.e("CheckPPPReleasesDialog.checkInDroidIfy", "yyyyyyyyyyyyyyyyyyy");
         return dialog;
     }
 

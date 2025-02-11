@@ -8526,7 +8526,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setSummary(summary);
 
                                 preference.setOnPreferenceClickListener(preference15 -> {
-                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, null, false);
+                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, /*null,*/ false);
                                     return false;
                                 });
                             } else {
@@ -8536,7 +8536,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setSummary(summary);
 
                                 preference.setOnPreferenceClickListener(preference16 -> {
-                                    ExtenderDialogPreferenceFragment.enableExtender(activity, null);
+                                    ExtenderDialogPreferenceFragment.enableExtender(activity/*, null*/);
                                     return false;
                                 });
                             }
@@ -8600,7 +8600,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     preference.setSummary(summary);
 
                                     preference.setOnPreferenceClickListener(preference15 -> {
-                                        PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
+                                        PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, /*null,*/ false);
                                         return false;
                                     });
                                 //}

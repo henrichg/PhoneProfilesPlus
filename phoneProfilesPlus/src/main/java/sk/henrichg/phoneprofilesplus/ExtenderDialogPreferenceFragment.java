@@ -6,16 +6,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +40,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
     static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
 
+    static final String EXTRA_STORE = "extra_store";
+    static final String EXTRA_FINISH_ACTIVITY = "extra_finish_activity";
+    static final int STORE_GITHUB = 1;
+    static final int STORE_DROIDIFY = 2;
+    static final int STORE_ALL = 99;
+
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
@@ -76,15 +75,24 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         Button extenderInstallButton = layout.findViewById(R.id.extenderPrefDialog_extender_install_button);
         //noinspection DataFlowIssue
-        extenderInstallButton.setOnClickListener(v -> installPPPExtender(getActivity(), preference, false));
+        extenderInstallButton.setOnClickListener(v -> {
+            installPPPExtender(getActivity(), /*null,*/ false);
+            preference.fragment.dismiss();
+        });
 
         Button extenderLaunchButton = layout.findViewById(R.id.extenderPrefDialog_extender_launch_button);
         //noinspection DataFlowIssue
-        extenderLaunchButton.setOnClickListener(v -> launchPPPExtender());
+        extenderLaunchButton.setOnClickListener(v -> {
+            launchPPPExtender();
+            preference.fragment.dismiss();
+        });
 
         Button extenderAccessibilitySettingsButton = layout.findViewById(R.id.extenderPrefDialog_accessibiloty_settings_button);
         //noinspection DataFlowIssue
-        extenderAccessibilitySettingsButton.setOnClickListener(v -> enableExtender(getActivity(), preference));
+        extenderAccessibilitySettingsButton.setOnClickListener(v -> {
+            enableExtender(getActivity()/*, preference*/);
+            preference.fragment.dismiss();
+        });
 
         mDialog = dialogBuilder.create();
 
@@ -221,14 +229,23 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
     }
     */
-
-    private static void installExtenderFromGitHub(final Activity activity,
-                                                  final ExtenderDialogPreference _preference,
+/*
+    private void installExtenderFromGitHub(final Activity activity,
+                                                  //final ExtenderDialogPreference _preference,
                                                   boolean finishActivity) {
         if (activity == null) {
             return;
         }
 
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_STORE, STORE_GITHUB);
+        bundle.putBoolean(EXTRA_FINISH_ACTIVITY, finishActivity);
+
+        ExtenderInstallDialog dialog = new ExtenderInstallDialog((AppCompatActivity) activity);
+        dialog.setArguments(bundle);
+        dialog.showDialog();
+
+        ---
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
                 activity.getString(R.string.install_extender_dialog_title), null);
@@ -279,14 +296,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 i.setData(Uri.parse(url));
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 }
@@ -320,44 +337,44 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                 }
-            /*} else {
-                try {
-                    String textToast = activity.getString(R.string.downloading_toast_text);
-                    PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
-
-                    Uri Download_Uri = Uri.parse(url);
-                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-
-                    //Restrict the types of networks over which this download may proceed.
-                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                    //Set whether this download may proceed over a roaming connection.
-                    request.setAllowedOverRoaming(false);
-                    //Set the title of this download, to be displayed in notifications (if enabled).
-                    request.setTitle(activity.getString(R.string.download_PPPE_title));
-                    //Set a description of this download, to be displayed in notifications (if enabled)
-                    request.setDescription(activity.getString(R.string.downloading_file_description));
-                    //Set the local destination for the downloaded file to a path within the application's external files directory
-                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlusExtender.apk");
-                    //request.allowScanningByMediaScanner();
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    //Enqueue a new download and same the referenceId
-                    DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadCompletedBroadcastReceiver.downloadReferencePPPE = downloadManager.enqueue(request);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
-                }
-            }*/
+//            } else {
+//                try {
+//                    String textToast = activity.getString(R.string.downloading_toast_text);
+//                    PPApplication.showToast(activity.getApplicationContext(), textToast, Toast.LENGTH_LONG);
+//
+//                    Uri Download_Uri = Uri.parse(url);
+//                    DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+//
+//                    //Restrict the types of networks over which this download may proceed.
+//                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+//                    //Set whether this download may proceed over a roaming connection.
+//                    request.setAllowedOverRoaming(false);
+//                    //Set the title of this download, to be displayed in notifications (if enabled).
+//                    request.setTitle(activity.getString(R.string.download_PPPE_title));
+//                    //Set a description of this download, to be displayed in notifications (if enabled)
+//                    request.setDescription(activity.getString(R.string.downloading_file_description));
+//                    //Set the local destination for the downloaded file to a path within the application's external files directory
+//                    request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "PhoneProfilesPlusExtender.apk");
+//                    //request.allowScanningByMediaScanner();
+//                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//                    //Enqueue a new download and same the referenceId
+//                    DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+//                    DownloadCompletedBroadcastReceiver.downloadReferencePPPE = downloadManager.enqueue(request);
+//                    if ((_preference != null) && (_preference.fragment != null))
+//                        _preference.fragment.dismiss();
+//                } catch (Exception e) {
+//                    PPApplicationStatic.recordException(e);
+//                    if ((_preference != null) && (_preference.fragment != null))
+//                        _preference.fragment.dismiss();
+//                }
+//            }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
             if (finishActivity)
@@ -377,18 +394,30 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         if (!activity.isFinishing())
             dialog.show();
-    }
 
-    @SuppressLint("InflateParams")
+
+    }
+*/
+/*
     private static void installDroidIfy(final Activity activity,
-                                        final ExtenderDialogPreference _preference,
+                                        //final ExtenderDialogPreference _preference,
                                         boolean finishActivity) {
+
         PackageManager pm = activity.getPackageManager();
         try {
             pm.getPackageInfo(PPApplication.DROIDIFY_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             return;
         } catch (Exception ignored) {}
 
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_STORE, STORE_DROIDIFY);
+        bundle.putBoolean(EXTRA_FINISH_ACTIVITY, finishActivity);
+
+        ExtenderInstallDialog dialog = new ExtenderInstallDialog((AppCompatActivity) activity);
+        dialog.setArguments(bundle);
+        dialog.showDialog();
+
+        ---
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
                 activity.getString(R.string.install_extender_dialog_title), null);
@@ -432,8 +461,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-            if ((_preference != null) && (_preference.fragment != null))
-                _preference.fragment.dismiss();
+            //if ((_preference != null) && (_preference.fragment != null))
+            //    _preference.fragment.dismiss();
             if (finishActivity)
                 activity.finish();
         });
@@ -454,14 +483,25 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         if (!activity.isFinishing())
             alertDialog.show();
-    }
 
-    static void installPPPExtender(final Activity activity, final ExtenderDialogPreference _preference,
+    }
+*/
+    static void installPPPExtender(final Activity activity,
+                                   //final ExtenderDialogPreference _preference,
                                    boolean finishActivity) {
+
         if (activity == null) {
             return;
         }
 
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_STORE, STORE_ALL);
+        bundle.putBoolean(EXTRA_FINISH_ACTIVITY, finishActivity);
+
+        ExtenderInstallDialog dialog = new ExtenderInstallDialog((AppCompatActivity) activity);
+        dialog.setArguments(bundle);
+        dialog.showDialog();
+/*
         PackageManager packageManager = activity.getPackageManager();
         Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
         boolean fdroidInstalled = (_intent != null);
@@ -475,7 +515,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "droidifyInstalled="+droidifyInstalled);
 //        Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "galaxyStoreInstalled="+galaxyStoreInstalled);
 
-        if (droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/) {
+        if (droidifyInstalled || neostoreInstalled || fdroidInstalled) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
                     activity.getString(R.string.install_extender_dialog_title), null);
@@ -503,44 +543,42 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             //noinspection DataFlowIssue
             text.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
-            /*
-            text = layout.findViewById(R.id.install_pppe_from_store_dialog_github_releases);
-            CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0»»";
-            Spannable sbt = new SpannableString(str2);
-            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    ds.setColor(ds.linkColor);    // you can use custom color
-                    ds.setUnderlineText(false);    // this remove the underline
-                }
-
-                @Override
-                public void onClick(@NonNull View textView) {
-                    String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
-                        if (finishActivity)
-                            activity.finish();
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
-                        if (finishActivity)
-                            activity.finish();
-                    }
-                }
-            };
-            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-            text.setText(sbt);
-            text.setMovementMethod(LinkMovementMethod.getInstance());
-            */
+//            text = layout.findViewById(R.id.install_pppe_from_store_dialog_github_releases);
+//            CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
+//            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0»»";
+//            Spannable sbt = new SpannableString(str2);
+//            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            ClickableSpan clickableSpan = new ClickableSpan() {
+//                @Override
+//                public void updateDrawState(TextPaint ds) {
+//                    ds.setColor(ds.linkColor);    // you can use custom color
+//                    ds.setUnderlineText(false);    // this remove the underline
+//                }
+//
+//                @Override
+//                public void onClick(@NonNull View textView) {
+//                    String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(url));
+//                    try {
+//                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+//                        if ((_preference != null) && (_preference.fragment != null))
+//                            _preference.fragment.dismiss();
+//                        if (finishActivity)
+//                            activity.finish();
+//                    } catch (Exception e) {
+//                        PPApplicationStatic.recordException(e);
+//                        if ((_preference != null) && (_preference.fragment != null))
+//                            _preference.fragment.dismiss();
+//                        if (finishActivity)
+//                            activity.finish();
+//                    }
+//                }
+//            };
+//            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+//            text.setText(sbt);
+//            text.setMovementMethod(LinkMovementMethod.getInstance());
 
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
@@ -549,14 +587,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
+                        //if ((_preference != null) && (_preference.fragment != null))
+                        //    _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
+                        //if ((_preference != null) && (_preference.fragment != null))
+                        //    _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     }
@@ -564,49 +602,50 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
+                        //if ((_preference != null) && (_preference.fragment != null))
+                        //    _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
+                        //if ((_preference != null) && (_preference.fragment != null))
+                        //    _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     }
-                } else /*if (fdroidInstalled)*/ {
+                } else  {
                     intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
+                        //if ((_preference != null) && (_preference.fragment != null))
+                        //    _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
+                        //if ((_preference != null) && (_preference.fragment != null))
+                        //    _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     }
-                } /*else {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
-                    try {
-                        activity.startActivity(intent);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
-                        if (finishActivity)
-                            activity.finish();
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                        if ((_preference != null) && (_preference.fragment != null))
-                            _preference.fragment.dismiss();
-                        if (finishActivity)
-                            activity.finish();
-                    }
-                }*/
+                }
+//                else {
+//                    Intent intent = new Intent(Intent.ACTION_VIEW,
+//                            Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
+//                    try {
+//                        activity.startActivity(intent);
+//                        //if ((_preference != null) && (_preference.fragment != null))
+//                        //    _preference.fragment.dismiss();
+//                        if (finishActivity)
+//                            activity.finish();
+//                    } catch (Exception e) {
+//                        PPApplicationStatic.recordException(e);
+//                        //if ((_preference != null) && (_preference.fragment != null))
+//                        //    _preference.fragment.dismiss();
+//                        if (finishActivity)
+//                            activity.finish();
+//                    }
+//                }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                 if (finishActivity)
@@ -617,13 +656,11 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
             final AlertDialog dialog = dialogBuilder.create();
 
-            /*
-            button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
-            button.setOnClickListener(v -> {
-                dialog.cancel();
-                installExtenderFromGitHub(activity, _preference, finishActivity);
-            });
-            */
+//            button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
+//            button.setOnClickListener(v -> {
+//                dialog.cancel();
+//                installExtenderFromGitHub(activity, _preference, finishActivity);
+//            });
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -640,10 +677,11 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         }
         else {
             if (Build.VERSION.SDK_INT < 33)
-                installExtenderFromGitHub(activity, _preference, finishActivity);
+                installExtenderFromGitHub(activity, finishActivity);
             else
-                installDroidIfy(activity, _preference, finishActivity);
+                installDroidIfy(activity, finishActivity);
         }
+*/
     }
 
     private void launchPPPExtender() {
@@ -659,12 +697,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     startActivity(intent);
-                    if (preference != null)
-                        preference.fragment.dismiss();
+                    //if (preference != null)
+                    //    preference.fragment.dismiss();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if (preference != null)
-                        preference.fragment.dismiss();
+                    //if (preference != null)
+                    //    preference.fragment.dismiss();
                 }
             }
         }
@@ -695,7 +733,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         }
     }
 
-    static void enableExtender(final Activity activity, final ExtenderDialogPreference _preference) {
+    static void enableExtender(final Activity activity/*, final ExtenderDialogPreference _preference*/) {
         if (activity == null) {
             return;
         }
@@ -706,12 +744,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 activity.startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
-                if (_preference != null)
-                    _preference.fragment.dismiss();
+                //if (_preference != null)
+                //    _preference.fragment.dismiss();
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
-                if (_preference != null)
-                    _preference.fragment.dismiss();
+                //if (_preference != null)
+                //    _preference.fragment.dismiss();
             }
         }
         if (!ok) {

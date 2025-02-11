@@ -2439,7 +2439,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 preference.setSummary(summary);
 
                                 preference.setOnPreferenceClickListener(preference12 -> {
-                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, null, false);
+                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, /*null,*/ false);
                                     return false;
                                 });
                             }
@@ -2452,7 +2452,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 preference.setSummary(summary);
 
                                 preference.setOnPreferenceClickListener(preference13 -> {
-                                    ExtenderDialogPreferenceFragment.enableExtender(activity, null);
+                                    ExtenderDialogPreferenceFragment.enableExtender(activity/*, null*/);
                                     return false;
                                 });
                             }
