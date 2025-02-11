@@ -2991,16 +2991,11 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
             AlertDialog dialog = dialogBuilder.create();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
 
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+            dialog.setOnShowListener(dialog1 -> GlobalGUIRoutines.lockScreenOrientation(EditorActivity.this));
+            dialog.setOnDismissListener(dialog2 -> GlobalGUIRoutines.unlockScreenOrientation(EditorActivity.this));
 
             if (!isFinishing())
                 dialog.show();
@@ -4885,17 +4880,13 @@ public class EditorActivity extends AppCompatActivity
                             }
                         });
                         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                        AlertDialog dialog = dialogBuilder.create();
 
-                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        //            @Override
-                        //            public void onShow(DialogInterface dialog) {
-                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        //                if (positive != null) positive.setAllCaps(false);
-                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        //                if (negative != null) negative.setAllCaps(false);
-                        //            }
-                        //        });
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setCancelable(false);
+                        dialog.setCanceledOnTouchOutside(false);
+
+                        dialog.setOnShowListener(dialog1 -> GlobalGUIRoutines.lockScreenOrientation(activity));
+                        dialog.setOnDismissListener(dialog2 -> GlobalGUIRoutines.unlockScreenOrientation(activity));
 
                         if (!activity.isFinishing())
                             dialog.show();

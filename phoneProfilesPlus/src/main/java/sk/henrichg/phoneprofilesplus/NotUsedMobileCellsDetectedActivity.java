@@ -253,11 +253,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         mDialog.setCanceledOnTouchOutside(false);
 
         mDialog.setOnShowListener(dialog -> {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-
+            GlobalGUIRoutines.lockScreenOrientation(this);
             showDialogAsyncTask = new ShowDialogAsyncTask(this);
             showDialogAsyncTask.execute();
         });
@@ -266,6 +262,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
                 showDialogAsyncTask.cancel(true);
             showDialogAsyncTask = null;
+            GlobalGUIRoutines.unlockScreenOrientation(this);
         });
 
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);
