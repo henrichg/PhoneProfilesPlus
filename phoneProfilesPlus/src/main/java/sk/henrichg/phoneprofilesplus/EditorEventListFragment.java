@@ -54,7 +54,6 @@ public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
     DataWrapper activityDataWrapper;
-    EditorActivity activity;
 
     private View rootView;
     LinearLayout activatedProfileHeader;
@@ -173,8 +172,6 @@ public class EditorEventListFragment extends Fragment
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
         //loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
-
-        activity = (EditorActivity) getActivity();
 
         //getActivity().getIntent();
 
@@ -300,6 +297,8 @@ public class EditorEventListFragment extends Fragment
         listView.addFooterView(footerView, null, false);
         */
 
+        Activity activity = getActivity();
+
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -308,8 +307,8 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        activity.addEventDialog = new AddEventDialog(activity/*, this*/);
-                        activity.addEventDialog.showDialog();
+                        ((EditorActivity) activity).addEventDialog = new AddEventDialog(((EditorActivity) activity)/*, this*/);
+                        ((EditorActivity) activity).addEventDialog.showDialog();
                     }
                 }
                 return true;
