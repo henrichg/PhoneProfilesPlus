@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -84,7 +83,6 @@ public class ColorChooserCustomColorDialog extends DialogFragment
                 }
                 else
                 if (preferenceProfileIcon != null) {
-                    Log.e("ColorChooserCustomColorDialog.onButtonClick", "color="+Integer.toHexString(color));
                     preferenceProfileIcon.setCustomColor(true, color);
                 } else {
                     preferenceRestartEventsIcon.value = String.valueOf(color);

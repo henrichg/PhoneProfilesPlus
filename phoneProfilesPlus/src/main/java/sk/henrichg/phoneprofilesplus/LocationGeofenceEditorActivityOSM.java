@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -104,12 +102,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private Button okButton;
     //private TextView radiusLabel;
     TextView radiusValue;
-    private PPNumberPicker numberPicker;
     private LinearLayout mapIsLoading;
-
-    private AlertDialog valueDialog;
-
-    private boolean nightModeOn;
 
     private LocationGeofenceEditorOnlineStatusBroadcastReceiver checkOnlineStatusBroadcatReceiver = null;
 
@@ -188,7 +181,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
         String applicationTheme = ApplicationPreferences.applicationTheme(this, true);
-        nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
+        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
         /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);

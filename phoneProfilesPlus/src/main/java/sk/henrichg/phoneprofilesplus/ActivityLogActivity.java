@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,8 +71,6 @@ public class ActivityLogActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("ActivityLogActivity.onCreate", "xxxxxxxxxxxxxxxxxx");
-
         GlobalGUIRoutines.countScreenOrientationLocks = 0;
 
         EditorActivity.itemDragPerformed = false;

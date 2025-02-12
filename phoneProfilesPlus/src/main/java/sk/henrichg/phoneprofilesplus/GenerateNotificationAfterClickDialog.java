@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
@@ -36,7 +35,6 @@ public class GenerateNotificationAfterClickDialog extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.activity = (AppCompatActivity) getActivity();
-        Log.e("GenerateNotificationAfterClickDialog.onCreateDialog", "activity="+activity);
         if (this.activity != null) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,

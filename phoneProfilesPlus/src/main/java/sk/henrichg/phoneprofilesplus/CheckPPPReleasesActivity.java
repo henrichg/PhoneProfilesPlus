@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -135,7 +134,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     @Override
     public void finish()
     {
-        Log.e("CheckPPPReleasesActivity.finish", "ddddddddddddd");
         //alertDialog = null;
         super.finish();
         overridePendingTransition(0, 0);
@@ -276,8 +274,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
     private void checkInGitHub(/*final Activity activity, final boolean refreshOpenedDialog*/) {
-        Log.e("CheckPPPReleasesActivity.checkInGitHub", "xxxxxxxxxxxxxxxxx");
-
         //noinspection ExtractMethodRecommender
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_MENU_ITEM_ID, R.id.menu_check_in_github);
