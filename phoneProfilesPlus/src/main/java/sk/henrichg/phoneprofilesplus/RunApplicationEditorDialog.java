@@ -165,7 +165,7 @@ public class RunApplicationEditorDialog extends DialogFragment
             filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
             PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                     activity,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
             spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             //noinspection DataFlowIssue

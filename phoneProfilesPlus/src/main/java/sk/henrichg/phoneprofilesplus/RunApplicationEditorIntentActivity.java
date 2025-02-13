@@ -135,7 +135,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
         PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
@@ -185,7 +185,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
         spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
@@ -329,7 +329,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
         spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
@@ -355,7 +355,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
         spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
@@ -381,7 +381,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
         spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
@@ -407,7 +407,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
         spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
@@ -433,7 +433,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
         spinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);

@@ -71,7 +71,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         if (preference.forVolumesSensor == 1) {
             PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (EventsPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);

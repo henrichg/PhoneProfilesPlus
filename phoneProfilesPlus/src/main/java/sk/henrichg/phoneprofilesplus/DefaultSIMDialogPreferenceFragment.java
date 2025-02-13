@@ -83,7 +83,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeVoice != -1) {
             PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.defaultSIMVoiceArray));
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             voiceSpinner.setAdapter(voiceSpinnerAdapter);
@@ -113,7 +113,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeSMS != -1) {
             PPSpinnerAdapter smsSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.defaultSIMSMSArray));
             smsSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             smsSpinner.setAdapter(smsSpinnerAdapter);
@@ -143,7 +143,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeData != -1) {
             PPSpinnerAdapter dataSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.defaultSIMDataArray));
             dataSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             dataSpinner.setAdapter(dataSpinnerAdapter);
