@@ -2136,6 +2136,9 @@ class Event {
             (!DataWrapperStatic.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
                 if (mergedProfile == null) {
+                    // this is called for stop event, for update event parameter changes, for run/stop event
+                    // and if event is not runnable or not all parameters are configured
+
                     long activatedProfileId = dataWrapper.getActivatedProfileId();
                     // first activate _fkProfileEnd
                     if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {

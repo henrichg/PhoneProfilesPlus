@@ -564,6 +564,16 @@ Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
 Aktivacia profil Doma z udalosti
 Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
 
+---
+
+startEvent() vypada, ze je vzdy s mergedProfile != null
+pauseEvent() moze byt aj s mergedProfile == null a to:
+- Event.stopEvent()
+- EventPrefsActivity.saveUpdatedPreferences()
+- EventStatic.runStopEvent()
+
+Takze co robim, ked je == null?
+- aktivujem end profile a robim undo, restart events nerobim
 
 
 
