@@ -554,8 +554,7 @@ public class ActivatorListFragment extends Fragment {
             else
             if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
-//                Log.e("ActivatorListFragment.activateProfile", "xxxxx");
-                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
+                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false, false);
             }
             else
                 GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, (AppCompatActivity) getActivity());

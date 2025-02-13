@@ -169,7 +169,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public boolean onLongClick(View v) {
-        editorFragment.activateProfile(profile);
+        editorFragment.activateProfile(profile, false);
         return true;
     }
 

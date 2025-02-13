@@ -758,7 +758,7 @@ public class EditorProfileListFragment extends Fragment
                 (dialog1, which) -> {
                     switch (which) {
                         case 0:
-                            activateProfile(profile/*, true*/);
+                            activateProfile(profile/*, true*/, false);
                             break;
                         case 1:
                             duplicateProfile(profile);
@@ -1017,11 +1017,12 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    void activateProfile(Profile profile/*, boolean interactive*/)
+    /** @noinspection SameParameterValue*/
+    void activateProfile(Profile profile/*, boolean interactive*/, boolean itIsUndoProfile)
     {
         if (!ProfileStatic.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
-            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
+            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false, itIsUndoProfile);
         }
         else
             GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, (AppCompatActivity) getActivity());

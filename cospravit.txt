@@ -537,3 +537,144 @@ Pre API >= 34:
 
 --------------
 
+--- ako sa profil do fifo pridava
+
+Fifo sa uklada do shared preferences do PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME.
+- DataWrapper.fifoAddProfile()
+  - PPApplication.ACTIVATED_PROFILES_FIFO_SIZE - max 20 profilov. Ak sa presiahne, zmaze sa profil z pozicie 0.
+    Toto by sa ale asi malo riesit az po tom, co sa spravi vsetko co treba, lebo vsak profil sa vobec nemusi pridat.
+    *** HOTOVO
+
+  - vo fifo je profil aj udalost, format: profileId + "|" + eventId
+  - ak su vo fifo uz dake profily:
+    - ak na koci fifo uz je pridavany profil
+      - ak profil na konci ma aj udalost - updatne sa eventid
+      - ak profil na konci nema udalost - neudeje sa vobec nic
+      - Cize ak uz vo fifo profil je, nepridava sa.
+    - ak na konci fifo nie je pridavany profil - prida sa na koniec
+
+- DataWrapper.activateProfileFromEvent()
+Je tam pridanie profilu, co sa ide aktivovat. Tu sa vyberie profil z DB, cize nie skutocne mergnuty:
+	long activatedProfileId = getActivatedProfileIdFromDB();
+        if (activatedProfileId != -1)
+            fifoAddProfile(activatedProfileId, event_id);
+A pootm sa vola DataWrapper._activateProfile().
+
+- DataWrapper._activateProfile()
+Tu sa sa prida aktivovany profil, ktory sa naozaj aktivuje, ale len ten s duration.
+
+!!!Ale len ak nie je startupSource STARTUP_SOURCE_EVENT_MANUAL. Co to je?
+
+            if (profileDuration) {
+                if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
+//                    Log.e("DataWrapper._activateProfile", "dataWrapper.fifoAddProfile() (profileDuration)");
+                    long profileId = _profile._id;
+                    fifoAddProfile(profileId, 0);
+                }
+            }
+
+- DataWrapper.activateProfileFromMainThread()
+Najprv sa vola DataWrapper._activateProfile(). Ten pridava do fifo, ak to nie je aktivacia s duration a nie je to
+STARTUP_SOURCE_EVENT_MANUAL.
+Potom sam pridava do fifo, ale len ak je interactive aktivacia (co to znamena?):
+                            if (interactive) {
+                                long activatedProfileId = profile._id;
+                                if (activatedProfileId != -1)
+                                    fifoAddProfile(activatedProfileId, 0);
+
+- DataWrapper.activateProfile():
+Je tam len vytvorenie FIFO - na first PPP start.
+if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START)
+            synchronized (PPApplication.profileActivationMutex) {
+//                Log.e("DataWrapper.activateProfile", "clear fifo");
+                List<String> activateProfilesFIFO = new ArrayList<>();
+                fifoSaveProfiles(activateProfilesFIFO);
+            }
+}
+
+- DataWrapper.activateProfileAfterDuration()
+Tu sa maze fifo a potom sa vola _activateProfile(), ktory by mal ulozit fifo len ak ide o aktivaciu profilu s duration.
+
+!!! Hm, tu sa mi to nezda cele. Nechapem preco sa tu natvrdo maze fifo.
+                synchronized (PPApplication.profileActivationMutex) {
+                    List<String> activateProfilesFIFO = new ArrayList<>();
+                    fifoSaveProfiles(activateProfilesFIFO);
+                }
+
+- EditorProfileListFragment,deleteProfile()
+Pri mazani profilu sa z fifo mazany zmaze, moze tam by viackrat, takze sa mazu vsetky jeho vyskyty.
+
+- EditorProfileListFragment,deleteAllProfiles()
+Tu sa vyprazdni fifo.
+
+- EventsHandler.handleEvents()
+Tu sa na restart udalosti vyprazdni fifo
+
+- PhoneProfilesService.doForFirstStart()
+Tu sa vyprazdni fifo.
+
+- PPApplicationStatic._exitApp()
+Tu sa vyprazdni fifo.
+
+- Co sa ale deje, ked sa zmaze udalost? Nic?
+
+
+--- ako sa fifo pouziva
+
+- ProfileDurationAlarmBroadcastReceiver._doWork()
+Fifo sa pouziva len na toto:
+    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE)
+
+Vezme sa predposledny profil z fifo a ten sa aktivuje. Ak je menej ako 2 profily vo fifo, nastavi sa
+profileId = 0.
+
+Ale najprv sa spravi toto:
+Ak sa profil, co vyvolal after duraton aktivaciu (ten vstupuje do broadcastu, worku), nerovna tomu
+z fifo, co sa ma undo, tak sa z fifo vymaze posledny.
+
+!!! Toto to zatial nechapem. Ak dobre pozeram, tak do fifo vstupil profile s duration.
+DataWrapper._activateProfile() striktne len tento dava do fifo. Preco kua?
+
+Ten co je posledny pred aktivaciou sa musi zmazat. Posledny musi byt co. Vlastne sa posledny nahradil tym undo.
+Az potom sa spravi toto - to prida profil do fifo:
+Aktivuje sa cez DataWrapper.activateProfileAfterDuration(). Ak je profileId=0, tak sa neaktivuje nic.
+
+- Event.doActivateEndProfile()
+Fifo sa pouizva len na toto:
+    if (_atEndDo == EATENDDO_UNDONE_PROFILE)
+
+!!! Vyberu sa vsetky profily z fifo, ktorych eventId nie je ten, co pauzujem.
+A takato nova fifo sa ulozi.
+A zoberie sa posledny profil z tejto novej fifo a ten sa aktivuje.
+Vo fifo zostanu profily, co maju evemtId=0, aspon ze to.
+Vobec nechapem, ze preco.
+
+Ak je fifo prazdna nastavi sa activateProfile = defaultProfile.
+Na aktivaciu profilu sa vola DataWrapper.activateProfileFromEvent()
+
+------------
+
+No dobre. FIFO funguje uplne nahovno.
+Ako by malo fugovat:
+1. DataWrapper._activateProfile() by mal pridavat kazdy profil, co sa aktivuje. Jedina vynimak je
+   ked sa aktivuje undo profil, ten by sa do fifo pridavat nemal. Lebo ten sa pouzil na ziskanie
+   pre undo.
+2. Undo (jedno ci z duration alebo z udalosti) by mal NAJPRV vyberat posledny profil (ten sa pposledne aktivoval).
+   Tento by sa mal z FIFO aj zmazat. Nezaujimavy je pre dalsie pouzitie.
+   Ale bacha! len pre aktivaciu z udalosti (este testnem), z duration sa nesmie, lebo dalsia aktivacia s duration
+   uz nevrati profil, zostane ten s trvanim.
+3. Az potom  by sa mala robit aktivacia toho vybrateho undo, ten sa ale nesmie do FIOFO pridat.
+4. Problem je aktivacia profilu z udalosti. Lebo ten sa aktivuje (je jedno ci zo startu alebo endu),
+   a ak je na konci undo, vrati sa tento spat. Potrebujem uplne obskocit na undo cely porofil, cize obe aktivacie.
+   Davaj teda itIsUndoProfile na aktivaciu profilu z udalosti na true, ak ma udalost Undo nastavene.
+5. Problem je as s aktivaciou s duration. Ak aktivujem profil, co ma v duration Undo, tiez nesmiem tento profil dat do fifo.
+
+Manualna aktivacia profilu Doma
+Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
+
+Aktivacia profil Doma z udalosti
+Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
+
+
+
+

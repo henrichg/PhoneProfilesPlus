@@ -1823,7 +1823,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeProfileNotification(context);
             if (activateProfile) {
-                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true, false);
             }
         }
 

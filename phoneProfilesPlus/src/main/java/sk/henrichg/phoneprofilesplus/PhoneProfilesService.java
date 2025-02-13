@@ -922,7 +922,6 @@ public class PhoneProfilesService extends Service
                     if (PPApplication.prefLastActivatedProfile != 0) {
                         dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                     }
-
                 }
 
                 for (Event event : dataWrapper.eventList)

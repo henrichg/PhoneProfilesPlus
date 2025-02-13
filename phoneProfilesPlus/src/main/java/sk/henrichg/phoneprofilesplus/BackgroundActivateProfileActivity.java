@@ -107,7 +107,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                 //    finish();
             } else {
                 PPApplication.showToastForProfileActivation = true;
-                dataWrapper.activateProfile(profile_id, startupSource, this, true);
+                dataWrapper.activateProfile(profile_id, startupSource, this, true, false);
             }
         }
     }

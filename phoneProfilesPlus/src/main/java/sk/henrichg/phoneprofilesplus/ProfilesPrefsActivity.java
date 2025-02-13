@@ -765,13 +765,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     }
                     else {
                         if (activatedProfileId == profile._id) {
-                            dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
+                            dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true, false);
                         }
                     }
                 }
                 else {
                     if (activatedProfileId == profile._id) {
-                        dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
+                        dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true, false);
                     }
                 }
             }

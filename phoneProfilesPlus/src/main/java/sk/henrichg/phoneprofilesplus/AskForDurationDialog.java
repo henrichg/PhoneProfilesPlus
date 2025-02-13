@@ -143,7 +143,7 @@ public class AskForDurationDialog extends DialogFragment implements SeekBar.OnSe
                         }
                     }
 
-                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false, false);
                 }
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
@@ -176,7 +176,7 @@ public class AskForDurationDialog extends DialogFragment implements SeekBar.OnSe
                         }
                     }
 
-                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false, false);
                 }
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
