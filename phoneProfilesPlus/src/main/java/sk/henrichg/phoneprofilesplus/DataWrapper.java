@@ -980,6 +980,7 @@ class DataWrapper {
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
 //                            Log.e("DataWrapper.pauseAllEvents", "pause event");
+                            // mergeProfile is not null = profiles are not activated
                             event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, mergedProfile, false, forRestartEvents, manualRestart, true);
                         }
                     }
