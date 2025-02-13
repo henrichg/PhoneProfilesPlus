@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp"
+    android:textColor="@color/spinner_control_color"
+    android:textSize="@dimen/editor_toolbar_filter_textSize"
+    android:textStyle="bold"
+    android:ellipsize="marquee"
+    android:singleLine="true"
+    app:drawableLeftCompat="@drawable/ic_spinner"
+    android:drawablePadding="10dp"
+    app:drawableTint="@color/spinner_control_color"
+    tools:ignore="SpUsage" />
+

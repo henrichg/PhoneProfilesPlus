@@ -31,7 +31,7 @@
 <!--    <dimen name="activator_fixed_width_major">80%</dimen>-->
 
     <dimen name="editor_toolbar_height">35dp</dimen>
-    <dimen name="editor_toolbar_filter_marginStart">10dp</dimen>
+    <dimen name="editor_toolbar_filter_marginStart">12dp</dimen>
     <dimen name="editor_toolbar_filter_textSize">16dp</dimen>
     <dimen name="editor_header_marginBottom">1dp</dimen>
     <dimen name="editor_header_paddingTopBototm">2dp</dimen>
