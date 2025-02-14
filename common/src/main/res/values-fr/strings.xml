@@ -1411,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Afficher l\'emplacement modifié</string>
     <string name="array_location_editor_show_actual_location">Afficher la position actuelle</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Changer l\'emplacement modifié pour l\'emplacement actuel</string>
-    <string name="array_location_editor_rename_geofence_with_address">Renommer l\'emplacement modifié avec l\'adresse</string>
     <string name="profile_preferences_cameraFlash">Flash de l\'appareil photo</string>
     <string name="permission_why_profile_camera_flash">pour changer le flash de l\'appareil photo</string>
     <string name="permission_group_name_camera">Appareil photo</string>
@@ -2285,4 +2284,5 @@
     <string name="important_info_edge_panel_replacement2">Un remplacement a été créé, un widget appelé \"Panel\". Il peut être utilisé comme widget autonome, mais il peut également être utilisé dans l\'application « Panels », qui peut remplacer Edge Panels de OneUI. L\'avantage est que l\'application peut être utilisée sur d\'autres appareils, pas seulement sur ceux de Samsung.</string>
     <string name="important_info_edge_panel_replacement3">Lien vers l\'application \"Panels\"</string>
     <string name="location_editor_title_not_actual_location">Localisation indisponible. Veuillez patienter pendant l’acquisition du signal.</string>
+    <string name="location_editor_rename_with_address_message">Renommer le nom de l\'emplacement avec l\'adresse réelle ?</string>
 </resources>

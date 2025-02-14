@@ -1411,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Bearbeiteten Standort anzeigen</string>
     <string name="array_location_editor_show_actual_location">Aktuelle Position anzeigen</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Bearbeiteten Standort in den aktuellen ändern</string>
-    <string name="array_location_editor_rename_geofence_with_address">Bearbeiteten Ort mit Adresse umbenennen</string>
     <string name="profile_preferences_cameraFlash">Kamera-Blitz</string>
     <string name="permission_why_profile_camera_flash">zum Umschalten des Kamerablitzes</string>
     <string name="permission_group_name_camera">Kamera</string>
@@ -1735,9 +1734,9 @@
     <string name="array_pref_volumesSensorOperator_doNotTestIt">Nicht ausprobieren</string>
     <string name="array_pref_volumesSensorOperator_equalsTo">Equals to</string>
     <string name="array_pref_volumesSensorOperator_doNotEqualsTo">Do not equals to</string>
-    <string name="array_pref_volumesSensorOperator_islessThen">Is less than</string>
+    <string name="array_pref_volumesSensorOperator_islessThen">Ist kleiner als</string>
     <string name="array_pref_volumesSensorOperator_isGreaterThen">Ist größer als</string>
-    <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Is less or equal to</string>
+    <string name="array_pref_volumesSensorOperator_isLessOrEqualTo">Ist kleiner oder gleich</string>
     <string name="array_pref_volumesSensorOperator_isGreaterOrEqualTo">ist größer oder gleich als</string>
     <string name="event_preferences_category_eventVolumesParameters">Lautstärkesensor</string>
     <string name="event_preferences_volumes_info_title">Sensorkonfiguration</string>
@@ -1787,7 +1786,7 @@
     <string name="restore_shared_settings_ok_backed_up">Freigegebene Datei zur Wiederherstellung kopiert</string>
     <string name="permission_why_profile_default_assistant">um PhoneProfilesPlus als Standard-Assistenten festzulegen</string>
     <string name="permission_group_name_microphone">Audioaufnahme starten</string>
-    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
+    <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Die Darstellung für die Benachrichtigung ist nur aktiviert, wenn „Hintergrundfarbe“ vom Typ „Nativ“ ist. Die Darstellung wird immer angezeigt, wenn „Benachrichtigungsstil“ auf „Nativ“ festgelegt ist.</string>
     <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Funkgeräte im Flugzeugmodus</string>
     <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Klicken Sie hier, um anzuzeigen, wie Sie konfigurieren können, welche Funkgeräte ausgeschaltet werden sollen, wenn der Flugzeugmodus des Geräts aktiviert ist.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info1">Es ist möglich zu konfigurieren, welche Funkgeräte ausgeschaltet werden sollen, wenn das Gerät im Flugzeugmodus aktiviert ist.</string>
@@ -1823,7 +1822,7 @@
     <string name="profile_icon_preference_iconColor_help_info_2">Ein Symbol mit dieser erhöhten Helligkeit wird in der gesamten Benutzeroberfläche der Anwendung verwendet. Auch in Benachrichtigungen und Widgets, wenn deren Hintergrund dunkel ist.</string>
     <string name="important_info_android_look_application_settings">Bitte öffnen Sie die Einstellungen von PhoneProfilesPlus und konfigurieren Sie diese. Insbesondere die mit einem Doppelpfeil gekennzeichneten Parameter.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Aktuelle Konfiguration:</string>
-    <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
+    <string name="event_preference_sensor_roaming_summary">Dieser Sensor löst ein Ereignis aus, wenn Netz oder Daten im Roaming genutzt werden. Parameter: Netz prüfen, Daten prüfen.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
     <string name="pref_event_roaming_check_network">Netzwerk prüfen</string>
@@ -2285,4 +2284,5 @@
     <string name="important_info_edge_panel_replacement2">Es wurde ein Ersatz geschaffen, ein Widget namens „Panel“. Es kann als eigenständiges Widget verwendet werden, aber es kann auch in der Anwendung „Panels“ verwendet werden, die die Edge-Panels von OneUI ersetzen kann. Der Vorteil ist, dass die Anwendung in anderen Geräten verwendet werden kann, nicht nur in denen von Samsung.</string>
     <string name="important_info_edge_panel_replacement3">Link zur App „Panels“</string>
     <string name="location_editor_title_not_actual_location">Leider ist der tatsächliche Standort derzeit noch nicht festgelegt. Bitte warten Sie, bis er bestimmt wurde.</string>
+    <string name="location_editor_rename_with_address_message">Namen des Standorts in aktuelle Adresse umbenennen?</string>
 </resources>

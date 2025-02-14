@@ -1411,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Prikaži promjenjenu lokaciju</string>
     <string name="array_location_editor_show_actual_location">Prikaži trenutnu lokaciju</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Promeni izmjenjenu lokaciju na trenutnu lokaciju</string>
-    <string name="array_location_editor_rename_geofence_with_address">Zamjeni izmenjenu lokaciju sa adresom</string>
     <string name="profile_preferences_cameraFlash">Bljeskalica fotoaparata</string>
     <string name="permission_why_profile_camera_flash">za prebacivanje bljeskalice fotoaparata</string>
     <string name="permission_group_name_camera">Kamera</string>
@@ -2285,4 +2284,5 @@
     <string name="important_info_edge_panel_replacement2">A replacement was created, a widget called \"Panel\". It can be used as a standalone widget, but it can also be used in the \"Panels\" application, which can replace Edge Panels from OneUI. The advantage is that the application can be used in other devices, not only in those from Samsung.</string>
     <string name="important_info_edge_panel_replacement3">Link to the \"Panels\" application</string>
     <string name="location_editor_title_not_actual_location">Sorry, the actual location is not currently being determined. Please wait for it to be determined.</string>
+    <string name="location_editor_rename_with_address_message">Rename location name with actual address?</string>
 </resources>

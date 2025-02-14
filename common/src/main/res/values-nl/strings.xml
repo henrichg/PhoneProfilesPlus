@@ -1411,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Toon aangepaste locatie</string>
     <string name="array_location_editor_show_actual_location">Toon huidige locatie</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Wijzig aangepaste locatie naar de huidige</string>
-    <string name="array_location_editor_rename_geofence_with_address">Hernoem aangepaste locatie met adres</string>
     <string name="profile_preferences_cameraFlash">Camera flitser</string>
     <string name="permission_why_profile_camera_flash">voor schakelaar camera flitser</string>
     <string name="permission_group_name_camera">Camera</string>
@@ -2285,4 +2284,5 @@
     <string name="important_info_edge_panel_replacement2">Een vervanging is gemaakt met de widget \"Panel\". Deze kun je gebruiken als zelfstandige widget maar ook al \"Panels\" applicatie al vervanging van Edge-panelen in Samsung OneUI. Het voordeel is dat het ook werkt in andere merken en niet alleen met Samsung.</string>
     <string name="important_info_edge_panel_replacement3">Link naar de \"Panels\" toepassing</string>
     <string name="location_editor_title_not_actual_location">Sorry, de huidige locatie niet bekent. Moment geduld.</string>
+    <string name="location_editor_rename_with_address_message">Hernoem locatienaam met echt adres?</string>
 </resources>

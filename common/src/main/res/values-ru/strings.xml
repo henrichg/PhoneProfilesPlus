@@ -1411,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Показать изменённое местоположение</string>
     <string name="array_location_editor_show_actual_location">Показать текущее местоположение</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Сменить изменённое местоположение на текущее</string>
-    <string name="array_location_editor_rename_geofence_with_address">Сменить название изменённого местоположения на адрес</string>
     <string name="profile_preferences_cameraFlash">Вспышка</string>
     <string name="permission_why_profile_camera_flash">для включения/выключения вспышки</string>
     <string name="permission_group_name_camera">Камера</string>
@@ -2285,4 +2284,5 @@
     <string name="important_info_edge_panel_replacement2">В качестве замены был создан виджет \"Панель\". Его можно использовать и как отдельный виджет, и в приложении Panels, которое может заменить панели Edge из OneUI. Преимущество этого приложения в том, что его можно использовать не только на устройствах Samsung, но и на устройствах других производителей.</string>
     <string name="important_info_edge_panel_replacement3">Ссылка на приложение Panels</string>
     <string name="location_editor_title_not_actual_location">К сожалению, фактическое местоположение пока не определено. Дождитесь, пожалуйста, пока оно определится.</string>
+    <string name="location_editor_rename_with_address_message">Сменить название местоположения на текущий адрес?</string>
 </resources>

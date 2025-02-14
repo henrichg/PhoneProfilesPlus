@@ -1411,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Zobrazit editovanou polohu</string>
     <string name="array_location_editor_show_actual_location">Zobrazit aktuální polohu</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Změnit editovanou polohu na aktuální</string>
-    <string name="array_location_editor_rename_geofence_with_address">Přejmenovat editovanou polohu adresou</string>
     <string name="profile_preferences_cameraFlash">Blesk fotoaparátu</string>
     <string name="permission_why_profile_camera_flash">pro přepnutí blesku fotoaparátu</string>
     <string name="permission_group_name_camera">Fotoaparát</string>
@@ -2285,4 +2284,5 @@
     <string name="important_info_edge_panel_replacement2">Náhrada byla vytvořena, widget s názvem \"Panel\". Může být použit jako samostatný widget, ale může být použit i v aplikaci \"Panel\", která může nahradit Panely Edge z OneUI. Výhodou je, že aplikace může být použita v jiných zařízeních, nejen v zařízeních Samsung.</string>
     <string name="important_info_edge_panel_replacement3">Odkaz na aplikaci \"Panels\"</string>
     <string name="location_editor_title_not_actual_location">Litujeme, aktuální poloha není momentálně určena. Počkejte, až se určí.</string>
+    <string name="location_editor_rename_with_address_message">Přejmenovat název polohy na skutečnou adresu?</string>
 </resources>
