@@ -576,4 +576,39 @@ Takze co robim, ked je == null?
 - aktivujem end profile a robim undo, restart events nerobim
 
 
+--------------------------
+
+Add: Panel widget. Removed Samsung Edge panel.
+Change: Call of BT detector at screen on.
+Change: Better BT connected devices detection for disconnection.
+Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.
+Change: Increased speed of profile activation.
+Change: Support for Smart Launcher rounded corners in widgets.
+Change: Enabled rounded corners radius for SmartLauncher.
+Change: Rounded corners radius up to 32 (for Smart Launcher support).
+Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.
+Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.
+Change: Better show,hide header and bottom toolbar at scroll in Editor.
+Change: GUI components size different for landscape orientation.
+Change: Small GUI changes.
+Change: Changes in widgets.
+Change: Removed toolbar from Location editor.
+Change: Location editor - display map immediately at start od editor.
+Change: Show dialog about offline device status in Location editor.
+Change: Better functionality of "Rename with address" button in Location editor.
+Change: Empty line in preference summary changed to dots.
+Change: Permanent display also thumb of scrollbars.
+Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.
+Change: Do not rotate to default orientation if is required to lock orientation change.
+Change: Increased max. log file size.
+Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.
+Fix: Not working good BT van connection.
+Fix: Fixed not refreshed Tones dialog after grant permission.
+Fix: Not disabled buttons in Mobile cells registration dialog at its start.
+Fix: Not deleted red text after deletion of profile, event with errors.
+Fix: Maybe fixed draw of PPP notification at first start.
+Fix: Restart events not working properly in specific situations.
+Fix: Location preference dialog GUI.
+Fix: WindowLeak exception generated for dialogs in orientation change.
+Fix: Undo in profile duration and event end.
 
