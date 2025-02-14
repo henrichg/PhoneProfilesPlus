@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_log_help_toolbar"
@@ -15,6 +15,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
         app:contentInsetEnd="@dimen/content_inset_end"
         app:contentInsetStart="@dimen/content_inset_start"
         app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
@@ -36,8 +37,8 @@
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
     tools:ignore="UselessParent">
+<!--    android:fadeScrollbars="false"-->
 
     <LinearLayout
         android:id="@+id/activity_log_help_liLa1"

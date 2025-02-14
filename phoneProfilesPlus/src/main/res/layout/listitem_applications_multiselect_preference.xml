@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/applications_multiselect_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/listItem_height"
     android:orientation="horizontal"
     android:background="?attr/listViewItemBackground"  >
 
@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/applications_multiselect_pref_dlg_item_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/listItem_profile_icon_size"
+        android:layout_height="@dimen/listItem_profile_icon_size"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/applications_editor_dialog_item_icon"
         android:padding="3dp"
@@ -35,7 +35,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text=""
-        android:textSize="16sp"
+        android:textSize="@dimen/listItem_profile_name_size"
         android:textStyle="bold"
         android:ellipsize="end"
         android:maxLines="1"/>

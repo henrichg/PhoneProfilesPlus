@@ -88,8 +88,8 @@ class EventPreferencesMusic extends EventPreferences {
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                     String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
-                        String packageName = Application.getPackageName(splits[0]);
-                        String activityName = Application.getActivityName(splits[0]);
+                        String packageName = CApplication.getPackageName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         PackageManager packageManager = context.getPackageManager();
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
@@ -146,10 +146,10 @@ class EventPreferencesMusic extends EventPreferences {
             if (preference != null) {
                 String summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettings_summary);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
-                    summary = "* " + context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsDisabled_summary) + "! *" + StringConstants.STR_DOUBLE_NEWLINE +
+                    summary = "* " + context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsDisabled_summary) + "! *" + StringConstants.STR_SEPARATOR_LINE +
                             summary;
                 } else {
-                    summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                    summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsEnabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT +
                             summary;
                 }
                 preference.setSummary(summary);
@@ -304,7 +304,7 @@ class EventPreferencesMusic extends EventPreferences {
                                     }
                                     String[] splits = _applications.split(StringConstants.STR_SPLIT_REGEX);
                                     for (String split : splits) {
-                                        String packageName = Application.getPackageName(split);
+                                        String packageName = CApplication.getPackageName(split);
                                         if (applicationFromController.equals(packageName)) {
                                             //isNotAllowedSession = false;
                                             break;

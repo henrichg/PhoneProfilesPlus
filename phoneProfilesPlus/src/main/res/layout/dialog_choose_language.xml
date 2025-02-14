@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/choose_language_dlg_titleBarDivider"
@@ -27,9 +27,9 @@
         android:clipToPadding="false"
         android:choiceMode="singleChoice"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         android:divider="@android:color/transparent"
         android:listSelector="?attr/listViewItemBackground" />
+<!--    android:fadeScrollbars="false"-->
 
     <LinearLayout
         android:id="@+id/choose_language_dlg_help_linla"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/dialog_choose_language_help_pading"
             android:textSize="14sp"
             android:text="@string/about_application_translations"/>
 

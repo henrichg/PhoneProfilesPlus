@@ -327,6 +327,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 }
             }
         }
+        fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         notifyDataSetChanged();
     }
 

@@ -73,7 +73,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + StringConstants.TAG_BOLD_END_HTML;
 
             if ((installSummary != null) && (!installSummary.isEmpty()))
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + installSummary;
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML + installSummary;
         }
         else {
             String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(_context);
@@ -83,9 +83,9 @@ public class ExtenderDialogPreference extends DialogPreference {
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
                     " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML;
             if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
 
         int accessibilityEnabled;// = -99;
@@ -137,12 +137,12 @@ public class ExtenderDialogPreference extends DialogPreference {
         else {
             summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + StringConstants.TAG_BOLD_END_HTML;
         }
-        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +
+        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +
                 _context.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + StringConstants.STR_COLON_WITH_SPACE +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
-            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + lauchSummary + StringConstants.TAG_BOLD_END_HTML;
+            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + lauchSummary + StringConstants.TAG_BOLD_END_HTML;
 
         setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
     }

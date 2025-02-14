@@ -88,7 +88,7 @@ class AddProfileAdapter extends BaseAdapter {
             holder.profileIcon.setVisibility(View.VISIBLE);
             if (profile.getIsIconResourceID())
             {
-                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.getActivity(), profile._iconBitmap);
                 if (bitmap != null)
                     holder.profileIcon.setImageBitmap(bitmap);
                 else {

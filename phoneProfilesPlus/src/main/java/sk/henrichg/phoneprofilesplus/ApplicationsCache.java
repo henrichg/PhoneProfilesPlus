@@ -18,9 +18,9 @@ import java.util.List;
 
 class ApplicationsCache {
 
-    private ArrayList<Application> applicationsList;
+    private ArrayList<CApplication> applicationsList;
     //private LruCache<Object, Object> applicationIconsLru;
-    private ArrayList<Application> applicationsNoShortcutsList;
+    private ArrayList<CApplication> applicationsNoShortcutsList;
     //private LruCache<Object, Object> applicationNoShortcutIconsLru;
 
     boolean cached;
@@ -62,9 +62,9 @@ class ApplicationsCache {
 
                 if ((applicationInfo.activityInfo.applicationInfo.packageName != null) &&
                         (packageManager.getLaunchIntentForPackage(applicationInfo.activityInfo.applicationInfo.packageName) != null)) {
-                    Application newInfo = new Application();
+                    CApplication newInfo = new CApplication();
 
-                    newInfo.type = Application.TYPE_APPLICATION;
+                    newInfo.type = CApplication.TYPE_APPLICATION;
                     newInfo.appLabel = applicationInfo.loadLabel(packageManager).toString();
                     newInfo.packageName = applicationInfo.activityInfo.applicationInfo.packageName;
                     newInfo.activityName = applicationInfo.activityInfo.name;
@@ -142,9 +142,9 @@ class ApplicationsCache {
                 if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
                         (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {
 
-                    Application newInfo = new Application();
+                    CApplication newInfo = new CApplication();
 
-                    newInfo.type = Application.TYPE_SHORTCUT;
+                    newInfo.type = CApplication.TYPE_SHORTCUT;
                     newInfo.appLabel = shortcutInfo.loadLabel(packageManager).toString();
                     newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
                     newInfo.activityName = shortcutInfo.activityInfo.name;
@@ -204,7 +204,7 @@ class ApplicationsCache {
         }
     }
 
-    List<Application> getApplicationList(boolean noShortcuts)
+    List<CApplication> getApplicationList(boolean noShortcuts)
     {
         if (cached) {
             if (noShortcuts)
@@ -216,7 +216,7 @@ class ApplicationsCache {
             return null;
     }
 
-    Bitmap getApplicationIcon(Application application/*, boolean noShortcuts*/) {
+    Bitmap getApplicationIcon(CApplication application/*, boolean noShortcuts*/) {
         if (cached) {
 
             //if (noShortcuts)
@@ -233,7 +233,7 @@ class ApplicationsCache {
             return null;
     }
 
-    void setApplicationIcon(Context context, Application application)
+    void setApplicationIcon(Context context, CApplication application)
     {
         PackageManager packageManager = context.getApplicationContext().getPackageManager();
         Drawable dIcon = null;
@@ -253,7 +253,7 @@ class ApplicationsCache {
                 } catch (Exception ignored) {}
             } else {
                 Intent intent = new Intent();
-                intent.setClassName(Application.getPackageName(application.packageName), activityName);
+                intent.setClassName(CApplication.getPackageName(application.packageName), activityName);
                 ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                 if (info != null)
                     dIcon = info.loadIcon(packageManager);
@@ -281,7 +281,7 @@ class ApplicationsCache {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ApplicationsCache.clearCache", "PPApplication.applicationCacheMutex");
         synchronized (PPApplication.applicationCacheMutex) {
             //int count = 0;
-            for (Application application : applicationsList) {
+            for (CApplication application : applicationsList) {
                 Bitmap icon = getApplicationIcon(application/*, false*/);
                 if ((icon != null) && (!icon.isRecycled())) {
                     try {
@@ -295,7 +295,7 @@ class ApplicationsCache {
             //Log.e("ApplicationsCache.clearCache", "clear icon from applicationList - count="+count);
 
             //count = 0;
-            for (Application application : applicationsNoShortcutsList) {
+            for (CApplication application : applicationsNoShortcutsList) {
                 Bitmap icon = getApplicationIcon(application/*, true*/);
                 if ((icon != null) && (!icon.isRecycled())) {
                     try {
@@ -323,9 +323,9 @@ class ApplicationsCache {
         cancelled = true;
     }
 
-    private static class SortList implements Comparator<Application> {
+    private static class SortList implements Comparator<CApplication> {
 
-        public int compare(Application lhs, Application rhs) {
+        public int compare(CApplication lhs, CApplication rhs) {
             if (PPApplication.collator != null) {
                 if (lhs == null)
                     return -1;

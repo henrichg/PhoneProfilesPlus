@@ -13,23 +13,23 @@ public class ProfileListNotificationArrowsBroadcastReceiver extends BroadcastRec
         if (action != null) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotificationArrowsBroadcastReceiver.onReceive", "action="+action);
 
-            if (action.equalsIgnoreCase(ProfileListNotification.ACTION_RIGHT_ARROW_CLICK)) {
-                int displayedPage = ProfileListNotification.displayedPage;
-                int profileCount = ProfileListNotification.profileCount;
-                if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
-                    (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {
-                    ++displayedPage;
-                    ProfileListNotification.displayedPage = displayedPage;
-                    ProfileListNotification._showNotification(context/*, false*/);
-                }
-            }
-            else
-            if (action.equalsIgnoreCase(ProfileListNotification.ACTION_LEFT_ARROW_CLICK)) {
-                int displayedPage = ProfileListNotification.displayedPage;
-                if (displayedPage > 0) {
-                    --displayedPage;
-                    ProfileListNotification.displayedPage = displayedPage;
-                    ProfileListNotification._showNotification(context/*, false*/);
+            synchronized (PPApplication.showPPPNotificationMutex) {
+                if (action.equalsIgnoreCase(ProfileListNotification.ACTION_RIGHT_ARROW_CLICK)) {
+                    int displayedPage = ProfileListNotification.displayedPage;
+                    int profileCount = ProfileListNotification.profileCount;
+                    if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
+                            (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {
+                        ++displayedPage;
+                        ProfileListNotification.displayedPage = displayedPage;
+                        ProfileListNotification._showNotification(context/*, false*/);
+                    }
+                } else if (action.equalsIgnoreCase(ProfileListNotification.ACTION_LEFT_ARROW_CLICK)) {
+                    int displayedPage = ProfileListNotification.displayedPage;
+                    if (displayedPage > 0) {
+                        --displayedPage;
+                        ProfileListNotification.displayedPage = displayedPage;
+                        ProfileListNotification._showNotification(context/*, false*/);
+                    }
                 }
             }
         }

@@ -93,11 +93,31 @@
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
 
         <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
+
+        <item name="android:windowMinWidthMinor">@dimen/alertDialog_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@dimen/alertDialog_min_width_major</item>
     </style>
 <!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
 <!--    Border of dialog is diplayed correctly withotu this attribute.-->
 <!--    <item name="android:background">@color/activityBackgroundColor</item>-->
+<!--
+    <style name="AlertDialogStyleDayNightNarrow" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@drawable/pp_dialog_background</item>
+        <item name="colorAccent">@color/accent_color</item>
 
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+
+        <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
+
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
+
+        <item name="android:windowMinWidthMinor">@dimen/alertDialogNarrow_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@dimen/alertDialogNarrow_min_width_major</item>
+    </style>
+-->
     <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
@@ -206,23 +226,23 @@
     </style>
 
     <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/dialog_title_text_size</item>
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">3</item>
     </style>
 
     <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textSize">@dimen/preference_title_text_size</item>
         <item name="android:textColor">@color/activityTitleTextColor</item>
     </style>
 
     <style name="PreferenceToolbarSubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="android:textSize">@dimen/subtitle_text_size</item>
+        <item name="android:textSize">@dimen/preference_subtitle_text_size</item>
         <item name="android:textColor">@color/activitySecondaryTextColor</item>
     </style>
 
-    <style name="EditorToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">@dimen/editor_title_text_size</item>
+    <style name="ActivityToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/activity_title_text_size</item>
         <item name="android:textColor">@color/activityTitleTextColor</item>
     </style>
 

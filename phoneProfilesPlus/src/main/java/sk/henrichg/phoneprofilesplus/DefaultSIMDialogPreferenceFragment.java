@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -20,6 +21,12 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
     private AppCompatSpinner voiceSpinner = null;
     private AppCompatSpinner smsSpinner = null;
     private AppCompatSpinner dataSpinner = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -76,7 +83,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeVoice != -1) {
             PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.defaultSIMVoiceArray));
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             voiceSpinner.setAdapter(voiceSpinnerAdapter);
@@ -106,7 +113,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeSMS != -1) {
             PPSpinnerAdapter smsSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.defaultSIMSMSArray));
             smsSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             smsSpinner.setAdapter(smsSpinnerAdapter);
@@ -136,7 +143,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeData != -1) {
             PPSpinnerAdapter dataSpinnerAdapter = new PPSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.defaultSIMDataArray));
             dataSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             dataSpinner.setAdapter(dataSpinnerAdapter);

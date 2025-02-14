@@ -78,6 +78,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
@@ -188,6 +190,8 @@ public class EventsPrefsActivity extends AppCompatActivity
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
 //        PPApplication.blockContactContentObserver = true;
 
+        // TODO !!! why I remove these dialogs for contacts?
+        /*
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)
         //    return;
@@ -203,6 +207,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                 dialogFragment.dismiss();
             }
         }
+        */
     }
 
     @Override
@@ -304,6 +309,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -312,7 +318,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else
             finish();
@@ -514,6 +520,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         },
                         null,
                         null,
+                        null,
                         (buttonView, isChecked) -> {
                             SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
                             SharedPreferences.Editor editor = settings.edit();
@@ -529,7 +536,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 return false;
             }
             //}

@@ -19,13 +19,14 @@
     -->
     <TextView
         android:id="@+id/donation_paypal_grid_item_price"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingStart="@dimen/layout_as_button_padding"
-        android:paddingEnd="@dimen/layout_as_button_padding"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:textColor="@color/accent_color"

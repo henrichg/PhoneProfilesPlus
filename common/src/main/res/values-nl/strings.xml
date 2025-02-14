@@ -721,7 +721,6 @@
     <string name="action_for_external_application_notification_no_event_text">Parameter event_name ontbreekt of is leeg.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Aan (negeer hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Wisselknop (negeer hotspot)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge venster</string>
     <string name="action_for_external_application_notification_bad_action">Niet ondersteunde actie is gespecificeerd.</string>
     <string name="action_for_external_application_notification_no_action">Actie is niet gespecificeerd.</string>
     <string name="ringtone_preference_not_set">Niet ingesteld</string>
@@ -748,7 +747,6 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>EVENTS:</b> Geeft aan wanneer apparaatinstellingen te wijzigen.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFIELEN:</b> Je kunt apparaatinstellingen wijzigen zoals beltoonmodus, volumeniveaus, beltoon en meldingengeluid configureren, radio schakelaar (Wi-Fi, Bluetooth, mobiele data, enz.). Wanneer je een profiel activeert worden de corresponderende instellingen permanent. Als je de instellingen wilt wijzigen moet je een ander profiel activeren.</string>
     <string name="important_info_quick_guide_profiles_2">Profielen kun je handmatig of door een Event laten activeren.</string>
-    <string name="important_info_quick_guide_profiles_3">Je kunt handmatig een profiel activeren met de PPP-Activator (pop-up venster met de lijst met beschikbare profielen). De Activator kun je tonen via het PPP \' thuis \' icoon, de PPP melding, PPP-widgets en voor Samsung Edge-apparaten via het Edge-deelvenster. Je kunt ook direct een profiel via de PPP-4 x 4 widget activeren, een snelkoppeling naar het profiel of op Samsung Edge-apparaten, via het Configuratiescherm van de rand.</string>
     <string name="important_info_quick_guide_events_1"><b>Events:</b> Kun je configureren bij activeren van een profiel. Events hebben een begin en eind. Je kunt de actie configureren bij de start van een event en de actie bij het eindigen van een event.</string>
     <string name="important_info_quick_guide_events_2">Events bevatten belangrijke sensor configuratie parameters die allemaal voorwaardelijk zijn om een event te starten. Als een sensor parameter afwijkt zal het event eindigen (pauze).</string>
     <string name="important_info_quick_guide_sensors_1">Sensor voorbeelden:</string>
@@ -1113,10 +1111,6 @@
     <string name="altype_afterDuration_specificProfile">na afloop van de tijdsduur - specifiek profiel</string>
     <string name="notification_not_used_mobile_cell_disable">Uitschakelen</string>
     <string name="notification_channel_donation">Donatie</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Verticale positie</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Boven</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">Midden</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Onder</string>
     <string name="editor_drawer_list_item_events_not_stopped">Niet gestopt</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sorteer lijst</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Op celnaam</string>
@@ -1171,16 +1165,12 @@
     <string name="time_pref_dlg_edit_time_tooltip">Bewerk tijd</string>
     <string name="backspace_button_tooltip">Backspace</string>
     <string name="clear_button_tooltip">Wissen</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Programmamelding</string>
     <string name="editor_drawer_title_events_order">Volgorde</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Events volgorde</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Klik dit om de volgorde van de Eventsweergave te wisselen.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Events uitvoeren inschakelen</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klik hier om uitvoeren events te activeren. Als je dit niet doet worden geconfigureerde events niet uitgevoerd.</string>
-    <string name="samsung_edge_panel_description">Profiel activeren of herstarten events met Samsung Edge paneel</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Zwart</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Aangepaste achtergrondkleur</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Aangepaste kleur</string>
@@ -1421,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Toon aangepaste locatie</string>
     <string name="array_location_editor_show_actual_location">Toon huidige locatie</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Wijzig aangepaste locatie naar de huidige</string>
-    <string name="array_location_editor_rename_geofence_with_address">Hernoem aangepaste locatie met adres</string>
     <string name="profile_preferences_cameraFlash">Camera flitser</string>
     <string name="permission_why_profile_camera_flash">voor schakelaar camera flitser</string>
     <string name="permission_group_name_camera">Camera</string>
@@ -1488,9 +1477,6 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Klik hier om het menu te openen met acties andere profielen: \"Alle profielen verwijderen\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Andere event acties</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Klik hier om het menu te openen met andere event acties: \"Standaard profiel\", \"Verwijder alle evenementen\"</string>
-    <string name="profile_preferences_showInActivator_summary">Aan, als je dit profiel wilt laten zien in Activator, Lijstwidget, Samsung Edge-paneel.</string>
-    <string name="show_profile_in_activator_not_show_toast">Profiel zal niet worden weergegeven in Activator, Lijstwidget, Samsung Edge-paneel</string>
-    <string name="show_profile_in_activator_show_toast">Profiel zal worden weergegeven in Activator, Lijstwidget, Samsung Edge-paneel</string>
     <string name="ignore_manual_activation_not_ignore_toast">Event wordt niet gestart wanneer een profiel handmatig is geactiveerd</string>
     <string name="ignore_manual_activation_ignore_toast">Evenement zal worden gestart, maar gepauzeerd wanneer een profiel handmatig wordt geactiveerd</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Evenement zal worden gestart en niet gepauzeerd wanneer een profiel handmatig wordt geactiveerd</string>
@@ -1698,7 +1684,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Als je iconen uit de icoon pakket wilt gebruiken, installeer dan een applicatie die iconen uit een icoon pakket kan uitpakken als png bestanden.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Bijvoorbeeld programma</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Het is oud, maar werkt ook in de nieuwste Android versie.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Zoek in Google Play.</string>
     <string name="popup_window_close_button_name">Sluiten</string>
     <string name="profile_preferences_indicator_image">Profiel voorkeuren indicator</string>
     <string name="profile_preferences_indicator_event_start_image">Begin van event profiel voorkeuren indicator</string>
@@ -1853,7 +1838,6 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Per Donkere modus</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Wijzig kleuren per Donkere modus</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Indien ingeschakeld, krijgen widgetkleuren instelling uit Donkere modus. (zoals in de Pixel launcher)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Indien ingeschakeld, krijgen widgetkleuren instelling uit Donkere modus.</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN applicatie:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">VPN inschakelen</string>
@@ -1901,7 +1885,6 @@
     <string name="about_application_pppps_source_code">Broncode - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">Meldingen LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Altijd aan schermweergave</string>
-    <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compacte raster</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Met dit type raster worden profielnamen niet weergegeven, maar meer profielen passen in één rij.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Schakel locatie (Uit &lt;-&gt; Hoge nauwkeurigheid)</string>
@@ -1910,7 +1893,7 @@
     <string name="one_row_profile_list_widget_description">Toont een lijst van profielen zonder de namen in één regel.</string>
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Één rij profiellijst</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Aantal profielen per pagina</string>
-    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Pijlen en marker van het geactiveerde profiel helderheid</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Pijlen en markering van het geactiveerde profiel helderheid</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.\nVoor handmatige profiel activering moet u ook \"Toegankelijkheid vraagt volume\" configureren.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Opmerking: niet alle Klok programma\'s gebruiken het systeem alarmvolume omdat ze hun eigen volume gebruiken in hun instellingen.</string>
@@ -1943,7 +1926,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is niet geïnstalleerd.</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Niet geïnstalleerd</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
-    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus randvenster werkt mogelijk niet op sommige Samsung-apparaten, zoals tablets, Z-fold apparaten. Of als er geen knop is om panelen te installeren vanuit de Galaxy Store in Instellingen/Display/Edge panels/panelen.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Vul hele ruimte met achtergrond</string>
     <string name="profile_list_item_menu_activate">Activeer profiel</string>
     <string name="profile_list_item_menu_duplicate">Dupliceer profiel</string>
@@ -1992,7 +1974,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">vervang door PhoneProfilesPlus icoon</string>
     <string name="notification_channel_donation_description">Toont een bericht waarin om een gelddonatie aan de auteur wordt gevraagd.</string>
     <string name="shortcut_to_editor_created_toast">Snelkoppeling naar Editor gemaakt</string>
-    <string name="privacy_policy_web_browser_chooser">Bekijk PhoneProfilesPlus Privacybeleid met</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Compacter</string>
     <string name="altype_timezone_changed">tijdzone gewijzigd</string>
     <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender toegankelijkheidsservice staat aan</string>
@@ -2279,4 +2260,29 @@
     <string name="array_pref_force_stop_with_pppe">Stoppen forceren met PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Forceer stoppen met opdracht</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Opmerking: Werkt mogelijk niet op jouw apparaat.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Als je wilt, download het van APKPure.</string>
+    <string name="phone_profiles_pref_category_widget_panel">Widget: Paneel</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">Verticale positie</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">Indien ingeschakeld, stel je widgetkleuren in door Donkere modus.</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Beste gebruik van paneel widget</string>
+    <string name="phone_profiles_pref_application_widget_panel_info_sumary">Deze widget werkt in de \"Panels\" applicatie. Klik hier om deze applicatie te installeren.</string>
+    <string name="panel_widget_description">Toont geactiveerde profiel, \"Event herstarten\" en lijst van geconfigureerde profielen als paneel.</string>
+    <string name="widget_label_panel">Paneel</string>
+    <string name="array_pref_widgetPanelVerticalPosition_top">Bovenkant</string>
+    <string name="array_pref_widgetPanelVerticalPosition_center">Gecentreerd</string>
+    <string name="array_pref_widgetPanelVerticalPosition_bottom">Onderaan</string>
+    <string name="important_info_quick_guide_profiles_3">Je kunt handmatig een profiel activeren via de PPP Activator (pop-up venster met lijst met beschikbare profielen). De Activator kun je tonen weergeven via het PPP home icoon, de PPP notificatie, PPP widgets. Je kunt ook direct een profiel activeren via de Lijstwidget, Paneel widget en snelkoppeling naar het profiel.</string>
+    <string name="profile_preferences_showInActivator_summary">Als je dit profiel wilt weergeven in Activator, Lijst widget, Paneel widget.</string>
+    <string name="show_profile_in_activator_not_show_toast">Profiel niet weergeven in Activator, Lijst widget, Paneel widget</string>
+    <string name="show_profile_in_activator_show_toast">Profiel weergeven in Activator, Lijst widget, Paneel widget</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Verander tekst lichtheid door donkere modus</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Verander rand lichtheid door Donkere modus</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Verander icoon helderheid door Donkere modus</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Verander voorkeur indicator lichtheid door Donkere modus</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Verander pijlen en markering van de geactiveerde profiel-lichtheid met Donkere modus</string>
+    <string name="important_info_edge_panel_replacement1">Sinds OneUI 7 worden de Edge Panels van applicaties van derden niet meer ondersteund. Daarom werd het verwijderd uit PPP.</string>
+    <string name="important_info_edge_panel_replacement2">Een vervanging is gemaakt met de widget \"Panel\". Deze kun je gebruiken als zelfstandige widget maar ook al \"Panels\" applicatie al vervanging van Edge-panelen in Samsung OneUI. Het voordeel is dat het ook werkt in andere merken en niet alleen met Samsung.</string>
+    <string name="important_info_edge_panel_replacement3">Link naar de \"Panels\" toepassing</string>
+    <string name="location_editor_title_not_actual_location">Sorry, de huidige locatie niet bekent. Moment geduld.</string>
+    <string name="location_editor_rename_with_address_message">Hernoem locatienaam met echt adres?</string>
 </resources>

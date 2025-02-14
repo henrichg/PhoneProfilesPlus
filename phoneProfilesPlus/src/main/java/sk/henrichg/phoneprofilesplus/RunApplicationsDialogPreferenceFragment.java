@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -38,6 +39,12 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
     private LinearLayout linlaDialog;
 
     private RefreshListViewAsyncTask asyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

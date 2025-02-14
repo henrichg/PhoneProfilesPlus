@@ -52,7 +52,7 @@
     <string name="profile_preferences_volumeSystem">Volume du système</string>
     <string name="profile_preferences_soundRingtoneChange">Changer la sonnerie</string>
     <string name="profile_preferences_soundRingtone">Bruit de sonnerie</string>
-    <string name="profile_preferences_soundNotificationChange">Changer la notification </string>
+    <string name="profile_preferences_soundNotificationChange">Changer la notification</string>
     <string name="profile_preferences_soundNotification">Son de notification</string>
     <string name="profile_preferences_soundAlarmChange">Changer l\'alarme</string>
     <string name="profile_preferences_soundAlarm">Alarme sonore</string>
@@ -65,7 +65,7 @@
     <string name="profile_preferences_deviceWallpaperChange">Changer le papier peint</string>
     <string name="array_pref_no_change">Ne pas changer</string>
     <string name="array_pref_hardwareModeArray_on">Allumer</string>
-    <string name="array_pref_hardwareModeArray_off">Eteint</string>
+    <string name="array_pref_hardwareModeArray_off">Désactivé</string>
     <string name="array_pref_hardwareModeArray_toggle">Basculer</string>
     <string name="array_pref_screenTimeoutArray_15seconds">15 secondes</string>
     <string name="array_pref_screenTimeoutArray_30seconds">30 secondes</string>
@@ -150,7 +150,7 @@
     <string name="phone_profiles_pref_notificationLauncher">Lancement depuis la notification</string>
     <string name="array_pref_launcher_activator">Activateur</string>
     <string name="array_pref_launcher_editor">Éditeur</string>
-    <string name="profile_preferences_deviceLocationServicePrefs">(I) Préférences d\'emplacement </string>
+    <string name="profile_preferences_deviceLocationServicePrefs">(I) Préférences d\'emplacement</string>
     <string name="event_type_battery">Batterie</string>
     <string name="profile_preferences_volumeSpeakerPhone">Haut-parleur</string>
     <string name="event_preferences_notificationSound">Son de notification</string>
@@ -162,7 +162,7 @@
     <string name="event_preferences_category_eventTimeParameters">Capteur temps</string>
     <string name="event_preferences_category_eventBatteryParameters">Capteur batterie</string>
     <string name="contacts_multiselect_summary_text_selected">Sélectionné</string>
-    <string name="contacts_multiselect_summary_text_not_selected">Non séléctionné</string>
+    <string name="contacts_multiselect_summary_text_not_selected">Non sélectionné</string>
     <string name="event_preferences_category_eventCallParameters">Capteur appel téléphonique</string>
     <string name="event_preferences_call_contacts">Contacts</string>
     <string name="event_preferences_call_event">Événement \"Appel\"</string>
@@ -194,7 +194,7 @@
     <string name="editor_drawer_order_priority">Priorité</string>
     <string name="event_type_peripheral">Accessoires</string>
     <string name="array_event_pref_peripheralType_deskDock">Dock Bureau</string>
-    <string name="array_event_pref_peripheralType_carDock">Dock Voiture </string>
+    <string name="array_event_pref_peripheralType_carDock">Dock voiture</string>
     <string name="event_preferences_category_eventPeripheralParameters">Capteur accessoires</string>
     <string name="event_preferences_peripheral_type">Type d\'accessoires</string>
     <string name="array_event_pref_peripheralType_wired_headset">Kit mains libres filaire</string>
@@ -206,7 +206,7 @@
     <string name="default_event_name_low_battery">Batterie faible</string>
     <string name="default_profile_name_battery_low">Batterie faible</string>
     <string name="calendars_multiselect_summary_text_selected">Sélectionné</string>
-    <string name="calendars_multiselect_summary_text_not_selected">Non séléctionné</string>
+    <string name="calendars_multiselect_summary_text_not_selected">Non sélectionné</string>
     <string name="event_preferences_category_eventCalendarParameters">Capteur calendrier</string>
     <string name="event_preferences_calendar_calendars">Calendriers</string>
     <string name="event_type_calendar">Calendrier</string>
@@ -247,14 +247,14 @@
     <string name="pref_event_screen_startWhenUnlocked">Démarrer au déverrouillage</string>
     <string name="event_preferences_screen_start_when_unlocked">Début quand débloqué</string>
     <string name="event_type_bluetooth">Bluetooth</string>
-    <string name="event_preferences_category_eventBluetoothParameters">Capteur bluetooth</string>
+    <string name="event_preferences_category_eventBluetoothParameters">Capteur Bluetooth</string>
     <string name="event_preferences_bluetooth_adapter_name">Nom Bluetooth</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Connecté</string>
     <string name="array_event_pref_bluetoothConnectionType_inFront">À proximité (dans la zone de balayage)</string>
     <string name="event_preferences_bluetooth_connection_type">Type de connexion</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Intervalle de scan Bluetooth (min)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Rescanner</string>
-    <string name="wifi_ssid_pref_dlg_rescan_button">Rescanner</string>
+    <string name="bluetooth_name_pref_dlg_rescan_button">Re-scanner</string>
+    <string name="wifi_ssid_pref_dlg_rescan_button">Re-scanner</string>
     <string name="event_type_sms">SMS</string>
     <string name="pref_event_sms_contactListType">Liste</string>
     <string name="event_preferences_category_eventSMSParameters">Capteur SMS/MMS</string>
@@ -721,7 +721,6 @@
     <string name="action_for_external_application_notification_no_event_text">Le paramètre event_name est manquant ou vide.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Activer (ignorer le hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Activer/désactiver (ignorer le hotspot)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Panneau de contrôle de Samsung</string>
     <string name="action_for_external_application_notification_bad_action">Un action impossible est demandée.</string>
     <string name="action_for_external_application_notification_no_action">L\'action n\'est pas spécifiée.</string>
     <string name="ringtone_preference_not_set">Non défini</string>
@@ -748,7 +747,6 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>ÉVÉNEMENTS:</b> spécifie quand changer les paramètres du périphérique.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFILS:</b> Permet de configurer les paramètres de périphérique comme le mode de sonnerie, les volumes, sonnerie et notification des sons, radio (Wi-Fi, Bluetooth, mobile, etc.). Lorsqu’un profil est activé, les paramètres correspondants sont permanents. Si vous souhaitez modifier les paramètres, un autre profil doit être activé.</string>
     <string name="important_info_quick_guide_profiles_2">Les Profils peuvent être activés manuellement, ou par un événement.</string>
-    <string name="important_info_quick_guide_profiles_3">Vous pouvez activer manuellement un profil par l’intermédiaire de l’activateur de PPP (fenêtre pop-up avec la liste des profils disponibles). L’activateur peut être affiché via l’icône Accueil de PPP, la notification de PPP, le widget PPP et, pour les appareils Samsung, depuis le panneau Edge. Vous pouvez également directement activer un profil via le widget PPP 4x4 , un raccourci vers le profil ou, pour les appareils Samsung, depuis le panneau Edge.</string>
     <string name="important_info_quick_guide_events_1"><b>ÉVÉNEMENTS:</b> Vous permettent de configurer lorsqu’un profil est activé. Les événements ont un début et une fin. Vous pouvez configurer ce qui va arriver au début d’un événement, et ce qui se passera-t-il lorsque l’événement se terminera.</string>
     <string name="important_info_quick_guide_events_2">Les événements contiennent des paramètres de configuration des capteurs importants, qui doivent toutes être satisfaits avant qu\'un événement soit déclenché. Si certains capteurs ne sont plus actifs, l’événement se terminera (pause).</string>
     <string name="important_info_quick_guide_sensors_1">Exemples de capteur :</string>
@@ -1113,10 +1111,6 @@
     <string name="altype_afterDuration_specificProfile">lorsque la durée est écoulée - profil spécifique</string>
     <string name="notification_not_used_mobile_cell_disable">Désactiver</string>
     <string name="notification_channel_donation">Don</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Position verticale</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Haut</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">Centre</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Bas</string>
     <string name="editor_drawer_list_item_events_not_stopped">Non arrêté</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">Trier la liste</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Par nom d\'antenne-relais</string>
@@ -1171,16 +1165,12 @@
     <string name="time_pref_dlg_edit_time_tooltip">Modifier l\'heure</string>
     <string name="backspace_button_tooltip">Retour en arrière</string>
     <string name="clear_button_tooltip">Effacer</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Application de notification</string>
     <string name="editor_drawer_title_events_order">Ordre</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Ordre des événements</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Cliquez ici pour naviguer dans l\'ordre des événements.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Activer les événements</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Cliquez ici pour activer l\'exécution d\'événements. Sans cela, les événements configurés pourraient ne pas fonctionner.</string>
-    <string name="samsung_edge_panel_description">Activation du profil ou redémarrage des événements avec le panneau Samsung Edge</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Noir</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Couleur d\'arrière-plan personnalisée</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Couleur personnalisée</string>
@@ -1421,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Afficher l\'emplacement modifié</string>
     <string name="array_location_editor_show_actual_location">Afficher la position actuelle</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Changer l\'emplacement modifié pour l\'emplacement actuel</string>
-    <string name="array_location_editor_rename_geofence_with_address">Renommer l\'emplacement modifié avec l\'adresse</string>
     <string name="profile_preferences_cameraFlash">Flash de l\'appareil photo</string>
     <string name="permission_why_profile_camera_flash">pour changer le flash de l\'appareil photo</string>
     <string name="permission_group_name_camera">Appareil photo</string>
@@ -1488,9 +1477,6 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Cliquez ici pour ouvrir le menu avec d\'autres actions de profils : \"Supprimer tous les profils\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Autres actions d\'événements</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Cliquez sur ce bouton pour ouvrir le menu avec d\'autres actions : \"Profil par défaut\", \"Supprimer tous les événements\"</string>
-    <string name="profile_preferences_showInActivator_summary">Activer si vous voulez afficher ce profil dans l\'activateur, le widget Liste, le panneau Samsung Edge.</string>
-    <string name="show_profile_in_activator_not_show_toast">Le profil ne sera pas affiché dans l\'activateur, le widget Liste, le panneau Samsung Edge</string>
-    <string name="show_profile_in_activator_show_toast">Le profil sera affiché dans l\'activateur, le widget Liste, le panneau Samsung Edge</string>
     <string name="ignore_manual_activation_not_ignore_toast">L\'événement ne sera pas démarré si aucun profil n\'est activé manuellement</string>
     <string name="ignore_manual_activation_ignore_toast">L\'événement sera démarré, mais mis en pause, quand un profil sera activé manuellement</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">L\'événement sera démarré et ne sera pas mis en pause, quand un profil sera activé manuellement</string>
@@ -1698,7 +1684,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Si vous voulez utiliser des icônes à partir du pack d\'icônes, installez l\'application, qui a la possibilité d\'extraire les icônes du pack d\'icônes en tant que fichiers png.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Pour les applications exemples</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">C\'est une ancienne, mais fonctionnelle application même dans la dernière version d\'Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Recherchez-le dans Google Play.</string>
     <string name="popup_window_close_button_name">Fermer</string>
     <string name="profile_preferences_indicator_image">Indicateur des préférences du profil</string>
     <string name="profile_preferences_indicator_event_start_image">Début de l\'indicateur de préférences de profil d\'événement</string>
@@ -1853,7 +1838,6 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Par mode sombre</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Changer les couleurs en mode sombre</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Si activé, les couleurs du widget seront définies par le mode sombre du système (comme dans le lanceur Pixel)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Si activé, les couleurs du widget seront définies par le mode sombre du système.</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">Application VPN :</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Activer le VPN</string>
@@ -1901,7 +1885,6 @@
     <string name="about_application_pppps_source_code">Code source - PPPPutSettings :</string>
     <string name="profile_preferences_notificationLed_23">LED de notification</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Affichage permanent</string>
-    <string name="samsung_edge_panel_settings_description">Paramètres du panneau de bord Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Grille compacte</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Avec ce type de grille, les noms de profil ne seront pas affichés, mais plus de profils peuvent tenir sur une seule ligne.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Activer/désactiver la localisation (Arrêt &lt;-&gt; Haute précision)</string>
@@ -1943,7 +1926,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender n\'est pas installé.</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Non installé</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Paramètres d\'accessibilité</string>
-    <string name="phone_profiles_pref_application_samsung_edge_info">Le panneau de bord PhoneProfilesPlus peut ne pas fonctionner sur certains appareils Samsung, tels que les tablettes et les appareils pliables. Ou mieux, lorsqu\'il n\'y a pas de bouton pour installer les panneaux du Galaxy Store dans Paramètres/Affichage/Panneaux de bord/Panneaux.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Remplir tout l\'espace avec l\'arrière-plan</string>
     <string name="profile_list_item_menu_activate">Activer le profil</string>
     <string name="profile_list_item_menu_duplicate">Dupliquer le profil</string>
@@ -1992,7 +1974,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">remplacer par l\'icône PhoneProfilesPlus</string>
     <string name="notification_channel_donation_description">Affiche une notification demandant un don monétaire à l\'auteur.</string>
     <string name="shortcut_to_editor_created_toast">Raccourci vers l\'éditeur créé</string>
-    <string name="privacy_policy_web_browser_chooser">Voir la politique de confidentialité de PhoneProfilesPlus en utilisant</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Plus compact</string>
     <string name="altype_timezone_changed">fuseau horaire modifié</string>
     <string name="altype_extender_accessibility_service_enabled">Service d\'accessibilité PhoneProfilesPlus Extender activé</string>
@@ -2279,4 +2260,29 @@
     <string name="array_pref_force_stop_with_pppe">Forcer l\'arrêt avec PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Forcer l\'arrêt avec la commande</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note : Peut ne pas fonctionner sur votre appareil.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Si vous le souhaitez, téléchargez-le depuis APKPure.</string>
+    <string name="phone_profiles_pref_category_widget_panel">Widget : Panneau</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">Position verticale</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">Si cette option est activée, les couleurs des widgets seront définies par le mode sombre du système.</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Meilleure utilisation du widget Panel</string>
+    <string name="phone_profiles_pref_application_widget_panel_info_sumary">Ce widget est adapté à l\'utilisation dans l\'application \"Panels\". Pour installer cette application, cliquez ici.</string>
+    <string name="panel_widget_description">Affiche le profil activé, les \"événements de redémarrage\" et la liste des profils configurés sous forme de panneau.</string>
+    <string name="widget_label_panel">Panel</string>
+    <string name="array_pref_widgetPanelVerticalPosition_top">Haut</string>
+    <string name="array_pref_widgetPanelVerticalPosition_center">Centre</string>
+    <string name="array_pref_widgetPanelVerticalPosition_bottom">Bas</string>
+    <string name="important_info_quick_guide_profiles_3">Vous pouvez activer manuellement un profil via l\'activateur PPP (fenêtre contextuelle avec la liste des profils disponibles). L\'activateur peut être affiché via l\'icône d\'accueil PPP, la notification PPP, les widgets PPP. Vous pouvez également activer directement un profil via le widget Liste, le widget Panel et le raccourci vers le profil.</string>
+    <string name="profile_preferences_showInActivator_summary">Activez cette option si vous souhaitez afficher ce profil dans l\'Activateur, le widget Liste, le widget Panel.</string>
+    <string name="show_profile_in_activator_not_show_toast">Le profil ne sera pas affiché dans l\'Activateur, le widget Liste, le widget Panel</string>
+    <string name="show_profile_in_activator_show_toast">Le profil sera affiché dans l\'Activateur, le widget Liste, le widget Panel</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Modifier la luminosité du texte en mode sombre</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Modifier la luminosité des bordures en mode sombre</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Modifier la luminosité des icônes en mode sombre</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Modifier la luminosité de l\'indicateur de préférences en mode sombre</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Changer la luminosité des flèches et du marqueur du profil activé en mode sombre</string>
+    <string name="important_info_edge_panel_replacement1">Depuis OneUI 7, les panneaux Edge des applications tierces ne sont plus pris en charge. Et par conséquent, ils ont été supprimés de PPP.</string>
+    <string name="important_info_edge_panel_replacement2">Un remplacement a été créé, un widget appelé \"Panel\". Il peut être utilisé comme widget autonome, mais il peut également être utilisé dans l\'application « Panels », qui peut remplacer Edge Panels de OneUI. L\'avantage est que l\'application peut être utilisée sur d\'autres appareils, pas seulement sur ceux de Samsung.</string>
+    <string name="important_info_edge_panel_replacement3">Lien vers l\'application \"Panels\"</string>
+    <string name="location_editor_title_not_actual_location">Localisation indisponible. Veuillez patienter pendant l’acquisition du signal.</string>
+    <string name="location_editor_rename_with_address_message">Renommer le nom de l\'emplacement avec l\'adresse réelle ?</string>
 </resources>

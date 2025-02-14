@@ -238,6 +238,8 @@ public class EditorActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
@@ -749,10 +751,10 @@ public class EditorActivity extends AppCompatActivity
 
         unregisterReceiversInStop();
 
-        if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
-            addProfileDialog.mDialog.dismiss();
-        if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
-            addEventDialog.mDialog.dismiss();
+        //if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
+        //    addProfileDialog.mDialog.dismiss();
+        //if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
+        //    addEventDialog.mDialog.dismiss();
     }
 
     @Override
@@ -1405,6 +1407,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -1413,7 +1416,7 @@ public class EditorActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -1430,6 +1433,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     false,
@@ -1438,7 +1442,7 @@ public class EditorActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -1470,7 +1474,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_choose_language) {
             ChooseLanguageDialog chooseLanguageDialog = new ChooseLanguageDialog(this);
-            chooseLanguageDialog.show();
+            chooseLanguageDialog.showDialog();
             return true;
         }
         else
@@ -1611,7 +1615,6 @@ public class EditorActivity extends AppCompatActivity
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
             editorToolbar.setTitle(getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
-            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
@@ -1640,7 +1643,6 @@ public class EditorActivity extends AppCompatActivity
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
             editorToolbar.setTitle(getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
-            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
@@ -1938,7 +1940,6 @@ public class EditorActivity extends AppCompatActivity
         // header is position=0
         drawerListView.setItemChecked(drawerSelectedItem, true);
         // Get the title and icon followed by the position
-        //editorToolbar.setSubtitle(drawerItemsTitle[drawerSelectedItem - 1]);
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
         drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem -1]);
         drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem - 1]);
@@ -2216,6 +2217,7 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2224,7 +2226,7 @@ public class EditorActivity extends AppCompatActivity
                     );
 
                     if (!isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -2259,6 +2261,7 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2267,7 +2270,7 @@ public class EditorActivity extends AppCompatActivity
                     );
 
                     if (!isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -2289,127 +2292,6 @@ public class EditorActivity extends AppCompatActivity
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     appContext.getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
-
-/*                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                        DocumentFile pickedDir;
-                        final Uri treeUri;
-                        final Activity activity;
-
-                        final int requestCode;
-                        int ok = 1;
-
-                        private BackupAsyncTask(int requestCode, Uri treeUri, Activity activity) {
-                            this.treeUri = treeUri;
-                            this.requestCode = requestCode;
-                            this.activity = activity;
-
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.backup_settings_alert_title);
-
-                            LayoutInflater inflater = (activity.getLayoutInflater());
-                            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                            dialogBuilder.setView(layout);
-
-                            backupProgressDialog = dialogBuilder.create();
-
-                        }
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-
-                            pickedDir = DocumentFile.fromTreeUri(appContext, treeUri);
-
-                            GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                            backupProgressDialog.setCancelable(false);
-                            backupProgressDialog.setCanceledOnTouchOutside(false);
-                            if (!activity.isFinishing())
-                                backupProgressDialog.show();
-                        }
-
-                        @Override
-                        protected Integer doInBackground(Void... params) {
-                            if (pickedDir != null) {
-                                if (pickedDir.canWrite()) {
-                                    if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
-                                        // if directory exists, create new = "PhoneProfilesPlus (x)"
-                                        // create subdirectory
-                                        pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
-                                        if (pickedDir == null) {
-                                            // error for create directory
-                                            ok = 0;
-                                        }
-                                    }
-                                }
-                                else {
-                                    // pickedDir is not writable
-                                    ok = 0;
-                                }
-
-                                if (ok == 1) {
-                                    if (pickedDir.canWrite()) {
-                                        File applicationDir = appContext.getExternalFilesDir(null);
-
-                                        ok = copyToBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, getApplicationContext());
-                                        if (ok == 1)
-                                            ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
-                                    }
-                                    else {
-                                        // cannot copy backup files, pickedDir is not writable
-                                        ok = 0;
-                                    }
-                                }
-
-                            }
-                            else {
-                                // pickedDir is null
-                                ok = 0;
-                            }
-
-                            return ok;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Integer result) {
-                            super.onPostExecute(result);
-
-                            if (!isFinishing()) {
-                                if ((backupProgressDialog != null) && backupProgressDialog.isShowing()) {
-                                    if (!isDestroyed())
-                                        backupProgressDialog.dismiss();
-                                    backupProgressDialog = null;
-                                }
-                                GlobalGUIRoutines.unlockScreenOrientation(activity);
-                            }
-
-                            if (result == 0) {
-                                if (!activity.isFinishing()) {
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                    dialogBuilder.setTitle(R.string.backup_settings_alert_title);
-                                    dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog = dialogBuilder.create();
-
-                                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    //            @Override
-                                    //            public void onShow(DialogInterface dialog) {
-                                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    //                if (positive != null) positive.setAllCaps(false);
-                                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    //                if (negative != null) negative.setAllCaps(false);
-                                    //            }
-                                    //        });
-
-                                    dialog.show();
-                                }
-                            }
-                            else {
-                                PPApplication.showToast(appContext, getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
-                            }
-                        }
-                    }
- */
 
                     backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this);
                     backupAsyncTask.execute();
@@ -2450,6 +2332,7 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
@@ -2457,7 +2340,7 @@ public class EditorActivity extends AppCompatActivity
                             this
                     );
 
-                    dialog.show();
+                    dialog.showDialog();
                 }
             }
         }
@@ -2533,7 +2416,6 @@ public class EditorActivity extends AppCompatActivity
 
     private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult/*, int sharedProfileResult*/)
     {
-        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
         if (importExport == IMPORTEXPORT_IMPORT)
             title = getString(R.string.import_profiles_alert_title);
@@ -2570,6 +2452,7 @@ public class EditorActivity extends AppCompatActivity
                     GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
                 },
                 null,
+                null,
                 true, true,
                 false, false,
                 false,
@@ -2578,7 +2461,7 @@ public class EditorActivity extends AppCompatActivity
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -2807,6 +2690,7 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
@@ -2815,7 +2699,7 @@ public class EditorActivity extends AppCompatActivity
                                 );
 
                                 if (!isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         }
 
@@ -2858,6 +2742,7 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
@@ -2866,11 +2751,12 @@ public class EditorActivity extends AppCompatActivity
                                 );
 
                                 if (!isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         }
                     }
                 },
+                null,
                 null,
                 null,
                 null,
@@ -2883,7 +2769,7 @@ public class EditorActivity extends AppCompatActivity
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -3022,6 +2908,7 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 false,
@@ -3030,7 +2917,7 @@ public class EditorActivity extends AppCompatActivity
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void doExportData(final boolean email, final boolean toAuthor, final boolean share)
@@ -3039,17 +2926,21 @@ public class EditorActivity extends AppCompatActivity
 
             final EditorActivity activity = this;
 
+            CharSequence title;
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             if (share)
-                dialogBuilder.setTitle(R.string.menu_share_settings);
+                title = getString(R.string.menu_share_settings);
             else
             if (toAuthor)
-                dialogBuilder.setTitle(R.string.menu_export_and_email_to_author);
+                title = getString(R.string.menu_export_and_email_to_author);
             else
             if (email)
-                dialogBuilder.setTitle(R.string.menu_export_and_email);
+                title = getString(R.string.menu_export_and_email);
             else
-                dialogBuilder.setTitle(R.string.menu_export);
+                title = getString(R.string.menu_export);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                    title, null);
+
             dialogBuilder.setCancelable(true);
             //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
@@ -3100,16 +2991,11 @@ public class EditorActivity extends AppCompatActivity
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
             AlertDialog dialog = dialogBuilder.create();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
 
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+            dialog.setOnShowListener(dialog1 -> GlobalGUIRoutines.lockScreenOrientation(EditorActivity.this));
+            dialog.setOnDismissListener(dialog2 -> GlobalGUIRoutines.unlockScreenOrientation(EditorActivity.this));
 
             if (!isFinishing())
                 dialog.show();
@@ -3178,11 +3064,14 @@ public class EditorActivity extends AppCompatActivity
 
         // In single-pane mode, simply start the profile preferences activity
         // for the profile position.
-        if (((profile != null) ||
-            (editMode == PPApplication.EDIT_MODE_INSERT) ||
-            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
-            && (editMode != PPApplication.EDIT_MODE_DELETE))
-            startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
+        if ((profile != null) ||
+                (editMode == PPApplication.EDIT_MODE_INSERT) ||
+                (editMode == PPApplication.EDIT_MODE_DUPLICATE)) {
+            if (editMode != PPApplication.EDIT_MODE_DELETE)
+                startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
+            else
+                redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
+        }
     }
 
     void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
@@ -3342,6 +3231,7 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -3350,7 +3240,7 @@ public class EditorActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -3361,11 +3251,14 @@ public class EditorActivity extends AppCompatActivity
             ((EditorEventListFragment) fragment).updateBottomMenu();
         }
 
-        if (((event != null) ||
+        if ((event != null) ||
             (editMode == PPApplication.EDIT_MODE_INSERT) ||
-            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
-            && (editMode != PPApplication.EDIT_MODE_DELETE))
-            startEventPreferenceActivity(event, editMode, predefinedEventIndex);
+            (editMode == PPApplication.EDIT_MODE_DUPLICATE)) {
+            if (editMode != PPApplication.EDIT_MODE_DELETE)
+                startEventPreferenceActivity(event, editMode, predefinedEventIndex);
+            else
+                redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
+        }
     }
 
     void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
@@ -3908,7 +3801,9 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.backup_settings_alert_title), null);
+            //dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -3925,7 +3820,7 @@ public class EditorActivity extends AppCompatActivity
             if (activity != null) {
                 pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.backupProgressDialog.setCancelable(false);
                 activity.backupProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4005,6 +3900,7 @@ public class EditorActivity extends AppCompatActivity
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -4012,7 +3908,7 @@ public class EditorActivity extends AppCompatActivity
                                 activity
                         );
 
-                        dialog.show();
+                        dialog.showDialog();
                     }
                 } else {
                     PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
@@ -4091,10 +3987,13 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            CharSequence title;
             if (share)
-                dialogBuilder.setTitle(R.string.restore_shared_settings_alert_title);
+                title = activity.getString(R.string.restore_shared_settings_alert_title);
             else
-                dialogBuilder.setTitle(R.string.restore_settings_alert_title);
+                title = activity.getString(R.string.restore_settings_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                    title, null);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4115,7 +4014,7 @@ public class EditorActivity extends AppCompatActivity
                     pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
                 }
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.restoreProgressDialog.setCancelable(false);
                 activity.restoreProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4236,6 +4135,7 @@ public class EditorActivity extends AppCompatActivity
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
@@ -4243,7 +4143,7 @@ public class EditorActivity extends AppCompatActivity
                                 activity
                         );
 
-                        dialog.show();
+                        dialog.showDialog();
                     }
                 } else {
                     if (share)
@@ -4372,7 +4272,9 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.import_profiles_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.import_profiles_alert_title), null);
+            //dialogBuilder.setTitle(R.string.import_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4401,7 +4303,7 @@ public class EditorActivity extends AppCompatActivity
             if (activity != null) {
                 doImport = true;
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.importProgressDialog.setCancelable(false);
                 activity.importProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4610,7 +4512,9 @@ public class EditorActivity extends AppCompatActivity
             this.deleteClearNotifications = deleteClearNotifications;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.export_profiles_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.export_profiles_alert_title), null);
+            //dialogBuilder.setTitle(R.string.export_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4637,7 +4541,7 @@ public class EditorActivity extends AppCompatActivity
 
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.exportProgressDialog.setCancelable(false);
                 activity.exportProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4898,10 +4802,12 @@ public class EditorActivity extends AppCompatActivity
                         }
                     } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                activity.getString(R.string.backup_settings_alert_title), null);
+                        //dialogBuilder.setTitle(R.string.backup_settings_alert_title);
                         LayoutInflater inflater = (activity).getLayoutInflater();
                         View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                         dialogBuilder.setView(layout);
-                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
                         boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
 
@@ -4961,6 +4867,7 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
@@ -4969,21 +4876,17 @@ public class EditorActivity extends AppCompatActivity
                                 );
 
                                 if (!activity.isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         });
                         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                        AlertDialog dialog = dialogBuilder.create();
 
-                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        //            @Override
-                        //            public void onShow(DialogInterface dialog) {
-                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        //                if (positive != null) positive.setAllCaps(false);
-                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        //                if (negative != null) negative.setAllCaps(false);
-                        //            }
-                        //        });
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setCancelable(false);
+                        dialog.setCanceledOnTouchOutside(false);
+
+                        dialog.setOnShowListener(dialog1 -> GlobalGUIRoutines.lockScreenOrientation(activity));
+                        dialog.setOnDismissListener(dialog2 -> GlobalGUIRoutines.unlockScreenOrientation(activity));
 
                         if (!activity.isFinishing())
                             dialog.show();

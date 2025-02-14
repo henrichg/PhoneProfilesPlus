@@ -30,10 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -50,11 +50,13 @@ public class EditorProfileListFragment extends Fragment
 
     DataWrapper activityDataWrapper;
 
+
     private View rootView;
     LinearLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
+    Toolbar editorSubToolbar;
     Toolbar bottomToolbar;
     RelativeLayout viewNoData;
     private LinearLayout progressBar;
@@ -174,7 +176,7 @@ public class EditorProfileListFragment extends Fragment
         activeProfileName = view.findViewById(R.id.editor_profiles_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.editor_profiles_activated_profile_icon);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        PPLinearLayoutManager layoutManager = new PPLinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_profiles_list);
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //noinspection DataFlowIssue
@@ -183,6 +185,8 @@ public class EditorProfileListFragment extends Fragment
 
         activatedProfileHeader = view.findViewById(R.id.editor_profiles_activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_profiles_list_bottom_bar);
+        //noinspection DataFlowIssue
+        editorSubToolbar = getActivity().findViewById(R.id.editor_subToolbar);
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
@@ -193,31 +197,40 @@ public class EditorProfileListFragment extends Fragment
                 final LayoutTransition layoutTransition = profilesListFragment.getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(1) {
+                listView.addOnScrollListener(new EditorAutoHideShowHeaderBottomBarScrollListener(/*1*/) {
                     @Override
                     public void onHide() {
-                /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                    hideAnimator.start();*/
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem != 0)
                             activatedProfileHeader.setVisibility(GONE);
-
-                            bottomToolbar.setVisibility(View.VISIBLE);
+                            editorSubToolbar.setVisibility(GONE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onHide");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(GONE);
+                            }, 100);
+                            //});
                         }
                     }
 
                     @Override
                     public void onShow() {
-                    /*if (activatedProfileHeader.getMeasuredHeight() == 0)
-                        showAnimator.start();*/
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem == 0)
-                            activatedProfileHeader.setVisibility(View.VISIBLE);
-
-                            bottomToolbar.setVisibility(GONE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onShow");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(VISIBLE);
+                            }, 100);
+                            //});
+                            activatedProfileHeader.setVisibility(VISIBLE);
+                            editorSubToolbar.setVisibility(VISIBLE);
                         }
                     }
                 });
@@ -239,8 +252,8 @@ public class EditorProfileListFragment extends Fragment
             if (itemId == R.id.menu_add_profile) {
                 if (profileListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        ((EditorActivity) activity).addProfileDialog = new AddProfileDialog(activity, this);
-                        ((EditorActivity) activity).addProfileDialog.show();
+                        ((EditorActivity) activity).addProfileDialog = new AddProfileDialog((EditorActivity) activity/*, this*/);
+                        ((EditorActivity) activity).addProfileDialog.showDialog();
                     }
                 }
                 return true;
@@ -745,7 +758,7 @@ public class EditorProfileListFragment extends Fragment
                 (dialog1, which) -> {
                     switch (which) {
                         case 0:
-                            activateProfile(profile/*, true*/);
+                            activateProfile(profile/*, true*/, false);
                             break;
                         case 1:
                             duplicateProfile(profile);
@@ -757,9 +770,9 @@ public class EditorProfileListFragment extends Fragment
                     }
                 },
                 null,
-                false,
-                getActivity());
-        dialog.show();
+                //false,
+                (AppCompatActivity) getActivity());
+        dialog.showDialog();
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -819,15 +832,16 @@ public class EditorProfileListFragment extends Fragment
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
                 false,
-                getActivity()
+                (AppCompatActivity) getActivity()
         );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void deleteAllProfiles()
@@ -891,15 +905,16 @@ public class EditorProfileListFragment extends Fragment
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    getActivity()
+                    (AppCompatActivity) getActivity()
             );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -922,7 +937,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, activityDataWrapper);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -1002,14 +1017,15 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    void activateProfile(Profile profile/*, boolean interactive*/)
+    /** @noinspection SameParameterValue*/
+    void activateProfile(Profile profile/*, boolean interactive*/, boolean itIsUndoProfile)
     {
         if (!ProfileStatic.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
-            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
+            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false, itIsUndoProfile);
         }
         else
-            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, false, false, (AppCompatActivity) getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1215,9 +1231,9 @@ public class EditorProfileListFragment extends Fragment
                         }
                     },
                     null,
-                    false,
-                    getActivity());
-            dialog.show();
+                    //false,
+                    (AppCompatActivity) getActivity());
+            dialog.showDialog();
 
 /*
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -1320,7 +1336,7 @@ public class EditorProfileListFragment extends Fragment
 */
         }
         else
-            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
+            GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, (AppCompatActivity) getActivity());
     }
 
     void showTargetHelps() {

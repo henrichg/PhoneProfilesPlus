@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/info_pref_dialog_titleBarDivider"
@@ -23,8 +23,8 @@
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
     tools:ignore="UselessParent">
+<!--    android:fadeScrollbars="false"-->
 
     <LinearLayout
         android:id="@+id/info_pref_dialog_liLa1"
@@ -49,6 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="-5dp"
             android:layout_marginTop="15dp"
+            android:drawableStart="@android:color/transparent"
+            android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
             android:buttonTint="@color/checkbox_radiobutton_color"
             android:text=""
             android:visibility="gone" />

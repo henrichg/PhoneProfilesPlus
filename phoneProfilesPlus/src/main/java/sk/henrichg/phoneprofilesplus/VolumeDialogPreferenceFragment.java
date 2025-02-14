@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -41,6 +42,12 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     private static volatile Timer playTimer = null;
     static volatile MediaPlayer mediaPlayer = null;
 
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
@@ -64,7 +71,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         if (preference.forVolumesSensor == 1) {
             PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (EventsPrefsActivity) context,
-                    R.layout.ppp_spinner,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);

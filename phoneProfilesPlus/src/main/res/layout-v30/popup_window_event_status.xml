@@ -23,8 +23,8 @@
             android:id="@+id/event_status_popup_window_scroll_view"
             android:layout_width="@dimen/popup_widow_event_status_width"
             android:layout_height="match_parent"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false" >
+            android:scrollbarStyle="outsideOverlay">
+<!--            android:fadeScrollbars="false" >-->
 
             <LinearLayout
                 android:id="@+id/event_status_popup_window_liLa1"

@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -49,6 +51,12 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
     RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -254,16 +262,17 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
                                     false,
-                                    getActivity()
+                                    (AppCompatActivity) getActivity()
                             );
 
                             if (getActivity() != null)
                                 if (!getActivity().isFinishing())
-                                    dialog.show();
+                                    dialog.showDialog();
                         }
                     }
                 });

@@ -1,84 +1,106 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class AddProfileDialog
+public class AddProfileDialog extends DialogFragment
 {
     private EditorProfileListFragment profileListFragment;
 
-    final AlertDialog mDialog;
-    final Activity activity;
+    private AlertDialog mDialog;
+    private EditorActivity activity;
 
-    private final LinearLayout linlaProgress;
-    private final ListView listView;
+    private LinearLayout linlaProgress;
+    private ListView listView;
 
-    final List<Profile> profileList = new ArrayList<>();
+    private final List<Profile> profileList = new ArrayList<>();
+
     private GetProfilesAsyncTask getProfilesAsyncTask = null;
 
-    AddProfileDialog(Activity activity, EditorProfileListFragment profileListFragment)
+    public AddProfileDialog() {
+    }
+
+    public AddProfileDialog(EditorActivity activity/*, EditorProfileListFragment profileListFragment*/)
     {
-        this.profileListFragment = profileListFragment;
+        //this.profileListFragment = profileListFragment;
         this.activity = activity;
+    }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.new_profile_predefined_profiles_dialog);
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (EditorActivity) getActivity();
+        if (this.activity != null) {
+            this.profileListFragment = (EditorProfileListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
-        dialogBuilder.setView(layout);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.new_profile_predefined_profiles_dialog), null);
+            //dialogBuilder.setTitle(R.string.new_profile_predefined_profiles_dialog);
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        mDialog = dialogBuilder.create();
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
+            dialogBuilder.setView(layout);
 
-        mDialog.setOnShowListener(dialog -> {
+            mDialog = dialogBuilder.create();
+
+            mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            doShow();
-        });
-        mDialog.setOnDismissListener(dialog -> {
-            if ((getProfilesAsyncTask != null) &&
-                    getProfilesAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
-                getProfilesAsyncTask.cancel(true);
-            }
-            getProfilesAsyncTask = null;
-            this.profileListFragment = null;
-        });
+                doShow();
+            });
 
-        linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
+            linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
-        listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+            listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
-        //noinspection DataFlowIssue
-        listView.setOnItemClickListener((parent, item, position, id) -> {
-            AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
-            if (viewHolder != null)
-                viewHolder.radioButton.setChecked(true);
-            final Handler handler = new Handler(activity.getMainLooper());
-            final WeakReference<AddProfileDialog> dialogWeakRef = new WeakReference<>(this);
-            handler.postDelayed(() -> {
-                AddProfileDialog dialog1 = dialogWeakRef.get();
-                if (dialog1 != null)
-                    dialog1.doOnItemSelected(position);
-            }, 200);
-        });
+            //noinspection DataFlowIssue
+            listView.setOnItemClickListener((parent, item, position, id) -> {
+                AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
+                if (viewHolder != null)
+                    viewHolder.radioButton.setChecked(true);
+                final Handler handler = new Handler(activity.getMainLooper());
+                final WeakReference<AddProfileDialog> dialogWeakRef = new WeakReference<>(this);
+                handler.postDelayed(() -> {
+                    AddProfileDialog dialog1 = dialogWeakRef.get();
+                    if (dialog1 != null)
+                        dialog1.doOnItemSelected(position);
+                }, 200);
+            });
 
+        }
+        return mDialog;
+    }
+
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if ((getProfilesAsyncTask != null) &&
+                getProfilesAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            getProfilesAsyncTask.cancel(true);
+        }
+        getProfilesAsyncTask = null;
+        this.profileListFragment = null;
     }
 
     private void doShow() {
@@ -100,12 +122,13 @@ class AddProfileDialog
         //}
         profileList.clear();
 
-        mDialog.dismiss();
+        dismiss();
     }
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            //mDialog.show();
+            show(activity.getSupportFragmentManager(), "ADD_PROFILE_DIALOG");
     }
 
     private static class GetProfilesAsyncTask extends AsyncTask<Void, Integer, Void> {
@@ -113,11 +136,11 @@ class AddProfileDialog
         final List<Profile> _profileList = new ArrayList<>();
 
         private final WeakReference<AddProfileDialog> dialogWeakRef;
-        private final WeakReference<Activity> activityWeakRef;
+        private final WeakReference<EditorActivity> activityWeakRef;
         final DataWrapper dataWrapper;
 
         public GetProfilesAsyncTask(final AddProfileDialog dialog,
-                                  final Activity activity,
+                                  final EditorActivity activity,
                                   final DataWrapper dataWrapper) {
             this.dialogWeakRef = new WeakReference<>(dialog);
             this.activityWeakRef = new WeakReference<>(activity);
@@ -134,7 +157,7 @@ class AddProfileDialog
 
         @Override
         protected Void doInBackground(Void... params) {
-            Activity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 Profile profile;
@@ -162,7 +185,7 @@ class AddProfileDialog
             super.onPostExecute(result);
 
             AddProfileDialog dialog = dialogWeakRef.get();
-            Activity activity = activityWeakRef.get();
+            EditorActivity activity = activityWeakRef.get();
             if ((dialog != null) && (activity != null)) {
                 dialog.linlaProgress.setVisibility(View.GONE);
                 dialog.listView.setVisibility(View.VISIBLE);

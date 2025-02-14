@@ -18,6 +18,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
         app:contentInsetEnd="@dimen/content_inset_end"
         app:contentInsetStart="@dimen/content_inset_start"
         app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
@@ -28,7 +29,7 @@
         android:id="@+id/read_nfc_tag_title_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        android:layout_marginBottom="@dimen/alert_dialog_top_padding"
+        android:layout_marginBottom="@dimen/dialog_title_divider_paddingTop"
         android:background="@color/dialogDividerColor" />
 
     <RelativeLayout

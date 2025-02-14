@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -27,6 +28,12 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
     private Context prefContext;
 
     RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -48,6 +55,7 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
         linlaProgress = view.findViewById(R.id.ringtone_pref_dlg_linla_progress);
 
         listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
+        //listView.setEmptyView(view.findViewById(R.id.ringtone_pref_dlg_list_empty));
 
         //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -75,6 +83,8 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
                 if (preference != null)
                     preference.refreshListView();
             }, 200);
+        } else {
+            hideProgress();
         }
 
     }

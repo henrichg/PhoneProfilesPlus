@@ -11,6 +11,8 @@
         android:id="@+id/acch_color_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:maxHeight="@dimen/acch_color_view_height"
         android:background="@drawable/acch_color_background"
         android:src="@android:color/black"
@@ -21,11 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fadeScrollbars="false">
+        android:scrollbarStyle="outsideOverlay" >
+<!--        android:fadeScrollbars="false">-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="13dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -61,21 +66,6 @@
                     android:paddingEnd="5dp"
                     android:text="@string/color_value" />
             </RelativeLayout>
-
-<!--            <EditText-->
-<!--                android:id="@+id/acch_color_edit"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:imeOptions="actionDone|actionGo|actionSend"-->
-<!--                android:inputType="textCapCharacters|textNoSuggestions"-->
-<!--                android:textSize="20sp"-->
-<!--                android:importantForAutofill="no"-->
-<!--                tools:ignore="LabelFor" />-->
-        <!--    android:digits="0123456789ABCDEF"-->
-        <!--    android:maxLength="9"-->
 
             <LinearLayout
                 android:id="@+id/acch_channel_container"

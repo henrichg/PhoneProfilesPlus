@@ -38,7 +38,7 @@ class RunApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<RunApp
 
     @Override
     public void onBindViewHolder(@NonNull final RunApplicationsDialogPreferenceViewHolder holder, int position) {
-        Application application = preference.applicationsList.get(position);
+        CApplication application = preference.applicationsList.get(position);
         holder.bindApplication(application);
 
         if (holder.dragHandle != null) {

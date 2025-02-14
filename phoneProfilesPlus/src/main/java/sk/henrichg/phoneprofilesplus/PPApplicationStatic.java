@@ -22,11 +22,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -50,8 +48,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-
-import dev.doubledot.doki.views.DokiContentView;
 
 /** @noinspection ExtractMethodRecommender*/
 class PPApplicationStatic {
@@ -439,7 +435,7 @@ class PPApplicationStatic {
             File path = PPApplication.getInstance().getApplicationContext().getExternalFilesDir(null);
             File logFile = new File(path, PPApplication.LOG_FILENAME);
 
-            if (logFile.length() > 1024 * 10000)
+            if (logFile.length() > 1024 * 100000)
                 resetLog();
 
             if (!logFile.exists()) {
@@ -813,14 +809,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventUsePriority(context);
             ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
             ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context);
-            //ApplicationPreferences.applicationSamsungEdgePrefIndicator(context);
-            ApplicationPreferences.applicationSamsungEdgeHeader(context);
-            ApplicationPreferences.applicationSamsungEdgeBackground(context);
-            ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
-            ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
-            ApplicationPreferences.applicationSamsungEdgeIconColor(context);
-            ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
-            //ApplicationPreferences.applicationSamsungEdgeGridLayout(context);
             ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context);
@@ -833,8 +821,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListBackgroundColor(context);
             ApplicationPreferences.applicationWidgetIconBackgroundType(context);
             ApplicationPreferences.applicationWidgetIconBackgroundColor(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundType(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context);
             //ApplicationPreferences.applicationEventWifiEnableWifi(context);
             //ApplicationPreferences.applicationEventBluetoothEnableBluetooth(context);
             ApplicationPreferences.applicationEventWifiScanIfWifiOff(context);
@@ -873,14 +859,12 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetListCustomIconLightness(context);
             ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);
             ApplicationPreferences.applicationWidgetIconCustomIconLightness(context);
-            ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
             //ApplicationPreferences.notificationDarkBackground(context);
             ApplicationPreferences.notificationUseDecoration(context);
             ApplicationPreferences.notificationLayoutType(context);
             ApplicationPreferences.notificationBackgroundColor(context);
             //ApplicationPreferences.applicationNightModeOffTheme(context);
             ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
-            ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
             ApplicationPreferences.notificationBackgroundCustomColor(context);
             //ApplicationPreferences.notificationNightMode(context);
             ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(context);
@@ -908,7 +892,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetListChangeColorsByNightMode(context);
-            ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode(context);
             ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
             ApplicationPreferences.notificationProfileIconColor(context);
             ApplicationPreferences.notificationProfileIconLightness(context);
@@ -926,8 +909,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff(context);
-            ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetIconLayoutHeight(context);
             ApplicationPreferences.applicationWidgetIconFillBackground(context);
             ApplicationPreferences.applicationWidgetOneRowFillBackground(context);
@@ -961,6 +942,43 @@ class PPApplicationStatic {
             ApplicationPreferences.notificationProfileListIconColor(context);
             ApplicationPreferences.notificationProfileListIconLightness(context);
             ApplicationPreferences.notificationProfileListCustomIconLightness(context);
+
+            ApplicationPreferences.applicationWidgetPanelHeader(context);
+            ApplicationPreferences.applicationWidgetPanelBackground(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessB(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessT(context);
+            ApplicationPreferences.applicationWidgetPanelIconColor(context);
+            ApplicationPreferences.applicationWidgetPanelIconLightness(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundType(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetPanelCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetPanelVerticalPosition(context);
+            ApplicationPreferences.applicationWidgetPanelChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOff(context);
+            ApplicationPreferences.applicationWidgetPanelBackgroundColorNightModeOn(context);
+            ApplicationPreferences.applicationWidgetIconLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetListLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessTChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetPanelShowBorder(context);
+            ApplicationPreferences.applicationWidgetPanelRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetPanelRoundedCornersRadius(context);
+            ApplicationPreferences.applicationWidgetPanelUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetIconLightnessBorderChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowLightnessBorderChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetListLightnessBorderChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelLightnessBorderChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetIconLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowIconLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetListIconLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetPanelIconLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListIconLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicatorLightnessChangeByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode(context);
+
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
             ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(context);
@@ -2412,8 +2430,11 @@ class PPApplicationStatic {
 
     static void showDoNotKillMyAppDialog(final Activity activity) {
         if (activity != null) {
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle), null);
+            //dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
             LayoutInflater inflater = activity.getLayoutInflater();
@@ -2437,9 +2458,13 @@ class PPApplicationStatic {
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
+            */
 
-            if (!activity.isFinishing())
-                dialog.show();
+            if (!activity.isFinishing()) {
+                DontKillMyAppDialog dialog = new DontKillMyAppDialog((AppCompatActivity) activity);
+                dialog.showDialog();
+                //dialog.show();
+            }
         }
 
     }
@@ -2448,17 +2473,41 @@ class PPApplicationStatic {
         if (PPApplication.basicExecutorPool == null)
             PPApplication.basicExecutorPool = Executors.newCachedThreadPool();
     }
+    /*
     static void createProfileActiationExecutorPool() {
         if (PPApplication.profileActiationExecutorPool == null)
             PPApplication.profileActiationExecutorPool = Executors.newCachedThreadPool();
     }
+    */
     static void createActivateProfileExecuteExecutorPool() {
         if (PPApplication.activateProfileExecuteExecutorPool == null)
             PPApplication.activateProfileExecuteExecutorPool = Executors.newCachedThreadPool();
     }
+    /*
     static void createSoundModeExecutorPool() {
         if (PPApplication.soundModeExecutorPool == null)
             PPApplication.soundModeExecutorPool = Executors.newCachedThreadPool();
+    }
+    */
+    static void createProfileVolumesExecutorPool() {
+        if (PPApplication.profileVolumesExecutorPool == null)
+            PPApplication.profileVolumesExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileRadiosExecutorPool() {
+        if (PPApplication.profileRadiosExecutorPool == null)
+            PPApplication.profileRadiosExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileRunApplicationsExecutorPool() {
+        if (PPApplication.profileRunApplicationsExecutorPool == null)
+            PPApplication.profileRunApplicationsExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileIteractivePreferencesExecutorPool() {
+        if (PPApplication.profileIteractivePreferencesExecutorPool == null)
+            PPApplication.profileIteractivePreferencesExecutorPool = Executors.newCachedThreadPool();
+    }
+    static void createProfileActivationDurationExecutorPool() {
+        if (PPApplication.profileActivationDurationExecutorPool == null)
+            PPApplication.profileActivationDurationExecutorPool = Executors.newCachedThreadPool();
     }
     static void createEventsHandlerExecutor() {
         if (PPApplication.eventsHandlerExecutor == null)
@@ -2499,6 +2548,10 @@ class PPApplicationStatic {
     static void createUpdateGuiExecutor() {
         if (PPApplication.updateGuiExecutor == null)
             PPApplication.updateGuiExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createBluetoothConnectedDevicesDetectorExecutor() {
+        if (PPApplication.bluetoothConnectedDevicesDetectorExecutor == null)
+            PPApplication.bluetoothConnectedDevicesDetectorExecutor = Executors.newSingleThreadScheduledExecutor();
     }
 
     static void startHandlerThreadBroadcast(/*String from*/) {
@@ -2665,7 +2718,8 @@ class PPApplicationStatic {
 
     // contacts and contact groups cache -----------------
 
-    static void createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/)
+    static boolean createContactsCache(Context context, boolean clear, boolean fixEvents/*, boolean forceCache*/
+                                        , boolean repeatIfSQLError)
     {
         if (clear) {
             if (PPApplication.contactsCache != null) {
@@ -2676,7 +2730,8 @@ class PPApplicationStatic {
         if (PPApplication.contactsCache == null)
             PPApplication.contactsCache = new ContactsCache();
 //        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactsCache", "contactsCache.getContactList()");
-        PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/);
+        //Log.e("PPApplicationStatic.createContactsCache", "repeatIfSQLError="+repeatIfSQLError);
+        return PPApplication.contactsCache.getContactList(context, fixEvents/*, forceCache*/, repeatIfSQLError);
     }
 
     static ContactsCache getContactsCache()
@@ -2684,7 +2739,8 @@ class PPApplicationStatic {
         return PPApplication.contactsCache;
     }
 
-    static void createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/)
+    static boolean createContactGroupsCache(Context context, boolean clear/*, boolean fixEvents*//*, boolean forceCache*/
+                                            , boolean repeatIfSQLError)
     {
         if (clear) {
             if (PPApplication.contactGroupsCache != null) {
@@ -2695,7 +2751,8 @@ class PPApplicationStatic {
         if (PPApplication.contactGroupsCache == null)
             PPApplication.contactGroupsCache = new ContactGroupsCache();
 //        PPApplicationStatic.logE("[CONTACTS_CACHE] PPApplicationStatic.createContactGroupsCache", "contactGroupsCache.getContactGroupList()");
-        PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/);
+        //Log.e("PPApplicationStatic.createContactGroupsCache", "repeatIfSQLError="+repeatIfSQLError);
+        return PPApplication.contactGroupsCache.getContactGroupList(context/*, fixEvents*//*, forceCache*/, repeatIfSQLError);
     }
 
     static ContactGroupsCache getContactGroupsCache()
@@ -2706,26 +2763,24 @@ class PPApplicationStatic {
     // check if Pixel Launcher is default --------------------------------------------------
 
     static boolean isPixelLauncherDefault(Context context) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (context != null) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    ResolveInfo defaultLauncher;
-                    //if (Build.VERSION.SDK_INT < 33)
-                    //noinspection deprecation
-                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    //else
-                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
-                    return (defaultLauncher == null) ||
-                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                                "com.google.android.apps.nexuslauncher");
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+                //if (defaultLauncher != null)
+                //    Log.e("PPApplicationStatic.isPixelLauncherDefault", "package="+defaultLauncher.activityInfo.packageName);
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                            "com.google.android.apps.nexuslauncher");
+            } catch (Exception e) {
                 return false;
+            }
         }
         else
             return false;
@@ -2734,30 +2789,26 @@ class PPApplicationStatic {
     // check if One UI 4 Samsung Launcher is default --------------------------------------------------
 
     static boolean isOneUILauncherDefault(Context context) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (context != null) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
 
-                    //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
-                    ResolveInfo defaultLauncher;
-                    //if (Build.VERSION.SDK_INT < 33)
-                    //noinspection deprecation
-                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    //else
-                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
-                    return (defaultLauncher == null) ||
-                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                            "com.sec.android.app.launcher");
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                        "com.sec.android.app.launcher");
+            } catch (Exception e) {
                 return false;
+            }
         }
         else
             return false;
@@ -2766,35 +2817,62 @@ class PPApplicationStatic {
     // check if One UI 4 Samsung Launcher is default --------------------------------------------------
 
     static boolean isMIUILauncherDefault(Context context) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (context != null) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
 
-                    //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
 
-                    ResolveInfo defaultLauncher;
-                    //if (Build.VERSION.SDK_INT < 33)
-                    //noinspection deprecation
-                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    //else
-                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
 
-                    //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
-                    return (defaultLauncher == null) ||
-                            defaultLauncher.activityInfo.packageName.toLowerCase().contains(
-                            "com.miui.home");
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
+                //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                        "com.miui.home");
+            } catch (Exception e) {
                 return false;
+            }
         }
         else
             return false;
     }
+
+    /*
+    // check if SmartLauncher is default --------------------------------------------------
+
+    static boolean isSmartLauncherDefault(Context context) {
+        if (context != null) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+
+                //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+                ResolveInfo defaultLauncher;
+                //if (Build.VERSION.SDK_INT < 33)
+                //noinspection deprecation
+                defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                //else
+                //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+
+                //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
+                return (defaultLauncher == null) ||
+                        defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                                "ginlemon.flowerfree");
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else
+            return false;
+    }
+    */
 
     // get PPP version from relases.md ----------------------------------------------
 

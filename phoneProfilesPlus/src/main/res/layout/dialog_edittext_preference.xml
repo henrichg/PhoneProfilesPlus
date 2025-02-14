@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/dialog_edittext_preference_titleBarDivider"
@@ -41,7 +41,10 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:layout_marginTop="7dp"
-            android:layout_marginBottom="15dp" >
+            android:layout_marginBottom="15dp"
+            android:paddingStart="@dimen/dialog_with_edittext_padding"
+            android:paddingEnd="@dimen/dialog_with_edittext_padding"
+            tools:ignore="RtlSymmetry">
             <EditText
                 android:id="@+id/dialog_edittext_preference_edit"
                 android:layout_width="match_parent"
@@ -69,26 +72,6 @@
                 android:background="@color/activityBackgroundColor"
                 android:text="" />
         </RelativeLayout>
-
-<!--        <TextView-->
-<!--            android:id="@+id/dialog_with_edittext_label"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="7dp"-->
-<!--            android:text=""-->
-<!--            android:textSize="16sp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/dialog_with_edittext_edit"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:importantForAutofill="no"-->
-<!--            android:inputType="textNoSuggestions"-->
-<!--            android:textSize="18sp"-->
-<!--            android:clickable="true"-->
-<!--            android:focusable="true"-->
-<!--            tools:ignore="LabelFor" />-->
 
 <!--    </LinearLayout>-->
 

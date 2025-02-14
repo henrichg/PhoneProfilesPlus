@@ -721,7 +721,6 @@
     <string name="action_for_external_application_notification_no_event_text">參數 event_name 未設定或是空的。</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">開 (略過熱點)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">開關 (略過熱點)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge 面板</string>
     <string name="action_for_external_application_notification_bad_action">不支援指定的動作。</string>
     <string name="action_for_external_application_notification_no_action">未指定動作。</string>
     <string name="ringtone_preference_not_set">未設定</string>
@@ -748,7 +747,6 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>事件:</b> 指定何時變更手機設定.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>設定檔:</b> 允許您設置裝置設定如鈴聲模式、音量大小、來電與通知音效、無線開關 (Wi-Fi、藍牙、行動網路等等)。啟用設定檔後，相關的設定是永久性的。若要變變設定，則必須啟用另一個設定檔。</string>
     <string name="important_info_quick_guide_profiles_2">設定檔可以手動啟動, 也可由事件啟動.</string>
-    <string name="important_info_quick_guide_profiles_3">您可以透過 PPP 啟動器 (帶有可用設定檔清單的彈出視窗) 手動啟用設定檔。啟動器可以透過 PPP 主頁圖示、PPP 通知、PPP 小工具以及對於 Samsung Edge 裝置，從 Edge 面板顯示。您還可以透過 PPP 4x4 小工具，設定檔的捷徑或在Samsung Edge 裝置上透過 Edge 面板直接啟用設定檔。</string>
     <string name="important_info_quick_guide_events_1"><b>事件:</b> 允許您配置何時啟動設定檔. 事件有開始及結束. 您可以配置在事件開始時做什麼, 以及事件結束時做什麼.</string>
     <string name="important_info_quick_guide_events_2">事件包含重要的感測器設置參數，在觸發事件之前，必須滿足這些參數。如果任何感測器未通過，事件將結束 (暫停)。</string>
     <string name="important_info_quick_guide_sensors_1">感測器範例:</string>
@@ -1113,10 +1111,6 @@
     <string name="altype_afterDuration_specificProfile">持續時間後 - 指定設定檔</string>
     <string name="notification_not_used_mobile_cell_disable">停用</string>
     <string name="notification_channel_donation">贊助</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">垂直位置</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">上</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">中</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">底</string>
     <string name="editor_drawer_list_item_events_not_stopped">不停止</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">清單排序</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">依基地台名稱</string>
@@ -1171,16 +1165,12 @@
     <string name="time_pref_dlg_edit_time_tooltip">編輯時間</string>
     <string name="backspace_button_tooltip">退格</string>
     <string name="clear_button_tooltip">清除</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">應用程式通知</string>
     <string name="editor_drawer_title_events_order">順序</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">事件順序</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">按此處切換事件檢視順序。</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">啟用執行事件</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">按此處啟用事件執行。否則，設置的事件將不被執行。</string>
-    <string name="samsung_edge_panel_description">使用 Samsung Edge 面板來啟用設定檔或重啟事件</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">黑色</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">自訂背景顏色</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">自訂色彩</string>
@@ -1421,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">顯示編輯位置</string>
     <string name="array_location_editor_show_actual_location">顯示實際位置</string>
     <string name="array_location_editor_change_geofence_location_to_actual">將編輯位置更為實際位置</string>
-    <string name="array_location_editor_rename_geofence_with_address">用地止重新命名編輯位置</string>
     <string name="profile_preferences_cameraFlash">相機閃光燈</string>
     <string name="permission_why_profile_camera_flash">開關相機閃光燈</string>
     <string name="permission_group_name_camera">相機</string>
@@ -1488,9 +1477,6 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">按此處開啟其他設定檔動作選單: \"刪除所有設定檔\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">其他事件動作</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">按此處開啟其他事件動作選單: \"預設的設定檔\"、\"刪除所有事件\"</string>
-    <string name="profile_preferences_showInActivator_summary">啟用，如果您想在啟用清單、小工具清單、Samsung Edge 面板顯示此設定檔。</string>
-    <string name="show_profile_in_activator_not_show_toast">設定檔將不會顯示在啟用清單、小工具清單、Samsung Edge 面板</string>
-    <string name="show_profile_in_activator_show_toast">設定檔將會顯示在啟用清單、小工具清單、Samsung Edge 面板</string>
     <string name="ignore_manual_activation_not_ignore_toast">當手動啟用任何設定檔時，事件將不會啟動</string>
     <string name="ignore_manual_activation_ignore_toast">當手動啟用任何設定檔時，事件將會啟動，但會暫停</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">當手動啟用任何設定檔時，事件將會啟動且不暫停</string>
@@ -1698,7 +1684,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">如果要使用圖示包中的圖示，請安裝應用程式，該應用程式能夠從已安裝的圖示包中提取圖示作為 png 檔。</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">例如應用程式</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">它是舊版的，但功能支援最新的 Android 版本。</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">在 Google Play 上搜尋它。</string>
     <string name="popup_window_close_button_name">關閉</string>
     <string name="profile_preferences_indicator_image">設定檔偏好設置指標</string>
     <string name="profile_preferences_indicator_event_start_image">事件設定檔偏好設置指標啟動</string>
@@ -1853,7 +1838,6 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">依深色模式</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">隨深色模式變更顏色</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">如果啟用，小工具顏色將透過系統深色模式設定 (例如在 Pixel launcher)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">如果啟用，小工具顏色將透過系統深色模式設定。</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN 應用程式：</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">啟用 VPN</string>
@@ -1901,7 +1885,6 @@
     <string name="about_application_pppps_source_code">Source code - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">通知閃爍</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) 一律顯示</string>
-    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
@@ -1943,7 +1926,6 @@
     <string name="event_preferences_extender_not_installed">未安裝 PhoneProfilesPlusExtender。</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">未安裝</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">協助工具設定</string>
-    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
     <string name="profile_list_item_menu_activate">Activate profile</string>
     <string name="profile_list_item_menu_duplicate">Duplicate profile</string>
@@ -1992,7 +1974,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
     <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
-    <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
     <string name="altype_timezone_changed">time zone changed</string>
     <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender accessibility service enbaled</string>
@@ -2279,4 +2260,29 @@
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
+    <string name="phone_profiles_pref_category_widget_panel">Widget: Panel</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">Vertical position</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Panel widget best usage</string>
+    <string name="phone_profiles_pref_application_widget_panel_info_sumary">This widget is suitable for use in the \"Panels\" application. To install this application, click here.</string>
+    <string name="panel_widget_description">Displays activated profile, \"Restart events\" and list of configured profiles as panel.</string>
+    <string name="widget_label_panel">Panel</string>
+    <string name="array_pref_widgetPanelVerticalPosition_top">Top</string>
+    <string name="array_pref_widgetPanelVerticalPosition_center">Center</string>
+    <string name="array_pref_widgetPanelVerticalPosition_bottom">Bottom</string>
+    <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets. You can also directly activate a profile through the List widget, Panel widget and shortcut to the profile.</string>
+    <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget, Panel widget.</string>
+    <string name="show_profile_in_activator_not_show_toast">Profile will not be displayed in Activator, List widget, Panel widget</string>
+    <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget, Panel widget</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Change text lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Change border lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Change icon lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Change preferences indicator lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Change arrows and marker of the activated profile lightness by Dark mode</string>
+    <string name="important_info_edge_panel_replacement1">Since OneUI 7, Edge Panels from third-party applications are no longer supported. And therefore it was removed from PPP.</string>
+    <string name="important_info_edge_panel_replacement2">A replacement was created, a widget called \"Panel\". It can be used as a standalone widget, but it can also be used in the \"Panels\" application, which can replace Edge Panels from OneUI. The advantage is that the application can be used in other devices, not only in those from Samsung.</string>
+    <string name="important_info_edge_panel_replacement3">Link to the \"Panels\" application</string>
+    <string name="location_editor_title_not_actual_location">Sorry, the actual location is not currently being determined. Please wait for it to be determined.</string>
+    <string name="location_editor_rename_with_address_message">Rename location name with actual address?</string>
 </resources>

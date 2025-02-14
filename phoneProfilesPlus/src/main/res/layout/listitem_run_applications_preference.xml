@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:paddingStart="0dp"
     android:paddingEnd="5dp"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp"
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height"
     android:clickable="true"
     android:focusable="true"
     android:background="?attr/listViewItemBackground">
@@ -44,7 +44,7 @@
 
         <sk.henrichg.phoneprofilesplus.DragHandle
             android:id="@+id/run_applications_pref_dlg_item_drag_handle"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/listItem_run_applications_preference_icon_size"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/preference_item_drag_handle"
@@ -59,8 +59,8 @@
 
         <ImageView
             android:id="@+id/run_applications_pref_dlg_item_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/listItem_run_applications_preference_icon_size"
+            android:layout_height="@dimen/listItem_run_applications_preference_icon_size"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="0dp"
             android:contentDescription="@string/applications_editor_dialog_item_icon"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text=""
-                android:textSize="16sp"
+                android:textSize="@dimen/listItem_label_text_size"
                 android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="1"/>
@@ -102,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Startup delay: 00:00:00"
-                android:textSize="14sp"
+                android:textSize="@dimen/listItem_secondary_text_size"
+                android:textColor="@color/preferenceSummaryTextColor"
                 android:ellipsize="end"
                 tools:ignore="HardcodedText"/>
 

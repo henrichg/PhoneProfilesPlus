@@ -2,8 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,10 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -25,48 +30,50 @@ import java.util.TimerTask;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
+public class AskForDurationDialog extends DialogFragment implements SeekBar.OnSeekBarChangeListener{
 
-    private final int mMin, mMax;
-    private final Profile mProfile;
+    private int mMin, mMax;
+    private Profile mProfile;
     private int mAfterDo;
     long mAfterDoProfile;
 
-    private final DataWrapper mDataWrapper;
+    private DataWrapper mDataWrapper;
     //private final boolean mMonochrome;
     //private final int mMonochromeValue;
-    private final int mStartupSource;
+    private int mStartupSource;
     //private final boolean mInteractive;
-    private final Activity mActivity;
+    private AppCompatActivity mActivity;
     //private boolean mLog;
-    private final String[] afterDoValues;
+    private String[] afterDoValues;
 
     //Context mContext;
 
-    private final AlertDialog mDialog;
-    private final TextView mValue;
-    private final SeekBar mSeekBarHours;
-    private final SeekBar mSeekBarMinutes;
-    private final SeekBar mSeekBarSeconds;
-    private final TextView mEnds;
-    private final TimeDurationPickerDialog mValueDialog;
-    private final TextView afterDurationLabel;
-    private final AppCompatSpinner afterDoSpinner;
-    private final LinearLayout profileView;
-    private final TextView profileLabel;
-    private final TextView profileName;
-    private final ImageView profileIcon;
-    private final ImageView profileIndicators;
+    private AlertDialog mDialog;
+    private TextView mValue;
+    private SeekBar mSeekBarHours;
+    private SeekBar mSeekBarMinutes;
+    private SeekBar mSeekBarSeconds;
+    private TextView mEnds;
+    private TimeDurationPickerDialog mValueDialog;
+    private TextView afterDurationLabel;
+    private AppCompatSpinner afterDoSpinner;
+    private LinearLayout profileView;
+    private TextView profileLabel;
+    private TextView profileName;
+    private ImageView profileIcon;
+    private ImageView profileIndicators;
 
     private volatile Timer updateEndsTimer;
 
     //private int mColor = 0;
 
-    @SuppressLint("SetTextI18n")
-    AskForDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
+    public AskForDurationDialog() {
+    }
+
+    /** @noinspection ClassEscapesDefinedScope*/
+    public AskForDurationDialog(AppCompatActivity activity, Profile profile, DataWrapper dataWrapper,
                              /*boolean monochrome, int monochromeValue,*/
                              int startupSource/*, boolean interactive*/) {
-
         mMax = 86400;
         mMin = 0;
         mAfterDo = -1;
@@ -80,30 +87,23 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //mMonochromeValue = monochromeValue;
         mStartupSource = startupSource;
         //mInteractive = true/*interactive*/;
+    }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+    @SuppressLint("SetTextI18n")
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.mActivity = (AppCompatActivity) getActivity();
+        if ((mActivity != null) && (mProfile != null) && (mDataWrapper != null)) {
+            GlobalGUIRoutines.lockScreenOrientation(mActivity);
 
-        // custom dialog title
-        LayoutInflater layoutInflater = LayoutInflater.from(activity);
-        @SuppressLint("InflateParams")
-        View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
-        TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
-        //noinspection DataFlowIssue
-        titleText.setText(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
-        TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
-        //noinspection DataFlowIssue
-        subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
-        dialogBuilder.setCustomTitle(titleView);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mActivity);
+            GlobalGUIRoutines.setCustomDialogTitle(mActivity, dialogBuilder, true,
+                    mActivity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + mProfile._name,
+                    mActivity.getString(R.string.profile_preferences_duration));
 
-        /*
-        dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + "\n" +
-                               mActivity.getString(R.string.profile_string_0) + ": " + profile._name);
-        */
-
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 updateEndsTimer = null;
 
                 //noinspection DataFlowIssue
@@ -130,10 +130,10 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //        mStartupSource, true, true, false))
                 if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                     if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                         if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                             PlayRingingNotification.playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
@@ -143,283 +143,261 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         }
                     }
 
-                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false, false);
                 }
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            updateEndsTimer = null;
-            mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-        });
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                updateEndsTimer = null;
+                mDataWrapper.finishActivity(mStartupSource, false, mActivity);
+            });
 
-        dialogBuilder.setNeutralButton(R.string.ask_for_duration_without_duration_button, (dialog, which) -> {
-            updateEndsTimer = null;
+            dialogBuilder.setNeutralButton(R.string.ask_for_duration_without_duration_button, (dialog, which) -> {
+                updateEndsTimer = null;
 
-            mProfile._duration = 0;
-            DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
+                mProfile._duration = 0;
+                DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
-            //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-            //        mStartupSource, true, true, false))
-            if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
-                if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                        (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        PlayRingingNotification.playNotificationSound(
-                                ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                false, mDataWrapper.context);
-                        //PPApplication.sleep(500);
-                    }
-                }
-
-                mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
-            }
-            else
-                mDataWrapper.finishActivity(mStartupSource, true, mActivity);
-        });
-
-        dialogBuilder.setOnDismissListener(dialog -> {
-            updateEndsTimer = null;
-            mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-        });
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_ask_for_duration, null);
-        dialogBuilder.setView(layout);
-
-        mDialog = dialogBuilder.create();
-
-//        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        afterDurationLabel = layout.findViewById(R.id.ask_for_duration_dlg_after_do_label);
-        //noinspection DataFlowIssue
-        afterDurationLabel.setText(activity.getString(R.string.profile_preferences_afterDurationDo) + ":");
-
-        TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
-
-        mValue = layout.findViewById(R.id.duration_pref_dlg_value);
-        //noinspection DataFlowIssue
-        TooltipCompat.setTooltipText(mValue, activity.getString(R.string.duration_pref_dlg_edit_duration_tooltip));
-        mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
-        mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
-        mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
-        mEnds = layout.findViewById(R.id.duration_pref_dlg_ends);
-
-        //mSeekBarHours.setRotation(180);
-        //mSeekBarMinutes.setRotation(180);
-        //mSeekBarSeconds.setRotation(180);
-
-        // Initialize state
-        int hours;
-        int minutes;
-        int seconds;
-        hours = mMax / 3600;
-        //minutes = (mMax % 3600) / 60;
-        //seconds = mMax % 60;
-        final String sMax = StringFormatUtils.getDurationString(mMax);
-        //noinspection DataFlowIssue
-        mSeekBarHours.setMax(hours);
-        //if (hours == 0)
-        //    mSeekBarMinutes.setMax(minutes);
-        //else
-            //noinspection DataFlowIssue
-            mSeekBarMinutes.setMax(59);
-        //if ((hours == 0) && (minutes == 0))
-        //    mSeekBarSeconds.setMax(seconds);
-        //else
-            //noinspection DataFlowIssue
-            mSeekBarSeconds.setMax(59);
-        final String sMin = StringFormatUtils.getDurationString(mMin);
-        int iValue = mProfile._duration;
-        hours = iValue / 3600;
-        minutes = (iValue % 3600) / 60;
-        seconds = iValue % 60;
-        mSeekBarHours.setProgress(hours);
-        mSeekBarMinutes.setProgress(minutes);
-        mSeekBarSeconds.setProgress(seconds);
-
-        mValue.setText(StringFormatUtils.getDurationString(iValue));
-        //noinspection DataFlowIssue
-        mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
-
-        mValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
-            int iValue1 = (int) duration / 1000;
-
-            if (iValue1 < mMin)
-                iValue1 = mMin;
-            if (iValue1 > mMax)
-                iValue1 = mMax;
-
-            mValue.setText(StringFormatUtils.getDurationString(iValue1));
-
-            int hours1 = iValue1 / 3600;
-            int minutes1 = (iValue1 % 3600) / 60;
-            int seconds1 = iValue1 % 60;
-
-            mSeekBarHours.setProgress(hours1);
-            mSeekBarMinutes.setProgress(minutes1);
-            mSeekBarSeconds.setProgress(seconds1);
-
-            updateTextFields(false);
-        }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
-        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), activity);
-        mValue.setOnClickListener(view -> {
-            int hours12 = mSeekBarHours.getProgress();
-            int minutes12 = mSeekBarMinutes.getProgress();
-            int seconds12 = mSeekBarSeconds.getProgress();
-
-            int iValue12 = (hours12 * 3600 + minutes12 * 60 + seconds12);
-            if (iValue12 < mMin) iValue12 = mMin;
-            if (iValue12 > mMax) iValue12 = mMax;
-            mValueDialog.setDuration(iValue12 * 1000);
-            if (!mActivity.isFinishing())
-                mValueDialog.show();
-        }
-        );
-
-        mSeekBarHours.setOnSeekBarChangeListener(this);
-        mSeekBarMinutes.setOnSeekBarChangeListener(this);
-        mSeekBarSeconds.setOnSeekBarChangeListener(this);
-
-        //noinspection DataFlowIssue
-        mTextViewRange.setText(sMin + " - " + sMax);
-
-        afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
-        PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
-                mActivity,
-                R.layout.ppp_spinner,
-                mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
-        //noinspection DataFlowIssue
-        afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-//        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.spinner_control_color));
-        /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
-            case "dark":
-                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
-                break;
-            case "white":
-                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
-                break;
-//            case "dlight":
-//                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-//                break;
-            default:
-                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
-                break;
-        }*/
-        afterDoSpinner.setAdapter(spinnerAdapter);
-        afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);
-        int position = Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo));
-        if (position == -1)
-            position = 0;
-        afterDoSpinner.setSelection(position);
-        afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((PPSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
-                mAfterDo = Integer.parseInt(afterDoValues[position]);
-
-                updateProfileView();
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        updateEndsTimer = new Timer();
-        updateEndsTimer.schedule(new TimerTask() {
-            private Activity activity;
-            private TimerTask init(Activity a) {
-                activity = a;
-                return this;
-            }
-
-            @Override
-            public void run() {
-                if(updateEndsTimer != null) {
-                    activity.runOnUiThread(() -> {
-                        if(updateEndsTimer != null) {
-                            updateTextFields(false);
-                        }
-                    });
-                } else {
-                    this.cancel();
-                }
-            }
-        }.init(activity), 250, 250);
-
-        profileView = layout.findViewById(R.id.ask_for_duration_dlg_profile);
-        profileLabel = layout.findViewById(R.id.ask_for_duration_dlg_profile_label);
-        //noinspection DataFlowIssue
-        profileLabel.setText(mActivity.getString(R.string.profile_preferences_afterDurationProfile) + ":");
-        profileName = layout.findViewById(R.id.ask_for_duration_dlg_profile_name);
-        profileIcon = layout.findViewById(R.id.ask_for_duration_dlg_profile_icon);
-        profileIndicators = layout.findViewById(R.id.ask_for_duration_dlg_profile_pref_indicator);
-        if (!ApplicationPreferences.applicationEditorPrefIndicator)
-            //noinspection DataFlowIssue
-            profileIndicators.setVisibility(View.GONE);
-        //noinspection DataFlowIssue
-        profileView.setOnClickListener(v -> {
-            AskForDurationActivateProfileDialog dialog = new AskForDurationActivateProfileDialog(mActivity, AskForDurationDialog.this);
-            if (!mActivity.isFinishing())
-                dialog.show();
-        });
-
-        mAfterDoProfile = mProfile._afterDurationProfile;
-
-        //mDialog.setOnShowListener(dialog -> {
-            updateTextFields(false);
-            updateProfileView();
-        //});
-
-/*
-        final Button activateWithoutButton = layout.findViewById(R.id.ask_for_duration_dlg_activate_without);
-        activateWithoutButton.setOnClickListener(v -> {
-            updateEndsTimer = null;
-
-            mProfile._duration = 0;
-            DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
-
-            //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-            //        true, mMonochrome, mMonochromeValue,
-            //        mStartupSource, true, true, false))
-            if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
-                if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                    (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                    (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
-                    (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                    (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
+                //        mStartupSource, true, true, false))
+                if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
+                    if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                            (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                        if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                            PlayRingingNotification.playNotificationSound(
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                    false, mDataWrapper.context);
                             //PPApplication.sleep(500);
                         }
                     }
+
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false, false);
+                }
+                else
+                    mDataWrapper.finishActivity(mStartupSource, true, mActivity);
+            });
+
+            LayoutInflater inflater = mActivity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_ask_for_duration, null);
+            dialogBuilder.setView(layout);
+
+            mDialog = dialogBuilder.create();
+
+//            mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialog) {
+//                    Log.e("AskForDurationDialog.onShow", "xxxxxxxxxx");
+//                    if (mActivity != null)
+//                        GlobalGUIRoutines.lockScreenOrientation(mActivity);
+//                }
+//            });
+
+            afterDurationLabel = layout.findViewById(R.id.ask_for_duration_dlg_after_do_label);
+            //noinspection DataFlowIssue
+            afterDurationLabel.setText(mActivity.getString(R.string.profile_preferences_afterDurationDo) + ":");
+
+            TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
+
+            mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+            //noinspection DataFlowIssue
+            TooltipCompat.setTooltipText(mValue, mActivity.getString(R.string.duration_pref_dlg_edit_duration_tooltip));
+            mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+            mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+            mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
+            mEnds = layout.findViewById(R.id.duration_pref_dlg_ends);
+
+            //mSeekBarHours.setRotation(180);
+            //mSeekBarMinutes.setRotation(180);
+            //mSeekBarSeconds.setRotation(180);
+
+            // Initialize state
+            int hours;
+            int minutes;
+            int seconds;
+            hours = mMax / 3600;
+            //minutes = (mMax % 3600) / 60;
+            //seconds = mMax % 60;
+            final String sMax = StringFormatUtils.getDurationString(mMax);
+            //noinspection DataFlowIssue
+            mSeekBarHours.setMax(hours);
+            //if (hours == 0)
+            //    mSeekBarMinutes.setMax(minutes);
+            //else
+            //noinspection DataFlowIssue
+            mSeekBarMinutes.setMax(59);
+            //if ((hours == 0) && (minutes == 0))
+            //    mSeekBarSeconds.setMax(seconds);
+            //else
+            //noinspection DataFlowIssue
+            mSeekBarSeconds.setMax(59);
+            final String sMin = StringFormatUtils.getDurationString(mMin);
+            int iValue = mProfile._duration;
+            hours = iValue / 3600;
+            minutes = (iValue % 3600) / 60;
+            seconds = iValue % 60;
+            mSeekBarHours.setProgress(hours);
+            mSeekBarMinutes.setProgress(minutes);
+            mSeekBarSeconds.setProgress(seconds);
+
+            mValue.setText(StringFormatUtils.getDurationString(iValue));
+            //noinspection DataFlowIssue
+            mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
+
+            mValueDialog = new TimeDurationPickerDialog(mActivity, (view, duration) -> {
+                int iValue1 = (int) duration / 1000;
+
+                if (iValue1 < mMin)
+                    iValue1 = mMin;
+                if (iValue1 > mMax)
+                    iValue1 = mMax;
+
+                mValue.setText(StringFormatUtils.getDurationString(iValue1));
+
+                int hours1 = iValue1 / 3600;
+                int minutes1 = (iValue1 % 3600) / 60;
+                int seconds1 = iValue1 % 60;
+
+                mSeekBarHours.setProgress(hours1);
+                mSeekBarMinutes.setProgress(minutes1);
+                mSeekBarSeconds.setProgress(seconds1);
+
+                updateTextFields(false);
+            }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
+            GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), mActivity);
+            mValue.setOnClickListener(view -> {
+                        int hours12 = mSeekBarHours.getProgress();
+                        int minutes12 = mSeekBarMinutes.getProgress();
+                        int seconds12 = mSeekBarSeconds.getProgress();
+
+                        int iValue12 = (hours12 * 3600 + minutes12 * 60 + seconds12);
+                        if (iValue12 < mMin) iValue12 = mMin;
+                        if (iValue12 > mMax) iValue12 = mMax;
+                        mValueDialog.setDuration(iValue12 * 1000L);
+                        if (!mActivity.isFinishing())
+                            mValueDialog.show();
+                    }
+            );
+
+            mSeekBarHours.setOnSeekBarChangeListener(this);
+            mSeekBarMinutes.setOnSeekBarChangeListener(this);
+            mSeekBarSeconds.setOnSeekBarChangeListener(this);
+
+            //noinspection DataFlowIssue
+            mTextViewRange.setText(sMin + " - " + sMax);
+
+            afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
+            PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
+                    mActivity,
+                    R.layout.ppp_spinner_filter,
+                    mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
+            spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
+            //noinspection DataFlowIssue
+            afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+//        afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.spinner_control_color));
+            /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
+                case "dark":
+                    afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+                    break;
+                case "white":
+                    afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                    break;
+    //            case "dlight":
+    //                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+    //                break;
+                default:
+                    afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                    break;
+            }*/
+            afterDoSpinner.setAdapter(spinnerAdapter);
+            afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);
+            int position = Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo));
+            if (position == -1)
+                position = 0;
+            afterDoSpinner.setSelection(position);
+            afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((PPSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
+                    mAfterDo = Integer.parseInt(afterDoValues[position]);
+
+                    updateProfileView();
                 }
 
-                mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
-            }
-            else
-                mDataWrapper.finishActivity(mStartupSource, true, mActivity);
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
 
-            mDialog.dismiss();
-        });
-*/
+            updateEndsTimer = new Timer();
+            updateEndsTimer.schedule(new TimerTask() {
+                private Activity activity;
+                private TimerTask init(Activity a) {
+                    activity = a;
+                    return this;
+                }
+
+                @Override
+                public void run() {
+                    if(updateEndsTimer != null) {
+                        activity.runOnUiThread(() -> {
+                            if(updateEndsTimer != null) {
+                                updateTextFields(false);
+                            }
+                        });
+                    } else {
+                        this.cancel();
+                    }
+                }
+            }.init(mActivity), 250, 250);
+
+            profileView = layout.findViewById(R.id.ask_for_duration_dlg_profile);
+            profileLabel = layout.findViewById(R.id.ask_for_duration_dlg_profile_label);
+            //noinspection DataFlowIssue
+            profileLabel.setText(mActivity.getString(R.string.profile_preferences_afterDurationProfile) + ":");
+            profileName = layout.findViewById(R.id.ask_for_duration_dlg_profile_name);
+            profileIcon = layout.findViewById(R.id.ask_for_duration_dlg_profile_icon);
+            profileIndicators = layout.findViewById(R.id.ask_for_duration_dlg_profile_pref_indicator);
+            if (!ApplicationPreferences.applicationEditorPrefIndicator)
+                //noinspection DataFlowIssue
+                profileIndicators.setVisibility(View.GONE);
+            //noinspection DataFlowIssue
+            profileView.setOnClickListener(v -> {
+                AskForDurationActivateProfileDialog dialog = new AskForDurationActivateProfileDialog(mActivity, AskForDurationDialog.this);
+                if (!mActivity.isFinishing())
+                    dialog.showDialog();
+            });
+
+            mAfterDoProfile = mProfile._afterDurationProfile;
+
+            //mDialog.setOnShowListener(dialog -> {
+            updateTextFields(false);
+            updateProfileView();
+            //});
+
+        }
+        return mDialog;
     }
 
+//    public void onResume() {
+//        super.onResume();
+//        Log.e("AskForDurationDialog.onResume", "xxxxxxxxxx");
+//        if (mActivity != null)
+//            GlobalGUIRoutines.lockScreenOrientation(mActivity);
+//    }
+
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        updateEndsTimer = null;
+        mDataWrapper.finishActivity(mStartupSource, false, mActivity);
+
+        if (mActivity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(mActivity);
+    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -471,9 +449,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     }
 
-    void show() {
-        if (!mActivity.isFinishing())
-            mDialog.show();
+    void showDialog() {
+        if ((mActivity != null) && (!mActivity.isFinishing()))
+            show(mActivity.getSupportFragmentManager(), "ASK_FOR_DURATION_DIALOG");
     }
 
     private void updateProfileView()

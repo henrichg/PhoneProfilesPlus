@@ -89,6 +89,9 @@ public class PPAppNotification {
 
                 //notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 //notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+
+                // must be this to avoid Exception at first PPP start, because by this is loaded layout
+                notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
             notificationShowProfileIcon = false; // for small notification at start
             notificationProfileIconColor = "0";
@@ -106,7 +109,7 @@ public class PPAppNotification {
 
             notificationBackgroundCustomColor = 0xFFFFFFFF;
             notificationShowButtonExit = false;
-            notificationLayoutType = "2"; // only small layout
+            //notificationLayoutType = "2"; // only small layout
         }
         else {
             profile = dataWrapper.getActivatedProfileFromDB(false, false);
@@ -379,7 +382,7 @@ public class PPAppNotification {
         {
             isIconResourceID = profile.getIsIconResourceID();
             iconIdentifier = profile.getIconIdentifier();
-            profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
+            profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, dataWrapper);
             // get string from spannable
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
@@ -1355,7 +1358,7 @@ public class PPAppNotification {
         return notificationIconData;
     }
 
-    static void clearOldNotification(Context context) {
+    private static void clearOldNotification(Context context) {
         boolean clear = false;
         if (Build.MANUFACTURER.equals(PPApplication.MANUFACTURER_HMD_GLOBAL))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
@@ -1381,11 +1384,12 @@ public class PPAppNotification {
         //if (!doNotShowNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 
-            clearOldNotification(appContext);
+            synchronized (PPApplication.showPPPNotificationMutex) {
+
+                clearOldNotification(appContext);
 
             //if (PhoneProfilesService.getInstance() != null) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotification", "PPApplication.showPPPNotificationMutex");
-            synchronized (PPApplication.showPPPNotificationMutex) {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
                 _showNotification(dataWrapper, false);
@@ -1397,12 +1401,12 @@ public class PPAppNotification {
     }
 
     static void forceDrawNotificationFromSettings(final Context appContext) {
-        clearNotification(appContext, false);
-        GlobalUtils.sleep(100);
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            clearNotification(appContext, false);
+            GlobalUtils.sleep(100);
 
         //if (PhoneProfilesService.getInstance() != null) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotificationFromSettings", "PPApplication.showPPPNotificationMutex");
-        synchronized (PPApplication.showPPPNotificationMutex) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
             _showNotification(dataWrapper, false);
@@ -1485,37 +1489,41 @@ public class PPAppNotification {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-        if (alsoClear)
-            clearNotification(context, true);
+        synchronized (PPApplication.showPPPNotificationMutex) {
 
-        //if (!runningInForeground) {
-        if (drawEmpty) {
-            //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+            if (alsoClear)
+                clearNotification(context, true);
+
+            //if (!runningInForeground) {
+            if (drawEmpty) {
+                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.showNotification", "call of _showNotification");
-            _showNotification(/*null,*/ dataWrapper, true/*, true*/);
-            dataWrapper.invalidateDataWrapper();
-            //return; // do not return, dusplay activated profile immediatelly
-        }
+                _showNotification(/*null,*/ dataWrapper, true/*, true*/);
+                dataWrapper.invalidateDataWrapper();
+                //return; // do not return, dusplay activated profile immediatelly
+            }
 
-        //if (DebugVersion.enabled)
-        //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+            //if (DebugVersion.enabled)
+            //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-        //synchronized (PPApplication.applicationPreferencesMutex) {
-        //    if (PPApplication.doNotShowPPPAppNotification)
-        //        return;
-        //}
+            //synchronized (PPApplication.applicationPreferencesMutex) {
+            //    if (PPApplication.doNotShowPPPAppNotification)
+            //        return;
+            //}
 
-        if (!drawActivatedProfle)
-            return;
+            if (!drawActivatedProfle)
+                return;
 
 /*        int delay;
-        if (drawImmediatelly)
-            delay = 200;
-        else
-            delay = 1000;*/
+            if (drawImmediatelly)
+                delay = 200;
+            else
+                delay = 1000;*/
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.showNotification", "call of drawNotification");
-        drawNotification(drawImmediatelly, context);
+            drawNotification(drawImmediatelly, context);
+
+        }
 
         //PPApplication.lastRefreshOfPPPAppNotification = SystemClock.elapsedRealtime();
     }

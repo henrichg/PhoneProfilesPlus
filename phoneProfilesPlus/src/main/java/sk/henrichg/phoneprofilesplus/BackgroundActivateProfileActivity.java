@@ -19,6 +19,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -103,7 +107,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                 //    finish();
             } else {
                 PPApplication.showToastForProfileActivation = true;
-                dataWrapper.activateProfile(profile_id, startupSource, this, true);
+                dataWrapper.activateProfile(profile_id, startupSource, this, true, false);
             }
         }
     }

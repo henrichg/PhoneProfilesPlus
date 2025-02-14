@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/volumePrefDialog_titleBarDivider"
@@ -46,6 +46,8 @@
                 android:id="@+id/volumePrefDialogSharedProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/volume_pref_dialog_default_profile_chb" />
@@ -81,6 +83,8 @@
             android:id="@+id/volumePrefDialogSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_marginStart="@dimen/seekbar_margin"
+            android:layout_marginEnd="@dimen/seekbar_margin"
             android:minHeight="3dp"
             android:maxHeight="3dp"
             android:progressDrawable="@drawable/seek_bar_drawable"

@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/customColorPrefDialog_titleBarDivider"
@@ -28,12 +28,10 @@
         <com.kunzisoft.androidclearchroma.view.ChromaColorView
             android:id="@+id/custom_color_chroma_color_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="13dp"
-            />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/divider_margin"
+            android:paddingEnd="@dimen/divider_margin" />
 
 <!--    </LinearLayout>-->
 

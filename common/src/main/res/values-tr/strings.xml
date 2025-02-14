@@ -721,7 +721,6 @@
     <string name="action_for_external_application_notification_no_event_text">event_name değeri eksik veya boş.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Açık (Hot-spot\'u ihmal et)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Değiştir (Hot-spot\'u ihmal et)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung kenar paneli</string>
     <string name="action_for_external_application_notification_bad_action">Desteklenmeyen faaliyet belirtilir.</string>
     <string name="action_for_external_application_notification_no_action">Olay belirtilmedi.</string>
     <string name="ringtone_preference_not_set">Ayarlanmadı</string>
@@ -748,7 +747,6 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>Durumlar:</b> Cihaz ayarlarının hangi vaziyetlerde değiştirileceğini tayin eder.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>Tercihler:</b> Zil modu, ses seviyeleri, zil ve bildirim sesleri, radyolar (Wi-Fi, Bluetooth, mobil veri, vb.) gibi cihaz ayarlarını değiştirmeye izin verin. Bir Tercih faal olduğunda, bu Tercihle alakalı ayarlar kalıcıdır. Ayarları değiştirmek istiyorsanız, başka bir Tercih faaliyete geçirilmelidir.</string>
     <string name="important_info_quick_guide_profiles_2">Tercihler, el ile veya bir Durum tarafından faaliyete geçirilebilir.</string>
-    <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir Tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir Tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4×4 widget, Tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir Tercihi faaliyete geçirebilirsiniz.</string>
     <string name="important_info_quick_guide_events_1"><b>Durumlar:</b> Bir Tercih faaliyete geçtiğinde neler yapılacağını ayarlamanızı sağlar. Durumların bir başlangıç ve bir bitişi vardır. Bir Durumun başında ve sonunda olacağını ayarlayabilirsiniz.</string>
     <string name="important_info_quick_guide_events_2">Durumlar, daha önce tetiklenen bir durumdan önce yerine getirilmesi lüzumlu mühim Şart ayarlama değerlerini içerir. Herhangi bir Şart geçemezse Durum sona erer (fasıla).</string>
     <string name="important_info_quick_guide_sensors_1">Şart misalleri:</string>
@@ -1113,10 +1111,6 @@
     <string name="altype_afterDuration_specificProfile">süresi bittikten sonra - hususi Tercih</string>
     <string name="notification_not_used_mobile_cell_disable">Devredışı Bırak</string>
     <string name="notification_channel_donation">Bağış</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Dikey pozisyon</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Üst</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">Orta</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Alt</string>
     <string name="editor_drawer_list_item_events_not_stopped">Durdurulmadı</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">Listeyi sırala</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Hücre ismine göre</string>
@@ -1171,16 +1165,12 @@
     <string name="time_pref_dlg_edit_time_tooltip">Zamanı Düzenle</string>
     <string name="backspace_button_tooltip">Silme tuşu</string>
     <string name="clear_button_tooltip">Temizle</string>
-    <string name="time_duration_picker_hour_sign">S</string>
-    <string name="time_duration_picker_minute_sign">d</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Uygulama bildirimi</string>
     <string name="editor_drawer_title_events_order">Sırala</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Durum sırası</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Durumların sıraları arasında geçiş yapmak için buna dokunun.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Durumların çalışmasına izin ver</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Durumların çalışmasına izin vermek için buraya dokunun. Bu yapılmadan ayarlanan Durumlar çalışmaz.</string>
-    <string name="samsung_edge_panel_description">Samsung Edge paneliyle Tercihi tahrik et veya Durumları yeniden başlat</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Siyah</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Hususi arka plan rengi</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Hususi renk</string>
@@ -1421,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Düzenlenen konumu göster</string>
     <string name="array_location_editor_show_actual_location">Geçerli konumu göster</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Düzenlenen konumu geçerli konum olarak değiştir</string>
-    <string name="array_location_editor_rename_geofence_with_address">Düzenlenen konumu adresiyle yeniden isimlendir</string>
     <string name="profile_preferences_cameraFlash">Kamera flaşı</string>
     <string name="permission_why_profile_camera_flash">kamera flaşını değiştirmek için</string>
     <string name="permission_group_name_camera">Kamera</string>
@@ -1488,9 +1477,6 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Diğer Tercih faaliyetleri ile açmak için buna dokunun: \"Tercihlerin tamamını sil\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Diğer Durum faaliyetleri</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Diğer Durum faaliyetleri ile açmak için buna dokunun: \"Varsayılan Tercih\", \"Durumların tamamını sil\"</string>
-    <string name="profile_preferences_showInActivator_summary">Bu Tercihi; Muharrik, Liste widget\'ı, Samsung Edge panelinde göstermek istiyorsanız izin veriniz.</string>
-    <string name="show_profile_in_activator_not_show_toast">Tercih; Muharrik, Liste widget\'ı, Samsung Edge panelinde gösterilmeyecek</string>
-    <string name="show_profile_in_activator_show_toast">Tercih; Muharrik, Liste widget\'ı, Samsung Edge panelinde gösterilecek</string>
     <string name="ignore_manual_activation_not_ignore_toast">Bir Tercih el ile faaliyete geçirilmişse, Durum başlatılmayacak</string>
     <string name="ignore_manual_activation_ignore_toast">Bir Tercih el ile faaliyete geçirilmişse, Durum başlatılacak</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Bir Tercih el ile faaliyete geçirilmişse, Durum başlatılacak ve fasıla verilmeyecek</string>
@@ -1698,7 +1684,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Simge paketindeki simgeleri kullanmak istiyorsanız, yüklü simge paketindeki simgeleri png dosyaları olarak çıkarma özelliğine sahip uygulamayı yükleyin.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Örnek uygulama için</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Eski, fakat en yeni Android sürümünde de çalışan bir uygulamadır.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Google Play\'de ara.</string>
     <string name="popup_window_close_button_name">Kapat</string>
     <string name="profile_preferences_indicator_image">Tercih ayarları göstergesi</string>
     <string name="profile_preferences_indicator_event_start_image">Durum Tercih ayarları göstergesinin başlangıcı</string>
@@ -1853,7 +1838,6 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Koyu moda bağlı</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Renkleri Koyu Mod\'a göre değiştir</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Faal ise, widget renkleri sistemin Koyu Modu tarafından ayarlanır (Pixel başlatıcıda olduğu gibi)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Faal ise, widget renkleri sistemin Koyu Modu tarafından ayarlanır.</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN uygulaması:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">VPN\'e izin ver</string>
@@ -1901,7 +1885,6 @@
     <string name="about_application_pppps_source_code">Kaynak kod - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">Bildirim ışığı</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Ekran Her Zaman Açık</string>
-    <string name="samsung_edge_panel_settings_description">Samsung kenar paneli ayarları</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Küçük ızgara</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bu tür bir ızgara ile, Tercih isimleri görüntülenmez, ancak bir satıra daha fazla Tercih sığabilir.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Konum\'u Aç/Kapa (Kapalı &lt;-&gt; Yüksek doğruluk)</string>
@@ -1943,7 +1926,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender kurulmadı.</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Kurulu değil</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Erişebilirlik ayarları</string>
-    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus kenar paneli, tabletler, Z katlamalı cihazlar gibi bazı Samsung cihazlarda çalışmayabilir. Ya da daha iyisi, Ayarlar/Ekran/Kenar paneller/Panellerde Galaxy Store\'dan panel yüklemek için düğme olmadığında.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Boşluğun tamamını Arka plan rengi ile doldur</string>
     <string name="profile_list_item_menu_activate">Tercihi faaliyete geçir</string>
     <string name="profile_list_item_menu_duplicate">Tercihin kopyasını üret</string>
@@ -1992,7 +1974,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">PhoneProfilesPlus simgesi ile değiştir</string>
     <string name="notification_channel_donation_description">Yazılımcıya nakit bağışı yapılmasını isteyen bildirimi gösterir.</string>
     <string name="shortcut_to_editor_created_toast">Düzenleyiciye Kısayol üretildi</string>
-    <string name="privacy_policy_web_browser_chooser">PhoneProfilesPlus Gizlilik politikasını kullanmayı görüntüleyin</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Daha sıkışık</string>
     <string name="altype_timezone_changed">saat dilimi değişti</string>
     <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender accessibility service enbaled</string>
@@ -2279,4 +2260,29 @@
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
+    <string name="phone_profiles_pref_category_widget_panel">Widget: Panel</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">Vertical position</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Panel widget best usage</string>
+    <string name="phone_profiles_pref_application_widget_panel_info_sumary">This widget is suitable for use in the \"Panels\" application. To install this application, click here.</string>
+    <string name="panel_widget_description">Displays activated profile, \"Restart events\" and list of configured profiles as panel.</string>
+    <string name="widget_label_panel">Panel</string>
+    <string name="array_pref_widgetPanelVerticalPosition_top">Top</string>
+    <string name="array_pref_widgetPanelVerticalPosition_center">Center</string>
+    <string name="array_pref_widgetPanelVerticalPosition_bottom">Bottom</string>
+    <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets. You can also directly activate a profile through the List widget, Panel widget and shortcut to the profile.</string>
+    <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget, Panel widget.</string>
+    <string name="show_profile_in_activator_not_show_toast">Profile will not be displayed in Activator, List widget, Panel widget</string>
+    <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget, Panel widget</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Change text lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Change border lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Change icon lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Change preferences indicator lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Change arrows and marker of the activated profile lightness by Dark mode</string>
+    <string name="important_info_edge_panel_replacement1">Since OneUI 7, Edge Panels from third-party applications are no longer supported. And therefore it was removed from PPP.</string>
+    <string name="important_info_edge_panel_replacement2">A replacement was created, a widget called \"Panel\". It can be used as a standalone widget, but it can also be used in the \"Panels\" application, which can replace Edge Panels from OneUI. The advantage is that the application can be used in other devices, not only in those from Samsung.</string>
+    <string name="important_info_edge_panel_replacement3">Link to the \"Panels\" application</string>
+    <string name="location_editor_title_not_actual_location">Sorry, the actual location is not currently being determined. Please wait for it to be determined.</string>
+    <string name="location_editor_rename_with_address_message">Rename location name with actual address?</string>
 </resources>

@@ -8,12 +8,19 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
     private PPMultiSelectListPreference preference;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

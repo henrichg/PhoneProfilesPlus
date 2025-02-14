@@ -64,12 +64,12 @@ public class PPPPSDialogPreference extends DialogPreference {
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
                     " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_REQUIRED + " (" + PPApplication.VERSION_CODE_PPPPS_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML;
             if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
         }
 
-        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +
+        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +
                 StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings) + StringConstants.TAG_BOLD_END_HTML;
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");

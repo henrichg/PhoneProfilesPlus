@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class PPEditTextDialogPreferenceFragment extends PreferenceDialogFragmentCompat
@@ -17,6 +18,12 @@ public class PPEditTextDialogPreferenceFragment extends PreferenceDialogFragment
 
     EditText editText;
     TextView textView;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

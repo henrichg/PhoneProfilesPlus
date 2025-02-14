@@ -721,7 +721,6 @@
     <string name="action_for_external_application_notification_no_event_text">Параметр event_name відсутній або пустий.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Увімк. (ігнорувати точку доступу)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Перемк. (ігнорувати точку доступу)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung edge</string>
     <string name="action_for_external_application_notification_bad_action">Дія не підтримується.</string>
     <string name="action_for_external_application_notification_no_action">Дію не визначено.</string>
     <string name="ringtone_preference_not_set">Не встановлено</string>
@@ -748,7 +747,6 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>ПОДІЇ:</b> вказує, коли слід змінити налаштування пристрою.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>ПРОФІЛІ:</b> Дозволяє вам налаштувати параметри пристрою, такі як режим дзвінка, рівні гучності, мелодію дзвінка і звуки сповіщень, перемикання радіомодулів (Wi-Fi, Bluetooth, Передача даних і т. д.). Коли профіль активовано, відповідні йому параметри постійні. Якщо ви хочете змінити якийсь параметр, потрібно активувати інший профіль.</string>
     <string name="important_info_quick_guide_profiles_2">Профілі можна активувати вручну або подією.</string>
-    <string name="important_info_quick_guide_profiles_3">Ви можете вручну активувати профіль через Активатор (діалогове вікно із списком доступних профілів). Активатор можна викликати натиснувши іконку застосунка на домашньому екрані, через віджети застосунка і, для пристроїв Samsung Edge, із панелі Edge. також ви можете напряму активувати необхідний профіль через віджет застосунка 4x4, ярлик профілю або, на пристроях Samsung Edge, із панелі Edge.</string>
     <string name="important_info_quick_guide_events_1"><b>ПОДІЇ:</b> Дозволяють вам налаштувати, коли активується профіль. У подій є початок і кінець. Ви можете налаштувати, що відбудеться на початку події, і що відбудеться, коли подія завершиться.</string>
     <string name="important_info_quick_guide_events_2">Події містять важливі параметри налаштування датчика, і всі вони мають бути встановлені до запуску події. Якщо хоч один параметр хоча б одного датчика не виконується, подія завершиться (призупиниться).</string>
     <string name="important_info_quick_guide_sensors_1">Приклади датчиків:</string>
@@ -1113,10 +1111,6 @@
     <string name="altype_afterDuration_specificProfile">після завершення - визначений профіль</string>
     <string name="notification_not_used_mobile_cell_disable">Вимкнути</string>
     <string name="notification_channel_donation">Пожертва</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Вертикальне положення</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Зверху</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">По центру</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Знизу</string>
     <string name="editor_drawer_list_item_events_not_stopped">Не зупинено</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">Сортувати</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">За назвою вежі</string>
@@ -1171,16 +1165,12 @@
     <string name="time_pref_dlg_edit_time_tooltip">Редагувати час</string>
     <string name="backspace_button_tooltip">Назад</string>
     <string name="clear_button_tooltip">Очистити</string>
-    <string name="time_duration_picker_hour_sign">г</string>
-    <string name="time_duration_picker_minute_sign">хв</string>
-    <string name="time_duration_picker_second_sign">сек</string>
     <string name="phone_profiles_pref_category_status_bar">Сповіщення застосунку</string>
     <string name="editor_drawer_title_events_order">Порядок</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Порядок подій</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Натисніть тут щоб змінити порядок вигляду подій.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Дозволити запуск подій</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Натисніть тут, щоб дозволити запуск подій. Без цього, налаштовані події не будуть працювати.</string>
-    <string name="samsung_edge_panel_description">Активація профілю або Перезавантаження подій в панелі Samsung Edge</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Чорний</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Власний колір тла</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Власний колір</string>
@@ -1421,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Показати відредаговане розташування</string>
     <string name="array_location_editor_show_actual_location">Показати моє розташування</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Змінити відредаговане розташування на моє</string>
-    <string name="array_location_editor_rename_geofence_with_address">Перейменувати відредаговане розташування на адресу</string>
     <string name="profile_preferences_cameraFlash">Спалах</string>
     <string name="permission_why_profile_camera_flash">щоб увімкнути спалах</string>
     <string name="permission_group_name_camera">Камера</string>
@@ -1488,9 +1477,6 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над профілями: \"Видалити всі профілі\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Інші дії з подіями</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Натисніть, щоб відкрити меню з іншими діями над подіями: \"Стандартно налаштований профіль\", \"Видалити всі події\"</string>
-    <string name="profile_preferences_showInActivator_summary">Увімкніть, якщо Ви хочете бачити цей профіль в Активаторі, Списку, панелі - Samsung Edge.</string>
-    <string name="show_profile_in_activator_not_show_toast">Профіль не буде відображатися в Активаторі, Списку, панелі Samsung Edge</string>
-    <string name="show_profile_in_activator_show_toast">Профіль буде відображатися в Активаторі, Списку, панелі Samsung Edge</string>
     <string name="ignore_manual_activation_not_ignore_toast">Подія не буде запущена при активації любого профілю вручну</string>
     <string name="ignore_manual_activation_ignore_toast">Подію буде запущено, але призупинено, коли профіль активовано вручну</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Подія буде запущена, а також не призупинена, коли будь-який профіль активовано вручну</string>
@@ -1698,7 +1684,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Якщо Ви бажаєте використовувати іконки з пакета іконок, встановіть застосунок, що може витягти іконки з пакета встановлених іконок у вигляді png файлів.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">Наприклад, застосунок</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">Це старий застосунок, але працює навіть у новішій версії Android.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Шукайте його в Google Play.</string>
     <string name="popup_window_close_button_name">Закрити</string>
     <string name="profile_preferences_indicator_image">Індикатор налаштувань профілю</string>
     <string name="profile_preferences_indicator_event_start_image">Індикатор параметру профілю про початок події</string>
@@ -1853,7 +1838,6 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">За темною темою</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Змінити кольори згідно з темною темою</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Якщо увімкнено, кольори віджетів будуть встановлені системною темною темою (як у Pixel launcher)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Якщо увімкнено, кольори віджетів будуть встановлені системною темною темою.</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN застосунок:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Увімкнути VPN</string>
@@ -1901,7 +1885,6 @@
     <string name="about_application_pppps_source_code">Початковий код - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">LED Сповіщення</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Завжди на екрані</string>
-    <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При такій сітці імена профілів не показуватимуться, але більше профілів може вміститися в одному рядку.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Перемкнути місцеположення (Вимк &lt;-&gt; Висока точність)</string>
@@ -1943,7 +1926,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender не встановлено.</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Не встановлено</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Налаштування спеціальних можливостей</string>
-    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus панель на краю може не працювати на деяких пристроях Samsung, таких як планшети, Z fold. Навіть кнопки на встановлення з Galaxy Store в Налаштування/Екран/Панелі на краю/Панелі в них немає.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Заповнить весь простір фоном</string>
     <string name="profile_list_item_menu_activate">Активувати профіль</string>
     <string name="profile_list_item_menu_duplicate">Створити копію профілю</string>
@@ -1992,7 +1974,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">замінити іконкою PhoneProfilesPlus</string>
     <string name="notification_channel_donation_description">Показує сповіщення з проханням про грошовий дар автору.</string>
     <string name="shortcut_to_editor_created_toast">Створено ярлик до редактора</string>
-    <string name="privacy_policy_web_browser_chooser">Переглянути політику конфіденційності PhoneProfilesPlus через</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">Більш компактний</string>
     <string name="altype_timezone_changed">часовий пояс змінено</string>
     <string name="altype_extender_accessibility_service_enabled">Служба спец можливостей увімкнута для PhoneProfilesPlusExtender</string>
@@ -2274,9 +2255,34 @@
     <string name="important_info_quick_guide_editor_1">Профілі та Події налаштовуються у Редакторі, який можна викликати через Активатор. В Редакторі можна додавати, дублювати, оновлювати та вилучати профілі та події. За допомогою нижньої панелі Редактора можна змінити його вигляд. Використовуйте її для перемикання між списками профілів і подій.</string>
     <string name="phone_profiles_pref_applicationHideEventDetails">Сховати подробиці події</string>
     <string name="phone_profiles_pref_applicationHideEventDetails_summary">Приховати подробиці про подію у списку подій редактора.</string>
-    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Hide event details for \"Start order\"</string>
+    <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder">Заховати деталі події в \"Порядок запуску\"</string>
     <string name="phone_profiles_pref_applicationHideEventDetailsForStartOrder_summary">Сховати подробиці про подію в списку редакторів, коли встановлено фільтр «Порядок запуску».</string>
     <string name="array_pref_force_stop_with_pppe">Використати PPPE для примусової зупинки</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Примусово зупинити командою</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Примітка: Може не працювати на вашому пристрої.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Якщо бажаєте, завантажте його з APKPure.</string>
+    <string name="phone_profiles_pref_category_widget_panel">Віджет: панель</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">По вертикалі</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">Якщо увімкнено, кольори віджетів будуть встановлені системною темною темою.</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Найкраще використання Віджета Панель</string>
+    <string name="phone_profiles_pref_application_widget_panel_info_sumary">Цей віджет можна використовувати в застосунку \"Панелі\". Щоб встановити цей додаток, натисніть тут.</string>
+    <string name="panel_widget_description">Показує активований профіль, \"Перезавантажити події\" і список налаштованих профілів як панель.</string>
+    <string name="widget_label_panel">Панель</string>
+    <string name="array_pref_widgetPanelVerticalPosition_top">Зверху</string>
+    <string name="array_pref_widgetPanelVerticalPosition_center">По центру</string>
+    <string name="array_pref_widgetPanelVerticalPosition_bottom">Знизу</string>
+    <string name="important_info_quick_guide_profiles_3">Ви можете вручну активувати профіль через Активатор (вікно зі списком доступних профілів). До Активатора можна дістатись за допомогою іконки PPP, сповіщення PPP, віджета PPP. Ви також можете активувати профіль безпосередньо через віджет списку, віджет панелі та ярлик профілю.</string>
+    <string name="profile_preferences_showInActivator_summary">Увімкніть, якщо Ви хочете бачити цей профіль в Активаторі, Віджеті Список, Віджеті Панель.</string>
+    <string name="show_profile_in_activator_not_show_toast">Ви не побачите цей Профіль в Активаторі, Віджеті Список, Віджеті Панель</string>
+    <string name="show_profile_in_activator_show_toast">Профіль буде показаний в Активаторі, Віджеті Список, Віджеті Панель</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Змінити світлість тексту за допомогою темного режиму</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Змінити світлість рамки за допомогою темного режиму</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Змінити світлість іконки за допомогою темного режиму</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Змінити світлість індикатора налаштувань за допомогою темного режиму</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Змінити світлість стрілок і мітку активованого профілю за допомогою темного режиму</string>
+    <string name="important_info_edge_panel_replacement1">Edge Panels в OneUI 7 не підтримують застосунки сторонніх розробників. Тому вилучена підтримка в PPP.</string>
+    <string name="important_info_edge_panel_replacement2">Але є заміна, віджет \"Панель\". Він може використовуватись сам по собі, а може з застосунком \"Панелі\", який може замінити Edge Panels. Перевага застосунку також в тому, що він може використовуватись не тільки на телефонах від Samsung.</string>
+    <string name="important_info_edge_panel_replacement3">Посилання на застосунок \"Панелі\"</string>
+    <string name="location_editor_title_not_actual_location">Поточне розташування не визначено. Чекаємо.</string>
+    <string name="location_editor_rename_with_address_message">Змінити назву місцеперебування на фактичну?</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/send_sms_dialog_divider"

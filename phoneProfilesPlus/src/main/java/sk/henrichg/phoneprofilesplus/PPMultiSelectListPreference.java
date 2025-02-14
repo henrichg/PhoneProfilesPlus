@@ -217,10 +217,12 @@ public class PPMultiSelectListPreference extends DialogPreference {
             String[] _defaultValue = source.readStringArray();
 
             value = new HashSet<>();
-            value.addAll(Arrays.asList(_value));
+            if (_value != null)
+                value.addAll(Arrays.asList(_value));
 
             defaultValue = new HashSet<>();
-            defaultValue.addAll(Arrays.asList(_defaultValue));
+            if (_defaultValue != null)
+                defaultValue.addAll(Arrays.asList(_defaultValue));
         }
 
         @Override

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,12 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
     private ApplicationsMultiSelectPreferenceAdapter listAdapter;
 
     private RefreshListViewAsyncTask asyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

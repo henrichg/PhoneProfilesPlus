@@ -6,7 +6,7 @@
 PhoneProfilesPlus (PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-7.0.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.1)
+[![version](https://img.shields.io/badge/version-7.0.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
@@ -134,7 +134,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - guava - https://github.com/google/guava
-- AutoService = https://github.com/google/auto/tree/main/service
+- AutoService - https://github.com/google/auto/tree/main/service
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
@@ -160,7 +160,3 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
 - Advance-Android-Tutorials (only modified class ZipManager.java) - https://github.com/stacktipslab/Advance-Android-Tutorials
 - Multi-language_App (only modified class LocaleHelper.java) - https://github.com/anurajr1/Multi-language_App
-
-##### Required external libs - not open-source
-
-- Samsung Look

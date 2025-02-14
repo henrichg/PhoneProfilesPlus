@@ -178,8 +178,8 @@ class EventPreferencesNotification extends EventPreferences {
                         if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                             String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             if (splits.length == 1) {
-                                String packageName = Application.getPackageName(splits[0]);
-                                String activityName = Application.getActivityName(splits[0]);
+                                String packageName = CApplication.getPackageName(splits[0]);
+                                String activityName = CApplication.getActivityName(splits[0]);
                                 PackageManager packageManager = context.getPackageManager();
                                 if (activityName.isEmpty()) {
                                     ApplicationInfo app;
@@ -256,12 +256,12 @@ class EventPreferencesNotification extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                         titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                         titleColor = 0;
                     }
@@ -272,10 +272,10 @@ class EventPreferencesNotification extends EventPreferences {
                                     ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                     } else {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                     }
                     titleColor = 0;
@@ -304,12 +304,12 @@ class EventPreferencesNotification extends EventPreferences {
                 int titleColor;
                 String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary2);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
-                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
+                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_SEPARATOR_LINE+
                             summary;
                     titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
-                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
+                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT+
                             summary;
                     titleColor = 0;
                 }
@@ -1149,7 +1149,7 @@ class EventPreferencesNotification extends EventPreferences {
                             String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             for (String split : splits) {
                                 // get only package name = remove activity
-                                String packageName = Application.getPackageName(split);
+                                String packageName = CApplication.getPackageName(split);
                                 // search for package name in saved package names
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification,
                                         packageName, false,
@@ -1303,7 +1303,7 @@ class EventPreferencesNotification extends EventPreferences {
                     String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         // get only package name = remove activity
-                        String packageName = Application.getPackageName(split);
+                        String packageName = CApplication.getPackageName(split);
                         // search for package name in saved package names
                         activeNotification = isNotificationActive(statusBarNotification,
                                 packageName, false,

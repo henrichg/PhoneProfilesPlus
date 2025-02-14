@@ -721,7 +721,6 @@
     <string name="action_for_external_application_notification_no_event_text">Parametar event_name nedostaje ili je prazan.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Uključen ( ignorisati Hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Prebaci (ignorisati Hotspot)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Panel za Samsung telefon sa rubom</string>
     <string name="action_for_external_application_notification_bad_action">Ne podržana akcija je definisana.</string>
     <string name="action_for_external_application_notification_no_action">Akcija nije definisana.</string>
     <string name="ringtone_preference_not_set">Nepodešeno</string>
@@ -748,7 +747,6 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>DOGAĐAJI:</b> Definiši kada promeniti podešavanje uređaja.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFILI:</b> Dozvoljavaju vam da namestite podešavanja uređaja kao što su modovi zvona, glasnoća, zvukovi zvona i obaveštenja, kontrola i prebacivanje ( Wi-Fi, Bluetooth, mobilni podaci, itd.). Kada je profil aktiviran primenjena podešavanja su trajna. Ako želite da promenite podešavanja, izaberete drugi profil.</string>
     <string name="important_info_quick_guide_profiles_2">Profili se mogu startovati ručno, ili od strane događaja.</string>
-    <string name="important_info_quick_guide_profiles_3">Profil možete ručno aktivirati putem PPP Activatora (iskočni prozor sa listom dostupnih profila). Aktivator se može prikazati kao ikona PPP kućice, PPP obaveštenja, PPP vidžeta i, za Samsung Edge uređaje iz panela Edge-a. Profil možete takođe direktno aktivirati putem vidžeta PPP 4x4, prečice do profila ili na uređajima Samsung Edge putem panela Edge-a.</string>
     <string name="important_info_quick_guide_events_1"><b>DOGAĐAJI:</b> Omogućuje vam konfiguraciju kada se profil aktivira. Događaji imaju početak i kraj. Možete podesiti šta će se dogoditi na početku događaja i šta će se dogoditi kada se događaj završi.</string>
     <string name="important_info_quick_guide_events_2">Događaji sadrže važna podešavanja parametara senzora, koja sva moraju da su podešena prije nego se može pokreniti događaj. Ako bilo koji senzor ne prođe događaj se završava ( pauzira).</string>
     <string name="important_info_quick_guide_sensors_1">Primeri senzora:</string>
@@ -1113,10 +1111,6 @@
     <string name="altype_afterDuration_specificProfile">posle isticanja trajanja - specifični profil</string>
     <string name="notification_not_used_mobile_cell_disable">Isključi</string>
     <string name="notification_channel_donation">Donacije</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeVerticalPosition">Vertikalna pozicija</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_top">Vrh</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_center">Centar</string>
-    <string name="array_pref_samsungEdgeVerticalPosition_bottom">Dno</string>
     <string name="editor_drawer_list_item_events_not_stopped">Nije zaustavljeno</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">Lista sortiranja</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Po imenu ćelije</string>
@@ -1171,16 +1165,12 @@
     <string name="time_pref_dlg_edit_time_tooltip">Urediti vreme</string>
     <string name="backspace_button_tooltip">Backspace</string>
     <string name="clear_button_tooltip">Obriši</string>
-    <string name="time_duration_picker_hour_sign">h</string>
-    <string name="time_duration_picker_minute_sign">m</string>
-    <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Obaveštenja aplikacije</string>
     <string name="editor_drawer_title_events_order">Redosled</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Redosled događaja</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Klikni ovde za prebacivanje između pregleda redosleda događaja.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Omogući rad događaja</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">Klikni ovde da bi omogućio rad događaja. Bez ovoga, podešeni događaji neće moći da rade.</string>
-    <string name="samsung_edge_panel_description">Aktivacija profila ili Restart događaja preko Samsung Edge panela</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Crna</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Proizvoljna boja pozadine</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Proizvoljna boja</string>
@@ -1421,7 +1411,6 @@
     <string name="array_location_editor_show_geofence">Prikaži promenjenu lokaciju</string>
     <string name="array_location_editor_show_actual_location">Prikaži trenutnu lokaciju</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Promeni izmenjenu lokaciju na trenutnu lokaciju</string>
-    <string name="array_location_editor_rename_geofence_with_address">Zameni izmenjenu lokaciju sa adresom</string>
     <string name="profile_preferences_cameraFlash">Blic</string>
     <string name="permission_why_profile_camera_flash">za uključenje blica</string>
     <string name="permission_group_name_camera">Kamera</string>
@@ -1488,9 +1477,6 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Klikni ovde za otvaranje Menija sa ostalim profilima akcije:\"Obriši sve profile\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Ostali događaji za akciju</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Klikni ovde za otvaranje Menija sa ostalim događajima akcije\"Podrazumevani profil\", \"Obriši sve događaje\"</string>
-    <string name="profile_preferences_showInActivator_summary">Omogućiti, ako želite da se ovaj profil prikazuje u Aktivatoru, Listi vidžeta; Samsung rubnom panelu.</string>
-    <string name="show_profile_in_activator_not_show_toast">Profil neće biti prikazan u Aktivatoru, Listi vidžeta, Samsung rubnom panelu</string>
-    <string name="show_profile_in_activator_show_toast">Profil će biti prikazan u Aktivatoru, Listi vidžeta, Samsung rubnom panelu</string>
     <string name="ignore_manual_activation_not_ignore_toast">Događaj neće biti pokrenut ako se bili koji profil pokrene manuelno</string>
     <string name="ignore_manual_activation_ignore_toast">Događaj će se pokrenuti ali biti pauziran ako se bilo koji profil aktivira manuelno</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Događaj će se pokrenuti i neće biti pauziran ako se bilo koji profil aktivira manuelno</string>
@@ -1698,7 +1684,6 @@
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">If you want to use icons from icon pack, install application, which has capability to extract icons from installed icon pack as png files.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">For example application</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">It is old, but functional application also in newest Android version.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Search it in Google Play.</string>
     <string name="popup_window_close_button_name">Close</string>
     <string name="profile_preferences_indicator_image">Profile preferences indicator</string>
     <string name="profile_preferences_indicator_event_start_image">Start of event profile preferences indicator</string>
@@ -1853,7 +1838,6 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Change colors by Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode (as in Pixel launcher)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN application:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Enable VPN</string>
@@ -1901,7 +1885,6 @@
     <string name="about_application_pppps_source_code">Source code - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">LED Obaveštenja</string>
     <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Uvek uključen ekran</string>
-    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
@@ -1943,7 +1926,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender nije instaliran.</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nije instalirano</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Podešavanje pristupačnosti</string>
-    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
     <string name="profile_list_item_menu_activate">Activate profile</string>
     <string name="profile_list_item_menu_duplicate">Duplicate profile</string>
@@ -1992,7 +1974,6 @@
     <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
     <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
-    <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
     <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
     <string name="altype_timezone_changed">time zone changed</string>
     <string name="altype_extender_accessibility_service_enabled">PhoneProfilesPlusExtender accessibility service enbaled</string>
@@ -2279,4 +2260,29 @@
     <string name="array_pref_force_stop_with_pppe">Force stop with PPPE</string>
     <string name="array_pref_force_stop_with_command">(Z)(R) Force stop with command</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_2">Note: May not working in your device.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">If you want, download it from APKPure.</string>
+    <string name="phone_profiles_pref_category_widget_panel">Widget: Panel</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelVerticalPosition">Vertical position</string>
+    <string name="phone_profiles_pref_applicationWidgetPanelChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
+    <string name="phone_profiles_pref_application_widget_panel_info">Panel widget best usage</string>
+    <string name="phone_profiles_pref_application_widget_panel_info_sumary">This widget is suitable for use in the \"Panels\" application. To install this application, click here.</string>
+    <string name="panel_widget_description">Displays activated profile, \"Restart events\" and list of configured profiles as panel.</string>
+    <string name="widget_label_panel">Panel</string>
+    <string name="array_pref_widgetPanelVerticalPosition_top">Top</string>
+    <string name="array_pref_widgetPanelVerticalPosition_center">Center</string>
+    <string name="array_pref_widgetPanelVerticalPosition_bottom">Bottom</string>
+    <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets. You can also directly activate a profile through the List widget, Panel widget and shortcut to the profile.</string>
+    <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget, Panel widget.</string>
+    <string name="show_profile_in_activator_not_show_toast">Profile will not be displayed in Activator, List widget, Panel widget</string>
+    <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget, Panel widget</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessTChangeColorsByNightMode">Change text lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorderChangeColorsByNightMode">Change border lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Change icon lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Change preferences indicator lightness by Dark mode</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Change arrows and marker of the activated profile lightness by Dark mode</string>
+    <string name="important_info_edge_panel_replacement1">Since OneUI 7, Edge Panels from third-party applications are no longer supported. And therefore it was removed from PPP.</string>
+    <string name="important_info_edge_panel_replacement2">A replacement was created, a widget called \"Panel\". It can be used as a standalone widget, but it can also be used in the \"Panels\" application, which can replace Edge Panels from OneUI. The advantage is that the application can be used in other devices, not only in those from Samsung.</string>
+    <string name="important_info_edge_panel_replacement3">Link to the \"Panels\" application</string>
+    <string name="location_editor_title_not_actual_location">Sorry, the actual location is not currently being determined. Please wait for it to be determined.</string>
+    <string name="location_editor_rename_with_address_message">Rename location name with actual address?</string>
 </resources>

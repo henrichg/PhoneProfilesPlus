@@ -253,8 +253,8 @@ class EventPreferencesOrientation extends EventPreferences {
                 } else if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
                     String[] splits = this._ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
-                        String packageName = Application.getPackageName(splits[0]);
-                        String activityName = Application.getActivityName(splits[0]);
+                        String packageName = CApplication.getPackageName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         PackageManager packageManager = context.getPackageManager();
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
@@ -304,12 +304,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.setSummary", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = 0;
                     }
@@ -320,10 +320,10 @@ class EventPreferencesOrientation extends EventPreferences {
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                     } else {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                     }
                     titleColor = 0;
@@ -1005,7 +1005,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                             String[] splits = _ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                                             for (String split : splits) {
                                                 if (!split.isEmpty()) {
-                                                    String packageName = Application.getPackageName(split);
+                                                    String packageName = CApplication.getPackageName(split);
 //                                                PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "packageName="+packageName);
 
                                                     if (foregroundApplication.equals(packageName)) {

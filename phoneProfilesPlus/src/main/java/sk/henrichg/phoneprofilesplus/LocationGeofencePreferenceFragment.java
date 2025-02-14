@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -37,6 +39,12 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
     private LocationGeofencesPreferenceAdapter listAdapter;
 
     //private SetAdapterAsyncTask setAdapterAsyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -218,16 +226,17 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
                                 false,
-                                getActivity()
+                                (AppCompatActivity) getActivity()
                         );
 
                         if (getActivity() != null)
                             if (!getActivity().isFinishing())
-                                dialog.show();
+                                dialog.showDialog();
                     }
                 }
             });
@@ -333,19 +342,21 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                                                 null,
                                                 null,
                                                 null,
+                                                null,
                                                 true, true,
                                                 false, false,
                                                 false,
                                                 false,
-                                                getActivity()
+                                                (AppCompatActivity) getActivity()
                                         );
 
                                         if (getActivity() != null)
                                             if (!getActivity().isFinishing())
-                                                _dialog.show();
+                                                _dialog.showDialog();
                                     }
                                 }
                             },
+                            null,
                             null,
                             null,
                             null,
@@ -354,11 +365,11 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             }

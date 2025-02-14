@@ -37,7 +37,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
+
         overridePendingTransition(0, 0);
 
         Intent intent = getIntent();
@@ -150,7 +155,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                             //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                             //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
                             if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, getApplicationContext())) {
-                                dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
+                                dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false, false);
                             } else
                                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                         }

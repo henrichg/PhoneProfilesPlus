@@ -104,8 +104,8 @@
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:listSelector="@android:color/transparent"
-            android:enabled="false"
-            android:fadeScrollbars="false" />
+            android:enabled="false"/>
+<!--            android:fadeScrollbars="false" />-->
 <!--        android:drawSelectorOnTop="true"-->
 
         <!--

@@ -17,6 +17,7 @@
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
         app:contentInsetEnd="@dimen/content_inset_end"
         app:contentInsetStart="@dimen/content_inset_start"
         app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
@@ -27,7 +28,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_important_info_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/tablayout_height"
         android:layout_below="@id/activity_important_info_toolbar"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"

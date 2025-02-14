@@ -1137,12 +1137,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="samsungEdgeVerticalPositionArray">
-        <item>@string/array_pref_samsungEdgeVerticalPosition_top</item>
-        <item>@string/array_pref_samsungEdgeVerticalPosition_center</item>
-        <item>@string/array_pref_samsungEdgeVerticalPosition_bottom</item>
+    <string-array name="widgetPanelVerticalPositionArray">
+        <item>@string/array_pref_widgetPanelVerticalPosition_top</item>
+        <item>@string/array_pref_widgetPanelVerticalPosition_center</item>
+        <item>@string/array_pref_widgetPanelVerticalPosition_bottom</item>
     </string-array>
-    <string-array name="samsungEdgeVerticalPositionValues">
+    <string-array name="widgetPanelVerticalPositionValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -1265,9 +1265,9 @@
         <item>@string/array_location_editor_show_actual_location</item>
         <item>@string/array_location_editor_change_geofence_location_to_actual</item>
     </string-array>
-    <string-array name="locationEditorRenameLocationArray">
-        <item>@string/array_location_editor_rename_geofence_with_address</item>
-    </string-array>
+<!--    <string-array name="locationEditorRenameLocationArray">-->
+<!--        <item>@string/array_location_editor_rename_geofence_with_address</item>-->
+<!--    </string-array>-->
     <string-array name="cameraFlashArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
@@ -1603,13 +1603,13 @@
         <item>@string/notification_channel_profile_list</item>
     </string-array>
 
-    <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
+    <string-array name="wifiAPArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_wifiAPModeArray_on_keepWifi</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
-    <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
+    <string-array name="wifiAPValues">
         <item>0</item>
         <item>1</item>
         <item>4</item>

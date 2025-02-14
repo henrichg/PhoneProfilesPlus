@@ -238,6 +238,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 // WARNING: must be called after PPApplication.isScreenOn = true;
                 setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
+                if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                        ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
+                    // refresh bounded devices
+                    BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                }
+//                PPApplicationStatic.logE("ScreenOnOffBroadcastReceiver.onReceive", "screen==ON, call Detector");
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
+
                 // restart scanners for screen on when any is enabled
                 boolean restart = false;
                 if (ApplicationPreferences.applicationEventLocationEnableScanning)
@@ -272,6 +280,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     eventsHandler.handleEvents(new int[]{
                             EventsHandler.SENSOR_TYPE_SCREEN,
                             EventsHandler.SENSOR_TYPE_BRIGHTNESS,
+                            EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION,
                             EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
                 }
 

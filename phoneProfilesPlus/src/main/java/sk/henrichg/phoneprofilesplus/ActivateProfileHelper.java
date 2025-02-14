@@ -486,7 +486,8 @@ class ActivateProfileHelper {
                     firstSleepCalled = true;
                 }
 
-                if (Build.VERSION.SDK_INT < 30) {
+                //if (Build.VERSION.SDK_INT < 30) { // Android 10 fix for not granted TETHER_PRIVILEGED
+                if (Build.VERSION.SDK_INT < 29) {
                     WifiApManager wifiApManager = null;
                     try {
                         wifiApManager = new WifiApManager(appContext);
@@ -985,13 +986,14 @@ class ActivateProfileHelper {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        //Runnable runnable = () -> {
+        Runnable runnable = () -> {
+            synchronized (PPApplication.profileActivationRadioMutex) {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
-            //Context appContext = appContextWeakRef.get();
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
-            //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+                //Context appContext = appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+                //if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -1060,10 +1062,12 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            //}
-        //};
-        //PPApplicationStatic.createProfileActiationExecutorPool();
-        //PPApplication.profileActiationExecutorPool.submit(runnable);
+                //}
+            }
+        };
+        // required for increase speed of profile activation
+        PPApplicationStatic.createProfileRadiosExecutorPool();
+        PPApplication.profileRadiosExecutorPool.submit(runnable);
     }
 
     static boolean isAudibleRinging(int ringerMode, int zenMode/*, boolean onlyVibrateSilent*/) {
@@ -3613,62 +3617,64 @@ class ActivateProfileHelper {
         final Context appContext = context.getApplicationContext();
         //final WeakReference<Profile> profileWeakRef = new WeakReference<>(_profile);
         //final WeakReference<SharedPreferences> sharedPreferencesWeakRef = new WeakReference<>(_executedProfileSharedPreferences);
-        //Runnable runnable = () -> {
+        Runnable runnable = () -> {
+            synchronized (PPApplication.profileActivationVolumeMutex) {
+
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
-            if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = sharedPreferencesWeakRef.get();
+                if (/*(appContext != null) &&*/ (profile != null) && (executedProfileSharedPreferences != null)) {
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForVolumes);
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_executeForVolumes);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    //boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences, false);
+                        //boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences, false);
 
-                    final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
-                    if ((profile._volumeRingerMode != 0) ||
-                            profile.getVolumeRingtoneChange() ||
-                            profile.getVolumeNotificationChange() ||
-                            profile.getVolumeSystemChange() ||
-                            profile.getVolumeDTMFChange()) {
+                        if ((profile._volumeRingerMode != 0) ||
+                                profile.getVolumeRingtoneChange() ||
+                                profile.getVolumeNotificationChange() ||
+                                profile.getVolumeSystemChange() ||
+                                profile.getVolumeDTMFChange()) {
 
-                        // sleep for change of ringer mode and volumes
-                        // because may be changed by another profile or from outside of PPP
-                        GlobalUtils.sleep(500);
+                            // sleep for change of ringer mode and volumes
+                            // because may be changed by another profile or from outside of PPP
+                            GlobalUtils.sleep(500);
 
-                        PPApplication.ringerModeInternalChange = true;
+                            PPApplication.ringerModeInternalChange = true;
 
-                        if (canChangeZenMode(appContext)) {
+                            if (canChangeZenMode(appContext)) {
 
-                            if (linkUnlinkVolumes == PhoneCallsListener.LINKMODE_NONE)
-                                // call this only when it is not called for link unlink
-                                // (from PhoneCallListener)
-                                ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
+                                if (linkUnlinkVolumes == PhoneCallsListener.LINKMODE_NONE)
+                                    // call this only when it is not called for link unlink
+                                    // (from PhoneCallListener)
+                                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
 
-                            int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
-                            if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
-                                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                                if (Permissions.checkPhone(appContext))
-                                    linkUnlink = linkUnlinkVolumes;
-                            }
+                                int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
+                                if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                                    if (Permissions.checkPhone(appContext))
+                                        linkUnlink = linkUnlinkVolumes;
+                                }
 
-                            changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
-                            changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
+                                changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
+                                changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
-                            /*
-                            if ((Build.VERSION.SDK_INT >= 34) &&
-                                ((getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY) ||
-                                 ((profile._volumeRingerMode == Profile.RINGERMODE_ZENMODE) && (profile._volumeZenMode == Profile.ZENMODE_PRIORITY)))) {
-                                requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
-                                setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
-                                setSoundMode(appContext, profile, audioManager, forProfileActivation, executedProfileSharedPreferences);
-                            } else {*/
+                                /*
+                                if ((Build.VERSION.SDK_INT >= 34) &&
+                                    ((getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY) ||
+                                     ((profile._volumeRingerMode == Profile.RINGERMODE_ZENMODE) && (profile._volumeZenMode == Profile.ZENMODE_PRIORITY)))) {
+                                    requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
+                                    setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
+                                    setSoundMode(appContext, profile, audioManager, forProfileActivation, executedProfileSharedPreferences);
+                                } else {*/
                                 setSoundMode(appContext, profile, audioManager, forProfileActivation, executedProfileSharedPreferences);
 
                                 GlobalUtils.sleep(500);
@@ -3678,44 +3684,46 @@ class ActivateProfileHelper {
 
                                 setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
 
-                            //}
+                                //}
+                            }
+                        } else {
+
+                            PPApplication.ringerModeInternalChange = true;
+
+                            //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+
+                            /*if ((Build.VERSION.SDK_INT >= 34) &&
+                                (getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY)) {
+                                requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
+                                setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
+                                requestInterruptionFilter(appContext, SYSTEM_ZENMODE_PRIORITY);
+                            } else*/
+                            setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                         }
-                    } else {
 
-                        PPApplication.ringerModeInternalChange = true;
+                        PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
+                        //DisableVolumesInternalChangeWorker.enqueueWork();
 
-                        //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
-
-                        /*if ((Build.VERSION.SDK_INT >= 34) &&
-                            (getSystemZenMode(appContext) == ActivateProfileHelper.SYSTEM_ZENMODE_PRIORITY)) {
-                            requestInterruptionFilter(appContext, SYSTEM_ZENMODE_ALL);
-                            setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
-                            requestInterruptionFilter(appContext, SYSTEM_ZENMODE_PRIORITY);
-                        } else*/
-                            setVolumes(appContext, profile, audioManager, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
-                    }
-
-                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
-                    //DisableVolumesInternalChangeWorker.enqueueWork();
-
-                    //if (noErrorSetTone) {
-                    setTones(appContext, profile, executedProfileSharedPreferences);
-                    //}
-                } catch (Exception e) {
+                        //if (noErrorSetTone) {
+                        setTones(appContext, profile, executedProfileSharedPreferences);
+                        //}
+                    } catch (Exception e) {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
             }
-        //};
-        //PPApplicationStatic.createProfileActiationExecutorPool();
-        //PPApplication.profileActiationExecutorPool.submit(runnable);
+        };
+        // required for increase speed of profile activation
+        PPApplicationStatic.createProfileVolumesExecutorPool();
+        PPApplication.profileVolumesExecutorPool.submit(runnable);
     }
 
     private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
@@ -4173,46 +4181,36 @@ class ActivateProfileHelper {
     }
 
     private static void setRingerMode(AudioManager audioManager, final int ringerMode) {
-        //final WeakReference<AudioManager> audioManagerWeakRef = new WeakReference<>(audioManager);
-        //Runnable runnable = () -> {
-            //AudioManager audioManager = audioManagerWeakRef.get();
-            audioManager.setRingerMode(ringerMode);
-        //};
-        //PPApplicationStatic.createSoundModeExecutorPool();
-        //PPApplication.soundModeExecutorPool.submit(runnable);
+        audioManager.setRingerMode(ringerMode);
     }
 
     static void requestInterruptionFilter(Context context, final int zenMode) {
         final Context appContext = context.getApplicationContext();
-        //Runnable runnable = () -> {
-            try {
-                //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
-                switch (zenMode) {
-                    case SYSTEM_ZENMODE_ALL:
-                        //noinspection ConstantConditions
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
-                        break;
-                    case SYSTEM_ZENMODE_PRIORITY:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_PRIORITY;
-                        break;
-                    case SYSTEM_ZENMODE_NONE:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_NONE;
-                        break;
-                    case SYSTEM_ZENMODE_ALARMS:
-                        interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALARMS;
-                        break;
-                }
-                NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null)
-                    mNotificationManager.setInterruptionFilter(interruptionFilter);
-                //}
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
+        try {
+            //if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+            int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
+            switch (zenMode) {
+                case SYSTEM_ZENMODE_ALL:
+                    //noinspection ConstantConditions
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
+                    break;
+                case SYSTEM_ZENMODE_PRIORITY:
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_PRIORITY;
+                    break;
+                case SYSTEM_ZENMODE_NONE:
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_NONE;
+                    break;
+                case SYSTEM_ZENMODE_ALARMS:
+                    interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALARMS;
+                    break;
             }
-        //};
-        //PPApplicationStatic.createSoundModeExecutorPool();
-        //PPApplication.soundModeExecutorPool.submit(runnable);
+            NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (mNotificationManager != null)
+                mNotificationManager.setInterruptionFilter(interruptionFilter);
+            //}
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
     }
 
     private static Bitmap _changeWallpaperGetBitmapFromUri(String wallpaperUri, Context appContext) {
@@ -4867,9 +4865,9 @@ class ActivateProfileHelper {
 
                         for (String split : splits) {
 //                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
-                            int startApplicationDelay = Application.getStartApplicationDelay(split);
+                            int startApplicationDelay = CApplication.getStartApplicationDelay(split);
 //                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
-                            if (Application.getStartApplicationDelay(split) > 0) {
+                            if (CApplication.getStartApplicationDelay(split) > 0) {
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
 //                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
@@ -4900,8 +4898,8 @@ class ActivateProfileHelper {
         Intent appIntent;
         PackageManager packageManager = context.getPackageManager();
 
-        if (Application.isShortcut(runApplicationData)) {
-            long shortcutId = Application.getShortcutId(runApplicationData);
+        if (CApplication.isShortcut(runApplicationData)) {
+            long shortcutId = CApplication.getShortcutId(runApplicationData);
             if (shortcutId > 0) {
                 Shortcut shortcut = DatabaseHandler.getInstance(context).getShortcut(shortcutId);
                 if (shortcut != null) {
@@ -4933,9 +4931,9 @@ class ActivateProfileHelper {
                         null, profileName, "");
             }
         } else
-        if (Application.isIntent(runApplicationData)) {
+        if (CApplication.isIntent(runApplicationData)) {
             //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "Intent");
-            long intentId = Application.getIntentId(runApplicationData);
+            long intentId = CApplication.getIntentId(runApplicationData);
             //Log.e("ActivateProfileHelper.doExecuteForRunApplications", "intentId="+intentId);
             if (intentId > 0) {
                 PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
@@ -4987,7 +4985,7 @@ class ActivateProfileHelper {
                         null, profileName, "");
             }
         } else {
-            String packageName = Application.getPackageName(runApplicationData);
+            String packageName = CApplication.getPackageName(runApplicationData);
             appIntent = packageManager.getLaunchIntentForPackage(packageName);
             if (appIntent != null) {
                 appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -5047,7 +5045,7 @@ class ActivateProfileHelper {
                     if (!split.isEmpty()) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
-                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
+                            command1 = COMMAND_AM_FORCE_STOP_APP + CApplication.getPackageName(split);
                             try {
                                 ShizukuUtils.executeCommand(command1);
                             } catch (Exception e) {
@@ -5066,7 +5064,7 @@ class ActivateProfileHelper {
                     if (!split.isEmpty()) {
                         synchronized (PPApplication.rootMutex) {
                             String command1;
-                            command1 = COMMAND_AM_FORCE_STOP_APP + Application.getPackageName(split);
+                            command1 = COMMAND_AM_FORCE_STOP_APP + CApplication.getPackageName(split);
                             Command command = new Command(0, /*false,*/ command1);
                             try {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -7132,8 +7130,9 @@ class ActivateProfileHelper {
                     }
                 }
             }
-            else if (Build.VERSION.SDK_INT < 30) {
-                // for Android 9, 10
+//            else if (Build.VERSION.SDK_INT < 30) { // Android 10 fix for not granted TETHER_PRIVILEGED
+            else if (Build.VERSION.SDK_INT < 29) {
+                // for Android 9 //, 10
                 //Context appContext = context.getApplicationContext();
                 //if (WifiApManager.canExploitWifiTethering(appContext)) {
                     if (enable)
@@ -8876,7 +8875,7 @@ class ActivateProfileHelper {
                                         String[] splits = profile._clearNotificationApplications.split(StringConstants.STR_SPLIT_REGEX);
                                         for (String split : splits) {
                                             // get only package name = remove activity
-                                            String packageName = Application.getPackageName(split);
+                                            String packageName = CApplication.getPackageName(split);
                                             // search for package name in saved package names
                                             StatusBarNotification activeNotification = isNotificationActive(profile,
                                                     statusBarNotification,

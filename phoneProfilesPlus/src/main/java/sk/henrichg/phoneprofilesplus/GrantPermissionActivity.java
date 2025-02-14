@@ -93,6 +93,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);
@@ -154,7 +156,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
 
         if (started) return;
         started = true;
@@ -617,6 +619,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     null,
                     dialog3 -> finish(),
                     null,
+                    null,
                     true, true,
                     false, false,
                     false,
@@ -625,7 +628,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             //}
         }
         else {
@@ -1109,6 +1112,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             requestPermissions(3, withRationale);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
                         false,
@@ -1117,7 +1121,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 /*}
                 else {
                     //if (requestCode == WRITE_SETTINGS_REQUEST_CODE)
@@ -1146,7 +1150,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         GlobalGUIRoutines.setLanguage(this);
 
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                        dialogBuilder.setTitle(R.string.permissions_alert_title);
+                        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                activity.getString(R.string.permissions_alert_title), null);
+                        //dialogBuilder.setTitle(R.string.permissions_alert_title);
                         dialogBuilder.setMessage(R.string.permissions_access_notification_policy_not_allowed_confirm);
                         dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -1267,6 +1273,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             requestPermissions(4, withRationale);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
                         false,
@@ -1275,7 +1282,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 /*}
                 else {
                     //if (requestCode == DRAW_OVERLAYS_REQUEST_CODE)
@@ -1816,7 +1823,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeProfileNotification(context);
             if (activateProfile) {
-                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true, false);
             }
         }
 

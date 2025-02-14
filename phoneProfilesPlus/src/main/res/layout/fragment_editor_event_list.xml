@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="-6dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/editor_header_marginBottom"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="@dimen/editor_header_paddingTopBototm"
+        android:paddingBottom="@dimen/editor_header_paddingTopBototm"
         android:layout_alignParentTop="true" >
 
         <LinearLayout
@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/editor_events_activated_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/editor_header_profile_icon_size"
+                android:layout_height="@dimen/editor_header_profile_icon_size"
                 android:layout_marginStart="1dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
@@ -46,20 +46,6 @@
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical" >
 
-<!--
-                <TextView
-                    android:id="@+id/editor_events_activated_profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/accent_color" />
--->
                 <EditText
                     android:id="@+id/editor_events_activated_profile_name"
                     android:layout_width="wrap_content"
@@ -67,7 +53,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="@dimen/editor_header_profile_name_size"
                     android:textStyle="bold"
                     android:textColor="@color/accent_color"
                     android:background="@android:color/transparent"
@@ -82,7 +68,7 @@
                 <ImageView
                     android:id="@+id/editor_events_activated_profile_pref_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_preferences_indicator_height"
+                    android:layout_height="@dimen/editor_header_profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="3dp"
                     android:adjustViewBounds="true"
@@ -132,8 +118,8 @@
             android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"/>
+            android:scrollbarStyle="outsideOverlay"/>
+<!--            android:fadeScrollbars="false"/>-->
 
         <RelativeLayout
             android:id="@+id/editor_events_list_empty"
@@ -214,7 +200,6 @@
                 android:id="@+id/editor_events_list_bottom_bar_order_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="17dp"
                 android:ellipsize="end"
                 android:textSize="16dp"
@@ -229,7 +214,6 @@
                 android:id="@+id/editor_events_list_bottom_bar_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="8dp"
                 android:paddingStart="@dimen/spinner_padding_horizontal"
                 android:paddingEnd="@dimen/spinner_padding_horizontal"
@@ -247,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="0dp"
                 android:textSize="16dp"
                 android:text="@string/phone_profiles_pref_applicationHideEventDetails"
                 app:switchPadding="@dimen/switch_padding"

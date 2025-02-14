@@ -32,7 +32,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
     @Override
     public void onBindViewHolder(@NonNull ApplicationsMultiSelectDialogPreferenceViewHolder holder, int position) {
         // Application to display
-        Application application = preference.applicationList.get(position);
+        CApplication application = preference.applicationList.get(position);
         //System.out.println(String.valueOf(position));
 
         holder.bindApplication(application);
@@ -42,7 +42,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
     @NonNull
     @Override
     public String getSectionName(int position) {
-        Application application = preference.applicationList.get(position);
+        CApplication application = preference.applicationList.get(position);
         if (application.checked)
             return "*";
         else {

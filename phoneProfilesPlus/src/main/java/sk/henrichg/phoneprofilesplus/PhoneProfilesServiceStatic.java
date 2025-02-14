@@ -581,6 +581,7 @@ class PhoneProfilesServiceStatic
                 PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
                 IntentFilter intentFilter15 = new IntentFilter();
                 intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+                intentFilter15.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
                 appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
             }
 
@@ -3927,25 +3928,13 @@ class PhoneProfilesServiceStatic
 
             if (PPApplication.accelerometerSensor != null) {
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
-                //if (PPApplication.accelerometerSensor.getFifoMaxEventCount() > 0)
-                //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, 200000 * interval, 1000000 * interval, handler);
-                //else
-                //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, 1000000 * interval, handler);
             }
             if (PPApplication.magneticFieldSensor != null) {
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.magneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
-                //if (PPApplication.magneticFieldSensor.getFifoMaxEventCount() > 0)
-                //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.magneticFieldSensor, 200000 * interval, 1000000 * interval, handler);
-                //else
-                //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.magneticFieldSensor, 1000000 * interval, handler);
             }
 
             if (PPApplication.proximitySensor != null) {
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
-                //if (PPApplication.proximitySensor.getFifoMaxEventCount() > 0)
-                //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 200000 * interval, 1000000 * interval, handler);
-                //else
-                //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 1000000 * interval, handler);
             }
 
             if (PPApplication.lightSensor != null) {
@@ -3953,10 +3942,6 @@ class PhoneProfilesServiceStatic
                         (DatabaseHandler.getInstance(context.getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0);
                 if (registerLight) {
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
-                    //if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
-                    //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
-                    //else
-                    //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 1000000 * interval, handler);
                 }
             }
 

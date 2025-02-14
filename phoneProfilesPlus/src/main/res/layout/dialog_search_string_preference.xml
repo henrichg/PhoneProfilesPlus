@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/calendar_search_string_pref_dlg_titleBarDivider"
@@ -68,17 +68,6 @@
                 android:background="@color/activityBackgroundColor"
                 android:text="@string/event_preferences_calendar_search_string" />
         </RelativeLayout>
-
-<!--        <EditText-->
-<!--            android:id="@+id/search_string_pref_dlg_editText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_toStartOf="@id/search_string_pref_dlg_helpIcon"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:selectAllOnFocus="true"-->
-<!--            android:hint="@string/event_preferences_calendar_search_string"-->
-<!--            android:inputType="textNoSuggestions|textMultiLine"-->
-<!--            android:importantForAutofill="no" />-->
 
     </RelativeLayout>
 </LinearLayout>

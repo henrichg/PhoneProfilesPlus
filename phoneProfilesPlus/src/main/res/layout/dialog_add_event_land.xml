@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop" >
+    <!--    android:layout_weight="1"-->
+
+    <LinearLayout
+        android:id="@+id/event_pref_dlg_rootX"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/event_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialogDividerColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+<!--            android:layout_marginStart="@dimen/divider_margin"-->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/event_pref_dlg_linla_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ProgressBar
+                        android:id="@+id/event_pref_dlg_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dialog_progressbar_padding"
+                        style="?android:attr/progressBarStyle"
+                        android:indeterminateDrawable="@drawable/ic_progressbar" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/event_pref_dlg_rella_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/event_pref_dlg_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:clipToPadding="false"
+                        android:choiceMode="singleChoice"
+                        android:scrollbarStyle="outsideOverlay"
+                        android:divider="@android:color/transparent"
+                        android:listSelector="?attr/listViewItemBackground" />
+                <!--        android:fadeScrollbars="false"-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical|bottom">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/event_hide_event_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="50dp"
+                    android:textSize="16dp"
+                    android:text="@string/phone_profiles_pref_applicationHideEventDetails"
+                    app:switchPadding="@dimen/switch_padding"
+                    app:trackTint="@color/switch_track_color"
+                    app:thumbTint="@color/switch_thumb_color"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:id="@+id/event_pref_dlg_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/errorColor"
+                    android:textSize="@dimen/add_event_red_text_size"
+                    android:text="@string/event_pref_dialog_help"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/event_pref_dlg_buttonBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialogDividerColor" />
+
+</merge>

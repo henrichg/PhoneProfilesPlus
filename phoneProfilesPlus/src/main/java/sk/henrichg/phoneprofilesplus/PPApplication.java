@@ -29,9 +29,6 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkManager;
 
-import com.samsung.android.sdk.SsdkUnsupportedException;
-import com.samsung.android.sdk.look.Slook;
-
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.config.CoreConfigurationBuilder;
@@ -59,11 +56,11 @@ public class PPApplication extends Application
                                         //implements Application.ActivityLifecycleCallbacks
 {
     // this version code must by <= then version code in dependencies.gradle
-    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7090;
+    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7240;
     // TODO set it to false if you do not want to show News
-    static final boolean SHOW_IMPORTANT_INFO_NEWS = false;
+    static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
     // TODO set it to false if you do not want to show notification
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
 
     //// Extender versions
     // for this version will be displayed upgrade notification
@@ -313,8 +310,8 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-                                                //+"|[BLUETOOTH_CONNECT]"
-                                                //+"|EventPreferencesBluetooth.doHandleEvent"
+//                                                +"|[BLUETOOTH_CONNECT]"
+//                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
                                                 //+"|[MOBILE_DATA]"
@@ -484,7 +481,7 @@ public class PPApplication extends Application
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
     static boolean romIsGalaxy = false;
-    static boolean romIsGalaxy611 = false;
+    //static boolean romIsGalaxy611 = false;
 
     static volatile boolean HAS_FEATURE_BLUETOOTH_LE = false;
     static volatile boolean HAS_FEATURE_WIFI = false;
@@ -906,8 +903,16 @@ public class PPApplication extends Application
     static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
     static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
     static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
+    // synchronization of data reuired for profile activation
     static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
+    // synchronizacion for call of ActivateProfileHelper.execute()
     static final ActivateProfileExecuteMutex activateProfileExecuteMutex = new ActivateProfileExecuteMutex();
+    // synchronization for call of radio ActivateProfileHelper.executeForRadios()
+    // - is required, to avoid paralel running of this method
+    static final ProfileActivationRadioMutex profileActivationRadioMutex = new ProfileActivationRadioMutex();
+    // synchronization for call of radio ActivateProfileHelper.executeForVolumes()
+    // - is required, to avoid paralel running of this method
+    static final ProfileActivationVolumeMutex profileActivationVolumeMutex = new ProfileActivationVolumeMutex();
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
@@ -937,7 +942,7 @@ public class PPApplication extends Application
     static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
     static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
     static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
-    static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
+    static final PanelWidgetDatasetChangedMutex panelWidgetDatasetChangedMutex = new PanelWidgetDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
     static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
 
@@ -946,6 +951,7 @@ public class PPApplication extends Application
     static volatile ApplicationsCache applicationsCache;
     static volatile ContactsCache contactsCache;
     static volatile ContactGroupsCache contactGroupsCache;
+    static int repeatCreateContactCacheIfSQLError = 0;
 
     static volatile KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
@@ -991,7 +997,7 @@ public class PPApplication extends Application
     static final IconWidgetProvider iconWidgetBroadcastReceiver = new IconWidgetProvider();
     static final OneRowWidgetProvider oneRowWidgetBroadcastReceiver = new OneRowWidgetProvider();
     static final ProfileListWidgetProvider listWidgetBroadcastReceiver = new ProfileListWidgetProvider();
-    static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
+    static final PanelWidgetProvider panelWidgetBroadcastReceiver = new PanelWidgetProvider();
     static final OneRowProfileListWidgetProvider oneRowProfileListWidgetBroadcastReceiver = new OneRowProfileListWidgetProvider();
 
     static volatile TimeChangedReceiver timeChangedReceiver = null;
@@ -1108,9 +1114,22 @@ public class PPApplication extends Application
     static volatile Location lastLocation = null;
 
     volatile static ExecutorService basicExecutorPool = null;
-    volatile static ExecutorService profileActiationExecutorPool = null;
+    //volatile static ExecutorService profileActiationExecutorPool = null;
+    //volatile static ExecutorService soundModeExecutorPool = null;
+
+    // for call of ActivateProfileHelper.execute()
     volatile static ExecutorService activateProfileExecuteExecutorPool = null;
-    volatile static ExecutorService soundModeExecutorPool = null;
+    // for call of ActivateProfileHelper.executeForVolumes()
+    // - required for increase speed of profile activation
+    volatile static ExecutorService profileVolumesExecutorPool = null;
+    // for call of ActivateProfileHelper.executeForRadios()
+    // - required for increase speed of profile activation
+    volatile static ExecutorService profileRadiosExecutorPool = null;
+
+    volatile static ExecutorService profileRunApplicationsExecutorPool = null;
+    volatile static ExecutorService profileIteractivePreferencesExecutorPool = null;
+    volatile static ExecutorService profileActivationDurationExecutorPool = null;
+
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;
@@ -1121,6 +1140,7 @@ public class PPApplication extends Application
     volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
     volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
     volatile static ScheduledExecutorService updateGuiExecutor = null;
+    volatile static ScheduledExecutorService bluetoothConnectedDevicesDetectorExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureUpdateGuiExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
@@ -1158,11 +1178,6 @@ public class PPApplication extends Application
 
     // !! this must be here
     volatile static boolean blockProfileEventActions = false;
-
-    // Samsung Look instance
-    public volatile static Slook sLook = null;
-    public volatile static boolean sLookCocktailPanelEnabled = false;
-    //public static boolean sLookCocktailBarEnabled = false;
 
     //static final Random requestCodeForAlarm = new Random();
 
@@ -1255,7 +1270,7 @@ public class PPApplication extends Application
         }
 
         romIsGalaxy = isGalaxyROM(getApplicationContext());
-        romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
+        //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
 
         // do not used because some dynamic notification, widgets has its own laypouts and in it
         // are colors configured = keep material componets lib to 1.10.0
@@ -1294,8 +1309,13 @@ public class PPApplication extends Application
         }
 
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplicationStatic.createProfileActiationExecutorPool();
-        PPApplicationStatic.createSoundModeExecutorPool();
+        //PPApplicationStatic.createProfileActiationExecutorPool();
+        //PPApplicationStatic.createSoundModeExecutorPool();
+        PPApplicationStatic.createProfileVolumesExecutorPool();
+        PPApplicationStatic.createProfileRadiosExecutorPool();
+        PPApplicationStatic.createProfileRunApplicationsExecutorPool();
+        PPApplicationStatic.createProfileIteractivePreferencesExecutorPool();
+        PPApplicationStatic.createProfileActivationDurationExecutorPool();
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplicationStatic.createScannersExecutor();
         PPApplicationStatic.createPlayToneExecutor();
@@ -1306,6 +1326,7 @@ public class PPApplication extends Application
         PPApplicationStatic.createDelayedEventsHandlerExecutor();
         PPApplicationStatic.createDelayedProfileActivationExecutor();
         PPApplicationStatic.createUpdateGuiExecutor();
+        PPApplicationStatic.createBluetoothConnectedDevicesDetectorExecutor();
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
         PPApplicationStatic.startHandlerThreadBroadcast();
@@ -1522,36 +1543,6 @@ public class PPApplication extends Application
         //Log.d("PPApplication.onCreate", "memory usage (after create activateProfileHelper)=" + Debug.getNativeHeapAllocatedSize());
 
         //Log.d("PPApplication.onCreate","xxx");
-
-        // Samsung Look initialization
-        sLook = new Slook();
-        try {
-            sLook.initialize(this);
-            // true = The Device supports Edge Single Mode, Edge Single Plus Mode, and Edge Feeds Mode.
-            sLookCocktailPanelEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_PANEL);
-            //Log.e("***** PPApplication.onCreate", "sLookCocktailPanelEnabled="+sLookCocktailPanelEnabled);
-            // true = The Device supports Edge Immersive Mode feature.
-            //sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
-        } catch (SsdkUnsupportedException e) {
-            sLook = null;
-            switch (e.getType()) {
-                case SsdkUnsupportedException.VENDOR_NOT_SUPPORTED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: VENDOR_NOT_SUPPORTED");
-                    break;
-                case SsdkUnsupportedException.DEVICE_NOT_SUPPORTED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: DEVICE_NOT_SUPPORTED");
-                    break;
-                case SsdkUnsupportedException.LIBRARY_NOT_INSTALLED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_NOT_INSTALLED");
-                    break;
-                case SsdkUnsupportedException.LIBRARY_UPDATE_IS_REQUIRED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_UPDATE_IS_REQUIRED");
-                    break;
-                case SsdkUnsupportedException.LIBRARY_UPDATE_IS_RECOMMENDED:
-                    //Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_UPDATE_IS_RECOMMENDED");
-                    break;
-            }
-        }
 
         startPPServiceWhenNotStarted(this);
     }
@@ -1827,13 +1818,11 @@ public class PPApplication extends Application
             PPApplicationStatic.recordException(e);
         }
 
-        // Samsung edge panel
-        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-            try {
-                SamsungEdgeProvider.updateWidgets(context/*, true*/);
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
+        // pane widget
+        try {
+            PanelWidgetProvider.updateWidgets(context/*, true*/);
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
         }
 
         // dash clock extension
@@ -2180,7 +2169,7 @@ public class PPApplication extends Application
         }
     }
     */
-
+    /*
     private static boolean isGalaxyROM611(Context appContext) {
         try {
             if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && isSemAvailable(appContext)) {
@@ -2198,6 +2187,7 @@ public class PPApplication extends Application
         }
         return false;
     }
+    */
 
     private static boolean isLG() {
         final String LGE = "lge";

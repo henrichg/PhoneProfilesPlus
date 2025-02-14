@@ -90,10 +90,12 @@ dependencies {
     //implementation 'androidx.multidex:multidex:2.0.1'
 
     /// for usage of @hidden Android API
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+    // https://mvnrepository.com/artifact/org.lsposed.hiddenapibypass/hiddenapibypass
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.0' //4.3
+    //implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:+' // not good, generates warning
 
     /// ACRA
-    implementation 'com.google.guava:guava:33.3.1-android' //33.3.0-android"
+    implementation 'com.google.guava:guava:33.4.0-android' //33.3.1-android' //33.3.0-android"
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
     // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
@@ -136,8 +138,7 @@ dependencies {
     }
     */
 
-    //1.11.0' is not good, not working dynamic colors
-    //https://github.com/material-components/material-components-android/issues/3924
+    // 1.11.0' is required for PPP, because is needed for Profile indicator with dynamic color
     //noinspection GradleDependency
     implementation 'com.google.android.material:material:1.10.0'
 
@@ -148,7 +149,7 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-android:6.1.20' //6.1.18'
 
     /// for json usage in some preferenses (wifi, bluetooth connection, scanning, ...)
-    implementation 'com.google.code.gson:gson:2.11.0' //2.10.1'
+    implementation 'com.google.code.gson:gson:2.12.1' //2.11.0'
 
     /// for DashClock support
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
@@ -194,10 +195,4 @@ dependencies {
     implementation project(':AndroidClearChroma')
     implementation project(':recyclerview-fastscroll')
     implementation project(':noobcameraflash')
-
-    /// Samsung Edge Panel
-    implementation files('libs/sdk-v1.0.0.jar')
-    implementation files('libs/slook_v1.4.0.jar')
-    /////
-
 }

@@ -1,7 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import androidx.annotation.NonNull;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,80 +14,118 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.DialogFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-class AddEventDialog
+public class AddEventDialog extends DialogFragment
 {
     EditorEventListFragment eventListFragment;
 
-    final AlertDialog mDialog;
-    final Activity activity;
+    private AlertDialog mDialog;
+    private EditorActivity activity;
 
-    final LinearLayout linlaProgress;
-    final LinearLayout rellaData;
-    final ListView listView;
-    final TextView help;
+    private LinearLayout linlaProgress;
+    private LinearLayout rellaData;
+    private ListView listView;
+    private TextView help;
+    SwitchCompat hideEventDetailsSwitch;
+    boolean hideEventDetailsValue;
 
     final List<Event> eventList = new ArrayList<>();
 
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
-    AddEventDialog(Activity activity, EditorEventListFragment eventListFragment)
+    public AddEventDialog()
     {
-        this.eventListFragment = eventListFragment;
+    }
+
+    public AddEventDialog(EditorActivity activity/*, EditorEventListFragment eventListFragment*/)
+    {
+        //this.eventListFragment = eventListFragment;
         this.activity = activity;
+    }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.new_event_predefined_events_dialog);
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (EditorActivity) getActivity();
+        if (this.activity != null) {
+            this.eventListFragment = (EditorEventListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_add_event, null);
-        dialogBuilder.setView(layout);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.new_event_predefined_events_dialog), null);
+            //dialogBuilder.setTitle(R.string.new_event_predefined_events_dialog);
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        mDialog = dialogBuilder.create();
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_add_event, null);
+            dialogBuilder.setView(layout);
 
-        mDialog.setOnShowListener(dialog -> {
+            mDialog = dialogBuilder.create();
+
+            mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            doShow();
-        });
-        mDialog.setOnDismissListener(dialog -> {
-            if ((getEventsAsyncTask != null) &&
-                    getEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
-                getEventsAsyncTask.cancel(true);
+                doShow();
+            });
+
+            linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
+            rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
+
+            listView = layout.findViewById(R.id.event_pref_dlg_listview);
+            help = layout.findViewById(R.id.event_pref_dlg_help);
+            hideEventDetailsSwitch = layout.findViewById(R.id.event_hide_event_details);
+            if (hideEventDetailsSwitch != null)
+                hideEventDetailsSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetails);
+            hideEventDetailsValue = ApplicationPreferences.applicationEditorHideEventDetails;
+
+            //noinspection DataFlowIssue
+            listView.setOnItemClickListener((parent, item, position, id) -> {
+                AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
+                if (viewHolder != null)
+                    viewHolder.radioButton.setChecked(true);
+                final Handler handler = new Handler(activity.getMainLooper());
+                final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(this);
+                handler.postDelayed(() -> {
+                    AddEventDialog dialog1 = dialogWeakRef.get();
+                    if (dialog1 != null)
+                        dialog1.doOnItemSelected(position);
+                }, 200);
+            });
+
+            if (hideEventDetailsSwitch != null) {
+                hideEventDetailsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (!activity.isFinishing()) {
+                        hideEventDetailsValue = isChecked;
+                        getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+                        getEventsAsyncTask.execute();
+                        //((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+                        //listView.invalidate();
+                    }
+                });
             }
-            getEventsAsyncTask = null;
-            this.eventListFragment = null;
-        });
 
-        linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
-        rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
+        }
+        return mDialog;
+    }
 
-        listView = layout.findViewById(R.id.event_pref_dlg_listview);
-        help = layout.findViewById(R.id.event_pref_dlg_help);
-
-        //noinspection DataFlowIssue
-        listView.setOnItemClickListener((parent, item, position, id) -> {
-            AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
-            if (viewHolder != null)
-                viewHolder.radioButton.setChecked(true);
-            final Handler handler = new Handler(activity.getMainLooper());
-            final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(this);
-            handler.postDelayed(() -> {
-                AddEventDialog dialog1 = dialogWeakRef.get();
-                if (dialog1 != null)
-                    dialog1.doOnItemSelected(position);
-            }, 200);
-        });
-
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if ((getEventsAsyncTask != null) &&
+                getEventsAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            getEventsAsyncTask.cancel(true);
+        }
+        getEventsAsyncTask = null;
+        this.eventListFragment = null;
     }
 
     private void doShow() {
@@ -95,12 +137,13 @@ class AddEventDialog
     {
         if (eventListFragment != null)
             eventListFragment.startEventPreferencesActivity(null, position);
-        mDialog.dismiss();
+        dismiss();
     }
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            //mDialog.show();
+            show(activity.getSupportFragmentManager(), "ADD_EVENT_DIALOG");
     }
 
     private static class GetEventsAsyncTask extends AsyncTask<Void, Integer, Void> {

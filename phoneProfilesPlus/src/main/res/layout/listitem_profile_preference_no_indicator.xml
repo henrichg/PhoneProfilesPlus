@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/listItem_profileList_withoutIndicator_height"
     android:orientation="horizontal">
 
     <RadioButton
@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/profile_pref_dlg_item_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/listItem_profile_icon_size"
+        android:layout_height="@dimen/listItem_profile_icon_size"
         android:layout_marginStart="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text="@string/profile_name_default"
-            android:textSize="16sp"
+            android:textSize="@dimen/listItem_profile_name_size"
             android:ellipsize="end"
             android:maxLines="1"/>
 

@@ -81,9 +81,6 @@
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
     <uses-permission android:name="sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION"/>
 
-    <!-- for Samsung SLook -->
-    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
-
     <!-- for WireGuard -->
     <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS"/>
 
@@ -251,11 +248,6 @@
 <!--                android:name="autoStoreLocales"-->
 <!--                android:value="true" />-->
 <!--        </service>-->
-
-        <!-- this is for Galaxy Apps - !!! do not use it, because will no be posible to upgrade app in Glaxy Store -->
-<!--        <meta-data-->
-<!--            android:name="com.samsung.android.cocktail.mode"-->
-<!--            android:value="edge_single_plus" />-->
 
         <!-- !!! android:theme must be set here -->
         <activity
@@ -567,7 +559,7 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".LaunchSamsungEdgeConfigurationActivity"
+            android:name=".LaunchWidgetPanelConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
             android:label=""
@@ -737,17 +729,18 @@
                 android:resource="@xml/profile_list_widget_info"/>
         </receiver>
         <receiver
-            android:name=".SamsungEdgeProvider"
+            android:name=".PanelWidgetProvider"
             android:enabled="true"
             android:exported="true"
-            tools:ignore="ExportedReceiver">
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_panel">
             <intent-filter>
-                <action android:name="com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
 
             <meta-data
-                android:name="com.samsung.android.cocktail.provider"
-                android:resource="@xml/samsung_edge"/>
+                android:name="android.appwidget.provider"
+                android:resource="@xml/panel_widget_info"/>
         </receiver>
         <receiver
             android:name=".OneRowProfileListWidgetProvider"
@@ -784,7 +777,7 @@
             android:name=".ProfileListWidgetServiceCompactGrid"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
-            android:name=".SamsungEdgeService"
+            android:name=".PanelWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".PhoneProfilesDashClockExtension"

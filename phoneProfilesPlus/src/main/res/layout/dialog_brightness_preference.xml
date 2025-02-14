@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/brightnessPrefDialog_root2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop"
     android:paddingBottom="3dp">
     <!--    android:gravity="center_horizontal"-->
 
@@ -24,8 +24,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/brightnessPrefDialogRoot"
@@ -53,6 +53,8 @@
                 android:id="@+id/brightnessPrefDialogAutomatic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/brightness_pref_dialog_automatic_chb" />
@@ -69,6 +71,8 @@
                 android:id="@+id/brightnessPrefDialogLevel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/brightness_pref_dialog_level_chb" />
@@ -86,6 +90,8 @@
                 android:id="@+id/brightnessPrefDialogSeekbar"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_marginStart="@dimen/seekbar_margin"
+                android:layout_marginEnd="@dimen/seekbar_margin"
                 android:minHeight="3dp"
                 android:maxHeight="3dp"
                 android:progressDrawable="@drawable/seek_bar_drawable"

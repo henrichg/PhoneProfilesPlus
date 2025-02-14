@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -19,6 +20,12 @@ public class SearchStringPreferenceFragment extends PreferenceDialogFragmentComp
     private SearchStringPreference preference;
 
     private EditText editText;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

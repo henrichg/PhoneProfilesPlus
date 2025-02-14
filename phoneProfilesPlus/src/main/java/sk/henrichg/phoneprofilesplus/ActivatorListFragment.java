@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
@@ -168,7 +169,7 @@ public class ActivatorListFragment extends Fragment {
             final LayoutTransition layoutTransition = activateListFragment.getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-            absListView.setOnScrollListener(new HidingAbsListViewScrollListener() {
+            absListView.setOnScrollListener(new ActivatorAutoHideShowHeaderScrollListener() {
                 @Override
                 public void onHide() {
                     /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
@@ -493,9 +494,9 @@ public class ActivatorListFragment extends Fragment {
             activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         } else {
-            activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
+            activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, false, activityDataWrapper));
 
-            activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
+            activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, activityDataWrapper));
             if (profile.getIsIconResourceID()) {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
                 if (bitmap != null)
@@ -553,11 +554,10 @@ public class ActivatorListFragment extends Fragment {
             else
             if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
-//                Log.e("ActivatorListFragment.activateProfile", "xxxxx");
-                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
+                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false, false);
             }
             else
-                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
+                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, (AppCompatActivity) getActivity());
         }
     }
 

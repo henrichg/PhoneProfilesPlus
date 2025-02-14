@@ -338,6 +338,10 @@ class EventsHandler {
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
 
+            // pause all events for Restart events
+            if (isRestart)
+                dataWrapper.pauseAllEvents(false, false, false, true, true, manualRestart);
+
 // ---- Special for sensors which requires calendar data - START -----------
             boolean saveCalendarStartEndTime = false;
             if (isRestart) {
@@ -537,7 +541,6 @@ class EventsHandler {
             Event notifiedPausedEvent = null;
             if (isRestart) {
 
-
                 // 1. pause events
                 for (Event _event : dataWrapper.eventList) {
 
@@ -573,11 +576,9 @@ class EventsHandler {
 
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.profileActivationMutex");
                 synchronized (PPApplication.profileActivationMutex) {
-//                    Log.e("EventsHandler.handleEvents", "clear fifo");
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
-
 
                 // 2. start events
                 //sortEventsByStartOrderAsc(dataWrapper.eventList);
@@ -760,7 +761,6 @@ class EventsHandler {
                                 defaultProfileActivated = true;
                                 mergedProfilesCount++;
 
-//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (1)");
                                 dataWrapper.fifoAddProfile(defaultProfileId, 0);
                             }
 
@@ -778,7 +778,6 @@ class EventsHandler {
 
                         } else {
                             if (PPApplication.prefLastActivatedProfile != 0) {
-//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (2)");
                                 dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                             }
                         }
@@ -798,8 +797,7 @@ class EventsHandler {
                         mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
                         //mergedProfilesCount++;
 
-//                        Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (3)");
-                        dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
+                        //dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
                     } else {
                         // not any profile activated
 
@@ -813,11 +811,9 @@ class EventsHandler {
                             defaultProfileActivated = true;
                             mergedProfilesCount++;
 
-//                            Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (4)");
                             dataWrapper.fifoAddProfile(defaultProfileId, 0);
                         } else {
                             if (PPApplication.prefLastActivatedProfile != 0) {
-//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (5)");
                                 dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                             }
                         }
@@ -865,13 +861,14 @@ class EventsHandler {
                     // log only when merged profile is not the same as last activated or for restart events
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
-                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
+                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, false, dataWrapper),
                             mergedProfilesCount + StringConstants.CHAR_HARD_SPACE +"["+StringConstants.CHAR_HARD_SPACE + usedEventsCount + StringConstants.CHAR_HARD_SPACE + "]");
 
-                    // do not save profile to fifo
+                    // do not save profile to fifo - because it is merged profile
                     // profile is alrady added by Event.startEvent(), Event.doActivateEndProfile()
-                    // or added in this method (default profile, semi activate profile, ...)
-                    dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart, manualRestart);
+                    // or added in this method (default profile...)
+                    dataWrapper.activateProfileFromEvent(/*0,*/ mergedProfile._id, false, true,
+                            isRestart, manualRestart, true);
                     // wait for profile activation
                     //doSleep = true;
                 }
@@ -901,10 +898,6 @@ class EventsHandler {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
-
-//                synchronized (PPApplication.profileActivationMutex) {
-//                    dataWrapper.fifoGetActivatedProfiles();
-//                }
             }
             else {
                 // refresh only Editor
@@ -1613,7 +1606,7 @@ class EventsHandler {
 
     private void sortEventsByStartOrderDesc(List<Event> eventList)
     {
-        class PriorityComparator implements Comparator<Event> {
+        class StartOrderComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 int res = 0;
                 if ((lhs != null) && (rhs != null))
@@ -1622,7 +1615,7 @@ class EventsHandler {
             }
         }
 
-        eventList.sort(new PriorityComparator());
+        eventList.sort(new StartOrderComparator());
     }
 
 }

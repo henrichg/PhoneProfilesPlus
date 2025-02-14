@@ -31,13 +31,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -54,7 +54,6 @@ public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
     DataWrapper activityDataWrapper;
-    EditorActivity activity;
 
     private View rootView;
     LinearLayout activatedProfileHeader;
@@ -62,6 +61,7 @@ public class EditorEventListFragment extends Fragment
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     Toolbar bottomToolbar;
+    Toolbar editorSubToolbar;
     RelativeLayout viewNoData;
     private LinearLayout progressBar;
     private AppCompatSpinner orderSpinner;
@@ -173,8 +173,6 @@ public class EditorEventListFragment extends Fragment
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
         //loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
-        activity = (EditorActivity) getActivity();
-
         //getActivity().getIntent();
 
         //noinspection deprecation
@@ -210,7 +208,7 @@ public class EditorEventListFragment extends Fragment
         activeProfileName = view.findViewById(R.id.editor_events_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.editor_events_activated_profile_icon);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        PPLinearLayoutManager layoutManager = new PPLinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //noinspection DataFlowIssue
@@ -219,6 +217,8 @@ public class EditorEventListFragment extends Fragment
 
         activatedProfileHeader = view.findViewById(R.id.editor_events_activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_events_list_bottom_bar);
+        //noinspection DataFlowIssue
+        editorSubToolbar = getActivity().findViewById(R.id.editor_subToolbar);
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
@@ -230,43 +230,57 @@ public class EditorEventListFragment extends Fragment
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                 //layoutTransition.setDuration(500);
 
-                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(2) {
+                listView.addOnScrollListener(new EditorAutoHideShowHeaderBottomBarScrollListener(/*2*/) {
                     @Override
                     public void onHide() {
                         //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
                         //    (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-//                if (!hideAnimatorHeader.isRunning()) {
-//                    hideAnimatorHeader.start();
-//                }
-//                if (!showAnimatorBottomBar.isRunning()) {
-//                    showAnimatorBottomBar.start();
-//                }
+        //                if (!hideAnimatorHeader.isRunning()) {
+        //                    hideAnimatorHeader.start();
+        //                }
+        //                if (!showAnimatorBottomBar.isRunning()) {
+        //                    showAnimatorBottomBar.start();
+        //                }
 
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem != 0)
-                            activatedProfileHeader.setVisibility(View.GONE);
-
-                            bottomToolbar.setVisibility(VISIBLE);
+                            activatedProfileHeader.setVisibility(GONE);
+                            editorSubToolbar.setVisibility(GONE);
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onHide");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(GONE);
+                            }, 100);
+                            //});
                         }
                     }
 
                     @Override
                     public void onShow() {
                         //if (activatedProfileHeader.getMeasuredHeight() == 0)
-//                if (!showAnimatorHeader.isRunning()) {
-//                    showAnimatorHeader.start();
-//                }
-//                if (!hideAnimatorBottomBar.isRunning()) {
-//                    hideAnimatorBottomBar.start();
-//                }
+        //                if (!showAnimatorHeader.isRunning()) {
+        //                    showAnimatorHeader.start();
+        //                }
+        //                if (!hideAnimatorBottomBar.isRunning()) {
+        //                    hideAnimatorBottomBar.start();
+        //                }
 
                         if (!layoutTransition.isRunning()) {
-                            //final int firstVisibleItem = ((LinearLayoutManager) listView.getLayoutManager()).findFirstVisibleItemPosition();
-                            //if (firstVisibleItem == 0)
+                            //noinspection DataFlowIssue
+                            final Handler handler = new Handler(getActivity().getMainLooper());
+                            final WeakReference<Toolbar> bottomToolbarWeakRef = new WeakReference<>(bottomToolbar);
+                            handler.postDelayed(() -> {
+                            //handler.post(() -> {
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.HidingRecyclerViewScrollListener.onShow");
+                                Toolbar bottomToolbar = bottomToolbarWeakRef.get();
+                                bottomToolbar.setVisibility(VISIBLE);
+                            }, 100);
+                            //});
                             activatedProfileHeader.setVisibility(VISIBLE);
-
-                            bottomToolbar.setVisibility(View.GONE);
+                            editorSubToolbar.setVisibility(VISIBLE);
                         }
                     }
                 });
@@ -283,6 +297,8 @@ public class EditorEventListFragment extends Fragment
         listView.addFooterView(footerView, null, false);
         */
 
+        Activity activity = getActivity();
+
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -291,8 +307,8 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
                     if (!activity.isFinishing()) {
-                        activity.addEventDialog = new AddEventDialog(activity, this);
-                        activity.addEventDialog.show();
+                        ((EditorActivity) activity).addEventDialog = new AddEventDialog(((EditorActivity) activity)/*, this*/);
+                        ((EditorActivity) activity).addEventDialog.showDialog();
                     }
                 }
                 return true;
@@ -495,11 +511,12 @@ public class EditorEventListFragment extends Fragment
 
             _dataWrapper.getEventTimelineList(true);
 
-            if ((fragment != null) && fragment.getActivity() != null) {
-                for (Event event : _dataWrapper.eventList)
+            for (Event event : _dataWrapper.eventList) {
+                if ((fragment != null) && fragment.getActivity() != null) {
                     event._peferencesDecription = StringFormatUtils.fromHtml(
                             event.getPreferencesDescription(fragment.getActivity(), _dataWrapper, true),
-                            true,  false, 0, 0, true);
+                            true, false, 0, 0, true);
+                }
             }
 
             if ((fragment != null) && (fragment.getActivity() != null)) {
@@ -987,9 +1004,9 @@ public class EditorEventListFragment extends Fragment
                     }
                 },
                 null,
-                false,
-                getActivity());
-        dialog.show();
+                //false,
+                (AppCompatActivity) getActivity());
+        dialog.showDialog();
 
 
 /*
@@ -1060,15 +1077,16 @@ public class EditorEventListFragment extends Fragment
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
                 false,
-                getActivity()
+                (AppCompatActivity) getActivity()
         );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void deleteAllEvents()
@@ -1128,15 +1146,16 @@ public class EditorEventListFragment extends Fragment
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    getActivity()
+                    (AppCompatActivity) getActivity()
             );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -1159,7 +1178,7 @@ public class EditorEventListFragment extends Fragment
         }
         else
         {
-            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
+            Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, activityDataWrapper);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -1935,9 +1954,9 @@ public class EditorEventListFragment extends Fragment
                     }
                 },
                 null,
-                false,
-                getActivity());
-        dialog.show();
+                //false,
+                (AppCompatActivity) getActivity());
+        dialog.showDialog();
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();

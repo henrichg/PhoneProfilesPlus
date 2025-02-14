@@ -111,7 +111,7 @@ class ProfilePreferencesIndicator {
                     (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND)) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
-                    dynamicColor = saturateColor(dynamicColor);
+                    dynamicColor = saturateColor(dynamicColor, !nightModeOn);
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 } else {
                     if (!monochrome) {
@@ -214,7 +214,7 @@ class ProfilePreferencesIndicator {
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
-                dynamicColor = saturateColor(dynamicColor);
+                dynamicColor = saturateColor(dynamicColor, !nightModeOn);
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
             } else {
                 if (!monochrome) {
@@ -362,7 +362,7 @@ class ProfilePreferencesIndicator {
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
-                    dynamicColor = saturateColor(dynamicColor);
+                    dynamicColor = saturateColor(dynamicColor, !nightModeOn);
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 } else {
                     if (nightModeOn) {
@@ -2458,13 +2458,14 @@ class ProfilePreferencesIndicator {
         */
     }
 
-    private int saturateColor(int color) {
+    private int saturateColor(int color, boolean forLightTheme) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
         if (hsv[1] < 0.45f)
             hsv[1] = 0.45f;  // saturation component
-        //hsv[2] = 0.75f; // value component
+        if (forLightTheme)
+            hsv[2] = 0.55f; // value component
         return Color.HSVToColor(hsv);
     }
 

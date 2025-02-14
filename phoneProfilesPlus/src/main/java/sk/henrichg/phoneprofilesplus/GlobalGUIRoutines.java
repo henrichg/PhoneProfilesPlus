@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -24,10 +25,14 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -38,7 +43,10 @@ import java.util.List;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 
+@SuppressLint("WrongCommentType")
 class GlobalGUIRoutines {
+
+    static int countScreenOrientationLocks = 0;
 
     static final int ICON_SIZE_DP = 50;
 
@@ -773,37 +781,6 @@ class GlobalGUIRoutines {
                 int color = ta.getColor(0, 0);
                 ta.recycle();   // recycle TypedArray
 
-                /*
-                if (PPApplication.deviceIsSamsung) {
-                    // One UI 6.0 would be 60000, 6.1 would be 60100, 6.1.1 is 60101.
-                    if (!PPApplication.romIsGalaxy611) {
-                        // [retrieve pre-U palette tokens] else [normal logic]
-                        Log.e("GlobalGUIRoutines.getDynamicColor", "before 6.1.1");
-
-                    }// else {
-                    //    Log.e("GlobalGUIRoutines.getDynamicColor", "is 6.1.1");
-                    //}
-                }
-                */
-                /*
-                PackageManager packageManager = context.getPackageManager();
-                boolean isOneUI =
-                        (   packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile")
-                         || packageManager.hasSystemFeature("com.samsung.feature.samsung_experience_mobile_lite"));
-                String systemProperty = SystemProperties.get("ro.build.version.oneui");
-                Log.e("GlobalGUIRoutines.getDynamicColor", "systemProperty="+systemProperty);
-                boolean isBeforeOneUI611 = false;
-                try {
-                    //(systemProperty != null) &&
-                    isBeforeOneUI611 = (Integer.parseInt(systemProperty) < 60101);
-                } catch (Exception ignored) {}
-                // One UI 6.0 would be 60000, 6.1 would be 60100, 6.1.1 is 60101.
-                if (isOneUI && isBeforeOneUI611) {
-                    // [retrieve pre-U palette tokens] else [normal logic]
-                    Log.e("GlobalGUIRoutines.getDynamicColor", "before 6.1.1");
-                }
-                */
-
                 return color;
             }
         }
@@ -846,19 +823,19 @@ class GlobalGUIRoutines {
     */
 
     @SuppressLint("SourceLockedOrientationActivity")
-    static void lockScreenOrientation(Activity activity, boolean toDefault) {
+    static void lockScreenOrientation(Activity activity) {
         try {
-            if ((Build.VERSION.SDK_INT != 26) && (!toDefault)) {
+            if ((Build.VERSION.SDK_INT != 26)/* && (!toDefault)*/) {
                 int currentOrientation = activity.getResources().getConfiguration().orientation;
                 if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
                 } else {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 }
-            }
-            else
+            } else
                 // this set device to default orientation (for mobile to portrait, for 10' tablets to landscape)
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            ++countScreenOrientationLocks;
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplicationStatic.recordException(e);
@@ -867,7 +844,10 @@ class GlobalGUIRoutines {
 
     static void unlockScreenOrientation(Activity activity) {
         try {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            if (countScreenOrientationLocks <= 1)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            if (countScreenOrientationLocks > 0)
+                --countScreenOrientationLocks;
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplicationStatic.recordException(e);
@@ -899,7 +879,7 @@ class GlobalGUIRoutines {
                                        final boolean forActivator,
                                        final boolean forShowInActivator,
                                        final boolean forRunStopEvent,
-                                       final Activity activity) {
+                                       final AppCompatActivity activity) {
         if (activity == null)
             return;
 
@@ -1052,6 +1032,7 @@ class GlobalGUIRoutines {
                         null,
                         null,
                         null,
+                        null,
                         true/*!forActivator*/, true/*!forActivator*/,
                         false, false,
                         false,
@@ -1060,7 +1041,7 @@ class GlobalGUIRoutines {
                 );
 
                 if (!activity.isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }
@@ -1097,7 +1078,7 @@ class GlobalGUIRoutines {
     }
     */
 
-    /**
+    /*
      * Converts an HSL color value to RGB. Conversion formula
      * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
      * Assumes h, s, and l are contained in the set [0, 1] and
@@ -1108,7 +1089,6 @@ class GlobalGUIRoutines {
      * @param l       The lightness
      * @return int array, the RGB representation
      * @noinspection JavadocLinkAsPlainText
-     */
     static int[] hslToRgb(float h, float s, float l){
         float r, g, b;
 
@@ -1128,7 +1108,9 @@ class GlobalGUIRoutines {
     static int to255(float v) {
         return (int)Math.min(255,256*v);
     }
-    /** Helper method that converts hue to rgb */
+    */
+
+    /* Helper method that converts hue to rgb
     static float hueToRgb(float p, float q, float t) {
         if (t < 0f)
             t += 1f;
@@ -1142,8 +1124,9 @@ class GlobalGUIRoutines {
             return p + (q - p) * (2f/3f - t) * 6f;
         return p;
     }
+    */
 
-    /**
+    /*
      * Converts an RGB color value to HSL. Conversion formula
      * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
      * Assumes pR, pG, and bpBare contained in the set [0, 255] and
@@ -1154,7 +1137,6 @@ class GlobalGUIRoutines {
      * @param pB       The blue color value
      * @return float array, the HSL representation
      * @noinspection JavadocLinkAsPlainText
-     */
     static float[] rgbToHsl(int pR, int pG, int pB) {
         float r = pR / 255f;
         float g = pG / 255f;
@@ -1188,6 +1170,7 @@ class GlobalGUIRoutines {
         float[] hsl = {h, s, l};
         return hsl;
     }
+    */
 
     static void dimBehindPopupWindow(PopupWindow popupWindow) {
         View container;
@@ -1208,4 +1191,44 @@ class GlobalGUIRoutines {
             wm.updateViewLayout(container, p);
         }
     }
+
+    static int changeLigtnessOfColor(int color, int lightness) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
+        //if (hsv[1] < 0.45f)
+        //    hsv[1] = 0.45f;  // saturation component
+        //if (forLightTheme)
+        hsv[2] = lightness / 255f;
+        return Color.HSVToColor(hsv);
+    }
+
+    static void setCustomDialogTitle(Context context, AlertDialog.Builder dialogBuilder,
+                                     boolean showSubtitle, CharSequence _title, CharSequence _subtitle) {
+        //String s = _title.toString();
+        //if (s.startsWith(StringConstants.CHAR_BULLET +" "))
+        //    _title = TextUtils.replace(_title, new String[]{StringConstants.CHAR_BULLET +" "}, new CharSequence[]{""});
+
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        //noinspection IfStatementWithIdenticalBranches
+        if (showSubtitle) {
+            @SuppressLint("InflateParams")
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
+            TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
+            titleText.setText(_title);
+            TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
+            //noinspection DataFlowIssue
+            subtitleText.setText(_subtitle);
+            dialogBuilder.setCustomTitle(titleView);
+        } else {
+            @SuppressLint("InflateParams")
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtihout_subtitle, null);
+            TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
+            titleText.setText(_title);
+            dialogBuilder.setCustomTitle(titleView);
+        }
+    }
+
 }

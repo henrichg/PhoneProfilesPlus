@@ -1,31 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.os.Environment.DIRECTORY_DOWNLOADS;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -40,6 +28,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     /** @noinspection FieldCanBeLocal*/
     private TextView ppppsLaunchText = null;
 
+    static final String EXTRA_STORE = "extra_store";
+    static final String EXTRA_FINISH_ACTIVITY = "extra_finish_activity";
+    static final int STORE_GITHUB = 1;
+    static final int STORE_DROIDIFY = 2;
+    static final int STORE_GITHUB34 = 3;
+    static final int STORE_ALL = 99;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -48,7 +43,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.pppps_pref_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.pppps_pref_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.pppps_pref_dialog_title);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(R.string.pppps_pref_dialog_close_button, null);
@@ -62,11 +59,17 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
         Button ppppsInstallButton = layout.findViewById(R.id.ppppsPrefDialog_pppps_install_button);
         //noinspection DataFlowIssue
-        ppppsInstallButton.setOnClickListener(v -> installPPPPutSettings(getActivity(), preference, false));
+        ppppsInstallButton.setOnClickListener(v -> {
+            installPPPPutSettings(getActivity(), /*preference,*/ false);
+            preference.fragment.dismiss();
+        });
 
         Button ppppsLaunchButton = layout.findViewById(R.id.ppppsPrefDialog_pppps_launch_button);
         //noinspection DataFlowIssue
-        ppppsLaunchButton.setOnClickListener(v -> launchPPPPutSettings());
+        ppppsLaunchButton.setOnClickListener(v -> {
+            launchPPPPutSettings();
+            preference.fragment.dismiss();
+        });
 
         mDialog = dialogBuilder.create();
 
@@ -123,16 +126,18 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
     }
     */
-
+    /*
     private static void installPPPPutSettingsFromGitHub(final Activity activity,
-                                                        final PPPPSDialogPreference _preference,
+                                                        //final PPPPSDialogPreference _preference,
                                                         boolean finishActivity) {
         if (activity == null) {
             return;
         }
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_pppps_dialog_title), null);
+        //dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
@@ -174,14 +179,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 }
@@ -250,14 +255,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     dialog.cancel();
                     //if (activity != null)
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 }
@@ -283,16 +288,19 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             dialog.show();
 
     }
-
+    */
+    /*
     private static void installPPPPutSettingsFromGitHub34(final Activity activity,
-                                                        final PPPPSDialogPreference _preference,
+                                                        //final PPPPSDialogPreference _preference,
                                                         boolean finishActivity) {
         if (activity == null) {
             return;
         }
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_pppps_dialog_title), null);
+        //dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_install_pppps_34, null);
@@ -366,7 +374,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         //Enqueue a new download and same the referenceId
                         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
                         if (downloadManager != null)
-                            /*DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions =*/ downloadManager.enqueue(request);
+                            downloadManager.enqueue(request);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -389,10 +397,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
         TextView text3 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text3);
         url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
-        /*dialogText = activity.getString(R.string.install_pppps_text15) + " " +
-                StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
-                StringConstants.TAG_BREAK_HTML;
-        text3.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));*/
+//        dialogText = activity.getString(R.string.install_pppps_text15) + " " +
+//                StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
+//                StringConstants.TAG_BREAK_HTML;
+//        text3.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
         CharSequence str1Text3 = activity.getString(R.string.install_pppps_text15);
         CharSequence str2Text3 = str1Text3 + " " + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2Text3);
@@ -432,7 +440,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         //Enqueue a new download and same the referenceId
                         DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
                         if (downloadManager != null)
-                            /*DownloadCompletedBroadcastReceiver.downloadReferencePPPPS =*/ downloadManager.enqueue(request);
+                            downloadManager.enqueue(request);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -476,19 +484,19 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         text7.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         //dialogBuilder.setCancelable(false);
-        /*dialogBuilder.setOnCancelListener(dialog -> {
-            if (finishActivity)
-                activity.finish();
-        });*/
+//        dialogBuilder.setOnCancelListener(dialog -> {
+//            if (finishActivity)
+//                activity.finish();
+//        });
 
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             if (finishActivity)
                 activity.finish();
         });
-        /*dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            if (finishActivity)
-                activity.finish();
-        });*/
+//        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+//            if (finishActivity)
+//                activity.finish();
+//        });
 
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -513,14 +521,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     dialog.cancel();
                     //if (activity != null)
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if ((_preference != null) && (_preference.fragment != null))
-                        _preference.fragment.dismiss();
+                    //if ((_preference != null) && (_preference.fragment != null))
+                    //    _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 }
@@ -545,10 +553,11 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             dialog.show();
 
     }
-
+    */
+    /*
     @SuppressLint("InflateParams")
     private static void installDroidIfy(final Activity activity,
-                                        final PPPPSDialogPreference _preference,
+                                        //final PPPPSDialogPreference _preference,
                                         boolean finishActivity) {
         PackageManager pm = activity.getPackageManager();
         try {
@@ -557,7 +566,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         } catch (Exception ignored) {}
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                activity.getString(R.string.install_pppps_dialog_title), null);
+        //dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -597,8 +608,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-            if ((_preference != null) && (_preference.fragment != null))
-                _preference.fragment.dismiss();
+            //if ((_preference != null) && (_preference.fragment != null))
+            //    _preference.fragment.dismiss();
             if (finishActivity)
                 activity.finish();
         });
@@ -620,14 +631,24 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         if (!activity.isFinishing())
             alertDialog.show();
     }
+    */
 
     static void installPPPPutSettings(final Activity activity,
-                                      final PPPPSDialogPreference _preference,
-                                   boolean finishActivity) {
+                                      //final PPPPSDialogPreference _preference,
+                                      boolean finishActivity) {
         if (activity == null) {
             return;
         }
 
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_STORE, STORE_ALL);
+        bundle.putBoolean(EXTRA_FINISH_ACTIVITY, finishActivity);
+
+        PPPPutSettingsInstallDialog dialog = new PPPPutSettingsInstallDialog((AppCompatActivity) activity);
+        dialog.setArguments(bundle);
+        dialog.showDialog();
+
+/*
         PackageManager packageManager = activity.getPackageManager();
         Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
         boolean fdroidInstalled = (_intent != null);
@@ -642,7 +663,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
             if (droidifyInstalled || neostoreInstalled || fdroidInstalled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+                GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                        activity.getString(R.string.install_pppps_dialog_title), null);
+                //dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
 
                 LayoutInflater inflater = activity.getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog_install_pppps_from_store, null);
@@ -674,14 +697,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
-                            if ((_preference != null) && (_preference.fragment != null))
-                                _preference.fragment.dismiss();
+                            //if ((_preference != null) && (_preference.fragment != null))
+                            //    _preference.fragment.dismiss();
                             if (finishActivity)
                                 activity.finish();
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
-                            if ((_preference != null) && (_preference.fragment != null))
-                                _preference.fragment.dismiss();
+                            //if ((_preference != null) && (_preference.fragment != null))
+                            //    _preference.fragment.dismiss();
                             if (finishActivity)
                                 activity.finish();
                         }
@@ -691,14 +714,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
-                            if ((_preference != null) && (_preference.fragment != null))
-                                _preference.fragment.dismiss();
+                            //if ((_preference != null) && (_preference.fragment != null))
+                            //    _preference.fragment.dismiss();
                             if (finishActivity)
                                 activity.finish();
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
-                            if ((_preference != null) && (_preference.fragment != null))
-                                _preference.fragment.dismiss();
+                            //if ((_preference != null) && (_preference.fragment != null))
+                            //    _preference.fragment.dismiss();
                             if (finishActivity)
                                 activity.finish();
                         }
@@ -708,14 +731,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
-                            if ((_preference != null) && (_preference.fragment != null))
-                                _preference.fragment.dismiss();
+                            //if ((_preference != null) && (_preference.fragment != null))
+                            //    _preference.fragment.dismiss();
                             if (finishActivity)
                                 activity.finish();
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
-                            if ((_preference != null) && (_preference.fragment != null))
-                                _preference.fragment.dismiss();
+                            //if ((_preference != null) && (_preference.fragment != null))
+                            //    _preference.fragment.dismiss();
                             if (finishActivity)
                                 activity.finish();
                         }
@@ -730,13 +753,11 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
                 final AlertDialog dialog = dialogBuilder.create();
 
-                /*
-                button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
-                button.setOnClickListener(v -> {
-                    dialog.cancel();
-                    installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
-                });
-                */
+//                button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
+//                button.setOnClickListener(v -> {
+//                    dialog.cancel();
+//                    installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
+//                });
 
     //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
     //            @Override
@@ -752,12 +773,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     dialog.show();
             } else {
                 if (Build.VERSION.SDK_INT < 33)
-                    installPPPPutSettingsFromGitHub(activity, _preference, finishActivity);
+                    installPPPPutSettingsFromGitHub(activity, finishActivity);
                 else
-                    installDroidIfy(activity, _preference, finishActivity);
+                    installDroidIfy(activity, finishActivity);
             }
         } else
-            installPPPPutSettingsFromGitHub34(activity, _preference, finishActivity);
+            installPPPPutSettingsFromGitHub34(activity, finishActivity);
+ */
     }
 
     private void launchPPPPutSettings() {
@@ -773,10 +795,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     startActivity(intent);
-                    preference.fragment.dismiss();
+                    //preference.fragment.dismiss();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    preference.fragment.dismiss();
+                    //preference.fragment.dismiss();
                 }
             }
         }
@@ -793,15 +815,16 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        getActivity()
+                        (AppCompatActivity) getActivity()
                 );
 
                 if (!getActivity().isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }

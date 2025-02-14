@@ -63,6 +63,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
@@ -250,8 +252,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 case PhoneProfilesPrefsFragment.PREF_SHORTCUT_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsShortcut();
                     break;
-                case PhoneProfilesPrefsFragment.PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT:
-                    preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_PANEL_CATEGORY_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsWidgetPanel();
                     break;
                 case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRowProfileList();

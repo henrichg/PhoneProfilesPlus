@@ -123,24 +123,15 @@
         <ignore path="src/main/res/drawable-xxxhdpi/ic_profile_volume_4_notify_color.webp" />
     </issue>
     <issue id="IconLocation">
-        <ignore path="src/main/res/drawable/ic_empty.png" />
         <ignore path="src/main/res/drawable/ic_empty.webp" />
-        <ignore path="src/main/res/drawable/ic_black.png" />
         <ignore path="src/main/res/drawable/ic_black.webp" />
-        <ignore path="src/main/res/drawable/icon_widget_preview.png" />
         <ignore path="src/main/res/drawable/icon_widget_preview.webp" />
-        <ignore path="src/main/res/drawable/list_witget_preview.png" />
         <ignore path="src/main/res/drawable/list_witget_preview.webp" />
-        <ignore path="src/main/res/drawable/one_row_widget_preview.png" />
         <ignore path="src/main/res/drawable/one_row_widget_preview.webp" />
-        <ignore path="src/main/res/drawable/phoneprofilesplus_assets_screenshot.png" />
         <ignore path="src/main/res/drawable/phoneprofilesplus_assets_screenshot.webp" />
-        <ignore path="src/main/res/drawable/phoneprofilesplusextender_assets_screenshot.png" />
         <ignore path="src/main/res/drawable/phoneprofilesplusextender_assets_screenshot.webp" />
-        <ignore path="src/main/res/drawable/samsung_edge_panel.png" />
-        <ignore path="src/main/res/drawable/samsung_edge_panel.webp" />
-        <ignore path="src/main/res/drawable/one_row_profile_list_widget_preview.png" />
         <ignore path="src/main/res/drawable/one_row_profile_list_widget_preview.webp" />
+        <ignore path="src/main/res/drawable/panel_widget_preview.webp" />
     </issue>
     <issue id="ProtectedPermissions" severity="warning" />
     <issue id="UnspecifiedImmutableFlag"  severity="ignore" />

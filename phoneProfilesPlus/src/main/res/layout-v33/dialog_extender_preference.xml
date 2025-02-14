@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/extenderPrefDialog_titleBarDivider"
@@ -20,9 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fadeScrollbars="false"
         android:scrollbarStyle="outsideOverlay"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/extenderPrefDialog_linla0"

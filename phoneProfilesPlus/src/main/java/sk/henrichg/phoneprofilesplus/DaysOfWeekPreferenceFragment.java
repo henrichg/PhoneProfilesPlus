@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -16,6 +17,12 @@ public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat
     private DaysOfWeekPreference preference;
 
     private DaysOfWeekPreferenceAdapter listAdapter;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

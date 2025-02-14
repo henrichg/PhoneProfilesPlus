@@ -116,6 +116,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
         int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
         boolean applicationWidgetOneRowProfileListFillBackground;
+        boolean applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode;
+        boolean applicationWidgetOneRowProfileListIconLightnessChangeByNightMode;
+        boolean applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] OneRowProfileListWidgetProvider._onUpdate", "PPApplication.applicationPreferencesMutex");
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -135,6 +138,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowProfileListLightnessBorder = ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder;
             applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners;
             applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius;
+            applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode;
+            applicationWidgetOneRowProfileListIconLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListIconLightnessChangeByNightMode;
+            applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetOneRowProfileListRoundedCorners) {
@@ -155,20 +161,23 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowProfileListFillBackground = ApplicationPreferences.applicationWidgetOneRowProfileListFillBackground;
 
             if (Build.VERSION.SDK_INT >= 30) {
-                if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                        PPApplicationStatic.isOneUILauncherDefault(context) ||
-                        PPApplicationStatic.isMIUILauncherDefault(context)) {
-                    ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners = true;
-                    ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius = 15;
-                    //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS,
-                            ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners);
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS,
-                            String.valueOf(ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius));
-                    editor.apply();
-                    //applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners;
-                    applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius;
+                if (Build.VERSION.SDK_INT >= 31) {
+                    if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                            PPApplicationStatic.isOneUILauncherDefault(context) ||
+                            PPApplicationStatic.isMIUILauncherDefault(context)/* ||
+                            PPApplicationStatic.isSmartLauncherDefault(context)*/) {
+                        ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners = true;
+                        ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius = 15;
+                        //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS,
+                                ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners);
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS,
+                                String.valueOf(ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius));
+                        editor.apply();
+                        //applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners;
+                        applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius;
+                    }
                 }
                 if (Build.VERSION.SDK_INT < 31)
                     applicationWidgetOneRowProfileListUseDynamicColors = false;
@@ -187,13 +196,55 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowProfileListBackgroundType = true; // background type = color
                         applicationWidgetOneRowProfileListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowProfileListBackgroundColorNightModeOn)); // color of background
                         //applicationWidgetOneRowProfileListShowBorder = false; // do not show border
-                        applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
 
-                        applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
+                        //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        if (applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListLightnessBorder) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            /*
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, applicationWidgetOneRowProfileListLightnessBorder);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
+                            */
+                        }// else
+                            //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        if (applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            /*
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, applicationWidgetOneRowProfileListArrowsMarkLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness = applicationWidgetOneRowProfileListArrowsMarkLightness;
+                            */
+                        } //else
+                            //applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
 
-                        applicationWidgetOneRowProfileListIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                        //break;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -202,13 +253,108 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowProfileListBackgroundType = true; // background type = color
                         applicationWidgetOneRowProfileListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowProfileListBackgroundColorNightModeOff)); // color of background
                         //applicationWidgetOneRowProfileListShowBorder = false; // do not show border
-                        applicationWidgetOneRowProfileListLightnessBorder = "0";
 
-                        applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
-
-                        applicationWidgetOneRowProfileListIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                        //break;
+                        //applicationWidgetOneRowProfileListLightnessBorder = "0";
+                        if (applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListLightnessBorder) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            /*
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, applicationWidgetOneRowProfileListLightnessBorder);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder = applicationWidgetOneRowProfileListLightnessBorder;
+                            */
+                        }// else
+                            //applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                        if (applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            /*
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, applicationWidgetOneRowProfileListArrowsMarkLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness = applicationWidgetOneRowProfileListArrowsMarkLightness;
+                            */
+                        } //else
+                            //applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
+                    }
+                }
+                if (applicationWidgetOneRowProfileListChangeColorsByNightMode) {
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    if (nightModeOn) {
+                        //applicationWidgetPanelIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        if (applicationWidgetOneRowProfileListIconLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListIconLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                                    break;
+                            }
+                            /*
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, applicationWidgetOneRowProfileListIconLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness = applicationWidgetOneRowProfileListIconLightness;
+                            */
+                        } //else
+                            //applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                    } else {
+                        //applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        if (applicationWidgetOneRowProfileListIconLightnessChangeByNightMode) {
+                            switch (applicationWidgetOneRowProfileListIconLightness) {
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;
+                                    break;
+                                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                                    applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0;
+                                    break;
+                            }
+                            /*
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context.getApplicationContext());
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, applicationWidgetOneRowProfileListIconLightness);
+                            editor.apply();
+                            ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness = applicationWidgetOneRowProfileListIconLightness;
+                            */
+                        } //else
+                            //applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                     }
                 }
             }
@@ -521,80 +667,26 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
             }
 
-            int roundedBackground = 0;
-            int roundedBorder = 0;
-            if (PPApplicationStatic.isPixelLauncherDefault(context)) {
+            int roundedBackground;
+            int roundedBorder;
+            if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isPixelLauncherDefault(context)) {
                 roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                 roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-            } else if (PPApplicationStatic.isOneUILauncherDefault(context)) {
+            } else
+            if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isOneUILauncherDefault(context)) {
                 roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                 roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-            } else if (PPApplicationStatic.isMIUILauncherDefault(context)) {
+            } else
+            if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isMIUILauncherDefault(context)) {
                 roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
                 roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
-            } else {
-                switch (applicationWidgetOneRowProfileListRoundedCornersRadius) {
-                    case 1:
-                        roundedBackground = R.drawable.rounded_widget_background_1;
-                        roundedBorder = R.drawable.rounded_widget_border_1;
-                        break;
-                    case 2:
-                        roundedBackground = R.drawable.rounded_widget_background_2;
-                        roundedBorder = R.drawable.rounded_widget_border_2;
-                        break;
-                    case 3:
-                        roundedBackground = R.drawable.rounded_widget_background_3;
-                        roundedBorder = R.drawable.rounded_widget_border_3;
-                        break;
-                    case 4:
-                        roundedBackground = R.drawable.rounded_widget_background_4;
-                        roundedBorder = R.drawable.rounded_widget_border_4;
-                        break;
-                    case 5:
-                        roundedBackground = R.drawable.rounded_widget_background_5;
-                        roundedBorder = R.drawable.rounded_widget_border_5;
-                        break;
-                    case 6:
-                        roundedBackground = R.drawable.rounded_widget_background_6;
-                        roundedBorder = R.drawable.rounded_widget_border_6;
-                        break;
-                    case 7:
-                        roundedBackground = R.drawable.rounded_widget_background_7;
-                        roundedBorder = R.drawable.rounded_widget_border_7;
-                        break;
-                    case 8:
-                        roundedBackground = R.drawable.rounded_widget_background_8;
-                        roundedBorder = R.drawable.rounded_widget_border_8;
-                        break;
-                    case 9:
-                        roundedBackground = R.drawable.rounded_widget_background_9;
-                        roundedBorder = R.drawable.rounded_widget_border_9;
-                        break;
-                    case 10:
-                        roundedBackground = R.drawable.rounded_widget_background_10;
-                        roundedBorder = R.drawable.rounded_widget_border_10;
-                        break;
-                    case 11:
-                        roundedBackground = R.drawable.rounded_widget_background_11;
-                        roundedBorder = R.drawable.rounded_widget_border_11;
-                        break;
-                    case 12:
-                        roundedBackground = R.drawable.rounded_widget_background_12;
-                        roundedBorder = R.drawable.rounded_widget_border_12;
-                        break;
-                    case 13:
-                        roundedBackground = R.drawable.rounded_widget_background_13;
-                        roundedBorder = R.drawable.rounded_widget_border_13;
-                        break;
-                    case 14:
-                        roundedBackground = R.drawable.rounded_widget_background_14;
-                        roundedBorder = R.drawable.rounded_widget_border_14;
-                        break;
-                    case 15:
-                        roundedBackground = R.drawable.rounded_widget_background_15;
-                        roundedBorder = R.drawable.rounded_widget_border_15;
-                        break;
-                }
+            }/* else
+            if ((Build.VERSION.SDK_INT >= 31) && PPApplicationStatic.isSmartLauncherDefault(context)) {
+                roundedBackground = R.drawable.rounded_widget_background_smart_launcher;
+                roundedBorder = R.drawable.rounded_widget_border_smart_launcher;
+            }*/ else {
+                roundedBackground = getRoundedBackgroundDrawable(applicationWidgetOneRowProfileListRoundedCornersRadius);
+                roundedBorder = getRoundedBorderDrawable(applicationWidgetOneRowProfileListRoundedCornersRadius);
             }
             if (roundedBackground != 0)
                 remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_background, roundedBackground);
@@ -624,8 +716,17 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             remoteViews.setInt(R.id.widget_one_row_profile_list_background, "setImageAlpha", alphaBackground);
 
             if (applicationWidgetOneRowProfileListShowBorder) {
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
-                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
+                //if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                //        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
+                if ((Build.VERSION.SDK_INT >= 31) && (applicationWidgetOneRowProfileListUseDynamicColors)) {
+                    int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                    if (dynamicColor != 0) {
+                        dynamicColor = GlobalGUIRoutines.changeLigtnessOfColor(dynamicColor, redBorder);
+                        remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", dynamicColor);
+                    }
+                    else
+                        remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                } else
                     remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
             }
 
@@ -729,6 +830,149 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             profile.releasePreferencesIndicator();
         }*/
         dataWrapper.invalidateDataWrapper();
+    }
+
+    private static int getRoundedBackgroundDrawable(int applicationWidgetListRoundedCornersRadius) {
+        switch (applicationWidgetListRoundedCornersRadius) {
+            case 1:
+                return R.drawable.rounded_widget_background_1;
+            case 2:
+                return  R.drawable.rounded_widget_background_2;
+            case 3:
+                return  R.drawable.rounded_widget_background_3;
+            case 4:
+                return  R.drawable.rounded_widget_background_4;
+            case 5:
+                //noinspection DuplicateBranchesInSwitch
+                return  R.drawable.rounded_widget_background_5;
+            case 6:
+                return  R.drawable.rounded_widget_background_6;
+            case 7:
+                return  R.drawable.rounded_widget_background_7;
+            case 8:
+                return  R.drawable.rounded_widget_background_8;
+            case 9:
+                return  R.drawable.rounded_widget_background_9;
+            case 10:
+                return  R.drawable.rounded_widget_background_10;
+            case 11:
+                return  R.drawable.rounded_widget_background_11;
+            case 12:
+                return  R.drawable.rounded_widget_background_12;
+            case 13:
+                return  R.drawable.rounded_widget_background_13;
+            case 14:
+                return  R.drawable.rounded_widget_background_14;
+            case 15:
+                return  R.drawable.rounded_widget_background_15;
+            case 16:
+                return  R.drawable.rounded_widget_background_16;
+            case 17:
+                return  R.drawable.rounded_widget_background_17;
+            case 18:
+                return  R.drawable.rounded_widget_background_18;
+            case 19:
+                return  R.drawable.rounded_widget_background_19;
+            case 20:
+                return  R.drawable.rounded_widget_background_20;
+            case 21:
+                return  R.drawable.rounded_widget_background_21;
+            case 22:
+                return  R.drawable.rounded_widget_background_22;
+            case 23:
+                return  R.drawable.rounded_widget_background_23;
+            case 24:
+                return  R.drawable.rounded_widget_background_24;
+            case 25:
+                return  R.drawable.rounded_widget_background_25;
+            case 26:
+                return  R.drawable.rounded_widget_background_26;
+            case 27:
+                return  R.drawable.rounded_widget_background_27;
+            case 28:
+                return  R.drawable.rounded_widget_background_28;
+            case 29:
+                return  R.drawable.rounded_widget_background_29;
+            case 30:
+                return  R.drawable.rounded_widget_background_30;
+            case 31:
+                return  R.drawable.rounded_widget_background_31;
+            case 32:
+                return  R.drawable.rounded_widget_background_32;
+            default:
+                return  R.drawable.rounded_widget_background_5;
+        }
+    }
+    private static int getRoundedBorderDrawable(int applicationWidgetListRoundedCornersRadius) {
+        switch (applicationWidgetListRoundedCornersRadius) {
+            case 1:
+                return  R.drawable.rounded_widget_border_1;
+            case 2:
+                return  R.drawable.rounded_widget_border_2;
+            case 3:
+                return  R.drawable.rounded_widget_border_3;
+            case 4:
+                return  R.drawable.rounded_widget_border_4;
+            case 5:
+                //noinspection DuplicateBranchesInSwitch
+                return  R.drawable.rounded_widget_border_5;
+            case 6:
+                return  R.drawable.rounded_widget_border_6;
+            case 7:
+                return  R.drawable.rounded_widget_border_7;
+            case 8:
+                return  R.drawable.rounded_widget_border_8;
+            case 9:
+                return  R.drawable.rounded_widget_border_9;
+            case 10:
+                return  R.drawable.rounded_widget_border_10;
+            case 11:
+                return  R.drawable.rounded_widget_border_11;
+            case 12:
+                return  R.drawable.rounded_widget_border_12;
+            case 13:
+                return  R.drawable.rounded_widget_border_13;
+            case 14:
+                return  R.drawable.rounded_widget_border_14;
+            case 15:
+                return  R.drawable.rounded_widget_border_15;
+            case 16:
+                return  R.drawable.rounded_widget_border_16;
+            case 17:
+                return  R.drawable.rounded_widget_border_17;
+            case 18:
+                return  R.drawable.rounded_widget_border_18;
+            case 19:
+                return  R.drawable.rounded_widget_border_19;
+            case 20:
+                return  R.drawable.rounded_widget_border_20;
+            case 21:
+                return  R.drawable.rounded_widget_border_21;
+            case 22:
+                return  R.drawable.rounded_widget_border_22;
+            case 23:
+                return  R.drawable.rounded_widget_border_23;
+            case 24:
+                return  R.drawable.rounded_widget_border_24;
+            case 25:
+                return  R.drawable.rounded_widget_border_25;
+            case 26:
+                return  R.drawable.rounded_widget_border_26;
+            case 27:
+                return  R.drawable.rounded_widget_border_27;
+            case 28:
+                return  R.drawable.rounded_widget_border_28;
+            case 29:
+                return  R.drawable.rounded_widget_border_29;
+            case 30:
+                return  R.drawable.rounded_widget_border_30;
+            case 31:
+                return  R.drawable.rounded_widget_border_31;
+            case 32:
+                return  R.drawable.rounded_widget_border_32;
+            default:
+                return  R.drawable.rounded_widget_border_5;
+        }
     }
 
     @Override

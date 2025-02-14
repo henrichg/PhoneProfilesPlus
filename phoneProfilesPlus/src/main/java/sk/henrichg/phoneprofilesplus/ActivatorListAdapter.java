@@ -234,7 +234,7 @@ class ActivatorListAdapter extends BaseAdapter
 
             Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,
                     false, "", true, false, applicationActivatorGridLayout,
-                    activityDataWrapper);
+                    false, activityDataWrapper);
             holder.profileName.setText(profileName);
 
 

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -31,6 +32,12 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
     private RefreshListViewAsyncTask asyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -156,7 +163,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 if (contactsCache == null) {
                     // cache not created, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
-                    PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
+                    PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/, false);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
@@ -169,7 +176,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         if (contactList == null) {
                             // not cached, cache it
 //                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
-                            PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/);
+                            PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/, false);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/
@@ -188,7 +195,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 if (contactGroupsCache == null) {
                     // cache not created, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
-                    PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
+                    PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/, false);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);*/
@@ -201,7 +208,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                         if (contactGroupList == null) {
                             // not cached, cache it
 //                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
-                            PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/);
+                            PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/, false);
                             /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                             while (contactGroupsCache.getCaching())
                                 GlobalUtils.sleep(100);*/

@@ -98,11 +98,17 @@
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
 
-        <item name="android:scrollbarThumbVertical">@color/scrollbarColor</item>
-        <item name="android:scrollbarThumbHorizontal">@color/scrollbarColor</item>
+        <item name="android:scrollbarThumbVertical">@color/scrollbarThumbColor</item>
+        <item name="android:scrollbarThumbHorizontal">@color/scrollbarThumbColor</item>
+        <item name="android:scrollbarTrackVertical">@color/scrollbarTrackColor</item>
+        <item name="android:scrollbarTrackHorizontal">@color/scrollbarTrackColor</item>
         <item name="android:scrollbarSize">@dimen/scrollbar_size</item>
+<!--        Do not good to set it true, because is in small time displayed in all components. :-( -->
+<!--        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>-->
 
         <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>
+
+        <item name="android:fadeScrollbars">false</item>
 
     </style>
 

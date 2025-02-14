@@ -35,6 +35,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
@@ -234,7 +236,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
     }
 
     @Override

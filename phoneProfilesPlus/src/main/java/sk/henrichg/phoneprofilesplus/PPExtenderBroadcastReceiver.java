@@ -329,8 +329,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     };
-                    PPApplicationStatic.createProfileActiationExecutorPool();
-                    PPApplication.profileActiationExecutorPool.submit(runnable3);
+                    PPApplicationStatic.createProfileIteractivePreferencesExecutorPool();
+                    PPApplication.profileIteractivePreferencesExecutorPool.submit(runnable3);
                 }
                 break;
             case PPApplication.ACTION_SMS_MMS_RECEIVED:

@@ -14,17 +14,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.preference.PreferenceDialogFragmentCompat;
-
-import com.kunzisoft.androidclearchroma.IndicatorMode;
-import com.kunzisoft.androidclearchroma.colormode.ColorMode;
-import com.kunzisoft.androidclearchroma.view.ChromaColorView;
 
 public class ColorChooserPreferenceFragment extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 
     private ColorChooserPreference preference;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -128,34 +131,12 @@ public class ColorChooserPreferenceFragment extends PreferenceDialogFragmentComp
             if (index == -2) {
                 if (getActivity() != null) {
                     // custom color
-                    //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.context);
-                    dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
-                    dialogBuilder.setCancelable(true);
-
-                    //LayoutInflater inflater = getLayoutInflater();
-                    // WARNING - use this for get transparent beckround of EditText celector handler
-                    LayoutInflater inflater = LayoutInflater.from(preference.context);
-                    View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
-                    dialogBuilder.setView(layout);
-
-                    final ChromaColorView chromaColorView = layout.findViewById(R.id.custom_color_chroma_color_view);
-                    //noinspection DataFlowIssue
-                    chromaColorView.setCurrentColor(ColorChooserPreference.parseValue(preference.value));
-                    chromaColorView.setColorMode(ColorMode.values()[0]);
-                    chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
-
-                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        int color = chromaColorView.getCurrentColor();
-                        preference.value = String.valueOf(color);
-                        preference.persistValue();
-                        dismiss();
-                    });
-                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-                    AlertDialog dialog = dialogBuilder.create();
+                    ColorChooserCustomColorDialog dialog = new ColorChooserCustomColorDialog(
+                            (AppCompatActivity) getActivity(), getDialog(),
+                            preference, null, null
+                    );
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
             else {

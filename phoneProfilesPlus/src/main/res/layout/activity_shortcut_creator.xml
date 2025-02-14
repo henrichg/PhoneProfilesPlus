@@ -5,8 +5,8 @@
     android:id="@+id/shortcut_creator_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
-    android:paddingBottom="@dimen/alert_dialog_top_padding" >
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop"
+    android:paddingBottom="@dimen/dialog_title_divider_paddingTop" >
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/shortcut_creator_list"

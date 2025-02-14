@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/default_sim_root2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop"
     android:paddingBottom="3dp">
     <!--    android:gravity="center_horizontal"-->
 
@@ -23,8 +23,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/default_sim_root"

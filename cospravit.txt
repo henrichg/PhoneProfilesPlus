@@ -537,44 +537,78 @@ Pre API >= 34:
 
 --------------
 
-PPP:
-Add: "Force stop applications" with root.
-Add: "Use dynamic color for indicator" to draw indicators with dynamic color if global "Use dynamic colors" is disabled. Widget One row and List.
-Add: New parameter into Settings/Editor: "Hide event details".
-Add: New parameter into Settings/Editor: "Hide event details for "Start order"".
-Change: Removed splash screen at start of Editor.
-Change: Acronyms strings changed to icons.
-Change: "Screen timeout" profile parameter for OnePlus without Shizuku.
-Change: Install PPP from installed store also for critical PPP version.
-Change: Removed Twitter/X from support menus and README.md.
-Change: Added Mastodon into README.md
-Change: Added icons in "Support" menu items.
-Change: Added icons in "Check app. releases" menu items.
-Change: Allow "Notification sensor" when only application is configured (not needed is "Check text").
-Change: "Notification sensor", fixed "Check text".
-Change: "Switch profiles" into icon widget when are configured only 2 profiles.
-Change: Delay for start of BT connected devices detector when is started from broadcast.
-Change: Increased size of preference titles.
-Change: Long click to Tasker command in Important info -> direct copy to clipboard.
-Change: Reverted back height of PPP notification for Samsung devices in Amdroid 14+
-Change: "Activity log"/"Help" as activity.
-Change: Widgets: Rounded corners radius + opaqueness of background for API >= 31.
-Change: Widgets: Added parameter "Use dynamic colors" for preferences indicator when global "Dynamic colors" is disabled.
-Change: Call "Request ignore battery optimizations" from Settings/System/Battery optimization, if is not set.
-Change: Vertically center of profile name in Activator header, if preferences indicator is disabled.
-Change: Better detection of drag handle click.
-Change: Added background dim for popup windows.
-Change: Small changes in GUI.
-Fix: "Call screening" sensor block calls, even when event is not running.
-Fix: Animation of open/close dialogs.
-Fix: Bluetooth enable/disable.
-Fix: NFC enable/disable not working in Android 14.
-Fix: Color of preference values in PPP Settings.
-Fix: Maybe fixed bad notification exception at first PPP start.
-Fix: Popup windows in API level < 30.
+FIFO funguje uplne nahovno.
+Ako by malo fugovat:
+1. DataWrapper._activateProfile() by mal pridavat kazdy profil, co sa aktivuje. Jedina vynimak je
+   ked sa aktivuje undo profil, ten by sa do fifo pridavat nemal. Lebo ten sa pouzil na ziskanie
+   pre undo.
+2. Undo (jedno ci z duration alebo z udalosti) by mal NAJPRV vyberat posledny profil (ten sa pposledne aktivoval).
+   Tento by sa mal z FIFO aj zmazat. Nezaujimavy je pre dalsie pouzitie.
+   Ale bacha! len pre aktivaciu z udalosti (este testnem), z duration sa nesmie, lebo dalsia aktivacia s duration
+   uz nevrati profil, zostane ten s trvanim.
+3. Az potom  by sa mala robit aktivacia toho vybrateho undo, ten sa ale nesmie do FIOFO pridat.
+4. Problem je aktivacia profilu z udalosti. Lebo ten sa aktivuje (je jedno ci zo startu alebo endu),
+   a ak je na konci undo, vrati sa tento spat. Potrebujem uplne obskocit na undo cely porofil, cize obe aktivacie.
+   Davaj teda itIsUndoProfile na aktivaciu profilu z udalosti na true, ak ma udalost Undo nastavene.
+5. Problem je as s aktivaciou s duration. Ak aktivujem profil, co ma v duration Undo, tiez nesmiem tento profil dat do fifo.
+
+STARTUP_SOURCE_EVENT_MANUAL sa nastavi v DataWrapper.activateProfileFromEvent(), ked sa aktivuje profil
+(at start, at end) manualne. Je na to parameter v udalosti.
+Po starom, ak nema profil duraiton, tak sa pridaval do FIFO.
+Po  novom to nie je potrebne. Profil sa vzdy pridava do FIFO, ak to nie je profil, ktory sa nesmie kvoli undo.
+Ale pre istotu ten startupSource necham.
+
+Manualna aktivacia profilu Doma
+Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
+
+Aktivacia profil Doma z udalosti
+Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
+
+---
+
+startEvent() vypada, ze je vzdy s mergedProfile != null
+pauseEvent() moze byt aj s mergedProfile == null a to:
+- Event.stopEvent()
+- EventPrefsActivity.saveUpdatedPreferences()
+- EventStatic.runStopEvent()
+
+Takze co robim, ked je == null?
+- aktivujem end profile a robim undo, restart events nerobim
 
 
+--------------------------
 
-
-
+Add: Panel widget. Removed Samsung Edge panel.
+Change: Call of BT detector at screen on.
+Change: Better BT connected devices detection for disconnection.
+Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.
+Change: Increased speed of profile activation.
+Change: Support for Smart Launcher rounded corners in widgets.
+Change: Enabled rounded corners radius for SmartLauncher.
+Change: Rounded corners radius up to 32 (for Smart Launcher support).
+Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.
+Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.
+Change: Better show,hide header and bottom toolbar at scroll in Editor.
+Change: GUI components size different for landscape orientation.
+Change: Small GUI changes.
+Change: Changes in widgets.
+Change: Removed toolbar from Location editor.
+Change: Location editor - display map immediately at start od editor.
+Change: Show dialog about offline device status in Location editor.
+Change: Better functionality of "Rename with address" button in Location editor.
+Change: Empty line in preference summary changed to dots.
+Change: Permanent display also thumb of scrollbars.
+Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.
+Change: Do not rotate to default orientation if is required to lock orientation change.
+Change: Increased max. log file size.
+Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.
+Fix: Not working good BT van connection.
+Fix: Fixed not refreshed Tones dialog after grant permission.
+Fix: Not disabled buttons in Mobile cells registration dialog at its start.
+Fix: Not deleted red text after deletion of profile, event with errors.
+Fix: Maybe fixed draw of PPP notification at first start.
+Fix: Restart events not working properly in specific situations.
+Fix: Location preference dialog GUI.
+Fix: WindowLeak exception generated for dialogs in orientation change.
+Fix: Undo in profile duration and event end.
 

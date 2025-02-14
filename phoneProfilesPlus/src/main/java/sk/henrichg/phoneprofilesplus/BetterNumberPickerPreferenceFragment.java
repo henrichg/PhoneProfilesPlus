@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.math.BigDecimal;
@@ -16,6 +17,12 @@ public class BetterNumberPickerPreferenceFragment extends PreferenceDialogFragme
 
     private Context context;
     private BetterNumberPickerPreference preference;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

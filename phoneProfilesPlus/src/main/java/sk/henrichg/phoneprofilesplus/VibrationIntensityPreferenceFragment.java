@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -22,6 +23,12 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
     private SeekBar seekBar = null;
     private TextView valueText = null;
     //private CheckBox sharedProfileChBox = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

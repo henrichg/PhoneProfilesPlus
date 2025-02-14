@@ -46,7 +46,9 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference._context);
-        dialogBuilder.setTitle(preference.getTitle());
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), dialogBuilder, false,
+                                        preference.getDialogTitle(), null);
+        //dialogBuilder.setTitle(preference.getTitle());
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
 
@@ -58,7 +60,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         PPSpinnerAdapter vpnApplicationSpinnerAdapter = new PPSpinnerAdapter(
                 (ProfilesPrefsActivity) preference._context,
-                R.layout.ppp_spinner,
+                R.layout.ppp_spinner_filter,
                 getResources().getStringArray(R.array.vpnApplicationArray));
         vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);

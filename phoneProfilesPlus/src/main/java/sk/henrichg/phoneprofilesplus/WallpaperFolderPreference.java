@@ -14,6 +14,7 @@ import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 
 import java.io.File;
@@ -205,15 +206,16 @@ public class WallpaperFolderPreference extends Preference {
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        (Activity) prefContext
+                        (AppCompatActivity) prefContext
                 );
 
                 //if (!activity.isFinishing())
-                _dialog.show();
+                _dialog.showDialog();
             } catch (Exception e) {
                 //PPApplicationStatic.recordException(e);
             }

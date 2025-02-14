@@ -17,7 +17,7 @@ class WakelockTags {
     static final String WAKELOCK_TAG_ActivateProfileHelper_lockDevice = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_lockDevice";
     static final String WAKELOCK_TAG_ActivateProfileHelper_cameraFlash = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash";
     static final String WAKELOCK_TAG_AlarmClockBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":AlarmClockBroadcastReceiver_onReceive";
-    static final String WAKELOCK_TAG_BluetoothConnectionBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothConnectionBroadcastReceiver_onReceive";
+//    static final String WAKELOCK_TAG_BluetoothConnectionBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothConnectionBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_BluetoothLEScanCallback21_onScanResult = PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onScanResult";
     static final String WAKELOCK_TAG_BluetoothLEScanCallback21_onBatchScanResults = PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onBatchScanResults";
     static final String WAKELOCK_TAG_BluetoothScanBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothScanBroadcastReceiver_onReceive";

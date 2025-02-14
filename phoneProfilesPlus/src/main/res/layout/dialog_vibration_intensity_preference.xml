@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/vibrationIntensityPrefDialogNoChange_titleBarDivider"
@@ -50,6 +50,8 @@
             android:id="@+id/vibrationIntensityPrefDialogSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_marginStart="@dimen/seekbar_margin"
+            android:layout_marginEnd="@dimen/seekbar_margin"
             android:minHeight="3dp"
             android:maxHeight="3dp"
             android:progressDrawable="@drawable/seek_bar_drawable"

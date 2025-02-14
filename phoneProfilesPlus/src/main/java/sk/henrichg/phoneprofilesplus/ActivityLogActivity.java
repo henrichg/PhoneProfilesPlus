@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,6 +37,8 @@ public class ActivityLogActivity extends AppCompatActivity
     private ActivityLogAdapter activityLogAdapter;
     private TextView addedNewLogsText;
     AppCompatSpinner filterSpinner;
+    Toolbar subToolbar;
+    LinearLayout listHeader;
 
     private int selectedFilter = 0;
 
@@ -67,6 +71,8 @@ public class ActivityLogActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
@@ -190,6 +196,35 @@ public class ActivityLogActivity extends AppCompatActivity
         listView.setVisibility(View.GONE);
         progressLinearLayout.setVisibility(View.VISIBLE);
 
+        subToolbar = findViewById(R.id.activity_log_subToolbar);
+        listHeader = findViewById(R.id.activity_log_liLa2);
+
+        ViewGroup activityLogRoot = findViewById(R.id.activity_log_root);
+        //noinspection DataFlowIssue
+        final LayoutTransition layoutTransition = activityLogRoot.getLayoutTransition();
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+
+        if (GlobalGUIRoutines.areSystemAnimationsEnabled(getApplicationContext())) {
+            if (getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
+                listView.setOnScrollListener(new ActivityLogAutoHideShowListHeaderScrollListener() {
+                    @Override
+                    public void onHide() {
+                        if (!layoutTransition.isRunning()) {
+                            listHeader.setVisibility(View.GONE);
+                            subToolbar.setVisibility(View.GONE);
+                        }
+                    }
+                    @Override
+                    public void onShow() {
+                        if (!layoutTransition.isRunning()) {
+                            subToolbar.setVisibility(View.VISIBLE);
+                            listHeader.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+            }
+        }
+
         addedActivityLogBroadcastReceiver = new AddedActivityLogBroadcastReceiver(this);
         int receiverFlags = 0;
         if (Build.VERSION.SDK_INT >= 34)
@@ -276,6 +311,7 @@ public class ActivityLogActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
@@ -284,7 +320,7 @@ public class ActivityLogActivity extends AppCompatActivity
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -304,118 +340,6 @@ public class ActivityLogActivity extends AppCompatActivity
         if (itemId == R.id.menu_activity_log_help) {
             Intent intent = new Intent(getBaseContext(), ActivityLogHelpActivity.class);
             startActivity(intent);
-            /*
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.activity_log_help_title);
-            dialogBuilder.setCancelable(true);
-            //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.dialog_info_preference, null);
-            dialogBuilder.setView(layout);
-
-            TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
-
-            StringBuilder _value = new StringBuilder();
-
-            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message_colors)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
-
-            int color = ContextCompat.getColor(this, R.color.altypeProfileColor);
-            String colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_profile_activation)).append(StringConstants.TAG_BREAK_HTML);
-
-            color = ContextCompat.getColor(this, R.color.altypeEventStartColor);
-            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_start)).append(StringConstants.TAG_BREAK_HTML);
-
-            color = ContextCompat.getColor(this, R.color.altypeEventEndColor);
-            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_end)).append(StringConstants.TAG_BREAK_HTML);
-
-            color = ContextCompat.getColor(this, R.color.altypeRestartEventsColor);
-            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_restart_events)).append(StringConstants.TAG_BREAK_HTML);
-
-            color = ContextCompat.getColor(this, R.color.altypeEventDelayStartEndColor);
-            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_event_delay_start_end)).append(StringConstants.TAG_BREAK_HTML);
-
-            color = ContextCompat.getColor(this, R.color.altypeErrorColor);
-            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_error)).append(StringConstants.TAG_BREAK_HTML);
-
-            color = ContextCompat.getColor(this, R.color.altypeOtherColor);
-            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
-            _value.append(String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML));
-            _value.append(StringConstants.CHAR_HARD_SPACE_HTML).append(StringConstants.CHAR_HARD_SPACE_HTML).append(getString(R.string.activity_log_help_message_colors_others));
-
-            _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
-            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getString(R.string.activity_log_help_message)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_DOUBLE_BREAK_HTML);
-
-            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
-            _value.append("\"").append(getString(R.string.altype_mergedProfileActivation)).append(": X")
-                    .append(StringConstants.CHAR_HARD_SPACE_HTML).append("[").append(StringConstants.CHAR_HARD_SPACE_HTML).append("Y").append(StringConstants.CHAR_HARD_SPACE_HTML).append("]\":")
-                    .append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_mergedProfileActivation)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
-
-            _value.append(StringConstants.TAG_BREAK_HTML);
-            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
-            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
-            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
-            _value.append("\"").append(getString(R.string.altype_profileActivation)).append("\":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_data_profileName)).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_data_displayedInGUI)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
-
-            _value.append(StringConstants.TAG_BREAK_HTML);
-            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
-            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
-            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
-            _value.append("\"").append(getString(R.string.altype_mergedProfileActivation)).append("\":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_data_profileNameEventName)).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_data_displayedInGUI)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
-
-            _value.append(StringConstants.TAG_BREAK_HTML);
-            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
-            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
-            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
-            _value.append(getString(R.string.activity_log_help_message_data_otherProfileDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_data_profileName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
-
-            _value.append(StringConstants.TAG_BREAK_HTML);
-            _value.append(StringConstants.TAG_LIST_START_FIRST_ITEM_HTML).append(StringConstants.TAG_BOLD_START_HTML).append(" \"").append(getString(R.string.activity_log_header_data)).append("\" ");
-            _value.append(getString(R.string.activity_log_help_message_data_for)).append(" ");
-            _value.append("\"").append(getString(R.string.activity_log_header_data_type)).append("\"=");
-            _value.append(getString(R.string.activity_log_help_message_data_otherEventDataTypes)).append(":").append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.TAG_BREAK_HTML);
-            _value.append(getString(R.string.activity_log_help_message_data_eventName_otherDataTypes)).append(StringConstants.TAG_LIST_END_LAST_ITEM_HTML);
-
-            //noinspection DataFlowIssue
-            infoTextView.setText(StringFormatUtils.fromHtml(_value.toString(), true, false, 0, 0, true));
-
-            infoTextView.setClickable(true);
-            infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
-
-            dialogBuilder.setPositiveButton(R.string.activity_log_help_close, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
-
-            if (!isFinishing())
-                dialog.show();
-             */
             return true;
         }
         else {

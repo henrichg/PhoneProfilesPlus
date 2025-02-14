@@ -5,19 +5,15 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.TooltipCompat;
-
-import java.util.Locale;
 
 /**
  * Control that allows the user to easily input a time duration made up of hours, minutes and seconds, like known from
@@ -50,7 +46,7 @@ public class TimeDurationPicker extends FrameLayout {
     private final Button[] numPadButtons;
     private final Button numPadMeasureButton;
     //private OnDurationChangedListener changeListener = null;
-    private final TextView secondsLabel;
+    //private final TextView secondsLabel;
     private final TextView hoursLabel;
     private final TextView minutesLabel;
 
@@ -88,8 +84,8 @@ public class TimeDurationPicker extends FrameLayout {
 
         hoursLabel = findViewById(R.id.hoursLabel);
         minutesLabel = findViewById(R.id.minutesLabel);
-        secondsLabel = findViewById(R.id.secondsLabel);
-        unitLabelViews = new TextView[] { hoursLabel, minutesLabel, secondsLabel };
+        //secondsLabel = findViewById(R.id.secondsLabel);
+        unitLabelViews = new TextView[] { hoursLabel, minutesLabel/*, secondsLabel*/ };
 
         backspaceButton = findViewById(R.id.backspace);
         TooltipCompat.setTooltipText(backspaceButton, context.getString(R.string.backspace_button_tooltip));
@@ -157,7 +153,8 @@ public class TimeDurationPicker extends FrameLayout {
         hoursView.setVisibility(timeUnits == HH_MM_SS || timeUnits == HH_MM ? View.VISIBLE : View.GONE);
         hoursLabel.setVisibility(timeUnits == HH_MM_SS || timeUnits == HH_MM ? View.VISIBLE : View.GONE);
         secondsView.setVisibility(timeUnits == HH_MM_SS || timeUnits == MM_SS ? View.VISIBLE : View.GONE);
-        secondsLabel.setVisibility(timeUnits == HH_MM_SS || timeUnits == MM_SS ? View.VISIBLE : View.GONE);
+        //secondsLabel.setVisibility(timeUnits == HH_MM_SS || timeUnits == MM_SS ? View.VISIBLE : View.GONE);
+        minutesLabel.setVisibility(timeUnits == HH_MM_SS || timeUnits == MM_SS ? View.VISIBLE : View.GONE);
 
         input.updateTimeUnits(timeUnits);
     }
@@ -315,6 +312,7 @@ public class TimeDurationPicker extends FrameLayout {
         }
     }
 
+    /*
     private void applyLeftMargin(int margin, View... targetViews) {
         for (View view : targetViews) {
             final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
@@ -328,6 +326,7 @@ public class TimeDurationPicker extends FrameLayout {
             view.setLayoutParams(params);
         }
     }
+    */
 
     //
     // event helpers
@@ -372,12 +371,14 @@ public class TimeDurationPicker extends FrameLayout {
         final int touchableSize = getContext().getResources().getDimensionPixelSize(R.dimen.touchable);
         final int dummyMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 
+        /*
         // set spacing between units
         hoursView.measure(dummyMeasureSpec, dummyMeasureSpec);
         final TextView unitLabelView = unitLabelViews[2];
         unitLabelView.measure(dummyMeasureSpec, dummyMeasureSpec);
         final int unitSpacing = Math.max(hoursView.getMeasuredWidth() / 3, (int) (1.2f * unitLabelView.getMeasuredWidth()));
         applyLeftMargin(unitSpacing, minutesView, secondsView);
+        */
 
         // calculate size for display row
         durationView.measure(dummyMeasureSpec, dummyMeasureSpec);

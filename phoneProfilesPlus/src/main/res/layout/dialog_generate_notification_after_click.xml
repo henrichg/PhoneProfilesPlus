@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generateNotificationAfterClickDialogRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/generateNotificationAfterClickDialog_titleBarDivider"
@@ -21,8 +21,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/generateNotificationAfterClickDialog_linla0"
@@ -45,6 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_start_activator"/>
@@ -54,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_start_editor"/>
@@ -63,6 +67,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_restart_events"/>
@@ -72,6 +78,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_after_click_dialog_enable_disable_events_run"/>

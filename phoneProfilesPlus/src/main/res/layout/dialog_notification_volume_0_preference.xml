@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/notification_0_pref_dialog_titleBarDivider"
@@ -33,6 +33,8 @@
         <!--        android:id="@+id/notification_0_pref_dialog_PhoneProfilesSilent_rb"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
+<!--        android:drawableStart="@android:color/transparent"-->
+<!--        android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"-->
 <!--        android:buttonTint="@color/checkbox_radiobutton_color"-->
 <!--        android:textSize="16sp"-->
         <!--        android:layout_marginTop="3dp"/>-->
@@ -40,6 +42,8 @@
             android:id="@+id/notification_0_pref_dialog_None_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@android:color/transparent"
+            android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
             android:buttonTint="@color/checkbox_radiobutton_color"
             android:textSize="16sp"
             android:layout_marginTop="5dp" />

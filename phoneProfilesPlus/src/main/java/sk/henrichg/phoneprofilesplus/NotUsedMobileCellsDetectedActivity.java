@@ -57,6 +57,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
         EditorActivity.itemDragPerformed = false;
 
         super.onCreate(savedInstanceState);
@@ -87,14 +89,16 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
         cellNamesList = new ArrayList<>();
 
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        //GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         // set theme and language for dialog alert ;-)
         GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.not_used_mobile_cells_detected_title);
+        GlobalGUIRoutines.setCustomDialogTitle(this, dialogBuilder, false,
+                getString(R.string.not_used_mobile_cells_detected_title), null);
+        //dialogBuilder.setTitle(R.string.not_used_mobile_cells_detected_title);
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             // 1. test existence of mobile cell id in table, may be deleted
             // 2. test existence of event in table, may be deleted
@@ -249,11 +253,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         mDialog.setCanceledOnTouchOutside(false);
 
         mDialog.setOnShowListener(dialog -> {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-
+            GlobalGUIRoutines.lockScreenOrientation(this);
             showDialogAsyncTask = new ShowDialogAsyncTask(this);
             showDialogAsyncTask.execute();
         });
@@ -262,6 +262,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
                 showDialogAsyncTask.cancel(true);
             showDialogAsyncTask = null;
+            GlobalGUIRoutines.unlockScreenOrientation(this);
         });
 
         cellIdTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cell_id);
@@ -301,11 +302,13 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             mDialog.show();
     }
 
+    /*
     @Override
     protected void onStop() {
         super.onStop();
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
+    */
 
     @Override
     public void finish()

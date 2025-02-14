@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/deleteSecureDataInExportDialog_root2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop"
     android:paddingBottom="3dp">
     <!--    android:gravity="center_horizontal"-->
 
@@ -23,8 +23,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/deleteSecureDataInExportDialogRoot"
@@ -57,6 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_location_data_geofences" />
@@ -66,6 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_location_data_wifi_ssids" />
@@ -75,6 +79,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_location_data_bluetooth_names" />
@@ -83,6 +89,8 @@
                 android:id="@+id/deleteSecureDataInExportDialogMobileCells"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_location_data_mobile_cells" />
@@ -109,6 +117,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_calls" />
@@ -117,6 +127,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete0_contacts_data_sms" />
@@ -124,6 +136,8 @@
                 android:id="@+id/deleteSecureDataInExportDialogNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_notification" />
@@ -131,6 +145,8 @@
                 android:id="@+id/deleteSecureDataInExportDialogCallScreening"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_callScreening" />
@@ -138,6 +154,8 @@
                 android:id="@+id/deleteSecureDataInExportDialogSendSMS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_send_sms" />
@@ -145,6 +163,8 @@
                 android:id="@+id/deleteSecureDataInExportDialogClearNotifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/export_settings_delete_contacts_data_clear_notification" />

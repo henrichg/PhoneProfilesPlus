@@ -18,6 +18,8 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
@@ -45,6 +47,12 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
     private NFCTagPreferenceAdapter listAdapter;
 
     private RefreshListViewAsyncTask rescanAsyncTask;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -199,10 +207,10 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 //dialog.dismiss();
                             },
                             null,
-                            false,
-                            (Activity) prefContext);
+                            //false,
+                            (AppCompatActivity)  getActivity());
 
-                    mSelectorDialog.show();
+                    mSelectorDialog.showDialog();
                 }
         });
 
@@ -226,8 +234,8 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             preference.resetSummary();
         }
 
-        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
-            mSelectorDialog.mDialog.dismiss();
+        if (mSelectorDialog != null)
+            mSelectorDialog.dismiss();
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
@@ -333,15 +341,16 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
                             false,
-                            getActivity()
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             }

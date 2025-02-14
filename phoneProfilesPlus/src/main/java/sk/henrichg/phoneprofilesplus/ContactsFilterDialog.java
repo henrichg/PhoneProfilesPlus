@@ -1,9 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.DialogPreference;
 
 import java.lang.ref.WeakReference;
@@ -19,89 +25,109 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-class ContactsFilterDialog {
+public class ContactsFilterDialog extends DialogFragment {
 
     List<ContactFilter> contactsFilterList;
 
-    private final Activity activity;
-    //private final DialogPreference preference;
-    private final boolean withoutNumbers;
+    private AppCompatActivity activity;
+    private boolean withoutNumbers;
 
-    private final AlertDialog mDialog;
-    final ListView contactsFilterListView;
-    final RelativeLayout emptyList;
+    private AlertDialog mDialog;
+    private ListView contactsFilterListView;
+    private RelativeLayout emptyList;
+    private DialogPreference preference;
 
-    private final LinearLayout linlaProgress;
-    private final LinearLayout rellaDialog;
+    private ContactsFilterDialog fragment;
 
-    private final ContactsFilterDialogAdapter listAdapter;
+    private LinearLayout linlaProgress;
+    private LinearLayout rellaDialog;
+
+    private ContactsFilterDialogAdapter listAdapter;
 
     private ShowDialogAsyncTask asyncTask = null;
 
-    ContactsFilterDialog(final Activity activity,
+    public ContactsFilterDialog() {
+    }
+
+    public ContactsFilterDialog(final AppCompatActivity activity,
                          final boolean withoutNumbers,
                          final DialogPreference preference) {
 
         this.activity = activity;
-        //this.preference = preference;
+        this.preference = preference;
         this.withoutNumbers = withoutNumbers;
-
-        contactsFilterList = new ArrayList<>();
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.contacts_filter_dialog_filter_title);
-        dialogBuilder.setCancelable(true);
-        //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-
-        dialogBuilder.setOnDismissListener(dialog -> {
-            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
-                asyncTask.cancel(true);
-            asyncTask = null;
-        });
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_contacts_filter, null);
-        dialogBuilder.setView(layout);
-
-        mDialog = dialogBuilder.create();
-
-//        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        contactsFilterListView = layout.findViewById(R.id.contacts_filter_dlg_listview);
-        emptyList = layout.findViewById(R.id.contacts_filter_dlg_empty);
-
-        linlaProgress = layout.findViewById(R.id.contacts_filter_dlg_linla_progress);
-        rellaDialog = layout.findViewById(R.id.contacts_filter_dlg_rella_dialog);
-
-        listAdapter = new ContactsFilterDialogAdapter(activity, this);
-        //noinspection DataFlowIssue
-        contactsFilterListView.setAdapter(listAdapter);
-
-        contactsFilterListView.setOnItemClickListener((parent, v, position, id) -> {
-            ((ContactsMultiSelectDialogPreference) preference).setContactsFilter(contactsFilterList.get(position));
-            mDialog.dismiss();
-        });
-
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (AppCompatActivity) getActivity();
+        if ((activity != null) && (preference != null)) {
+            GlobalGUIRoutines.lockScreenOrientation(activity);
 
-    void show() {
-        if (!activity.isFinishing()) {
-            mDialog.show();
+            fragment = this;
 
-            asyncTask = new ShowDialogAsyncTask(this, activity);
-            asyncTask.execute();
+            contactsFilterList = new ArrayList<>();
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.contacts_filter_dialog_filter_title), null);
+            //dialogBuilder.setTitle(R.string.contacts_filter_dialog_filter_title);
+            dialogBuilder.setCancelable(true);
+            //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+
+//            dialogBuilder.setOnDismissListener(dialog -> {
+//                if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+//                    asyncTask.cancel(true);
+//                asyncTask = null;
+//            });
+
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_contacts_filter, null);
+            dialogBuilder.setView(layout);
+
+            mDialog = dialogBuilder.create();
+
+            mDialog.setOnShowListener(dialog -> {
+                asyncTask = new ShowDialogAsyncTask(fragment, activity);
+                asyncTask.execute();
+            });
+
+            contactsFilterListView = layout.findViewById(R.id.contacts_filter_dlg_listview);
+            emptyList = layout.findViewById(R.id.contacts_filter_dlg_empty);
+
+            linlaProgress = layout.findViewById(R.id.contacts_filter_dlg_linla_progress);
+            rellaDialog = layout.findViewById(R.id.contacts_filter_dlg_rella_dialog);
+
+            listAdapter = new ContactsFilterDialogAdapter(activity, this);
+            //noinspection DataFlowIssue
+            contactsFilterListView.setAdapter(listAdapter);
+
+            contactsFilterListView.setOnItemClickListener((parent, v, position, id) -> {
+                ((ContactsMultiSelectDialogPreference) preference).setContactsFilter(contactsFilterList.get(position));
+                dismiss();
+            });
+
         }
+        return mDialog;
+    }
+
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            asyncTask.cancel(true);
+        asyncTask = null;
+
+        if (activity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
+    }
+
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            show(activity.getSupportFragmentManager(), "CONTACTS_FILTER_DIALOG");
     }
 
     private static class ShowDialogAsyncTask extends AsyncTask<Void, Integer, Void> {
@@ -137,7 +163,7 @@ class ContactsFilterDialog {
                 if (contactsCache == null) {
                     // cache not created, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
-                    PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
+                    PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/, false);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);*/
@@ -150,7 +176,7 @@ class ContactsFilterDialog {
                         if (contactList == null) {
                             // not cached, cache it
 //                            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsFilterDialog.doInBackground", "PPApplicationStatic.createContactsCache()");
-                            PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/);
+                            PPApplicationStatic.createContactsCache(activity.getApplicationContext(), false, false/*, true*/, false);
                             /*contactsCache = PPApplicationStatic.getContactsCache();
                             while (contactsCache.getCaching())
                                 GlobalUtils.sleep(100);*/

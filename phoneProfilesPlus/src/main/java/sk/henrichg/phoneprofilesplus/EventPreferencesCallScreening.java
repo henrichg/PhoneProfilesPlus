@@ -330,10 +330,10 @@ class EventPreferencesCallScreening extends EventPreferences {
                 String summary = context.getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
                 if (isIsCallScreeningHeld(context)) {
                     summary = context.getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_1) +
-                            StringConstants.STR_DOUBLE_NEWLINE + summary;
+                            StringConstants.STR_SEPARATOR_LINE + summary;
                 } else {
                     summary = context.getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary_ststus_0) +
-                            StringConstants.STR_DOUBLE_NEWLINE + summary;
+                            StringConstants.STR_SEPARATOR_LINE + summary;
                 }
                 preference.setSummary(summary);
             }

@@ -48,10 +48,10 @@
             android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"
             android:divider="@android:color/transparent"
             android:listSelector="?attr/listViewItemBackground" />
 <!--        android:drawSelectorOnTop="true"-->
+<!--        android:fadeScrollbars="false"-->
 
         <RelativeLayout
             android:id="@+id/shortcut_profiles_list_empty"

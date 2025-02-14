@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -454,17 +455,10 @@ class DataWrapper {
         }
     }
 
-    void activateProfileFromEvent(long event_id, long profile_id, boolean manualActivation,
-                                  boolean merged, boolean forRestartEvents, boolean manualRestart)
+    void activateProfileFromEvent(/*long event_id, */long profile_id, boolean manualActivation,
+                                  boolean merged, boolean forRestartEvents, boolean manualRestart,
+                                  boolean itIsUndoProfile)
     {
-        if (event_id != 0) {
-            // save before activated profile into FIFO
-//            Log.e("DataWrapper.activateProfileFromEvent", "dataWrapper.fifoAddProfile()");
-            long activatedProfileId = getActivatedProfileIdFromDB();
-            if (activatedProfileId != -1)
-                fifoAddProfile(activatedProfileId, event_id);
-        }
-
         int startupSource = PPApplication.STARTUP_SOURCE_EVENT;
         if (manualActivation)
             startupSource = PPApplication.STARTUP_SOURCE_EVENT_MANUAL;
@@ -475,7 +469,7 @@ class DataWrapper {
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
         if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
-            _activateProfile(profile, merged, startupSource, forRestartEvents, manualRestart);
+            _activateProfile(profile, merged, startupSource, forRestartEvents, manualRestart, itIsUndoProfile);
         }
     }
 
@@ -961,8 +955,8 @@ class DataWrapper {
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
-    // pauses all events
-    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
+    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean ignoreGlobalPrefs, boolean activateReturnProfile,
+                        boolean forRestartEvents, boolean manualRestart)
     {
         // blockEvents == true -> manual profile activation is set
         EventStatic.setEventsBlocked(context, blockEvents);
@@ -972,6 +966,9 @@ class DataWrapper {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEvents", "DataWrapper.eventList");
         synchronized (eventList) {
             fillEventList();
+
+            Profile mergedProfile = DataWrapperStatic.getNonInitializedProfile("", "", 0);
+
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
@@ -983,7 +980,8 @@ class DataWrapper {
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
 //                            Log.e("DataWrapper.pauseAllEvents", "pause event");
-                            event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false, false, true);
+                            // mergeProfile is not null = profiles are not activated
+                            event.pauseEvent(this, activateReturnProfile, ignoreGlobalPrefs, noSetSystemEvent, true, mergedProfile, false, forRestartEvents, manualRestart, true);
                         }
                     }
 
@@ -1029,7 +1027,7 @@ class DataWrapper {
 
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.pauseAllEventsForGlobalStopEvents", "PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
-                        dataWrapper.pauseAllEvents(true, false);
+                        dataWrapper.pauseAllEvents(true, false, true, false, false, false);
                     }
 
                 } catch (Exception e) {
@@ -1170,7 +1168,7 @@ class DataWrapper {
                     profileId = 0;
             }
 
-            activateProfile(profileId, PPApplication.STARTUP_SOURCE_FOR_FIRST_START, null, true);
+            activateProfile(profileId, PPApplication.STARTUP_SOURCE_FOR_FIRST_START, null, true, false);
         }
         // do not remove last activated profile at first start
         //else
@@ -1181,23 +1179,16 @@ class DataWrapper {
     {
         if (startedFromService) {
             if (ApplicationPreferences.applicationActivate &&
-                    ApplicationPreferences.applicationStartEvents) {
-                //restartEvents(false, false, true, false, useHandler);
+                    ApplicationPreferences.applicationStartEvents)
                 restartEventsWithRescan(true, false, useHandler, manualRestart, false, false);
-//                restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
-            }
             else {
-                //Event.setGlobalEventsRunning(context, false);
                 PPApplicationStatic.setApplicationFullyStarted(context);
 //                PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] DataWrapper.startEventsAtFirstStart", "xxx");
                 activateProfileAtFirstStart();
             }
         }
-        else {
-            //restartEvents(false, false, true, false, useHandler);
+        else
             restartEventsWithRescan(true, false, useHandler, manualRestart, false, false);
-//            restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
-        }
     }
 
     // this is called in boot or first start application
@@ -1498,7 +1489,8 @@ class DataWrapper {
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource,
-                                  final boolean forRestartEvents, final boolean manualRestart)
+                                  final boolean forRestartEvents, final boolean manualRestart,
+                                  final boolean itIsUndoProfile)
     {
         // show notification when battery optimization is not enabled
         //DrawOverAppsPermissionNotification.showNotification(context, false);
@@ -1508,35 +1500,6 @@ class DataWrapper {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
         //Profile.setActivatedProfileForDuration(context, 0);
-
-        /*
-        // get first profile from fifo
-        long oldActivatedProfileId;
-        boolean manualProfileActivation =
-                (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE);
-        if (manualProfileActivation) {
-            oldActivatedProfileId = getActivatedProfileId();
-            Log.e("DataWrapper._activateProfile", "(3) oldActivatedProfileId=" + oldActivatedProfileId);
-        } else {
-            List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
-            if (!activateProfilesFIFO.isEmpty()) {
-                String fromFifo = activateProfilesFIFO.get(0);
-                String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
-                //oldActivatedProfileId = getActivatedProfileId();
-                //Log.e("DataWrapper._activateProfile", "(1.1) oldActivatedProfileId=" + oldActivatedProfileId);
-                oldActivatedProfileId = Long.parseLong(splits[0]);
-                Log.e("DataWrapper._activateProfile", "(1.2) oldActivatedProfileId=" + oldActivatedProfileId);
-            } else {
-                oldActivatedProfileId = getActivatedProfileId();
-                Log.e("DataWrapper._activateProfile", "(2) oldActivatedProfileId=" + oldActivatedProfileId);
-            }
-        }
-        */
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_EVENT) //&&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1548,7 +1511,7 @@ class DataWrapper {
 
             // pause all events
             // for forceRun events set system events and block all events
-            pauseAllEvents(false, true/*, true*/);
+            pauseAllEvents(false, true, true, false, false, false);
 
             PPApplication.lockRefresh = false;
         }
@@ -1617,15 +1580,15 @@ class DataWrapper {
 
 //            Log.e("DataWrapper._activateProfile", "profileDuration (2)=" + profileDuration);
 
-            if (profileDuration) {
-                // activation with duration
-
-                if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
-//                    Log.e("DataWrapper._activateProfile", "dataWrapper.fifoAddProfile() (profileDuration)");
+            if (!itIsUndoProfile) {
+                if (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
                     long profileId = _profile._id;
                     fifoAddProfile(profileId, 0);
                 }
+            }
 
+            if (profileDuration) {
+                // activation with duration
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, manualRestart, startupSource, context);
                 ///////////
             }
@@ -1654,7 +1617,7 @@ class DataWrapper {
         if (/*(mappedProfile != null) &&*/ (!merged)) {
             PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
                     null,
-                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, this),
+                    DataWrapperStatic.getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, false, this),
                     "");
         }
 
@@ -1682,7 +1645,8 @@ class DataWrapper {
     }
 
     void activateProfileFromMainThread(Profile _profile, final boolean merged, final int startupSource,
-                                    final boolean interactive, Activity activity, final boolean testGrant)
+                                    final boolean interactive, Activity activity, final boolean testGrant,
+                                    final boolean itIsUndoProfile)
     {
         DataWrapper _dataWrapper = copyDataWrapper();
         final Context appContext = context.getApplicationContext();
@@ -1716,13 +1680,8 @@ class DataWrapper {
                         if (testGrant)
                             granted = !DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context);
                         if (granted) {
-                            dataWrapper._activateProfile(profile, merged, startupSource, false, false);
+                            dataWrapper._activateProfile(profile, merged, startupSource, false, false, itIsUndoProfile);
                             if (interactive) {
-//                                Log.e("DataWrapper.activateProfileFromMainThread", "dataWrapper.fifoAddProfile()");
-                                long activatedProfileId = profile._id;
-                                if (activatedProfileId != -1)
-                                    fifoAddProfile(activatedProfileId, 0);
-
                                 DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
 //                                Log.e("DataWrapper.activateProfileFromMainThread", "xxxxx");
                                 DataWrapperStatic.setDynamicLauncherShortcuts(context, true);
@@ -1779,7 +1738,7 @@ class DataWrapper {
 //            return;
 
         try {
-            String profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
+            String profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, false, this);
             PPApplication.showToast(context.getApplicationContext(),
                     context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profileName + " " +
                             context.getString(R.string.toast_profile_activated_1),
@@ -1792,7 +1751,7 @@ class DataWrapper {
     }
 
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
-                                            Activity activity)
+                                            Activity activity, boolean itIsUndoProfile)
     {
         PPApplicationStatic.setBlockProfileEventActions(false);
 
@@ -1811,9 +1770,9 @@ class DataWrapper {
 
             if (profile._askForDuration) {
                 if (!_activity.isFinishing()) {
-                    AskForDurationDialog dlg = new AskForDurationDialog(_activity, _profile, _dataWrapper,
+                    AskForDurationDialog dlg = new AskForDurationDialog((AppCompatActivity) _activity, _profile, _dataWrapper,
                             /*monochrome, monochromeValue,*/ _startupSource);
-                    dlg.show();
+                    dlg.showDialog();
                 }
             }
             else {
@@ -1845,7 +1804,7 @@ class DataWrapper {
                                 }
 
 //                                Log.e("DataWrapper.activateProfileWithAlert", "(1) xxxxx");
-                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
+                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false, itIsUndoProfile);
                             } else {
                                 Intent returnIntent = new Intent();
                                 _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1869,15 +1828,16 @@ class DataWrapper {
                             finishActivity(_startupSource, false, _activity);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
                         false,
-                        activity
+                        (AppCompatActivity) activity
                 );
 
                 if (!activity.isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
         else
@@ -1887,9 +1847,9 @@ class DataWrapper {
 
             if (profile._askForDuration/* && interactive*/) {
                 if (!activity.isFinishing()) {
-                    AskForDurationDialog dlg = new AskForDurationDialog(activity, profile, this,
+                    AskForDurationDialog dlg = new AskForDurationDialog((AppCompatActivity) activity, profile, this,
                             /*monochrome, monochromeValue,*/ startupSource);
-                    dlg.show();
+                    dlg.showDialog();
                 }
             }
             else {
@@ -1914,7 +1874,7 @@ class DataWrapper {
                         }
                     }
 
-                    activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
+                    activateProfileFromMainThread(profile, false, startupSource, true, activity, false, itIsUndoProfile);
                 }
                 else {
                     Intent returnIntent = new Intent();
@@ -1972,7 +1932,8 @@ class DataWrapper {
         }
     }
 
-    void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
+    void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant,
+                         boolean itIsUndoProfile)
     {
         PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
 //        Log.e("DataWrapper.activateProfile", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
@@ -2013,7 +1974,6 @@ class DataWrapper {
 
 //            PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfile", "PPApplication.profileActivationMutex");
             synchronized (PPApplication.profileActivationMutex) {
-//                Log.e("DataWrapper.activateProfile", "clear fifo");
                 List<String> activateProfilesFIFO = new ArrayList<>();
                 fifoSaveProfiles(activateProfilesFIFO);
             }
@@ -2069,11 +2029,11 @@ class DataWrapper {
             // profile activation
             if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) {
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_FOR_FIRST_START,
-                        false, null, testGrant);
+                        false, null, testGrant, itIsUndoProfile);
             }
             else {
 //                Log.e("DataWrapper.activateProfile", "xxxxx");
-                activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
+                activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity, itIsUndoProfile);
             }
         }
         else
@@ -2100,7 +2060,7 @@ class DataWrapper {
         }
     }
 
-    void activateProfileAfterDuration(long profile_id, int startupSource)
+    void activateProfileAfterDuration(long profile_id, int startupSource, boolean itIsUndoProfile)
     {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.activateProfileAfterDuration", "PPApplication.eventsHandlerMutex");
         synchronized (PPApplication.eventsHandlerMutex) {
@@ -2118,16 +2078,10 @@ class DataWrapper {
             //        /*false, monochrome, monochromeValue,*/
             //        startupSource, true,true, false)) {
             if (!DataWrapperStatic.displayPreferencesErrorNotification(profile, null, true, context)) {
-                synchronized (PPApplication.profileActivationMutex) {
-//                    Log.e("DataWrapper.activateProfile", "clear fifo");
-                    List<String> activateProfilesFIFO = new ArrayList<>();
-                    fifoSaveProfiles(activateProfilesFIFO);
-                }
-
                 PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
 //                Log.e("DataWrapper.activateProfileAfterDuration", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
                 // activateProfileAfterDuration is already called from handlerThread
-                _activateProfile(profile, false, startupSource, false, false);
+                _activateProfile(profile, false, startupSource, false, false, itIsUndoProfile);
             }
 
         }
@@ -2435,15 +2389,16 @@ class DataWrapper {
                             activity.finish();
                     },
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    activity
+                    (AppCompatActivity) activity
             );
 
             if (!activity.isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else
         {
@@ -2654,15 +2609,16 @@ class DataWrapper {
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
                     false,
-                    activity
+                    (AppCompatActivity) activity
             );
 
             if (!activity.isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else {
             if (globalRunStopEvents(false, true)) {
@@ -2704,15 +2660,16 @@ class DataWrapper {
                 null,
                 dialogInterface -> activity.finish(),
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
                 false,
-                activity
+                (AppCompatActivity) activity
         );
 
         if (!activity.isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     boolean globalRunStopEvents(boolean stop, boolean manualRestart) {
@@ -3107,7 +3064,6 @@ class DataWrapper {
         if (profileId == Profile.PROFILE_NO_ACTIVATE)
             return;
 
-//        PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper.fifoAddProfile", "PPApplication.profileActivationMutex");
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
             int size = activateProfilesFIFO.size();
