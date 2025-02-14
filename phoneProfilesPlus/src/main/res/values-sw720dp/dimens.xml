@@ -35,6 +35,7 @@
     <dimen name="editor_header_profile_icon_size">40dp</dimen>
     <dimen name="editor_header_profile_name_size">16sp</dimen>
     <dimen name="editor_header_profile_preferences_indicator_height">15dp</dimen>
+
     <dimen name="listItem_profileList_withIndicator_height">54dp</dimen>
     <dimen name="listItem_profileList_withoutIndicator_height">48dp</dimen>
     <dimen name="listItem_height">48dp</dimen>
