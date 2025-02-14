@@ -2280,9 +2280,9 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">使用暗色模式更改图标亮度</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">使用暗色模式更改设置指示灯亮度</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">使用暗色模式更改已激活情景箭头和标记的亮度</string>
-    <string name="important_info_edge_panel_replacement1">Since OneUI 7, Edge Panels from third-party applications are no longer supported. And therefore it was removed from PPP.</string>
-    <string name="important_info_edge_panel_replacement2">A replacement was created, a widget called \"Panel\". It can be used as a standalone widget, but it can also be used in the \"Panels\" application, which can replace Edge Panels from OneUI. The advantage is that the application can be used in other devices, not only in those from Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Link to the \"Panels\" application</string>
-    <string name="location_editor_title_not_actual_location">Sorry, the actual location is not currently being determined. Please wait for it to be determined.</string>
-    <string name="location_editor_rename_with_address_message">Rename location name with actual address?</string>
+    <string name="important_info_edge_panel_replacement1">由于OneUI 7的边缘面板不再支持第三方应用程序, 因此从PPP中删除。</string>
+    <string name="important_info_edge_panel_replacement2">创建一个叫做“面板”的部件。 它可以用作独立的小部件，但也可以在“面板”应用程序中使用，它可以替换来自OneUI的边缘面板。 其优点在于，应用程序可以用于其他装置，而不仅仅是三星的装置。</string>
+    <string name="important_info_edge_panel_replacement3">链接到“面板”应用程序</string>
+    <string name="location_editor_title_not_actual_location">对不起，当前未确定实际位置。请等待确定。</string>
+    <string name="location_editor_rename_with_address_message">将位置名称重命名为实际地址？</string>
 </resources>
