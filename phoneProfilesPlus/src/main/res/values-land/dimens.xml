@@ -70,7 +70,7 @@
 
     <bool name="forceHideHeaderOrBottomBar">true</bool>
 
-    <dimen name="profile_event_preference_toolbar_height">50dp</dimen>
+    <dimen name="profile_event_preference_toolbar_height">52dp</dimen>
     <dimen name="preference_category_title_with_arrow_margin">1dp</dimen>
     <dimen name="preference_title_text_size">15sp</dimen>
     <dimen name="preference_subtitle_text_size">14dp</dimen>
