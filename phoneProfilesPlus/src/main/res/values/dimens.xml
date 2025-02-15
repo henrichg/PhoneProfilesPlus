@@ -163,8 +163,10 @@
 
     <dimen name="one_row_profile_list_marker_height">3dp</dimen>
 
+    <dimen name="profile_event_preference_toolbar_height">60dp</dimen>
     <dimen name="preference_title_text_size">17sp</dimen>
     <dimen name="preference_subtitle_text_size">16dp</dimen>
+    <dimen name="preference_category_title_with_arrow_margin">5dp</dimen>
     <dimen name="activity_title_text_size">18sp</dimen>
 
     <dimen name="auto_size_max_text_size">16dp</dimen>

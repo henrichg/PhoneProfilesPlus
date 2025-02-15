@@ -65,7 +65,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_profile_events_preferences);
+        setContentView(R.layout.activity_profile_event_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -76,7 +76,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
         //noinspection DataFlowIssue
-        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
+        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences)+"   ");
         toolbar.setTitle(getString(R.string.profile_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);

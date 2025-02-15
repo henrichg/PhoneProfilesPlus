@@ -487,7 +487,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
             //noinspection DataFlowIssue
-            toolbar.setSubtitle(__activity.getString(R.string.title_activity_profile_preferences));
+            toolbar.setSubtitle(__activity.getString(R.string.title_activity_profile_preferences)+"   ");
             toolbar.setTitle(__activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
         }, 200);
 

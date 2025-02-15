@@ -91,7 +91,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_profile_events_preferences);
+        setContentView(R.layout.activity_profile_event_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -101,7 +101,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
-        toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
+        toolbar.setSubtitle(getString(R.string.title_activity_event_preferences)+"   ");
         toolbar.setTitle(getString(R.string.event_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);

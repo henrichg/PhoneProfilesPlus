@@ -395,7 +395,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
             //noinspection DataFlowIssue
-            toolbar.setSubtitle(__activity.getString(R.string.title_activity_event_preferences));
+            toolbar.setSubtitle(__activity.getString(R.string.title_activity_event_preferences)+"   ");
             toolbar.setTitle(__activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
 

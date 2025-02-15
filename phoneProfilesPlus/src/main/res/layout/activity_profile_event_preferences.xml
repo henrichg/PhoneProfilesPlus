@@ -13,7 +13,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_preferences_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/profile_event_preference_toolbar_height"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
         app:titleTextAppearance="@style/PreferenceToolbarTitleText"
@@ -47,11 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/preference_category_title_with_arrow_margin"
+        android:layout_marginBottom="@dimen/preference_category_title_with_arrow_margin"
         android:text=""
-        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-        android:textSize="17sp"/>
+        style="@style/PreferenceToolbarTitleText" />
+<!--        android:textSize="17sp"/>-->
 
     <View
         android:id="@+id/activity_preferences_divider"
