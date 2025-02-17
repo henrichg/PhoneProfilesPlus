@@ -94,6 +94,7 @@ public class RunApplicationEditorDialog extends DialogFragment
         applicationList = new ArrayList<>();
     }
 
+    @SuppressLint("DialogFragmentCallbacksDetector")
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -141,6 +142,9 @@ public class RunApplicationEditorDialog extends DialogFragment
 
                 startApplicationDelay = iValue;
             }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
+            mDelayValueDialog.setOnShowListener(dialog -> GlobalGUIRoutines.lockScreenOrientation(activity));
+            mDelayValueDialog.setOnCancelListener(dialog -> GlobalGUIRoutines.unlockScreenOrientation(activity));
+
             GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
             delayValueRoot.setOnClickListener(view -> {
                         mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
