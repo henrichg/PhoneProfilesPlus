@@ -433,7 +433,7 @@ class EventPreferencesTime extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_TIME_ENABLED) ||
             key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+            Preference preference = prefMng.findPreference(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 String summary = context.getString(R.string.event_preference_sensor_time_locationSystemSettings_summary);
                 int titleColor;

@@ -21,11 +21,13 @@
         app:key="eventNFCCreateReadNFCTagShortcut"
         app:title="@string/event_preferences_nfc_createReadNFCTagShortcut"
         app:summary="@string/event_preferences_nfc_createReadNFCTagShortcut_summary"
+        app:dependency="eventNFCEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="eventNFCCreateReadNFCTagShortcutInfo"
         app:title="@string/event_preferences_nfc_createReadNFCTagShortcut"
         app:summary="@string/event_preferences_nfc_createReadNFCTagShortcut_summary_info"
+        app:dependency="eventNFCEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
