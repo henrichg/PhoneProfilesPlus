@@ -150,6 +150,23 @@
                     android:background="@drawable/pp_button_background_selector"
                     style="?android:attr/borderlessButtonStyle" />
 
+                <Button
+                    android:id="@+id/contacts_multiselect_pref_dlg_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/pref_dlg_contacts_button_refresh"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:minHeight="@dimen/button_min_height"
+                    android:paddingStart="@dimen/button_padding"
+                    android:paddingEnd="@dimen/button_padding"
+                    android:minWidth="@dimen/button_min_width"
+                    android:textColor="@color/action_button_text_color"
+                    android:textStyle="bold"
+                    android:background="@drawable/pp_button_background_selector"
+                    style="?android:attr/borderlessButtonStyle" />
+
             </LinearLayout>
 
         </LinearLayout>

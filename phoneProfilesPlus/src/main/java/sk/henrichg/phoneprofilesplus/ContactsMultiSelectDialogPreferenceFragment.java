@@ -90,7 +90,13 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 for (Contact contact : preference.contactList)
                     contact.checked = false;
             }
-            refreshListView(true);
+            refreshListView(true, false);
+        });
+        final Button refreshButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_refresh);
+        //noinspection DataFlowIssue
+        refreshButton.setOnClickListener(v -> {
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
+            refreshListView(false, true);
         });
 
         if (Permissions.grantContactsDialogPermissions(prefContext)) {
@@ -112,7 +118,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             handler.postDelayed(() -> {
                 ContactsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
                 if (fragment != null)
-                    fragment.refreshListView(false);
+                    fragment.refreshListView(false, false);
             }, 200);
         }
 
@@ -139,7 +145,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
 
             @Override
             public void afterTextChanged(Editable s) {
-                refreshListView(false);
+                refreshListView(false, false);
             }
         });
 
@@ -176,22 +182,25 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         contactsFilter.setText(filter.displayName);
     }
 
-    void refreshListView(final boolean forUnselect) {
-        asyncTask = new RefreshListViewAsyncTask(forUnselect, preference, this, prefContext);
+    void refreshListView(final boolean forUnselect, final boolean forceRefresh) {
+        asyncTask = new RefreshListViewAsyncTask(forUnselect, forceRefresh, preference, this, prefContext);
         asyncTask.execute();
     }
 
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
         final boolean forUnselect;
+        final boolean forceRefresh;
         private final WeakReference<ContactsMultiSelectDialogPreference> preferenceWeakRef;
         private final WeakReference<ContactsMultiSelectDialogPreferenceFragment> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
         public RefreshListViewAsyncTask(final boolean forUnselect,
+                                        final boolean forceRefresh,
                                         ContactsMultiSelectDialogPreference preference,
                                         ContactsMultiSelectDialogPreferenceFragment fragment,
                                         Context prefContext) {
             this.forUnselect = forUnselect;
+            this.forceRefresh = forceRefresh;
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.fragmentWeakRef = new WeakReference<>(fragment);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -222,8 +231,8 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 // must be first
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                if (contactsCache == null) {
-                    // cache not created, create it
+                if ((contactsCache == null) || forceRefresh) {
+                    // cache not created, or must be force refreshing, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/, false);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
@@ -247,15 +256,18 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                     } else {
                         // wait for cache end
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
-                        while (contactsCache.getCaching())
+                        int i = 0;
+                        while (contactsCache.getCaching() && (i < 30)) {
                             GlobalUtils.sleep(100);
+                            ++i;
+                        }
                     }
                 }
                 //must be seconds, this ads groups into contacts
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactGroupsCache()");
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-                if (contactGroupsCache == null) {
-                    // cache not created, create it
+                if ((contactGroupsCache == null) || forceRefresh) {
+                    // cache not created, or must be force refreshing, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                     PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/, false);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
@@ -278,8 +290,11 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                     } else {
                         // wait for cache end
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
-                        while (contactGroupsCache.getCaching())
+                        int i = 0;
+                        while (contactGroupsCache.getCaching() && (i < 30)) {
                             GlobalUtils.sleep(100);
+                            ++i;
+                        }
                     }
                 }
 

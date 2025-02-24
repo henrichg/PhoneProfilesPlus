@@ -1722,16 +1722,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG)) {
             ContactsMultiSelectDialogPreference preference1 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
             if (preference1 != null)
-                preference1.refreshListView(false);
+                preference1.refreshListView(false, false);
             preference1 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACTS);
             if (preference1 != null)
-                preference1.refreshListView(false);
+                preference1.refreshListView(false, false);
             ContactGroupsMultiSelectDialogPreference preference2 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACT_GROUPS);
             if (preference2 != null)
-                preference2.refreshListView(false);
+                preference2.refreshListView(false, false);
             preference2 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACT_GROUPS);
             if (preference2 != null)
-                preference2.refreshListView(false);
+                preference2.refreshListView(false, false);
         }
         /*if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
