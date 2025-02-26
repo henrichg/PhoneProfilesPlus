@@ -82,7 +82,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         //if (Build.VERSION.SDK_INT >= 34)

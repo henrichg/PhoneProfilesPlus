@@ -72,11 +72,12 @@ class GlobalGUIRoutines {
     static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar,
                                 /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
-                                boolean forLocationEditor, boolean forPreference)
+                                boolean forLocationEditor, boolean forPreference,
+                                boolean forDonation)
     {
         int theme = getTheme(forPopup, withToolbar,
                 /*forEditor,*/ forActivator,
-                forDialog, forLocationEditor, forPreference,
+                forDialog, forLocationEditor, forPreference, forDonation,
                 activity);
         if (theme != 0)
             activity.setTheme(theme);
@@ -85,6 +86,7 @@ class GlobalGUIRoutines {
     static int getTheme(boolean forPopup, boolean withToolbar,
                         /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
                         boolean forLocationEditor, boolean forPreferences,
+                        boolean forDonation,
                         Context context) {
         // !!! this must be called
         /*String applicationTheme =*/ ApplicationPreferences.applicationTheme(context, true);
@@ -124,6 +126,27 @@ class GlobalGUIRoutines {
                     return R.style.ActivatorTheme_dayNight;
             }*/
             return R.style.ActivatorTheme_dayNight;
+        }
+        else
+        if (forDonation) {
+            /*if (PPApplication.deviceIsOnePlus) {
+                if (Build.VERSION.SDK_INT >= 33)
+                    return R.style.DialogTheme_dayNight;
+                else
+                    return R.style.DialogTheme_dayNight_noRipple;
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.DialogTheme_dayNight_noRipple;
+            }
+            else {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                        (Build.VERSION.SDK_INT >= 33))
+                    return R.style.DialogTheme_dayNight_samsung;
+                else
+                    return R.style.DialogTheme_dayNight;
+            }*/
+            return R.style.DonationTheme_dayNight;
         }
         else
         if (forDialog) {

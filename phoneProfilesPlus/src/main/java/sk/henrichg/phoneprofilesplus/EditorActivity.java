@@ -242,7 +242,7 @@ public class EditorActivity extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false, false);
 
         //if (Build.VERSION.SDK_INT >= 34)
         //    EdgeToEdge.enable(this);

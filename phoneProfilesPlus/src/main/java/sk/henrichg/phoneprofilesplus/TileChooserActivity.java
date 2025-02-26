@@ -23,7 +23,7 @@ public class TileChooserActivity extends AppCompatActivity {
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false);
+        GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false, false);
 
         super.onCreate(savedInstanceState);
 

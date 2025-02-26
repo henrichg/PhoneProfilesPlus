@@ -1759,7 +1759,7 @@ class DataWrapper {
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(activity, true, true, false, false, false, false);
+            GlobalGUIRoutines.setTheme(activity, true, true, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             final Profile _profile = profile;
@@ -1842,7 +1842,7 @@ class DataWrapper {
         }
         else
         {
-            GlobalGUIRoutines.setTheme(activity, true, true, false, false, false, false);
+            GlobalGUIRoutines.setTheme(activity, true, true, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             if (profile._askForDuration/* && interactive*/) {

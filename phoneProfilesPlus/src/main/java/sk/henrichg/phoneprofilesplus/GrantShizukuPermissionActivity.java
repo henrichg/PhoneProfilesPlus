@@ -196,7 +196,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
                 getString(R.string.grant_shizuku_permissions_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                 getString(R.string.grant_shizuku_permissions_text2);
 
-        GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+        GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),

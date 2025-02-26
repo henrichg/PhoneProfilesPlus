@@ -101,7 +101,7 @@ public class ActivatorActivity extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false);
+        GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false, false);
 
         super.onCreate(savedInstanceState);
 

@@ -599,7 +599,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 _showRequestValue.append(context.getString(R.string.permissions_for_profile_text3));
 
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
@@ -1084,7 +1084,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                 PPAlertDialog dialog = new PPAlertDialog(
@@ -1220,7 +1220,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                 CharSequence message;

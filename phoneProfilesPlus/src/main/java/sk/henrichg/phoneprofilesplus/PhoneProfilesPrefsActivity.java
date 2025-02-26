@@ -67,7 +67,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         //if (Build.VERSION.SDK_INT >= 34)
