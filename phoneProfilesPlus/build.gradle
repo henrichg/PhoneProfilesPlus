@@ -7,7 +7,7 @@ android {
     // Also in PPPE a PPPPS is this and must be the same!
     signingConfigs {
         debug {
-            storeFile file('/home/henrichg/Projekty/AndroidStudio/AndroidReleases/henrichg.keystore')
+            storeFile file(System.env.HOME + '/Projekty/AndroidStudio/AndroidReleases/henrichg.keystore')
             storePassword 'H3nr1sk0Gr0n6220'
             keyAlias 'henrichg'
             keyPassword 'H3nr1sk0Gr0n6220'
