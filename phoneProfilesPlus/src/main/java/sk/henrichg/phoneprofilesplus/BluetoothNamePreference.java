@@ -222,7 +222,7 @@ public class BluetoothNamePreference extends DialogPreference {
         }
 
         public static final Creator<BluetoothNamePreference.SavedState> CREATOR =
-                new Creator<BluetoothNamePreference.SavedState>() {
+                new Creator<>() {
                     public BluetoothNamePreference.SavedState createFromParcel(Parcel in)
                     {
                         return new BluetoothNamePreference.SavedState(in);

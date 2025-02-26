@@ -38,25 +38,27 @@ class RunApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<RunApp
 
     @Override
     public void onBindViewHolder(@NonNull final RunApplicationsDialogPreferenceViewHolder holder, int position) {
-        Application application = preference.applicationsList.get(position);
+        CApplication application = preference.applicationsList.get(position);
         holder.bindApplication(application);
 
-        holder.dragHandle.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
+        if (holder.dragHandle != null) {
+            holder.dragHandle.setOnTouchListener((v, event) -> {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mDragStartListener.onStartDrag(holder);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.performClick();
+                        break;
+                    default:
+                        break;
+                }
+                /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
                     mDragStartListener.onStartDrag(holder);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    v.performClick();
-                    break;
-                default:
-                    break;
-            }
-            /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                mDragStartListener.onStartDrag(holder);
-            }*/
-            return false;
-        });
+                }*/
+                return false;
+            });
+        }
     }
 
     @Override

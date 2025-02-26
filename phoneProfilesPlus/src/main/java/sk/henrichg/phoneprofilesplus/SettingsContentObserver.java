@@ -289,7 +289,6 @@ class SettingsContentObserver  extends ContentObserver {
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode=" + PPApplication.savedBrightnessMode);
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness=" + PPApplication.savedBrightness);
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
-
                 //PowerManager pm = context.getSystemService(PowerManager.class);
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
@@ -299,6 +298,8 @@ class SettingsContentObserver  extends ContentObserver {
                     // application is started
 
                     if (EventStatic.getGlobalEventsRunning(context)) {
+
+//                        PPApplicationStatic.logE("[BLUETOOTH] SettingsContentObserver.onChange", "%%%%%%%%%%%%%%%%");
 
                         // !!! must be used MainWorker with delay and REPLACE, because is often called this onChange
                         // for change volumes

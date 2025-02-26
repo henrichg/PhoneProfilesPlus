@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/customColorPrefDialog_titleBarDivider"
@@ -12,8 +12,9 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,13 +23,17 @@
         android:paddingTop="10dp"
         android:paddingBottom="13dp"
         android:orientation="vertical">
+-->
 
         <com.kunzisoft.androidclearchroma.view.ChromaColorView
             android:id="@+id/custom_color_chroma_color_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/divider_margin"
+            android:paddingEnd="@dimen/divider_margin" />
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <View
         android:id="@+id/customColorPrefDialog_buttonsDivider"
@@ -37,6 +42,6 @@
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
         android:layout_marginBottom="3dp"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

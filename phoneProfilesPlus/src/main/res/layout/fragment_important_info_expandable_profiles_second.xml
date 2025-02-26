@@ -76,7 +76,8 @@
         android:id="@+id/fragment_important_info_liLa2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,14 +98,15 @@
             android:src="@drawable/ic_traffic_light_all"
             android:contentDescription="@string/important_infor_traffic_light_icon" />
     </LinearLayout>
-    <TextView
+
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/important_info_profile_activation_text9"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_profile_activation9"
         android:textStyle="bold" />
-    <!--<TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/important_info_profile_activation_text10"
@@ -119,6 +121,72 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_profile_activation11"
         android:textStyle="bold" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:text="@string/run_stop_indicator_light"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            android:textColor="@color/trafficLightGreenColor"
+            android:id="@+id/activity_info_profile_activation_light1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_activation_text9"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            android:textStyle="bold"
+            android:id="@+id/activity_info_profile_activation_light_text1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:text="@string/run_stop_indicator_light"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            android:textColor="@color/trafficLightOrangeColor"
+            android:id="@+id/activity_info_profile_activation_light2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_activation_text10"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            android:textStyle="bold"
+            android:id="@+id/activity_info_profile_activation_light_text2" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:text="@string/run_stop_indicator_light"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            android:textColor="@color/trafficLightRedColor"
+            android:id="@+id/activity_info_profile_activation_light3" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_activation_text11"
+            android:textSize="@dimen/gui_info_popup_text_size"
+            android:textStyle="bold"
+            android:id="@+id/activity_info_profile_activation_light_text3" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -148,7 +216,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/important_info_profile_pppps_howTo_2"
+        android:text="@string/important_info_profile_pppps_howTo_3"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_profile_pppps_howTo_2" />
     <TextView

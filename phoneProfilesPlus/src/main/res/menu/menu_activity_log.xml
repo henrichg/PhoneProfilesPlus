@@ -7,7 +7,7 @@
     <item android:id="@+id/menu_activity_log_reload"
         android:title="@string/menu_activity_log_reload"
         android:orderInCategory="90"
-        app:showAsAction="always|withText"
+        app:showAsAction="always"
         android:icon="@drawable/ic_action_activity_log_reload"
         tools:ignore="AlwaysShowAction" />
     <item
@@ -20,12 +20,12 @@
         android:id="@+id/menu_activity_log_play_pause"
         android:title="@string/menu_activity_log_pause"
         android:orderInCategory="150"
-        app:showAsAction="never|withText"
+        app:showAsAction="never"
         android:icon="@drawable/ic_action_activity_log_pause" />
     <item
         android:id="@+id/menu_activity_log_clear"
         android:title="@string/menu_activity_log_clear"
         android:orderInCategory="200"
-        app:showAsAction="never|withText"
+        app:showAsAction="never"
         android:icon="@drawable/ic_action_delete_all" />
 </menu>

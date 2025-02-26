@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/brightnessPrefDialog_titleBarDivider"
@@ -12,7 +12,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="-5dp"
+            android:drawableStart="@android:color/transparent"
+            android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
             android:buttonTint="@color/checkbox_radiobutton_color"
             android:text="@string/dialog_backup_settings_alert_checkBox" />
 

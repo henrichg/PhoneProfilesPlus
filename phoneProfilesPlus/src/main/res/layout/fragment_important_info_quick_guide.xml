@@ -2,8 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_quick_guide_scroll_view"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:fadeScrollbars="false" >
+    android:layout_height="wrap_content">
+<!--    android:fadeScrollbars="false" >-->
 
     <LinearLayout
         android:id="@+id/fragment_quick_guide_liLa1"
@@ -36,8 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="@string/important_info_contact"
+            android:text="@string/important_info_support"
             android:textSize="@dimen/important_info_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/accent_color"
             android:id="@+id/activity_info_notification_contact" />
 
         <!--

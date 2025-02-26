@@ -117,7 +117,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
             // start events handler
 
-//            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] VPNNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_VPN");
+//            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] VPNNetworkCallback._doConnection", "SENSOR_TYPE_VPN");
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_VPN});
 

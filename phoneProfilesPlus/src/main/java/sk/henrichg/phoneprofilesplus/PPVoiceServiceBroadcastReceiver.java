@@ -20,8 +20,7 @@ public final class PPVoiceServiceBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //C0330j.m960e(intent, "intent");
         String action = intent.getAction();
-        if (action.equals(PPVoiceService.ACTION_ASSISTANT)) {
-
+        if ((action != null) && action.equals(PPVoiceService.ACTION_ASSISTANT)) {
             voiceService.showSession(intent.getExtras(), 0);
         }
     }

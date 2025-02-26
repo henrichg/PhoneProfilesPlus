@@ -14,6 +14,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -26,7 +28,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
     private BrightnessDialogPreference preference;
 
     // Layout widgets.
-    CheckBox noChangeChBox = null;
+    SwitchCompat noChangeChBox = null;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox automaticChBox = null;
@@ -38,6 +40,12 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
 
     private final Handler savedBrightnessHandler = new Handler(Looper.getMainLooper());
     private Runnable savedBrightnessRunnable = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override

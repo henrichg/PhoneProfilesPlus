@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,7 +42,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     private boolean activityStarted = false;
     boolean firstStartOfPPP = false;
-    boolean privacyPolicyDisplayed = false;
+    //boolean privacyPolicyDisplayed = false;
 
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
@@ -98,6 +97,10 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false);
 
         super.onCreate(savedInstanceState);
@@ -158,10 +161,11 @@ public class ActivatorActivity extends AppCompatActivity
             getSupportActionBar().setTitle(R.string.title_activity_activator);
 
         eventsRunStopIndicator = findViewById(R.id.act_prof_run_stop_indicator);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivatorActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(R.layout.popup_window_run_stop_indicator_for_activator, getDataWrapper(), ActivatorActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -183,6 +187,7 @@ public class ActivatorActivity extends AppCompatActivity
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                GlobalGUIRoutines.dimBehindPopupWindow(popup);
             }
         });
 
@@ -231,7 +236,7 @@ public class ActivatorActivity extends AppCompatActivity
 
                 refreshGUI(/*true,*/ false);
 
-                showPrivacyPolicy();
+                //showPrivacyPolicy();
             }
         }
         else {
@@ -242,7 +247,7 @@ public class ActivatorActivity extends AppCompatActivity
         //-----------------------------------------------------------------------------------------
 
     }
-
+    /*
     private void showPrivacyPolicy() {
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             if (firstStartOfPPP && (!privacyPolicyDisplayed)) {
@@ -258,6 +263,7 @@ public class ActivatorActivity extends AppCompatActivity
             }
         }
     }
+    */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -273,7 +279,7 @@ public class ActivatorActivity extends AppCompatActivity
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ImportantInfoNotification.showInfoNotification(appContext);
                 ProfileListNotification.drawNotification(true, appContext);
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                //DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
                 DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
@@ -391,6 +397,8 @@ public class ActivatorActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
@@ -573,18 +581,10 @@ public class ActivatorActivity extends AppCompatActivity
                 editor.apply();
                 ApplicationPreferences.prefActivatorActivityStartTargetHelps = false;
 
-                //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int titleTextColor = R.color.tabTargetHelpTitleTextColor;
                 int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-                //boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
@@ -592,12 +592,16 @@ public class ActivatorActivity extends AppCompatActivity
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
+                        //noinspection DataFlowIssue
                         targets.add(
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -609,12 +613,16 @@ public class ActivatorActivity extends AppCompatActivity
                     }
                     try {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
+                        //noinspection DataFlowIssue
                         targets.add(
                                 TapTarget.forView(restartEventsActionView, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -631,12 +639,16 @@ public class ActivatorActivity extends AppCompatActivity
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
+                        //noinspection DataFlowIssue
                         targets.add(
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -736,12 +748,6 @@ public class ActivatorActivity extends AppCompatActivity
                     Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                     LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
-                    /*if (ActivatorActivity.getInstance() != null) {
-                        Fragment fragment = ActivatorActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
-                        if (fragment != null) {
-                            ((ActivatorListFragment) fragment).showTargetHelps();
-                        }
-                    }*/
                 }, 500);
             }
         }
@@ -758,7 +764,6 @@ public class ActivatorActivity extends AppCompatActivity
                         PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
-                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }
@@ -822,7 +827,7 @@ public class ActivatorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals(StringConstants.EXTRA_ACTIVATOR)) {
+                if ((what != null) && what.equals(StringConstants.EXTRA_ACTIVATOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

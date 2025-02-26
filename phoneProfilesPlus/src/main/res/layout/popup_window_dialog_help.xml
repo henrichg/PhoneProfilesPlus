@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_help_popup_window_root"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardElevation="0dp"
-    app:cardMaxElevation="0dp"
-    app:cardCornerRadius="@dimen/popup_window_corner_radius"
-    app:cardUseCompatPadding="true">
-
-    <LinearLayout
-        android:id="@+id/dialog_help_popup_window_linla"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/popupwindow_background" >
+    android:background="@drawable/popupwindow_background" >
 
         <include layout="@layout/popup_window_title" />
 
@@ -25,7 +14,11 @@
             android:layout_width="@dimen/popup_widow_dialog_help_width"
             android:layout_height="match_parent"
             android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false" >
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="12dp">
+<!--            android:fadeScrollbars="false" >-->
 
             <LinearLayout
                 android:id="@+id/dialog_help_popup_window_liLa1"
@@ -48,6 +41,4 @@
 
         </ScrollView>
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

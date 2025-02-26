@@ -10,6 +10,10 @@ public class ExitApplicationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -57,14 +61,16 @@ public class ExitApplicationActivity extends AppCompatActivity {
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
+                false,
                 this
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     @Override

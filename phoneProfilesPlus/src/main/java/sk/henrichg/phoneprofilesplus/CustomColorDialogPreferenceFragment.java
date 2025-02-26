@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
@@ -17,6 +18,12 @@ public class CustomColorDialogPreferenceFragment extends PreferenceDialogFragmen
     private CustomColorDialogPreference preference;
 
     ChromaColorView chromaColorView;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -34,6 +41,7 @@ public class CustomColorDialogPreferenceFragment extends PreferenceDialogFragmen
         super.onBindDialogView(view);
 
         chromaColorView = view.findViewById(R.id.custom_color_chroma_color_view);
+        //noinspection DataFlowIssue
         chromaColorView.setCurrentColor(preference.value);
         chromaColorView.setColorMode(ColorMode.values()[preference.chromaColorMode]);
         chromaColorView.setIndicatorMode(IndicatorMode.values()[preference.chromaIndicatorMode]);

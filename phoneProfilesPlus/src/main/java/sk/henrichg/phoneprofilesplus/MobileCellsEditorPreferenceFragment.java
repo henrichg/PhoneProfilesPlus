@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -21,13 +23,16 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -72,13 +77,20 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
     private RelativeLayout emptyList;
-    private AlertDialog progressDialog = null;
+    //private AlertDialog progressDialog = null;
+    private PopupWindow popupWindow = null;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
 
     private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver = null;
     private DeleteCellNamesFromEventsAsyncTask deleteCellNamesFromEventsAsyncTask = null;
     private RenameCellNamesFromEventsAsyncTask renameCellNamesFromEventsAsyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -104,14 +116,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             preference.resetSummary();
         }*/
 
-        if ((progressDialog != null) && progressDialog.isShowing())
-            progressDialog.dismiss();
-        if ((mRenameDialog != null) && mRenameDialog.mDialog.isShowing())
-            mRenameDialog.mDialog.dismiss();
-        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
-            mSelectorDialog.mDialog.dismiss();
-        if ((mSortDialog != null) && mSortDialog.mDialog.isShowing())
-            mSortDialog.mDialog.dismiss();
+        if ((popupWindow != null) && popupWindow.isShowing())
+            popupWindow.dismiss();
+        //if ((progressDialog != null) && progressDialog.isShowing())
+        //    progressDialog.dismiss();
+        if (mRenameDialog != null)
+            mRenameDialog.dismiss();
+        if (mSelectorDialog != null)
+            mSelectorDialog.dismiss();
+        if (mSortDialog != null)
+            mSortDialog.dismiss();
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
@@ -185,9 +199,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             //if (preference.value.isEmpty())
             //    cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
             //else
+            //noinspection DataFlowIssue
             cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_new);
         }
         else
+            //noinspection DataFlowIssue
             cellFilter.setText(preference.cellFilter);
         cellFilter.addTextChangedListener(new TextWatcher() {
             @Override
@@ -233,11 +249,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             preference.refreshListView(false, false/*, Integer.MAX_VALUE*/);
         });
 
-        mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)prefContext, preference, true, null);
+        mMobileCellsFilterDialog = new MobileCellNamesDialog((AppCompatActivity)prefContext, preference, true, null);
         cellFilter.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
-                    mMobileCellsFilterDialog.show();
+                    mMobileCellsFilterDialog.showDialog();
         });
 
         /*
@@ -251,6 +267,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
         Button editButton = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
         //TooltipCompat.setTooltipText(editButton, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
+        //noinspection DataFlowIssue
         editButton.setOnClickListener(v -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
@@ -267,7 +284,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         case 0:
                                         case 1:
                                             mobileCellNamesDialog = new MobileCellNamesDialog(
-                                                    (Activity) prefContext, preference, false,
+                                                    (AppCompatActivity) prefContext, preference, false,
                                                     (dialog1, which1) -> {
                                                         EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                                         if (cellName != null) {
@@ -278,11 +295,11 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                             renameCellNamesFromEventsAsyncTask.execute();
                                                         }
                                                     });
-                                            mobileCellNamesDialog.show();
+                                            mobileCellNamesDialog.showDialog();
                                             break;
                                         case 2:
                                             mobileCellNamesDialog = new MobileCellNamesDialog(
-                                                    (Activity) prefContext, preference, false,
+                                                    (AppCompatActivity) prefContext, preference, false,
                                                     (dialog1, which12) -> {
                                                         EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                                         if (cellName != null) {
@@ -293,20 +310,21 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                             renameCellNamesFromEventsAsyncTask.execute();
                                                         }
                                                     });
-                                            mobileCellNamesDialog.show();
+                                            mobileCellNamesDialog.showDialog();
                                             break;
                                     }
                                     //dialog.dismiss();
                                 },
                                 null,
-                                false,
-                                (Activity) prefContext);
+                                //false,
+                                (AppCompatActivity) getActivity());
 
-                        mRenameDialog.show();
+                        mRenameDialog.showDialog();
                     }
                 }
         });
         AppCompatImageButton changeSelectionIcon = view.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.mobile_cells_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(view13 -> {
             if (getActivity() != null)
@@ -325,7 +343,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                         break;
                                     case 1:
                                         MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                                                (Activity) prefContext, preference, false,
+                                                (AppCompatActivity) prefContext, preference, false,
                                                 (dialog1, which1) -> {
                                                     EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                                     if (cellName != null) {
@@ -336,7 +354,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                                         refreshListView(false, false/*, Integer.MAX_VALUE*/);
                                                     }
                                                 });
-                                        mobileCellNamesDialog.show();
+                                        mobileCellNamesDialog.showDialog();
                                         break;
                                     case 2:
                                         preference.value = "";
@@ -350,13 +368,14 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 //dialog.dismiss();
                             },
                             null,
-                            false,
-                            (Activity) prefContext);
+                            //false,
+                            (AppCompatActivity) getActivity());
 
-                    mSelectorDialog.show();
+                    mSelectorDialog.showDialog();
                 }
         });
         final AppCompatImageButton sortIcon = view.findViewById(R.id.mobile_cells_pref_dlg_sort);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(sortIcon, getString(R.string.mobile_cells_pref_dlg_button_tooltip));
         sortIcon.setOnClickListener(v -> {
             if (getActivity() != null)
@@ -372,72 +391,70 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 refreshListView(false, false/*, Integer.MAX_VALUE*/);
                             },
                             null,
-                            false,
-                            getActivity());
-                    mSortDialog.show();
+                            //false,
+                            (AppCompatActivity) getActivity());
+                    mSortDialog.showDialog();
                 }
         });
 
         final AppCompatImageButton helpIcon = view.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> DialogHelpPopupWindow.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.mobile_cells_pref_dlg_help, false));
 
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
-            TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
-            boolean simIsReady = false;
-            if (telephonyManager != null) {
-                if (Permissions.checkPhone(prefContext.getApplicationContext())) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
-                    if (mSubscriptionManager != null) {
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException e) {
-                            PPApplicationStatic.recordException(e);
-                            //Log.e("MobileCellsEditorPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
-                        }
-                        if (subscriptionList != null) {
-                            int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
-                            for (int i = 0; i < size; i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                        // sim card is ready
-                                        simIsReady = true;
-                                        break;
+            //noinspection DataFlowIssue
+            rescanButton.setOnClickListener(v -> {
+                if (Permissions.grantMobileCellsDialogPermissions(prefContext, true)) {
+                    boolean simIsReady = false;
+                    TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(context);
+                        if (mSubscriptionManager != null) {
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            } catch (SecurityException e) {
+                                PPApplicationStatic.recordException(e);
+                                //Log.e("MobileCellsEditorPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
+                            }
+                            if (subscriptionList != null) {
+                                int size = subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/
+                                for (int i = 0; i < size; i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    if (subscriptionInfo != null) {
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                            // sim card is ready
+                                            simIsReady = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            }
-            if (simIsReady) {
-                rescanButton.setOnClickListener(v -> {
-                    if (Permissions.grantMobileCellsDialogPermissions(prefContext, true)) {
+                    if (simIsReady)
                         refreshListView(true, true/*, Integer.MAX_VALUE*/);
-                    }
-                });
-            }
-            else
-                rescanButton.setEnabled(false);
-
+                }
+            });
         }
         else
+            //noinspection DataFlowIssue
             rescanButton.setEnabled(false);
 
         if ((phoneCount > 1)) {
             addCellButtonSIM1 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim1);
+            //noinspection DataFlowIssue
             TooltipCompat.setTooltipText(addCellButtonSIM1, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM1.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM1 != null) {
                     MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                            (Activity) prefContext, preference, false,
+                            (AppCompatActivity) prefContext, preference, false,
                             (dialog1, which) -> {
                                 EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                 if (cellName != null) {
@@ -451,15 +468,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     refreshListView(false, false/*, preference.registeredCellDataSIM1.cellId*/);
                                 }
                             });
-                    mobileCellNamesDialog.show();
+                    mobileCellNamesDialog.showDialog();
                 }
             });
             addCellButtonSIM2 = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_sim2);
+            //noinspection DataFlowIssue
             TooltipCompat.setTooltipText(addCellButtonSIM2, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonSIM2.setOnClickListener(v -> {
                 if (preference.registeredCellDataSIM2 != null) {
                     MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                            (Activity) prefContext, preference, false,
+                            (AppCompatActivity) prefContext, preference, false,
                             (dialog1, which) -> {
                                 EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                 if (cellName != null) {
@@ -473,16 +491,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     refreshListView(false, false/*, preference.registeredCellDataSIM2.cellId*/);
                                 }
                             });
-                    mobileCellNamesDialog.show();
+                    mobileCellNamesDialog.showDialog();
                 }
             });
         } else {
             addCellButtonDefault = view.findViewById(R.id.mobile_cells_pref_dlg_addCellButton_simDefault);
+            //noinspection DataFlowIssue
             TooltipCompat.setTooltipText(addCellButtonDefault, getString(R.string.mobile_cells_pref_dlg_add_button_tooltip));
             addCellButtonDefault.setOnClickListener(v -> {
                 if (preference.registeredCellDataDefault != null) {
                     MobileCellNamesDialog mobileCellNamesDialog = new MobileCellNamesDialog(
-                            (Activity) prefContext, preference, false,
+                            (AppCompatActivity) prefContext, preference, false,
                             (dialog1, which) -> {
                                 EditText cellName = ((AlertDialog)dialog1).findViewById(R.id.mobile_cell_names_dlg_name);
                                 if (cellName != null) {
@@ -496,7 +515,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     refreshListView(false, false/*, preference.registeredCellDataDefault.cellId*/);
                                 }
                             });
-                    mobileCellNamesDialog.show();
+                    mobileCellNamesDialog.showDialog();
                 }
             });
         }
@@ -518,14 +537,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         if ((phoneCount > 1)) {
             if (!sim1Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
+                //noinspection DataFlowIssue
                 connectedCellRelLa.setVisibility(View.GONE);
             }
             if (!sim2Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim2);
+                //noinspection DataFlowIssue
                 connectedCellRelLa.setVisibility(View.GONE);
             }
 
             connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_simDefault);
+            //noinspection DataFlowIssue
             connectedCellRelLa.setVisibility(View.GONE);
         }
         else {
@@ -541,6 +563,7 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
         locationSystemSettingsRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         setLocationEnableStatus();
@@ -596,15 +619,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
-                                    getActivity()
+                                    false,
+                                    (AppCompatActivity) getActivity()
                             );
 
                             if (getActivity() != null)
                                 if (!getActivity().isFinishing())
-                                    dialog.show();
+                                    dialog.showDialog();
                         }
                     }
                 });
@@ -750,14 +775,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            getActivity()
+                            false,
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             }
@@ -778,19 +805,21 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     for (String valueCell : splits) {
-                                        boolean cellIdEquals = false;
-                                        long vCellId = Long.parseLong(valueCell);
-                                        if (vCellId <= Integer.MAX_VALUE)
-                                            cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
-                                        else if (vCellId != Long.MAX_VALUE)
-                                            cellIdEquals = vCellId == cell.cellIdLong;
-                                        if (cellIdEquals) {
-                                            db.deleteMobileCell(cell.cellId, cell.cellIdLong);
-                                            preference.removeCellId(cell.cellId, cell.cellIdLong);
-                                            if ((cell.name != null) && (!cell.name.isEmpty())) {
-                                                if (deletedCellNames.length() > 0)
-                                                    deletedCellNames.append("|");
-                                                deletedCellNames.append(cell.name);
+                                        if (!valueCell.isEmpty()) {
+                                            boolean cellIdEquals = false;
+                                            long vCellId = Long.parseLong(valueCell);
+                                            if (vCellId <= Integer.MAX_VALUE)
+                                                cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
+                                            else if (vCellId != Long.MAX_VALUE)
+                                                cellIdEquals = vCellId == cell.cellIdLong;
+                                            if (cellIdEquals) {
+                                                db.deleteMobileCell(cell.cellId, cell.cellIdLong);
+                                                preference.removeCellId(cell.cellId, cell.cellIdLong);
+                                                if ((cell.name != null) && (!cell.name.isEmpty())) {
+                                                    if (deletedCellNames.length() > 0)
+                                                        deletedCellNames.append("|");
+                                                    deletedCellNames.append(cell.name);
+                                                }
                                             }
                                         }
                                     }
@@ -803,14 +832,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            getActivity()
+                            false,
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             } else if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_unselected) {
@@ -830,15 +861,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     boolean isSelected = false;
                                     for (String valueCell : splits) {
-                                        boolean cellIdEquals = false;
-                                        long vCellId = Long.parseLong(valueCell);
-                                        if (vCellId <= Integer.MAX_VALUE)
-                                            cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
-                                        else if (vCellId != Long.MAX_VALUE)
-                                            cellIdEquals = vCellId == cell.cellIdLong;
-                                        if (cellIdEquals) {
-                                            isSelected = true;
-                                            break;
+                                        if (!valueCell.isEmpty()) {
+                                            boolean cellIdEquals = false;
+                                            long vCellId = Long.parseLong(valueCell);
+                                            if (vCellId <= Integer.MAX_VALUE)
+                                                cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cell.cellId);
+                                            else if (vCellId != Long.MAX_VALUE)
+                                                cellIdEquals = vCellId == cell.cellIdLong;
+                                            if (cellIdEquals) {
+                                                isSelected = true;
+                                                break;
+                                            }
                                         }
                                     }
                                     if (!isSelected) {
@@ -859,14 +892,16 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            getActivity()
+                            false,
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             } else {
@@ -971,15 +1006,17 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (prefContext != null)) {
                 if (showProgress) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                    dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationEventMobileCellConfigureCells);
 
-                    LayoutInflater inflater = LayoutInflater.from(prefContext);
-                    View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                    dialogBuilder.setView(layout);
-
-                    fragment.progressDialog = dialogBuilder.create();
-                    fragment.progressDialog.show();
+                    LayoutInflater inflater = (LayoutInflater)
+                            prefContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                    //noinspection DataFlowIssue
+                    @SuppressLint("InflateParams")
+                    View popupView = inflater.inflate(R.layout.dialog_progress_bar, null);
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // lets taps outside the popup also dismiss it
+                    fragment.popupWindow = new PopupWindow(popupView, width, height, focusable);
+                    fragment.popupWindow.showAtLocation(fragment.cellsListView, Gravity.CENTER, 0, 0);
                 }
             }
         }
@@ -1276,16 +1313,18 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                             // add only cell in _value = selected for edited event
                             String[] splits = _value.split(StringConstants.STR_SPLIT_REGEX);
                             for (String cell : splits) {
-                                boolean cellIdEquals = false;
-                                long vCellId = Long.parseLong(cell);
-                                if (vCellId <= Integer.MAX_VALUE)
-                                    cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cellData.cellId);
-                                else if (vCellId != Long.MAX_VALUE)
-                                    cellIdEquals = vCellId == cellData.cellIdLong;
+                                if (!cell.isEmpty()) {
+                                    boolean cellIdEquals = false;
+                                    long vCellId = Long.parseLong(cell);
+                                    if (vCellId <= Integer.MAX_VALUE)
+                                        cellIdEquals = (vCellId != Integer.MAX_VALUE) && (vCellId == cellData.cellId);
+                                    else if (vCellId != Long.MAX_VALUE)
+                                        cellIdEquals = vCellId == cellData.cellIdLong;
 
-                                if (cellIdEquals) {
-                                    _filteredCellsList.add(cellData);
-                                    break;
+                                    if (cellIdEquals) {
+                                        _filteredCellsList.add(cellData);
+                                        break;
+                                    }
                                 }
                             }
                         } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
@@ -1490,8 +1529,10 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
 
                 final Handler handler = new Handler(prefContext.getMainLooper());
                 handler.post(() -> {
-                    if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
-                        fragment.progressDialog.dismiss();
+                    if ((fragment.popupWindow != null) && fragment.popupWindow.isShowing())
+                        fragment.popupWindow.dismiss();
+                    //if ((fragment.progressDialog != null) && fragment.progressDialog.isShowing())
+                    //    fragment.progressDialog.dismiss();
                 });
 
             }

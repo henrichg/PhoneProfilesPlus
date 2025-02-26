@@ -8,12 +8,19 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
     private PPMultiSelectListPreference preference;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -35,6 +42,7 @@ public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmen
 
         PPMultiSelectListPreferenceAdapter listAdapter = new PPMultiSelectListPreferenceAdapter(prefContext, preference);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             CheckBox chb = item.findViewById(R.id.pp_multiselect_list_pref_dlg_item_checkbox);
 
@@ -57,6 +65,7 @@ public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmen
                 preference.value.add(_valueFromPos);
                 _found = true;
             }
+            //noinspection DataFlowIssue
             chb.setChecked(_found);
             //preference.persistValue();
         });

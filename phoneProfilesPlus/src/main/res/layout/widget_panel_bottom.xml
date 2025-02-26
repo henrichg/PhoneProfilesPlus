@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_panel_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/pppColorSemitransparent">
+
+    <ImageView
+        android:id="@+id/widget_panel_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_background_5"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/widget_panel_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+<!--        android:layout_above="@+id/widget_panel_bottom_bar">-->
+
+        <LinearLayout
+            android:id="@+id/widget_panel_liLa1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:id="@+id/widget_panel_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/widget_list_item">
+
+                <ImageView
+                    android:id="@+id/widget_panel_header_profile_icon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="6dp"
+                    android:contentDescription="@string/profile_preferences_profileIcon"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_profile_default" />
+
+                <TextView
+                    android:id="@+id/widget_panel_header_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/profile_name_default"
+                    android:textSize="15dp"
+                    android:fontFamily="sans-serif-condensed"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/widget_panel_header_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"/>
+
+            <GridView
+                android:id="@+id/widget_panel_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:columnWidth="70dp"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
+                android:verticalSpacing="5dp"
+                android:numColumns="1"
+                android:stretchMode="columnWidth"
+                android:divider="@android:color/transparent"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:listSelector="@drawable/widget_list_item" />
+
+            <TextView
+                android:id="@+id/widget_panel_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/profile_list_empty"
+                android:gravity="center"
+                android:textSize="21dp"
+                tools:ignore="SpUsage" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/widget_panel_rounded_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_border_5"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

@@ -18,10 +18,10 @@ class MultiSelectListDialogAdapter extends BaseAdapter
     {
         this.dialog = dialog;
 
-        this.items = dialog.activity.getResources().getStringArray(itemsRes);
+        this.items = dialog.getResources().getStringArray(itemsRes);
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
-        inflater = LayoutInflater.from(dialog.activity);
+        inflater = LayoutInflater.from(dialog.getContext());
     }
 
     public int getCount() {

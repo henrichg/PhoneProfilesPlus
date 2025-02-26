@@ -31,9 +31,9 @@ class EventPreferencesApplication extends EventPreferences {
     int _duration;
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
-    static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
-    static final String PREF_EVENT_APPLICATION_DURATION = "eventApplicationDuration";
-    static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
+    private static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
+    private static final String PREF_EVENT_APPLICATION_DURATION = "eventApplicationDuration";
+    private static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
     //static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
     //static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     //static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
@@ -90,7 +90,7 @@ class EventPreferencesApplication extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_application_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context));
@@ -102,7 +102,7 @@ class EventPreferencesApplication extends EventPreferences {
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
@@ -117,14 +117,14 @@ class EventPreferencesApplication extends EventPreferences {
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                     String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
-                        String packageName = Application.getPackageName(splits[0]);
-                        String activityName = Application.getActivityName(splits[0]);
+                        String packageName = CApplication.getPackageName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         PackageManager packageManager = context.getPackageManager();
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
                                 app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
-                                if (app != null)
+                                //if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
                                 selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
@@ -139,18 +139,18 @@ class EventPreferencesApplication extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_duration)).append(StringConstants.STR_COLON_WITH_SPACE);
                 if (this._duration == 0)
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_applications_duration_unlimited), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, this._duration / 60);
                     calendar.set(Calendar.MINUTE, this._duration % 60);
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(
                             DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis())),
-                                disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
@@ -279,8 +279,8 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -327,7 +327,7 @@ class EventPreferencesApplication extends EventPreferences {
         int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_8_1_3)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context) && isAllConfigured(context)) {
             if (PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
@@ -345,7 +345,7 @@ class EventPreferencesApplication extends EventPreferences {
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED) != null) {
                 final boolean accessibilityEnabled =
-                        PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, false
+                        PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, false
                                 /*, "EventPreferencesApplication.checkPreferences"*/);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
                 if (applicationsPreference != null) {
@@ -484,7 +484,7 @@ class EventPreferencesApplication extends EventPreferences {
 
             String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
-                String packageName = Application.getPackageName(split);
+                String packageName = CApplication.getPackageName(split);
                 if (packageName.equals(_packageName)) {
                     packageNameFound = true;
                     break;
@@ -508,17 +508,17 @@ class EventPreferencesApplication extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.applicationPassed = false;
 
-                if (PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_8_1_3, true, true
+                if (PPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_REQUIRED, true, true
                         /*, "EventPreferencesApplication.doHandleEvent"*/)) {
                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = _applications.split(StringConstants.STR_SPLIT_REGEX);
                         for (String split : splits) {
-                            String packageName = Application.getPackageName(split);
+                            String packageName = CApplication.getPackageName(split);
 
                             if (foregroundApplication.equals(packageName)) {
                                 if (_startTime > 0) {

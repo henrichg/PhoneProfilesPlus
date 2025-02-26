@@ -22,9 +22,10 @@ public class ContactsContentObserverWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        if (PPApplication.blockContactContentObserver)
-            // observwer is blocked (for exmple by profile/event preferences activity)
-            return Result.success();
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserverWorker.doWork", "PPApplication.blockContactContentObserver="+PPApplication.blockContactContentObserver);
+//        if (PPApplication.blockContactContentObserver)
+//            // observwer is blocked (for exmple by profile/event preferences activity)
+//            return Result.success();
 
         try {
 //            long start = System.currentTimeMillis();
@@ -33,12 +34,28 @@ public class ContactsContentObserverWorker extends Worker {
             Context appContext = context.getApplicationContext();
 
             // must be first
-            PPApplicationStatic.createContactsCache(appContext, false, true/*, true*/);
+//            PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserverWorker.doWork", "PPApplicationStatic.createContactsCache()");
+            boolean cotactsOK = PPApplicationStatic.createContactsCache(appContext, false, true/*, true*/, true);
             //must be seconds, this ads groups into contacts
-            PPApplicationStatic.createContactGroupsCache(appContext, false/*, true*//*, true*/);
+//            PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserverWorker.doWork", "PPApplicationStatic.createContactGroupsCache()");
+            boolean cotactGroupsOK = PPApplicationStatic.createContactGroupsCache(appContext, false/*, true*//*, true*/, true);
 
-            EventsHandler eventsHandler = new EventsHandler(appContext);
-            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
+            if (cotactsOK && cotactGroupsOK) {
+//            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ContactsContentObserverWorker.doWork", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
+                //Log.e("ContactsContentObserverWorker.doWork", "(1) PPApplication.repeatCreateContactCacheIfSQLError="+PPApplication.repeatCreateContactCacheIfSQLError);
+                PPApplication.repeatCreateContactCacheIfSQLError = 0;
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
+            } else {
+                //Log.e("ContactsContentObserverWorker.doWork", "(2) PPApplication.repeatCreateContactCacheIfSQLError="+PPApplication.repeatCreateContactCacheIfSQLError);
+                if (PPApplication.repeatCreateContactCacheIfSQLError < 3) {
+                    // repeat
+                    ++PPApplication.repeatCreateContactCacheIfSQLError;
+                    ContactsContentObserver.enqueueContactsContentObserverWorker();
+                } else
+                    // do not repeat
+                    PPApplication.repeatCreateContactCacheIfSQLError = 0;
+            }
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;

@@ -191,7 +191,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference {
         }
 
         public static final Creator<CalendarsMultiSelectDialogPreference.SavedState> CREATOR =
-                new Creator<CalendarsMultiSelectDialogPreference.SavedState>() {
+                new Creator<>() {
                     public CalendarsMultiSelectDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new CalendarsMultiSelectDialogPreference.SavedState(in);

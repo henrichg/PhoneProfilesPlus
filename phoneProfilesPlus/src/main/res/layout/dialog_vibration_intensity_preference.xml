@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/volumePrefDialogRoot"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vibrationIntensityPrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
-        android:id="@+id/volumePrefDialogNoChange_titleBarDivider"
+        android:id="@+id/vibrationIntensityPrefDialogNoChange_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,16 +25,20 @@
         android:paddingBottom="10dp"
         android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/volumePrefDialogNoChange"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/vibrationIntensityPrefDialogNoChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/checkbox_radiobutton_color"
+            android:layout_marginStart="5dp"
             android:textSize="16sp"
-            android:text="@string/volume_pref_dialog_no_change_chb" />
+            android:text="@string/volume_pref_dialog_no_change_chb"
+            android:layout_marginBottom="15dp"
+            app:switchPadding="@dimen/switch_padding"
+            app:trackTint="@color/switch_track_color"
+            app:thumbTint="@color/switch_thumb_color" />
 
         <TextView
-            android:id="@+id/volumePrefDialogValueText"
+            android:id="@+id/vibrationIntensityPrefDialogValueText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -42,10 +47,18 @@
             tools:ignore="HardcodedText" />
 
         <SeekBar
-            android:id="@+id/volumePrefDialogSeekbar"
+            android:id="@+id/vibrationIntensityPrefDialogSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:splitTrack="false" />
+            android:layout_marginStart="@dimen/seekbar_margin"
+            android:layout_marginEnd="@dimen/seekbar_margin"
+            android:minHeight="3dp"
+            android:maxHeight="3dp"
+            android:progressDrawable="@drawable/seek_bar_drawable"
+            android:thumb="@drawable/seek_bar_thumb"
+            android:thumbTint="@color/accent_color"
+            android:splitTrack="false"
+            />
 
     </LinearLayout>
 </LinearLayout>

@@ -39,10 +39,10 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-          ImageView icon;
+        ImageView icon;
         View mark;
-          //int position;
-        }
+        //int position;
+    }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 

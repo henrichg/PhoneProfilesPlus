@@ -171,7 +171,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
             if (PhoneProfilesService.getInstance() != null) {
                 // start events handler
 
-//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "SENSOR_TYPE_RADIO_SWITCH");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
             }

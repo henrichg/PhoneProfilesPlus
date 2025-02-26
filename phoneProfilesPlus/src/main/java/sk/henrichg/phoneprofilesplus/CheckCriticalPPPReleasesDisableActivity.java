@@ -20,6 +20,10 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -89,14 +93,16 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
                         CheckCriticalPPPReleasesDisableActivity.this.finish();
                     },
                     null,
+                    null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     this
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else {
             if (isFinishing())

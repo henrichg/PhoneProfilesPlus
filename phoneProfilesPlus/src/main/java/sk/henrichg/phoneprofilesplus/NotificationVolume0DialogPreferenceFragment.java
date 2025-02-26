@@ -34,12 +34,14 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
         //final String uriId = TonesHandler.getPhoneProfilesSilentUri(preference.prefContext, RingtoneManager.TYPE_NOTIFICATION);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.prefContext);
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), dialogBuilder, false,
+                        preference.getDialogTitle(), null);
 
         LayoutInflater inflater = ((Activity)preference.prefContext).getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_notification_volume_0_preference, null);
         dialogBuilder.setView(layout);
 
-        dialogBuilder.setTitle(preference.getDialogTitle());
+        //dialogBuilder.setTitle(preference.getDialogTitle());
 
         String message = "";
 
@@ -91,6 +93,7 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
 //        });
 
         TextView text = layout.findViewById(R.id.notification_0_pref_dialog_text);
+        //noinspection DataFlowIssue
         text.setText(message);
 
         //phoneProfilesSilentRB = layout.findViewById(R.id.notification_0_pref_dialog_PhoneProfilesSilent_rb);
@@ -98,6 +101,7 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
 
         //if (uriId.isEmpty()) {
         //    phoneProfilesSilentRB.setVisibility(View.GONE);
+            //noinspection DataFlowIssue
             noneRB.setChecked(true);
         //}
         //else {

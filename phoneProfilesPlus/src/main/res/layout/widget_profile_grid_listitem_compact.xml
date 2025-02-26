@@ -10,7 +10,7 @@
     android:paddingBottom="5dp"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:background="@drawable/widget_ripple_list_item">
+    android:background="@drawable/widget_list_item">
 
     <ImageView
         android:id="@+id/widget_profile_list_item_profile_icon"

@@ -8,7 +8,7 @@
     <PreferenceCategory
         app:title="@string/profile_preferences_category_profileIdentification"
         app:layout="@layout/mp_preference_category" >
-        <EditTextPreference
+        <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
             app:key="prf_pref_profileName"
             app:summary="@string/profile_preferences_profileName"
             app:title="@string/profile_preferences_profileName"
@@ -20,12 +20,13 @@
             app:key="prf_pref_profileIcon"
             app:title="@string/profile_preferences_profileIcon"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="prf_pref_showInActivator"
             app:title="@string/profile_preferences_showInActivator"
             app:summary="@string/profile_preferences_showInActivator_summary"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -99,6 +100,12 @@
             app:key="prf_pref_ledAccessoriesCategoryRoot"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsLedAccessories" />
+
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:title="@string/profile_preferences_category_notifications"
+            app:key="prf_pref_NotificationsCategoryRoot"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsNotifications" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/profile_preferences_category_application"

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="7dp"
-    android:paddingBottom="7dp">
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height">
 
     <RadioButton
         android:id="@+id/pp_list_pref_dlg_item_radiobutton"
@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text=""
-        android:textSize="16sp" />
+        android:textSize="@dimen/listItem_label_text_size" />
 
 </LinearLayout>

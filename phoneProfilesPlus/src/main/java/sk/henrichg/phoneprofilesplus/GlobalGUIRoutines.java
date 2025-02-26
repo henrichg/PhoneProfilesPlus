@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -24,11 +25,17 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.material.color.DynamicColors;
 
 import java.lang.ref.WeakReference;
@@ -36,7 +43,10 @@ import java.util.List;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 
+@SuppressLint("WrongCommentType")
 class GlobalGUIRoutines {
+
+    static int countScreenOrientationLocks = 0;
 
     static final int ICON_SIZE_DP = 50;
 
@@ -49,6 +59,11 @@ class GlobalGUIRoutines {
     static final String OPAQUENESS_LIGHTNESS_75 = "75";
     static final String OPAQUENESS_LIGHTNESS_87 = "87";
     static final String OPAQUENESS_LIGHTNESS_100 = "100";
+
+    // do not used because some dynamic notification, widgets has its own laypouts and in it
+    // are colors configured = keep material componets lib to 1.10.0
+    //static DynamicTonalPaletteSamsung.ColorScheme lightColorScheme = null;
+    //static DynamicTonalPaletteSamsung.ColorScheme darkColorScheme = null;
 
     private GlobalGUIRoutines() {
         // private constructor to prevent instantiation
@@ -76,17 +91,22 @@ class GlobalGUIRoutines {
 //        if (forEditor)
 //            Log.e("GlobalGUIRoutines.getTheme", "applicationTheme="+applicationTheme);
 
+        /*
         int miuiVersion = -1;
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
 //            Log.e("GlobalGUIRoutines.getTheme", "Build.VERSION.INCREMENTAL="+Build.VERSION.INCREMENTAL);
             String[] splits = Build.VERSION.INCREMENTAL.split("\\.");
 //            Log.e("GlobalGUIRoutines.getTheme", "splits[0]="+splits[0]);
-            miuiVersion = Integer.parseInt(splits[0].substring(1));
-//            Log.e("GlobalGUIRoutines.getTheme", "miuiVersion="+miuiVersion);
+            try {
+                miuiVersion = Integer.parseInt(splits[0].substring(1));
+//                Log.e("GlobalGUIRoutines.getTheme", "miuiVersion="+miuiVersion);
+            }
+            catch (Exception ignored) {}
         }
+        */
 
         if (forActivator) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.ActivatorTheme_dayNight;
                 else
@@ -102,11 +122,12 @@ class GlobalGUIRoutines {
                     return R.style.ActivatorTheme_dayNight_samsung;
                 else
                     return R.style.ActivatorTheme_dayNight;
-            }
+            }*/
+            return R.style.ActivatorTheme_dayNight;
         }
         else
         if (forDialog) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.DialogTheme_dayNight;
                 else
@@ -122,11 +143,12 @@ class GlobalGUIRoutines {
                     return R.style.DialogTheme_dayNight_samsung;
                 else
                     return R.style.DialogTheme_dayNight;
-            }
+            }*/
+            return R.style.DialogTheme_dayNight;
         }
         else
         if (forLocationEditor) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
                 else
@@ -136,12 +158,12 @@ class GlobalGUIRoutines {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
             }
-            else
+            else*/
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
         }
         else
         if (forPreferences) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
                 else
@@ -151,12 +173,12 @@ class GlobalGUIRoutines {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
                 return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
             }
-            else
+            else*/
                 return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
         }
         else
         if (forPopup) {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight;
@@ -176,15 +198,15 @@ class GlobalGUIRoutines {
                 else
                     return R.style.PopupTheme_dayNight_noRipple;
             }
-            else {
+            else {*/
                 if (withToolbar)
                     return R.style.PopupTheme_withToolbar_dayNight;
                 else
                     return R.style.PopupTheme_dayNight;
-            }
+            //}
         }
         else {
-            if (PPApplication.deviceIsOnePlus) {
+            /*if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar) {
                         return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
@@ -204,12 +226,12 @@ class GlobalGUIRoutines {
                 } else
                     return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
             }
-            else {
+            else {*/
                 if (withToolbar) {
                     return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
                 } else
                     return R.style.Theme_PhoneProfilesTheme_dayNight;
-            }
+            //}
         }
     }
 
@@ -347,13 +369,14 @@ class GlobalGUIRoutines {
 //                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "enabled="+enabled);
 //                    }
                     if (errorColor && enabled)
-                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.error_color)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.errorColor)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 preference.setTitle(sbt);
             }
         }
     }
 
+    // WARNING: DO NOT CALL IT WITH APPLICATION CONTEXT, LINGT/DARK COLOR NOT WORKING WITH IT
     static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, /*int iconResId,*/ Context context) {
         item.setEnabled(enabled);
         //Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
@@ -362,7 +385,7 @@ class GlobalGUIRoutines {
         if (enabled)
             item.setColorFilter(null);
         else
-            item.setColorFilter(context.getColor(R.color.activityDisabledTextColor), PorterDuff.Mode.SRC_IN);
+            item.setColorFilter(ContextCompat.getColor(context, R.color.activityDisabledTextColor), PorterDuff.Mode.SRC_IN);
     }
 
 /*    private static Drawable convertDrawableToGrayScale(Drawable drawable) {
@@ -632,11 +655,11 @@ class GlobalGUIRoutines {
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusWaiting, value, true);
         return value.data;*/
         if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
-            return ContextCompat.getColor(context, R.color.sensor_pass_status_passed);
+            return ContextCompat.getColor(context, R.color.sensorPassStatusPassedColor);
         else if (passStatus == EventPreferences.SENSOR_PASSED_NOT_PASSED)
-            return ContextCompat.getColor(context, R.color.sensor_pass_status_not_passed);
+            return ContextCompat.getColor(context, R.color.sensorPassStatusNotPassedColor);
         else
-            return ContextCompat.getColor(context, R.color.sensor_pass_status_waiting);
+            return ContextCompat.getColor(context, R.color.sensorPassStatusWaitingColor);
     }
 
     /*
@@ -705,7 +728,8 @@ class GlobalGUIRoutines {
         //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
         timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
-        timeDurationPicker.setSeparatorColor(ContextCompat.getColor(context, R.color.dialog_divider));
+        timeDurationPicker.setDisplaySeparatorColor(ContextCompat.getColor(context, R.color.timeDurationPickerDisplayDividerColor));
+        timeDurationPicker.setButtonsSeparatorColor(ContextCompat.getColor(context, R.color.dialogDividerColor));
     }
     /*
     static int getThemeSecondaryTextColor(final Context context) {
@@ -799,19 +823,19 @@ class GlobalGUIRoutines {
     */
 
     @SuppressLint("SourceLockedOrientationActivity")
-    static void lockScreenOrientation(Activity activity, boolean toDefault) {
+    static void lockScreenOrientation(Activity activity) {
         try {
-            if ((Build.VERSION.SDK_INT != 26) && (!toDefault)) {
+            if ((Build.VERSION.SDK_INT != 26)/* && (!toDefault)*/) {
                 int currentOrientation = activity.getResources().getConfiguration().orientation;
                 if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
                 } else {
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 }
-            }
-            else
+            } else
                 // this set device to default orientation (for mobile to portrait, for 10' tablets to landscape)
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            ++countScreenOrientationLocks;
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplicationStatic.recordException(e);
@@ -820,7 +844,10 @@ class GlobalGUIRoutines {
 
     static void unlockScreenOrientation(Activity activity) {
         try {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            if (countScreenOrientationLocks <= 1)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            if (countScreenOrientationLocks > 0)
+                --countScreenOrientationLocks;
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplicationStatic.recordException(e);
@@ -852,7 +879,7 @@ class GlobalGUIRoutines {
                                        final boolean forActivator,
                                        final boolean forShowInActivator,
                                        final boolean forRunStopEvent,
-                                       final Activity activity) {
+                                       final AppCompatActivity activity) {
         if (activity == null)
             return;
 
@@ -1005,14 +1032,16 @@ class GlobalGUIRoutines {
                         null,
                         null,
                         null,
+                        null,
                         true/*!forActivator*/, true/*!forActivator*/,
                         false, false,
+                        false,
                         false,
                         activity
                 );
 
                 if (!activity.isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
             }
         }
     }
@@ -1048,5 +1077,158 @@ class GlobalGUIRoutines {
         return intentLaunch;
     }
     */
+
+    /*
+     * Converts an HSL color value to RGB. Conversion formula
+     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+     * Assumes h, s, and l are contained in the set [0, 1] and
+     * returns r, g, and b in the set [0, 255].
+     *
+     * @param h       The hue
+     * @param s       The saturation
+     * @param l       The lightness
+     * @return int array, the RGB representation
+     * @noinspection JavadocLinkAsPlainText
+    static int[] hslToRgb(float h, float s, float l){
+        float r, g, b;
+
+        if (s == 0f) {
+            r = g = b = l; // achromatic
+        } else {
+            float q = l < 0.5f ? l * (1 + s) : l + s - l * s;
+            float p = 2 * l - q;
+            r = hueToRgb(p, q, h + 1f/3f);
+            g = hueToRgb(p, q, h);
+            b = hueToRgb(p, q, h - 1f/3f);
+        }
+        //noinspection UnnecessaryLocalVariable
+        int[] rgb = {to255(r), to255(g), to255(b)};
+        return rgb;
+    }
+    static int to255(float v) {
+        return (int)Math.min(255,256*v);
+    }
+    */
+
+    /* Helper method that converts hue to rgb
+    static float hueToRgb(float p, float q, float t) {
+        if (t < 0f)
+            t += 1f;
+        if (t > 1f)
+            t -= 1f;
+        if (t < 1f/6f)
+            return p + (q - p) * 6f * t;
+        if (t < 1f/2f)
+            return q;
+        if (t < 2f/3f)
+            return p + (q - p) * (2f/3f - t) * 6f;
+        return p;
+    }
+    */
+
+    /*
+     * Converts an RGB color value to HSL. Conversion formula
+     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+     * Assumes pR, pG, and bpBare contained in the set [0, 255] and
+     * returns h, s, and l in the set [0, 1].
+     *
+     * @param pR       The red color value
+     * @param pG       The green color value
+     * @param pB       The blue color value
+     * @return float array, the HSL representation
+     * @noinspection JavadocLinkAsPlainText
+    static float[] rgbToHsl(int pR, int pG, int pB) {
+        float r = pR / 255f;
+        float g = pG / 255f;
+        float b = pB / 255f;
+
+        float max = (r > g && r > b) ? r : Math.max(g, b);
+        float min = (r < g && r < b) ? r : Math.min(g, b);
+
+        float h, s, l;
+        l = (max + min) / 2.0f;
+
+        if (max == min) {
+            h = s = 0.0f;
+        } else {
+            float d = max - min;
+            s = (l > 0.5f) ? d / (2.0f - max - min) : d / (max + min);
+
+            if (r > g && r > b)
+                h = (g - b) / d + (g < b ? 6.0f : 0.0f);
+
+            else if (g > b)
+                h = (b - r) / d + 2.0f;
+
+            else
+                h = (r - g) / d + 4.0f;
+
+            h /= 6.0f;
+        }
+
+        //noinspection UnnecessaryLocalVariable
+        float[] hsl = {h, s, l};
+        return hsl;
+    }
+    */
+
+    static void dimBehindPopupWindow(PopupWindow popupWindow) {
+        View container;
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            container = (View) popupWindow.getContentView().getParent();
+        //} else {
+        //    container = popupWindow.getContentView();
+        //}
+        if (popupWindow.getBackground() != null) {
+            container = (View) container.getParent();
+        }
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (wm != null) {
+            WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+            p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND; // add a flag here instead of clear others
+            p.dimAmount = 0.6f;
+            wm.updateViewLayout(container, p);
+        }
+    }
+
+    static int changeLigtnessOfColor(int color, int lightness) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
+        //if (hsv[1] < 0.45f)
+        //    hsv[1] = 0.45f;  // saturation component
+        //if (forLightTheme)
+        hsv[2] = lightness / 255f;
+        return Color.HSVToColor(hsv);
+    }
+
+    static void setCustomDialogTitle(Context context, AlertDialog.Builder dialogBuilder,
+                                     boolean showSubtitle, CharSequence _title, CharSequence _subtitle) {
+        //String s = _title.toString();
+        //if (s.startsWith(StringConstants.CHAR_BULLET +" "))
+        //    _title = TextUtils.replace(_title, new String[]{StringConstants.CHAR_BULLET +" "}, new CharSequence[]{""});
+
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        //noinspection IfStatementWithIdenticalBranches
+        if (showSubtitle) {
+            @SuppressLint("InflateParams")
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
+            TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
+            titleText.setText(_title);
+            TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
+            //noinspection DataFlowIssue
+            subtitleText.setText(_subtitle);
+            dialogBuilder.setCustomTitle(titleView);
+        } else {
+            @SuppressLint("InflateParams")
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtihout_subtitle, null);
+            TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+            //noinspection DataFlowIssue
+            titleText.setText(_title);
+            dialogBuilder.setCustomTitle(titleView);
+        }
+    }
 
 }

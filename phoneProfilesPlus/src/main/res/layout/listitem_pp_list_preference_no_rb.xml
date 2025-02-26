@@ -3,15 +3,18 @@
     android:id="@+id/pp_list_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height">
 
     <TextView
         android:id="@+id/pp_list_pref_dlg_item_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginBottom="@dimen/listItem_single_selection_without_rb_margin"
+        android:layout_marginTop="@dimen/listItem_single_selection_without_rb_margin"
         android:text=""
-        android:textSize="16sp" />
+        android:textSize="@dimen/listItem_label_text_size" />
 
 </LinearLayout>

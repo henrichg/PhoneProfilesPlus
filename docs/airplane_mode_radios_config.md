@@ -15,6 +15,12 @@ Configure your device:
 1. On your device, go into Settings > About > Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
 2. Go into Settings > Developer Options and enable USB Debugging.
 
+NOTE:
+- For some devices must be in Developer options enabled:
+- Xiaomi: "USB debugging (Security settings)".
+- Oppo, OnePlus: "Disable permission monitoring".
+- Maybe similar option exists in another devices.
+
 ##### To get, which radios are configured for airplane mode:
 
 On your PC, open a Command Prompt (Windows), or Terminal (Linux, OSX). Navigate to the folder where you extracted your adb files, and EXACTLY execute the following command:

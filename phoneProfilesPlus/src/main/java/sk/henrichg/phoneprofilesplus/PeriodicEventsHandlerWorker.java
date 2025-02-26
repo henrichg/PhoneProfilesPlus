@@ -88,7 +88,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
 
                     if (callEventsHandler) {
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
                         EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER});
                     }

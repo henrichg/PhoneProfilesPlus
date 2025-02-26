@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -13,16 +11,6 @@ import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
-import android.view.View;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import java.text.Collator;
 import java.util.Calendar;
@@ -303,8 +291,9 @@ class GlobalUtils {
         return null;
     }
 
+    /** @noinspection SameParameterValue*/
     static boolean isServiceRunning(Context context,
-                                    @SuppressWarnings("SameParameterValue") Class<?> serviceClass,
+                                    Class<?> serviceClass,
                                     boolean inForeground) {
         /*boolean isRunning = (instance != null);
         if (inForeground)
@@ -364,7 +353,7 @@ class GlobalUtils {
         if (treeUri == null)
             return "";
         String path1 = treeUri.getPath();
-        if (path1.startsWith("/tree/"))
+        if ((path1 != null) && path1.startsWith("/tree/"))
         {
             String path2 = path1.substring("/tree/".length());
             if (path2.startsWith("primary:"))
@@ -533,9 +522,9 @@ class GlobalUtils {
         return -1;
     }
 
-    /** @noinspection SameParameterValue*/
+    /*
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
-                        final String bodyText, /*final boolean boldLink,*/ final Context context) {
+                        final String bodyText, final Context context) {
         String strNoLink = text + " " + linkText;
         String str2 = strNoLink + StringConstants.CHAR_NEW_LINE + StringConstants.AUTHOR_EMAIL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         Spannable sbt = new SpannableString(str2);
@@ -582,7 +571,7 @@ class GlobalUtils {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    static String getEmailBodyText(/*int bodyType, */Context context) {
+    static String getEmailBodyText(Context context) {
         String body;
         //switch (bodyType) {
         //    case EMAIL_BODY_SUPPORT:
@@ -593,12 +582,8 @@ class GlobalUtils {
         body = body + context.getString(R.string.important_info_email_body_problems) + StringConstants.STR_NEWLINE_WITH_SPACE;
         body = body + context.getString(R.string.important_info_email_body_questions) + StringConstants.STR_NEWLINE_WITH_SPACE;
         body = body + context.getString(R.string.important_info_email_body_suggestions) + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
-        /*        break;
-            case EMAIL_BODY_TRANSLATIONS:
-                body = context.getString(R.string.important_info_email_body_translation_language_to) + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
-                break;
-        }*/
         return body;
     }
+    */
 
 }

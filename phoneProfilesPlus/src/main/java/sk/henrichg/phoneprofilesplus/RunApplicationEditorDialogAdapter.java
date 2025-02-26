@@ -34,7 +34,7 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
     @Override
     public void onBindViewHolder(@NonNull RunApplicationEditorDialogViewHolder holder, int position) {
         // Application to display
-        Application application = dialog.applicationList.get(position);
+        CApplication application = dialog.applicationList.get(position);
 
         holder.bindApplication(application, position);
     }
@@ -43,7 +43,7 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
     @NonNull
     @Override
     public String getSectionName(int position) {
-        Application application = dialog.applicationList.get(position);
+        CApplication application = dialog.applicationList.get(position);
         /*if (application.checked)
             return "*";
         else {*/

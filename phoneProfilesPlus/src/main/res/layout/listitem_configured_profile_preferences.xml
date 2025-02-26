@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:gravity="center_vertical"
+            android:layout_marginTop="-2dp"
             android:textSize="15sp"
             android:text="" />
 
@@ -47,7 +47,7 @@
         android:id="@+id/configured_profile_preferences_preference_decription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="-2dp"
         android:textSize="16sp"
         android:text="" />
 

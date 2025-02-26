@@ -4,11 +4,12 @@
     app:key="categoryProfileListNotification"
     app:title="@string/phone_profiles_pref_category_profile_list_notification">
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="notificationProfileListDisplayNotification"
         app:title="@string/phone_profiles_pref_notificationProfileListDisplayNotification"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="notificationProfileListSystemSettingsProfileList"
@@ -86,7 +87,7 @@
         <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
             app:key="notificationProfileListBackgroundCustomColor"
             app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
-            app:defaultValue="#FFFFFFFF"
+            app:defaultValue="@color/pppColorWhiteWithAlpha"
             app:chromaColorMode="RGB"
             app:chromaIndicatorMode="HEX"
             app:dependency="notificationProfileListDisplayNotification"
@@ -125,12 +126,13 @@
             app:showLighting="true"
             app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="notificationProfileListCustomIconLightness"
             app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
             app:defaultValue="false"
             app:dependency="notificationProfileListDisplayNotification"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     </PreferenceCategory>
 

@@ -64,6 +64,7 @@ class DaysOfWeekPreferenceAdapter extends BaseAdapter
             convertView.setTag(new DayOfWeekViewHolder(textViewDisplayName, checkBox));
 
             // If CheckBox is toggled, update the Contact it is tagged with.
+            //noinspection DataFlowIssue
             checkBox.setOnClickListener(v -> {
                 CheckBox cb = (CheckBox) v;
                 DayOfWeek dayOfWeek = (DayOfWeek) cb.getTag();
@@ -86,6 +87,7 @@ class DaysOfWeekPreferenceAdapter extends BaseAdapter
         checkBox.setTag(calendar);
 
         // Display Contact data
+        //noinspection DataFlowIssue
         textViewDisplayName.setText(calendar.name);
 
         checkBox.setChecked(calendar.checked);

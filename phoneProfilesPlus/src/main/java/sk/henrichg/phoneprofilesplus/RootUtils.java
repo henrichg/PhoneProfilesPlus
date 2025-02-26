@@ -322,6 +322,7 @@ class RootUtils {
 
     public static String getJavaCommandFile(Class<?> mainClass, String fileName, Context context, Object cmdParam) {
         try {
+            //noinspection DataFlowIssue
             String cmd =
                     "#!/system/bin/sh\n" +
                             "base=/system\n" +

@@ -91,8 +91,10 @@ public class MainWorker extends Worker {
 //                    PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "PPApplication.PACKAGE_NAME");
                     continue;
                 }
-//                else
+//                else {
 //                    PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
+//                    PPApplicationStatic.logE("[BLUETOOTH]  ****** MainWorker.doWork", "--------------- START tag=" + tag);
+//                }
 
                 switch (tag) {
                     case ORIENTATION_SCANNER_WORK_TAG:
@@ -106,6 +108,7 @@ public class MainWorker extends Worker {
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType != 0)) {
                             // start events handler
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "HANDLE_EVENTS_VOLUMES_WORK_TAG,HANDLE_EVENTS_BRIGHTNESS_WORK_TAG");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(new int[]{sensorType});
                         }
@@ -119,6 +122,8 @@ public class MainWorker extends Worker {
 
                         if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                            Log.e("MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
+//                            PPApplicationStatic.logE("[IN_LISTENER] MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(new int[]{
                                     EventsHandler.SENSOR_TYPE_RADIO_SWITCH,
@@ -185,7 +190,7 @@ public class MainWorker extends Worker {
 
                                     PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext(), false);
                                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                            .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                                            .setColor(ContextCompat.getColor(appContext, R.color.errorColor))
                                             .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                                             .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                                             .setContentTitle(nTitle) // title for notification
@@ -227,7 +232,7 @@ public class MainWorker extends Worker {
                             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED,
                                     null, null, "");
 
-                            dataWrapper.restartEventsWithDelay(false, true, false, false, PPApplication.ALTYPE_UNDEFINED);
+                            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
@@ -387,7 +392,7 @@ public class MainWorker extends Worker {
                     //     that may be blocked in previous application run
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] MainWorker.doAfterFirstStart", "(1) PPApplication.eventsHandlerMutex");
                     synchronized (PPApplication.eventsHandlerMutex) {
-                        dataWrapper.pauseAllEvents(false, false);
+                        dataWrapper.pauseAllEvents(false, false, true, false, false, false);
                     }
                 }
             }
@@ -419,6 +424,7 @@ public class MainWorker extends Worker {
                     final long _time = now.getTimeInMillis() + gmtOffset;
                     eventsHandler.setEventDeviceBootParameters(_time);
 
+//                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "SENSOR_TYPE_DEVICE_BOOT");
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_DEVICE_BOOT});
 
                 }
@@ -440,7 +446,7 @@ public class MainWorker extends Worker {
                 //     that may be blocked in previous application run
 //                PPApplicationStatic.logE("[SYNCHRONIZED] MainWorker.doAfterFirstStart", "(2) PPApplication.eventsHandlerMutex");
                 synchronized (PPApplication.eventsHandlerMutex) {
-                    dataWrapper.pauseAllEvents(true, false);
+                    dataWrapper.pauseAllEvents(true, false, true, false, false, false);
                 }
             }
 
@@ -477,11 +483,14 @@ public class MainWorker extends Worker {
 
         // must be first
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (1)");
-        PPApplicationStatic.createContactsCache(appContext, true, true/*, true*/);
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactsCache()");
+        PPApplicationStatic.createContactsCache(appContext, true, true/*, true*/, false);
         //must be seconds, this ads groups into contacts
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (2)");
-        PPApplicationStatic.createContactGroupsCache(appContext, true/*, true*//*, true*/);
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactGroupsCache()");
+        PPApplicationStatic.createContactGroupsCache(appContext, true/*, true*//*, true*/, false);
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (3)");
+//        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
 

@@ -3,8 +3,8 @@
     android:id="@+id/mp_preference_material_body_root"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
+    android:paddingTop="13dp"
+    android:paddingBottom="13dp"
     android:layout_weight="1">
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/mp_title_color"
+        android:textSize="16sp"
         android:singleLine="false" />
     <!--    android:textColor="@color/activityPreferenceTitleTextColor"-->
     <!--    android:textSize="16sp"-->

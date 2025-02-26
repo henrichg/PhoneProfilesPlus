@@ -361,7 +361,7 @@ public class ProfileIconPreference extends DialogPreference {
         }
 
         public static final Creator<ProfileIconPreference.SavedState> CREATOR =
-                new Creator<ProfileIconPreference.SavedState>() {
+                new Creator<>() {
                     public ProfileIconPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ProfileIconPreference.SavedState(in);

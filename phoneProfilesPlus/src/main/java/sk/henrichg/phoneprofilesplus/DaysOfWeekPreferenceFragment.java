@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat {
@@ -16,6 +17,12 @@ public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat
     private DaysOfWeekPreference preference;
 
     private DaysOfWeekPreferenceAdapter listAdapter;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -35,6 +42,7 @@ public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat
 
         ListView listView = view.findViewById(R.id.days_of_week_pref_dlg_listview);
 
+        //noinspection DataFlowIssue
         listView.setOnItemClickListener((parent, item, position, id) -> {
             DayOfWeek dayOfWeek = (DayOfWeek)listAdapter.getItem(position);
             dayOfWeek.toggleChecked();
@@ -48,6 +56,7 @@ public class DaysOfWeekPreferenceFragment extends PreferenceDialogFragmentCompat
         preference.getValueDOWMDP();
 
         final Button allNothingButton = view.findViewById(R.id.days_of_week_pref_dlg_button_all_nothing);
+        //noinspection DataFlowIssue
         allNothingButton.setOnClickListener(v -> {
             boolean allIsConfigured = false;
             boolean[] daySet = new boolean[7];

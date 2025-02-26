@@ -2,29 +2,31 @@
 <resources>
 
     <style name="BetterPickersDialogFragment">
-        <item name="bpDialogBackground">@drawable/dialog_full_holo_dark</item>
-        <item name="bpTitleColor">@color/dialog_text_color_holo_dark</item>
         <item name="bpTextColor">@color/dialog_text_color_holo_dark</item>
-        <item name="bpBackspaceIcon">@drawable/ic_backspace_bp</item>
-        <item name="bpClearIcon">@drawable/ic_clear_bp</item>
         <item name="bpKeyBackground">@drawable/key_background</item>
         <item name="bpButtonBackground">@drawable/button_background</item>
-        <item name="bpTitleDividerColor">@color/default_keyboard_indicator_color_dark</item>
         <item name="bpDividerColor">@color/default_divider_color_dark</item>
-        <item name="bpKeyboardIndicatorColor">@color/default_keyboard_indicator_color_dark</item>
+        <item name="bpBackspaceIcon">@drawable/ic_backspace_bp</item>
+        <item name="bpClearIcon">@drawable/ic_clear_bp</item>
+
+<!--        <item name="bpDialogBackground">@drawable/dialog_full_holo_dark</item>-->
+<!--        <item name="bpTitleColor">@color/dialog_text_color_holo_dark</item>-->
+<!--        <item name="bpTitleDividerColor">@color/default_keyboard_indicator_color_dark</item>-->
+<!--        <item name="bpKeyboardIndicatorColor">@color/default_keyboard_indicator_color_dark</item>-->
     </style>
 
     <style name="BetterPickersDialogFragment.Light">
-        <item name="bpDialogBackground">@drawable/dialog_full_holo_light</item>
-        <item name="bpTitleColor">@color/dialog_text_color_holo_light</item>
         <item name="bpTextColor">@color/dialog_text_color_holo_light</item>
-        <item name="bpBackspaceIcon">@drawable/ic_backspace_bp</item>
-        <item name="bpClearIcon">@drawable/ic_clear_bp</item>
         <item name="bpKeyBackground">@drawable/key_background</item>
         <item name="bpButtonBackground">@drawable/button_background</item>
-        <item name="bpTitleDividerColor">@color/default_keyboard_indicator_color_dark</item>
         <item name="bpDividerColor">@color/default_divider_color_light</item>
-        <item name="bpKeyboardIndicatorColor">@color/default_keyboard_indicator_color_light</item>
+        <item name="bpBackspaceIcon">@drawable/ic_backspace_bp</item>
+        <item name="bpClearIcon">@drawable/ic_clear_bp</item>
+
+<!--        <item name="bpTitleDividerColor">@color/default_keyboard_indicator_color_dark</item>-->
+<!--        <item name="bpKeyboardIndicatorColor">@color/default_keyboard_indicator_color_light</item>-->
+<!--        <item name="bpDialogBackground">@drawable/dialog_full_holo_light</item>-->
+<!--        <item name="bpTitleColor">@color/dialog_text_color_holo_light</item>-->
     </style>
 
 </resources>

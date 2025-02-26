@@ -41,7 +41,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     private ImageView packageIcon3;
     private ImageView packageIcon4;
 
-    final List<Application> applicationList;
+    final List<CApplication> applicationList;
 
     public ApplicationsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -99,10 +99,10 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         // change checked state by value
         if (PPApplicationStatic.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
+            List<CApplication> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
                 String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-                for (Application application : cachedApplicationList) {
+                for (CApplication application : cachedApplicationList) {
                     application.checked = false;
                     for (String split : splits) {
                         String packageName;
@@ -130,12 +130,13 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 int i = 0;
                 int ich = 0;
                 while (i < applicationList.size()) {
-                    Application application = applicationList.get(i);
+                    CApplication application = applicationList.get(i);
                     if (removePPApplications == 1) {
                         if (
                                 application.packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
                                 application.packageName.equals(PPApplication.PACKAGE_NAME) ||
-                                application.packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER)
+                                application.packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
+                                application.packageName.equals(PPApplication.PACKAGE_NAME_PPPPS)
                         ) {
                             applicationList.remove(i);
                             continue;
@@ -164,7 +165,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             } else if (systemSettings.equals("accessibility_2.0")) {
                 // PPPExtender
                 int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_8_1_3;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_REQUIRED;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -186,7 +187,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
                 int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_8_1_3;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_REQUIRED;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -223,12 +224,12 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     else
                     if (Application.isIntent(splits[0])) {
                     } else*/ {
-                        String activityName = Application.getActivityName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
                         if (activityName.isEmpty()) {
                             ApplicationInfo app;
                             try {
                                 app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
-                                if (app != null)
+                                //if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (PackageManager.NameNotFoundException e) {
                                 //PPApplicationStatic.recordException(e);
@@ -238,7 +239,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                             }
                         } else {
                             Intent intent = new Intent();
-                            intent.setClassName(Application.getPackageName(splits[0]), activityName);
+                            intent.setClassName(CApplication.getPackageName(splits[0]), activityName);
                             ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                             if (info != null)
                                 prefDataSummary = info.loadLabel(packageManager).toString();
@@ -252,9 +253,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
     private String getSummaryAMSDP()
     {
-        String prefDataSummary = getSummaryForPreferenceCategory(value, systemSettings, _context, true);
-        setSummary(prefDataSummary);
-        return prefDataSummary;
+        return /*String prefDataSummary =*/ getSummaryForPreferenceCategory(value, systemSettings, _context, true);
+        //setSummary(prefDataSummary);
+        //return prefDataSummary;
     }
 
     void setSummaryAMSDP()
@@ -267,7 +268,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         StringBuilder _value = new StringBuilder();
         if (applicationList != null)
         {
-            for (Application application : applicationList)
+            for (CApplication application : applicationList)
             {
                 if (application.checked)
                 {
@@ -312,20 +313,22 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         //int disabledColor = ContextCompat.getColor(_context, R.color.activityDisabledTextColor);
 
-        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-        if (splits.length == 1) {
-            packageIcon.setVisibility(View.VISIBLE);
-            packageIcon1.setImageResource(R.drawable.ic_empty);
-            packageIcon1.setAlpha(1f);
-            packageIcon2.setImageResource(R.drawable.ic_empty);
-            packageIcon2.setAlpha(1f);
-            packageIcon3.setImageResource(R.drawable.ic_empty);
-            packageIcon3.setAlpha(1f);
-            packageIcon4.setImageResource(R.drawable.ic_empty);
-            packageIcon4.setAlpha(1f);
-            packageIcons.setVisibility(View.GONE);
+        if (value != null) {
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
 
-            boolean _setEnabled = false;
+            if ((value != null) && (splits.length == 1)) {
+                packageIcon.setVisibility(View.VISIBLE);
+                packageIcon1.setImageResource(R.drawable.ic_empty);
+                packageIcon1.setAlpha(1f);
+                packageIcon2.setImageResource(R.drawable.ic_empty);
+                packageIcon2.setAlpha(1f);
+                packageIcon3.setImageResource(R.drawable.ic_empty);
+                packageIcon3.setAlpha(1f);
+                packageIcon4.setImageResource(R.drawable.ic_empty);
+                packageIcon4.setAlpha(1f);
+                packageIcons.setVisibility(View.GONE);
+
+                boolean _setEnabled = false;
             /*if (Application.isShortcut(splits[0])) {
                 Intent intent = new Intent();
                 intent.setClassName(Application.getPackageName(splits[0]), Application.getActivityName(splits[0]));
@@ -340,58 +343,55 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             else
             if (Application.isIntent(splits[0])) {
             }
-            else*/ {
-                String activityName = Application.getActivityName(splits[0]);
-                if (activityName.isEmpty()) {
-                    try {
-                        app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
-                        if (app != null) {
-                            Drawable icon = packageManager.getApplicationIcon(app);
-                            //CharSequence name = packageManager.getApplicationLabel(app);
-                            packageIcon.setImageDrawable(icon);
-                            _setEnabled = true;
-                        } else {
+            else*/
+                {
+                    String activityName = CApplication.getActivityName(splits[0]);
+                    if (activityName.isEmpty()) {
+                        try {
+                            app = packageManager.getApplicationInfo(splits[0], PackageManager.MATCH_ALL);
+                            //if (app != null) {
+                                Drawable icon = packageManager.getApplicationIcon(app);
+                                //CharSequence name = packageManager.getApplicationLabel(app);
+                                packageIcon.setImageDrawable(icon);
+                                _setEnabled = true;
+                            //} else {
+                            //    packageIcon.setImageResource(R.drawable.ic_empty);
+                            //}
+                        } catch (Exception e) {
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
-                    } catch (Exception e) {
-                        packageIcon.setImageResource(R.drawable.ic_empty);
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setClassName(CApplication.getPackageName(splits[0]), activityName);
+                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                        if (info != null) {
+                            packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                            _setEnabled = true;
+                        } else
+                            packageIcon.setImageResource(R.drawable.ic_empty);
                     }
                 }
-                else {
-                    Intent intent = new Intent();
-                    intent.setClassName(Application.getPackageName(splits[0]), activityName);
-                    ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                    if (info != null) {
-                        packageIcon.setImageDrawable(info.loadIcon(packageManager));
-                        _setEnabled = true;
-                    }
+                if (_setEnabled) {
+                    if (!isEnabled())
+                        packageIcon.setAlpha(0.35f);
                     else
-                        packageIcon.setImageResource(R.drawable.ic_empty);
-                }
-            }
-            if (_setEnabled) {
-                if (!isEnabled())
-                    packageIcon.setAlpha(0.35f);
-                else
+                        packageIcon.setAlpha(1f);
+                } else
                     packageIcon.setAlpha(1f);
-            } else
+            } else {
+                packageIcon.setVisibility(View.GONE);
+                packageIcons.setVisibility(View.VISIBLE);
+                packageIcon.setImageResource(R.drawable.ic_empty);
                 packageIcon.setAlpha(1f);
-        }
-        else {
-            packageIcon.setVisibility(View.GONE);
-            packageIcons.setVisibility(View.VISIBLE);
-            packageIcon.setImageResource(R.drawable.ic_empty);
-            packageIcon.setAlpha(1f);
 
-            ImageView packIcon = packageIcon1;
-            for (int i = 0; i < 4; i++)
-            {
-                //if (i == 0) packIcon = packageIcon1;
-                if (i == 1) packIcon = packageIcon2;
-                if (i == 2) packIcon = packageIcon3;
-                if (i == 3) packIcon = packageIcon4;
-                if (i < splits.length) {
-                    boolean _setEnabled = false;
+                ImageView packIcon = packageIcon1;
+                for (int i = 0; i < 4; i++) {
+                    //if (i == 0) packIcon = packageIcon1;
+                    if (i == 1) packIcon = packageIcon2;
+                    if (i == 2) packIcon = packageIcon3;
+                    if (i == 3) packIcon = packageIcon4;
+                    if (i < splits.length) {
+                        boolean _setEnabled = false;
                     /*if (Application.isShortcut(splits[i])) {
                         Intent intent = new Intent();
                         intent.setClassName(Application.getPackageName(splits[i]), Application.getActivityName(splits[i]));
@@ -405,49 +405,52 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     }
                     else
                     if (Application.isIntent(splits[i])) {
-                    } else*/ {
-                        String activityName = Application.getActivityName(splits[i]);
-                        if (activityName.isEmpty()) {
-                            try {
-                                app = packageManager.getApplicationInfo(splits[i], PackageManager.MATCH_ALL);
-                                if (app != null) {
-                                    Drawable icon = packageManager.getApplicationIcon(app);
-                                    //CharSequence name = packageManager.getApplicationLabel(app);
-                                    packIcon.setImageDrawable(icon);
+                    } else*/
+                        {
+                            String activityName = CApplication.getActivityName(splits[i]);
+                            if (activityName.isEmpty()) {
+                                try {
+                                    app = packageManager.getApplicationInfo(splits[i], PackageManager.MATCH_ALL);
+                                    //if (app != null) {
+                                        Drawable icon = packageManager.getApplicationIcon(app);
+                                        //CharSequence name = packageManager.getApplicationLabel(app);
+                                        packIcon.setImageDrawable(icon);
+                                        _setEnabled = true;
+                                    //} else {
+                                    //    packIcon.setImageResource(R.drawable.ic_empty);
+                                    //}
+                                } catch (Exception e) {
+                                    packIcon.setImageResource(R.drawable.ic_empty);
+                                }
+                            } else {
+                                Intent intent = new Intent();
+                                intent.setClassName(CApplication.getPackageName(splits[i]), activityName);
+                                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+
+                                if (info != null) {
+                                    packIcon.setImageDrawable(info.loadIcon(packageManager));
                                     _setEnabled = true;
                                 } else {
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
-                            } catch (Exception e) {
-                                packIcon.setImageResource(R.drawable.ic_empty);
                             }
                         }
-                        else {
-                            Intent intent = new Intent();
-                            intent.setClassName(Application.getPackageName(splits[i]), activityName);
-                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-
-                            if (info != null) {
-                                packIcon.setImageDrawable(info.loadIcon(packageManager));
-                                _setEnabled = true;
-                            } else {
-                                packIcon.setImageResource(R.drawable.ic_empty);
-                            }
-                        }
-                    }
-                    if (_setEnabled) {
-                        if (!isEnabled())
-                            packIcon.setAlpha(0.35f);
-                        else
+                        if (_setEnabled) {
+                            if (!isEnabled())
+                                packIcon.setAlpha(0.35f);
+                            else
+                                packIcon.setAlpha(1f);
+                        } else
                             packIcon.setAlpha(1f);
-                    } else
+                    } else {
+                        packIcon.setImageResource(R.drawable.ic_empty);
                         packIcon.setAlpha(1f);
-                }
-                else {
-                    packIcon.setImageResource(R.drawable.ic_empty);
-                    packIcon.setAlpha(1f);
+                    }
                 }
             }
+        } else {
+            packageIcon.setVisibility(View.GONE);
+            packageIcons.setVisibility(View.GONE);
         }
     }
 
@@ -519,7 +522,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
 
         public static final Creator<ApplicationsMultiSelectDialogPreference.SavedState> CREATOR =
-                new Creator<ApplicationsMultiSelectDialogPreference.SavedState>() {
+                new Creator<>() {
                     public ApplicationsMultiSelectDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ApplicationsMultiSelectDialogPreference.SavedState(in);

@@ -1,10 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,14 +19,29 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
+import android.text.style.ImageSpan;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+// is from reginer android.jar
+import com.android.internal.view.menu.MenuBuilder;
+// is from reginer android.jar
+import com.android.internal.view.menu.MenuPopupHelper;
 
 /** @noinspection ExtractMethodRecommender*/
 public class ImportantInfoHelpFragment extends Fragment {
@@ -56,6 +75,27 @@ public class ImportantInfoHelpFragment extends Fragment {
             return;
 
         final Context context = activity.getApplicationContext();
+
+        TextView taskerTextView = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
+        taskerTextView = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
+        if (taskerTextView != null) {
+            taskerTextView.setMovementMethod(null); // this disable text selection
+            registerForContextMenu(taskerTextView);
+        }
 
         activity.expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
         activity.expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
@@ -106,42 +146,79 @@ public class ImportantInfoHelpFragment extends Fragment {
         if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
+            infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), /*null,*/ false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
         }
 
         if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_REQUIRED)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setText(getString(R.string.important_info_pppps_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
+            infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), /*null,*/ false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
+            //noinspection DataFlowIssue
             infoText1.setVisibility(View.GONE);
         }
 
 
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
+        TextView infoTextNewsSeparator = view.findViewById(R.id.activity_info_notification_news_separator);
+        /*TextView infoTextnews1 = view.findViewById(R.id.important_info_news_1);
+        TextView infoTextnews2 = view.findViewById(R.id.important_info_news_2);
+        TextView infoTextnews3 = view.findViewById(R.id.important_info_news_3);
+        TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);*/
         if (!news) {
+            //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
+            //noinspection DataFlowIssue
+            infoTextNewsSeparator.setVisibility(View.GONE);
+            /*if (infoTextnews1 != null)
+                infoTextnews1.setVisibility(View.GONE);
+            if (infoTextnews2 != null)
+                infoTextnews2.setVisibility(View.GONE);
+            if (infoTextnews3 != null)
+                infoTextnews3.setVisibility(View.GONE);
+            if (infoTextnews4 != null)
+                infoTextnews4.setVisibility(View.GONE);*/
         } else {
+            //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
             infoTextNews.setText("*** " + getString(R.string.important_info_news) + " ***");
+            //noinspection DataFlowIssue
+            infoTextNewsSeparator.setVisibility(View.VISIBLE);
+
+            //TODO add textVews of News
+            /*if (infoTextnews1 != null)
+                infoTextnews1.setVisibility(View.VISIBLE);
+            if (infoTextnews2 != null)
+                infoTextnews2.setVisibility(View.VISIBLE);
+            if (infoTextnews3 != null)
+                infoTextnews3.setVisibility(View.VISIBLE);
+            if (infoTextnews4 != null)
+                infoTextnews4.setVisibility(View.VISIBLE);*/
         }
 
     }
@@ -183,14 +260,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                activity
+                                false,
+                                (AppCompatActivity) activity
                         );
 
                         if (!activity.isFinishing())
-                            dialog.show();
+                            dialog.showDialog();
                     }
                 });
             } else {
@@ -226,14 +305,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            activity
+                            false,
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             });
         }
@@ -264,14 +345,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            activity
+                            false,
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             });
         }
@@ -308,14 +391,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            activity
+                            false,
+                            (AppCompatActivity) activity
                     );
 
                     if (!activity.isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             });
         }
@@ -370,24 +455,26 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText100.setText(text);
         }
 
+        /*
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
+                                                               fragment.getString(R.string.traffic_light_green) + " " + fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_orange) + " " + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_red) + " " + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
-                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
+                                                               fragment.getString(R.string.traffic_light_green) + " " + fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_orange) + " " + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.traffic_light_red) + " " + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true,  false, 0, 0, false));
         }
+        */
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
@@ -614,11 +701,52 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (view.findViewById(R.id.activity_info_notification_contact) != null) {
-            GlobalUtils.emailMe(view.findViewById(R.id.activity_info_notification_contact),
+            /*GlobalUtils.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                     fragment.getString(R.string.important_info_contact),
                     "", fragment.getString(R.string.about_application_support_subject),
-                    GlobalUtils.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
-                    /*true,*/ activity);
+                    GlobalUtils.getEmailBodyTextactivity),
+                    activity);*/
+            final TextView supportText = view.findViewById(R.id.activity_info_notification_contact);
+            if (supportText != null) {
+                supportText.setText(context.getString(R.string.important_info_support) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
+                supportText.setOnClickListener(v -> {
+                    PopupMenu popup;
+                    popup = new PopupMenu(activity, supportText, Gravity.START | Gravity.BOTTOM);
+                    new MenuInflater(activity).inflate(R.menu.menu_support, popup.getMenu());
+                    // used is MenuPopupHelper to show icons
+                    MenuPopupHelper menuHelper = new MenuPopupHelper(activity, (MenuBuilder) popup.getMenu(), v);
+                    menuHelper.setForceShowIcon(true);
+                    //menuHelper.setGravity(Gravity.END);
+
+                    Menu menu = popup.getMenu();
+                    MenuItem menuItem = menu.findItem(R.id.menu_discord);
+                    if (menuItem != null) {
+                        SubMenu subMenu = menuItem.getSubMenu();
+                        if (subMenu != null) {
+                            Drawable triangle = ContextCompat.getDrawable(activity, R.drawable.ic_submenu_triangle);
+                            if (triangle != null) {
+                                triangle.setTint(ContextCompat.getColor(activity, R.color.activitySecondaryTextColor));
+                                SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                                triangle.setBounds(0,
+                                        GlobalGUIRoutines.sip(1),
+                                        GlobalGUIRoutines.sip(10.5f),
+                                        GlobalGUIRoutines.sip(8.5f));
+                                headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                subMenu.setHeaderTitle(headerTitle);
+                            }
+                        }
+                    }
+
+                    ImportantInfoActivity importantInfoActivity = (ImportantInfoActivity) activity;
+                    popup.setOnMenuItemClickListener(importantInfoActivity::supportMenu);
+
+                    if (!activity.isFinishing())
+                        menuHelper.show();
+                        //popup.show();
+                });
+            }
+
         }
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
@@ -745,7 +873,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 */
         TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
         if (helpForPPPPSTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_3) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str1);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -757,7 +885,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
+                    PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, /*null,*/ false);
                 }
             };
             spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -826,275 +954,76 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        if (PPApplication.SHOW_IMPORTANT_INFO_NEWS) {
+            TextView panelsAppLink = view.findViewById(R.id.important_info_news_3_PanelsAppLink);
+            if (panelsAppLink != null) {
+                String str1 = fragment.getString(R.string.important_info_edge_panel_replacement3) + ": ";
+                String str2 = str1 + "https://play.google.com/store/apps/details?id=com.fossor.panels" + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                Spannable spannable = new SpannableString(str2);
+                //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        String url;
+                        url = "https://play.google.com/store/apps/details?id=com.fossor.panels";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                };
+                spannable.setSpan(clickableSpan, str1.length(), str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                panelsAppLink.setText(spannable);
+                panelsAppLink.setMovementMethod(LinkMovementMethod.getInstance());
+            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                getString(R.string.important_info_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                true, activity);*/
+            }
+        }
     }
-/*
-    static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {
-        if (activity == null) {
+
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        final ImportantInfoActivity activity = (ImportantInfoActivity)getActivity();
+        if (activity == null)
             return;
+
+        TextView taskerTextView = (TextView) v;
+        int id = taskerTextView.getId();
+        if ((id == R.id.activity_info_activate_profile_from_tasker_params) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_restart_events) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event) ||
+            (id == R.id.activity_info_manage_events_from_tasker_params_stop_event))
+        {
+            // user has long pressed your TextView
+            //menu.add(0, v.getId(), 0, "Copy");
+
+            // place your TextView's text in clipboard
+            ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                //noinspection deprecation
+                clipboard.setText(taskerTextView.getText());
+                if ((Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                    // Xiaomi 13 lite, HyperOs, do not show toast
+
+                    PPApplication.showToast(activity, getString(R.string.importantinfo_tasker_command_copy_to_clipboard_toast), Toast.LENGTH_SHORT);
+                    //ToastCompat.makeText(activity, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            }
         }
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.install_extender_dialog_title);
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
-        dialogBuilder.setView(layout);
-
-        TextView text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
-
-        String dialogText = "";
-        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
-        if (extenderVersion != 0) {
-            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
-            dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
-        }
-        dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-        dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
-        dialogText = dialogText + activity.getString(R.string.install_extender_text2) + "\n";
-        dialogText = dialogText + activity.getString(R.string.install_extender_text3);
-
-
-        text.setText(dialogText);
-
-        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-            //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
-
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                if (finishActivity)
-                    activity.finish();
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            if (finishActivity)
-                activity.finish();
-        });
-        dialogBuilder.setCancelable(false);
-
-        final AlertDialog dialog = dialogBuilder.create();
-
-        text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
-        CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0»»";
-        Spannable sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
-
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    dialog.cancel();
-                    //if (activity != null)
-                    if (finishActivity)
-                        activity.finish();
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
-
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!activity.isFinishing())
-            dialog.show();
     }
 
-    static void installExtender(Activity activity, boolean finishActivity) {
-        if (activity == null) {
-            return;
-        }
-
-        PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
-        boolean galaxyStoreInstalled = (_intent != null);
-
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.install_extender_dialog_title);
-
-            LayoutInflater inflater = activity.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
-            dialogBuilder.setView(layout);
-
-            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
-
-            String dialogText = "";
-
-            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
-            if (extenderVersion != 0) {
-                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
-                dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
-            }
-            dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-            dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
-
-            text.setText(dialogText);
-
-            dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
-                try {
-                    activity.startActivity(intent);
-                    if (finishActivity)
-                        activity.finish();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                if (finishActivity)
-                    activity.finish();
-            });
-            dialogBuilder.setCancelable(false);
-
-            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
-
-            final AlertDialog dialog = dialogBuilder.create();
-
-            button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
-            button.setOnClickListener(v -> {
-                dialog.cancel();
-                installExtenderFromGitHub(activity, finishActivity);
-            });
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-            if (!activity.isFinishing())
-                dialog.show();
-        }
-        else
-            installExtenderFromGitHub(activity, finishActivity);
-    }
-
-    static void installPPPPutSettings(Activity activity,
-                                      boolean finishActivity) {
-        if (activity == null) {
-            return;
-        }
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
-        dialogBuilder.setView(layout);
-
-        TextView text = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text);
-
-        String dialogText = "";
-
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "\n";
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "\n\n";
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
-        text.setText(dialogText);
-
-        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
-
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                if (finishActivity)
-                    activity.finish();
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            if (finishActivity)
-                activity.finish();
-        });
-        dialogBuilder.setCancelable(false);
-
-        final AlertDialog dialog = dialogBuilder.create();
-
-        text = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
-        CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + "\u00A0»»";
-        Spannable sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
-
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = PPApplication.GITHUB_PPPPS_RELEASES_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    dialog.cancel();
-                    //if (activity != null)
-                    if (finishActivity)
-                        activity.finish();
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
-
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!activity.isFinishing())
-            dialog.show();
-
-    }
-*/
 }

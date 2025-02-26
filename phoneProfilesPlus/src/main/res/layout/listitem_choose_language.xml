@@ -3,8 +3,8 @@
     android:id="@+id/choose_language_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="7dp"
-    android:paddingBottom="7dp">
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height">
 
     <RadioButton
         android:id="@+id/choose_language_dlg_item_radio_button"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_choose_language_system_language"
-        android:layout_gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:textSize="@dimen/listItem_label_text_size"
+        android:layout_gravity="center_vertical"/>
 
 </LinearLayout>

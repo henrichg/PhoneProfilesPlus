@@ -142,22 +142,22 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     try {
-                        boolean getVersion;
+                        boolean gitHubInstallation;
                         //if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
                         //    getVersion = false;
                         //else
-                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-                            getVersion = false;
-                        else {
+                        //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                        //    getVersion = false;
+                        //else {
                             PackageManager packageManager = appContext.getPackageManager();
 
                             //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
                             //boolean amazonAppStoreInstalled = (intent != null);
 
-                            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
-                            boolean huaweiAppGalleryInstalled = (intent != null);
+                            //Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
+                            //boolean huaweiAppGalleryInstalled = (intent != null);
 
-                            intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+                            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
                             boolean fdroidInstalled = (intent != null);
 
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
@@ -166,9 +166,12 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                             boolean neostoreInstalled = (intent != null);
 
-                            getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled || neostoreInstalled);
-                        }
-                        if (getVersion)
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
+                            boolean apkPureInstalled = (intent != null);
+
+                            gitHubInstallation = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled || apkPureInstalled);
+                        //}
+                        if (gitHubInstallation)
                             _doWorkGitHub(appContext);
                         else
                             _doWorkOthers(appContext);
@@ -233,7 +236,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         String nTitle = appContext.getString(R.string.ppp_app_name) + StringConstants.STR_COLON_WITH_SPACE + appContext.getString(R.string.menu_check_github_releases);
         String nText = appContext.getString(R.string.check_ppp_releases_notification);
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification

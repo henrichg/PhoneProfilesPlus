@@ -229,7 +229,7 @@ public class WifiSSIDPreference extends DialogPreference {
         }
 
         public static final Creator<WifiSSIDPreference.SavedState> CREATOR =
-                new Creator<WifiSSIDPreference.SavedState>() {
+                new Creator<>() {
                     public WifiSSIDPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new WifiSSIDPreference.SavedState(in);

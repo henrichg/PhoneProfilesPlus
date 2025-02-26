@@ -7,45 +7,42 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 6.5.1, 6.5.1.1</h2>
+<h2 id="version2">Verze: 7.0.2</h2>
 
 <ul lang="en">
-    <li>Added Neo Store into README.md.</li>
-    <li>Add: Dash Clock Widget in Settings.</li>
-    <li>Change: Added support for "Neo Store" for PPP, PPPE, PPPPS installation.</li>
-    <li>Change: Added support for "Neo Store".</li>
-    <li>Change: Installation of PPP, PPPE from GitHub.</li>
-    <li>Change: Applied patch #131, which fixes detection of mobile cells when is checked "Start when outside mobile cell".</li>
-    <li>Change: Detection of PPPPS if Shizuku is installed but PPPPS not. Use Shizuku instead.</li>
-    <li>Change: Do not use broadcast for start Activator/Editor from notification in API < 31. Not nedded it.</li>
-    <li>Change: Launcher for widgets, notification moved from "Application interface" to widgets, notification settings.</li>
-    <li>Change: Changed label of main activity to "PPP".</li>
-    <li>Change: Create shortcuts: added possibility to set icon name for shortcut.</li>
-    <li>Change: Added private constructor to utility classes (with all methods static).</li>
-    <li>Change: Added call of doAfterFirstStart when Shizuku is started.</li>
-    <li>Change: Added test for managers, adapters to check the enablement of the event sensor.</li>
-    <li>Change: "Music sensor": added support for detection of music controller.</li>
-    <li>Change: "Default SIM": added support for Android 13-. Maybe will be working in all devices.</li>
-    <li>Change: "SIM on/off": added support for Android 12+. Maybe will be working in all devices.</li>
-    <li>Change: Added button divider into Samsung edge panel.</li>
-    <li>Change: Added support for CellInfoNr into Mobile cells scanning. It is for 5G mobile net.</li>
-    <li>Change: Removed Support e-mail from "About application".</li>
-    <li>Change: Use Shizuku if PPPPS is not installed.</li>
-    <li>Change: Show red text about not granted Shizuku, if is running and PPPPS is also checked.</li>
-    <li>Change: Added required version of PPPPS.</li>
-    <li>Change: Added GMail, XDA-developers, Twitter, Reddit, Bluesky, Discord PPP server badge into README.md</li>
-    <li>Change: Added labels into README.md badges.</li>
-    <li>Change: Added XDA-developers, Twitter, Reddit, Bluesky, Discord into Editor "Support" menu.</li>
-    <li>Fixed appcompat 1.7.0 dependencies problem.</li>
-    <li>Fix: Fixed download url for InstallWithOptions.apk.</li>
-    <li>Fix: Force set Wi-Fi, Bluetooth, Mobile cells sensor not passed, when Location is disabled.</li>
-    <li>Fix: Installation of PPPPS for API 34+: download urls for InstallWithOptions.apk. and PPPPutSettings.apk.</li>
-    <li>Fix: Fixed show error when scanning is not enabled and is required for sensor.</li>
-    <li>Fix: Maybe fixed set volume during Priority DND.</li>
-    <li>Fix: Maybe fixed set volumes.</li>
-    <li>Fix: Simulating ringing call: Fixed check of mute ringing state. Must be checked not form system, but from activated profile.</li>
-    <li>Fix: Fixed check of settings, service commands.</li>
-    <li>Fix: Fixed test of preference allowed state for dual sim notification tone profile parameter.</li>
+    <li>Add: Panel widget. Removed Samsung Edge panel.</li>
+    <li>Change: Call of BT detector at screen on.</li>
+    <li>Change: Better BT connected devices detection for disconnection.</li>
+    <li>Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.</li>
+    <li>Change: Increased speed of profile activation.</li>
+    <li>Change: Support for Smart Launcher rounded corners in widgets.</li>
+    <li>Change: Enabled rounded corners radius for SmartLauncher.</li>
+    <li>Change: Rounded corners radius up to 32 (for Smart Launcher support).</li>
+    <li>Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.</li>
+    <li>Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.</li>
+    <li>Change: Better show,hide header and bottom toolbar at scroll in Editor.</li>
+    <li>Change: GUI components size different for landscape orientation.</li>
+    <li>Change: Small GUI changes.</li>
+    <li>Change: Changes in widgets.</li>
+    <li>Change: Removed toolbar from Location editor.</li>
+    <li>Change: Location editor - display map immediately at start od editor.</li>
+    <li>Change: Show dialog about offline device status in Location editor.</li>
+    <li>Change: Better functionality of "Rename with address" button in Location editor.</li>
+    <li>Change: Empty line in preference summary changed to dots.</li>
+    <li>Change: Permanent display also thumb of scrollbars.</li>
+    <li>Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.</li>
+    <li>Change: Do not rotate to default orientation if is required to lock orientation change.</li>
+    <li>Change: Increased max. log file size.</li>
+    <li>Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.</li>
+    <li>Fix: Not working good BT van connection.</li>
+    <li>Fix: Fixed not refreshed Tones dialog after grant permission.</li>
+    <li>Fix: Not disabled buttons in Mobile cells registration dialog at its start.</li>
+    <li>Fix: Not deleted red text after deletion of profile, event with errors.</li>
+    <li>Fix: Maybe fixed draw of PPP notification at first start.</li>
+    <li>Fix: Restart events not working properly in specific situations.</li>
+    <li>Fix: Location preference dialog GUI.</li>
+    <li>Fix: WindowLeak exception generated for dialogs in orientation change.</li>
+    <li>Fix: Undo in profile duration and event end.</li>
 </ul>
 
 <ul>
@@ -57,7 +54,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5.1.1">Informace o vydání na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.2">Informace o vydání na GitHub.</a>
 </p>
 
 </body>

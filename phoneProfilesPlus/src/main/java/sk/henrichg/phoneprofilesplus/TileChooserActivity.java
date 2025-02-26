@@ -19,6 +19,10 @@ public class TileChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false);
 
         super.onCreate(savedInstanceState);
@@ -165,7 +169,7 @@ public class TileChooserActivity extends AppCompatActivity {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ImportantInfoNotification.showInfoNotification(appContext);
                 ProfileListNotification.drawNotification(true, appContext);
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                //DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
                 DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);

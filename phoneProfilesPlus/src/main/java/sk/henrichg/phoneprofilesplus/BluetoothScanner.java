@@ -80,7 +80,7 @@ class BluetoothScanner {
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 
-                if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 

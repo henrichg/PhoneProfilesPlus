@@ -98,6 +98,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS = 1998;
     private static final String PREF_EVENT_MOBILE_CELLS_CELLS_REGISTRATION = "eventMobileCellsCellsRegistration";
     private static final String PREF_EVENT_HIDE_NOT_USED_SENSORS = "eventHideNotUsedSensors";
+    private static final int RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1999;
+    private static final int RESULT_SET_CALL_SCREENING_ROLE = 2000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,11 +127,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
 
-        // must be set only when state == null, because without this, generated is exception on orientation change:
-        // java.lang.NullPointerException: Attempt to invoke virtual method 'android.widget.ScrollBarDrawable
-        // android.widget.ScrollBarDrawable.mutate()' on a null object reference
-        if (state == null)
-            view.setScrollbarFadingEnabled(false);
+        // WARNING: must be in base_styles_phoneprofilestheme_preferences_daynight:
+        //             <item name="android:scrollbars">vertical</item>
+        view.setScrollbarFadingEnabled(false);
 
         return view;
     }
@@ -336,6 +336,24 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if ((Build.VERSION.SDK_INT >= 29) && (preference instanceof SendSMSDialogPreference))
+        {
+            ((SendSMSDialogPreference)preference).fragment = new SendSMSDialogPreferenceFragment();
+            dialogFragment = ((SendSMSDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof PPEditTextDialogPreference)
+        {
+            ((PPEditTextDialogPreference)preference).fragment = new PPEditTextDialogPreferenceFragment();
+            dialogFragment = ((PPEditTextDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null) {
             if ((getActivity() != null) && (!getActivity().isFinishing())) {
@@ -359,43 +377,47 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
 //        PPApplication.forceStartOrientationScanner(context);
 //        forceStart = true;
 
         // must be used handler for rewrite toolbar title/subtitle
-        final Handler handler = new Handler(getActivity().getMainLooper());
-        final WeakReference<EventsPrefsActivity> activityWeakRef = new WeakReference<>((EventsPrefsActivity) getActivity());
+        final Handler handler = new Handler(activity.getMainLooper());
+        final WeakReference<EventsPrefsActivity> activityWeakRef = new WeakReference<>(activity);
         handler.postDelayed(() -> {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
-            EventsPrefsActivity activity = activityWeakRef.get();
-            if ((activity == null) || activity.isFinishing() || activity.isDestroyed())
+            EventsPrefsActivity __activity = activityWeakRef.get();
+            if ((__activity == null) || __activity.isFinishing() || __activity.isDestroyed())
                 return;
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(__activity.getApplicationContext());
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
-            Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
-            toolbar.setSubtitle(activity.getString(R.string.title_activity_event_preferences));
-            toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
+            Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
+            //noinspection DataFlowIssue
+            toolbar.setSubtitle(__activity.getString(R.string.title_activity_event_preferences));
+            toolbar.setTitle(__activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
 
-        final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
+        //final EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
         final Context context = activity.getBaseContext();
         final EventsPrefsFragment fragment = this;
-        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
+        final TextView preferenceSubTitle = activity.findViewById(R.id.activity_preferences_subtitle);
 
         // subtitle
         if (nestedFragment) {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.VISIBLE);
 
-            Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
+            Drawable triangle = ContextCompat.getDrawable(activity, R.drawable.ic_submenu_triangle);
             if (triangle != null) {
-                triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
+                triangle.setTint(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
                 SpannableString headerTitle = new SpannableString("    " +
                         fragment.getPreferenceScreen().getTitle());
-                triangle.setBounds(0,
+                triangle.setBounds(
+                        GlobalGUIRoutines.sip(2),
                         GlobalGUIRoutines.sip(1),
-                        GlobalGUIRoutines.sip(11),
+                        GlobalGUIRoutines.sip(13),
                         GlobalGUIRoutines.sip(10));
                 headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 preferenceSubTitle.setText(headerTitle);
@@ -405,6 +427,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
 
         } else {
+            //noinspection DataFlowIssue
             preferenceSubTitle.setVisibility(View.GONE);
 
             SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
@@ -426,7 +449,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             (!ApplicationPreferences.applicationEventHideNotUsedSensors));
         }
 
-        activity.progressLinearLayout.setVisibility(View.GONE);
+        //activity.progressLinearLayout.setVisibility(View.GONE);
         activity.settingsLinearLayout.setVisibility(View.VISIBLE);
 
         setDivider(null); // this remove dividers for categories
@@ -434,8 +457,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         //setRedTextToPreferences();
 
         // update preference summary and also category summary
-        //event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-        //event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+        //event.checkSensorsPreferences(prefMng, !nestedFragment, activity.getBaseContext());
+        //event.setAllSummary(prefMng, preferences, activity.getBaseContext());
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -460,7 +483,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -475,12 +498,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 */
                 return false;
@@ -491,7 +514,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -534,7 +557,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference12.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -546,15 +569,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                false,
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
+                        if (!activity.isFinishing())
+                            dialog.showDialog();
+                    //}
                 }
                 return false;
             });
@@ -587,7 +612,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference14.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -599,15 +624,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                false,
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
+                        if (!activity.isFinishing())
+                            dialog.showDialog();
+                    //}
                 }
                 return false;
             });
@@ -628,7 +655,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference15.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -640,15 +667,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                false,
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
+                        if (!activity.isFinishing())
+                            dialog.showDialog();
+                    //}
                 }
                 return false;
             });
@@ -679,7 +708,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        if (getActivity() != null) {
+                        //if (getActivity() != null) {
                             PPAlertDialog dialog = new PPAlertDialog(
                                     preference16.getTitle(),
                                     getString(R.string.setting_screen_not_found_alert),
@@ -691,15 +720,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
-                                    getActivity()
+                                    false,
+                                    activity
                             );
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                            if (!activity.isFinishing())
+                                dialog.showDialog();
+                        //}
                     }
                     return false;
                 });
@@ -733,7 +764,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference18.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -745,15 +776,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                false,
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
+                        if (!activity.isFinishing())
+                            dialog.showDialog();
+                    //}
                 }
                 return false;
             });
@@ -775,7 +808,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference110 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -818,7 +851,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference113.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -830,15 +863,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                false,
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
+                        if (!activity.isFinishing())
+                            dialog.showDialog();
+                    //}
                 }
                 return false;
             });
@@ -946,7 +981,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference118 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -980,7 +1015,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference120.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -995,12 +1030,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1011,7 +1046,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference121 -> {
-                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                ExtenderDialogPreferenceFragment.installPPPExtender(activity, null);
                 return false;
             });
         }
@@ -1045,7 +1080,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference123.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1060,12 +1095,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1090,7 +1125,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference124.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1105,12 +1140,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1135,7 +1170,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 else {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference125.getTitle(),
                                 getString(R.string.event_preferences_extender_not_installed),
@@ -1150,12 +1185,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
+                        if (!activity.isFinishing())
                             dialog.show();
-                    }
+                    //}
                 }
                 return false;
             });
@@ -1187,7 +1222,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!activityExists) {
-                    if (getActivity() != null) {
+                    //if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference126.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
@@ -1199,15 +1234,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
-                                getActivity()
+                                false,
+                                activity
                         );
 
-                        if (!getActivity().isFinishing())
-                            dialog.show();
-                    }
+                        if (!activity.isFinishing())
+                            dialog.showDialog();
+                    //}
                 }
                 return false;
             });
@@ -1241,7 +1278,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         int receiverFlags = 0;
                         if (Build.VERSION.SDK_INT >= 34)
                             receiverFlags = RECEIVER_NOT_EXPORTED;
-                        getActivity().registerReceiver(shortcutToReadNFCTagAddedReceiver, shortcutAddedFilter, receiverFlags);
+                        activity.registerReceiver(shortcutToReadNFCTagAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
@@ -1283,7 +1320,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                                         ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
                                         ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
-                                        //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                                        //activity.setResult(Activity.RESULT_OK, intent);
                                     } catch (Exception e) {
                                         // show dialog about this crash
                                         // for Microsft laucher it is:
@@ -1291,11 +1328,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 },
                                 null, null,
-                                true, true, false,
+                                true, true, //false,
                                 activity
                         );
                         if (!activity.isFinishing())
-                            editTextDialog.show();
+                            editTextDialog.showDialog();
 
                         return false;
                     });
@@ -1305,6 +1342,88 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             } else
                 preference.setVisible(false);
         }
+        preference = prefMng.findPreference(EventPreferencesMusic.PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference126 -> {
+                boolean ok = false;
+                String action;
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(action, activity.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(action);
+                        startActivityForResult(intent, RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+                if (!ok) {
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference126.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            false,
+                            activity
+                    );
+
+                    if (!activity.isFinishing())
+                        dialog.showDialog();
+                }
+                return false;
+            });
+        }
+        if (Build.VERSION.SDK_INT >= 33) {
+            final InfoDialogPreference _infoDialogPreference = prefMng.findPreference(EventPreferencesMusic.PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
+            if (_infoDialogPreference != null) {
+                _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
+                    _infoDialogPreference.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_export) + "\"." + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_import) + "\"."
+                    );
+                    _infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            preference = prefMng.findPreference(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_SET_CALL_SCREENING_ROLE);
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(preference1 -> {
+                    // start preferences activity for default profile
+                    //if (getActivity() != null) {
+                        Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
+                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT);
+                        getActivity().startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
+                    //}
+                    return false;
+                });
+            }
+        }
+
     }
 
     @Override
@@ -1378,7 +1497,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(Event.PREF_EVENT_NAME)) {
+        if ((key != null) && key.equals(Event.PREF_EVENT_NAME)) {
             String value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
 
@@ -1394,6 +1513,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                     Toolbar toolbar = activity.findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
+                    //noinspection DataFlowIssue
                     toolbar.setTitle(activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
@@ -1402,7 +1522,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        if (key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
+        if ((key != null) && key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
             // save PREF_EVENT_HIDE_NOT_USED_SENSORS into Application preferences
             boolean hideNotUsedSensors = preferences.getBoolean(PREF_EVENT_HIDE_NOT_USED_SENSORS, false);
             //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "hideNotUsedSensors="+hideNotUsedSensors);
@@ -1419,13 +1539,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         if (event != null) {
             event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
-            //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
-            event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
+            if (key != null)
+                //Log.e("EventPrefsFragment.onSharedPreferenceChanged", "called Event.setSummary (1)");
+                event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
         }
 
         setRedTextToPreferences();
 
-        if (!key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS)) {
+        if ((key != null) && (!key.equals(PREF_EVENT_HIDE_NOT_USED_SENSORS))) {
             EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
             if (activity != null) {
                 activity.showSaveMenu = true;
@@ -1442,6 +1563,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
 
         final Context context = getActivity().getBaseContext();
+
+        //EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT)) {
             setRedTextToPreferences();
@@ -1599,16 +1722,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG)) {
             ContactsMultiSelectDialogPreference preference1 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
             if (preference1 != null)
-                preference1.refreshListView(true);
+                preference1.refreshListView(false);
             preference1 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACTS);
             if (preference1 != null)
-                preference1.refreshListView(true);
+                preference1.refreshListView(false);
             ContactGroupsMultiSelectDialogPreference preference2 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACT_GROUPS);
             if (preference2 != null)
-                preference2.refreshListView(true);
+                preference2.refreshListView(false);
             preference2 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACT_GROUPS);
             if (preference2 != null)
-                preference2.refreshListView(true);
+                preference2.refreshListView(false);
         }
         /*if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1643,6 +1766,18 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_EVENT_MOBILE_CELLS_CONFIGURE_CELLS) {
             if (nestedFragment)
                 event._eventPreferencesMobileCells.updateConfguredCellNames(prefMng, context);
+        }
+        if (requestCode == RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
+            event._eventPreferencesMusic.checkPreferences(prefMng, !nestedFragment, context);
+        }
+
+        if (requestCode == RESULT_SET_CALL_SCREENING_ROLE) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                event._eventPreferencesCallScreening.checkPreferences(prefMng, !nestedFragment, context);
+                setRedTextToPreferences();
+
+                PPApplication.updateGUI(true, false, context);
+            }
         }
     }
 
@@ -1710,205 +1845,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferencesAsyncTask.execute();
     }
 
-/*
-    private void installExtenderFromGitHub() {
-        if (getActivity() == null)
-            return;
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(R.string.install_extender_dialog_title);
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
-        dialogBuilder.setView(layout);
-
-        TextView text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
-
-        String dialogText = "";
-        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
-        if (extenderVersion != 0) {
-            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
-            dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
-        }
-        dialogText = dialogText + getString(R.string.install_extender_required_version) +
-                " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-        dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\"\n";
-        dialogText = dialogText + getString(R.string.install_extender_text2) + "\n";
-        dialogText = dialogText + getString(R.string.install_extender_text3);
-
-        text.setText(dialogText);
-
-        text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
-        CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0»»";
-        Spannable sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
-
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    if (getActivity() != null)
-                        getActivity().startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
-
-        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-            //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
-
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        AlertDialog dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if ((getActivity() != null) && (!getActivity().isFinishing()))
-            dialog.show();
-    }
-
-    private void installExtender() {
-        if (getActivity() == null) {
-            return;
-        }
-
-        PackageManager packageManager = getActivity().getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
-        boolean galaxyStoreInstalled = (_intent != null);
-
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(R.string.install_extender_dialog_title);
-
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
-            dialogBuilder.setView(layout);
-
-            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
-
-            String dialogText = "";
-
-            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
-            if (extenderVersion != 0) {
-                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
-                dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
-            }
-            dialogText = dialogText + getString(R.string.install_extender_required_version) +
-                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".";
-
-            text.setText(dialogText);
-
-            dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
-                try {
-                    startActivity(intent);
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
-
-            final AlertDialog dialog = dialogBuilder.create();
-
-            //button.setText(getActivity().getString(R.string.alert_button_install_extender_from_github));
-            button.setOnClickListener(v -> {
-                dialog.cancel();
-                installExtenderFromGitHub();
-            });
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-            if ((getActivity() != null) && (!getActivity().isFinishing()))
-                dialog.show();
-        }
-        else
-            installExtenderFromGitHub();
-    }
-*/
-
-/*
-    private void enableExtender() {
-        if (getActivity() == null)
-            return;
-
-        boolean ok = false;
-        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
-            try {
-                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                ok = true;
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        }
-        if (!ok) {
-            if (getActivity() != null) {
-                PPAlertDialog dialog = new PPAlertDialog(
-                        getString(R.string.event_preferences_applications_AccessibilitySettings_title),
-                        getString(R.string.setting_screen_not_found_alert),
-                        getString(android.R.string.ok),
-                        null,
-                        null, null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        true, true,
-                        false, false,
-                        true,
-                        getActivity()
-                );
-
-                if (!getActivity().isFinishing())
-                    dialog.show();
-            }
-        }
-    }
-*/
     void changeCurentLightSensorValue() {
         if (getActivity() != null) {
             Preference currentValuePreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
@@ -1966,6 +1902,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             boolean showVPNSensor;
             boolean showWifiSensor;
             boolean showMusicSensor;
+            boolean showCallScreeningSensor;
 
             if ((activity != null) && (!saveDisplayed) && (!activity.displayedSensors.isEmpty())) {
                 showAccessoriesSensor = activity.displayedSensors.contains(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
@@ -1994,6 +1931,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVPNSensor = activity.displayedSensors.contains(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
                 showWifiSensor= activity.displayedSensors.contains(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
                 showMusicSensor = activity.displayedSensors.contains(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
+                showCallScreeningSensor = activity.displayedSensors.contains(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED);
             }
             else {
                 showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
@@ -2022,6 +1960,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
                 showWifiSensor= preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
                 showMusicSensor = preferences.getBoolean(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false);
+                showCallScreeningSensor = preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false);
             }
 
             if (saveDisplayed && (activity != null)) {
@@ -2078,6 +2017,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     activity.displayedSensors.add(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
                 if (showMusicSensor)
                     activity.displayedSensors.add(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
+                if (showCallScreeningSensor)
+                    activity.displayedSensors.add(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED);
             }
 
             Preference preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
@@ -2106,7 +2047,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     (!showVolumesSensor) &&
                     (!showVPNSensor) &&
                     (!showWifiSensor) &&
-                    (!showMusicSensor)) {
+                    (!showMusicSensor) &&
+                    (!showCallScreeningSensor)) {
                 hideSensors = false;
                 if (preference != null)
                     preference.setEnabled(false);
@@ -2297,6 +2239,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     showSensor = showMusicSensor;
                 preference.setVisible(showSensor);
             }
+            preference = prefMng.findPreference(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_CATEGORY);
+            if (preference != null) {
+                boolean showSensor = !hideSensors;
+                if (hideSensors)
+                    showSensor = showCallScreeningSensor;
+                preference.setVisible(showSensor);
+            }
         }
     }
 
@@ -2360,7 +2309,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if ((context != null) && (activity != null) && (fragment != null) && (prefMng != null)) {
 
                 String rootScreen = PPApplication.PREF_ROOT_SCREEN;
-                int errorColor = ContextCompat.getColor(context, R.color.error_color);
+                int errorColor = ContextCompat.getColor(context, R.color.errorColor);
 
                 if (event != null) {
                     int order = 1;
@@ -2490,7 +2439,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 preference.setSummary(summary);
 
                                 preference.setOnPreferenceClickListener(preference12 -> {
-                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, null, false);
+                                    ExtenderDialogPreferenceFragment.installPPPExtender(activity, /*null,*/ false);
                                     return false;
                                 });
                             }
@@ -2503,7 +2452,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 preference.setSummary(summary);
 
                                 preference.setOnPreferenceClickListener(preference13 -> {
-                                    ExtenderDialogPreferenceFragment.enableExtender(activity, null);
+                                    ExtenderDialogPreferenceFragment.enableExtender(activity/*, null*/);
                                     return false;
                                 });
                             }

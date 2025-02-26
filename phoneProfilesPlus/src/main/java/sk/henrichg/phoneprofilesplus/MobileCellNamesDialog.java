@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,150 +16,177 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.DialogPreference;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-class MobileCellNamesDialog {
+public class MobileCellNamesDialog extends DialogFragment {
 
     List<String> cellNamesList;
 
-    private final Activity activity;
-    private final boolean showFilterItems;
-    private final DialogPreference preference;
+    private AppCompatActivity activity;
+    private boolean showFilterItems;
+    private DialogPreference preference;
 
-    private final AlertDialog mDialog;
-    final EditText cellName;
-    final ListView cellNamesListView;
-    final RelativeLayout emptyList;
+    private AlertDialog mDialog;
+    private EditText cellName;
+    private ListView cellNamesListView;
+    private RelativeLayout emptyList;
 
-    private final LinearLayout linlaProgress;
-    private final LinearLayout rellaDialog;
+    private LinearLayout linlaProgress;
+    private LinearLayout rellaDialog;
 
-    private final MobileCellNamesDialogAdapter listAdapter;
+    private DialogInterface.OnClickListener positiveClick;
+    private MobileCellNamesDialog fragment;
+
+    private MobileCellNamesDialogAdapter listAdapter;
 
     private ShowDialogAsyncTask asyncTask = null;
 
-    MobileCellNamesDialog(final Activity activity,
+    public MobileCellNamesDialog() {
+    }
+
+    public MobileCellNamesDialog(final AppCompatActivity activity,
                           final DialogPreference preference,
                           final boolean showFilterItems,
                           final DialogInterface.OnClickListener _positiveClick) {
-
         this.activity = activity;
         this.showFilterItems = showFilterItems;
         this.preference = preference;
+        this.positiveClick = _positiveClick;
+    }
 
-        cellNamesList = new ArrayList<>();
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            GlobalGUIRoutines.lockScreenOrientation(activity);
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle((showFilterItems) ? R.string.mobile_cell_names_dialog_filter_title : R.string.mobile_cell_names_dialog_title);
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+            fragment = this;
 
-        if (!showFilterItems) {
-            if (_positiveClick != null)
-                dialogBuilder.setPositiveButton(android.R.string.ok, _positiveClick);
-            else {
-                dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            cellNamesList = new ArrayList<>();
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    (showFilterItems) ?
+                            activity.getString(R.string.mobile_cell_names_dialog_filter_title) :
+                            activity.getString(R.string.mobile_cell_names_dialog_title),
+                    null);
+            //dialogBuilder.setTitle((showFilterItems) ? R.string.mobile_cell_names_dialog_filter_title : R.string.mobile_cell_names_dialog_title);
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            if (!showFilterItems) {
+                //noinspection ReplaceNullCheck
+                if (positiveClick != null)
+                    dialogBuilder.setPositiveButton(android.R.string.ok, positiveClick);
+                else {
+                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         //if (preference == null) {
-                            //if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                            //    ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
-                            //}
+                        //if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                        //    ((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.setText(cellName.getText());
+                        //}
                         //} else
                         if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                            //noinspection DataFlowIssue
                             ((MobileCellsRegistrationDialogPreference) preference).setCellNameText(cellName.getText().toString());
                         } else if (preference instanceof MobileCellsEditorPreference) {
+                            //noinspection DataFlowIssue
                             ((MobileCellsEditorPreference) preference).setCellNameText(cellName.getText().toString());
                         }
+                    });
+                }
+            }
+
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_mobile_cell_names, null);
+            dialogBuilder.setView(layout);
+
+            mDialog = dialogBuilder.create();
+
+            mDialog.setOnShowListener(dialog -> {
+                asyncTask = new ShowDialogAsyncTask(fragment, activity);
+                asyncTask.execute();
+            });
+
+            cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
+            emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
+            cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
+            //noinspection DataFlowIssue
+            cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.edit_text_color));
+            if (!showFilterItems) {
+                cellName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String value = cellName.getText().toString();
+                        Button button = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                        if (button != null)
+                            button.setEnabled(!value.isEmpty());
                     }
                 });
             }
-        }
-
-        dialogBuilder.setOnDismissListener(dialog -> {
-            if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
-                asyncTask.cancel(true);
-            asyncTask = null;
-        });
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_mobile_cell_names, null);
-        dialogBuilder.setView(layout);
-
-        mDialog = dialogBuilder.create();
-
-//        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
-        emptyList = layout.findViewById(R.id.mobile_cell_names_dlg_empty);
-        cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
-        cellName.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.highlighted_spinner_all));
-        if (!showFilterItems) {
-            cellName.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    String value = cellName.getText().toString();
-                    Button button = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (button != null)
-                        button.setEnabled(!value.isEmpty());
-                }
-            });
-        }
-        else
-            cellName.setVisibility(View.GONE);
-
-        linlaProgress = layout.findViewById(R.id.mobile_cell_names_dlg_linla_progress);
-        rellaDialog = layout.findViewById(R.id.mobile_cell_names_dlg_rella_dialog);
-
-        listAdapter = new MobileCellNamesDialogAdapter(activity, this);
-        cellNamesListView.setAdapter(listAdapter);
-
-        cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
-            if (showFilterItems) {
-                ((MobileCellsEditorPreference) preference).setCellFilterText(cellNamesList.get(position));
-                mDialog.dismiss();
+            else {
+                cellName.setVisibility(View.GONE);
+                RelativeLayout cellNameRelLa = layout.findViewById(R.id.mobile_cell_names_dlg_name_rella);
+                //noinspection DataFlowIssue
+                cellNameRelLa.setVisibility(View.GONE);
             }
-            else
-                cellName.setText(cellNamesList.get(position));
-        });
 
+            linlaProgress = layout.findViewById(R.id.mobile_cell_names_dlg_linla_progress);
+            rellaDialog = layout.findViewById(R.id.mobile_cell_names_dlg_rella_dialog);
+
+            listAdapter = new MobileCellNamesDialogAdapter(activity, this);
+            //noinspection DataFlowIssue
+            cellNamesListView.setAdapter(listAdapter);
+
+            cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
+                if (showFilterItems) {
+                    ((MobileCellsEditorPreference) preference).setCellFilterText(cellNamesList.get(position));
+                    mDialog.dismiss();
+                }
+                else
+                    cellName.setText(cellNamesList.get(position));
+            });
+
+        }
+
+        return mDialog;
     }
 
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
 
-    void show() {
-        if (!activity.isFinishing()) {
-            mDialog.show();
+        if ((asyncTask != null) && asyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
+            asyncTask.cancel(true);
+        asyncTask = null;
 
-            asyncTask = new ShowDialogAsyncTask(this, activity);
-            asyncTask.execute();
-        }
+        if (activity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
+    }
+
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            show(activity.getSupportFragmentManager(), "MOBILE_CELL_NAMES_DIALOG");
     }
 
     private static class ShowDialogAsyncTask extends AsyncTask<Void, Integer, Void> {
-
         final List<String> _cellNamesList = new ArrayList<>();
 
         private final WeakReference<MobileCellNamesDialog> dialogWeakRef;
@@ -255,7 +284,6 @@ class MobileCellNamesDialog {
                 });
             }
         }
-
     }
 
 }

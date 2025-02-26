@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/generateNotificationPrefDialogRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/generateNotificationPrefDialog_titleBarDivider"
@@ -13,7 +14,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/generateNotificationPrefDialog_root"
@@ -21,8 +22,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/generateNotificationPrefDialog_linla0"
@@ -34,20 +35,21 @@
             android:paddingBottom="10dp"
             android:orientation="vertical">
 
-            <CheckBox
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/generateNotificationPrefDialogGenerate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="-5dp"
-                android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
-                android:text="@string/generate_notification_pref_dialog_generate_chb" />
+                android:text="@string/generate_notification_pref_dialog_generate_chb"
+                android:layout_marginBottom="15dp"
+                app:switchPadding="@dimen/switch_padding"
+                app:trackTint="@color/switch_track_color"
+                app:thumbTint="@color/switch_thumb_color" />
 
             <TextView
                 android:id="@+id/generateNotificationPrefDialogIconTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:textSize="16sp"
                 android:text="@string/generate_notification_pref_dialog_icon_type" />
 
@@ -61,6 +63,8 @@
                     android:id="@+id/generateNotificationPrefDialogInformationIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_pref_dialog_information_icon_rb"/>
@@ -68,6 +72,8 @@
                     android:id="@+id/generateNotificationPrefDialogExclamationIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_pref_dialog_exclamation_icon_rb"/>
@@ -75,6 +81,8 @@
                     android:id="@+id/generateNotificationPrefDialogProfileIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@android:color/transparent"
+                    android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                     android:buttonTint="@color/checkbox_radiobutton_color"
                     android:textSize="16sp"
                     android:text="@string/generate_notification_pref_dialog_profile_icon_rb"/>
@@ -85,6 +93,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-2dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/generate_notification_pref_dialog_replace_with_ppp_icon_chb" />
@@ -95,44 +105,75 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-2dp"
                 android:layout_marginBottom="10dp"
+                android:drawableStart="@android:color/transparent"
+                android:drawablePadding="@dimen/checkbox_radiobitton_drawable_padding"
                 android:buttonTint="@color/checkbox_radiobutton_color"
                 android:textSize="16sp"
                 android:text="@string/generate_notification_pref_dialog_large_icon_chb" />
 
-            <TextView
-                android:id="@+id/generateNotificationPrefDialogNotificationTitleLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp"
-                android:text="@string/generate_notification_pref_dialog_notification_title" />
-            <EditText
-                android:id="@+id/generateNotificationPrefDialogNotificationTitle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginBottom="10dp"
-                android:selectAllOnFocus="true"
-                android:hint="@string/generated_notification_intent_hint_not_set"
-                android:textColorHint="@color/activityDisabledTextColor"
-                android:inputType="textNoSuggestions"
-                android:importantForAutofill="no" />
+                android:paddingStart="@dimen/dialog_with_edittext_padding"
+                android:paddingEnd="@dimen/dialog_with_edittext_padding" >
+                <EditText
+                    android:id="@+id/generateNotificationPrefDialogNotificationTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:textColorHint="@color/activityDisabledTextColor"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/EditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:id="@+id/generateNotificationPrefDialogNotificationTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/generate_notification_pref_dialog_notification_title" />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/generateNotificationPrefDialogNotificationBodyLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp"
-                android:text="@string/generate_notification_pref_dialog_notification_body" />
-            <EditText
-                android:id="@+id/generateNotificationPrefDialogNotificationBody"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:selectAllOnFocus="true"
-                android:hint="@string/generated_notification_intent_hint_not_set"
-                android:textColorHint="@color/activityDisabledTextColor"
-                android:inputType="textNoSuggestions|textMultiLine"
-                android:importantForAutofill="no" />
+                android:layout_height="60dp"
+                android:layout_marginBottom="5dp" >
+                <EditText
+                    android:id="@+id/generateNotificationPrefDialogNotificationBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_text_border"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:selectAllOnFocus="true"
+                    android:textColorHint="@color/activityDisabledTextColor"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
+                    android:hint="@string/application_editor_intent_hint_not_set"
+                    style="@style/EditTextStyle"
+                    tools:ignore="LabelFor" />
+                <TextView
+                    android:id="@+id/generateNotificationPrefDialogNotificationBodyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/activityBackgroundColor"
+                    android:text="@string/generate_notification_pref_dialog_notification_body" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -144,6 +185,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

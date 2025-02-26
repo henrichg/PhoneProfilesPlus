@@ -194,7 +194,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     }
 
     @Override
-    public void draw(Canvas c) {
+    public void draw(@NonNull Canvas c) {
         super.draw(c);
         if (mFastScrollEnabled) {
             onUpdateScrollbar();

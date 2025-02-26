@@ -88,8 +88,8 @@
         <attr name="enableExtenderSummaryDisabled" format="string" />
         <attr name="enbaleExtenderPreferenceNameToTest" format="string" />
         <attr name="enbaleExtenderPreferenceValueToTest" format="string" />
-        <attr name="requiredExtenderVersionCode" format="integer" />
-        <attr name="requiredExtenderVersionName" format="string" />
+<!--        <attr name="requiredExtenderVersionCode" format="integer" />-->
+<!--        <attr name="requiredExtenderVersionName" format="string" />-->
     </declare-styleable>
     <declare-styleable name="WallpaperViewPreference">
         <attr name="forLockScreen" format="boolean" />
@@ -97,6 +97,12 @@
 <!--    <declare-styleable name="PPPPSDialogPreference">-->
 <!--        <attr name="requiredPPPPSVersionCode" format="integer" />-->
 <!--        <attr name="requiredPPPPSVersionName" format="string" />-->
+<!--    </declare-styleable>-->
+    <declare-styleable name="PPPhoneCallSendSMSDialogPreference">
+        <attr name="sendSMS" format="boolean" />
+    </declare-styleable>
+<!--    <declare-styleable name="PPEditTextPrefernce">-->
+<!--        <attr name="editValue" format="string" />-->
 <!--    </declare-styleable>-->
 
     <!-- theme dependent drawables -->

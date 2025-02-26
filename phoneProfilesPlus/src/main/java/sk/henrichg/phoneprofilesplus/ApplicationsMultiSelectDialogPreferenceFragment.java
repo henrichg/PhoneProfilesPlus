@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,12 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
     private ApplicationsMultiSelectPreferenceAdapter listAdapter;
 
     private RefreshListViewAsyncTask asyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -53,6 +60,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         FastScrollRecyclerView listView = view.findViewById(R.id.applications_multiselect_pref_dlg_listview);
+        //noinspection DataFlowIssue
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -67,6 +75,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
         */
 
         final Button unselectAllButton = view.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
             refreshListView(false);

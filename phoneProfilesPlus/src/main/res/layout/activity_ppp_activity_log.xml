@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_log_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,48 @@
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
-    tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity" >
+    android:animateLayoutChanges="true"
+    tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_log_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_log_subToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/editor_toolbar_height"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="15dp">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/activity_log_filter_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_log_filter_marginStart"
+            android:paddingStart="@dimen/spinner_padding_horizontal"
+            android:paddingEnd="@dimen/spinner_padding_horizontal"
+            android:paddingTop="@dimen/spinner_padding_vertical"
+            android:paddingBottom="@dimen/spinner_padding_vertical"
+            android:layout_gravity="center_vertical"
+            android:entries="@array/emptyArray"
+            android:clickable="true"
+            android:focusable="true"
+            android:popupElevation="0dp"
+            android:background="@drawable/spinner_background"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/activity_log_liLa1"
@@ -25,8 +67,8 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="@dimen/activity_log_tab_paddingTopBottom"
+            android:paddingBottom="@dimen/activity_log_tab_paddingTopBottom">
 
             <TextView
                 android:id="@+id/activity_log_header_color"
@@ -91,7 +133,7 @@
             android:id="@+id/activity_log_header_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
     </LinearLayout>
 
@@ -142,9 +184,9 @@
         android:choiceMode="singleChoice"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         android:divider="@android:color/transparent"
         android:listSelector="?attr/listViewItemBackground"
         android:visibility="gone" />
+<!--    android:fadeScrollbars="false"-->
 
 </LinearLayout>

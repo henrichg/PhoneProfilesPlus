@@ -4,8 +4,8 @@
     android:id="@+id/contacts_multiselect_pref_dlg_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp"
+    android:paddingTop="@dimen/listItem_paddingTopBototm_height"
+    android:paddingBottom="@dimen/listItem_paddingTopBototm_height"
     android:background="?attr/listViewItemBackground">
 
     <CheckBox
@@ -21,8 +21,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/contacts_multiselect_pref_dlg_item_icon"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="@dimen/listItem_icon_size"
+        android:layout_height="@dimen/listItem_icon_size"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/contacts_multiselect_pref_dlg_item_checkbox"
         android:contentDescription="@string/contacts_multiselect_pref_dlg_contact_photo"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="@dimen/listItem_label_text_size"
             android:textStyle="bold"/>
 
         <TextView
@@ -67,14 +67,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="14sp"/>
+            android:textSize="@dimen/listItem_label_text_size"
+            android:textColor="@color/preferenceSummaryTextColor"/>
 
         <TextView
             android:id="@+id/contacts_multiselect_pref_dlg_item_account_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="14sp"
+            android:textSize="@dimen/listItem_secondary_text_size"
+            android:textColor="@color/preferenceSummaryTextColor"
             android:textStyle="italic"/>
 
     </LinearLayout>

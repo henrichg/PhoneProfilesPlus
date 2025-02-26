@@ -9,23 +9,25 @@
         app:title="@string/phone_profiles_pref_applicationEventBluetooth_info"
         app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventBluetoothEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="applicationEventBluetoothLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventBluetoothScanIfBluetoothOff"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff"
         app:defaultValue="true"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanIntervalCategory"
         app:dependency="applicationEventBluetoothEnableScannig"
@@ -105,12 +107,13 @@
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"
             app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             app:defaultValue="false"
             app:dependency="applicationEventBluetoothEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

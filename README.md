@@ -6,20 +6,26 @@
 PhoneProfilesPlus (PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.5.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.5.1.1)
+[![version](https://img.shields.io/badge/version-7.0.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
-[![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)\
-[![GMail](https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white&label=henrich.gron@gmail.com)](mailto:henrich.gron@gmail.com)
+[![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
+\
+[![E-Mail](https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white&label=henrich.gron@gmail.com)](mailto:henrich.gron@gmail.com)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white&label=PPP%20server)](https://discord.com/channels/1258733423426670633/1258733424504737936)
 [![XDA-developers](https://img.shields.io/badge/xda%20developers-2DAAE9?logo=xda-developers&logoColor=white&label=PhoneProfilesPlus)](https://xdaforums.com/t/app-phoneprofilesplus.3799429/)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white&label=@henrichg)](https://x.com/henrichg)
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=white&label=u/henrichg)](https://www.reddit.com/user/henrichg/)
-[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff&label=@henrichg)](https://bsky.app/profile/henrichg.bsky.social)\
-Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3
+[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff&label=@henrichg)](https://bsky.app/profile/henrichg.bsky.social)
+[![Mastodon](https://img.shields.io/badge/Mastodon-6364FF?logo=Mastodon&logoColor=white&label=@henrichg)](https://mastodon.social/@henrichg)\
+Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3 \
+\
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 ### Sources of PhoneProfilesPlus:
+
+NOTE: Google Play Protect may display dialog box with title "Unsafe app blocked" and description "This app was build for an older version of Android and doesn`t include the latest privacy protection."
+Please click in this dialog "More details" and then "Install anyway".\
+Dialog is displayed, because PPP has target SDK vesion 28 (Android 9). Must be, because of functionalities in PPP.
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
@@ -55,7 +61,7 @@ __GitHub (better is using Droid-ify instead):__
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
 
-__If is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.__
+If is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.
 - [Show how](docs/install_apk_from_pc.md)
 
 ### Applications required for some PhoneProfilesPlus features:
@@ -111,12 +117,15 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 [[12]](art/phoneScreenshots/12.png),
 [[13]](art/phoneScreenshots/13.png)
 
+##### History of UI changes :wink:
+- __[Show it](docs/history_of_ui_changes.md)__
+
 ##### Supported Android versions
 
 - From Android 8.0
 - minSdkVersion = 26
 - targetSdkVersion = 28
-- compiledSdkVersion = 34
+- compiledSdkVersion = 35
 
 ##### Required external libs - open-source
 
@@ -125,7 +134,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - guava - https://github.com/google/guava
-- AutoService = https://github.com/google/auto/tree/main/service
+- AutoService - https://github.com/google/auto/tree/main/service
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
@@ -151,7 +160,3 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
 - Advance-Android-Tutorials (only modified class ZipManager.java) - https://github.com/stacktipslab/Advance-Android-Tutorials
 - Multi-language_App (only modified class LocaleHelper.java) - https://github.com/anurajr1/Multi-language_App
-
-##### Required external libs - not open-source
-
-- Samsung Look - http://developer.samsung.com/galaxy/edge

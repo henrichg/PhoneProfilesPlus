@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:orientation="vertical"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="@dimen/listItem_editorEventList_paddingTopBototm_height" >
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/event_list_item_edit_menu"
@@ -58,15 +58,15 @@
         android:orientation="horizontal"
         android:paddingStart="0dp"
         android:paddingEnd="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp" >
+        android:paddingTop="@dimen/listItem_editorEventList_paddingTopBototm_height"
+        android:paddingBottom="@dimen/listItem_editorEventList_paddingTopBototm_height" >
 
         <ImageView
             android:id="@+id/event_list_item_status"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:padding="5dp"
-            android:layout_marginStart="3dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:layout_marginStart="0dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/editor_event_list_item_event_status"
             android:scaleType="centerCrop"
@@ -86,7 +86,7 @@
                 android:paddingEnd="10dp"
                 android:paddingTop="5dp"
                 android:text="@string/event_name_default"
-                android:textSize="16sp"
+                android:textSize="@dimen/listItem_editorEventList_eventName_size"
                 android:scrollHorizontally="true"
                 android:ellipsize="end" />
 
@@ -117,7 +117,7 @@
                     android:layout_marginTop="0dp"
                     android:layout_gravity="center_vertical"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/listItem_editorEventList_profileName_size"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"/>
@@ -151,7 +151,7 @@
                     android:layout_marginTop="0dp"
                     android:layout_gravity="center_vertical"
                     android:text="@string/profile_preference_profile_not_set"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/listItem_editorEventList_profileName_size"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"/>

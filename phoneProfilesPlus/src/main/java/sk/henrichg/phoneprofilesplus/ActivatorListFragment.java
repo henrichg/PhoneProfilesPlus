@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
@@ -36,6 +37,7 @@ public class ActivatorListFragment extends Fragment {
     private GridView gridView = null;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
+    private ImageView activeProfilePrefIndicator;
     RelativeLayout viewNoData;
     private LinearLayout progressBar;
     //FrameLayout gridViewDivider = null;
@@ -120,11 +122,13 @@ public class ActivatorListFragment extends Fragment {
 
         activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
+        activeProfilePrefIndicator = view.findViewById(R.id.act_prof_activated_profile_pref_indicator);
         if (!applicationActivatorGridLayout)
             listView = view.findViewById(R.id.act_prof_profiles_list);
         else {
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
             try {
+                //noinspection DataFlowIssue
                 gridView.setNumColumns(Integer.parseInt(ApplicationPreferences.applicationActivatorNumColums));
             } catch (Exception e) {
                 gridView.setNumColumns(3);
@@ -159,12 +163,13 @@ public class ActivatorListFragment extends Fragment {
         //absListView.setRemoveListener(onRemove);
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
-        if (activatedProfileHeader != null) {
-            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_activator_list_fragment))
-                    .getLayoutTransition();
+        if ((activatedProfileHeader != null) && (!applicationActivatorGridLayout)) {
+            ViewGroup activateListFragment = view.findViewById(R.id.layout_activator_list_fragment);
+            //noinspection DataFlowIssue
+            final LayoutTransition layoutTransition = activateListFragment.getLayoutTransition();
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-            absListView.setOnScrollListener(new HidingAbsListViewScrollListener() {
+            absListView.setOnScrollListener(new ActivatorAutoHideShowHeaderScrollListener() {
                 @Override
                 public void onHide() {
                     /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
@@ -473,8 +478,7 @@ public class ActivatorListFragment extends Fragment {
         activityDataWrapper = null;
     }
 
-    private void updateHeader(Profile profile)
-    {
+    private void updateHeader(Profile profile) {
         //if (!ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
         //    return;
 
@@ -482,22 +486,18 @@ public class ActivatorListFragment extends Fragment {
             // Activator opened from recent app list and setting for show header is changed
             return;
 
-        String oldDisplayedText = (String)activatedProfileHeader.getTag();
+        String oldDisplayedText = (String) activatedProfileHeader.getTag();
 
-        if (profile == null)
-        {
+        if (profile == null) {
             activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
 
             activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
-        }
-        else
-        {
-            activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, activityDataWrapper));
+        } else {
+            activatedProfileHeader.setTag(DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, false, activityDataWrapper));
 
-            activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper));
-            if (profile.getIsIconResourceID())
-            {
+            activeProfileName.setText(DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, activityDataWrapper));
+            if (profile.getIsIconResourceID()) {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
                 if (bitmap != null)
                     activeProfileIcon.setImageBitmap(bitmap);
@@ -510,36 +510,32 @@ public class ActivatorListFragment extends Fragment {
                         activeProfileIcon.setImageResource(res); // icon resource
                     }
                 }
-            }
-            else
-            {
+            } else {
                 //Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(getActivity(), profile._iconBitmap);
                 //Bitmap bitmap = profile._iconBitmap;
                 //if (bitmap != null)
                 //    activeProfileIcon.setImageBitmap(bitmap);
                 //else
-                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }
 
-        //if (ApplicationPreferences.applicationActivatorPrefIndicator)
-        if (ApplicationPreferences.applicationEditorPrefIndicator)
-        {
-            //noinspection ConstantConditions
-            ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
-            if (profilePrefIndicatorImageView != null)
-            {
+        if (activeProfilePrefIndicator != null) {
+            //if (ApplicationPreferences.applicationActivatorPrefIndicator)
+            if (ApplicationPreferences.applicationEditorPrefIndicator) {
                 if (profile == null)
                     //profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                    profilePrefIndicatorImageView.setVisibility(GONE);
+                    activeProfilePrefIndicator.setVisibility(GONE);
                 else {
                     if (profile._preferencesIndicator != null)
-                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                        activeProfilePrefIndicator.setImageBitmap(profile._preferencesIndicator);
                     else
-                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                        activeProfilePrefIndicator.setImageResource(R.drawable.ic_empty);
                 }
-            }
+            } else
+                activeProfilePrefIndicator.setVisibility(GONE);
         }
+
 
         String newDisplayedText = (String)activatedProfileHeader.getTag();
         if (!newDisplayedText.equals(oldDisplayedText))
@@ -558,11 +554,10 @@ public class ActivatorListFragment extends Fragment {
             else
             if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
-//                Log.e("ActivatorListFragment.activateProfile", "xxxxx");
-                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
+                activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false, false);
             }
             else
-                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, getActivity());
+                GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, true, false, false, (AppCompatActivity) getActivity());
         }
     }
 

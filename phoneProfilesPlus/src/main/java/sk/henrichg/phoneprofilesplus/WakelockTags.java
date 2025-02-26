@@ -17,7 +17,7 @@ class WakelockTags {
     static final String WAKELOCK_TAG_ActivateProfileHelper_lockDevice = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_lockDevice";
     static final String WAKELOCK_TAG_ActivateProfileHelper_cameraFlash = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash";
     static final String WAKELOCK_TAG_AlarmClockBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":AlarmClockBroadcastReceiver_onReceive";
-    static final String WAKELOCK_TAG_BluetoothConnectionBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothConnectionBroadcastReceiver_onReceive";
+//    static final String WAKELOCK_TAG_BluetoothConnectionBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothConnectionBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_BluetoothLEScanCallback21_onScanResult = PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onScanResult";
     static final String WAKELOCK_TAG_BluetoothLEScanCallback21_onBatchScanResults = PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onBatchScanResults";
     static final String WAKELOCK_TAG_BluetoothScanBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothScanBroadcastReceiver_onReceive";
@@ -80,6 +80,8 @@ class WakelockTags {
     static final String WAKELOCK_TAG_VPNNetworkCallback_doConnection_1 = PPApplication.PACKAGE_NAME + ":VPNNetworkCallback_doConnection_1";
     static final String WAKELOCK_TAG_WifiAPStateChangeBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":WifiAPStateChangeBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_WifiStateChangedBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_ActivateProfileHelper_screenOff = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_screenOff";
+    static final String WAKELOCK_TAG_ActivateProfileHelper_screenOn = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_screenOn";
 
     private WakelockTags() {
         // private constructor to prevent instantiation

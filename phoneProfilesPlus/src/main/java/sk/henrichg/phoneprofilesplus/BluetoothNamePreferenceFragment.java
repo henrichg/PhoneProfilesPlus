@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
@@ -68,7 +69,9 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.event_preferences_bluetooth_adapter_name);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.event_preferences_bluetooth_adapter_name), null);
+        //dialogBuilder.setTitle(R.string.event_preferences_bluetooth_adapter_name);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel,  (dialog, which) -> {
@@ -90,6 +93,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         dataLinearLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_data);
 
         addIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addIcon, getString(R.string.bluetooth_name_pref_dlg_add_button_tooltip));
         addIcon.setOnClickListener(v -> {
             String btName = bluetoothName.getText().toString();
@@ -108,7 +112,8 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         });
 
         bluetoothName = layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
-        bluetoothName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        bluetoothName.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         bluetoothName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -121,12 +126,12 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
-                        addIcon, prefContext.getApplicationContext());
+                        addIcon, prefContext);
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
-                addIcon, prefContext.getApplicationContext());
+                addIcon, prefContext);
 
         bluetoothListView = layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         emptyList = layout.findViewById(R.id.bluetooth_name_pref_dlg_empty);
@@ -156,6 +161,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         */
 
         final ImageView helpIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {
             String helpString = getString(R.string.event_preference_bluetooth_btName_type)+StringConstants.STR_DOUBLE_NEWLINE+
@@ -170,6 +176,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
 
         ImageView changeSelectionIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_changeSelection);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.bluetooth_name_pref_dlg_select_button_tooltip));
         changeSelectionIcon.setOnClickListener(view1 -> {
             if (getActivity() != null)
@@ -199,14 +206,15 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                 //dialog.dismiss();
                             },
                             null,
-                            false,
-                            getActivity());
+                            //false,
+                            (AppCompatActivity) getActivity());
 
-                    mSelectorDialog.show();
+                    mSelectorDialog.showDialog();
                 }
         });
 
         rescanButton = layout.findViewById(R.id.bluetooth_name_pref_dlg_rescanButton);
+        //noinspection DataFlowIssue
         rescanButton.setOnClickListener(v -> {
             if (Permissions.grantBluetoothScanDialogPermissions(prefContext))
                 refreshListView(true, "");
@@ -215,6 +223,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         locationSystemSettingsRelLa = layout.findViewById(R.id.bluetooth_name_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = layout.findViewById(R.id.bluetooth_name_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = layout.findViewById(R.id.bluetooth_name_pref_dlg_locationSystemSettingsButton);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         mDialog.setOnShowListener(dialog -> {
@@ -393,8 +402,8 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             preference.resetSummary();
         }*/
 
-        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
-            mSelectorDialog.mDialog.dismiss();
+        if (mSelectorDialog != null)
+            mSelectorDialog.dismiss();
 
         BluetoothScanWorker.setScanRequest(prefContext, false);
         BluetoothScanWorker.setWaitForResults(prefContext, false);
@@ -449,15 +458,17 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
-                                        getActivity()
+                                        false,
+                                        (AppCompatActivity) getActivity()
                                 );
 
                                 if (getActivity() != null)
                                     if (!getActivity().isFinishing())
-                                        dialog.show();
+                                        dialog.showDialog();
                             }
                         }
                     }
@@ -577,14 +588,16 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
-                            getActivity()
+                            false,
+                            (AppCompatActivity) getActivity()
                     );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
-                        dialog.show();
+                        dialog.showDialog();
                 }
                 return true;
             }

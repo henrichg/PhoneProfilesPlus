@@ -8,6 +8,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -25,6 +26,12 @@ public class DurationDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
     private Context prefContext;
     private DurationDialogPreference preference;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -47,6 +54,7 @@ public class DurationDialogPreferenceFragment extends PreferenceDialogFragmentCo
         TextView mTextViewRange = view.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = view.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.duration_pref_dlg_edit_duration_tooltip));
 
         mSeekBarHours = view.findViewById(R.id.duration_pref_dlg_hours);
@@ -126,6 +134,7 @@ public class DurationDialogPreferenceFragment extends PreferenceDialogFragmentCo
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
         mSeekBarSeconds.setOnSeekBarChangeListener(this);
 
+        //noinspection DataFlowIssue
         mTextViewRange.setText(sMin + " - " + sMax);
 
     }

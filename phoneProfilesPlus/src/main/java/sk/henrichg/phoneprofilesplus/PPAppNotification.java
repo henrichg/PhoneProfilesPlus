@@ -89,6 +89,9 @@ public class PPAppNotification {
 
                 //notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 //notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+
+                // must be this to avoid Exception at first PPP start, because by this is loaded layout
+                notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
             notificationShowProfileIcon = false; // for small notification at start
             notificationProfileIconColor = "0";
@@ -106,7 +109,7 @@ public class PPAppNotification {
 
             notificationBackgroundCustomColor = 0xFFFFFFFF;
             notificationShowButtonExit = false;
-            notificationLayoutType = "2"; // only small layout
+            //notificationLayoutType = "2"; // only small layout
         }
         else {
             profile = dataWrapper.getActivatedProfileFromDB(false, false);
@@ -195,6 +198,7 @@ public class PPAppNotification {
                     notificationTextColor = "2";
                     break;
             }
+
             // is not possible to use decoration when notificication background is not "Native"
             useDecorator = useDecorator && notificationBackgroundColor.equals("0");
 
@@ -378,7 +382,7 @@ public class PPAppNotification {
         {
             isIconResourceID = profile.getIsIconResourceID();
             iconIdentifier = profile.getIconIdentifier();
-            profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
+            profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, true, "", true, false, false, false, dataWrapper);
             // get string from spannable
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
@@ -580,7 +584,7 @@ public class PPAppNotification {
         // notification title
         if (notificationNotificationStyle.equals("0")) {
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
-            if (contentView != null)
+            //if (contentView != null)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
         }
         else {
@@ -607,14 +611,12 @@ public class PPAppNotification {
                 if (notificationPrefIndicator) {
                     ProfilePreferencesIndicator _indicators = new ProfilePreferencesIndicator();
                     indicators = _indicators.getString(profile, /*0,*/ appContext);
-
                     // do not show indicators in collased notification ;-)
                     //notificationBuilder.setContentText(indicators);
-
                 }
-                else {
-                    notificationBuilder.setContentText(null);
-                }
+                //else {
+                //    notificationBuilder.setContentText(null);
+                //}
             }
         } catch (Exception e) {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._showNotification", Log.getStackTraceString(e));
@@ -629,37 +631,37 @@ public class PPAppNotification {
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "1":
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     color = ContextCompat.getColor(appContext, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "5":
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     break;
                 default:
                     //int color = getResources().getColor(R.color.notificationBackground);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
-                    if (contentView != null)
+                    //if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                     break;
             }
 
             if (notificationTextColor.equals("1")) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                if (contentView != null)
+                //if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
             } else if (notificationTextColor.equals("2")) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                if (contentView != null)
+                //if (contentView != null)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
             } else {
                 if (Build.VERSION.SDK_INT == 28) {
@@ -671,11 +673,11 @@ public class PPAppNotification {
                     // For this, must be changed programmatically
                     if (useNightColor/* == 1*/) {
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                        if (contentView != null)
+                        //if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                     } else {
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                        if (contentView != null)
+                        //if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                     }
                 } else {
@@ -685,7 +687,7 @@ public class PPAppNotification {
                             // In One UI is not used Material You in motifications
                             //if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) {
                                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
-                                if (contentView != null)
+                                //if (contentView != null)
                                     contentView.setTextColor(R.id.notification_activated_profile_name, color);
                             //}
                         }
@@ -750,20 +752,38 @@ public class PPAppNotification {
             if (Build.VERSION.SDK_INT >= 31) {
                 // this style is used, because large icon and indicators are hidden in collapsed mode
                 // but is reserved small space for bigPicture in expanded mode:-(
-                if (notificationShowProfileIcon)
-                    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                                    .setBigContentTitle(profileName.toString())
-                                    .setSummaryText(indicators)
-                                    .bigLargeIcon(notificationIconData.imageBitmap)
-                                    .bigPicture((Bitmap)null)
-                    );
-                else
-                    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                                    .setBigContentTitle(profileName.toString())
-                                    .setSummaryText(indicators)
-                                    .bigLargeIcon((Bitmap)null)
-                                    .bigPicture((Bitmap)null)
-                    );
+                if (notificationShowProfileIcon) {
+                    if ((indicators == null) || (indicators.isEmpty()))
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                //.setSummaryText(null)
+                                .bigLargeIcon(notificationIconData.imageBitmap)
+                                //.bigPicture((Bitmap) null)
+                        );
+                    else
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                .setSummaryText(indicators)
+                                .bigLargeIcon(notificationIconData.imageBitmap)
+                                //.bigPicture((Bitmap) null)
+                        );
+                }
+                else {
+                    if ((indicators == null) || (indicators.isEmpty()))
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                //.setSummaryText(null)
+                                //.bigLargeIcon((Bitmap) null)
+                                //.bigPicture((Bitmap) null)
+                        );
+                    else
+                        notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                                .setBigContentTitle(profileName.toString())
+                                .setSummaryText(indicators)
+                                //.bigLargeIcon((Bitmap) null)
+                                //.bigPicture((Bitmap) null)
+                        );
+                }
             }
             else
                 notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
@@ -1338,7 +1358,7 @@ public class PPAppNotification {
         return notificationIconData;
     }
 
-    static void clearOldNotification(Context context) {
+    private static void clearOldNotification(Context context) {
         boolean clear = false;
         if (Build.MANUFACTURER.equals(PPApplication.MANUFACTURER_HMD_GLOBAL))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
@@ -1364,11 +1384,12 @@ public class PPAppNotification {
         //if (!doNotShowNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 
-            clearOldNotification(appContext);
+            synchronized (PPApplication.showPPPNotificationMutex) {
+
+                clearOldNotification(appContext);
 
             //if (PhoneProfilesService.getInstance() != null) {
 //            PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotification", "PPApplication.showPPPNotificationMutex");
-            synchronized (PPApplication.showPPPNotificationMutex) {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
                 _showNotification(dataWrapper, false);
@@ -1380,12 +1401,12 @@ public class PPAppNotification {
     }
 
     static void forceDrawNotificationFromSettings(final Context appContext) {
-        clearNotification(appContext, false);
-        GlobalUtils.sleep(100);
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            clearNotification(appContext, false);
+            GlobalUtils.sleep(100);
 
         //if (PhoneProfilesService.getInstance() != null) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPAppNotification.forceDrawNotificationFromSettings", "PPApplication.showPPPNotificationMutex");
-        synchronized (PPApplication.showPPPNotificationMutex) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
             _showNotification(dataWrapper, false);
@@ -1468,37 +1489,41 @@ public class PPAppNotification {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-        if (alsoClear)
-            clearNotification(context, true);
+        synchronized (PPApplication.showPPPNotificationMutex) {
 
-        //if (!runningInForeground) {
-        if (drawEmpty) {
-            //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+            if (alsoClear)
+                clearNotification(context, true);
+
+            //if (!runningInForeground) {
+            if (drawEmpty) {
+                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.showNotification", "call of _showNotification");
-            _showNotification(/*null,*/ dataWrapper, true/*, true*/);
-            dataWrapper.invalidateDataWrapper();
-            //return; // do not return, dusplay activated profile immediatelly
-        }
+                _showNotification(/*null,*/ dataWrapper, true/*, true*/);
+                dataWrapper.invalidateDataWrapper();
+                //return; // do not return, dusplay activated profile immediatelly
+            }
 
-        //if (DebugVersion.enabled)
-        //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+            //if (DebugVersion.enabled)
+            //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-        //synchronized (PPApplication.applicationPreferencesMutex) {
-        //    if (PPApplication.doNotShowPPPAppNotification)
-        //        return;
-        //}
+            //synchronized (PPApplication.applicationPreferencesMutex) {
+            //    if (PPApplication.doNotShowPPPAppNotification)
+            //        return;
+            //}
 
-        if (!drawActivatedProfle)
-            return;
+            if (!drawActivatedProfle)
+                return;
 
 /*        int delay;
-        if (drawImmediatelly)
-            delay = 200;
-        else
-            delay = 1000;*/
+            if (drawImmediatelly)
+                delay = 200;
+            else
+                delay = 1000;*/
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.showNotification", "call of drawNotification");
-        drawNotification(drawImmediatelly, context);
+            drawNotification(drawImmediatelly, context);
+
+        }
 
         //PPApplication.lastRefreshOfPPPAppNotification = SystemClock.elapsedRealtime();
     }

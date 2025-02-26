@@ -6,6 +6,6 @@
         />
     <item
         android:state_enabled="true"
-        android:color="@color/activitySecondaryTextColor"
+        android:color="@color/preferenceSummaryTextColor"
         />
 </selector>

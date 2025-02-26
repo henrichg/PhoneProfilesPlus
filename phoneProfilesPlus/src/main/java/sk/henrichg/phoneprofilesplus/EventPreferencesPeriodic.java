@@ -87,7 +87,7 @@ class EventPreferencesPeriodic extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_periodic_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_periodic), addPassStatus, DatabaseHandler.ETYPE_PERIODIC, context));
@@ -109,17 +109,17 @@ class EventPreferencesPeriodic extends EventPreferences {
                         _value.append(context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused)).append(StringConstants.TAG_BREAK_HTML);
                     } else {
                         _value.append(context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval)).append(StringConstants.STR_COLON_WITH_SPACE)
-                                .append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                                .append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         _value.append(StringConstants.STR_BULLET);
                     }
                 }
 
-                _value.append(context.getString(R.string.pref_event_periodic_multiple_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.pref_event_periodic_multiple_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 _value.append(StringConstants.STR_BULLET);
                 int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
-                _value.append(context.getString(R.string.pref_event_periodic_resulting_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.pref_event_periodic_resulting_interval)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 _value.append(StringConstants.STR_BULLET);
-                _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -147,12 +147,12 @@ class EventPreferencesPeriodic extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                     if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                         titleColor = 0;
                     }
@@ -163,13 +163,13 @@ class EventPreferencesPeriodic extends EventPreferences {
                                     ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     } else {
                         summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + "."+StringConstants.CHAR_NEW_LINE;
                         summary = summary + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + StringConstants.STR_COLON_WITH_SPACE +
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
-                        summary = summary + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = summary + StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     }
                     titleColor = 0;
@@ -261,8 +261,8 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesPeriodic tmp = new EventPreferencesPeriodic(this._event, this._enabled, this._multipleInterval, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -464,7 +464,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 // compute start time
 

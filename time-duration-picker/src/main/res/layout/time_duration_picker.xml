@@ -43,13 +43,22 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
 
+<!--            <TextView-->
+<!--                android:id="@+id/hoursLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"-->
+<!--                android:textColor="@color/pp_display_textColor"-->
+<!--                android:text="@string/time_duration_picker_hour_sign"-->
+<!--                tools:ignore="HardcodedText"/>-->
+
             <TextView
                 android:id="@+id/hoursLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
+                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Display"
                 android:textColor="@color/pp_display_textColor"
-                android:text="@string/time_duration_picker_hour_sign"
+                android:text=":"
                 tools:ignore="HardcodedText"/>
 
             <TextView
@@ -61,13 +70,22 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
 
+<!--            <TextView-->
+<!--                android:id="@+id/minutesLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"-->
+<!--                android:textColor="@color/pp_display_textColor"-->
+<!--                android:text="@string/time_duration_picker_minute_sign"-->
+<!--                tools:ignore="HardcodedText"/>-->
+
             <TextView
                 android:id="@+id/minutesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
+                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Display"
                 android:textColor="@color/pp_display_textColor"
-                android:text="@string/time_duration_picker_minute_sign"
+                android:text=":"
                 tools:ignore="HardcodedText"/>
 
             <TextView
@@ -79,22 +97,23 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
 
-            <TextView
-                android:id="@+id/secondsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"
-                android:textColor="@color/pp_display_textColor"
-                android:text="@string/time_duration_picker_second_sign"
-                tools:ignore="HardcodedText"/>
+<!--            <TextView-->
+<!--                android:id="@+id/secondsLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAppearance="@style/TextAppearance.TimeDurationPicker.Unit"-->
+<!--                android:textColor="@color/pp_display_textColor"-->
+<!--                android:text="@string/time_duration_picker_second_sign"-->
+<!--                tools:ignore="HardcodedText"/>-->
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:layout_toEndOf="@id/duration">
+<!--            android:layout_centerVertical="true"-->
 
             <ImageButton
                 android:layout_centerVertical="true"
@@ -105,7 +124,7 @@
                 android:minWidth="@dimen/touchable"
                 android:minHeight="@dimen/touchable"
                 android:src="@drawable/ic_backspace"
-                android:background="?selectableItemBackgroundBorderless"
+                android:background="@drawable/icon_ripple_background"
                 android:contentDescription="@string/backspace_button_tooltip"/>
 
             <ImageButton
@@ -117,7 +136,7 @@
                 android:minWidth="@dimen/touchable"
                 android:minHeight="@dimen/touchable"
                 android:src="@drawable/ic_clear"
-                android:background="?selectableItemBackgroundBorderless"
+                android:background="@drawable/icon_ripple_background"
                 android:contentDescription="@string/clear_button_tooltip"/>
 
         </RelativeLayout>
@@ -243,7 +262,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="2dp"
-            android:background="@color/display_divider" />
+            android:background="@color/pp_buttons_divider" />
 
     </LinearLayout>
 

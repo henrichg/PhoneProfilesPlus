@@ -416,8 +416,8 @@ public class RingtonePreference extends DialogPreference {
     // From DialogPreference
     private static class SavedState extends BaseSavedState {
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<RingtonePreference.SavedState>() {
+        public static final Creator<RingtonePreference.SavedState> CREATOR =
+                new Creator<>() {
                     public RingtonePreference.SavedState createFromParcel(Parcel in) {
                         return new RingtonePreference.SavedState(in);
                     }

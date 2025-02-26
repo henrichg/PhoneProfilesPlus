@@ -27,3 +27,8 @@ If you do not have adb installed on your PC:
 
 5. After successful execution, PhoneProfilePlus will be installed in device.
 
+NOTE:
+- For some devices must be in Developer options enabled:
+- Xiaomi: "USB debugging (Security settings)".
+- Oppo, OnePlus: "Disable permission monitoring".
+- Maybe similar option exists in another devices.

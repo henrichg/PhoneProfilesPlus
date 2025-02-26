@@ -322,7 +322,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
         }
 
         public static final Creator<ProfileMultiSelectPreference.SavedState> CREATOR =
-                new Creator<ProfileMultiSelectPreference.SavedState>() {
+                new Creator<>() {
                     public ProfileMultiSelectPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ProfileMultiSelectPreference.SavedState(in);

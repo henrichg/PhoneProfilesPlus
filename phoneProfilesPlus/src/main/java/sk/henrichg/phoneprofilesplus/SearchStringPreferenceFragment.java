@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -19,6 +20,12 @@ public class SearchStringPreferenceFragment extends PreferenceDialogFragmentComp
     private SearchStringPreference preference;
 
     private EditText editText;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -37,10 +44,12 @@ public class SearchStringPreferenceFragment extends PreferenceDialogFragmentComp
         super.onBindDialogView(view);
 
         editText = view.findViewById(R.id.search_string_pref_dlg_editText);
-        editText.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        editText.setBackgroundTintList(ContextCompat.getColorStateList(prefContext, R.color.edit_text_color));
         editText.setText(preference.value);
 
         final ImageView helpIcon = view.findViewById(R.id.search_string_pref_dlg_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {
             String helpString = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +

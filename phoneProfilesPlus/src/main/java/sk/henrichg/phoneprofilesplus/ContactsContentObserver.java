@@ -29,7 +29,6 @@ class ContactsContentObserver extends ContentObserver {
     }
     */
 
-    /** @noinspection BlockingMethodInNonBlockingContext*/
     static void enqueueContactsContentObserverWorker() {
         if (PPApplicationStatic.getApplicationStarted(true, true)) {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -48,13 +47,15 @@ class ContactsContentObserver extends ContentObserver {
                     Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", Log.getStackTraceString(e));
                 }
 
+                //Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", "PPApplication.repeatCreateContactCacheIfSQLError="+PPApplication.repeatCreateContactCacheIfSQLError);
                 OneTimeWorkRequest worker;
-                if (running) {
+                if (running || PPApplication.repeatCreateContactCacheIfSQLError > 0) {
                     // is already running enqueue work with delay
                     worker =
                             new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
                                     .addTag(ContactsContentObserverWorker.WORK_TAG)
-                                    .setInitialDelay(1, TimeUnit.MINUTES)
+                                    //.setInitialDelay(1, TimeUnit.MINUTES)
+                                    .setInitialDelay(30, TimeUnit.SECONDS)
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                 }
@@ -68,6 +69,7 @@ class ContactsContentObserver extends ContentObserver {
                                     .build();
                 }
 //                PPApplicationStatic.logE("[WORKER_CALL] ContactsContentObserver.enqueueContactsContentObserverWorker", "xxx");
+//                PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.enqueueContactsContentObserverWorker", "call of workManager.enqueueUniqueWork()");
                 workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
         }
@@ -84,15 +86,18 @@ class ContactsContentObserver extends ContentObserver {
 //            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
 //        }
 
-        if (PPApplication.blockContactContentObserver)
-            // observwer is blocked (for exmple by profile/event preferences activity)
-            return;
+//        if (PPApplication.blockContactContentObserver)
+//            // observwer is blocked (for exmple by profile/event preferences activity)
+//            return;
 
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "call of enqueueContactsContentObserverWorker()");
+        PPApplication.repeatCreateContactCacheIfSQLError = 0;
         enqueueContactsContentObserverWorker();
     }
 
     @Override
     public void onChange(boolean selfChange) {
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ContactsContentObserver.onChange", "onChange(boolean selfChange)");
         onChange(selfChange, null);
     }
 

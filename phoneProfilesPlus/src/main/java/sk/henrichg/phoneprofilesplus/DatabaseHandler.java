@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2523;
+    static final int DATABASE_VERSION = 2538;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -103,6 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_VPN = 44;
     static final int ETYPE_BRIGHTNESS = 45;
     static final int ETYPE_MUSIC = 46;
+    static final int ETYPE_CALL_SCREENING = 47;
 
     // Profiles Table Columns names
     static final String KEY_ID = "id";
@@ -227,6 +228,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_PHONE_CALLS_SEND_SMS = "phoneCallsSendSMS";
     static final String KEY_PHONE_CALLS_SMS_TEXT = "phoneCallsSMSText";
     static final String KEY_DEVICE_WALLPAPER_LOCKSCREEN = "deviceWallpaperLockScreen";
+    static final String KEY_SEND_SMS_CONTACTS = "sendSMSContacts";
+    static final String KEY_SEND_SMS_CONTACT_GROUPS = "sendSMSContactGroups";
+    //static final String KEY_SEND_SMS_CONTACT_LIST_TYPE = "sendSMSContactListType";
+    static final String KEY_SEND_SMS_SEND_SMS = "sendSMSSendSMS";
+    static final String KEY_SEND_SMS_SMS_TEXT = "sendSMSSMSText";
+    static final String KEY_CLEAR_NOTIFICATION_ENABLED = "clearNotificationEnabled";
+    static final String KEY_CLEAR_NOTIFICATION_APPLICATIONS = "clearNotificationApplications";
+    static final String KEY_CLEAR_NOTIFICATION_CHECK_CONTACTS = "clearNotificationCheckContacts";
+    static final String KEY_CLEAR_NOTIFICATION_CONTACTS = "clearNotificationContacts";
+    static final String KEY_CLEAR_NOTIFICATION_CONTACT_GROUPS = "clearNotificationContactGroups";
+    static final String KEY_CLEAR_NOTIFICATION_CHECK_TEXT = "clearNotificationCheckText";
+    static final String KEY_CLEAR_NOTIFICATION_TEXT = "clearNotificationText";
+    static final String KEY_SCREEN_NIGHT_LIGHT = "screenNightLight";
+    static final String KEY_SCREEN_NIGHT_LIGHT_PREFS = "screenNightLightPrefs";
+    static final String KEY_SCREEN_ON_OFF = "screenOnOff";
 
     // Events Table Columns names
     static final String KEY_E_ID = "id";
@@ -452,6 +468,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_MUSIC_ENABLED = "musicEnabled";
     static final String KEY_E_MUSIC_SENSOR_PASSED = "musicSensorPassed";
     static final String KEY_E_MUSIC_MUSIC_STATE = "musicMusicState";
+    static final String KEY_E_MUSIC_APPLICATIONS = "musicApplications";
+    static final String KEY_E_CALL_SCREENING_ENABLED = "callScreeningEnabled";
+    static final String KEY_E_CALL_SCREENING_SENSOR_PASSED = "callScreeningSensorPassed";
+    static final String KEY_E_CALL_SCREENING_CONTACTS = "callScreeningContacts";
+    static final String KEY_E_CALL_SCREENING_CONTACT_GROUPS = "callScreeningContactGroups";
+    //static final String KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE = "callScreeningContactListType";
+    static final String KEY_E_CALL_SCREENING_NOT_IN_CONTACTS = "callScreeningNotInContacts";
+    static final String KEY_E_CALL_SCREENING_BLOCK_CALLS = "callScreeningBlockCalls";
+    static final String KEY_E_CALL_SCREENING_SEND_SMS = "callScreeningSendSMS";
+    static final String KEY_E_CALL_SCREENING_SMS_TEXT = "callScreeningSMSText";
+    static final String KEY_E_CALL_SCREENING_START_TIME = "callScreeningStartTime";
+    static final String KEY_E_CALL_SCREENING_DURATION = "callScreeningDuration";
+    static final String KEY_E_CALL_SCREENING_PERMANENT_RUN = "callScreeningPermanentRun";
+    static final String KEY_E_CALL_SCREENING_CALL_DIRECTION = "callScreeningCallDirection";
+    static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
+    static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1138,6 +1170,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.getApplicationStartTime(this, event);
     }
 
+    void updateCallScreeningStartTime(Event event)
+    {
+        DatabaseHandlerEvents.updateCallScreeningStartTime(this, event);
+    }
+
+    void getCallScreeningStartTime(Event event)
+    {
+        DatabaseHandlerEvents.getCallScreeningStartTime(this, event);
+    }
+
     void updateEventForceRun(Event event) {
         DatabaseHandlerEvents.updateEventForceRun(this, event);
     }
@@ -1163,6 +1205,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     int getEventIgnoreManualActivation(long event_id)
     {
         return DatabaseHandlerEvents.getEventIgnoreManualActivation(this, event_id);
+    }
+
+    List<Event> getCallScreeningEvents() {
+        return DatabaseHandlerEvents.getCallScreeningEvents(this);
     }
 
 // EVENT TIMELINE ------------------------------------------------------------------
@@ -1394,8 +1440,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerOthers.clearActivityLog(this);
     }
 
-    Cursor getActivityLogCursor() {
-        return DatabaseHandlerOthers.getActivityLogCursor(this);
+    Cursor getActivityLogCursor(int selectedFilter) {
+        return DatabaseHandlerOthers.getActivityLogCursor(this, selectedFilter);
     }
 
 // OTHERS -------------------------------------------------------------------------
@@ -1414,11 +1460,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     int exportDB(boolean deleteGeofences, boolean deleteWifiSSIDs,
                  boolean deleteBluetoothNames, boolean deleteMobileCells,
                  boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
-                 boolean deletePhoneCalls)
+                 boolean deletePhoneCalls, boolean deleteCallScreening,
+                 boolean deleteClearNotifications)
     {
         return DatabaseHandlerImportExport.exportDB(this,
                     deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls
+                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls, deleteCallScreening,
+                    deleteClearNotifications
                 );
     }
 

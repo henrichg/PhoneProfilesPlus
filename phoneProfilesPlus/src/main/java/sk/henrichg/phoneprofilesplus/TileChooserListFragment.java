@@ -88,6 +88,7 @@ public class TileChooserListFragment extends Fragment {
             }
         });
 
+        //noinspection DataFlowIssue
         cancelButton.setOnClickListener(v -> {
             if (getActivity() != null)
                 getActivity().finish();

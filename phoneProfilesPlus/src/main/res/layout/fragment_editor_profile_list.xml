@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="-6dp"
-        android:layout_marginBottom="5dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:layout_marginBottom="@dimen/editor_header_marginBottom"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="@dimen/editor_header_paddingTopBototm"
+        android:paddingBottom="@dimen/editor_header_paddingTopBototm"
         android:layout_alignParentTop="true">
 
         <LinearLayout
@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/editor_profiles_activated_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/editor_header_profile_icon_size"
+                android:layout_height="@dimen/editor_header_profile_icon_size"
                 android:layout_marginStart="1dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
@@ -46,20 +46,6 @@
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical" >
 
-<!--
-                <TextView
-                    android:id="@+id/editor_profiles_activated_profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/accent_color" />
--->
                 <EditText
                     android:id="@+id/editor_profiles_activated_profile_name"
                     android:layout_width="wrap_content"
@@ -67,7 +53,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="@dimen/editor_header_profile_name_size"
                     android:textStyle="bold"
                     android:textColor="@color/accent_color"
                     android:background="@android:color/transparent"
@@ -82,7 +68,7 @@
                 <ImageView
                     android:id="@+id/editor_profiles_activated_profile_pref_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_preferences_indicator_height"
+                    android:layout_height="@dimen/editor_header_profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="3dp"
                     android:adjustViewBounds="true"
@@ -103,7 +89,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
             android:text="@string/profile_preferences_red_texts_in_header"
-            android:textColor="@color/error_color"
+            android:textColor="@color/errorColor"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -122,7 +108,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="top"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editor_profiles_list"
@@ -132,8 +118,8 @@
             android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false" />
+            android:scrollbarStyle="outsideOverlay"/>
+<!--            android:fadeScrollbars="false" />-->
 
         <RelativeLayout
             android:id="@+id/editor_profiles_list_empty"
@@ -149,8 +135,7 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:contentDescription=""
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/empty_list_content_description" />
 
         </RelativeLayout>
 
@@ -188,7 +173,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/dialog_divider"
+            android:background="@color/dialogDividerColor"
             android:layout_gravity="bottom" />
 
     </FrameLayout>

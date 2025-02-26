@@ -15,13 +15,16 @@
         android:orientation="horizontal"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="5dp"
-        android:padding="6dp" >
+        android:layout_marginBottom="@dimen/activator_header_marginBottom"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="@dimen/activator_header_paddingTopBototm"
+        android:paddingBottom="@dimen/activator_header_paddingTopBototm">
 
         <ImageView
             android:id="@+id/act_prof_activated_profile_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/activator_header_profile_icon_size"
+            android:layout_height="@dimen/activator_header_profile_icon_size"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/profile_preferences_profileIcon"
             android:adjustViewBounds="true"
@@ -35,20 +38,6 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical" >
 
-<!--
-            <TextView
-                android:id="@+id/act_prof_activated_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="@string/profile_name_default"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textColor="@color/accent_color" />
--->
             <EditText
                 android:id="@+id/act_prof_activated_profile_name"
                 android:layout_width="wrap_content"
@@ -56,7 +45,7 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="@string/profile_name_default"
-                android:textSize="16sp"
+                android:textSize="@dimen/activator_header_profile_name_size"
                 android:textStyle="bold"
                 android:textColor="@color/accent_color"
                 android:background="@android:color/transparent"
@@ -71,7 +60,7 @@
             <ImageView
                 android:id="@+id/act_prof_activated_profile_pref_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_preferences_indicator_height"
+                android:layout_height="@dimen/activator_header_profile_preferences_indicator_height"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="3dp"
                 android:adjustViewBounds="true"
@@ -91,7 +80,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <FrameLayout
         android:id="@+id/act_prof_header_frLa1"
@@ -108,10 +97,10 @@
             android:layout_marginEnd="9dp"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"
             android:listSelector="?attr/listViewItemBackground"
             android:divider="@android:color/transparent" />
 <!--        android:drawSelectorOnTop="true"-->
+<!--        android:fadeScrollbars="false"-->
 
         <RelativeLayout
             android:id="@+id/act_prof_list_empty"
@@ -129,8 +118,7 @@
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:contentDescription=""
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@string/empty_list_content_description" />
 
         </RelativeLayout>
 

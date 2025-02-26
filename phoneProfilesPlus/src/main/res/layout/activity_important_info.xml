@@ -16,38 +16,50 @@
         android:layout_alignParentTop="true"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
-        app:popupTheme="?attr/toolbarPopupMenu"/>
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        />
 <!--    android:background="@color/primary"-->
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_important_info_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/tablayout_height"
         android:layout_below="@id/activity_important_info_toolbar"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
         app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
+        app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/activityNormalTextColor"
-        app:tabTextColor="@color/activitySecondaryTextColor"
+        app:tabTextColor="@color/tabTextColor"
+        app:tabIndicator="@drawable/tab_indicator"
         app:tabMode="scrollable"
         app:tabMinWidth="1dp"
-        app:tabIndicatorFullWidth="false"
-        app:tabPaddingStart="5dp"
-        app:tabPaddingEnd="5dp" />
+        app:tabIndicatorFullWidth="true"
+        />
     <!--    android:minHeight="?attr/actionBarSize"-->
     <!--    app:tabPaddingTop="10dp"-->
 <!--    android:background="@color/primary"-->
+
+<!--    android:layout_marginBottom="10dp"-->
+<!--    android:layout_height="40dp"-->
+<!--    app:tabRippleColor="@color/rippleRectangeleItemBackgroundColor"-->
+<!--    app:tabPaddingStart="10dp"-->
+<!--    app:tabPaddingEnd="10dp"-->
 
     <LinearLayout
         android:id="@+id/activity_important_info_frLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/activity_important_info_tab_layout"
-        android:layout_above="@id/activity_important_info_liLa2">
+        android:layout_below="@id/activity_important_info_tab_layout">
+<!--        android:layout_above="@id/activity_important_info_liLa2">-->
 
         <View
             android:id="@+id/activity_important_info_divider"
@@ -55,7 +67,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <!--
         <View
@@ -73,6 +85,7 @@
 
     </LinearLayout>
 
+<!--
     <LinearLayout
         android:id="@+id/activity_important_info_liLa2"
         android:layout_width="match_parent"
@@ -86,7 +99,7 @@
             android:id="@+id/activity_important_info_button_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <Button
             android:id="@+id/activity_important_info_close"
@@ -95,7 +108,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:minHeight="40dp"
+            android:minHeight="@dimen/button_min_height"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
+            android:minWidth="@dimen/button_min_width"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"
@@ -105,6 +121,7 @@
             style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>
+-->
 
 </RelativeLayout>
 

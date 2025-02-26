@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 
 class DrawOverAppsPermissionNotification {
 
+    /** @noinspection SameParameterValue*/
     static void showNotification(Context context, boolean useHandler) {
         if (Build.VERSION.SDK_INT >= 29) {
             // Must be granted because of:
@@ -77,7 +78,7 @@ class DrawOverAppsPermissionNotification {
     static private void showNotification(Context context, String title, String text) {
         PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.errorColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification

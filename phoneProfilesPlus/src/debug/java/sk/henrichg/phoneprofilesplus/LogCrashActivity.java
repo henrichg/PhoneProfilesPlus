@@ -34,6 +34,10 @@ public class LogCrashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -56,8 +60,10 @@ public class LogCrashActivity extends AppCompatActivity {
         listView.setAdapter(logCrashAdapter);
 
         Button goToBtn = findViewById(R.id.log_crash_list_go_to_bottom);
+        //noinspection DataFlowIssue
         goToBtn.setOnClickListener(v -> listView.setSelection(logCrashAdapter.getCount() - 1));
         goToBtn = findViewById(R.id.log_crash_list_go_to_top);
+        //noinspection DataFlowIssue
         goToBtn.setOnClickListener(v -> listView.setSelection(0));
 
     }

@@ -1,75 +1,7 @@
---------------------------------
-Hadanie warningov v kode:
-Toto hladaj:
-@SuppressLint
-@SuppressWarnings
-//noinspection
-
-------------------
-
-Ked nejde git push, skus v terminaly AS:
-git config credential.helper store
-
---------------------------------
-
-Preco uz nie je PPP v GPlay:
-
-Google restrictions:
-1. Android - All Wi-Fi related functions not working since Android 10.
-2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:
-    targetSdkVersion targetSdk
-  and in PPP must be target sdk = 28. Android 10 is 29.
-
-In stores, in which is currently deployed PPP, restriction about target sdk not exists.
-
-----------------------------------------
-
-indicator color and its complementary color:
-dark tema: indicator:62a9f8 -> accent:f8b162 -> event delay:#F862F4
-light tema: indicator:4289d8 -> accent:cc893e -> event delay:#D842D4
-
-https://www.canva.com/colors/color-wheel/
-
-------------------------
-
 Widget Preview Builder:
 https://play.google.com/store/apps/details?id=lav.widgetpreviewbuilder.free&hl=en_US&gl=US
 
 ------------------------
-
-Ulohy, ktore su spravene [x] a ktore nie [ ]:
-[ ] Priority Notification Event
-[x] Normal media volume, headphone media volume, Bluetooth media volume
-[ ] Sony's "Stamina" mode as profile preference - skor Power save change senzor
-[ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
-[ ] option to hide PPP from Launcher
-[ ] Set min and max CPU frequency
-[ ] Open a website with profile
-[ ] profile/event search
-[x] Persistent profile/event: sets its options every x minutes - asi periodic sensor
-[ ] Android Wear support?
-[ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
-[ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
-
-------------------------
-
-System.Settings:
-notifications_use_ring_volume ---+--> ze by na odlinkovanie zvonenia a notifikacii?
-unlink_volumes_together ---------+
-mute_streams_affected
-mode_ringer_streams_affected
-
-System.Global:
-heads_up_notifications_enabled
-
-Ako disablovat lockscreen, 2 kroky:
-1. nastavit, ze power tlacitko nema lockovat
-  /data/system/locksettings.db - lockscreen.power_button_instantly_locks (0,1)
-  len je otazka, ci toto existuje aj na starsich androidoch ako 5.0
-2. nastavit lockscreen timeout 
-  Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
-
----------- PIN/password
 
 1. ako zrusim pin/heslo
 
@@ -287,21 +219,21 @@ Night light (blue light filter):
 Vypada to, ze takto sa to robi:
 
 if (isActive) {
-    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
-        prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 0)
-        writeSecure("twilight_mode", 0)
-    } else {
+    //if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
+    //    prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 0)
+    //    writeSecure("twilight_mode", 0)
+    //} else {
         prefManager.saveOption(SettingsType.SECURE, "night_display_activated", 0)
         writeSecure("night_display_activated", 0)
-    }
+    //}
 } else {
-    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
-        prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 1)
-        writeSecure("twilight_mode", 1)
-    } else {
+    //if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) { // API 24, ale skontroluj
+    //    prefManager.saveOption(SettingsType.SECURE, "twilight_mode", 1)
+    //    writeSecure("twilight_mode", 1)
+    //} else {
         prefManager.saveOption(SettingsType.SECURE, "night_display_activated", 1)
         writeSecure("night_display_activated", 1)
-    }
+    //}
 }
 
 fun Context.writeSecure(key: String?, value: Any?): Boolean {
@@ -314,29 +246,33 @@ fun Context.writeSecure(key: String?, value: Any?): Boolean {
     }
 }
 
-const val TWILIGHT_MODE = "twilight_mode"
+//const val TWILIGHT_MODE = "twilight_mode"
 const val NIGHT_DISPLAY_ACTIVATED = "night_display_activated"
+- pouzijem toto len, chcem len zapnut/vypnut
 const val NIGHT_DISPLAY_AUTO_MODE = "night_display_auto_mode"
 const val NIGHT_DISPLAY_COLOR_TEMPERATURE = "night_display_color_temperature"
-// tiet dve este musim zistit, ci vobec vie nastavit.
+// tieto dve este musim zistit, ci vobec vie nastavit.
 // v aplikacii to nie je
 const val NIGHT_DISPLAY_CUSTOM_START_TIME = "night_display_custom_start_time"
 const val NIGHT_DISPLAY_CUSTOM_END_TIME = "night_display_custom_end_time"
 
 // pre API 24
-writeSecure(NightModeView.TWILIGHT_MODE, info.twilightMode)
+//writeSecure(NightModeView.TWILIGHT_MODE, info.twilightMode)
 
 // pre API 25+
 writeSecure(NightModeView.NIGHT_DISPLAY_ACTIVATED, info.nightModeActivated)
+- Funguje na Pixeli
+
 writeSecure(NightModeView.NIGHT_DISPLAY_AUTO_MODE, info.nightModeAuto)
-writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
+- Toto mozno bude treba na inych mobiloch ako Pixel. K tomu NIGHT_DISPLAY_ACTIVATED
+
+//writeSecure(NightModeView.NIGHT_DISPLAY_COLOR_TEMPERATURE, info.nightModeTemp)
 
 Zdroj: https://github.com/zacharee/Tweaker/blob/master/app/src/main/java/com/zacharee1/systemuituner/services/tiles/NightModeTile.kt
 
 Bude potrebovat WRITE_SECURE_SETTINGS.
 Testovane cez System UI Tuner s grantnutym WRITE_SECURE_SETTINGS na Pixel 3a.
 
----
 Testni to potom este na Samsungu, ci to ide. Neviem, niekde som cital, ze to zhasne obrazovku
 a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
 !!! Hm, tak ako som pisal. Na Samsungu to zhaslo obrazovku.
@@ -345,6 +281,33 @@ a pomoze len restart mobilu. Len neviem ci to bolo pri tomto.
 !!! Ale? Mozno System UI tuner zapise len pri zmene automatiky aj to zapnutie. A to je mozno problem.
 !!! Testni, testni testni.
 
+!!! Mozno treba len writeSecure(NightModeView.NIGHT_DISPLAY_ACTIVATED, info.nightModeActivated)
+!!! Lebo som sa rozhodol, ze to budem len zapinat/vypinat, nebudem menit parametre
+!!! Lebo toto asi je pre sunrise/sunset - ak teda toto blbne na Samsungu:
+!!!    writeSecure(NightModeView.NIGHT_DISPLAY_AUTO_MODE, info.nightModeAuto)
+
+Mam ine, uvidime - ktohovie ci pojde na Samsungoch. Asi prd pomoze, ta apka je natvrdo pre API 24.
+https://github.com/farmerbb/Night-Light/blob/master/app/src/main/java/com/farmerbb/nightlight/util/U.java
+
+Ale mam toto:
+https://github.com/zacharee/Tweaker/issues/120
+
+Pre Samsung: https://www.macrodroidforum.com/index.php?threads/samsung-s21-eye-comfort-shield-setting-key.2962/
+Funguje na S10, S21, S23 = supeeer!!! a je to Setting.System "blue_light_filter", takze netreba G1 pravo.
+Nefunguje. Meni switch v Nastavenia ale filter nenhadzuje.
+
+Xiaomi Settings.System "screen_paper_mode_enabled" Rreba root!!! PPPPSaj G1 je tu nanic.
+
+
+Huawei: Settings.System "eyes_protection_mode", netreba G1 pravo. - tu je to trocha cudne (dava tam aj ine hodnoty), ale funguje 0/1
+Toto dam default pre vsetky ostatne mobily, napr. Oppo je vraj to iste co OnePlus:
+Pixel: Settings.Secure "night_display_activated", treba G1 pravo.
+OnePlus: Settings.Secure "night_display_activated", treba G1 pravo. Musel som si ho ale pridat, lebo ho tam nemal.
+
+Kde netreba G1, skus, ci nebude treba PPPPS.
+
+---
+Toto asi nie:
 Mozno taky test tam dat, ze nech si uzivatel skusi a za par sekund vrati, teda ak to pojde.
 Vyskusaj aj to. Testuj na Galaxy S10.
 Ak to vrati, tak potom to sprav tak, ze uzivatel musi cez test dako prejst. A len ak potvrdi
@@ -359,6 +322,7 @@ Cize sprav na to dialog s tymi 3 parametrami:
    S pouiztim public Dialog onCreateDialog(Bundle savedInstanceState)
 ---
 
+Zavolanie Settings = (I) parameter:
 Toto je, ked to hore nepojde. Cize zavolanie Settings. Take uz mam pri nejakych parametroch profilu:
 
 ACTION_NIGHT_DISPLAY_SETTINGS
@@ -386,39 +350,6 @@ Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vel
 Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
 
 -----------------------
-
-Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
-- doExecuteForRunApplications()
-- PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS
-- PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS
-- profile._deviceLocationServicePrefs
-- profile._deviceWiFiAPPrefs
-- profile._deviceVPNSettingsPrefs
-- profile._deviceWallpaperChange
-- profile._deviceVPN
-- profile._deviceCloseAllApplications
-- Permissions.grantPlayRingtoneNotificationPermissions()
-- ActivateProfileHelper.putSettingsParameter() - cize zavolanie PPPPS
-
-Toto neviem, mozno treba, mozno nie: netreba
-- CustomACRAEmailSender.send()
-
------------------------
-
-6.4:
-- Add: Added support for Shizuku for some profile parameters which requires ROOT.
-- Change: Event priority displayed in Editor as sensor, also with pass status.
-- Change: Added "Do Not Use" event priority. This event will be started, even when is running event with higher priority.
-- Change: Added filter into contacts dialog.
-- Change: Added special dialog for "Draw over apps" permission with link to web page with solutions, when is not possible to grant this permission.
-- Change: Added button about installation from GitHub in Extender installation dialog, when installation is from Galaxy Store. Because Galaxy Store requires Samsung Account.
-- Change: For activation of profile from Activator: direct open of profile preferences, if in it are some errors.
-- Change: Changes in check for latest Extender and PPPPS version and installation of dialogs.
-- Change: Updated Features in README.md.
-- Fixed bugs
-- Updated translations
-
--------------------
 
 java.lang.IllegalStateException: You are adding too many system settings.
 You should stop using system settings for app specific data package: sk.henrichg.phoneprofilesplus
@@ -469,124 +400,215 @@ https://developer.android.com/develop/connectivity/nfc/nfc#ext-type
 
 -------------------------------------
 
-Profil a novy parameter "Block phone calls"
+Check novych verzii PPP:
 
-Ak je role nastavene, uz nefunguje jeho znovu-nastavenie, nozbrazuje sa ten bottom sheet na to.
-Ide len zrusit v Settings "Caller ID & spam app".
-Ak je nastavena ina apka ako PPP, zobrazi sa bottom sheet, takze toto je OK.
-Ako postupovat:
-1. ak je nastavene PPP, disablovat tuto volbu HOTOVO
-2. zobrazovat v summary stav, cize k tomu, co tam uz je dat pred to este stav. HOTOVO
-
-Treba permission na tie kontakty. Contacts.
-Samotny contacts a groups dialog, pyta pravo. Je volane: Permissions.grantContactsDialogPermissions(prefContext).
-Cize treba uz iba klasicky ako u inych parametroch. HOTOVO
-
-Treba este zistit, ci netreba dake dalise pravo.
-Ak bude treba, treba este dorobit Phone permission pre:
-<uses-permission android:name="Manifest.permission.ANSWER_PHONE_CALLS" />
-<uses-permission android:name="Manifest.permission.CALL_PHONE" />
-NETREBA, testnute.
-
-A pridaj ešte contact list type, ako je v call senzore.
-No ale tuto nie je dobra vec, davat tam EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE.
-Prilis kriticke je toto blokovanie. Ta hodnota by znamenala, ze kazdy jeden hovor by to blokovalo.
-HOTOVO
-
-Import/Export
-- kontakty treba zakriptovat, pozri to u udalosti
-- kontakty treba dat, ze ich nechcem do backupu, je na to aj dialog, ten treba tiez upravit
-HOTOVO
-
-"Block phone calls" -> treba spravit indikator HOTOVO
-
-V servise nesmies blokovat, ak kontakty nie su nastavene. HOTOVO
-
--------------------------------
-
-Volane: restartEventsWithRescan()
-DataWrapper:
-- stopEventsForProfile() - false - kedy volane? - daj true, je to volane z EditorProfileListFragment.deleteProfile()
-- startEventAtFirstFtart() - false 2x - kedy volane? - nastav podla toho odkial je volane, cize pridaj parameter manualRestart
-
-EventStatic:
-- runStopEvent() - false - kedy volane? - daj true, je to volane len z GUI
-
-RestartEventsWithDealyWorker:
-- doWork() - false = kedy volane? - nastav podla dat z workera
-
-TimeChangedReceiver:
-- doWork() - false - kedy volane? - daj true, sice znova zacne duration, ale nevadi, toto je volane len na zmenu time zony
+Keď nemám Droid-ify. Čo urobím? Otvorím GitHub? Týka sa to denného checku, mesačného aj toho z menu?
+Lebo ma napadlo, ze ak nema Dorid-ify, mohol by som testnut NeoStore a ak ani to, tak F-Droid.
+U F-Droid mam problem, ze nema default IzzyOnDroid. Hm.
 
 ---
 
-Volane: restartEventsWithDelay()
-EditorEventListAdapter:
-- clearView() - false - kedy volane? - daj true, je to volane pri manualnom presuvani itemov eventov v Editore
+Raz denne - toto notifikuje novu verziu, ked naozaj vyjde v IzzyOnDroid:
+Hlada verziu, co je v releases.md
+TU MUSI BYT verzia z releases.md v IzzyOnDroid. Ak nie je, nenotifikuje.
+CheckCriticalPPPReleasesBroadcastReceiver pozera pre API >=33 IzzyOnDroid repo,
+ zorbrai notifikaciu k tam JE pppReleaseData.versionCodeInReleases.
+Pre nizsie API hned zobrazi notifikaciu.
+Notifikacia otvara CheckPPPReleasesActivity s:
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
 
-GrantPermisionActivity:
-- finishGrant() - false - kedy volane? - daj true vo vsetkych pripadoch, je to volane ked monci grant, ktory je bud z Editora alebo z notifikacie
+---
 
-PPExtenderBroadcastReceiver:
-- onReceive() 0 false - kedy volane? - daj true, volane len raz, ked sa nakonektuje Extender
+Mesacne - toto je len taky check, ze "Kukni sa , ci nahodou nie je vonku nova verzia":
+Testuje, co je nainstalovane Droid-ify, NeoStore, F-Droid a podla toho robi:
+1. nie je aplikacia:
+Hlada verziu, co je v releases.md
+- Pre API >= 33 pozera IzzyOnDroid repo, hlada tam pppReleaseData.versionCodeInReleases,
+  zobrazi notifikaciu ak NIE JE v IzzyOnDroid - bude pozerat do GitHub.
+- Pre nizsie API hned zobrazi notifikaciu - bude pozerat do GitHub.
+2. je aplikacia:
+Hned zobrazi notifikaciu - istalovat sa bude aplikaciou.
+Notifikacia otvara CheckPPPReleasesActivity s:
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+       _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
 
-------------------
+---
 
-Samsung, One UI 6. Problem je download apk cez ACTION_VIEW. Stale zobrazuje Downloading a hotovo.
-Cize tuto mam velky problem. Skus pozriet alebo pouzi DownloadManager. S21. Tych Samsungov je veľa.
-Cize to bude daky bug v Samsung One UI asi.
-Sranda, to iste robi Chrome aj ked priamo v nom otvorim InstallWithOtions releases a dam stiahnut.
-Problém je zjavne v Chrome. Keď dam default Samsung internet, žiaden problém s downloadom nie je.
-Alebo v One UI. Že je tam zlý downloader.
+CheckPPPReleasesActivity:
+Na tie 2 pripady hore nie je menuItem nastavene, takze sa volashowDialog kde sa menuItem da podla
+EXTRA_CRITICAL_CHECK na -1 alebo -2.
+
+- Ked je criticalCheck = false. Podla toho, co je nainstalovane sa vola prislusny obchod. TOTO JE SUPER:
+    if (droidifyInstalled)
+        checkInDroidIfy(activity, false);
+    else if (neostoreInstalled)
+        checkInNeoStore(activity);
+    else if (fdroidInstalled)
+        checkInFDroid(activity);
+    else {
+        if (Build.VERSION.SDK_INT < 33)
+            checkInGitHub(activity, false);
+        else {
+            checkInDroidIfy(activity, true);
+        }
+    }
+  Akurat musis pozriet ked nema ziaden obchod Tak bud natvrdo chce Droid-Ify (checkInDroidIfy())
+  alebo GitHub (checkInGitHub()). Toto podla API verzie.
+  checkInDroidIfy(): Zobrazi dialog na instalciu PPP cez Droid-ify a ak nie je nainstalovane Droid-ify,
+                      dialog ponuka jeho instalaciu.
+  checkInGitHub(): Zobrazi dialog na instalciu PPP, cisto len z GitHub.
+
+  Takze ak nie je ziadna apka, natvrdo pyta Drodi-ify. Myslim, ze toto moze byt. Droid-ify je preferovane,
+  ale ak ma nainstaloane nieoc ine, pouzije to.
+
+- Ked je criticalCheck = true. Tu je pytany Drodi-ify:
+    if (Build.VERSION.SDK_INT < 33)
+        checkInGitHub(activity, false);
+    else {
+        checkInDroidIfy(activity, true);
+    }
+  Musis pozriet: bud natvrdo chce Droid-Ify (checkInDroidIfy()) alebo GitHub (checkInGitHub()).
+  Toto podla API verzie.
+  checkInDroidIfy(): Zobrazi dialog na instalciu PPP cez Droid-ify a ak nie je nainstalovane Droid-ify,
+                      dialog ponuka jeho instalaciu.
+  checkInGitHub(): Zobrazi dialog na instalciu PPP, cisto len z GitHub.
+
+  !!!
+  Tu bez ohladu na to, ci ma naistalovanu inu apku, pyta Droid-ify natvrdo. Tu musi tiez pozerat aplikacie
+  a ponukat nainstalovanu.
+  HOTOVO
+
+---
+
+Z Editor menu - GitHub (toto je v CheckPPPReleasesActivity.showDialog()):
+    if (Build.VERSION.SDK_INT < 33)
+        checkInGitHub(activity, false);
+    else {
+        checkInDroidIfy(activity, true);
+    }
+
+  checkInDroidIfy(): Zobrazi dialog na instalciu PPP cez Droid-ify a ak nie je nainstalovane Droid-ify,
+                      dialog ponuka jeho instalaciu.
+  checkInGitHub(): Zobrazi dialog na instalciu PPP, cisto len z GitHub.
+
+  Toto je OK, ma to ponuknut dialog na Droid-ify pre API 33+, Je v nom poznamka o tom, ze instalacia
+  z GitHub nie je podporovana a je tam tl. na otvorenie Droid-ify.
+  Ked nie je Droid-ify nainstalovane, zobrazuje link na IzzyOnDroid, pre API >= 33 pise, ze stiahnutie apk
+  nie je podporovane. Ponuka tl. na instalaciu Droid-ify.
 
 -------------
 
-- Add: Added "Application run duration" into "Application sensor".
-- Add: "Phone calls" parameter for block calls.
-- Add: New senzor "Music sensor" to detect music playing.
+Check novych verzii PPPE a PPPPS:
 
-- Change: Fixed not working click to notification about new PPPPS version.
-- Change: Fixed not working notification about new PPP version.
-- Change: Increased delay between set sound mode and volumes.
-- Change: Fixed not working change of volume in DND Priority in Motorola.
-- Change: Better summary for profile parameter "Generate notification".
-- Change: Removed Galaxy Store form README.md.
-- Change: Removed Important info about Galaxy Store end of support.
-- Change: Fixed not working change of ringing volume when is set Priority DND, in all devices with Android 14+.
-- Change: Airplane mode parameters as sub-screen.
-- Change: Set wifi/on using "svc wifi" command, which do not generates prompt (HyperOs).
-- Change: Better notification channels descriptions.
-- Change: Bypass DND for some notifications.
-- Change: Set "Package name" as required for custom "Action" + "Broadcast".
-- Change: Displays toast from "Test" button for test of broadcast intent in Intent editor.
-- Change: Fixed show Important info about required versions of PPPE, PPPPS at PPP start.
-- Change: Installation of PPPPutSettings with InstallWithOptions.
-- Change: Profile parameter name "Lock screen" to "Unlock device".
-- Change: Added "Image wallpaper for lock screen" into profile "Change wallpaper".
-- Change: Disable "Wifi hotspot" SIM is not inserted.
-- Change: Disable "Default SIM card" if SIM is not inserted.
-- Change: Check more than 2 SIM cards in some profile/event parameters
-- Change: Allowed activation form event for end of duration "Activate default profile".
-- Change: Allowed activation from event for end of duration "Undo the profile"
-- Change: Allowed activation from event for end of duration "Restart events"
-- Change: Save activated profile to FIFO when is activated manually.
-- Change: Added (Z) information into Important info for profiles.
-- Change: HyperOs - disable Wi-Fi, Bluetooth ON/OFF ask dialogs with appops command.
-- Change: Change wallpaper: added recycle() for bitmaps after set wallpaper.
-- Change: Change wallpaper in MIUI. Added info for not working good WallpaperManager.setBitmap().
-- Change: fixes in manifest file for activities with excludeFromRecents.
-- Change: Fixed close of foreground application when night mode is changed from profile.
+Tu notifikaciu zobrazuje ImportantInfoNotification.
+Zobrazuje sa:
+- v momente ked povolim notifkacie pre PPP
+- ked startne PPP servis
+Cize nie az tak casto. Ale tu sa netestuje, ci su naistalovane stores a podobne. Len sa zobrazi otifikacia.
 
-- Fix: Fixed not working "Screen timeout" in OnePlus. Requires root, Shizuku.
-- Fix: Color of row in Activity log.
-- Fix: Change wallpaper with "(I) Change to image with".
+PPPE a PPPPS ale sa da instalovat aj z prislusnych dialogov, co sa otvoria z preferences.
+Dalej sa da instalovat z ImportantInfoActivity.
 
-- Fixed bugs.
-- Updated translations.
+Na instalaciu sa vola:
+ExtenderDialogPreferenceFragment.installPPPExtender()
+- ak ma daky store instalovany, instaluje natvrdo zo storu
+- ak nema store instalovany:
+  - pre API 33+: ponuka instalciu Droid-ify -> vola installDroidIfy(), a az potom moze PPPE instalovat.
+  - pre nizsie API instaluje z GitHub -> installExtenderFromGitHub()
+    - upozornuje ze nie je podporvana instalacia zo stiahnuteho APK pre API >= 33.
+      Ale toto podla mna nema zmysel, kedze installExtenderFromGitHub() je volany vzdy len pre API < 33.
 
-------------
+PPPPSDialogPreferenceFragment.installPPPPutSettings()
+Pre API < 34:
+- ak ma daky store instalovany, instaluje natvrdo zo storu
+- ak nema store instalovany:
+  - pre API 33+: ponuka instalciu Droid-ify -> vola installDroidIfy(), a az potom moze PPPE instalovat.
+  - pre nizsie API instaluje z GitHub -> installExtenderFromGitHub()
+    - upozornuje ze nie je podporvana instalacia zo stiahnuteho APK pre API >= 33.
+      Ale toto podla mna nema zmysel, kedze installExtenderFromGitHub() je volany vzdy len pre API < 33.
+Pre API >= 34:
+- vola installPPPPutSettingsFromGitHub34()
+  - je tam link na InstallWithOptions, klik ho downloadne.
+  - je tam dalsi link na downlaod PPPPS.
+  - je tam navod ako naistalovat PPPS pomocou InstallWithOptions.
 
-Takze zatial kazdy mobil ma spriahnute ringing a system volume. Teda taky, co system nema v Settings.
+--------------
 
------------------
+FIFO funguje uplne nahovno.
+Ako by malo fugovat:
+1. DataWrapper._activateProfile() by mal pridavat kazdy profil, co sa aktivuje. Jedina vynimak je
+   ked sa aktivuje undo profil, ten by sa do fifo pridavat nemal. Lebo ten sa pouzil na ziskanie
+   pre undo.
+2. Undo (jedno ci z duration alebo z udalosti) by mal NAJPRV vyberat posledny profil (ten sa pposledne aktivoval).
+   Tento by sa mal z FIFO aj zmazat. Nezaujimavy je pre dalsie pouzitie.
+   Ale bacha! len pre aktivaciu z udalosti (este testnem), z duration sa nesmie, lebo dalsia aktivacia s duration
+   uz nevrati profil, zostane ten s trvanim.
+3. Az potom  by sa mala robit aktivacia toho vybrateho undo, ten sa ale nesmie do FIOFO pridat.
+4. Problem je aktivacia profilu z udalosti. Lebo ten sa aktivuje (je jedno ci zo startu alebo endu),
+   a ak je na konci undo, vrati sa tento spat. Potrebujem uplne obskocit na undo cely porofil, cize obe aktivacie.
+   Davaj teda itIsUndoProfile na aktivaciu profilu z udalosti na true, ak ma udalost Undo nastavene.
+5. Problem je as s aktivaciou s duration. Ak aktivujem profil, co ma v duration Undo, tiez nesmiem tento profil dat do fifo.
+
+STARTUP_SOURCE_EVENT_MANUAL sa nastavi v DataWrapper.activateProfileFromEvent(), ked sa aktivuje profil
+(at start, at end) manualne. Je na to parameter v udalosti.
+Po starom, ak nema profil duraiton, tak sa pridaval do FIFO.
+Po  novom to nie je potrebne. Profil sa vzdy pridava do FIFO, ak to nie je profil, ktory sa nesmie kvoli undo.
+Ale pre istotu ten startupSource necham.
+
+Manualna aktivacia profilu Doma
+Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
+
+Aktivacia profil Doma z udalosti
+Potom aktivacia Ticho s [ ask ], vratil sa profil Doma
+
+---
+
+startEvent() vypada, ze je vzdy s mergedProfile != null
+pauseEvent() moze byt aj s mergedProfile == null a to:
+- Event.stopEvent()
+- EventPrefsActivity.saveUpdatedPreferences()
+- EventStatic.runStopEvent()
+
+Takze co robim, ked je == null?
+- aktivujem end profile a robim undo, restart events nerobim
+
+
+--------------------------
+
+Add: Panel widget. Removed Samsung Edge panel.
+Change: Call of BT detector at screen on.
+Change: Better BT connected devices detection for disconnection.
+Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.
+Change: Increased speed of profile activation.
+Change: Support for Smart Launcher rounded corners in widgets.
+Change: Enabled rounded corners radius for SmartLauncher.
+Change: Rounded corners radius up to 32 (for Smart Launcher support).
+Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.
+Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.
+Change: Better show,hide header and bottom toolbar at scroll in Editor.
+Change: GUI components size different for landscape orientation.
+Change: Small GUI changes.
+Change: Changes in widgets.
+Change: Removed toolbar from Location editor.
+Change: Location editor - display map immediately at start od editor.
+Change: Show dialog about offline device status in Location editor.
+Change: Better functionality of "Rename with address" button in Location editor.
+Change: Empty line in preference summary changed to dots.
+Change: Permanent display also thumb of scrollbars.
+Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.
+Change: Do not rotate to default orientation if is required to lock orientation change.
+Change: Increased max. log file size.
+Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.
+Fix: Not working good BT van connection.
+Fix: Fixed not refreshed Tones dialog after grant permission.
+Fix: Not disabled buttons in Mobile cells registration dialog at its start.
+Fix: Not deleted red text after deletion of profile, event with errors.
+Fix: Maybe fixed draw of PPP notification at first start.
+Fix: Restart events not working properly in specific situations.
+Fix: Location preference dialog GUI.
+Fix: WindowLeak exception generated for dialogs in orientation change.
+Fix: Undo in profile duration and event end.
 

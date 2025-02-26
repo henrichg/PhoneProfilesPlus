@@ -33,6 +33,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
         textViewAccountType = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_account_type);
 
         // If CheckBox is toggled, update the Contact it is tagged with.
+        //noinspection DataFlowIssue
         checkBox.setOnClickListener(v -> {
             CheckBox cb = (CheckBox) v;
             Contact contact = (Contact) cb.getTag();

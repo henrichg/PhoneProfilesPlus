@@ -713,13 +713,22 @@ class ProfileStatic {
                     profile._applicationLocationScanInterval,
                     profile._applicationOrientationScanInterval,
                     profile._applicationPeriodicScanInterval,
-                    profile._phoneCallsContacts,
-                    profile._phoneCallsContactGroups,
-                    profile._phoneCallsContactListType,
-                    profile._phoneCallsBlockCalls,
-                    profile._phoneCallsSendSMS,
-                    profile._phoneCallsSMSText,
-                    profile._deviceWallpaperLockScreen
+                    profile._sendSMSContacts,
+                    profile._sendSMSContactGroups,
+                    //profile._sendSMSContactListType,
+                    profile._sendSMSSendSMS,
+                    profile._sendSMSSMSText,
+                    profile._deviceWallpaperLockScreen,
+                    profile._clearNotificationEnabled,
+                    profile._clearNotificationApplications,
+                    profile._clearNotificationCheckContacts,
+                    profile._clearNotificationContacts,
+                    profile._clearNotificationContactGroups,
+                    profile._clearNotificationCheckText,
+                    profile._clearNotificationText,
+                    profile._screenNightLight,
+                    profile._screenNightLightPrefs,
+                    profile._screenOnOff
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -875,196 +884,216 @@ class ProfileStatic {
 
         //noinspection IfStatementWithIdenticalBranches
         if (profile == null) {
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
             switch (preferenceKey) {
                 case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, null, sharedPreferences/*, fromUIThread*/);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI( null, sharedPreferences/*, fromUIThread*/);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_BLUETOOTH:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH();
                     break;
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, preferenceKey, null, sharedPreferences, /*fromUIThread,*/ context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA( preferenceKey, null, sharedPreferences, /*fromUIThread,*/ context);
                     break;
                 //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
                 //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
-                //    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                //    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
                 //    break;
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS();
                     break;
                 case Profile.PREF_PROFILE_DEVICE_GPS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_LOCATION_MODE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, null, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE( null, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_NFC:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, null, sharedPreferences, /*fromUIThread,*/ context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC( null, sharedPreferences, /*fromUIThread,*/ context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI_AP:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION( null, sharedPreferences, fromUIThread, context);
                     break;
                 //case Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
                     // !!! test this only for preference key !!!
-                //    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(preferenceAllowed, sharedPreferences, fromUIThread);
+                //    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS( sharedPreferences, fromUIThread);
                 //    break;
                 case Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE( preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM( preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_NOTIFICATION_LED:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_KEYGUARD:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD(preferenceAllowed, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD( context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID();
                     break;
                 case Profile.PREF_PROFILE_APPLICATION_ENABLE_WIFI_SCANNING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING();
                     break;
                 case Profile.PREF_PROFILE_APPLICATION_ENABLE_BLUETOOTH_SCANNING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING();
                     break;
                 case Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS();
                     break;
                 case Profile.PREF_PROFILE_APPLICATION_ENABLE_MOBILE_CELL_SCANNING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING();
                     break;
                 case Profile.PREF_PROFILE_APPLICATION_ENABLE_ORIENTATION_SCANNING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING();
                     break;
                 case Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS();
                     break;
                 case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed/*, context*/);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(/*, context*/);
                     break;
                 case Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_SCREEN_DARK_MODE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE( context);
                     break;
                 case Profile.PREF_PROFILE_CAMERA_FLASH:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed/*, context*/);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(/*, context*/);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM( preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1:
                 case Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, null, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM( null, context);
                     break;
                 case Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context, false);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM( preferenceKey, null, sharedPreferences, fromUIThread, context, false);
                     break;
                 case Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context, true);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM( preferenceKey, null, sharedPreferences, fromUIThread, context, true);
                     break;
                 case Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS( null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_LOCK_DEVICE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, null, sharedPreferences);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE( null, sharedPreferences);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, preferenceKey, null, sharedPreferences/*, fromUIThread, context*/);
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( preferenceKey, null, sharedPreferences/*, fromUIThread*/, context);
+                    break;
+                case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS();
+                case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED();
+                case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( null, sharedPreferences, fromUIThread, context);
+                    break;
+                case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS();
+                    break;
+                case Profile.PREF_PROFILE_SCREEN_ON_OFF:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
+                    break;
+                case Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION( preferenceKey, null, sharedPreferences);
                     break;
                 default:
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             return preferenceAllowed;
 
         } else {
             // !!! call only methods with profile parameter
 
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, profile, sharedPreferences/*, fromUIThread*/);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, /*fromUIThread,*/ context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, profile, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, profile, sharedPreferences, /*fromUIThread,*/ context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD(preferenceAllowed, context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING(preferenceAllowed);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS(preferenceAllowed);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING(preferenceAllowed);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
-            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, profile, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, false);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, true);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE(preferenceAllowed, profile, sharedPreferences);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT(preferenceAllowed, "-", profile, sharedPreferences/*, fromUIThread, context*/);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI( profile, sharedPreferences/*, fromUIThread*/);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA( "-", profile, sharedPreferences, /*fromUIThread,*/ context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM( "-", profile, sharedPreferences, fromUIThread, context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE( profile, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC( profile, sharedPreferences, /*fromUIThread,*/ context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE( "-", profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM( "-", profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED( profile, sharedPreferences, fromUIThread, context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD( context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID();
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING();
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING();
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS();
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING();
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS( profile, sharedPreferences, fromUIThread, context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS();
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY( context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE( profile, sharedPreferences, fromUIThread, context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE( context);
+            //preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM( "-", profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM( profile, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM( "-", profile, sharedPreferences, fromUIThread, context, false);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM( "-", profile, sharedPreferences, fromUIThread, context, true);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_LOCK_DEVICE( profile, sharedPreferences);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT( "-", profile, sharedPreferences/*, fromUIThread*/, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( profile, sharedPreferences, fromUIThread, context);
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_ON_OFF();
+            preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION( "-", profile, sharedPreferences);
 
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||
                     preferenceAllowed.notAllowedPPPPS ||
                     preferenceAllowed.notAllowedShizuku)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             return preferenceAllowed;
         }
@@ -1166,7 +1195,7 @@ class ProfileStatic {
                                                     Context context) {
         Preference preference = prefMng.findPreference(preferenceKey);
         if ((preference != null) && preference.isEnabled()) {
-            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            int labelColor = ContextCompat.getColor(context, R.color.preferenceSummaryValueColor);
             String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
             return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else
@@ -1207,7 +1236,7 @@ class ProfileStatic {
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
 
         boolean accessibilityNotRequired = true;
-        if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
+        if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange == 1)))
             accessibilityNotRequired = false;
         boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), againCheckAccessibilityInDelay) == 1);
 
@@ -1216,7 +1245,7 @@ class ProfileStatic {
             defaultAssistantNotRequired = false;
         boolean defaultAssistantEnabled = defaultAssistantNotRequired || (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context.getApplicationContext()));
 
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)
             return (!grantedAllPermissions) ||
                     (!enabledNotificationAccess) ||
                     (!accessibilityEnabled) ||
@@ -1231,6 +1260,35 @@ class ProfileStatic {
                     (!defaultAssistantEnabled) ||
                     (!installedPPPPS) ||
                     (!grantedShizukuPermission);
+    }
+
+    static int getNightLightStringId() {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+            return R.string.profile_preferences_screenNightLight_Samsung;
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            return R.string.profile_preferences_screenNightLight_Xiaomi;
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+            return R.string.profile_preferences_screenNightLight_Huawei;
+        if (PPApplication.deviceIsOnePlus)
+            return R.string.profile_preferences_screenNightLight_OnePlus;
+        return R.string.profile_preferences_screenNightLight;
+    }
+    static String getNightLightStringString(Context context) {
+        return context.getString(getNightLightStringId());
+    }
+    static int getNightLightStringPrefsId() {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+            return R.string.profile_preferences_screenNightLightPrefs_Samsung;
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            return R.string.profile_preferences_screenNightLightPrefs_Xiaomi;
+        //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+        //    return R.string.profile_preferences_screenNightLightPrefs_Huawei;
+        //if (PPApplication.deviceIsOnePlus)
+        //    return R.string.profile_preferences_screenNightLightPrefs_OnePlus;
+        return R.string.profile_preferences_screenNightLightPrefs;
+    }
+    static String getNightLightPrefsStringString(Context context) {
+        return context.getString(getNightLightStringPrefsId());
     }
 
 }

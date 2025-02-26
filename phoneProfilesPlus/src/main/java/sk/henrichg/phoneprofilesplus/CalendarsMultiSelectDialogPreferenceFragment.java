@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -48,6 +49,11 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
     static final int PROJECTION_DISPLAY_NAME_INDEX = 1;
     private static final int PROJECTION_COLOR_INDEX = 2;
 
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -78,6 +84,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
         });
 
         final Button unselectAllButton = view.findViewById(R.id.calendars_multiselect_pref_dlg_unselect_all);
+        //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
             refreshListView(false);

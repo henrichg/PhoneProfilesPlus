@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -49,6 +51,12 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
     RelativeLayout emptyList;
 
     private RefreshListViewAsyncTask rescanAsyncTask = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -98,6 +106,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
         locationSystemSettingsRelLa = view.findViewById(R.id.mobile_cell_names_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cell_names_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.mobile_cell_names_pref_dlg_locationSystemSettingsButton);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
 
         connectedCellSIM1 = view.findViewById(R.id.mobile_cell_names_pref_dlg_connectedCell_sim1);
@@ -176,6 +185,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
 
         }
         else
+            //noinspection DataFlowIssue
             rescanButton.setEnabled(false);
 
         setLocationEnableStatus();
@@ -252,15 +262,17 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
                                     null,
                                     null,
                                     null,
+                                    null,
                                     true, true,
                                     false, false,
                                     true,
-                                    getActivity()
+                                    false,
+                                    (AppCompatActivity) getActivity()
                             );
 
                             if (getActivity() != null)
                                 if (!getActivity().isFinishing())
-                                    dialog.show();
+                                    dialog.showDialog();
                         }
                     }
                 });

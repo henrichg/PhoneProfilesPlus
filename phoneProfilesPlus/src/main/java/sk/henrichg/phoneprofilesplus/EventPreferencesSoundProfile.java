@@ -95,7 +95,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_soundProfile_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_soundProfile), addPassStatus, DatabaseHandler.ETYPE_SOUND_PROFILE, context));
@@ -122,7 +122,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     }
                     selectedValues = __value.toString();
                 }
-                _value.append(context.getString(R.string.event_preferences_soundProfile_ringerModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(context.getString(R.string.event_preferences_soundProfile_ringerModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (dndChecked) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -142,7 +142,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         }
                         selectedValues = __value.toString();
                     }
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_soundProfile_zenModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_soundProfile_zenModes)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedValues, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
@@ -290,8 +290,8 @@ class EventPreferencesSoundProfile extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSoundProfile tmp = new EventPreferencesSoundProfile(this._event, this._enabled,
                     this._ringerModes, this._zenModes);
             if (preferences != null)
@@ -338,7 +338,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ENABLED) != null) {
-                boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+                boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
                 PPMultiSelectListPreference ringerModesPreference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODES);
                 if (ringerModesPreference != null)
@@ -398,7 +398,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
         if (_enabled) {
 
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.soundProfilePassed = false;
                 //boolean tested = false;
 

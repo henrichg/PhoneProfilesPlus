@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,69 +12,91 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 
-/** @noinspection ExtractMethodRecommender*/
-class AskForDurationActivateProfileDialog
+public class AskForDurationActivateProfileDialog extends DialogFragment
 {
-    private final AskForDurationDialog askForDurationDialog;
+    private AskForDurationDialog askForDurationDialog;
 
-    private final DataWrapper dataWrapper;
+    private DataWrapper dataWrapper;
 
-    private final AlertDialog mDialog;
-    final Activity activity;
+    private AlertDialog mDialog;
+    private AppCompatActivity activity;
 
-    private final LinearLayout linlaProgress;
-    private final ListView listView;
-    private final RelativeLayout emptyList;
+    private LinearLayout linlaProgress;
+    private ListView listView;
+    private RelativeLayout emptyList;
 
     private ShowDialogAsyncTask showDialogAsyncTask = null;
 
-    AskForDurationActivateProfileDialog(Activity activity, AskForDurationDialog askForDurationDialog)
+    public AskForDurationActivateProfileDialog() {
+    }
+
+    public AskForDurationActivateProfileDialog(AppCompatActivity activity, AskForDurationDialog askForDurationDialog)
     {
         this.askForDurationDialog = askForDurationDialog;
         this.activity = activity;
-
         dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+    }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(R.string.profile_preferences_afterDurationProfile);
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            GlobalGUIRoutines.lockScreenOrientation(activity);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
-        dialogBuilder.setView(layout);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.profile_preferences_afterDurationProfile), null);
+            //dialogBuilder.setTitle(R.string.profile_preferences_afterDurationProfile);
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        mDialog = dialogBuilder.create();
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
+            dialogBuilder.setView(layout);
 
-        mDialog.setOnShowListener(dialog -> {
+            mDialog = dialogBuilder.create();
+
+            mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            doShow();
-        });
-        mDialog.setOnDismissListener(dialog -> {
-            if ((showDialogAsyncTask != null) &&
-                    showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
-                showDialogAsyncTask.cancel(true);
-            }
-            showDialogAsyncTask = null;
-            dataWrapper.invalidateDataWrapper();
-        });
+                doShow();
+            });
 
-        linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
+            linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
-        listView = layout.findViewById(R.id.profile_pref_dlg_listview);
-        emptyList = layout.findViewById(R.id.profile_pref_dlg_empty);
+            listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+            emptyList = layout.findViewById(R.id.profile_pref_dlg_empty);
 
-        listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
+            //noinspection DataFlowIssue
+            listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
+        }
+        return mDialog;
+    }
 
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if ((showDialogAsyncTask != null) &&
+                showDialogAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            showDialogAsyncTask.cancel(true);
+        }
+        showDialogAsyncTask = null;
+        dataWrapper.invalidateDataWrapper();
+
+        if (activity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
     }
 
     private void doShow() {
@@ -89,12 +114,12 @@ class AskForDurationActivateProfileDialog
             }
         }
         askForDurationDialog.updateAfterDoProfile(profileId);
-        mDialog.dismiss();
+        dismiss();
     }
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            show(activity.getSupportFragmentManager(), "ASK_FOR_DURATION_ACTIVATE_PROFILE_DIALOG");
     }
 
     private static class AlphabeticallyComparator implements Comparator<Profile> {
@@ -168,6 +193,7 @@ class AskForDurationActivateProfileDialog
                             dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
                     dialog.listView.setAdapter(adapter);
 
+                    //noinspection ExtractMethodRecommender
                     int position;
                     long iProfileId;
                     iProfileId = afterDoProfile;

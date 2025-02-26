@@ -270,10 +270,12 @@
     <string-array name="launcherArray">
         <item>@string/array_pref_launcher_activator</item>
         <item>@string/array_pref_launcher_editor</item>
+        <item>@string/array_pref_launcher_switch_profiles</item>
     </string-array>
     <string-array name="launcherValues">
         <item>activator</item>
         <item>editor</item>
+        <item>switch_profiles</item>
     </string-array>
     <string-array name="locationServicePrefsArray">
         <item>@string/array_pref_no_show</item>
@@ -882,11 +884,13 @@
     </string-array>
     <string-array name="forceStopApplicationArray">
         <item>@string/array_pref_no_force_stop</item>
-        <item>@string/array_pref_force_stop</item>
+        <item>@string/array_pref_force_stop_with_pppe</item>
+        <item>@string/array_pref_force_stop_with_command</item>
     </string-array>
     <string-array name="forceStopApplicationValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     <string-array name="networkTypePrefsArray">
         <item>@string/array_pref_no_show</item>
@@ -1133,12 +1137,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="samsungEdgeVerticalPositionArray">
-        <item>@string/array_pref_samsungEdgeVerticalPosition_top</item>
-        <item>@string/array_pref_samsungEdgeVerticalPosition_center</item>
-        <item>@string/array_pref_samsungEdgeVerticalPosition_bottom</item>
+    <string-array name="widgetPanelVerticalPositionArray">
+        <item>@string/array_pref_widgetPanelVerticalPosition_top</item>
+        <item>@string/array_pref_widgetPanelVerticalPosition_center</item>
+        <item>@string/array_pref_widgetPanelVerticalPosition_bottom</item>
     </string-array>
-    <string-array name="samsungEdgeVerticalPositionValues">
+    <string-array name="widgetPanelVerticalPositionValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -1261,9 +1265,9 @@
         <item>@string/array_location_editor_show_actual_location</item>
         <item>@string/array_location_editor_change_geofence_location_to_actual</item>
     </string-array>
-    <string-array name="locationEditorRenameLocationArray">
-        <item>@string/array_location_editor_rename_geofence_with_address</item>
-    </string-array>
+<!--    <string-array name="locationEditorRenameLocationArray">-->
+<!--        <item>@string/array_location_editor_rename_geofence_with_address</item>-->
+<!--    </string-array>-->
     <string-array name="cameraFlashArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
@@ -1599,13 +1603,13 @@
         <item>@string/notification_channel_profile_list</item>
     </string-array>
 
-    <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
+    <string-array name="wifiAPArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_wifiAPModeArray_on_keepWifi</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
-    <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
+    <string-array name="wifiAPValues">
         <item>0</item>
         <item>1</item>
         <item>4</item>
@@ -1680,6 +1684,44 @@
     <string-array name="eventMusicStatesValues">
         <item>0</item>
         <item>1</item>
+    </string-array>
+    <string-array name="eventCallScreeningCallDirecitonArray">
+        <item>@string/array_event_pref_call_screening_direction_incoming</item>
+        <item>@string/array_event_pref_call_screening_direction_outgoing</item>
+        <item>@string/array_event_pref_call_screening_direction_all</item>
+    </string-array>
+    <string-array name="eventCallScreeningCallDirecitonValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="screenNightLightArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="screenNightLightValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="screenNightLightPrefsArray">
+        <item>@string/array_pref_no_show</item>
+        <item>@string/array_pref_show</item>
+    </string-array>
+    <string-array name="screenNightLightPrefsValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="screenOnOffArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="screenOnOffValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
 </resources>

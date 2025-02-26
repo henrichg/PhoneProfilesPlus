@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import java.util.Objects;
+
 class BluetoothDeviceData {
 
     private String name;
@@ -25,17 +27,11 @@ class BluetoothDeviceData {
     }
 
     String getName() {
-        if (name != null)
-            return name;
-        else
-            return "";
+        return Objects.requireNonNullElse(name, "");
     }
 
     String getAddress() {
-        if (address != null)
-            return address;
-        else
-            return "";
+        return Objects.requireNonNullElse(address, "");
     }
 
     void setName(String name) {

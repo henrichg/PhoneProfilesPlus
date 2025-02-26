@@ -65,7 +65,7 @@ public class WifiScanWorker extends Worker {
                 // application is not started
                 return Result.success();
 
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, context).preferenceAllowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);
 //                if (PPApplicationStatic.logEnabled()) {
@@ -101,6 +101,7 @@ public class WifiScanWorker extends Worker {
                 wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             if (EventStatic.getGlobalEventsRunning(context)) {
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanWorker.doWork", "xxxxxxxxx startScanner");
                 startScanner(context, false);
             }
 
@@ -111,6 +112,7 @@ public class WifiScanWorker extends Worker {
 //                long start1 = System.currentTimeMillis();
 //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
 //                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiScanWorker.doWork", "shortInterval=false");
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanWorker.doWork", "xxxxxxxxx sheduleWork");
                 WifiScanWorker.scheduleWork(appContext, false);
 //                long finish = System.currentTimeMillis();
 //                long timeElapsed = finish - start1;
@@ -248,7 +250,7 @@ public class WifiScanWorker extends Worker {
 //        PPApplicationStatic.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 //        PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
-        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, context).preferenceAllowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (shortInterval) {
                 _cancelWork(context, false);
@@ -415,7 +417,7 @@ public class WifiScanWorker extends Worker {
         setScanRequest(context, false);
         setWaitForResults(context, false);
 
-        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false, context).preferenceAllowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED)
             return;
 

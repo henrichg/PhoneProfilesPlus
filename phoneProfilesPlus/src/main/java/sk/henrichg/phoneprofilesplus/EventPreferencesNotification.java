@@ -141,7 +141,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_notification_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context));
@@ -167,25 +167,25 @@ class EventPreferencesNotification extends EventPreferences {
                         //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
 
                         if (this._inCall) {
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         if (this._missedCall) {
                             if (this._inCall)
                                 _value.append(StringConstants.STR_BULLET);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                         if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                             String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             if (splits.length == 1) {
-                                String packageName = Application.getPackageName(splits[0]);
-                                String activityName = Application.getActivityName(splits[0]);
+                                String packageName = CApplication.getPackageName(splits[0]);
+                                String activityName = CApplication.getActivityName(splits[0]);
                                 PackageManager packageManager = context.getPackageManager();
                                 if (activityName.isEmpty()) {
                                     ApplicationInfo app;
                                     try {
                                         app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
-                                        if (app != null)
+                                        //if (app != null)
                                             selectedApplications = packageManager.getApplicationLabel(app).toString();
                                     } catch (Exception e) {
                                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
@@ -202,31 +202,31 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                         if (this._inCall || this._missedCall)
                             _value.append(StringConstants.STR_BULLET);
-                        _value.append(context.getString(R.string.event_preferences_notifications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(context.getString(R.string.event_preferences_notifications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                         if (this._checkContacts) {
                             _value.append(StringConstants.STR_BULLET);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
 
                             _value.append(context.getString(R.string.event_preferences_notifications_contact_groups)).append(StringConstants.STR_COLON_WITH_SPACE);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                             _value.append(context.getString(R.string.event_preferences_notifications_contacts)).append(StringConstants.STR_COLON_WITH_SPACE);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
                             _value.append(context.getString(R.string.event_preferences_contactListType)).append(StringConstants.STR_COLON_WITH_SPACE);
                             String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         if (this._checkText) {
                             _value.append(StringConstants.STR_BULLET);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_COLON_WITH_SPACE);
 
                             _value.append(context.getString(R.string.event_preferences_notifications_text)).append(StringConstants.STR_COLON_WITH_SPACE);
-                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_text, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(_text, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
                         _value.append(StringConstants.STR_BULLET);
-                        _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                        _value.append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 }
             }
@@ -256,12 +256,12 @@ class EventPreferencesNotification extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
-                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
-                        titleColor = ContextCompat.getColor(context, R.color.error_color);
+                        titleColor = ContextCompat.getColor(context, R.color.errorColor);
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_SEPARATOR_LINE +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                         titleColor = 0;
                     }
@@ -272,10 +272,10 @@ class EventPreferencesNotification extends EventPreferences {
                                     ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                     } else {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_SEPARATOR_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                     }
                     titleColor = 0;
@@ -304,12 +304,12 @@ class EventPreferencesNotification extends EventPreferences {
                 int titleColor;
                 String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary2);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
-                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE+
+                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *"+StringConstants.STR_SEPARATOR_LINE+
                             summary;
-                    titleColor = ContextCompat.getColor(context, R.color.error_color);
+                    titleColor = ContextCompat.getColor(context, R.color.errorColor);
                 }
                 else {
-                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
+                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT+
                             summary;
                     titleColor = 0;
                 }
@@ -474,8 +474,8 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
                                                         this._applications, this._inCall, this._missedCall, this._duration,
                                                         this._checkContacts, this._contactGroups, this._contacts,
@@ -513,28 +513,30 @@ class EventPreferencesNotification extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         boolean okCheck = false;
-
-        if (_checkContacts) {
-            runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
-                    (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+        if (_inCall || _missedCall /*|| (!_applications.isEmpty())*/) {
+            if (_checkContacts) {
+                runnable = runnable && ((_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||
+                        (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
+                okCheck = true;
+            }
+        }
+        if (!_applications.isEmpty()) {
             okCheck = true;
         }
-
         if (_checkText) {
             runnable = runnable && (!_text.isEmpty());
             okCheck = true;
         }
 
-        if (!okCheck)
-            runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
-
-        return runnable;
+        return runnable && okCheck;
     }
 
     @Override
     boolean isAllConfigured(Context context)
     {
         boolean allConfigured = super.isAllConfigured(context);
+
+        allConfigured = allConfigured && isRunnable(context);
 
         allConfigured = allConfigured &&
                 (ApplicationPreferences.applicationEventNotificationEnableScanning ||
@@ -712,226 +714,302 @@ class EventPreferencesNotification extends EventPreferences {
                                                        List<Contact> contactList) {
         try {
             String packageNameFromNotification = statusBarNotification.getPackageName();
-//            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
+            //Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
+            //Log.e("EventPreferencesNotification.isNotificationActive", "packageName="+packageName);
 
-            boolean packageNameFound = false;
-            if (checkEnd) {
-                if (packageNameFromNotification.endsWith(packageName)) {
-                    packageNameFound = true;
+            if (!packageName.isEmpty()) {
+                // is configured also packageName
+                boolean packageNameFound = false;
+                if (checkEnd) {
+                    if (packageNameFromNotification.endsWith(packageName)) {
+                        packageNameFound = true;
+                    }
+                } else {
+                    if (packageNameFromNotification.equals(packageName)) {
+                        packageNameFound = true;
+                    }
                 }
-            } else {
-                if (packageNameFromNotification.equals(packageName)) {
-                    packageNameFound = true;
+
+                //Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFound="+packageNameFound);
+                if (!packageNameFound)
+                    return null;
+            }
+
+            boolean textIsInNotification = false;
+
+            String notificationTicker = "";
+            String notificationTitle = "";
+            String notificationText = "";
+            String notificationSubText = "";
+            String notificationBigText = "";
+            String notificationInfoText = "";
+
+            if (_checkContacts || _checkText) {
+                //Log.e("EventPreferencesNotification.isNotificationActive", "tickerText=" + statusBarNotification.getNotification().tickerText);
+                if (statusBarNotification.getNotification().tickerText != null) {
+                    notificationTicker = statusBarNotification.getNotification().tickerText.toString();
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "notificationTicker=" + notificationTicker);
+                    textIsInNotification = true;
+                }
+                Bundle extras = statusBarNotification.getNotification().extras;
+                if (extras != null) {
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "extras: start");
+                    //for (String key : extras.keySet()) {
+                    //    Log.e("EventPreferencesNotification.isNotificationActive", "extras=" + key + "="+ extras.get(key));
+                    //}
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "extras: end");
+
+                    String _text1 = extras.getString("android.title");
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "_text1=" + _text1);
+                    if (_text1 != null) {
+                        notificationTitle = _text1;
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "notificationTitle=" + notificationTitle);
+                        textIsInNotification = true;
+                    }
+                    CharSequence _text2 = extras.getCharSequence("android.text");
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "_text2=" + _text2);
+                    if (_text2 != null) {
+                        notificationText = _text2.toString();
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "notificationText=" + notificationText);
+                        textIsInNotification = true;
+                    }
+                    CharSequence _text3 = extras.getCharSequence("android.subText");
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "_text3=" + _text3);
+                    if (_text3 != null) {
+                        notificationSubText = _text3.toString();
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "notificationSubText=" + notificationSubText);
+                        textIsInNotification = true;
+                    }
+                    CharSequence _text4 = extras.getCharSequence("android.bigText");
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "_text4=" + _text4);
+                    if (_text4 != null) {
+                        notificationBigText = _text4.toString();
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "notificationBigText=" + notificationBigText);
+                        textIsInNotification = true;
+                    }
+                    CharSequence _text5 = extras.getCharSequence("android.infoText");
+                    //Log.e("EventPreferencesNotification.isNotificationActive", "_text5=" + _text5);
+                    if (_text5 != null) {
+                        notificationInfoText = _text5.toString();
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "notificationInfoText=" + notificationInfoText);
+                        textIsInNotification = true;
+                    }
                 }
             }
 
-            if (packageNameFound) {
+            //Log.e("EventPreferencesNotification.isNotificationActive", "testText="+textIsInNotification);
 
-                boolean testText = false;
+            boolean textFound = false;
+            if (textIsInNotification) {
+                // title or text or ticker is set in notification
 
-                String notificationTicker = "";
-                String notificationTitle = "";
-                String notificationText = "";
+                if (_checkContacts) {
+                    if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
+                        boolean phoneNumberFound = false;
+                        if (!notificationTitle.isEmpty())
+                            phoneNumberFound = isContactConfigured(notificationTitle, contactList);
+                        if (!notificationText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationText, contactList);
+                        if (!notificationTicker.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationTicker, contactList);
+                        if (!notificationSubText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationSubText, contactList);
+                        if (!notificationBigText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationBigText, contactList);
+                        if (!notificationInfoText.isEmpty() && (!phoneNumberFound))
+                            phoneNumberFound = isContactConfigured(notificationInfoText, contactList);
 
-                if (_checkContacts || _checkText) {
-                    if (statusBarNotification.getNotification().tickerText != null) {
-                        notificationTicker = statusBarNotification.getNotification().tickerText.toString();
-                        testText = true;
-                    }
-                    Bundle extras = statusBarNotification.getNotification().extras;
-                    if (extras != null) {
-                        String _text1 = extras.getString("android.title");
-                        if (_text1 != null) {
-                            notificationTitle = _text1;
-                            testText = true;
-                        }
-                        CharSequence _text2 = extras.getCharSequence("android.text");
-                        if (_text2 != null) {
-                            notificationText = _text2.toString();
-                            testText = true;
-                        }
-                    }
+                        if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
+                            textFound = phoneNumberFound;
+                        else
+                            textFound = !phoneNumberFound;
+                    } else
+                        // all contacts
+                        textFound = true;
                 }
-
-                boolean textFound = false;
-                if (testText) {
-                    // title or text or ticker is set in notification
-
-                    if (_checkContacts) {
-                        if (_contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
-                            boolean phoneNumberFound = false;
+                if (_checkText) {
+                    String searchText = "";
+                    for (int whatTest = 0; whatTest < 6; whatTest++) {
+                        // test in loop title (0), text(1), ticker(2)
+                        if (whatTest == 0) {
                             if (!notificationTitle.isEmpty())
-                                phoneNumberFound = isContactConfigured(notificationTitle, contactList);
-                            if (!notificationText.isEmpty() && (!phoneNumberFound))
-                                phoneNumberFound = isContactConfigured(notificationText, contactList);
-                            if (!notificationTicker.isEmpty() && (!phoneNumberFound))
-                                phoneNumberFound = isContactConfigured(notificationTicker, contactList);
-
-                            if (_contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST)
-                                textFound = phoneNumberFound;
+                                searchText = notificationTitle;
                             else
-                                textFound = !phoneNumberFound;
-                        } else
-                            // all contacts
-                            textFound = true;
-                    }
-                    if (_checkText) {
-                        String searchText = "";
-                        for (int whatTest = 0; whatTest < 3; whatTest++) {
-                            // test in loop title (0), text(1), ticker(2)
-                            if (whatTest == 0) {
-                                if (!notificationTitle.isEmpty())
-                                    searchText = notificationTitle;
-                                else
-                                    continue;
-                            }
-                            if (whatTest == 1) {
-                                if (!notificationText.isEmpty())
-                                    searchText = notificationText;
-                                else
-                                    continue;
-                            }
-                            if (whatTest == 2) {
-                                if (!notificationTicker.isEmpty())
-                                    searchText = notificationTicker;
-                                else
-                                    continue;
-                            }
-
-                            String[] textSplits = _text.split(StringConstants.STR_SPLIT_REGEX);
-
-                            String[] positiveList = new String[textSplits.length];
-                            String[] negativeList = new String[textSplits.length];
-                            int argsId;
-
-                            // positive strings
-                            boolean positiveExists = false;
-                            argsId = 0;
-                            for (String split : textSplits) {
-                                if (!split.isEmpty()) {
-                                    String searchPattern = split;
-
-                                    if (searchPattern.startsWith("!")) {
-                                        // only positive
-                                        continue;
-                                    }
-
-                                    // trim leading and trailing spaces
-                                    searchPattern = searchPattern.trim();
-
-                                    // when in searchPattern are not wildcards add %
-                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
-                                        searchPattern = "%" + searchPattern + "%";
-
-                                    searchPattern = searchPattern.replace("\\%", "{^^}");
-                                    searchPattern = searchPattern.replace("\\_", "[^^]");
-
-                                    searchPattern = searchPattern.replace("%", "(.*)");
-                                    searchPattern = searchPattern.replace("_", "(.)");
-
-                                    searchPattern = searchPattern.replace("{^^}", "\\%");
-                                    searchPattern = searchPattern.replace("[^^]", "\\_");
-
-                                    //if (!searchPattern.startsWith("(.*)"))
-                                    //    searchPattern = searchPattern + "^";
-                                    //if (!searchPattern.endsWith("(.*)"))
-                                    //    searchPattern = searchPattern + "$";
-
-                                    positiveList[argsId] = searchPattern;
-
-                                    positiveExists = true;
-
-                                    ++argsId;
-
-                                }
-                            }
-
-                            // negative strings
-                            boolean negativeExists = false;
-                            argsId = 0;
-                            for (String split : textSplits) {
-                                if (!split.isEmpty()) {
-                                    String searchPattern = split;
-
-                                    if (!searchPattern.startsWith("!")) {
-                                        // only negative
-                                        continue;
-                                    }
-
-                                    // remove !
-                                    searchPattern = searchPattern.substring(1);
-
-                                    // trim leading and trailing spaces
-                                    searchPattern = searchPattern.trim();
-
-                                    // when in searchPattern are not wildcards add %
-                                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
-                                        searchPattern = "%" + searchPattern + "%";
-
-                                    searchPattern = searchPattern.replace("\\%", "{^^}");
-                                    searchPattern = searchPattern.replace("\\_", "[^^]");
-
-                                    searchPattern = searchPattern.replace("%", "(.*)");
-                                    searchPattern = searchPattern.replace("_", "(.)");
-
-                                    searchPattern = searchPattern.replace("{^^}", "\\%");
-                                    searchPattern = searchPattern.replace("[^^]", "\\_");
-
-                                    //if (!searchPattern.startsWith("(.*)"))
-                                    //    searchPattern = searchPattern + "^";
-                                    //if (!searchPattern.endsWith("(.*)"))
-                                    //    searchPattern = searchPattern + "$";
-
-                                    negativeList[argsId] = searchPattern;
-
-                                    negativeExists = true;
-
-                                    ++argsId;
-
-                                }
-                            }
-
-                            boolean foundPositive = false;
-                            if (positiveExists) {
-                                for (String _positiveText : positiveList) {
-                                    if ((_positiveText != null) && (!_positiveText.isEmpty())) {
-                                        if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
-                                            foundPositive = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            boolean foundNegative = true;
-                            if (negativeExists) {
-                                for (String _negativeText : negativeList) {
-                                    if ((_negativeText != null) && (!_negativeText.isEmpty())) {
-                                        if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
-                                            foundNegative = false;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
-                            textFound = foundPositive && foundNegative;
-
-                            if (textFound)
-                                break;
+                                continue;
                         }
+                        if (whatTest == 1) {
+                            if (!notificationText.isEmpty())
+                                searchText = notificationText;
+                            else
+                                continue;
+                        }
+                        if (whatTest == 2) {
+                            if (!notificationTicker.isEmpty())
+                                searchText = notificationTicker;
+                            else
+                                continue;
+                        }
+                        if (whatTest == 3) {
+                            if (!notificationSubText.isEmpty())
+                                searchText = notificationSubText;
+                            else
+                                continue;
+                        }
+                        if (whatTest == 4) {
+                            if (!notificationBigText.isEmpty())
+                                searchText = notificationBigText;
+                            else
+                                continue;
+                        }
+                        if (whatTest == 5) {
+                            if (!notificationInfoText.isEmpty())
+                                searchText = notificationInfoText;
+                            else
+                                continue;
+                        }
+                        //Log.e("EventPreferencesNotification.isNotificationActive", "whatTest=" + whatTest + " searchText="+searchText);
+
+                        String[] textSplits = _text.split(StringConstants.STR_SPLIT_REGEX);
+
+                        String[] positiveList = new String[textSplits.length];
+                        String[] negativeList = new String[textSplits.length];
+                        int argsId;
+
+                        // positive strings
+                        boolean positiveExists = false;
+                        argsId = 0;
+                        for (String split : textSplits) {
+                            if (!split.isEmpty()) {
+                                String searchPattern = split;
+
+                                if (searchPattern.startsWith("!")) {
+                                    // only positive
+                                    continue;
+                                }
+
+                                // trim leading and trailing spaces
+                                searchPattern = searchPattern.trim();
+
+                                // when in searchPattern are not wildcards add %
+                                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                    searchPattern = "%" + searchPattern + "%";
+
+                                searchPattern = searchPattern.replace("\\%", "{^^}");
+                                searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                searchPattern = searchPattern.replace("%", "(.*)");
+                                searchPattern = searchPattern.replace("_", "(.)");
+
+                                searchPattern = searchPattern.replace("{^^}", "\\%");
+                                searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                //if (!searchPattern.startsWith("(.*)"))
+                                //    searchPattern = searchPattern + "^";
+                                //if (!searchPattern.endsWith("(.*)"))
+                                //    searchPattern = searchPattern + "$";
+
+                                positiveList[argsId] = searchPattern;
+
+                                positiveExists = true;
+
+                                ++argsId;
+
+                            }
+                        }
+
+                        // negative strings
+                        boolean negativeExists = false;
+                        argsId = 0;
+                        for (String split : textSplits) {
+                            if (!split.isEmpty()) {
+                                String searchPattern = split;
+
+                                if (!searchPattern.startsWith("!")) {
+                                    // only negative
+                                    continue;
+                                }
+
+                                // remove !
+                                searchPattern = searchPattern.substring(1);
+
+                                // trim leading and trailing spaces
+                                searchPattern = searchPattern.trim();
+
+                                // when in searchPattern are not wildcards add %
+                                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                                    searchPattern = "%" + searchPattern + "%";
+
+                                searchPattern = searchPattern.replace("\\%", "{^^}");
+                                searchPattern = searchPattern.replace("\\_", "[^^]");
+
+                                searchPattern = searchPattern.replace("%", "(.*)");
+                                searchPattern = searchPattern.replace("_", "(.)");
+
+                                searchPattern = searchPattern.replace("{^^}", "\\%");
+                                searchPattern = searchPattern.replace("[^^]", "\\_");
+
+                                //if (!searchPattern.startsWith("(.*)"))
+                                //    searchPattern = searchPattern + "^";
+                                //if (!searchPattern.endsWith("(.*)"))
+                                //    searchPattern = searchPattern + "$";
+
+                                negativeList[argsId] = searchPattern;
+
+                                negativeExists = true;
+
+                                ++argsId;
+
+                            }
+                        }
+
+                        boolean foundPositive = false;
+                        if (positiveExists) {
+                            for (String _positiveText : positiveList) {
+                                if ((_positiveText != null) && (!_positiveText.isEmpty())) {
+                                    if (searchText.toLowerCase().matches(_positiveText.toLowerCase())) {
+                                        foundPositive = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        boolean foundNegative = true;
+                        if (negativeExists) {
+                            for (String _negativeText : negativeList) {
+                                if ((_negativeText != null) && (!_negativeText.isEmpty())) {
+                                    if (searchText.toLowerCase().matches(_negativeText.toLowerCase())) {
+                                        foundNegative = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        textFound = foundPositive && foundNegative;
+
+                        if (textFound)
+                            break;
                     }
                 }
+            }
 
-                if (testText) {
-                    // is configured test text (_checkContacts or _checkText = true)
-                    if (textFound)
-                        return statusBarNotification;
-                    else
-                        return null;
-                } else {
-                    // is not configured test text (_checkContacts and _checkText = false)
+            if (textIsInNotification) {
+                // text is in notification (required for _checkContacts || _checkText)
+                //Log.e("EventPreferencesNotification.isNotificationActive", "textFound="+textFound);
+                if (textFound)
                     return statusBarNotification;
-                }
+                else
+                    return null;
+            }
+            else
+            if (_checkContacts || _checkText)
+                // text is NOT in notification (required for _checkContacts || _checkText)
+                return null;
+            else
+            {
+                // is not configured test text and not is configured _checkContacts || _checkText
+                //Log.e("EventPreferencesNotification.isNotificationActive", "testText=false");
+                return statusBarNotification;
             }
         } catch (Exception e) {
             //Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
@@ -950,18 +1028,20 @@ class EventPreferencesNotification extends EventPreferences {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                     //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache == null)
                             return false;
                         List<Contact> contactList;
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.isNotificationVisible", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
 
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
                             // ignore PPP notification
+                            if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                continue;
                             if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
                                 continue;
                             if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
@@ -1069,7 +1149,7 @@ class EventPreferencesNotification extends EventPreferences {
                             String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             for (String split : splits) {
                                 // get only package name = remove activity
-                                String packageName = Application.getPackageName(split);
+                                String packageName = CApplication.getPackageName(split);
                                 // search for package name in saved package names
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification,
                                         packageName, false,
@@ -1151,14 +1231,14 @@ class EventPreferencesNotification extends EventPreferences {
                 StatusBarNotification newestNotification = null;
                 StatusBarNotification activeNotification;
 
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null)
                     return null;
                 List<Contact> contactList;
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesNotification.getNewestVisibleNotification", "PPApplication.contactsCacheMutex");
-                synchronized (PPApplication.contactsCacheMutex) {
-                    contactList = contactsCache.getList(/*false*/);
-                }
+//                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "contactsCache.getList()");
+                contactList = contactsCache.getList(/*false*/);
 
                 for (StatusBarNotification statusBarNotification : statusBarNotifications) {
                     if (this._inCall) {
@@ -1223,7 +1303,7 @@ class EventPreferencesNotification extends EventPreferences {
                     String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         // get only package name = remove activity
-                        String packageName = Application.getPackageName(split);
+                        String packageName = CApplication.getPackageName(split);
                         // search for package name in saved package names
                         activeNotification = isNotificationActive(statusBarNotification,
                                 packageName, false,
@@ -1305,7 +1385,7 @@ class EventPreferencesNotification extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
 
                 boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
                         GlobalUtils.isNowTimeBetweenTimes(

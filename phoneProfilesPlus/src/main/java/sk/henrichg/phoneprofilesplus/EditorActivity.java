@@ -57,6 +57,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 //import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.WindowCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -186,6 +187,8 @@ public class EditorActivity extends AppCompatActivity
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
 
+    static volatile boolean itemDragPerformed = false;
+
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
         private final RefreshGUIActivatorEditorListener listener;
@@ -196,6 +199,9 @@ public class EditorActivity extends AppCompatActivity
 
         @Override
         public void onReceive( Context context, Intent intent ) {
+            if (itemDragPerformed)
+                return;
+
             listener.refreshGUIFromListener(intent);
         }
     }
@@ -232,7 +238,15 @@ public class EditorActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
+
+        //if (Build.VERSION.SDK_INT >= 34)
+        //    EdgeToEdge.enable(this);
+        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
 
         super.onCreate(savedInstanceState);
 //        Log.e("EditorActivity.onCreate", "xxxx");
@@ -272,6 +286,25 @@ public class EditorActivity extends AppCompatActivity
                     }
                 }
             );
+        */
+
+        /*
+        ViewCompat.setOnApplyWindowInsetsListener(fab, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            // Apply the insets as a margin to the view. This solution sets only the
+            // bottom, left, and right dimensions, but you can apply whichever insets are
+            // appropriate to your layout. You can also update the view padding if that's
+            // more appropriate.
+            MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
+            mlp.leftMargin = insets.left;
+            mlp.bottomMargin = insets.bottom;
+            mlp.rightMargin = insets.right;
+            v.setLayoutParams(mlp);
+
+            // Return CONSUMED if you don't want want the window insets to keep passing
+            // down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
         */
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -420,6 +453,7 @@ public class EditorActivity extends AppCompatActivity
         */
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
+        //noinspection DataFlowIssue
         bottomNavigationView.setOnItemSelectedListener(
                 (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
                     bottomNavigationView.playSoundEffect(SoundEffectConstants.CLICK);
@@ -443,13 +477,13 @@ public class EditorActivity extends AppCompatActivity
                 /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                 /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
         };
-        HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+        PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
                 this,
-                R.layout.spinner_highlighted_filter,
+                R.layout.ppp_spinner_filter,
                 filterItems);
-        filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all_editor));
+        //filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all_editor));
 /*        switch (appTheme) {
             case "dark":
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
@@ -480,7 +514,7 @@ public class EditorActivity extends AppCompatActivity
                 if (filterSpinner.getAdapter() != null) {
                     //if (filterSpinner.getAdapter().getCount() <= position)
                     //    position = 0;
-                    ((HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                    ((PPSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
@@ -491,10 +525,11 @@ public class EditorActivity extends AppCompatActivity
         });
 
         eventsRunStopIndicator = findViewById(R.id.editor_list_run_stop_indicator);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
         eventsRunStopIndicator.setOnClickListener(view -> {
             if (!isFinishing()) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorActivity.this);
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(R.layout.popup_window_run_stop_indicator, getDataWrapper(), EditorActivity.this);
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -516,6 +551,7 @@ public class EditorActivity extends AppCompatActivity
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                GlobalGUIRoutines.dimBehindPopupWindow(popup);
             }
         });
         
@@ -715,10 +751,10 @@ public class EditorActivity extends AppCompatActivity
 
         unregisterReceiversInStop();
 
-        if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
-            addProfileDialog.mDialog.dismiss();
-        if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
-            addEventDialog.mDialog.dismiss();
+        //if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
+        //    addProfileDialog.mDialog.dismiss();
+        //if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
+        //    addEventDialog.mDialog.dismiss();
     }
 
     @Override
@@ -726,6 +762,8 @@ public class EditorActivity extends AppCompatActivity
     {
         super.onDestroy();
 //        Log.e("EditorActivity.onDestroy", "xxxx");
+
+        EditorActivity.itemDragPerformed = false;
 
         unregisterReceiversInStop();
 
@@ -917,23 +955,23 @@ public class EditorActivity extends AppCompatActivity
 //        if (menuItem != null) {
 //            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
 //            if (intent != null)
-//                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_galaxy_store));
+//                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_galaxy_store));
 //            else
 //                menuItem.setTitle(R.string.menu_check_releases_galaxy_store);
 //        }
-        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
-        if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
-            if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_appgallery));
-            else
-                menuItem.setTitle(R.string.menu_check_releases_appgallery);
-        }
+//        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
+//        if (menuItem != null) {
+//            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
+//            if (intent != null)
+//                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_appgallery));
+//            else
+//                menuItem.setTitle(R.string.menu_check_releases_appgallery);
+//        }
         menuItem = menu.findItem(R.id.menu_check_in_droidify);
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_droidify));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_droidify));
             else
                 menuItem.setTitle(R.string.menu_check_releases_droidify);
         }
@@ -941,7 +979,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_neostore));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_neostore));
             else
                 menuItem.setTitle(R.string.menu_check_releases_neostore);
         }
@@ -949,7 +987,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_fdroid));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_fdroid));
             else
                 menuItem.setTitle(R.string.menu_check_releases_fdroid);
         }
@@ -957,7 +995,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_apkpure));
+                menuItem.setTitle(StringConstants.INSTALLED_STORE_INDICATOR +"  " + getString(R.string.menu_check_releases_apkpure));
             else
                 menuItem.setTitle(R.string.menu_check_releases_apkpure);
         }
@@ -1240,7 +1278,7 @@ public class EditorActivity extends AppCompatActivity
                 PPApplicationStatic.recordException(e);
             }
             intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.about_application_support_subject));
-            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
             } catch (Exception e) {
@@ -1274,41 +1312,72 @@ public class EditorActivity extends AppCompatActivity
 
             if (!uris.isEmpty()) {
                 String emailAddress = StringConstants.AUTHOR_EMAIL;
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
-                String packageVersion = "";
-                try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                if (Build.VERSION.SDK_INT >= 35) {
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+                    emailIntent.setType("message/rfc822"); // only email apps should handle this
+                    //emailIntent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON));
 
-                List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
-                List<LabeledIntent> intents = new ArrayList<>();
-                for (ResolveInfo info : resolveInfo) {
-                    intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                    intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                    intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                    intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
-                    intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
-                }
-                if (!intents.isEmpty()) {
+                    emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+
+                    String packageVersion = "";
                     try {
-                        Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
-                        chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
-                        startActivity(chooser);
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                        packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
+                    }
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
+                    emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    try {
+                        Intent chooser = Intent.createChooser(emailIntent, getString(R.string.email_chooser));
+                        //chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                        //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                        startActivity(chooser);
+                    } catch (Exception e) {
+                        //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    }
+                } else {
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
+
+                    String packageVersion = "";
+                    try {
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                        packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
+                    emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
+                    List<LabeledIntent> intents = new ArrayList<>();
+                    for (ResolveInfo info : resolveInfo) {
+                        intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                        intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                        intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(this));
+                        intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                        intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
+                    }
+                    if (!intents.isEmpty()) {
+                        try {
+                            Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
+                            chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                            startActivity(chooser);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
                     }
                 }
             } else {
@@ -1338,14 +1407,16 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -1362,14 +1433,16 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     this
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             return true;
         }
         else
@@ -1377,7 +1450,7 @@ public class EditorActivity extends AppCompatActivity
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_droidify) ||
                 (itemId == R.id.menu_check_in_neostore) ||
-                (itemId == R.id.menu_check_in_appgallery) ||
+                //(itemId == R.id.menu_check_in_appgallery) ||
                 (itemId == R.id.menu_check_in_apkpure)) {
 
             Intent _intent;
@@ -1392,6 +1465,8 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_donation) {
+
+
             intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
             startActivity(intent);
             return true;
@@ -1399,7 +1474,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_choose_language) {
             ChooseLanguageDialog chooseLanguageDialog = new ChooseLanguageDialog(this);
-            chooseLanguageDialog.show();
+            chooseLanguageDialog.showDialog();
             return true;
         }
         else
@@ -1438,68 +1513,18 @@ public class EditorActivity extends AppCompatActivity
             }
             return true;
         }
-        /*
-        else
-        if (itemId == R.id.menu_discord_discussion) {
-            String url = PPApplication.DISCORD_DISCUSSIION_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_discord_help) {
-            String url = PPApplication.DISCORD_HELP_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_discord_bugs) {
-            String url = PPApplication.DISCORD_BUGS_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_discord_suggestions) {
-            String url = PPApplication.DISCORD_SUGGESTIONS_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
-        */
-        else
-        if (itemId == R.id.menu_twitter) {
-            String url = PPApplication.TWITTER_URL;
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            return true;
-        }
+//        else
+//        if (itemId == R.id.menu_twitter) {
+//            String url = PPApplication.TWITTER_URL;
+//            intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse(url));
+//            try {
+//                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+//            } catch (Exception e) {
+//                PPApplicationStatic.recordException(e);
+//            }
+//            return true;
+//        }
         else
         if (itemId == R.id.menu_reddit) {
             String url = PPApplication.REDDIT_URL;
@@ -1515,6 +1540,18 @@ public class EditorActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_bluesky) {
             String url = PPApplication.BLUESKY_URL;
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_mastodon) {
+            String url = PPApplication.MASTODON_URL;
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
             try {
@@ -1578,7 +1615,6 @@ public class EditorActivity extends AppCompatActivity
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
             editorToolbar.setTitle(getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
-            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
@@ -1592,11 +1628,11 @@ public class EditorActivity extends AppCompatActivity
                         /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                         /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                 };
-                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
                         activity,
-                        R.layout.spinner_highlighted_filter,
+                        R.layout.ppp_spinner_filter,
                         filterItems);
-                filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
                 activity.filterSpinner.setAdapter(filterSpinnerAdapter);
                 activity.selectFilterItem(0, activity.filterProfilesSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1607,7 +1643,6 @@ public class EditorActivity extends AppCompatActivity
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
             editorToolbar.setTitle(getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
-            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             final WeakReference<EditorActivity> activityWeakRef = new WeakReference<>(this);
             handler.postDelayed(() -> {
@@ -1624,11 +1659,11 @@ public class EditorActivity extends AppCompatActivity
                         /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
                         /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
                 };
-                HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
+                PPSpinnerAdapter filterSpinnerAdapter = new PPSpinnerAdapter(
                         activity,
-                        R.layout.spinner_highlighted_filter,
+                        R.layout.ppp_spinner_filter,
                         filterItems);
-                filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
                 activity.filterSpinner.setAdapter(filterSpinnerAdapter);
                 activity.selectFilterItem(1, activity.filterEventsSelectedItem, false/*, startTargetHelps*/);
                 Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1641,6 +1676,8 @@ public class EditorActivity extends AppCompatActivity
             return false;
     }
 
+    // selectedView = 0=Profles/1=Events
+    // postion = selected filter item
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener/*, boolean startTargetHelps*/) {
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1903,7 +1940,6 @@ public class EditorActivity extends AppCompatActivity
         // header is position=0
         drawerListView.setItemChecked(drawerSelectedItem, true);
         // Get the title and icon followed by the position
-        //editorToolbar.setSubtitle(drawerItemsTitle[drawerSelectedItem - 1]);
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
         drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem -1]);
         drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem - 1]);
@@ -2148,21 +2184,24 @@ public class EditorActivity extends AppCompatActivity
             if ((resultCode == RESULT_OK) && (data != null)) {
                 boolean ok = false;
                 try {
-                    Intent intent;
+                    Intent intent = null;
                     if (Build.VERSION.SDK_INT >= 29) {
                         StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                        if (sm != null)
+                            intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
                     }
                     else {
                         intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     }
-                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                    //noinspection deprecation
-                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                    ok = true;
+                    if (intent != null) {
+                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                        //noinspection deprecation
+                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                        ok = true;
+                    }
                 } catch (Exception e) {
                     //PPApplicationStatic.recordException(e);
                 }
@@ -2178,14 +2217,16 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
+                            false,
                             this
                     );
 
                     if (!isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -2220,14 +2261,16 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
+                            false,
                             this
                     );
 
                     if (!isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
                 }
             }
         }
@@ -2249,127 +2292,6 @@ public class EditorActivity extends AppCompatActivity
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     appContext.getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
-
-/*                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                        DocumentFile pickedDir;
-                        final Uri treeUri;
-                        final Activity activity;
-
-                        final int requestCode;
-                        int ok = 1;
-
-                        private BackupAsyncTask(int requestCode, Uri treeUri, Activity activity) {
-                            this.treeUri = treeUri;
-                            this.requestCode = requestCode;
-                            this.activity = activity;
-
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.backup_settings_alert_title);
-
-                            LayoutInflater inflater = (activity.getLayoutInflater());
-                            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                            dialogBuilder.setView(layout);
-
-                            backupProgressDialog = dialogBuilder.create();
-
-                        }
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-
-                            pickedDir = DocumentFile.fromTreeUri(appContext, treeUri);
-
-                            GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                            backupProgressDialog.setCancelable(false);
-                            backupProgressDialog.setCanceledOnTouchOutside(false);
-                            if (!activity.isFinishing())
-                                backupProgressDialog.show();
-                        }
-
-                        @Override
-                        protected Integer doInBackground(Void... params) {
-                            if (pickedDir != null) {
-                                if (pickedDir.canWrite()) {
-                                    if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
-                                        // if directory exists, create new = "PhoneProfilesPlus (x)"
-                                        // create subdirectory
-                                        pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
-                                        if (pickedDir == null) {
-                                            // error for create directory
-                                            ok = 0;
-                                        }
-                                    }
-                                }
-                                else {
-                                    // pickedDir is not writable
-                                    ok = 0;
-                                }
-
-                                if (ok == 1) {
-                                    if (pickedDir.canWrite()) {
-                                        File applicationDir = appContext.getExternalFilesDir(null);
-
-                                        ok = copyToBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, getApplicationContext());
-                                        if (ok == 1)
-                                            ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
-                                    }
-                                    else {
-                                        // cannot copy backup files, pickedDir is not writable
-                                        ok = 0;
-                                    }
-                                }
-
-                            }
-                            else {
-                                // pickedDir is null
-                                ok = 0;
-                            }
-
-                            return ok;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Integer result) {
-                            super.onPostExecute(result);
-
-                            if (!isFinishing()) {
-                                if ((backupProgressDialog != null) && backupProgressDialog.isShowing()) {
-                                    if (!isDestroyed())
-                                        backupProgressDialog.dismiss();
-                                    backupProgressDialog = null;
-                                }
-                                GlobalGUIRoutines.unlockScreenOrientation(activity);
-                            }
-
-                            if (result == 0) {
-                                if (!activity.isFinishing()) {
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                    dialogBuilder.setTitle(R.string.backup_settings_alert_title);
-                                    dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog = dialogBuilder.create();
-
-                                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    //            @Override
-                                    //            public void onShow(DialogInterface dialog) {
-                                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    //                if (positive != null) positive.setAllCaps(false);
-                                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    //                if (negative != null) negative.setAllCaps(false);
-                                    //            }
-                                    //        });
-
-                                    dialog.show();
-                                }
-                            }
-                            else {
-                                PPApplication.showToast(appContext, getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
-                            }
-                        }
-                    }
- */
 
                     backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this);
                     backupAsyncTask.execute();
@@ -2410,13 +2332,15 @@ public class EditorActivity extends AppCompatActivity
                             null,
                             null,
                             null,
+                            null,
                             true, true,
                             false, false,
                             true,
+                            false,
                             this
                     );
 
-                    dialog.show();
+                    dialog.showDialog();
                 }
             }
         }
@@ -2449,7 +2373,7 @@ public class EditorActivity extends AppCompatActivity
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ImportantInfoNotification.showInfoNotification(appContext);
                 ProfileListNotification.drawNotification(true, appContext);
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                //DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
                 DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
@@ -2492,7 +2416,6 @@ public class EditorActivity extends AppCompatActivity
 
     private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult/*, int sharedProfileResult*/)
     {
-        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
         if (importExport == IMPORTEXPORT_IMPORT)
             title = getString(R.string.import_profiles_alert_title);
@@ -2529,14 +2452,16 @@ public class EditorActivity extends AppCompatActivity
                     GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
                 },
                 null,
+                null,
                 true, true,
                 false, false,
+                false,
                 false,
                 this
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -2765,14 +2690,16 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         EditorActivity.this
                                 );
 
                                 if (!isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         }
 
@@ -2780,23 +2707,26 @@ public class EditorActivity extends AppCompatActivity
                         if (Permissions.grantImportPermissions(false, getApplicationContext(), EditorActivity.this)) {
                             boolean ok = false;
                             try {
-                                Intent intent;
+                                Intent intent = null;
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                    if (sm != null)
+                                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
                                 } else {
                                     intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                                     intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                 }
-                                // not supported by ACTION_OPEN_DOCUMENT_TREE
-                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                                if (intent != null) {
+                                    // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                    //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
 
-                                //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                                //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                //noinspection deprecation
-                                startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                                ok = true;
+                                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                    //noinspection deprecation
+                                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                                    ok = true;
+                                }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
                             }
@@ -2812,14 +2742,16 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         EditorActivity.this
                                 );
 
                                 if (!isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         }
                     }
@@ -2828,14 +2760,16 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
                 true,
+                false,
                 this
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     /** @noinspection BlockingMethodInNonBlockingContext*/
@@ -2855,6 +2789,8 @@ public class EditorActivity extends AppCompatActivity
 
                 editor.putBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, runStopEvents);
 
+                // these shared preferences are put during export of data, values are from AudioManager
+                // for import, these data are values from source of imported data (may be from another device)
                 AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
                     try {
@@ -2885,6 +2821,29 @@ public class EditorActivity extends AppCompatActivity
                         editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
                     } catch (Exception ignored) {}
                 }
+
+                // these shared preferences are put during export of data, values are from:
+                // - VibrationIntensityPreference.getMinValue()
+                // - VibrationIntensityPreference.getMaxValue()
+                // for import, these data are values from source of imported data (may be from another device)
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_RINGING, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_NOTIFICATION, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MINIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, VibrationIntensityPreference.getMinValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VIBRATION_INTENSITY_RINGING, VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VIBRATION_INTENSITY_NOTIFICATION, VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
+                try {
+                    editor.putInt(DatabaseHandlerImportExport.PREF_MAXIMUM_VIBRATION_INTENSITY_TOUCH_INTERACTION, VibrationIntensityPreference.getMaxValue(VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE));
+                } catch (Exception ignored) {}
 
                 editor.commit();
                 output.writeObject(pref.getAll());
@@ -2949,14 +2908,16 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 null,
                 null,
+                null,
                 true, true,
                 false, false,
+                false,
                 false,
                 this
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
     private void doExportData(final boolean email, final boolean toAuthor, final boolean share)
@@ -2965,17 +2926,21 @@ public class EditorActivity extends AppCompatActivity
 
             final EditorActivity activity = this;
 
+            CharSequence title;
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             if (share)
-                dialogBuilder.setTitle(R.string.menu_share_settings);
+                title = getString(R.string.menu_share_settings);
             else
             if (toAuthor)
-                dialogBuilder.setTitle(R.string.menu_export_and_email_to_author);
+                title = getString(R.string.menu_export_and_email_to_author);
             else
             if (email)
-                dialogBuilder.setTitle(R.string.menu_export_and_email);
+                title = getString(R.string.menu_export_and_email);
             else
-                dialogBuilder.setTitle(R.string.menu_export);
+                title = getString(R.string.menu_export);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                    title, null);
+
             dialogBuilder.setCancelable(true);
             //dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
@@ -2985,42 +2950,52 @@ public class EditorActivity extends AppCompatActivity
 
             dialogBuilder.setPositiveButton(R.string.alert_button_backup, (dialog, which) -> {
                 CheckBox checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogGeofences);
+                //noinspection DataFlowIssue
                 boolean deleteGeofences = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogWifiSSIDs);
+                //noinspection DataFlowIssue
                 boolean deleteWifiSSIDs = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogBluetoothNames);
+                //noinspection DataFlowIssue
                 boolean deleteBluetoothNames = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogMobileCells);
+                //noinspection DataFlowIssue
                 boolean deleteMobileCells = checkbox.isChecked();
 
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCall);
+                //noinspection DataFlowIssue
                 boolean deleteCall = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSMS);
+                //noinspection DataFlowIssue
                 boolean deleteSMS = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogNotification);
+                //noinspection DataFlowIssue
                 boolean deleteNotification = checkbox.isChecked();
-                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogPhoneCalls);
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSendSMS);
+                //noinspection DataFlowIssue
                 boolean deletePhoneCalls = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallScreening);
+                //noinspection DataFlowIssue
+                boolean deleteCallScreening = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogClearNotifications);
+                //noinspection DataFlowIssue
+                boolean deleteClearNotificaitons = checkbox.isChecked();
 
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
                         deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
                         deleteCall, deleteSMS, deleteNotification, deletePhoneCalls,
+                        deleteCallScreening, deleteClearNotificaitons,
                         activity);
                 exportAsyncTask.execute();
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
             AlertDialog dialog = dialogBuilder.create();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
 
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+            dialog.setOnShowListener(dialog1 -> GlobalGUIRoutines.lockScreenOrientation(EditorActivity.this));
+            dialog.setOnDismissListener(dialog2 -> GlobalGUIRoutines.unlockScreenOrientation(EditorActivity.this));
 
             if (!isFinishing())
                 dialog.show();
@@ -3089,11 +3064,14 @@ public class EditorActivity extends AppCompatActivity
 
         // In single-pane mode, simply start the profile preferences activity
         // for the profile position.
-        if (((profile != null) ||
-            (editMode == PPApplication.EDIT_MODE_INSERT) ||
-            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
-            && (editMode != PPApplication.EDIT_MODE_DELETE))
-            startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
+        if ((profile != null) ||
+                (editMode == PPApplication.EDIT_MODE_INSERT) ||
+                (editMode == PPApplication.EDIT_MODE_DUPLICATE)) {
+            if (editMode != PPApplication.EDIT_MODE_DELETE)
+                startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
+            else
+                redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
+        }
     }
 
     void redrawProfileListFragment(Profile profile, int newProfileMode /*int predefinedProfileIndex, boolean startTargetHelps*/) {
@@ -3143,7 +3121,7 @@ public class EditorActivity extends AppCompatActivity
                         }
                         if (changeFilter) {
                             fragment.scrollToProfile = _profile;
-                            ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                            ((PPSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                     .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
                             editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                         }
@@ -3253,14 +3231,16 @@ public class EditorActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
     }
 
@@ -3271,11 +3251,14 @@ public class EditorActivity extends AppCompatActivity
             ((EditorEventListFragment) fragment).updateBottomMenu();
         }
 
-        if (((event != null) ||
+        if ((event != null) ||
             (editMode == PPApplication.EDIT_MODE_INSERT) ||
-            (editMode == PPApplication.EDIT_MODE_DUPLICATE))
-            && (editMode != PPApplication.EDIT_MODE_DELETE))
-            startEventPreferenceActivity(event, editMode, predefinedEventIndex);
+            (editMode == PPApplication.EDIT_MODE_DUPLICATE)) {
+            if (editMode != PPApplication.EDIT_MODE_DELETE)
+                startEventPreferenceActivity(event, editMode, predefinedEventIndex);
+            else
+                redrawEventListFragment(event, PPApplication.EDIT_MODE_EDIT);
+        }
     }
 
     void redrawEventListFragment(Event event, int newEventMode /*int predefinedEventIndex, boolean startTargetHelps*/) {
@@ -3326,7 +3309,7 @@ public class EditorActivity extends AppCompatActivity
                         }
                         if (changeFilter) {
                             fragment.scrollToEvent = _event;
-                            ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                            ((PPSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                     .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
                             editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                         }
@@ -3393,13 +3376,9 @@ public class EditorActivity extends AppCompatActivity
     }
 
     private void showTargetHelps() {
-        //startTargetHelps = true;
-
         final Context appContext = getApplicationContext();
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
-        //boolean startTargetHelpsProfilesFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner;
-        //boolean startTargetHelpsEventsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsEventsFilterSpinner;
         boolean startTargetHelpsRunStopIndicator = ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator;
         boolean startTargetHelpsBottomNavigation = ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation;
 
@@ -3423,108 +3402,36 @@ public class EditorActivity extends AppCompatActivity
                 Editor editor = ApplicationPreferences.getEditor(appContext);
                 editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
 
-                //if (editorSelectedView == 0)
-                //    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_PROFILES_FILTER_SPINNER, false);
-                //else
-                //    editor.putBoolean(EditorActivity.PREF_START_TARGET_HELPS_EVENTS_FILTER_SPINNER, false);
-
                 editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
                 editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorActivityStartTargetHelps = false;
 
-                //if (editorSelectedView == 0)
-                //    ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner = false;
-                //else
-                //    ApplicationPreferences.prefEditorActivityStartTargetHelpsEventsFilterSpinner = false;
-
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = false;
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = false;
 
-                //TypedValue tv = new TypedValue();
-                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-
-                //final Display display = getWindowManager().getDefaultDisplay();
-
-                //String appTheme = ApplicationPreferences.applicationTheme(appContext, true);
                 int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int titleTextColor = R.color.tabTargetHelpTitleTextColor;
                 int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-
-                //int[] screenLocation = new int[2];
-                //filterSpinner.getLocationOnScreen(screenLocation);
-                //filterSpinner.getLocationInWindow(screenLocation);
-                //Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());
-                //filterSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
-
-                /*
-                eventsRunStopIndicator.getLocationOnScreen(screenLocation);
-                //eventsRunStopIndicator.getLocationInWindow(screenLocation);
-                Rect eventRunStopIndicatorTarget = new Rect(0, 0, eventsRunStopIndicator.getHeight(), eventsRunStopIndicator.getHeight());
-                eventRunStopIndicatorTarget.offset(screenLocation[0], screenLocation[1]);
-                */
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 List<TapTarget> targets = new ArrayList<>();
                 if (startTargetHelps) {
 
-                    // do not add it again
-                    //if (editorSelectedView == 0)
-                    //    startTargetHelpsProfilesFilterSpinner = false;
-                    //else
-                    //    startTargetHelpsEventsFilterSpinner = false;
-
                     startTargetHelpsRunStopIndicator = false;
                     startTargetHelpsBottomNavigation = false;
 
                     if (EventStatic.getGlobalEventsRunning(this)) {
-                        /*targets.add(
-                            TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(1)
-                        );*/
-                        /*if (editorSelectedView == 0)
-                            targets.add(
-                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                            .transparentTarget(true)
-                                            .outerCircleColor(outerCircleColor)
-                                            .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
-                                            .tintTarget(true)
-                                            .drawShadow(true)
-                                            .id(1)
-                            );
-                        else
-                            targets.add(
-                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                            .transparentTarget(true)
-                                            .outerCircleColor(outerCircleColor)
-                                            .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
-                                            .tintTarget(true)
-                                            .drawShadow(true)
-                                            .id(1)
-                            );
-                        */
                         targets.add(
                                 TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -3539,6 +3446,9 @@ public class EditorActivity extends AppCompatActivity
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .dimColor(R.color.tabTargetHelpDimColor)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3555,6 +3465,9 @@ public class EditorActivity extends AppCompatActivity
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .dimColor(R.color.tabTargetHelpDimColor)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3571,6 +3484,9 @@ public class EditorActivity extends AppCompatActivity
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .dimColor(R.color.tabTargetHelpDimColor)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3587,38 +3503,15 @@ public class EditorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
                                         .id(id)
                         );
                         ++id;
-/*
-                        targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                        targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title),
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description) + "\n" +
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
- */
                         targets.add(
                                 TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
                                         getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
@@ -3626,6 +3519,9 @@ public class EditorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
@@ -3636,45 +3532,15 @@ public class EditorActivity extends AppCompatActivity
 
 
                     } else {
-                        /*targets.add(
-                                TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(1)
-                        );*/
-                        /*if (editorSelectedView == 0)
-                            targets.add(
-                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                            .transparentTarget(true)
-                                            .outerCircleColor(outerCircleColor)
-                                            .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
-                                            .tintTarget(true)
-                                            .drawShadow(true)
-                                            .id(1)
-                            );
-                        else
-                            targets.add(
-                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                            .transparentTarget(true)
-                                            .outerCircleColor(outerCircleColor)
-                                            .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
-                                            .tintTarget(true)
-                                            .drawShadow(true)
-                                            .id(1)
-                            );*/
                         targets.add(
                                 TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -3689,6 +3555,9 @@ public class EditorActivity extends AppCompatActivity
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .dimColor(R.color.tabTargetHelpDimColor)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3705,6 +3574,9 @@ public class EditorActivity extends AppCompatActivity
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .dimColor(R.color.tabTargetHelpDimColor)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3721,6 +3593,9 @@ public class EditorActivity extends AppCompatActivity
                                             .targetCircleColor(targetCircleColor)
                                             .titleTextColor(titleTextColor)
                                             .descriptionTextColor(descriptionTextColor)
+                                            .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                            .dimColor(R.color.tabTargetHelpDimColor)
+                                            .titleTextSize(PPApplication.titleTapTargetSize)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3737,38 +3612,15 @@ public class EditorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
                                         .id(id)
                         );
                         ++id;
-/*
-                        targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                        targets.add(
-                                TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title),
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description) + "\n" +
-                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-*/
                         targets.add(
                                 TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
                                         getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
@@ -3776,6 +3628,9 @@ public class EditorActivity extends AppCompatActivity
                                         .targetCircleColor(targetCircleColor)
                                         .titleTextColor(titleTextColor)
                                         .descriptionTextColor(descriptionTextColor)
+                                        .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                        .dimColor(R.color.tabTargetHelpDimColor)
+                                        .titleTextSize(PPApplication.titleTapTargetSize)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
@@ -3786,32 +3641,6 @@ public class EditorActivity extends AppCompatActivity
 
                     }
                 }
-                /*if (startTargetHelpsProfilesFilterSpinner) {
-                    targets.add(
-                            //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                            TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    .transparentTarget(true)
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(1)
-                    );
-                }
-                if (startTargetHelpsEventsFilterSpinner) {
-                    targets.add(
-                            //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                            TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    .transparentTarget(true)
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(1)
-                    );
-                }*/
                 if (startTargetHelpsRunStopIndicator) {
                     targets.add(
                             TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
@@ -3819,6 +3648,9 @@ public class EditorActivity extends AppCompatActivity
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -3826,29 +3658,6 @@ public class EditorActivity extends AppCompatActivity
                     );
                 }
                 if (startTargetHelpsBottomNavigation) {
-                    /*targets.add(
-                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
-                                    getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
-                                    getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(1)
-                    );
-                    targets.add(
-                            TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_events_view), getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_title),
-                                    getString(R.string.editor_activity_targetHelps_bottomNavigationEvents_description) + "\n " +
-                                    getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
-                                    .outerCircleColor(outerCircleColor)
-                                    .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(true)
-                                    .drawShadow(true)
-                                    .id(2)
-                    );
-                    */
                     targets.add(
                             TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
                                     getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
@@ -3856,6 +3665,9 @@ public class EditorActivity extends AppCompatActivity
                                     .targetCircleColor(targetCircleColor)
                                     .titleTextColor(titleTextColor)
                                     .descriptionTextColor(descriptionTextColor)
+                                    .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                    .dimColor(R.color.tabTargetHelpDimColor)
+                                    .titleTextSize(PPApplication.titleTapTargetSize)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -3864,6 +3676,10 @@ public class EditorActivity extends AppCompatActivity
                     );
                 }
 
+                for (TapTarget target : targets) {
+                    target.setDrawBehindStatusBar(true);
+                    target.setDrawBehindNavigationBar(true);
+                }
                 sequence.targets(targets);
 
                 sequence.listener(new TapTargetSequence.Listener() {
@@ -3871,8 +3687,6 @@ public class EditorActivity extends AppCompatActivity
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
-                        //targetHelpsSequenceStarted = false;
-
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                         editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED, true);
                         editor.apply();
@@ -3894,7 +3708,6 @@ public class EditorActivity extends AppCompatActivity
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
-                        //targetHelpsSequenceStarted = false;
                         Editor editor = ApplicationPreferences.getEditor(appContext);
                         if (editorSelectedView == 0) {
                             editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
@@ -3905,7 +3718,6 @@ public class EditorActivity extends AppCompatActivity
                                 editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
 
                             editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                            //editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = false;
@@ -3915,8 +3727,6 @@ public class EditorActivity extends AppCompatActivity
                                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = false;
 
                             ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFinished = true;
-                            //ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsFinished = true;
-
                         }
                         else {
                             editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
@@ -3926,7 +3736,6 @@ public class EditorActivity extends AppCompatActivity
                             editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_STATUS, false);
 
                             editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FINISHED, true);
-                            //editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_FINISHED, true);
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = false;
@@ -3935,14 +3744,12 @@ public class EditorActivity extends AppCompatActivity
                             ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = false;
 
                             ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFinished = true;
-                            //ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsFinished = true;
                         }
                         editor.apply();
                     }
                 });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
 
                 editor = ApplicationPreferences.getEditor(appContext);
                 editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS_FINISHED, false);
@@ -3964,26 +3771,17 @@ public class EditorActivity extends AppCompatActivity
 //                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EditorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(activity.getApplicationContext()).sendBroadcast(intent);
-                    /*if (EditorActivity.getInstance() != null) {
-                        Fragment fragment = EditorActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
-                        if (fragment != null) {
-                            if (fragment instanceof EditorProfileListFragment)
-                                ((EditorProfileListFragment) fragment).showTargetHelps();
-                            else
-                                ((EditorEventListFragment) fragment).showTargetHelps();
-                        }
-                    }*/
                 }, 500);
             }
         }
     }
 
-    String getEmailBodyText() {
+    static String getEmailBodyText(Context context) {
         String body;
-        body = getString(R.string.important_info_email_body_device) + " " +
-                Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+        body = context.getString(R.string.important_info_email_body_device) + " " +
+                Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
                 " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
-        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
+        body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         return body;
     }
 
@@ -4003,7 +3801,9 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.backup_settings_alert_title), null);
+            //dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4020,7 +3820,7 @@ public class EditorActivity extends AppCompatActivity
             if (activity != null) {
                 pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.backupProgressDialog.setCancelable(false);
                 activity.backupProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4100,13 +3900,15 @@ public class EditorActivity extends AppCompatActivity
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 
-                        dialog.show();
+                        dialog.showDialog();
                     }
                 } else {
                     PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
@@ -4185,10 +3987,13 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            CharSequence title;
             if (share)
-                dialogBuilder.setTitle(R.string.restore_shared_settings_alert_title);
+                title = activity.getString(R.string.restore_shared_settings_alert_title);
             else
-                dialogBuilder.setTitle(R.string.restore_settings_alert_title);
+                title = activity.getString(R.string.restore_settings_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                    title, null);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4209,7 +4014,7 @@ public class EditorActivity extends AppCompatActivity
                     pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
                 }
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.restoreProgressDialog.setCancelable(false);
                 activity.restoreProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4225,39 +4030,41 @@ public class EditorActivity extends AppCompatActivity
                     if (pickedFile != null) {
                         if (pickedFile.canRead()) {
                             File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+                            if (applicationDir != null) {
+                                // file name in local storage will be PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION
+                                ok = copySharedFile(pickedFile, applicationDir, activity.getApplicationContext());
 
-                            // file name in local storage will be PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION
-                            ok = copySharedFile(pickedFile, applicationDir, activity.getApplicationContext());
-
-                            if (ok == 1) {
-                                // delete backup files
-                                File importFile = new File(applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME);
-                                if (importFile.exists()) {
-                                    // delete old file
-                                    if (!importFile.delete())
-                                        ok = -10;
-                                }
                                 if (ok == 1) {
-                                    importFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                    // delete backup files
+                                    File importFile = new File(applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME);
                                     if (importFile.exists()) {
                                         // delete old file
                                         if (!importFile.delete())
-                                            ok = -11;
+                                            ok = -10;
+                                    }
+                                    if (ok == 1) {
+                                        importFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                        if (importFile.exists()) {
+                                            // delete old file
+                                            if (!importFile.delete())
+                                                ok = -11;
+                                        }
+                                    }
+
+                                    if (ok == 1) {
+                                        // unzip shared file
+                                        ZipManager zipManager = new ZipManager();
+                                        File zipFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
+                                        String destinationDir = applicationDir.getAbsolutePath();
+                                        if (!destinationDir.endsWith("/"))
+                                            destinationDir = destinationDir + "/";
+                                        if (!zipManager.unzip(zipFile.getAbsolutePath(), destinationDir))
+                                            ok = -12;
                                     }
                                 }
-
-                                if (ok == 1) {
-                                    // unzip shared file
-                                    ZipManager zipManager = new ZipManager();
-                                    File zipFile = new File(applicationDir, PPApplication.SHARED_EXPORT_FILENAME + PPApplication.SHARED_EXPORT_FILEEXTENSION);
-                                    String destinationDir = applicationDir.getAbsolutePath();
-                                    if (!destinationDir.endsWith("/"))
-                                        destinationDir = destinationDir + "/";
-                                    if (!zipManager.unzip(zipFile.getAbsolutePath(), destinationDir))
-                                        ok = -12;
-                                }
                             }
-
+                            else
+                                ok = -18;
                         } else {
                             // pickedDir is not writable
                             ok = -13;
@@ -4328,13 +4135,15 @@ public class EditorActivity extends AppCompatActivity
                                 null,
                                 null,
                                 null,
+                                null,
                                 true, true,
                                 false, false,
                                 true,
+                                false,
                                 activity
                         );
 
-                        dialog.show();
+                        dialog.showDialog();
                     }
                 } else {
                     if (share)
@@ -4402,15 +4211,18 @@ public class EditorActivity extends AppCompatActivity
         private int copySharedFile(DocumentFile pickedFile, File applicationDir, Context context) {
             // delete all zip files in local storage
             File sd = context.getApplicationContext().getExternalFilesDir(null);
-            File[] oldZipFiles = sd.listFiles();
-            if (oldZipFiles != null) {
-                for (File f : oldZipFiles) {
-                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
-                        if (!f.delete())
-                            return -1;
+            if (sd != null) {
+                File[] oldZipFiles = sd.listFiles();
+                if (oldZipFiles != null) {
+                    for (File f : oldZipFiles) {
+                        if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                            if (!f.delete())
+                                return -1;
+                        }
                     }
                 }
-            }
+            } else
+                return -10;
             // copy file
             //DocumentFile inputFile = pickedFile;
             if (pickedFile != null) {
@@ -4460,7 +4272,9 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.import_profiles_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.import_profiles_alert_title), null);
+            //dialogBuilder.setTitle(R.string.import_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4489,7 +4303,7 @@ public class EditorActivity extends AppCompatActivity
             if (activity != null) {
                 doImport = true;
 
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.importProgressDialog.setCancelable(false);
                 activity.importProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4636,7 +4450,7 @@ public class EditorActivity extends AppCompatActivity
                     if (!activity.isFinishing())
                         GlobalGUIRoutines.reloadActivity(activity, true);
 
-                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                    //DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                     IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
                     DNDPermissionNotification.showNotification(_dataWrapper.context, true);
 
@@ -4671,6 +4485,8 @@ public class EditorActivity extends AppCompatActivity
         final boolean deleteSMS;
         final boolean deleteNotification;
         final boolean deletePhoneCalls;
+        final boolean deleteCallScreening;
+        final boolean deleteClearNotifications;
         File zipFile = null;
 
         public ExportAsyncTask(final boolean email, final boolean toAuthor, final boolean share,
@@ -4678,6 +4494,7 @@ public class EditorActivity extends AppCompatActivity
                                final boolean deleteBluetoothNames, final boolean deleteMobileCells,
                                final boolean deleteCall, final boolean deleteSMS,
                                final boolean deleteNotification, final boolean deletePhoneCalls,
+                               final boolean deleteCallScreening, final boolean deleteClearNotifications,
                                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
@@ -4691,9 +4508,13 @@ public class EditorActivity extends AppCompatActivity
             this.deleteSMS = deleteSMS;
             this.deleteNotification = deleteNotification;
             this.deletePhoneCalls = deletePhoneCalls;
+            this.deleteCallScreening = deleteCallScreening;
+            this.deleteClearNotifications = deleteClearNotifications;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.export_profiles_alert_title);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(R.string.export_profiles_alert_title), null);
+            //dialogBuilder.setTitle(R.string.export_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4720,7 +4541,7 @@ public class EditorActivity extends AppCompatActivity
 
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                GlobalGUIRoutines.lockScreenOrientation(activity/*, false*/);
                 activity.exportProgressDialog.setCancelable(false);
                 activity.exportProgressDialog.setCanceledOnTouchOutside(false);
                 if (!activity.isFinishing())
@@ -4748,7 +4569,8 @@ public class EditorActivity extends AppCompatActivity
                             this.deleteGeofences, this.deleteWifiSSIDs,
                             this.deleteBluetoothNames, this.deleteMobileCells,
                             this.deleteCall, this.deleteSMS, this.deleteNotification,
-                            this.deletePhoneCalls
+                            this.deletePhoneCalls, this.deleteCallScreening,
+                            this.deleteClearNotifications
                     );
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
@@ -4769,12 +4591,14 @@ public class EditorActivity extends AppCompatActivity
                         try {
                             // delete all zip files in local storage
                             sd = activity.getApplicationContext().getExternalFilesDir(null);
-                            File[] oldZipFiles = sd.listFiles();
-                            if (oldZipFiles != null) {
-                                for (File f : oldZipFiles) {
-                                    if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
-                                        //noinspection ResultOfMethodCallIgnored
-                                        f.delete();
+                            if (sd != null) {
+                                File[] oldZipFiles = sd.listFiles();
+                                if (oldZipFiles != null) {
+                                    for (File f : oldZipFiles) {
+                                        if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
+                                            //noinspection ResultOfMethodCallIgnored
+                                            f.delete();
+                                        }
                                     }
                                 }
                             }
@@ -4881,47 +4705,80 @@ public class EditorActivity extends AppCompatActivity
                         String emailAddress = "";
                         if (toAuthor)
                             emailAddress = StringConstants.AUTHOR_EMAIL;
-                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
-                        String packageVersion = "";
-                        try {
-                            PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
-                        } catch (Exception e) {
-                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        }
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
-                        emailIntent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
-                        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        if (Build.VERSION.SDK_INT >= 35) {
+                            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+                            emailIntent.setType("message/rfc822"); // only email apps should handle this
+                            //emailIntent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON));
 
-                        List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
-                        List<LabeledIntent> intents = new ArrayList<>();
-                        for (ResolveInfo info : resolveInfo) {
-                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "packageName="+info.activityInfo.packageName);
-                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "name="+info.activityInfo.name);
-                            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                            intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                            if (!emailAddress.isEmpty())
-                                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
-                            intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
-                            intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
-                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
-                            intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
-                        }
-                        //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
-                        if (!intents.isEmpty()) {
+                            emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+                            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+
+                            String packageVersion = "";
                             try {
-                                Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), context.getString(R.string.email_chooser));
-                                chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
-                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            try {
+                                Intent chooser = Intent.createChooser(emailIntent, context.getString(R.string.email_chooser));
+                                //chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                                 activity.startActivity(chooser);
                             } catch (Exception e) {
                                 //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
                                 PPApplicationStatic.recordException(e);
+                            }
+                        } else {
+                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                    StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
+
+                            String packageVersion = "";
+                            try {
+                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
+                            List<LabeledIntent> intents = new ArrayList<>();
+                            for (ResolveInfo info : resolveInfo) {
+//                                Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "packageName=" + info.activityInfo.packageName);
+//                                Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "name=" + info.activityInfo.name);
+                                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                                if (!emailAddress.isEmpty())
+                                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                                intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                                intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText(activity));
+                                intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                                intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
+                            }
+//                            Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()=" + intents.size());
+                            if (!intents.isEmpty()) {
+                                try {
+                                    Intent chooser = Intent.createChooser(emailIntent, context.getString(R.string.email_chooser));
+                                    chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                    //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                                    activity.startActivity(chooser);
+//                                    Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "email app opened");
+                                } catch (Exception e) {
+                                    //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                    PPApplicationStatic.recordException(e);
+                                }
                             }
                         }
                     } else
@@ -4945,50 +4802,56 @@ public class EditorActivity extends AppCompatActivity
                         }
                     } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                activity.getString(R.string.backup_settings_alert_title), null);
+                        //dialogBuilder.setTitle(R.string.backup_settings_alert_title);
                         LayoutInflater inflater = (activity).getLayoutInflater();
                         View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                         dialogBuilder.setView(layout);
-                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
                         boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
 
                         final TextView rewriteInfo = layout.findViewById(R.id.backup_settings_alert_dialog_rewrite_files_info);
+                        //noinspection DataFlowIssue
                         rewriteInfo.setEnabled(!createPPPSubfolder);
 
                         final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
+                        //noinspection DataFlowIssue
                         checkBox.setChecked(createPPPSubfolder);
 
                         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> rewriteInfo.setEnabled(!isChecked));
                         dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                             boolean ok = false;
                             try {
-
                                 boolean _createPPPSubfolder = checkBox.isChecked();
                                 Editor editor = ApplicationPreferences.getEditor(context);
                                 editor.putBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, _createPPPSubfolder);
                                 editor.apply();
 
-                                Intent intent;
+                                Intent intent = null;
                                 if (Build.VERSION.SDK_INT >= 29) {
                                     StorageManager sm = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
-                                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                    if (sm != null)
+                                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
                                 } else {
                                     intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                                     intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                 }
-                                // not supported by ACTION_OPEN_DOCUMENT_TREE
-                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                                if (intent != null) {
+                                    // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                    //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
 
-                                //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                                //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                if (_createPPPSubfolder)
-                                    //noinspection deprecation
-                                    activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
-                                else
-                                    //noinspection deprecation
-                                    activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
-                                ok = true;
+                                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                    if (_createPPPSubfolder)
+                                        //noinspection deprecation
+                                        activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
+                                    else
+                                        //noinspection deprecation
+                                        activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                    ok = true;
+                                }
                             } catch (Exception e) {
                                 //PPApplicationStatic.recordException(e);
                             }
@@ -5004,28 +4867,26 @@ public class EditorActivity extends AppCompatActivity
                                         null,
                                         null,
                                         null,
+                                        null,
                                         true, true,
                                         false, false,
                                         true,
+                                        false,
                                         activity
                                 );
 
                                 if (!activity.isFinishing())
-                                    _dialog.show();
+                                    _dialog.showDialog();
                             }
                         });
                         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                        AlertDialog dialog = dialogBuilder.create();
 
-                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        //            @Override
-                        //            public void onShow(DialogInterface dialog) {
-                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        //                if (positive != null) positive.setAllCaps(false);
-                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        //                if (negative != null) negative.setAllCaps(false);
-                        //            }
-                        //        });
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setCancelable(false);
+                        dialog.setCanceledOnTouchOutside(false);
+
+                        dialog.setOnShowListener(dialog1 -> GlobalGUIRoutines.lockScreenOrientation(activity));
+                        dialog.setOnDismissListener(dialog2 -> GlobalGUIRoutines.unlockScreenOrientation(activity));
 
                         if (!activity.isFinishing())
                             dialog.show();
@@ -5092,7 +4953,7 @@ public class EditorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals(StringConstants.EXTRA_EDITOR)) {
+                if ((what != null) && what.equals(StringConstants.EXTRA_EDITOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

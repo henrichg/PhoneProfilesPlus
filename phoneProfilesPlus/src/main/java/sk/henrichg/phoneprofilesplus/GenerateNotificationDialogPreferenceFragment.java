@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -28,7 +29,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
 
     // Layout widgets
     private AlertDialog mDialog;
-    private CheckBox generateChBtn = null;
+    private SwitchCompat generateChBtn = null;
     private RadioButton informationIconRBtn = null;
     private RadioButton exclamationIconRBtn = null;
     private RadioButton profileIconRBtn = null;
@@ -49,7 +50,9 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.profile_preferences_generateNotification);
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                getString(R.string.profile_preferences_generateNotification), null);
+        //dialogBuilder.setTitle(R.string.profile_preferences_generateNotification);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -116,7 +119,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         showLargeIconChBtn = layout.findViewById(R.id.generateNotificationPrefDialogShowLargeIcon);
 
         notificationTitleEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
-        notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        notificationTitleEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
         notificationTitleEdtText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -137,7 +141,8 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         });
 
         notificationBodyEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
-        notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+        //noinspection DataFlowIssue
+        notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.edit_text_color));
 
         generateChBtn.setOnCheckedChangeListener((buttonView, isChecked) -> enableViews());
 

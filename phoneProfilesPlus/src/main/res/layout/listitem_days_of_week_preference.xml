@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/days_of_week_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="@dimen/listItem_height" >
 
     <CheckBox
         android:id="@+id/days_of_week_pref_dlg_item_checkbox"
@@ -22,7 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/days_of_week_pref_dlg_item_checkbox"
         android:text=""
-        android:textSize="17sp"
+        android:textSize="@dimen/listItem_label_text_size"
         android:ellipsize="end"
         android:maxLines="1"/>
 

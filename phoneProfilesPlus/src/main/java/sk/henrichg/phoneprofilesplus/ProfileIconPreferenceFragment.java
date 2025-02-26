@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -25,6 +27,12 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
     ImageView dialogIcon;
 
     private ProfileIconPreferenceAdapter adapter;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -48,6 +56,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
                             preference.isImageResourceID,
                             preference.useCustomColor,
                             preference.customColor*/);
+        //noinspection DataFlowIssue
         gridView.setAdapter(adapter);
         gridView.setSelection(ProfileStatic.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
@@ -61,6 +70,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
 
         colorChooserButton = view.findViewById(R.id.profileicon_pref_dlg_change_color);
+        //noinspection DataFlowIssue
         colorChooserButton.setOnClickListener(v -> showCustomColorChooser());
         colorChooserButton.setEnabled(preference.isImageResourceID);
 
@@ -73,6 +83,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         });*/
 
         final Button customIconButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon);
+        //noinspection DataFlowIssue
         customIconButton.setOnClickListener(v -> {
             if (Permissions.grantCustomProfileIconPermissions(prefContext)) {
                 preference.startGallery();
@@ -81,6 +92,7 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
         });
 
         final AppCompatImageButton helpButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpButton, getString(R.string.menu_help));
         helpButton.setOnClickListener(v -> {
 
@@ -103,8 +115,12 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
                         String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                                 getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
                                 " \"ThemeX: Extract Launcher Theme\". " +
-                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + StringConstants.TAG_BREAK_HTML +
+                                StringConstants.TAG_URL_LINK_START_HTML + "https://apkpure.com/themex-extract-launcher-theme/com.redphx.themex/download" + StringConstants.TAG_URL_LINK_START_URL_END_HTML+
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4)+
+                                StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML
+                                ;
+
                         DialogHelpPopupWindow.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, helpString, true);
                         return true;
                     }
@@ -137,9 +153,9 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
 
     private void showCustomColorChooser() {
         if (getActivity() != null) {
-            ProfileIconColorChooserDialog colorDialog = new ProfileIconColorChooserDialog((Activity) prefContext, preference);
+            ProfileIconColorChooserDialog colorDialog = new ProfileIconColorChooserDialog((AppCompatActivity) prefContext, preference);
             if (!getActivity().isFinishing())
-                colorDialog.show();
+                colorDialog.showDialog();
         }
 
         /*

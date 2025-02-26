@@ -44,20 +44,22 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
-    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect) {
         if (fragment != null)
-            fragment.refreshListView(notForUnselect);
+            fragment.refreshListView(forUnselect);
     }
 
     void getValueCMSDP()
     {
         // change checked state by value
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "PPApplicationStatic.getContactGroupsCache()");
         ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache == null)
             return;
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "PPApplication.contactsCacheMutex");
         synchronized (PPApplication.contactsCacheMutex) {
+//            PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreference.getValueCMSDP", "contactGroupsCache.getList()");
             List<ContactGroup> localContactGroupList = contactGroupsCache.getList();
             if (localContactGroupList != null) {
                 contactGroupList = new ArrayList<>();
@@ -208,7 +210,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
         //getValueCMSDP();
         setSummaryCMSDP();
-        refreshListView(true);
+        refreshListView(false);
         //notifyChanged();
     }
 
@@ -241,7 +243,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         }
 
         public static final Creator<ContactGroupsMultiSelectDialogPreference.SavedState> CREATOR =
-                new Creator<ContactGroupsMultiSelectDialogPreference.SavedState>() {
+                new Creator<>() {
                     public ContactGroupsMultiSelectDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ContactGroupsMultiSelectDialogPreference.SavedState(in);

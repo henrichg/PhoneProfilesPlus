@@ -12,6 +12,10 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -64,11 +68,11 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
                             }
                         },
                         dialog12 -> finish(),
-                        false,
+                        //false,
                         this);
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
 
             } else {
                 try {

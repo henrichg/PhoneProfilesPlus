@@ -18,7 +18,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
 
     private final RunApplicationEditorDialog dialog;
 
-    private Application application;
+    private CApplication application;
 
     RunApplicationEditorDialogViewHolder(View itemView, /*Context context,*/ RunApplicationEditorDialog d)
     {
@@ -37,6 +37,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
         else
             imageViewMenu = null;
 
+        //noinspection DataFlowIssue
         radioBtn.setOnClickListener(v -> {
             RadioButton rb = (RadioButton) v;
             rb.setChecked(true);
@@ -46,7 +47,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
         itemView.setOnClickListener(this);
     }
 
-    void bindApplication(Application application, int position) {
+    void bindApplication(CApplication application, int position) {
         this.application = application;
 
         // Display Application data
@@ -60,7 +61,7 @@ class RunApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder imple
         radioBtn.setTag(position);
 
         if (imageViewMenu != null) {
-            TooltipCompat.setTooltipText(imageViewMenu, dialog.activity.getString(R.string.tooltip_options_menu));
+            TooltipCompat.setTooltipText(imageViewMenu, dialog.getString(R.string.tooltip_options_menu));
             imageViewMenu.setTag(position);
             imageViewMenu.setOnClickListener(v -> dialog.showEditMenu(imageViewMenu));
         }

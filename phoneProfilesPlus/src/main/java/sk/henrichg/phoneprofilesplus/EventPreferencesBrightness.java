@@ -78,7 +78,7 @@ class EventPreferencesBrightness extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_brightness_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_brightness), addPassStatus, DatabaseHandler.ETYPE_BRIGHTNESS, context));
@@ -92,10 +92,10 @@ class EventPreferencesBrightness extends EventPreferences {
                 if (index != -1) {
                     //_value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context));
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, addBullet, context));
                     String value = this._brightnessLevelFrom;
                     int iValue = ProfileStatic.getDeviceBrightnessValue(value);
-                    _value.append(" ").append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(" ").append(getColorForChangedPreferenceValue(iValue + "/100", disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
                 _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_brightness_level_to)).append(StringConstants.STR_COLON_WITH_SPACE);
@@ -103,10 +103,10 @@ class EventPreferencesBrightness extends EventPreferences {
                 if (index != -1) {
                     //_value.append(context.getString(R.string.event_preferences_brightness_operator_from)).append(StringConstants.STR_COLON_WITH_SPACE);
                     String[] operatorNames = context.getResources().getStringArray(R.array.brightnessSensorOperatorArray);
-                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, context));
+                    _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(operatorNames[index], disabled, addBullet, context));
                     String value = this._brightnessLevelTo;
                     int iValue = ProfileStatic.getDeviceBrightnessValue(value);
-                    _value.append(" ").append(getColorForChangedPreferenceValue(iValue + "/100", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(" ").append(getColorForChangedPreferenceValue(iValue + "/100", disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
@@ -182,8 +182,8 @@ class EventPreferencesBrightness extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BRIGHTNESS_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBrightness tmp = new EventPreferencesBrightness(this._event, this._enabled, this._operatorFrom, this._brightnessLevelFrom, this._operatorTo, this._brightnessLevelTo);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -278,7 +278,7 @@ class EventPreferencesBrightness extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesBrightness.PREF_EVENT_BRIGHTNESS_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 if (PPApplication.isScreenOn && (!PPApplication.brightnessInternalChange)) {
                     // allowed only when screen is on, because of Huawei devices
                     // check ScreenOnOffBroadcastReceiver for this

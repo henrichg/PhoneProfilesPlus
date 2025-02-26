@@ -8,6 +8,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -24,6 +25,12 @@ public class TimeDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
     private Context prefContext;
     private TimeDialogPreference preference;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -43,6 +50,7 @@ public class TimeDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         super.onBindDialogView(view);
 
         mValue = view.findViewById(R.id.time_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.time_pref_dlg_edit_time_tooltip));
         mSeekBarHours = view.findViewById(R.id.time_pref_dlg_hours);
         mSeekBarMinutes = view.findViewById(R.id.time_pref_dlg_minutes);

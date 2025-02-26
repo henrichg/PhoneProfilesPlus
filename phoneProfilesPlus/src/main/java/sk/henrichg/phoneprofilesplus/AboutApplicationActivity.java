@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class AboutApplicationActivity extends AppCompatActivity {
 
@@ -27,7 +28,11 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -35,6 +40,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_application);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        Toolbar toolbar = findViewById(R.id.about_application_application_toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,6 +73,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             message = "";
         }
         //message = message + getString(R.string.about_application_package_type_github);
+        //noinspection DataFlowIssue
         text.setText(message);
 
         text = findViewById(R.id.about_application_author);
@@ -73,6 +81,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         CharSequence str2 = str1 + " Henrich Gron";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //noinspection DataFlowIssue
         text.setText(sbt);
 
         /*
@@ -111,6 +120,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
         /*emailMe((TextView) findViewById(R.id.about_application_translations),
@@ -146,6 +156,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -175,6 +186,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -204,6 +216,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -233,6 +246,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -262,6 +276,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        //noinspection DataFlowIssue
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -425,14 +440,18 @@ public class AboutApplicationActivity extends AppCompatActivity {
         */
 
         Button donateButton = findViewById(R.id.about_application_donate_button);
+        //noinspection DataFlowIssue
         donateButton.setOnClickListener(view -> {
             Intent intent;
             intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
             startActivity(intent);
         });
 
+        /*
         Button closeButton = findViewById(R.id.about_application_close);
+        //noinspection DataFlowIssue
         closeButton.setOnClickListener(view -> finish());
+        */
 
     }
 

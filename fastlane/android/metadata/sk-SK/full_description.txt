@@ -1,6 +1,8 @@
 **PhoneProfilesPlus umožňuje automaticky alebo s jedným kliknutím konfiguráciu zariadenia pre životné situácie (doma, v práci, v aute, v spánku, vonku, ...).**
 
-*Prosím hláste mi chyby, pripomienky a návrhy na môj mail. Urýchli to hlavne opravy chýb. Ďakujem veľmi pekne.*
+*POZNÁMKA: Služba Google Play Protect môže zobraziť dialógové okno s názvom „Nebezpečná aplikácia je zablokovaná“ a popisom „Táto aplikácia bola vytvorená pre staršiu verziu systému Android a neobsahuje najnovšiu ochranu súkromia.“
+V tomto dialógovom okne kliknite na „Viac podrobností“ a potom na „Aj tak nainštalovať“.
+Zobrazí sa dialógové okno, pretože PPP má cieľovú verziu SDK 28 (Android 9). Musí byť kvôli funkciám v PPP.*
 
 **Funkcie:**
 

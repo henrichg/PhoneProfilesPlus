@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.DialogPreference;
 
 import java.util.ArrayList;
@@ -152,15 +153,17 @@ public class NFCTagPreference extends DialogPreference {
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         false,
-                        fragment.getActivity()
+                        false,
+                        (AppCompatActivity) fragment.getActivity()
                 );
 
                 if (fragment.getActivity() != null)
                     if (!fragment.getActivity().isFinishing())
-                        dialog.show();
+                        dialog.showDialog();
             }
             return;
         }
@@ -269,7 +272,7 @@ public class NFCTagPreference extends DialogPreference {
         }
 
         public static final Creator<NFCTagPreference.SavedState> CREATOR =
-                new Creator<NFCTagPreference.SavedState>() {
+                new Creator<>() {
                     public NFCTagPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new NFCTagPreference.SavedState(in);

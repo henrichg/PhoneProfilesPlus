@@ -4,12 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragmentCompat
@@ -22,6 +23,12 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
     private SeekBar seekBar = null;
     private TextView valueText = null;
     //private CheckBox sharedProfileChBox = null;
+
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -39,10 +46,10 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        SwitchCompat noChangeChBox = view.findViewById(R.id.vibrationIntensityPrefDialogNoChange);
 
-        seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
-        valueText = view.findViewById(R.id.volumePrefDialogValueText);
+        seekBar = view.findViewById(R.id.vibrationIntensityPrefDialogSeekbar);
+        valueText = view.findViewById(R.id.vibrationIntensityPrefDialogValueText);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
         seekBar.setMax(preference.maximumValue);
@@ -57,6 +64,8 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
 
         valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
         seekBar.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+
+        //setVibrationIntensityFromSeekBar(preference.value);
 
         seekBar.setOnSeekBarChangeListener(this);
         if (noChangeChBox != null)
@@ -77,7 +86,7 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.volumePrefDialogNoChange) {
+        if (buttonView.getId() == R.id.vibrationIntensityPrefDialogNoChange) {
             preference.noChange = (isChecked) ? 1 : 0;
 
             valueText.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
@@ -103,7 +112,9 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
             valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));
 
             preference.callChangeListener(preference.getSValue());
-        }
+        }// else {
+        //    setVibrationIntensityFromSeekBar(preference.value);
+        //}
     }
 
     @Override
@@ -113,7 +124,62 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        //setVibrationIntensityFromSeekBar(preference.value);
     }
+
+    /*
+    private void setVibrationIntensityFromSeekBar(int value) {
+        if (Build.VERSION.SDK_INT >= 33) {
+            //noinspection deprecation
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            if ((vibrator != null) && vibrator.hasVibrator()) {
+                try {
+                    // Vibration intensity is also used
+
+                    //if (Build.VERSION.SDK_INT >= 33) {
+                        //noinspection ExtractMethodRecommender
+                        int attribute = VibrationAttributes.USAGE_NOTIFICATION;
+                        if (preference.vibrationIntensityType != null) {
+                            if (preference.vibrationIntensityType.equalsIgnoreCase(
+                                    VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE))
+                                attribute = VibrationAttributes.USAGE_RINGTONE;
+                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+                                    VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
+                                //noinspection DataFlowIssue
+                                attribute = VibrationAttributes.USAGE_NOTIFICATION;
+                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+                                    VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
+                                attribute = VibrationAttributes.USAGE_TOUCH;
+                        }
+                        vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+                                VibrationAttributes.createForUsage(attribute));
+//                    } else {
+//                        //noinspection ExtractMethodRecommender
+//                        int attribute = AudioAttributes.USAGE_NOTIFICATION;
+//                        if (preference.vibrationIntensityType != null) {
+//                            if (preference.vibrationIntensityType.equalsIgnoreCase(
+//                                    VibrationIntensityPreference.RINGING_VYBRATION_INTENSITY_TYPE))
+//                                attribute = AudioAttributes.USAGE_NOTIFICATION_RINGTONE;
+//                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+//                                    VibrationIntensityPreference.NOTIFICATIONS_VYBRATION_INTENSITY_TYPE))
+//                                //noinspection DataFlowIssue
+//                                attribute = AudioAttributes.USAGE_NOTIFICATION;
+//                            else if (preference.vibrationIntensityType.equalsIgnoreCase(
+//                                    VibrationIntensityPreference.TOUCHINTERACTION_VYBRATION_INTENSITY_TYPE))
+//                                //noinspection DataFlowIssue
+//                                attribute = AudioAttributes.USAGE_NOTIFICATION;
+//                        }
+//                        vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+//                                new AudioAttributes.Builder()
+//                                        .setUsage(attribute)
+//                                        .build());
+//                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+        }
+    }
+    */
 
 }

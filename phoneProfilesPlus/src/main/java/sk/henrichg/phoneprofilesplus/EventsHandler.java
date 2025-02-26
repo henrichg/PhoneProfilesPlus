@@ -42,6 +42,8 @@ class EventsHandler {
     private long eventDeviceBootDate;
     private String eventApplicationPackageName;
     private long eventApplicationDate;
+    //private String eventCallScreeningPhoneNumber;
+    //private long eventCallScreeningDate;
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
@@ -72,6 +74,7 @@ class EventsHandler {
     boolean notAllowedRoaming;
     boolean notAllowedVPN;
     boolean notAllowedMusic;
+    boolean notAllowedCallScreening;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -99,6 +102,7 @@ class EventsHandler {
     boolean roamingPassed;
     boolean vpnPassed;
     boolean musicPassed;
+    boolean callScreeningPassed;
 
     static final int SENSOR_TYPE_RADIO_SWITCH = 1;
     static final int SENSOR_TYPE_RESTART_EVENTS = 2;
@@ -156,6 +160,8 @@ class EventsHandler {
     static final int SENSOR_TYPE_BRIGHTNESS = 54;
     static final int SENSOR_TYPE_APPLICATION_EVENT_END = 55;
     static final int SENSOR_TYPE_MUSIC = 56;
+    static final int SENSOR_TYPE_CALL_SCREENING = 57;
+    static final int SENSOR_TYPE_CALL_SCREENING_EVENT_END = 58;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -193,21 +199,24 @@ class EventsHandler {
             //oldRingerMode = ApplicationPreferences.prefRingerMode;
             //oldZenMode = ApplicationPreferences.prefZenMode;
             AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-            switch (audioManager.getRingerMode()) {
-                case AudioManager.RINGER_MODE_SILENT:
-                    oldRingerMode = Profile.RINGERMODE_SILENT;
+            if (audioManager != null) {
+                switch (audioManager.getRingerMode()) {
+                    case AudioManager.RINGER_MODE_SILENT:
+                        oldRingerMode = Profile.RINGERMODE_SILENT;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=SILENT");
-                    break;
-                case AudioManager.RINGER_MODE_VIBRATE:
+                        break;
+                    case AudioManager.RINGER_MODE_VIBRATE:
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=VIBRATE");
-                    oldRingerMode = Profile.RINGERMODE_VIBRATE;
-                    break;
-                //case AudioManager.RINGER_MODE_NORMAL:
-                default:
-                    oldRingerMode = Profile.RINGERMODE_RING;
+                        oldRingerMode = Profile.RINGERMODE_VIBRATE;
+                        break;
+                    //case AudioManager.RINGER_MODE_NORMAL:
+                    default:
+                        oldRingerMode = Profile.RINGERMODE_RING;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.handleEvents", "oldRingerMode=RING");
-                    break;
-            }
+                        break;
+                }
+            } else
+                oldRingerMode = Profile.RINGERMODE_RING;
             switch (ActivateProfileHelper.getSystemZenMode(context)) {
                 case ActivateProfileHelper.SYSTEM_ZENMODE_ALARMS:
                     oldZenMode = Profile.ZENMODE_ALARMS;
@@ -321,15 +330,22 @@ class EventsHandler {
                 return;
             }
 
+            PPApplicationStatic.getProfileBeforeActivation(context.getApplicationContext());
+//            Log.e("EventsHandler.handleEvents", "getProfileBeforeActivation="+PPApplication.prefProfileBeforeActivation);
+
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
 
+            // pause all events for Restart events
+            if (isRestart)
+                dataWrapper.pauseAllEvents(false, false, false, true, true, manualRestart);
+
 // ---- Special for sensors which requires calendar data - START -----------
             boolean saveCalendarStartEndTime = false;
             if (isRestart) {
-                if (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
+                if (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, false, context.getApplicationContext()).preferenceAllowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED) {
                     for (Event _event : dataWrapper.eventList) {
                         if ((_event.getStatus() != Event.ESTATUS_STOP) &&
@@ -368,13 +384,13 @@ class EventsHandler {
                         (i == SENSOR_TYPE_SMS) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesSMS._enabled) {
@@ -411,13 +427,13 @@ class EventsHandler {
                         (i == SENSOR_TYPE_PHONE_CALL) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call events, save start time
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.doHandleEvent", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesCall._enabled) {
@@ -473,6 +489,34 @@ class EventsHandler {
                         }
                     }
                 }
+                if (Arrays.stream(sensorType).anyMatch(i ->
+                        (i == SENSOR_TYPE_CALL_SCREENING) ||
+                        (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
+                    // search for sms events, save start time
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                    if (contactsCache != null) {
+                        List<Contact> contactList;
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
+                        for (Event _event : dataWrapper.eventList) {
+                            if (_event.getStatus() != Event.ESTATUS_STOP) {
+                                if (_event._eventPreferencesCallScreening._enabled) {
+                                    EventPreferencesCallScreening.getEventCallScreeningTime(context);
+                                    EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
+                                    EventPreferencesCallScreening.getEventCallScreeningCallDirection(context);
+                                    _event._eventPreferencesCallScreening.saveStartTime(contactList, dataWrapper,
+                                            ApplicationPreferences.prefEventCallScreeningPhoneNumber,
+                                            ApplicationPreferences.prefEventCallScreeningTime);
+                                }
+                            }
+                        }
+                        if (contactList != null)
+                            contactList.clear();
+                    }
+                }
+
             }
 
             boolean forDelayStartAlarm = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_EVENT_DELAY_START);
@@ -496,7 +540,6 @@ class EventsHandler {
             sortEventsByStartOrderDesc(dataWrapper.eventList);
             Event notifiedPausedEvent = null;
             if (isRestart) {
-
 
                 // 1. pause events
                 for (Event _event : dataWrapper.eventList) {
@@ -533,11 +576,9 @@ class EventsHandler {
 
 //                PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.profileActivationMutex");
                 synchronized (PPApplication.profileActivationMutex) {
-//                    Log.e("EventsHandler.handleEvents", "clear fifo");
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
-
 
                 // 2. start events
                 //sortEventsByStartOrderAsc(dataWrapper.eventList);
@@ -720,7 +761,6 @@ class EventsHandler {
                                 defaultProfileActivated = true;
                                 mergedProfilesCount++;
 
-//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (1)");
                                 dataWrapper.fifoAddProfile(defaultProfileId, 0);
                             }
 
@@ -738,7 +778,6 @@ class EventsHandler {
 
                         } else {
                             if (PPApplication.prefLastActivatedProfile != 0) {
-//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (2)");
                                 dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                             }
                         }
@@ -758,8 +797,7 @@ class EventsHandler {
                         mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
                         //mergedProfilesCount++;
 
-//                        Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (3)");
-                        dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
+                        //dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
                     } else {
                         // not any profile activated
 
@@ -773,11 +811,9 @@ class EventsHandler {
                             defaultProfileActivated = true;
                             mergedProfilesCount++;
 
-//                            Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (4)");
                             dataWrapper.fifoAddProfile(defaultProfileId, 0);
                         } else {
                             if (PPApplication.prefLastActivatedProfile != 0) {
-//                                Log.e("EventsHandler.handleEvents", "dataWrapper.fifoAddProfile() (5)");
                                 dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                             }
                         }
@@ -825,13 +861,14 @@ class EventsHandler {
                     // log only when merged profile is not the same as last activated or for restart events
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
-                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
+                            DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, false, dataWrapper),
                             mergedProfilesCount + StringConstants.CHAR_HARD_SPACE +"["+StringConstants.CHAR_HARD_SPACE + usedEventsCount + StringConstants.CHAR_HARD_SPACE + "]");
 
-                    // do not save profile to fifo
+                    // do not save profile to fifo - because it is merged profile
                     // profile is alrady added by Event.startEvent(), Event.doActivateEndProfile()
-                    // or added in this method (default profile, semi activate profile, ...)
-                    dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart, manualRestart);
+                    // or added in this method (default profile...)
+                    dataWrapper.activateProfileFromEvent(/*0,*/ mergedProfile._id, false, true,
+                            isRestart, manualRestart, true);
                     // wait for profile activation
                     //doSleep = true;
                 }
@@ -861,10 +898,6 @@ class EventsHandler {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
-
-//                synchronized (PPApplication.profileActivationMutex) {
-//                    dataWrapper.fifoGetActivatedProfiles();
-//                }
             }
             else {
                 // refresh only Editor
@@ -980,6 +1013,9 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_BRIGHTNESS;
             case SENSOR_TYPE_MUSIC:
                 return DatabaseHandler.ETYPE_MUSIC;
+            case SENSOR_TYPE_CALL_SCREENING:
+            case SENSOR_TYPE_CALL_SCREENING_EVENT_END:
+                return DatabaseHandler.ETYPE_CALL_SCREENING;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
@@ -1002,13 +1038,13 @@ class EventsHandler {
                     boolean simulateRingingCall = false;
                     String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
+//                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.doEndHandler", "PPApplication.contactsCacheMutex");
-                        synchronized (PPApplication.contactsCacheMutex) {
-                            contactList = contactsCache.getList(/*false*/);
-                        }
+//                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "contactsCache.getList()");
+                        contactList = contactsCache.getList(/*false*/);
                         for (Event _event : dataWrapper.eventList) {
                             if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
                                 if (_event._eventPreferencesCall.isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/)) {
@@ -1078,7 +1114,11 @@ class EventsHandler {
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
         if (DataWrapperStatic.displayPreferencesErrorNotification(null, event, true, context)) {
-            event.setStatus(Event.ESTATUS_STOP);
+            /* Do not stop event. For example user in profile disables Location, but event
+               with WiFi sensor must stayed in running status.
+
+                event.setStatus(Event.ESTATUS_STOP);
+            */
             return;
         }
 
@@ -1113,6 +1153,7 @@ class EventsHandler {
         notAllowedRoaming = false;
         notAllowedVPN = false;
         notAllowedMusic = false;
+        notAllowedCallScreening = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1140,6 +1181,7 @@ class EventsHandler {
         roamingPassed = true;
         vpnPassed = true;
         musicPassed = true;
+        callScreeningPassed = true;
 
         event._eventPreferencesTime.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesBattery.doHandleEvent(this/*, sensorType, forRestartEvents*/);
@@ -1167,6 +1209,7 @@ class EventsHandler {
         event._eventPreferencesRoaming.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesVPN.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesMusic.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesCallScreening.doHandleEvent(this/*, forRestartEvents*/);
 
         boolean allPassed = true;
         boolean someNotAllowed = false;
@@ -1354,6 +1397,13 @@ class EventsHandler {
             else
                 someNotAllowed = true;
         }
+        if (event._eventPreferencesCallScreening._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedCallScreening)
+                allPassed &= callScreeningPassed;
+            else
+                someNotAllowed = true;
+        }
 
         if (!anySensorEnabled) {
             // force set event as paused
@@ -1532,6 +1582,12 @@ class EventsHandler {
         eventDeviceBootDate = date;
     }
 
+    void setEventCallScreeningParameters(String phoneNumber, long date, int direction) {
+        EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(context, phoneNumber);
+        EventPreferencesCallScreening.setEventCallScreeningTime(context, date);
+        EventPreferencesCallScreening.setEventCallScreeningCallDirection(context, direction);
+    }
+
     /*
     void sortEventsByStartOrderAsc(List<Event> eventList)
     {
@@ -1550,7 +1606,7 @@ class EventsHandler {
 
     private void sortEventsByStartOrderDesc(List<Event> eventList)
     {
-        class PriorityComparator implements Comparator<Event> {
+        class StartOrderComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 int res = 0;
                 if ((lhs != null) && (rhs != null))
@@ -1559,7 +1615,7 @@ class EventsHandler {
             }
         }
 
-        eventList.sort(new PriorityComparator());
+        eventList.sort(new StartOrderComparator());
     }
 
 }

@@ -26,8 +26,8 @@ class EventPreferencesBattery extends EventPreferences {
     boolean _powerSaveMode;
 
     static final String PREF_EVENT_BATTERY_ENABLED = "eventBatteryEnabled";
-    static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
-    static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
+    private static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
+    private static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
     private static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
     private static final String PREF_EVENT_BATTERY_PLUGGED = "eventBatteryPlugged";
     private static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
@@ -127,7 +127,7 @@ class EventPreferencesBattery extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_battery_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context));
@@ -135,14 +135,14 @@ class EventPreferencesBattery extends EventPreferences {
                 }
 
                 _value.append(context.getString(R.string.pref_event_battery_level));
-                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                 if (this._powerSaveMode)
-                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 else {
                     _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_battery_charging));
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(charging[this._charging], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(charging[this._charging], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
@@ -164,7 +164,7 @@ class EventPreferencesBattery extends EventPreferences {
                         }
                         selectedPlugged = value.toString();
                     }
-                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_battery_plugged)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedPlugged, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
@@ -289,8 +289,8 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode, this._plugged);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -444,7 +444,7 @@ class EventPreferencesBattery extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, String sensorType, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(eventsHandler.context);
 
                 boolean isCharging = false;

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- size = (74 x n) - 2 -->
+<!-- old size (70 x n) - 30 -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minWidth="250dp"
+    android:minHeight="250dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+
+    android:initialLayout="@layout/empty_widget"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:previewImage="@drawable/panel_widget_preview"
+    android:description="@string/panel_widget_description"
+    android:widgetCategory="home_screen"
+
+    android:configure="sk.henrichg.phoneprofilesplus.LaunchWidgetPanelConfigurationActivity"
+    android:widgetFeatures="reconfigurable"
+    tools:targetApi="p" />
+    <!--    android:widgetFeatures="reconfigurable|configuration_optional" />-->
+
+<!--    android:minWidth="100dp"-->
+<!--    android:minHeight="400dp"-->
+<!--    android:minResizeWidth="100dp"-->
+<!--    android:minResizeHeight="400dp"-->

@@ -93,6 +93,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -152,7 +156,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
 
         if (started) return;
         started = true;
@@ -258,6 +262,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
+
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
@@ -612,14 +619,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     null,
                     dialog3 -> finish(),
                     null,
+                    null,
                     true, true,
                     false, false,
+                    false,
                     false,
                     this
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
             //}
         }
         else {
@@ -629,6 +638,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             if (permissions != null) {
                 for (PermissionType permissionType : permissions) {
+                    //noinspection IfStatementMissingBreakInLoop
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         showRequestWriteSettings = true;
                     }
@@ -646,8 +656,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 iteration = 1;
             //else if (showRequestAccessNotificationPolicy)
             //    iteration = 2;
-            else if (showRequestDrawOverlays)
-                iteration = 3;
+            //else if (showRequestDrawOverlays)
+            //    iteration = 3;
 
             requestPermissions(iteration, canShowRationale(context, false));
         }
@@ -818,8 +828,27 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM:
                         s = getString(R.string.permission_why_profile_ringtones_dual_sim);
                         break;
-                    case Permissions.PERMISSION_TYPE_PROFILE_PHONE_CALLS:
-                        s = getString(R.string.permission_why_profile_phone_calls);
+                    case Permissions.PERMISSION_TYPE_PROFILE_SEND_SMS:
+                        s = getString(R.string.permission_why_profile_send_sms);
+                        break;
+                    case Permissions.PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES:
+                        s = getString(R.string.permission_why_event_call_screening);
+                        break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS:
+                        s = getString(R.string.permission_why_profile_clear_notifications);
+                        break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT:
+                        //if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+                        //    s = getString(R.string.permission_why_profile_screen_night_light_xiaomi);
+                        //else
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                            s = getString(R.string.permission_why_profile_screen_night_huawei);
+                        break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_VPN:
+                        s = getString(R.string.permission_why_profile_vpn);
+                        break;
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_ON_OFF:
+                        s = getString(R.string.permission_why_profile_screen_on_off);
                         break;
                 }
             }
@@ -857,7 +886,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.errorColor))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                         .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
@@ -892,7 +921,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
                 //}
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.errorColor))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                         .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
@@ -924,7 +953,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
                 }
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.errorColor))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                         .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
@@ -1083,14 +1112,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             requestPermissions(3, withRationale);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
+                        false,
                         false,
                         this
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 /*}
                 else {
                     //if (requestCode == WRITE_SETTINGS_REQUEST_CODE)
@@ -1119,7 +1150,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         GlobalGUIRoutines.setLanguage(this);
 
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                        dialogBuilder.setTitle(R.string.permissions_alert_title);
+                        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                                activity.getString(R.string.permissions_alert_title), null);
+                        //dialogBuilder.setTitle(R.string.permissions_alert_title);
                         dialogBuilder.setMessage(R.string.permissions_access_notification_policy_not_allowed_confirm);
                         dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                             @Override
@@ -1240,14 +1273,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             requestPermissions(4, withRationale);
                         },
                         null,
+                        null,
                         true, true,
                         false, false,
+                        false,
                         false,
                         this
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 /*}
                 else {
                     //if (requestCode == DRAW_OVERLAYS_REQUEST_CODE)
@@ -1291,6 +1326,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!smsPermission);
             }
+//            if (!permissionsChanged) {
+//                // !!! must before of Permissions.checkPhone()
+//                boolean modifyPhonePermission = Permissions.checkModifyPhone(context);
+//                permissionsChanged = Permissions.getModifyPhonePermission(context) != modifyPhonePermission;
+//                // finish Editor when permission is disabled
+//                finishActivity = permissionsChanged && (!modifyPhonePermission);
+//            }
             if (!permissionsChanged) {
                 boolean phonePermission = Permissions.checkPhone(context);
                 permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
@@ -1458,43 +1500,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                     //noinspection deprecation
                     startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
-
-                    //if (!PPApplication.romIsMIUI) {
-                        /*if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
-                            drawOverlaysFound = true;
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
-                            intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                            startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
-                            break;
-                        }
-                        */
-                    /*}
-                    else {
-                        try {
-                            // MIUI 8
-                            Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                            localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                            intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                            startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
-                            drawOverlaysFound = true;
-                            break;
-                        } catch (Exception e) {
-                            try {
-                                // MIUI 5/6/7
-                                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
-                                intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
-                                startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
-                                drawOverlaysFound = true;
-                                break;
-                            } catch (Exception e1) {
-                                drawOverlaysFound = false;
-                            }
-                        }
-                    }*/
                 }
             }
             if (!drawOverlaysFound)
@@ -1688,7 +1693,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplicationStatic.restartBluetoothScanner(context);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
@@ -1697,7 +1702,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
@@ -1708,7 +1713,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
@@ -1730,7 +1735,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
@@ -1742,7 +1747,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.locationGeofenceEditorActivity.getLastLocation();*/
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
@@ -1759,7 +1764,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
-            dataWrapper.restartEventsWithDelay(false, true, false, true, PPApplication.ALTYPE_UNDEFINED);
+            dataWrapper.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
@@ -1818,7 +1823,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeProfileNotification(context);
             if (activateProfile) {
-                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true, false);
             }
         }
 

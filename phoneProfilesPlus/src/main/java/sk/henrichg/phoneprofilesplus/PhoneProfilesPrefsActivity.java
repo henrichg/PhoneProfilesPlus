@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 
 /** @noinspection ExtractMethodRecommender*/
@@ -26,6 +27,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     boolean activityStarted = false;
 
     private boolean showEditorPrefIndicator;
+    private boolean hideEditorEventDetails;
+    private boolean hideEditorEventDetailsForStartOrder;
     private boolean hideEditorHeaderOrBottomBar;
     //private String activeLanguage;
     private String activeTheme;
@@ -60,8 +63,16 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
+
+        //if (Build.VERSION.SDK_INT >= 34)
+        //    EdgeToEdge.enable(this);
+        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
 
         super.onCreate(savedInstanceState);
 
@@ -86,8 +97,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         boolean hideBackArrow = intent.getBooleanExtra(EXTRA_HIDE_BACK_ARROW, false);
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+        //noinspection DataFlowIssue
         toolbar.setVisibility(View.GONE);
         toolbar = findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+        //noinspection DataFlowIssue
         toolbar.setVisibility(View.VISIBLE);
         if (hideBackArrow)
             toolbar.setContentInsetsAbsolute(GlobalGUIRoutines.dpToPx(15), 0);
@@ -109,6 +122,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         activeTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
         //activeNightModeOffTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
         showEditorPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
+        hideEditorEventDetails = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, false);
+        hideEditorEventDetailsForStartOrder = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, true);
         hideEditorHeaderOrBottomBar = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
         //showEditorHeader = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 
@@ -237,14 +252,17 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 case PhoneProfilesPrefsFragment.PREF_SHORTCUT_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsShortcut();
                     break;
-                case PhoneProfilesPrefsFragment.PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT:
-                    preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_PANEL_CATEGORY_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsWidgetPanel();
                     break;
                 case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRowProfileList();
                     break;
                 case PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
+                    break;
+                case PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsCallScreening();
                     break;
             }
             //preferenceFragment.scrollToSet = true;
@@ -407,7 +425,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ImportantInfoNotification.showInfoNotification(appContext);
                 ProfileListNotification.drawNotification(true, appContext);
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
+                //DrawOverAppsPermissionNotification.showNotification(appContext, true);
                 IgnoreBatteryOptimizationNotification.showNotification(appContext, true);
                 DNDPermissionNotification.showNotification(appContext, true);
                 PPAppNotification.drawNotification(true, appContext);
@@ -449,6 +467,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
 
         try {
             unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
@@ -593,6 +613,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             invalidateEditor = true;
         }*/
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator)
+        {
+            invalidateEditor = true;
+        }
+        if (hideEditorEventDetails != ApplicationPreferences.applicationEditorHideEventDetails)
+        {
+            invalidateEditor = true;
+        }
+        if (hideEditorEventDetailsForStartOrder != ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder)
         {
             invalidateEditor = true;
         }

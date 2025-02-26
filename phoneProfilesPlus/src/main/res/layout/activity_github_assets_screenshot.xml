@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/github_assets_screenshot_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
-    android:layout_marginEnd="@dimen/activity_margin_end">
+    android:layout_marginEnd="@dimen/activity_margin_end"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/github_assets_screenshot_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"/>
 
     <View
-        android:id="@+id/about_application_application_divider"
+        android:id="@+id/github_assets_screenshot_activity_divider_0"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/github_assets_screenshot_activity_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay" >
+<!--        android:fadeScrollbars="false">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,15 +69,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="@dimen/divider_margin"
-        android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_alignParentBottom="true">
+        android:layout_marginEnd="@dimen/divider_margin">
 
         <View
             android:id="@+id/github_assets_screenshot_activity_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:layout_marginTop="20dp"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <Button
             android:id="@+id/github_assets_screenshot_activity_close"
@@ -70,7 +84,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:minHeight="40dp"
+            android:minHeight="@dimen/button_min_height"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
+            android:minWidth="@dimen/button_min_width"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
             android:background="@drawable/pp_button_background_selector"
@@ -81,4 +98,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_important_info_scroll_view"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:fadeScrollbars="false">
+    android:layout_height="wrap_content">
+<!--    android:fadeScrollbars="false">-->
 
     <LinearLayout
         android:id="@+id/fragment_important_info_liLa1"
@@ -33,27 +34,6 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_orange_text" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="@string/important_info_contact"
-            android:textSize="@dimen/important_info_text_size"
-            android:id="@+id/activity_info_notification_contact" />
-
-        <TextView
-            android:id="@+id/activity_info_translations_thanks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/about_application_help_me_with_translation"
-            android:textSize="@dimen/important_info_text_size"/>
-        <TextView
-            android:id="@+id/activity_info_translations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="@string/about_application_translations"
-            android:textSize="@dimen/important_info_text_size"/>
 
         <!-- NEWS -->
 
@@ -67,25 +47,53 @@
             android:textSize="@dimen/important_info_title_size"
             android:textStyle="bold" />
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/important_info_privacy_policy_backup_files"-->
-<!--            android:textSize="@dimen/important_info_text_size"-->
-<!--            android:id="@+id/activity_info_notification_privacy_policy_backup_files_news"-->
-<!--            android:textStyle="bold"-->
-<!--            android:visibility="gone"/>-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/important_info_privacy_policy_backup_files_2"-->
-<!--            android:textSize="@dimen/important_info_text_size"-->
-<!--            android:id="@+id/activity_info_notification_privacy_policy_backup_files_2_news"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@color/accent_color"-->
-<!--            android:visibility="gone" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="@string/important_info_edge_panel_replacement1"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_news_1"
+            android:textStyle="bold"
+            android:visibility="visible"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/important_info_edge_panel_replacement2"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_news_2"
+            android:textStyle="bold"
+            android:visibility="visible"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_edge_panel_replacement3"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/important_info_news_3_PanelsAppLink"
+            android:textStyle="bold"
+            android:visibility="visible"/>
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:paddingBottom="10dp"-->
+        <!--            android:text="@string/important_info_privacy_policy_backup_files"-->
+        <!--            android:textSize="@dimen/important_info_text_size"-->
+        <!--            android:id="@+id/activity_info_notification_privacy_policy_backup_files_news"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:visibility="gone"/>-->
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:paddingBottom="10dp"-->
+        <!--            android:text="@string/important_info_privacy_policy_backup_files_2"-->
+        <!--            android:textSize="@dimen/important_info_text_size"-->
+        <!--            android:id="@+id/activity_info_notification_privacy_policy_backup_files_2_news"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:textColor="@color/accent_color"-->
+        <!--            android:visibility="gone" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,21 +133,56 @@
             android:textStyle="bold"
             android:textColor="@color/accent_color" />
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/important_info_end_of_galaxy_store_support_text1"-->
-<!--            android:textSize="@dimen/important_info_text_size"-->
-<!--            android:id="@+id/important_info_end_of_galaxy_store_support_text1"-->
-<!--            android:textStyle="bold" />-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="10dp"-->
-<!--             android:text="@string/important_info_end_of_galaxy_store_support_text2"-->
-<!--            android:textSize="@dimen/important_info_text_size"-->
-<!--            android:id="@+id/important_info_end_of_galaxy_store_support_text2" />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:paddingBottom="10dp"-->
+        <!--            android:text="@string/important_info_end_of_galaxy_store_support_text1"-->
+        <!--            android:textSize="@dimen/important_info_text_size"-->
+        <!--            android:id="@+id/important_info_end_of_galaxy_store_support_text1"-->
+        <!--            android:textStyle="bold" />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:paddingBottom="10dp"-->
+        <!--             android:text="@string/important_info_end_of_galaxy_store_support_text2"-->
+        <!--            android:textSize="@dimen/important_info_text_size"-->
+        <!--            android:id="@+id/important_info_end_of_galaxy_store_support_text2" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="***"
+            android:textSize="@dimen/important_info_title_size"
+            android:textStyle="bold"
+            android:id="@+id/activity_info_notification_news_separator"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_support"
+            android:textSize="@dimen/important_info_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/accent_color"
+            android:id="@+id/activity_info_notification_contact" />
+
+        <TextView
+            android:id="@+id/activity_info_translations_thanks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_application_help_me_with_translation"
+            android:textSize="@dimen/important_info_text_size"/>
+        <TextView
+            android:id="@+id/activity_info_translations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/about_application_translations"
+            android:textSize="@dimen/important_info_text_size"/>
 
         <!-- SYSTEM -->
 

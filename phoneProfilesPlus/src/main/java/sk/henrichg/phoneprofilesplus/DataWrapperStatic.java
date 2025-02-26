@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.NonNull;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -150,13 +149,22 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_LOCATION_UPDATE_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_ORIENTATION_SCAN_INTERVAL)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL)),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACTS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_GROUPS),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_CONTACT_LIST_TYPE)),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_BLOCK_CALLS),
-                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_PHONE_CALLS_SEND_SMS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_PHONE_CALLS_SMS_TEXT),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN)
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_GROUPS),
+                //Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_LOCKSCREEN),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACT_GROUPS),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_OFF))
                 );
     }
 
@@ -213,7 +221,7 @@ class DataWrapperStatic {
 
     static private Spannable _getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper, Context context)
+            boolean durationInNextLine, boolean eventNameInNextLine, DataWrapper dataWrapper, Context context)
     {
         if (profile == null)
             return new SpannableString("");
@@ -234,8 +242,11 @@ class DataWrapperStatic {
                 manualIndicators = StringConstants.STR_MANUAL;
 
             String _eventName = getLastStartedEventName(dataWrapper, profile, context);
-            if (!_eventName.equals("?"))
-                eventName = "[" +  StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
+            if (!_eventName.equals("?")) {
+                if (eventNameInNextLine)
+                    eventName = StringConstants.CHAR_NEW_LINE;
+                eventName = eventName + "[" + StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
+            }
 
             if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;
@@ -279,10 +290,10 @@ class DataWrapperStatic {
 
     static Spannable getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, @NonNull DataWrapper dataWrapper) {
+            boolean durationInNextLine, boolean eventNameInNextLine, DataWrapper dataWrapper) {
         Context context = dataWrapper.context;
         LocaleHelper.setApplicationLocale(context);
-        return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, context);
+        return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, eventNameInNextLine, dataWrapper, context);
     }
 
     static String getProfileNameWithManualIndicatorAsString(
@@ -291,8 +302,9 @@ class DataWrapperStatic {
             boolean addDuration,
             @SuppressWarnings("SameParameterValue") boolean multiLine,
             @SuppressWarnings("SameParameterValue") boolean durationInNextLine,
-            @NonNull DataWrapper dataWrapper) {
-        Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
+            @SuppressWarnings("SameParameterValue") boolean eventNameInNextLine,
+            DataWrapper dataWrapper) {
+        Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, eventNameInNextLine, dataWrapper);
         Spannable sbt = new SpannableString(sProfileName);
         Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);
         for (Object span : spansToRemove) {
@@ -587,6 +599,9 @@ class DataWrapperStatic {
                     profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
             }
         }
+
+        //profileBitmap = Bitmap.createScaledBitmap(
+        //        profileBitmap, GlobalGUIRoutines.dpToPx(10), GlobalGUIRoutines.dpToPx(10), false);
 
         if (restartEvents) {
             /*shortcutIntent = new Intent(context.getApplicationContext(), ActionForExternalApplicationActivity.class);
@@ -924,7 +939,7 @@ class DataWrapperStatic {
 
             PPApplicationStatic.createGrantPermissionNotificationChannel(context.getApplicationContext(), false);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                    .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                    .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.errorColor))
                     .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
                     .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                     .setContentTitle(nTitle) // title for notification

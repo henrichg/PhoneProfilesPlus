@@ -238,6 +238,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 // WARNING: must be called after PPApplication.isScreenOn = true;
                 setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
+                if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                        ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
+                    // refresh bounded devices
+                    BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                }
+//                PPApplicationStatic.logE("ScreenOnOffBroadcastReceiver.onReceive", "screen==ON, call Detector");
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
+
                 // restart scanners for screen on when any is enabled
                 boolean restart = false;
                 if (ApplicationPreferences.applicationEventLocationEnableScanning)
@@ -267,10 +275,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 PPAppNotification.drawNotification(false, appContext);
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
+//                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "SENSOR_TYPE_SCREEN,SENSOR_TYPE_BRIGHTNESS,SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(new int[]{
                             EventsHandler.SENSOR_TYPE_SCREEN,
                             EventsHandler.SENSOR_TYPE_BRIGHTNESS,
+                            EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION,
                             EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
                 }
 
@@ -314,6 +324,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 PPAppNotification.drawNotification(false, appContext);
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
+//                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "SENSOR_TYPE_SCREEN");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SCREEN});
                     // do not call this when screen is off
@@ -328,6 +339,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
+//                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "SENSOR_TYPE_SCREEN,SENSOR_TYPE_BRIGHTNESS");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(new int[]{
                             EventsHandler.SENSOR_TYPE_SCREEN,

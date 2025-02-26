@@ -31,7 +31,16 @@ class StringConstants {
     static final String STR_NEWLINE_WITH_COLON = ":\n";
     static final String STR_DOUBLE_NEWLINE = "\n\n";
     static final String STR_DOUBLE_NEWLINE_WITH_SPACE = " \n\n";
-    static final String STR_DOUBLE_NEWLINE_WITH_DOT = ".\n\n";
+    //static final String STR_DOUBLE_NEWLINE_WITH_DOT = ".\n\n";
+
+    //∙∙∙∙∙
+    //◦◦◦◦◦
+    //•••••
+    //⎻⎻⎻⎻
+    //⎼⎼⎼⎼
+    static final String STR_SEPARATOR_LINE = "\n◦   ◦   ◦\n";
+    static final String STR_SEPARATOR_WITH_DOT = ".\n◦   ◦   ◦\n";
+
     static final String STR_MANUAL = "[M]";
     static final String STR_MANUAL_SPACE = "[M] ";
     static final String STR_FORMAT_INT = "%X";
@@ -39,6 +48,9 @@ class StringConstants {
     static final String STR_SPLIT_CONTACTS_REGEX = "~#~";
     static final String TAG_BREAK_HTML = "<br>";
     static final String TAG_DOUBLE_BREAK_HTML = "<br><br>";
+
+    static final String TAG_SEPARATOR_BREAK_HTML = "<br>◦   ◦   ◦<br>";
+
     static final String TAG_BOLD_START_HTML = "<b>";
     static final String TAG_BOLD_END_HTML = "</b>";
     static final String TAG_BOLD_END_WITH_SPACE_HTML = "</b> ";
@@ -80,11 +92,25 @@ class StringConstants {
 
     static final String EXTRA_ACTIVATOR = "activator";
     static final String EXTRA_EDITOR = "editor";
+    static final String EXTRA_SWITCH_PROFILES = "switch_profiles";
 
     static final String RINGTONE_CONTENT_INTERNAL = "content://media/internal";
     static final String RINGTONE_CONTENT_EXTERNAL = "content://media/external";
 
     static final String CONTACTS_FILTER_DATA_ALL = "[all]";
+
+    //⏲⧴⤇⤆⍈⍇⧗⧖⭆⭅￫￩
+    static final String DURATION_END = "⧗";
+    static final String END_OF_ACTIVATION_TIME_END = "⧗";
+    static final String END_OF_ACTIVATION_DURATION = "⧴";
+    static final String END_OF_ACTIVATION_TIME = "⧗";
+    static final String EVENT_DEALY_START = "⭆";
+    static final String EVENT_DEALY_END = "⭅";
+    static final String EVENT_START_TIME = "⧗";
+    static final String EVENT_END_TIME = "⧗";
+
+    //static final String CHAR_SQUARE = "■";
+    static final String INSTALLED_STORE_INDICATOR = "•"; //"⭆";
 
     private StringConstants() {
         // private constructor to prevent instantiation

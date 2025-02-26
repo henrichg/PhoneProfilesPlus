@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/opaqueness_lighting_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/listItem_height"
     android:orientation="horizontal" >
 
     <RadioButton
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="@dimen/listItem_label_text_size" />
 
     </LinearLayout>
 

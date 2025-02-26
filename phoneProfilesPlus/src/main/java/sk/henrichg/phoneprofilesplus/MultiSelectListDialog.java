@@ -1,64 +1,101 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
-class MultiSelectListDialog
+public class MultiSelectListDialog extends DialogFragment
 {
-    final AlertDialog mDialog;
-    final Activity activity;
+    private AlertDialog mDialog;
+    private AppCompatActivity activity;
+    private DialogInterface.OnClickListener positiveButtonClick;
 
-    private final ListView listView;
+    private int titleRes;
+    private int itemsRes;
+    boolean[] itemValues;
 
-    final int itemsRes;
-    final boolean[] itemValues;
+    public MultiSelectListDialog() {
+    }
 
-    MultiSelectListDialog(int _titleRes, int _itemsRes, boolean[] _itemValues,
+    public MultiSelectListDialog(int _titleRes, int _itemsRes, boolean[] _itemValues,
                           DialogInterface.OnClickListener _positiveButtonClick,
-                          Activity _activity)
+                          AppCompatActivity _activity)
     {
         this.activity = _activity;
+        this.titleRes = _titleRes;
         this.itemsRes = _itemsRes;
         this.itemValues = _itemValues;
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(_titleRes));
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_pp_list_preference, null);
-        dialogBuilder.setView(layout);
-
-        dialogBuilder.setPositiveButton(android.R.string.ok, _positiveButtonClick);
-
-        mDialog = dialogBuilder.create();
-
-        mDialog.setOnShowListener(dialog -> doShow());
-
-        listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
-
-        listView.setOnItemClickListener((parent, item, position, id) -> {
-            CheckBox chb = item.findViewById(R.id.pp_multiselect_list_pref_dlg_item_checkbox);
-            itemValues[position] = !itemValues[position];
-            chb.setChecked(itemValues[position]);
-        });
+        this.positiveButtonClick = _positiveButtonClick;
     }
 
-    private void doShow() {
-        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
-        listView.setAdapter(listAdapter);
+    @SuppressLint("DialogFragmentCallbacksDetector")
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            GlobalGUIRoutines.lockScreenOrientation(activity);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
+                    activity.getString(titleRes), null);
+            //dialogBuilder.setTitle(activity.getString(_titleRes));
+            dialogBuilder.setCancelable(true);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View layout = inflater.inflate(R.layout.dialog_pp_list_preference, null);
+            dialogBuilder.setView(layout);
+
+            dialogBuilder.setPositiveButton(android.R.string.ok, positiveButtonClick);
+
+            mDialog = dialogBuilder.create();
+
+            //mDialog.setOnShowListener(dialog -> doShow());
+
+            ListView listView = layout.findViewById(R.id.pp_list_pref_dlg_listview);
+            // moved from doShow(), better for dialog animation and
+            // also correct the displacement of the dialog
+            if (listView != null) {
+                MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
+                listView.setAdapter(listAdapter);
+            }
+
+            //noinspection DataFlowIssue
+            listView.setOnItemClickListener((parent, item, position, id) -> {
+                CheckBox chb = item.findViewById(R.id.pp_multiselect_list_pref_dlg_item_checkbox);
+                itemValues[position] = !itemValues[position];
+                //noinspection DataFlowIssue
+                chb.setChecked(itemValues[position]);
+            });
+        }
+        return mDialog;
     }
 
-    void show() {
-        if (!activity.isFinishing())
-            mDialog.show();
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (activity != null)
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
+    }
+
+//    private void doShow() {
+//        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
+//        listView.setAdapter(listAdapter);
+//    }
+
+    void showDialog() {
+        if ((activity != null) && (!activity.isFinishing()))
+            show(activity.getSupportFragmentManager(), "MULTI_CHOICE_DIALOG");
     }
 
 }

@@ -2,8 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
@@ -17,19 +21,25 @@ import java.util.List;
 class EventPreferencesMusic extends EventPreferences {
 
     int _musicState;
+    String _applications;
 
     static final String PREF_EVENT_MUSIC_ENABLED = "eventMusicEnabled";
     private static final String PREF_EVENT_MUSIC_MUSIC_STATE = "eventMusicMusicState";
+    private static final String PREF_EVENT_MUSIC_APPLICATIONS = "eventMusicApplications";
+    static final String PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "eventMusicNotificationsAccessSettings";
+    static final String PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "eventMusicNotificationsAccessSettingsRestrictedSettings";
 
     static final String PREF_EVENT_MUSIC_CATEGORY = "eventMusicCategoryRoot";
 
     EventPreferencesMusic(Event event,
                           boolean enabled,
-                          int musicState)
+                          int musicState,
+                          String applications)
     {
         super(event, enabled);
 
         this._musicState = musicState;
+        this._applications = applications;
     }
 
     void copyPreferences(Event fromEvent)
@@ -44,6 +54,7 @@ class EventPreferencesMusic extends EventPreferences {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_MUSIC_ENABLED, _enabled);
         editor.putString(PREF_EVENT_MUSIC_MUSIC_STATE, String.valueOf(this._musicState));
+        editor.putString(PREF_EVENT_MUSIC_APPLICATIONS, this._applications);
         editor.apply();
     }
 
@@ -51,6 +62,7 @@ class EventPreferencesMusic extends EventPreferences {
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_MUSIC_ENABLED, false);
         this._musicState = Integer.parseInt(preferences.getString(PREF_EVENT_MUSIC_MUSIC_STATE, "0"));
+        this._applications = preferences.getString(PREF_EVENT_MUSIC_APPLICATIONS, "");
     }
 
     /** @noinspection unused*/
@@ -61,7 +73,7 @@ class EventPreferencesMusic extends EventPreferences {
             if (!addBullet)
                 _value.append(context.getString(R.string.event_preference_sensor_music_summary));
         } else {
-            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_MUSIC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_MUSIC_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML);
                     _value.append(getPassStatusString(context.getString(R.string.event_type_music), addPassStatus, DatabaseHandler.ETYPE_MUSIC, context));
@@ -70,7 +82,35 @@ class EventPreferencesMusic extends EventPreferences {
 
                 _value.append(context.getString(R.string.event_preferences_music_state));
                 String[] musicSate = context.getResources().getStringArray(R.array.eventMusicStatesArray);
-                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(musicSate[this._musicState], disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(musicSate[this._musicState], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
+
+                String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
+                    if (splits.length == 1) {
+                        String packageName = CApplication.getPackageName(splits[0]);
+                        String activityName = CApplication.getActivityName(splits[0]);
+                        PackageManager packageManager = context.getPackageManager();
+                        if (activityName.isEmpty()) {
+                            ApplicationInfo app;
+                            try {
+                                app = packageManager.getApplicationInfo(packageName, PackageManager.MATCH_ALL);
+                                //if (app != null)
+                                    selectedApplications = packageManager.getApplicationLabel(app).toString();
+                            } catch (Exception e) {
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClassName(packageName, activityName);
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                            if (info != null)
+                                selectedApplications = info.loadLabel(packageManager).toString();
+                        }
+                    } else
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
+                }
+                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_applications_applications)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(selectedApplications, disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
@@ -78,7 +118,7 @@ class EventPreferencesMusic extends EventPreferences {
     }
 
     /** @noinspection unused*/
-    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, /*String value,*/ Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (preferences == null)
@@ -94,24 +134,39 @@ class EventPreferencesMusic extends EventPreferences {
         if (key.equals(PREF_EVENT_MUSIC_MUSIC_STATE)) {
             PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
+                String value = preferences.getString(key, "");
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
             }
         }
 
-        /*
+        if (key.equals(PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettings_summary);
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
+                    summary = "* " + context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsDisabled_summary) + "! *" + StringConstants.STR_SEPARATOR_LINE +
+                            summary;
+                } else {
+                    summary = context.getString(R.string.event_preferences_music_notificationAccessSystemSettingsEnabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT +
+                            summary;
+                }
+                preference.setSummary(summary);
+            }
+        }
+
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesMusic.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesMusic.isRunnable(context);
+        //boolean isAllConfigured = event._eventPreferencesNusic.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_MUSIC_ENABLED, false);
-        Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_APPLICATIONS);
-        if (applicationsPreference != null) {
-            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_ALARM_CLOCK_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, false, false, !isRunnable, false);
+        Preference preference = prefMng.findPreference(PREF_EVENT_MUSIC_APPLICATIONS);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_MUSIC_APPLICATIONS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
-        */
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
@@ -124,26 +179,27 @@ class EventPreferencesMusic extends EventPreferences {
             return;
 
         if (key.equals(PREF_EVENT_MUSIC_ENABLED)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
+            setSummary(prefMng, key, context);
         }
 
-        if (key.equals(PREF_EVENT_MUSIC_MUSIC_STATE)) {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+        if (key.equals(PREF_EVENT_MUSIC_MUSIC_STATE) ||
+                key.equals(PREF_EVENT_MUSIC_APPLICATIONS) ||
+                key.equals(PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+            setSummary(prefMng, key, context);
         }
-
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_MUSIC_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_MUSIC_MUSIC_STATE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MUSIC_APPLICATIONS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MUSIC_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesMusic tmp = new EventPreferencesMusic(this._event, this._enabled, this._musicState);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MUSIC_ENABLED, false, context);
+        if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            EventPreferencesMusic tmp = new EventPreferencesMusic(this._event, this._enabled, this._musicState, this._applications);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -181,9 +237,16 @@ class EventPreferencesMusic extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_MUSIC_ENABLED) != null) {
-                setSummary(prefMng, PREF_EVENT_MUSIC_ENABLED, preferences, context);
+                ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_MUSIC_APPLICATIONS);
+                if (applicationsPreference != null) {
+                    //applicationsPreference.setEnabled(accessibilityEnabled);
+                    applicationsPreference.setSummaryAMSDP();
+                }
             }
+            setSummary(prefMng, PREF_EVENT_MUSIC_ENABLED, preferences, context);
+            setSummary(prefMng, PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS, preferences, context);
         }
+
         setCategorySummary(prefMng, preferences, context);
     }
 
@@ -209,7 +272,7 @@ class EventPreferencesMusic extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false, eventsHandler.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isNotAllowedSession = false;
 
                 // play media from PPP is ignored
@@ -228,12 +291,24 @@ class EventPreferencesMusic extends EventPreferences {
                                 ComponentName notificationListenerComponent = new ComponentName(eventsHandler.context, PPNotificationListenerService.class);
                                 activeSessions = mediaSessionManager.getActiveSessions(notificationListenerComponent);
 
-                                //Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
+//                                Log.e("EventPreferencesMusic.doHandleEvent", "activeSessions=" + activeSessions.size());
                                 for (MediaController controller : activeSessions) {
-                                    //Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + controller.getPackageName());
-                                    if (controller.getPackageName().equals(PPApplication.PACKAGE_NAME)) {
+                                    String applicationFromController = controller.getPackageName();
+//                                    Log.e("EventPreferencesMusic.doHandleEvent", "controller=" + applicationFromController);
+                                    if (applicationFromController.equals(PPApplication.PACKAGE_NAME_PP) ||
+                                            applicationFromController.equals(PPApplication.PACKAGE_NAME) ||
+                                            applicationFromController.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
+                                            applicationFromController.equals(PPApplication.PACKAGE_NAME_PPPPS)) {
                                         isNotAllowedSession = true;
                                         break;
+                                    }
+                                    String[] splits = _applications.split(StringConstants.STR_SPLIT_REGEX);
+                                    for (String split : splits) {
+                                        String packageName = CApplication.getPackageName(split);
+                                        if (applicationFromController.equals(packageName)) {
+                                            //isNotAllowedSession = false;
+                                            break;
+                                        }
                                     }
                                 }
                             } else

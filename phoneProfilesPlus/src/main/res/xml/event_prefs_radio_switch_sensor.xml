@@ -4,11 +4,12 @@
     app:key="eventRadioSwitchCategory"
     app:title="@string/event_preferences_category_eventRadioSwitchParameters" >
 
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="eventRadioSwitchEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="eventRadioSwitchConfigInfo"
         app:title="@string/event_preferences_radioSwitch_info_title"

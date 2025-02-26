@@ -281,8 +281,8 @@ public class BrightnessDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<BrightnessDialogPreference.SavedState>() {
+        public static final Creator<BrightnessDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public BrightnessDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new BrightnessDialogPreference.SavedState(in);

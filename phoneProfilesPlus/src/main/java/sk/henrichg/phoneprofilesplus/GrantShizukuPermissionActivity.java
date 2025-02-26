@@ -101,6 +101,10 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -121,7 +125,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
 
         if (Shizuku.isPreV11()) {
             // Pre-v11 is unsupported
@@ -157,6 +161,7 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EditorActivity.itemDragPerformed = false;
         Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
         //Log.e("GrantShizukuPermissionActivity.onDestroy", "xxx");
     }
@@ -202,14 +207,16 @@ public class GrantShizukuPermissionActivity extends AppCompatActivity {
                 null,
                 dialog3 -> finish(),
                 null,
+                null,
                 true, true,
                 false, false,
+                false,
                 false,
                 this
         );
 
         if (!isFinishing())
-            dialog.show();
+            dialog.showDialog();
     }
 
 }

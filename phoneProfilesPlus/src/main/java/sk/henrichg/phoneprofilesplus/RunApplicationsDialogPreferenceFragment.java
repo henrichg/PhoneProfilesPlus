@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -39,6 +40,12 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
 
     private RefreshListViewAsyncTask asyncTask = null;
 
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
@@ -57,11 +64,13 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
         super.onBindDialogView(view);
 
         AppCompatImageButton addButton = view.findViewById(R.id.run_applications_pref_dlg_add);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(addButton, getString(R.string.applications_pref_dlg_add_button_tooltip));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         applicationsListView = view.findViewById(R.id.run_applications_pref_dlg_listview);
         //applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //noinspection DataFlowIssue
         applicationsListView.setLayoutManager(layoutManager);
         applicationsListView.setHasFixedSize(true);
         emptyList = view.findViewById(R.id.run_applications_pref_dlg_empty);
@@ -77,6 +86,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
         itemTouchHelper.attachToRecyclerView(applicationsListView);
 
         final ImageView helpIcon = view.findViewById(R.id.run_applications_pref_dlg_helpIcon);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {
             String helpString = getString(R.string.run_applications_preference_application_type);

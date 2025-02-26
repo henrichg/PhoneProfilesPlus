@@ -8,12 +8,13 @@
     <PreferenceCategory
         app:title="@string/event_preferences_category_eventIdentification"
         app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="eventEnabled"
             app:title="@string/event_preferences_eventEnabled"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
-        <EditTextPreference
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+        <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
             app:key="eventName"
             app:summary="@string/event_preferences_eventName"
             app:title="@string/event_preferences_eventName"
@@ -43,19 +44,21 @@
             app:title="@string/event_preferences_eventProfileStart"
             app:addNoActivateItem="1"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="eventForceRun"
             app:title="@string/event_preferences_ForceRun"
             app:defaultValue="false"
             app:summary="@string/event_preferences_ForceRun_summary"
-            app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="eventNoPauseByManualActivation"
             app:title="@string/event_preferences_noPauseByManualActivation"
             app:defaultValue="false"
             app:summary="@string/event_preferences_noPauseByManualActivation_summary"
             app:dependency="eventForceRun"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/event_preferences_category_startOfEventOthers"
@@ -113,11 +116,12 @@
             app:infoText="@string/event_preferences_sensorsInfo_summary"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="eventHideNotUsedSensors"
             app:title="@string/event_preferences_hideNotUsedSensors"
             app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/event_preferences_category_eventTimeParameters"

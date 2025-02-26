@@ -15,6 +15,10 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -55,7 +59,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
             //GlobalGUIRoutines.setLanguage(this);
 
 //            PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");
-            ExtenderDialogPreferenceFragment.installPPPExtender(this, null, true);
+            ExtenderDialogPreferenceFragment.installPPPExtender(this, /*null,*/ true);
         }
         else {
             if (isFinishing())

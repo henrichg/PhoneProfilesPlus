@@ -14,6 +14,7 @@ import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 
 import java.io.File;
@@ -147,21 +148,23 @@ public class WallpaperFolderPreference extends Preference {
 
     void startGallery()
     {
-        Intent intent;
+        Intent intent = null;
         boolean _ok = false;
         try {
             if (Build.VERSION.SDK_INT >= 29) {
                 StorageManager sm = (StorageManager) prefContext.getSystemService(Context.STORAGE_SERVICE);
-                intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                if (sm != null)
+                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
             }
             else {
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             }
-            // not supported by ACTION_OPEN_DOCUMENT_TREE
-            //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+            if (intent != null) {
+                // not supported by ACTION_OPEN_DOCUMENT_TREE
+                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
 
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 boolean ok = false;
                 if (!(wallpaperFolder.isEmpty() || wallpaperFolder.equals("-"))) {
@@ -184,8 +187,9 @@ public class WallpaperFolderPreference extends Preference {
                     }
                 }
 
-            ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
-            _ok = true;
+                ((Activity) prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
+                _ok = true;
+            }
         } catch (Exception e) {
             //PPApplicationStatic.recordException(e);
         }
@@ -202,14 +206,16 @@ public class WallpaperFolderPreference extends Preference {
                         null,
                         null,
                         null,
+                        null,
                         true, true,
                         false, false,
                         true,
-                        (Activity) prefContext
+                        false,
+                        (AppCompatActivity) prefContext
                 );
 
                 //if (!activity.isFinishing())
-                _dialog.show();
+                _dialog.showDialog();
             } catch (Exception e) {
                 //PPApplicationStatic.recordException(e);
             }
@@ -244,8 +250,8 @@ public class WallpaperFolderPreference extends Preference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<WallpaperFolderPreference.SavedState>() {
+        public static final Creator<WallpaperFolderPreference.SavedState> CREATOR =
+                new Creator<>() {
             public WallpaperFolderPreference.SavedState createFromParcel(Parcel in)
             {
                 return new WallpaperFolderPreference.SavedState(in);

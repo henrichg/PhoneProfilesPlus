@@ -116,7 +116,7 @@ final class WifiApManager {
                     // 13 => AP ON
                     canScan = wifiApState == 11;*/
             return wifiApManager.isWifiAPEnabled();
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -128,10 +128,13 @@ final class WifiApManager {
             enabled = adapter.getWifiApEnabledState() == WifiManager.WIFI_AP_STATE_ENABLED;
             return enabled;*/
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            return wifiManager.isWifiApEnabled();
+            if (wifiManager != null)
+                return wifiManager.isWifiApEnabled();
+            else
+                return false;
         } catch (Throwable e) {
             //Log.e("WifiApManager.isWifiAPEnabledA30", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
+            //PPApplicationStatic.recordException(e);
             return false;
         }
     }
@@ -141,7 +144,7 @@ final class WifiApManager {
             /*WifiApManager wifiApManager = */
             new WifiApManager(context);
             return true;
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -259,7 +262,10 @@ final class WifiApManager {
     static boolean canExploitWifiTethering30(Context context) {
         try {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            wifiManager.isWifiApEnabled();
+            if (wifiManager != null)
+                wifiManager.isWifiApEnabled();
+            else
+                return false;
         } catch (Throwable e) {
             return false;
         }
@@ -285,12 +291,15 @@ final class WifiApManager {
         }
 
         try {
-            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
-                    new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
-            //noinspection ConstantConditions
-            if (declaredMethod == null) {
+            if (connectivityManager != null) {
+                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                        new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+                //noinspection ConstantConditions
+                if (declaredMethod == null) {
+                    return false;
+                }
+            } else
                 return false;
-            }
         } catch (Exception e) {
             return false;
         }
@@ -361,14 +370,16 @@ final class WifiApManager {
                 return;
             }
             try {
-                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
-                        new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
-                //noinspection ConstantConditions
-                if (declaredMethod == null) {
-                    //Log.e("WifiApManager._startTethering30", "startTetheringMethod is null");
-                    return;
+                if (connectivityManager != null) {
+                    Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                            new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+                    //noinspection ConstantConditions
+                    if (declaredMethod == null) {
+                        //Log.e("WifiApManager._startTethering30", "startTetheringMethod is null");
+                        return;
+                    }
+                    declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
                 }
-                declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
             } catch (Exception e) {
                 //Log.e("WifiApManager._startTethering30 (3)", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -382,12 +393,14 @@ final class WifiApManager {
     static void stopTethering30(Context context) {
         ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
         try {
-            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
-            //noinspection ConstantConditions
-            if (declaredMethod == null) {
-                return;
+            if (connectivityManager != null) {
+                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
+                //noinspection ConstantConditions
+                if (declaredMethod == null) {
+                    return;
+                }
+                declaredMethod.invoke(connectivityManager, new Object[]{0});
             }
-            declaredMethod.invoke(connectivityManager, new Object[]{0});
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }

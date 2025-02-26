@@ -68,6 +68,7 @@ public final class ToastCompat extends Toast {
     Toast toast = new Toast(context);
     View view = LayoutInflater.from(context).inflate(layoutId, null);
     TextView txtMsg = view.findViewById(textViewId);
+    //noinspection DataFlowIssue
     txtMsg.setText(textString);
     view.setBackgroundResource(backgroundId);
     toast.setView(view);

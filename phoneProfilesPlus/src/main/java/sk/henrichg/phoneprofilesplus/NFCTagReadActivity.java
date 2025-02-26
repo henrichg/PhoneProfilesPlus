@@ -18,6 +18,8 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditorActivity.itemDragPerformed = false;
+
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
@@ -79,7 +81,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     //Context appContext= appContextWeakRef.get();
 
                     //if (appContext != null) {
-//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity,onCreate", "sensorType=SENSOR_TYPE_NFC_TAG");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity.onCreate", "SENSOR_TYPE_NFC_TAG");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventNFCParameters(_tagData, _time);
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
@@ -145,7 +147,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this, true);
+        GlobalGUIRoutines.lockScreenOrientation(this/*, false*/);
 
     }
 
@@ -155,6 +157,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
+    /** @noinspection NullableProblems*/
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);

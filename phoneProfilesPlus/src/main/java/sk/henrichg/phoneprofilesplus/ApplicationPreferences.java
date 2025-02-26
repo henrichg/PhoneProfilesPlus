@@ -51,6 +51,10 @@ class ApplicationPreferences {
     static volatile boolean prefEventRoamingDataInSIMSlot1;
     static volatile boolean prefEventRoamingNetworkInSIMSlot2;
     static volatile boolean prefEventRoamingDataInSIMSlot2;
+    //static volatile boolean prefEventCallScreeningActive;
+    static volatile long prefEventCallScreeningTime;
+    static volatile String prefEventCallScreeningPhoneNumber;
+    static volatile int prefEventCallScreeningCallDirection;
 
     static volatile boolean applicationEventNeverAskForEnableRun;
     static volatile boolean applicationNeverAskForGrantRoot;
@@ -135,14 +139,6 @@ class ApplicationPreferences {
     static volatile boolean applicationEventUsePriority;
     static volatile boolean applicationUnlinkRingerNotificationVolumes;
     static volatile int applicationForceSetMergeRingNotificationVolumes;
-    //static volatile boolean applicationSamsungEdgePrefIndicator;
-    static volatile boolean applicationSamsungEdgeHeader;
-    static volatile String applicationSamsungEdgeBackground;
-    static volatile String applicationSamsungEdgeLightnessB;
-    static volatile String applicationSamsungEdgeLightnessT;
-    static volatile String applicationSamsungEdgeIconColor;
-    static volatile String applicationSamsungEdgeIconLightness;
-    //static volatile boolean applicationSamsungEdgeGridLayout;
     static volatile boolean applicationEventLocationScanOnlyWhenScreenIsOn;
     static volatile boolean applicationEventWifiScanOnlyWhenScreenIsOn;
     static volatile boolean applicationEventBluetoothScanOnlyWhenScreenIsOn;
@@ -155,8 +151,6 @@ class ApplicationPreferences {
     static volatile String applicationWidgetListBackgroundColor;
     static volatile boolean applicationWidgetIconBackgroundType;
     static volatile String applicationWidgetIconBackgroundColor;
-    static volatile boolean applicationSamsungEdgeBackgroundType;
-    static volatile String applicationSamsungEdgeBackgroundColor;
     //static volatile boolean applicationEventWifiEnableWifi;
     //static volatile boolean applicationEventBluetoothEnableBluetooth;
     static volatile boolean applicationEventWifiScanIfWifiOff;
@@ -193,14 +187,12 @@ class ApplicationPreferences {
     static volatile boolean  applicationWidgetListCustomIconLightness;
     static volatile boolean applicationWidgetOneRowCustomIconLightness;
     static volatile boolean applicationWidgetIconCustomIconLightness;
-    static volatile boolean applicationSamsungEdgeCustomIconLightness;
     //static volatile boolean notificationDarkBackground;
     static volatile boolean notificationUseDecoration;
     static volatile String notificationLayoutType;
     static volatile String notificationBackgroundColor;
     //static volatile String applicationNightModeOffTheme;
     static volatile boolean applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
-    static volatile String applicationSamsungEdgeVerticalPosition;
     static volatile int notificationBackgroundCustomColor;
     //static volatile boolean notificationNightMode;
     static volatile boolean applicationEditorHideHeaderOrBottomBar;
@@ -228,7 +220,6 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetIconChangeColorsByNightMode;
     static volatile boolean applicationWidgetOneRowChangeColorsByNightMode;
     static volatile boolean applicationWidgetListChangeColorsByNightMode;
-    static volatile boolean applicationSamsungEdgeChangeColorsByNightMode;
     static volatile boolean applicationForceSetBrightnessAtScreenOn;
     static volatile boolean notificationShowRestartEventsAsButton;
     static volatile String notificationProfileIconColor;
@@ -249,8 +240,6 @@ class ApplicationPreferences {
     static volatile String  applicationWidgetOneRowBackgroundColorNightModeOn;
     static volatile String  applicationWidgetListBackgroundColorNightModeOff;
     static volatile String  applicationWidgetListBackgroundColorNightModeOn;
-    static volatile String  applicationSamsungEdgeBackgroundColorNightModeOff;
-    static volatile String  applicationSamsungEdgeBackgroundColorNightModeOn;
     static volatile String applicationWidgetIconLayoutHeight;
     static volatile boolean applicationWidgetIconFillBackground;
     static volatile boolean applicationWidgetOneRowFillBackground;
@@ -287,6 +276,41 @@ class ApplicationPreferences {
     static volatile boolean applicationEventHideNotUsedSensors;
     //static volatile boolean applicationContactsInBackupEncripted;
     static volatile boolean applicationHyperOsWifiBluetoothDialogs;
+    static volatile boolean applicationWidgetPanelHeader;
+    static volatile String applicationWidgetPanelBackground;
+    static volatile String applicationWidgetPanelLightnessB;
+    static volatile String applicationWidgetPanelLightnessT;
+    static volatile String applicationWidgetPanelIconColor;
+    static volatile String applicationWidgetPanelIconLightness;
+    static volatile boolean applicationWidgetPanelBackgroundType;
+    static volatile String applicationWidgetPanelBackgroundColor;
+    static volatile boolean applicationWidgetPanelCustomIconLightness;
+    static volatile String applicationWidgetPanelVerticalPosition;
+    static volatile boolean applicationWidgetPanelChangeColorsByNightMode;
+    static volatile String  applicationWidgetPanelBackgroundColorNightModeOff;
+    static volatile String  applicationWidgetPanelBackgroundColorNightModeOn;
+    static volatile boolean applicationWidgetIconLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetListLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetPanelLightnessTChangeByNightMode;
+    static volatile boolean applicationWidgetPanelRoundedCorners;
+    static volatile int applicationWidgetPanelRoundedCornersRadius;
+    static volatile String applicationWidgetPanelLightnessBorder;
+    static volatile boolean applicationWidgetPanelShowBorder;
+    static volatile boolean applicationWidgetPanelUseDynamicColors;
+    static volatile boolean applicationWidgetIconLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetListLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetPanelLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode;
+    static volatile boolean applicationWidgetIconLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowIconLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetListIconLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetPanelIconLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowProfileListIconLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetListPrefIndicatorLightnessChangeByNightMode;
+    static volatile boolean applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -341,6 +365,10 @@ class ApplicationPreferences {
     //static volatile boolean prefProfilePrefsActivityStartTargetHelpsFinished;
     static volatile boolean prefEventPrefsActivityStartTargetHelps;
     //static volatile boolean prefEventPrefsActivityStartTargetHelpsFinished;
+    static volatile boolean applicationWidgetOneRowPrefIndicatorUseDynamicColor;
+    static volatile boolean applicationWidgetListPrefIndicatorUseDynamicColor;
+    static volatile boolean applicationEditorHideEventDetails;
+    static volatile boolean applicationEditorHideEventDetailsForStartOrder;
 
     private volatile static SharedPreferences preferences = null;
 
@@ -445,14 +473,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
     //static final String PREF_NOTIFICATION_THEME = "notificationTheme";
     static final String PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES = "applicationForceSetMergeRingNotificationVolumes";
-    //private static final String PREF_APPLICATION_SAMSUNG_EDGE_PREF_INDICATOR = "applicationSamsungEdgePrefIndicator";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_HEADER = "applicationSamsungEdgeHeader";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND = "applicationSamsungEdgeBackground";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B = "applicationSamsungEdgeLightnessB";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T = "applicationSamsungEdgeLightnessT";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR = "applicationSamsungEdgeIconColor";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS = "applicationSamsungEdgeIconLightness";
-    //private static final String PREF_APPLICATION_SAMSUNG_EDGE_GRID_LAYOUT= "applicationSamsungEdgeGridLayout";
     static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventLocationScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventWifiScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventBluetoothScanOnlyWhenScreenIsOn";
@@ -465,8 +485,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR = "applicationWidgetListBackgroundColor";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE = "applicationWidgetIconBackgroundType";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR = "applicationWidgetIconBackgroundColor";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE = "applicationSamsungEdgeBackgroundType";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR = "applicationSamsungEdgeBackgroundColor";
     static final String PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING = "applicationEventWifiEnableScannig";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF = "applicationEventWifiScanIfWifiOff";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING = "applicationEventBluetoothEnableScannig";
@@ -497,14 +515,12 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS = "applicationWidgetListCustomIconLightness";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS = "applicationWidgetOneRowCustomIconLightness";
     static final String PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS = "applicationWidgetIconCustomIconLightness";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS = "applicationSamsungEdgeCustomIconLightness";
     //static final String PREF_NOTIFICATION_DARK_BACKGROUND = "notificationDarkBackground";
     static final String PREF_NOTIFICATION_USE_DECORATION = "notificationUseDecoration";
     static final String PREF_NOTIFICATION_LAYOUT_TYPE = "notificationLayoutType";
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR = "notificationBackgroundColor";
     //static final String PREF_APPLICATION_NIGHT_MODE_OFF_THEME = "applicationNightModeOffTheme";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
     static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
     //static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
     static final String PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR = "applicationEditorHideHeaderOrBottomBar";
@@ -534,7 +550,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetIconChangeColorsByNightMode";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetOneRowChangeColorsByNightMode";
     static final String PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetListChangeColorsByNightMode";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE = "applicationSamsungEdgeChangeColorsByNightMode";
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR = "notificationProfileIconColor";
     static final String PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS = "notificationProfileIconLightness";
     static final String PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS = "notificationCustomProfileIconLightness";
@@ -552,8 +567,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetOneRowBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetListBackgroundColorNightModeOff";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetListBackgroundColorNightModeOn";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationSamsungEdgeBackgroundColorNightModeOff";
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT = "applicationWidgetIconLayoutHeight";
     static final String PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND = "applicationWidgetIconFillBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND = "applicationWidgetOneRowFillBackground";
@@ -595,6 +608,45 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_CONTACTS_IN_BACKUP_ENCRIPTED = "applicationContactsInBackupEncripted";
     static final String PREF_APPLICATION_LOCATIONS_IN_BACKUP_ENCRIPTED = "applicationLocationsInBackupEncripted";
     static final String PREF_APPLICATION_HYPER_OS_WIFI_BLUETOOTH_DIALOGS = "applicationHyperOsWifiBluetoothDialogs";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR = "applicationWidgetOneRowPrefIndicatorUseDynamicColor";
+    static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR = "applicationWidgetListPrefIndicatorUseDynamicColor";
+    static final String PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS = "applicationEditorHideEventDetails";
+    static final String PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER = "applicationEditorHideEventDetailsForStartOrder";
+    static final String PREF_APPLICATION_WIDGET_PANEL_HEADER = "applicationWidgetPanelHeader";
+    static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND = "applicationWidgetPanelBackground";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B = "applicationWidgetPanelLightnessB";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T = "applicationWidgetPanelLightnessT";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR = "applicationWidgetPanelIconColor";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS = "applicationWidgetPanelIconLightness";
+    static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE = "applicationWidgetPanelBackgroundType";
+    static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR = "applicationWidgetPanelBackgroundColor";
+    static final String PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS = "applicationWidgetPanelCustomIconLightness";
+    static final String PREF_APPLICATION_WIDGET_PANEL_VERTICAL_POSITION = "applicationWidgetPanelVerticalPosition";
+    static final String PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetPanelChangeColorsByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetPanelBackgroundColorNightModeOff";
+    static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetPanelBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetIconLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetListLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelLightnessTChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER = "applicationWidgetPanelLightnessBorder";
+    static final String PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER = "applicationWidgetPanelShowBorder";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS = "applicationWidgetPanelRoundedCorners";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS = "applicationWidgetPanelRoundedCornersRadius";
+    static final String PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS = "applicationWidgetPanelUseDynamicColors";
+    static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetIconLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetListLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetIconLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowIconLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetListIconLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetPanelIconLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListIconLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetListPrefIndicatorLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -889,17 +941,18 @@ class ApplicationPreferences {
 
     static private final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
     static private final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
-    static String applicationWidgetListBackgroundDefaultValue(Context context) {
+    static String applicationWidgetListBackgroundDefaultValue(/*Context context*/) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetListUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
     static void applicationWidgetListBackground(Context context) {
-       applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, applicationWidgetListBackgroundDefaultValue(context));
+       applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, applicationWidgetListBackgroundDefaultValue(/*context*/));
     }
 
     static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -1148,17 +1201,18 @@ class ApplicationPreferences {
 
     static private final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
     static private final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
-    static String applicationWidgetIconBackgroundDefaultValue(Context context) {
+    static String applicationWidgetIconBackgroundDefaultValue(/*Context context*/) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetIconUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
     static void applicationWidgetIconBackground(Context context) {
-        applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, applicationWidgetIconBackgroundDefaultValue(context));
+        applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, applicationWidgetIconBackgroundDefaultValue(/*context*/));
     }
 
     static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -1185,61 +1239,6 @@ class ApplicationPreferences {
     static void applicationForceSetMergeRingNotificationVolumes(Context context) {
         applicationForceSetMergeRingNotificationVolumes = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
     }
-
-    /*
-    static boolean applicationSamsungEdgePrefIndicator(Context context) {
-        applicationSamsungEdgePrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_PREF_INDICATOR, false);
-        return applicationSamsungEdgePrefIndicator;
-    }
-    */
-
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE = true;
-    static void applicationSamsungEdgeHeader(Context context) {
-        applicationSamsungEdgeHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_HEADER, PREF_APPLICATION_SAMSUNG_EDGE_HEADER_DEFAULT_VALUE);
-    }
-
-    static private final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static private final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
-    static String applicationSamsungEdgeBackgroundDefaultValue() {
-        String defaultValue;
-        if (Build.VERSION.SDK_INT >= 30)
-            // change by night mode is by default enabled, and for this reason set also opaqueness of background to 100
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30P;
-        else
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_DEFAULT_VALUE_30M;
-        return defaultValue;
-    }
-    static void applicationSamsungEdgeBackground(Context context) {
-        applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, applicationSamsungEdgeBackgroundDefaultValue());
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B_DEFAULT_VALUE = "0";
-    static void applicationSamsungEdgeLightnessB(Context context) {
-        applicationSamsungEdgeLightnessB = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static void applicationSamsungEdgeLightnessT(Context context) {
-        applicationSamsungEdgeLightnessT = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR_DEFAULT_VALUE = "0";
-    static void applicationSamsungEdgeIconColor(Context context) {
-        applicationSamsungEdgeIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR_DEFAULT_VALUE);
-        //return applicationSamsungEdgeIconColor;
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-    static void applicationSamsungEdgeIconLightness(Context context) {
-        applicationSamsungEdgeIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS_DEFAULT_VALUE);
-    }
-
-    /*
-    static boolean applicationSamsungEdgeGridLayout(Context context) {
-        applicationSamsungEdgeGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_GRID_LAYOUT, true);
-        return applicationSamsungEdgeGridLayout;
-    }
-    */
 
     static final boolean PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE = false;
     static void applicationEventLocationScanOnlyWhenScreenIsOn(Context context) {
@@ -1298,16 +1297,6 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_DEFAULT_VALUE = "-1"; // white color
     static void applicationWidgetIconBackgroundColor(Context context) {
         applicationWidgetIconBackgroundColor = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_DEFAULT_VALUE);
-    }
-
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE_DEFAULT_VALUE = false;
-    static void applicationSamsungEdgeBackgroundType(Context context) {
-        applicationSamsungEdgeBackgroundType = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_DEFAULT_VALUE = "-1"; // white color
-    static void applicationSamsungEdgeBackgroundColor(Context context) {
-        applicationSamsungEdgeBackgroundColor = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_DEFAULT_VALUE);
     }
 
     /*
@@ -1409,17 +1398,18 @@ class ApplicationPreferences {
 
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
-    static String applicationWidgetOneRowBackgroundDefaultValue(Context context) {
+    static String applicationWidgetOneRowBackgroundDefaultValue(/*Context context*/) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetOneRowUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
     static void applicationWidgetOneRowBackground(Context context) {
-        applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, applicationWidgetOneRowBackgroundDefaultValue(context));
+        applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, applicationWidgetOneRowBackgroundDefaultValue(/*context*/));
     }
 
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -1502,11 +1492,6 @@ class ApplicationPreferences {
         applicationWidgetIconCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
-    static void applicationSamsungEdgeCustomIconLightness(Context context) {
-        applicationSamsungEdgeCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
-    }
-
     /*
     static boolean notificationDarkBackground(Context context) {
         notificationDarkBackground = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_DARK_BACKGROUND, false);
@@ -1560,11 +1545,6 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE = true;
     static void applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(Context context) {
         applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED, PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE = "0";
-    static void applicationSamsungEdgeVerticalPosition(Context context) {
-        applicationSamsungEdgeVerticalPosition = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION, PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION_DEFAULT_VALUE);
     }
 
     static final int PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR_DEFAULT_VALUE = 0xFFFFFFFF;
@@ -1680,17 +1660,17 @@ class ApplicationPreferences {
         applicationEventNotificationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetOneRowRoundedCornersRadius(Context context) {
         applicationWidgetOneRowRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetListRoundedCornersRadius(Context context) {
         applicationWidgetListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
 
-    static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetIconRoundedCornersRadius(Context context) {
         applicationWidgetIconRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
@@ -1856,10 +1836,11 @@ class ApplicationPreferences {
 
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
-    static boolean applicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
+    static boolean applicationWidgetIconChangeColorsByNightModeDefaultValue(/*Context context*/) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1882,15 +1863,16 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetIconChangeColorsByNightModeDefaultValue(context));
+        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetIconChangeColorsByNightModeDefaultValue(/*context*/));
     }
 
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
-    static boolean applicationWidgetOneRowChangeColorsByNightModeDefaultValue(Context context) {
+    static boolean applicationWidgetOneRowChangeColorsByNightModeDefaultValue(/*Context context*/) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1913,15 +1895,16 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowChangeColorsByNightModeDefaultValue(context));
+        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowChangeColorsByNightModeDefaultValue(/*context*/));
     }
 
     static private final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
-    static boolean applicationWidgetListChangeColorsByNightModeDefaultValue(Context context) {
+    static boolean applicationWidgetListChangeColorsByNightModeDefaultValue(/*Context context*/) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1944,28 +1927,7 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetListChangeColorsByNightModeDefaultValue(context));
-    }
-
-    static private final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
-    static private final boolean PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
-    static boolean applicationSamsungEdgeChangeColorsByNightModeDefaultValue() {
-        boolean defaultValue;
-        if (Build.VERSION.SDK_INT >= 30)
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P;
-        else
-            defaultValue = PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L;
-        return defaultValue;
-    }
-    static void applicationSamsungEdgeChangeColorsByNightMode(Context context) {
-        /*if (DebugVersion.enabled) {
-            SharedPreferences mySPrefs = getSharedPreferences(context);
-            SharedPreferences.Editor editor = mySPrefs.edit();
-            editor.remove(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE);
-            editor.apply();
-        }*/
-
-        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE, applicationSamsungEdgeChangeColorsByNightModeDefaultValue());
+        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetListChangeColorsByNightModeDefaultValue(/*context*/));
     }
 
     static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE = "0";
@@ -2003,17 +1965,17 @@ class ApplicationPreferences {
         applicationEventPeriodicScanningDisabledScannigByProfile = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetIconUseDynamicColors(Context context) {
         applicationWidgetIconUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ICON_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetOneRowUseDynamicColors(Context context) {
         applicationWidgetOneRowUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetListUseDynamicColors(Context context) {
         applicationWidgetListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
@@ -2030,44 +1992,40 @@ class ApplicationPreferences {
     }
     */
 
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetIconBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetIconBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetIconBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetIconBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetOneRowBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetOneRowBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetOneRowBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetOneRowBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetListBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetListBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
-    static void applicationSamsungEdgeBackgroundColorNightModeOff(Context context) {
-        applicationSamsungEdgeBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
-    }
-
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
-    static void applicationSamsungEdgeBackgroundColorNightModeOn(Context context) {
-        applicationSamsungEdgeBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE = "2";
@@ -2080,20 +2038,20 @@ class ApplicationPreferences {
         applicationWidgetIconFillBackground = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND_DEFAULT_VALUE);
     }
 
-
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
-    static String applicationWidgetOneRowProfileListBackgroundDefaultValue(Context context) {
+    static String applicationWidgetOneRowProfileListBackgroundDefaultValue(/*Context context*/) {
         String defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetOneRowProfileListUseDynamicColors)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
     static void applicationWidgetOneRowProfileListBackground(Context context) {
-        applicationWidgetOneRowProfileListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND, applicationWidgetOneRowProfileListBackgroundDefaultValue(context));
+        applicationWidgetOneRowProfileListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND, applicationWidgetOneRowProfileListBackgroundDefaultValue(/*context*/));
     }
 
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -2141,7 +2099,7 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
     static void applicationWidgetOneRowProfileListRoundedCornersRadius(Context context) {
         applicationWidgetOneRowProfileListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
     }
@@ -2158,10 +2116,11 @@ class ApplicationPreferences {
 
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
-    static boolean applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(Context context) {
+    static boolean applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(/*Context context*/) {
         boolean defaultValue;
-        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
-                PPApplicationStatic.isOneUILauncherDefault(context))
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (Build.VERSION.SDK_INT >= 31)
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -2184,21 +2143,23 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetOneRowProfileListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(context));
+        applicationWidgetOneRowProfileListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(/*context*/));
     }
 
-    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
     static void applicationWidgetOneRowProfileListUseDynamicColors(Context context) {
         applicationWidgetOneRowProfileListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
     static void applicationWidgetOneRowProfileListBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
         applicationWidgetOneRowProfileListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
     static void applicationWidgetOneRowProfileListBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
         applicationWidgetOneRowProfileListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
 
@@ -2435,6 +2396,231 @@ class ApplicationPreferences {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putLong(PREF_DYNAMIC_SHORTCUT_PROFILE_ID + "_" + shortcut, profileId);
         editor.apply();
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
+    static void applicationWidgetOneRowPrefIndicatorUseDynamicColor(Context context) {
+        applicationWidgetOneRowPrefIndicatorUseDynamicColor = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR, PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
+    static void applicationWidgetListPrefIndicatorUseDynamicColor(Context context) {
+        applicationWidgetListPrefIndicatorUseDynamicColor = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR, PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_USE_DYNAMIC_COLOR_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_DEFAULT_VALUE = false;
+    static void applicationEditorHideEventDetails(Context context) {
+        applicationEditorHideEventDetails = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS, PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE = false;
+    static void applicationEditorHideEventDetailsForStartOrder(Context context) {
+        applicationEditorHideEventDetailsForStartOrder = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_EVENT_DETAILS_FOR_START_ORDER, PREF_APPLICATION_EDITOR_PREF_HIDE_EVENT_DETAILS_FOR_START_ORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_HEADER_DEFAULT_VALUE = true;
+    static void applicationWidgetPanelHeader(Context context) {
+        applicationWidgetPanelHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_HEADER, PREF_APPLICATION_WIDGET_PANEL_HEADER_DEFAULT_VALUE);
+    }
+
+    static private final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static private final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+    static String applicationWidgetPanelBackgroundDefaultValue(/*Context context*/) {
+        String defaultValue;
+        //if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+        //        PPApplicationStatic.isOneUILauncherDefault(context))
+        if (applicationWidgetPanelUseDynamicColors)
+            defaultValue = PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
+    static void applicationWidgetPanelBackground(Context context) {
+        applicationWidgetPanelBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND, applicationWidgetPanelBackgroundDefaultValue(/*context*/));
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B_DEFAULT_VALUE = "0";
+    static void applicationWidgetPanelLightnessB(Context context) {
+        applicationWidgetPanelLightnessB = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_B_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void applicationWidgetPanelLightnessT(Context context) {
+        applicationWidgetPanelLightnessT = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR_DEFAULT_VALUE = "0";
+    static void applicationWidgetPanelIconColor(Context context) {
+        applicationWidgetPanelIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR, PREF_APPLICATION_WIDGET_PANEL_ICON_COLOR_DEFAULT_VALUE);
+        //return applicationWidgetPanelIconColor;
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void applicationWidgetPanelIconLightness(Context context) {
+        applicationWidgetPanelIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelBackgroundType(Context context) {
+        applicationWidgetPanelBackgroundType = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE, PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_TYPE_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_DEFAULT_VALUE = "-1"; // white color
+    static void applicationWidgetPanelBackgroundColor(Context context) {
+        applicationWidgetPanelBackgroundColor = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR, PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelCustomIconLightness(Context context) {
+        applicationWidgetPanelCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_PANEL_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_VERTICAL_POSITION_DEFAULT_VALUE = "0";
+    static void applicationWidgetPanelVerticalPosition(Context context) {
+        applicationWidgetPanelVerticalPosition = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_VERTICAL_POSITION, PREF_APPLICATION_WIDGET_PANEL_VERTICAL_POSITION_DEFAULT_VALUE);
+    }
+
+    static private final boolean PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P = true;
+    static private final boolean PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L = false;
+    static boolean applicationWidgetPanelChangeColorsByNightModeDefaultValue() {
+        boolean defaultValue;
+        if (Build.VERSION.SDK_INT >= 30)
+            defaultValue = PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_30P;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_29L;
+        return defaultValue;
+    }
+    static void applicationWidgetPanelChangeColorsByNightMode(Context context) {
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetPanelChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetPanelChangeColorsByNightModeDefaultValue());
+    }
+
+    static String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE;
+    static void applicationWidgetPanelBackgroundColorNightModeOff(Context context) {
+        PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetLightBackgroundColor));
+        applicationWidgetPanelBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
+    }
+
+    static String PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE;
+    static void applicationWidgetPanelBackgroundColorNightModeOn(Context context) {
+        PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = String.valueOf(context.getColor(R.color.widgetDarkBackgroundColor));
+        applicationWidgetPanelBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_PANEL_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetIconLightnessTChangeByNightMode(Context context) {
+        applicationWidgetIconLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowLightnessTChangeByNightMode(Context context) {
+        applicationWidgetOneRowLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListLightnessTChangeByNightMode(Context context) {
+        applicationWidgetListLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = true;
+    static void applicationWidgetPanelLightnessTChangeByNightMode(Context context) {
+        applicationWidgetPanelLightnessTChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_T_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void applicationWidgetPanelLightnessBorder(Context context) {
+        applicationWidgetPanelLightnessBorder = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelShowBorder(Context context) {
+        applicationWidgetPanelShowBorder = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER, PREF_APPLICATION_WIDGET_PANEL_SHOW_BORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_DEFAULT_VALUE = true;
+    static void applicationWidgetPanelRoundedCorners(Context context) {
+        applicationWidgetPanelRoundedCorners = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS, PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "15";
+    static void applicationWidgetPanelRoundedCornersRadius(Context context) {
+        applicationWidgetPanelRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_PANEL_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS_DEFAULT_VALUE = (Build.VERSION.SDK_INT >= 31);
+    static void applicationWidgetPanelUseDynamicColors(Context context) {
+        applicationWidgetPanelUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_PANEL_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetIconLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetIconLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetOneRowLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetListLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetPanelLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode(Context context) {
+        applicationWidgetOneRowProfileListLightnessBorderChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetIconLightnessChangeByNightMode(Context context) {
+        applicationWidgetIconLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowIconLightnessChangeByNightMode(Context context) {
+        applicationWidgetOneRowIconLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListIconLightnessChangeByNightMode(Context context) {
+        applicationWidgetListIconLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetPanelIconLightnessChangeByNightMode(Context context) {
+        applicationWidgetPanelIconLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_PANEL_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListIconLightnessChangeByNightMode(Context context) {
+        applicationWidgetOneRowProfileListIconLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode(Context context) {
+        applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetListPrefIndicatorLightnessChangeByNightMode(Context context) {
+        applicationWidgetListPrefIndicatorLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode(Context context) {
+        applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
     }
 
 }

@@ -82,12 +82,16 @@ class AddEventAdapter extends BaseAdapter {
 
         View vi = convertView;
 
-        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
+        boolean applicationNotHideEditorHideEventDetails;
+        if (dialog.hideEventDetailsSwitch != null)
+            applicationNotHideEditorHideEventDetails = !dialog.hideEventDetailsValue;
+        else
+            applicationNotHideEditorHideEventDetails = !ApplicationPreferences.applicationEditorHideEventDetails;
 
         if (convertView == null)
         {
             //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (applicationEditorPrefIndicator)
+            if (applicationNotHideEditorHideEventDetails)
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
@@ -99,7 +103,7 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
             //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
-            if (applicationEditorPrefIndicator) {
+            if (applicationNotHideEditorHideEventDetails) {
                 //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
                 holder.eventPreferencesDescription = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -108,7 +112,7 @@ class AddEventAdapter extends BaseAdapter {
             }
             vi.setTag(holder);
             //defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
-            defaultColor = ContextCompat.getColor(context, R.color.activitySecondaryTextColor);
+            defaultColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
         }
         else
         {
@@ -149,7 +153,7 @@ class AddEventAdapter extends BaseAdapter {
             holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
             holder.eventName.setText(sbt);
 
-            if (applicationEditorPrefIndicator)
+            if (applicationNotHideEditorHideEventDetails)
             {
                 if (holder.eventPreferencesDescription != null) {
                     if (position == 0) {
@@ -190,7 +194,7 @@ class AddEventAdapter extends BaseAdapter {
                 holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())
                 {
-                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                    Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.getActivity(), profile._iconBitmap);
                     if (bitmap != null)
                         holder.profileStartIcon.setImageBitmap(bitmap);
                     else {
@@ -215,7 +219,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (applicationEditorPrefIndicator)
+                if (ApplicationPreferences.applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -230,6 +234,9 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileStartIndicator.setVisibility(View.GONE);
                         }
                     }
+                } else {
+                    if (holder.profileStartIndicator != null)
+                        holder.profileStartIndicator.setVisibility(View.GONE);
                 }
             }
             else
@@ -237,14 +244,14 @@ class AddEventAdapter extends BaseAdapter {
                 String profileName = profileStartNamesArray[position];
                 if (position > 0) {
                     profileName = "⊛ " + profileName;
-                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
+                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
                 }
                 else
                     holder.profileStartName.setTextColor(defaultColor);
                 holder.profileStartName.setText(profileName);
                 holder.profileStartIcon.setImageResource(profileStartIconsArray[position]);
-                if (applicationEditorPrefIndicator)
-                {
+                //if (ApplicationPreferences.applicationEditorPrefIndicator)
+                //{
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -252,7 +259,12 @@ class AddEventAdapter extends BaseAdapter {
                         //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
                         holder.profileStartIndicator.setVisibility(View.GONE);
                     }
-                }
+                //} else {
+                //    if (holder.profileStartIndicator != null) {
+                        //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                //        holder.profileStartIndicator.setVisibility(View.GONE);
+                //    }
+                //}
             }
 
             // profile end
@@ -297,7 +309,7 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndName.setText(profileName);
                     holder.profileEndName.setTextColor(defaultColor);
                     if (profile.getIsIconResourceID()) {
-                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.activity, profile._iconBitmap);
+                        Bitmap bitmap = profile.increaseProfileIconBrightnessForActivity(dialog.getActivity(), profile._iconBitmap);
                         if (bitmap != null)
                             holder.profileEndIcon.setImageBitmap(bitmap);
                         else {
@@ -320,7 +332,7 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (applicationEditorPrefIndicator) {
+                    if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -334,6 +346,9 @@ class AddEventAdapter extends BaseAdapter {
                                 holder.profileEndIndicator.setVisibility(View.GONE);
                             }
                         }
+                    } else {
+                        if (holder.profileEndIndicator != null)
+                            holder.profileEndIndicator.setVisibility(View.GONE);
                     }
                 } else {
                     String profileName;
@@ -344,7 +359,7 @@ class AddEventAdapter extends BaseAdapter {
                                 profileName = "⊛ " + StringConstants.STR_MANUAL_SPACE + profileName;
                             else
                                 profileName = "⊛ " + profileName;
-                            holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
+                            holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
                     //}
@@ -378,14 +393,19 @@ class AddEventAdapter extends BaseAdapter {
                     }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndIcon.setImageResource(profileEndIconsArray[position]);
-                    if (applicationEditorPrefIndicator) {
+                    //if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (holder.profileEndIndicator != null)
                             //holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
                             holder.profileEndIndicator.setVisibility(View.GONE);
-                    }
+                    //} else {
+                    //    if (holder.profileEndIndicator != null) {
+                            //holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    //        holder.profileEndIndicator.setVisibility(View.GONE);
+                    //    }
+                    //}
                 }
             }
 

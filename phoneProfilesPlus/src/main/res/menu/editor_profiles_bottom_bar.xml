@@ -5,14 +5,14 @@
     <item android:id="@+id/menu_add_profile"
         android:title="@string/menu_new_profile"
         android:orderInCategory="100"
-        app:showAsAction="always|withText"
+        app:showAsAction="always"
         android:icon="@drawable/ic_action_new_profile"
         tools:ignore="AlwaysShowAction"/>
     <item
         android:id="@+id/menu_default_profile"
         android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
         android:orderInCategory="200"
-        app:showAsAction="always|withText"
+        app:showAsAction="always"
         android:icon="@drawable/ic_action_default_profile" />
     <item
         android:id="@+id/menu_delete_all_profiles"

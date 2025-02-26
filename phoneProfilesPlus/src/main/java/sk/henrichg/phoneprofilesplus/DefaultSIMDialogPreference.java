@@ -180,8 +180,8 @@ public class DefaultSIMDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<DefaultSIMDialogPreference.SavedState>() {
+        public static final Creator<DefaultSIMDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public DefaultSIMDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new DefaultSIMDialogPreference.SavedState(in);

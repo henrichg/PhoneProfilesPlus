@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_nfc_write_tag_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/important_info_left_margin"
+    android:paddingEnd="@dimen/important_info_right_margin"
+    android:fitsSystemWindows="false">
+
+    <include  layout="@layout/activity_nfc_write_tag_land" />
+
+</LinearLayout>

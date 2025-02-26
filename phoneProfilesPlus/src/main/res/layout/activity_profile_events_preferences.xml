@@ -7,19 +7,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginStart="@dimen/activity_margin_start"
-    android:layout_marginEnd="@dimen/activity_margin_end"
-    android:fitsSystemWindows="false">
+    android:layout_marginEnd="@dimen/activity_margin_end">
+<!--    android:fitsSystemWindows="false"    -->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_preferences_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="60dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
         app:titleTextAppearance="@style/PreferenceToolbarTitleText"
         app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="72dp"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp" />
 <!--    android:background="@color/primary"-->
@@ -30,8 +31,11 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="72dp"
+        app:titleTextAppearance="@style/PreferenceToolbarTitleText"
+        app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
+        app:contentInsetEnd="@dimen/content_inset_end"
+        app:contentInsetStart="@dimen/content_inset_start"
+        app:contentInsetStartWithNavigation="@dimen/content_inset_start_with_navigation"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp"
         android:visibility="gone"/>
@@ -45,7 +49,7 @@
         android:layout_marginEnd="@dimen/divider_margin"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="@string/title_activity_phone_profiles_preferences"
+        android:text=""
         style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:textSize="17sp"/>
 
@@ -55,8 +59,9 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
+    <!--
     <LinearLayout
         android:id="@+id/activity_preferences_settings_linla_progress"
         android:layout_width="match_parent"
@@ -73,6 +78,7 @@
             android:indeterminateDrawable="@drawable/ic_progressbar" />
 
     </LinearLayout>
+    -->
 
     <LinearLayout
         android:id="@+id/activity_preferences_settings"

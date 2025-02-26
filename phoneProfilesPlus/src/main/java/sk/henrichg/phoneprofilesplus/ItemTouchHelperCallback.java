@@ -46,9 +46,10 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         mAdapter.onItemDismiss(viewHolder.getAbsoluteAdapterPosition());
     }
 
+    // this is called at end of drag, in Editor adapters is ovverided
     @Override
-    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder
-    ) {
+    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+        EditorActivity.itemDragPerformed = false;
         mAdapter.clearView();
     }
 }

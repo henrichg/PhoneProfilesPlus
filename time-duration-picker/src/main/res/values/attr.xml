@@ -18,7 +18,8 @@
         <!-- Drawable to be used for the clear input button. -->
         <attr name="clearIcon" format="reference"/>
         <!-- Color of the separator line between the display row and the number pad. Defaults to ?colorControlActivated from the appcompat. -->
-        <attr name="separatorColor" format="color|reference"/>
+        <attr name="displaySeparatorColor" format="color|reference"/>
+        <attr name="buttonsSeparatorColor" format="color|reference"/>
         <!-- Background color for the display area. Transparent by default. -->
         <attr name="durationDisplayBackground" format="color|reference"/>
         <!-- Specifies the padding for the number pad buttons. -->

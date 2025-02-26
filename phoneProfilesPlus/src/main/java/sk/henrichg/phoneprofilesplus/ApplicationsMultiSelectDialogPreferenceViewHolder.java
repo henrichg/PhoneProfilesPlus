@@ -13,7 +13,7 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
     private final TextView textViewAppName;
     private final CheckBox checkBox;
 
-    private Application application;
+    private CApplication application;
 
     //private final Context context;
 
@@ -28,16 +28,17 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
         checkBox = itemView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
 
         // If CheckBox is toggled, update the Application it is tagged with.
+        //noinspection DataFlowIssue
         checkBox.setOnClickListener(v -> {
             CheckBox cb = (CheckBox) v;
-            Application application = (Application) cb.getTag();
+            CApplication application = (CApplication) cb.getTag();
             application.checked = cb.isChecked();
         });
 
         itemView.setOnClickListener(this);
     }
 
-    void bindApplication(Application application) {
+    void bindApplication(CApplication application) {
         this.application = application;
 
         // Display Application data

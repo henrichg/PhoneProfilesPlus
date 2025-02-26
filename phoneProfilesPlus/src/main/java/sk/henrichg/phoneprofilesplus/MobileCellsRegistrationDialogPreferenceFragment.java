@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -44,7 +45,6 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
-
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
@@ -54,7 +54,9 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(preference.getTitle());
+        GlobalGUIRoutines.setCustomDialogTitle(prefContext, dialogBuilder, false,
+                            preference.getDialogTitle(), null);
+        //dialogBuilder.setTitle(preference.getTitle());
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -83,17 +85,9 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(dialog -> {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-
-            preference.updateInterface(0, false);
-        });
-
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(mValue, getString(R.string.duration_pref_dlg_edit_duration_tooltip));
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
@@ -115,8 +109,10 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             @Override
             public void afterTextChanged(Editable s) {
                 String value = mCellsName.getText().toString();
+                // ths is required!!!
                 startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                startButton.setEnabled(!value.isEmpty());
+                if (startButton != null)
+                    startButton.setEnabled(!value.isEmpty());
             }
         });
 
@@ -191,11 +187,11 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         }
         );
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)prefContext, preference, false, null);
+        mMobileCellNamesDialog = new MobileCellNamesDialog((AppCompatActivity) prefContext, preference, false, null);
         mCellsName.setOnClickListener(view -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
-                    mMobileCellNamesDialog.show();
+                    mMobileCellNamesDialog.showDialog();
         }
         );
 
@@ -203,11 +199,13 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
         mSeekBarSeconds.setOnSeekBarChangeListener(this);
 
+        //noinspection DataFlowIssue
         mTextViewRange.setText(sMin + " - " + sMax);
 
         startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
+        //noinspection DataFlowIssue
         stopButton.setOnClickListener(v -> {
             updateInterface(0, true);
             //PPApplication.phoneProfilesService.mobileCellsScanner.durationForAutoRegistration = 0;
@@ -220,6 +218,11 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             Intent intent5 = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
             prefContext.sendBroadcast(intent5);
         });
+
+        preference.updateInterface(0, false);
+
+        // required for set changes in dialog buttons
+        mDialog.setOnShowListener(dialog -> preference.updateInterface(0, false));
 
         return mDialog;
     }
@@ -260,7 +263,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
     }
 
     void updateInterface(long millisUntilFinished, boolean forceStop) {
-        if ((mDialog != null) && mDialog.isShowing()) {
+        if ((mDialog != null) /*&& mDialog.isShowing()*/) {
             boolean started = false;
             if ((preference.cellName == null) || preference.cellName.isEmpty())
                 mCellsName.setText(PPApplication.mobileCellsScannerCellsNameForAutoRegistration);
@@ -293,32 +296,37 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             mSeekBarMinutes.setEnabled(!started);
             mSeekBarSeconds.setEnabled(!started);
             mCellsName.setEnabled(!started);
+            /*
             if (started) {
-                ColorStateList colors = mCellsName.getHintTextColors();
-                mCellsName.setTextColor(colors);
+                //ColorStateList colors = mCellsName.getHintTextColors();
+                //mCellsName.setTextColor(colors);
+                mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.buttonDisabledBorderColor));
             } else
                 //mCellsName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
                 mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.accent_color));
+            */
 
-            String value = mCellsName.getText().toString();
-            boolean enable = !value.isEmpty();
-            /*if (started) {
-                if (MobileCellsScanner.isEventAdded(preference.event_id)) {
-                    if (MobileCellsScanner.getEventCount() == 1) {
-                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
-                        enable = false;
+            if (startButton != null) {
+                String value = mCellsName.getText().toString();
+                boolean enable = !value.isEmpty();
+                /*if (started) {
+                    if (MobileCellsScanner.isEventAdded(preference.event_id)) {
+                        if (MobileCellsScanner.getEventCount() == 1) {
+                            startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
+                            enable = false;
+                        }
+                        else
+                            startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
                     }
                     else
-                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
+                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
                 }
-                else
-                    startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
-            }
-            else*/
+                else*/
                 startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
-            startButton.setEnabled(enable);
+                startButton.setEnabled(enable);
 
-            stopButton.setEnabled(started);
+                stopButton.setEnabled(started);
+            }
         }
     }
 

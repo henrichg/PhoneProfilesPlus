@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+// is from reginer android.jar
 import android.app.RemoteServiceException;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+// is from reginer android.jar
 import android.os.DeadSystemException;
 import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;
@@ -76,9 +78,15 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                     } else*/
                     //if ((PPApplication.lockDeviceActivity != null) &&
                     //        (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
-                    if (PPApplication.lockDeviceActivityDisplayed &&
-                            (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
-                        Settings.System.putInt(context.getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
+                    if (PPApplication.lockDeviceActivityOnlyScreenOff &&
+                            (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff != 0)) {
+                        Settings.System.putInt(context.getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForScreenOff);
+                    }
+                    else
+                    if ((!PPApplication.lockDeviceActivityOnlyScreenOff) &&
+                            (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock != 0)) {
+                        Settings.System.putInt(context.getApplicationContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayedForDeviceLock);
+                    }
                 }
             }
         } catch (Exception ee) {

@@ -136,7 +136,7 @@ public class BetterNumberPickerPreference extends DialogPreference {
         }
 
         public static final Creator<BetterNumberPickerPreference.SavedState> CREATOR =
-                new Creator<BetterNumberPickerPreference.SavedState>() {
+                new Creator<>() {
                     public BetterNumberPickerPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new BetterNumberPickerPreference.SavedState(in);

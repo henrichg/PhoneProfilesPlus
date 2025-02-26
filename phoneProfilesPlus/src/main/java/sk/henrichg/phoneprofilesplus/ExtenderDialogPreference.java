@@ -20,8 +20,8 @@ public class ExtenderDialogPreference extends DialogPreference {
     final String enableExtenderSummaryDisabled;
     final String enbaleExtenderPreferenceNameToTest;
     final String enbaleExtenderPreferenceValueToTest;
-    final int requiredExtenderVersionCode;
-    String requiredExtenderVersionName;
+    //final int requiredExtenderVersionCode;
+    //String requiredExtenderVersionName;
 
     public ExtenderDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,12 +42,12 @@ public class ExtenderDialogPreference extends DialogPreference {
                 R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceNameToTest);
         enbaleExtenderPreferenceValueToTest = typedArray.getString(
                 R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceValueToTest);
-        requiredExtenderVersionCode = typedArray.getInt(
-                R.styleable.PPExtenderDialogPreference_requiredExtenderVersionCode, PPApplication.VERSION_CODE_EXTENDER_8_1_3);
-        requiredExtenderVersionName = typedArray.getString(
-                R.styleable.PPExtenderDialogPreference_requiredExtenderVersionName);
-        if ((requiredExtenderVersionName == null) || (requiredExtenderVersionName.isEmpty()))
-            requiredExtenderVersionName = PPApplication.VERSION_NAME_EXTENDER_8_1_3;
+        //requiredExtenderVersionCode = typedArray.getInt(
+        //        R.styleable.PPExtenderDialogPreference_requiredExtenderVersionCode, PPApplication.VERSION_CODE_EXTENDER_REQUIRED);
+        //requiredExtenderVersionName = typedArray.getString(
+        //        R.styleable.PPExtenderDialogPreference_requiredExtenderVersionName);
+        //if ((requiredExtenderVersionName == null) || (requiredExtenderVersionName.isEmpty()))
+        //    requiredExtenderVersionName = PPApplication.VERSION_NAME_EXTENDER_REQUIRED;
 
         typedArray.recycle();
     }
@@ -73,7 +73,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + StringConstants.TAG_BOLD_END_HTML;
 
             if ((installSummary != null) && (!installSummary.isEmpty()))
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + installSummary;
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML + installSummary;
         }
         else {
             String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(_context);
@@ -81,11 +81,11 @@ public class ExtenderDialogPreference extends DialogPreference {
                     " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
 
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
-                    " "+StringConstants.TAG_BOLD_START_HTML + requiredExtenderVersionName + " (" + requiredExtenderVersionCode + ")"+StringConstants.TAG_BOLD_END_HTML;
-            if (extenderVersion < requiredExtenderVersionCode)
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
+                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_REQUIRED + " (" + PPApplication.VERSION_CODE_EXTENDER_REQUIRED + ")"+StringConstants.TAG_BOLD_END_HTML;
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED)
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
 
         int accessibilityEnabled;// = -99;
@@ -94,7 +94,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             accessibilityEnabled = -2;
         else
         if ((extenderVersion > 0) &&
-                (extenderVersion < requiredExtenderVersionCode))
+                (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_REQUIRED))
             // old version
             accessibilityEnabled = -1;
         else
@@ -137,14 +137,13 @@ public class ExtenderDialogPreference extends DialogPreference {
         else {
             summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + StringConstants.TAG_BOLD_END_HTML;
         }
-        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +
+        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +
                 _context.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + StringConstants.STR_COLON_WITH_SPACE +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
-            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + lauchSummary + StringConstants.TAG_BOLD_END_HTML;
+            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_SEPARATOR_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + lauchSummary + StringConstants.TAG_BOLD_END_HTML;
 
-//        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
         setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false,  false, 0, 0, true));
     }
 
@@ -227,8 +226,8 @@ public class ExtenderDialogPreference extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR =
-                new Creator<ExtenderDialogPreference.SavedState>() {
+        public static final Creator<ExtenderDialogPreference.SavedState> CREATOR =
+                new Creator<>() {
                     public ExtenderDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new ExtenderDialogPreference.SavedState(in);

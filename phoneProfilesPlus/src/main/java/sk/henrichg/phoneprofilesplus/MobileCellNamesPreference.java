@@ -234,7 +234,7 @@ public class MobileCellNamesPreference extends DialogPreference {
         }
 
         public static final Creator<MobileCellNamesPreference.SavedState> CREATOR =
-                new Creator<MobileCellNamesPreference.SavedState>() {
+                new Creator<>() {
                     public MobileCellNamesPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new MobileCellNamesPreference.SavedState(in);

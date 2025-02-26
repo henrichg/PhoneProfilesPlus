@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/default_sim_root2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop"
     android:paddingBottom="3dp">
     <!--    android:gravity="center_horizontal"-->
 
@@ -15,7 +15,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <ScrollView
         android:id="@+id/default_sim_root3"
@@ -23,8 +23,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
         tools:ignore="UselessParent">
+<!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
             android:id="@+id/default_sim_root"
@@ -49,10 +49,15 @@
                 android:id="@+id/default_sim_voice_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="15dp"
+                android:paddingStart="@dimen/spinner_padding_horizontal"
+                android:paddingEnd="@dimen/spinner_padding_horizontal"
+                android:paddingTop="@dimen/spinner_padding_vertical"
+                android:paddingBottom="@dimen/spinner_padding_vertical"
                 android:popupElevation="0dp"
                 android:entries="@array/defaultSIMVoiceArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <TextView
@@ -68,10 +73,15 @@
                 android:id="@+id/default_sim_sms_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="15dp"
+                android:paddingStart="@dimen/spinner_padding_horizontal"
+                android:paddingEnd="@dimen/spinner_padding_horizontal"
+                android:paddingTop="@dimen/spinner_padding_vertical"
+                android:paddingBottom="@dimen/spinner_padding_vertical"
                 android:popupElevation="0dp"
                 android:entries="@array/defaultSIMSMSArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <TextView
@@ -87,9 +97,14 @@
                 android:id="@+id/default_sim_data_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
+                android:paddingStart="@dimen/spinner_padding_horizontal"
+                android:paddingEnd="@dimen/spinner_padding_horizontal"
+                android:paddingTop="@dimen/spinner_padding_vertical"
+                android:paddingBottom="@dimen/spinner_padding_vertical"
                 android:popupElevation="0dp"
                 android:entries="@array/defaultSIMDataArray"
+                android:background="@drawable/spinner_background"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
         </LinearLayout>
@@ -102,6 +117,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
 </LinearLayout>

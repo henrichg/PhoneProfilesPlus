@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
@@ -51,7 +52,7 @@ public class EventsPrefsActivity extends AppCompatActivity
     private Toolbar toolbar;
 
     LinearLayout settingsLinearLayout;
-    LinearLayout progressLinearLayout;
+    //LinearLayout progressLinearLayout;
 
     private StartPreferencesActivityAsyncTask startPreferencesActivityAsyncTask = null;
     private FinishPreferencesActivityAsyncTask finishPreferencesActivityAsyncTask = null;
@@ -77,8 +78,16 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.countScreenOrientationLocks = 0;
+
+        EditorActivity.itemDragPerformed = false;
+
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
+
+        //if (Build.VERSION.SDK_INT >= 34)
+        //    EdgeToEdge.enable(this);
+        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
 
         super.onCreate(savedInstanceState);
 
@@ -87,15 +96,16 @@ public class EventsPrefsActivity extends AppCompatActivity
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
+        toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
+        toolbar.setTitle(getString(R.string.event_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
-        progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
+        //progressLinearLayout = findViewById(R.id.activity_preferences_settings_linla_progress);
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);
@@ -111,15 +121,17 @@ public class EventsPrefsActivity extends AppCompatActivity
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
                         Toast.LENGTH_SHORT);
-                PPApplication.blockContactContentObserver = false;
-                ContactsContentObserver.enqueueContactsContentObserverWorker();
+//                PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(1) PPApplication.blockContactContentObserver=false");
+//                PPApplication.blockContactContentObserver = false;
+//                ContactsContentObserver.enqueueContactsContentObserverWorker();
                 super.finish();
                 return;
             }
         }
 
         if (savedInstanceState == null) {
-            PPApplication.blockContactContentObserver = true;
+//            PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onCreate", "(2) PPApplication.blockContactContentObserver=true");
+//            PPApplication.blockContactContentObserver = true;
 
             startPreferencesActivityAsyncTask =
                     new StartPreferencesActivityAsyncTask(this, newEventMode, predefinedEventIndex);
@@ -155,11 +167,12 @@ public class EventsPrefsActivity extends AppCompatActivity
                 new IntentFilter(PPApplication.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        PPApplication.blockContactContentObserver = false;
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsPrefsActivity.onPause", "PPApplication.blockContactContentObserver=false");
+//        PPApplication.blockContactContentObserver = false;
+//    }
 
     @Override
     protected void onStop() {
@@ -174,8 +187,11 @@ public class EventsPrefsActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        PPApplication.blockContactContentObserver = true;
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
+//        PPApplication.blockContactContentObserver = true;
 
+        // TODO !!! why I remove these dialogs for contacts?
+        /*
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)
         //    return;
@@ -191,11 +207,15 @@ public class EventsPrefsActivity extends AppCompatActivity
                 dialogFragment.dismiss();
             }
         }
+        */
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        EditorActivity.itemDragPerformed = false;
+
         event = null;
 
         if ((startPreferencesActivityAsyncTask != null) &&
@@ -289,14 +309,16 @@ public class EventsPrefsActivity extends AppCompatActivity
                     null,
                     null,
                     null,
+                    null,
                     true, true,
                     false, false,
                     true,
+                    false,
                     this
             );
 
             if (!isFinishing())
-                dialog.show();
+                dialog.showDialog();
         }
         else
             finish();
@@ -363,8 +385,9 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void finish() {
-        PPApplication.blockContactContentObserver = false;
-        ContactsContentObserver.enqueueContactsContentObserverWorker();
+//        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.finish", "PPApplication.blockContactContentObserver=false");
+//        PPApplication.blockContactContentObserver = false;
+//        ContactsContentObserver.enqueueContactsContentObserverWorker();
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
@@ -497,6 +520,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         },
                         null,
                         null,
+                        null,
                         (buttonView, isChecked) -> {
                             SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
                             SharedPreferences.Editor editor = settings.edit();
@@ -507,11 +531,12 @@ public class EventsPrefsActivity extends AppCompatActivity
                         true, true,
                         false, true,
                         false,
+                        false,
                         this
                 );
 
                 if (!isFinishing())
-                    dialog.show();
+                    dialog.showDialog();
                 return false;
             }
             //}
@@ -684,34 +709,25 @@ public class EventsPrefsActivity extends AppCompatActivity
 
             Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
-            //TypedValue tv = new TypedValue();
-            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-
-            //final Display display = getWindowManager().getDefaultDisplay();
-
-            //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
             int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
-//                if (appTheme.equals("dark"))
-//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
-//                if (appTheme.equals("dark"))
-//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int titleTextColor = R.color.tabTargetHelpTitleTextColor;
             int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
-//                if (appTheme.equals("dark"))
-//                    textColor = R.color.tabTargetHelpTextColor_dark;
-            //boolean tintTarget = !appTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
             List<TapTarget> targets = new ArrayList<>();
             int id = 1;
             try {
+                //noinspection DataFlowIssue
                 targets.add(
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
                                 .titleTextColor(titleTextColor)
                                 .descriptionTextColor(descriptionTextColor)
+                                .descriptionTextAlpha(PPApplication.descriptionTapTargetAlpha)
+                                .dimColor(R.color.tabTargetHelpDimColor)
+                                .titleTextSize(PPApplication.titleTapTargetSize)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
@@ -722,19 +738,17 @@ public class EventsPrefsActivity extends AppCompatActivity
                 //PPApplicationStatic.recordException(e);
             }
 
+            for (TapTarget target : targets) {
+                target.setDrawBehindStatusBar(true);
+                target.setDrawBehindNavigationBar(true);
+            }
+
             sequence.targets(targets);
             sequence.listener(new TapTargetSequence.Listener() {
                 // This listener will tell us when interesting(tm) events happen in regards
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    //targetHelpsSequenceStarted = false;
-
-                    //SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                    //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, true);
-                    //editor.apply();
-                    //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = true;
-
                 }
 
                 @Override
@@ -744,17 +758,10 @@ public class EventsPrefsActivity extends AppCompatActivity
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    //targetHelpsSequenceStarted = false;
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            //targetHelpsSequenceStarted = true;
-
-            //editor = ApplicationPreferences.getEditor(getApplicationContext());
-            //editor.putBoolean(PREF_START_TARGET_HELPS_FINISHED, false);
-            //editor.apply();
-            //ApplicationPreferences.prefEventPrefsActivityStartTargetHelpsFinished = false;
 
             sequence.start();
         }

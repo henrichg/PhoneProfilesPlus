@@ -138,7 +138,7 @@ public class DurationDialogPreference extends DialogPreference {
         }
 
         public static final Creator<DurationDialogPreference.SavedState> CREATOR =
-                new Creator<DurationDialogPreference.SavedState>() {
+                new Creator<>() {
                     public DurationDialogPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new DurationDialogPreference.SavedState(in);

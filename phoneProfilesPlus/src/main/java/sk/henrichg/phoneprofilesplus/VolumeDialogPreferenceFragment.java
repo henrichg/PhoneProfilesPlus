@@ -11,14 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.lang.ref.WeakReference;
@@ -42,6 +42,12 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     private static volatile Timer playTimer = null;
     static volatile MediaPlayer mediaPlayer = null;
 
+    @Override
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
+        GlobalGUIRoutines.setCustomDialogTitle(preference.getContext(), builder, false,
+                preference.getDialogTitle(), null);
+    }
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(@NonNull Context context)
@@ -59,18 +65,18 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        SwitchCompat noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {
-            HighlightedSpinnerAdapter voiceSpinnerAdapter = new HighlightedSpinnerAdapter(
+            PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (EventsPrefsActivity) context,
-                    R.layout.spinner_highlighted,
+                    R.layout.ppp_spinner_filter,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
-            voiceSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);
             operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
+//            operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.spinner_control_color));
         }
 
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
@@ -316,49 +322,53 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                     }
 
                     try {
-                        if (_preference.volumeType.equalsIgnoreCase("RINGTONE")) {
-                            Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
-                            if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
+                        if (_preference.volumeType != null) {
+                            if (_preference.volumeType.equalsIgnoreCase("RINGTONE")) {
+                                Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
+                                if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
+                                    mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                else
+                                    mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                            } else if (_preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
+                                Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION);
+                                if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.NOTIFICATION_TONE_URI_NONE)))
+                                    mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                else
+                                    mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                            } else if (_preference.volumeType.equalsIgnoreCase("MEDIA")) {
+                                Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
+                                if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
+                                    mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                else
+                                    mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                            } else if (_preference.volumeType.equalsIgnoreCase("ALARM")) {
+                                Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM);
+                                if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.ALARM_TONE_URI_NONE)))
+                                    mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                else
+                                    mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                            } else if (_preference.volumeType.equalsIgnoreCase("SYSTEM"))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                            else
-                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (_preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
-                            Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION);
-                            if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.NOTIFICATION_TONE_URI_NONE)))
+                            else if (_preference.volumeType.equalsIgnoreCase("VOICE")) {
+                                Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
+                                if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
+                                    mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                else
+                                    mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                            } else if (_preference.volumeType.equalsIgnoreCase("DTMF"))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                            else
-                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (_preference.volumeType.equalsIgnoreCase("MEDIA")) {
-                            Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
-                            if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
+                            else if (_preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                            else
-                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (_preference.volumeType.equalsIgnoreCase("ALARM")) {
-                            Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM);
-                            if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.ALARM_TONE_URI_NONE)))
+                            else if (_preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
+                                Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
+                                if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
+                                    mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
+                                else
+                                    mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
+                            } else
                                 mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                            else
-                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (_preference.volumeType.equalsIgnoreCase("SYSTEM"))
-                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (_preference.volumeType.equalsIgnoreCase("VOICE")) {
-                            Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
-                            if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
-                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                            else
-                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else if (_preference.volumeType.equalsIgnoreCase("DTMF"))
-                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (_preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
-                            mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if (_preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
-                            Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);
-                            if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
-                                mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                            else
-                                mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
-                        } else
+                        }
+                        else
                             mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
 
                         if (mediaPlayer != null) {
@@ -420,7 +430,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (preference.forVolumesSensor == 1) {
-            ((HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
+            ((PPSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
 
             preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
 

@@ -25,18 +25,24 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     GlobalUtils.isNowTimeBetweenTimes(
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
+
+//            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ scanningPaused="+scanningPaused);
+//            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ applicationEventWifiEnableScanning="+ApplicationPreferences.applicationEventWifiEnableScanning);
+
             if ((!ApplicationPreferences.applicationEventWifiEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }
 
         if (intent.getAction() != null) {
+//            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ intent.getAction()="+intent.getAction());
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
 
                 boolean resultsUpdated; // = false;
                 if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
 //                    PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                     resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
+//                    PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ resultsUpdated="+resultsUpdated);
                     WifiScanWorker.fillScanResults(appContext);
 //                    PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
                 }
@@ -49,6 +55,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     return;
 
                 final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
+//                PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ forceOneScan="+forceOneScan);
 
                 if (EventStatic.getGlobalEventsRunning(appContext) || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
@@ -61,6 +68,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                         if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
+//                            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ handleEvents");
+//                            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ !!! is with delay 5 second !!!");
                             PPExecutors.handleEvents(appContext,
                                     new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
                                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);

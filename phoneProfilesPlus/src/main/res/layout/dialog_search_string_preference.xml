@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calendar_search_string_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <View
         android:id="@+id/calendar_search_string_pref_dlg_titleBarDivider"
@@ -13,7 +14,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="@color/dialog_divider" />
+        android:background="@color/dialogDividerColor" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,26 +27,47 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/search_string_pref_dlg_helpIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
+            android:padding="@dimen/image_button_padding"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_button_help"
             app:tint="@color/accent_color"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/editor_ripple_item_right_button"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/help_button_tooltip"/>
+<!--        android:layout_centerVertical="true"-->
 
-        <EditText
-            android:id="@+id/search_string_pref_dlg_editText"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/search_string_pref_dlg_helpIcon"
+            android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:selectAllOnFocus="true"
-            android:hint="@string/event_preferences_calendar_search_string"
-            android:inputType="textNoSuggestions|textMultiLine"
-            android:importantForAutofill="no" />
+            android:layout_toStartOf = "@id/search_string_pref_dlg_helpIcon">
+            <EditText
+                android:id="@+id/search_string_pref_dlg_editText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edit_text_border"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:selectAllOnFocus="true"
+                android:inputType="textNoSuggestions"
+                android:importantForAutofill="no"
+                android:hint="@string/application_editor_intent_hint_not_set"
+                style="@style/EditTextStyle"
+                tools:ignore="LabelFor" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:background="@color/activityBackgroundColor"
+                android:text="@string/event_preferences_calendar_search_string" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </LinearLayout>

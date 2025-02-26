@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/dialog_title_divider_paddingTop">
 
     <LinearLayout
         android:id="@+id/configured_profile_preferences_pref_dlg_linla_progress"
@@ -36,7 +36,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
         <ListView
             android:id="@+id/configured_profile_preferences_pref_dlg_listview"
@@ -50,9 +50,9 @@
             android:clipToPadding="false"
             android:choiceMode="singleChoice"
             android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false"
             android:divider="@android:color/transparent"
             android:listSelector="@android:color/transparent" />
+<!--        android:fadeScrollbars="false"-->
 
         <View
             android:id="@+id/profile_pref_dlg_listview_buttonBarDivider"
@@ -61,7 +61,7 @@
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
             android:layout_marginBottom="3dp"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialogDividerColor" />
 
     </LinearLayout>
 

@@ -9,11 +9,12 @@
         app:title="@string/phone_profiles_pref_applicationEventNotification_info"
         app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
         app:key="applicationEventNotificationEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventNotificationEnableScanning"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="applicationEventNotificationNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
@@ -70,12 +71,13 @@
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventNotificationEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <SwitchPreferenceCompat
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
             app:key="applicationEventNotificationScanOnlyWhenScreenIsOn"
             app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             app:defaultValue="false"
             app:dependency="applicationEventNotificationEnableScannig"
-            app:layout="@layout/mp_preference_material_widget" />
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

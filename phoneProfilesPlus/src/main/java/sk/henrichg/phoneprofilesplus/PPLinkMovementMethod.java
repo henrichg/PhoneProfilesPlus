@@ -13,6 +13,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 // Source: https://stackoverflow.com/a/37205216/2863059
 public class PPLinkMovementMethod extends LinkMovementMethod {
 
@@ -98,13 +100,13 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
      */
     class SimpleOnGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
-        public boolean onDown(MotionEvent event) {
+        public boolean onDown(@NonNull MotionEvent event) {
             // Notified when a tap occurs.
             return true;
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {
+        public void onLongPress(@NonNull MotionEvent e) {
             // Notified when a long press occurs.
             String text = mBuffer.toString().replace(StringConstants.STR_HARD_SPACE_DOUBLE_ARROW, "");
             text = text.replace(" "+StringConstants.STR_DOUBLE_ARROW, "");
@@ -153,7 +155,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         }
 
         @Override
-        public boolean onSingleTapConfirmed(MotionEvent event) {
+        public boolean onSingleTapConfirmed(@NonNull MotionEvent event) {
             // Notified when tap occurs.
             String linkText = getLinkText(mWidget, mBuffer, event).replace(StringConstants.STR_HARD_SPACE_DOUBLE_ARROW, "");
             linkText = linkText.replace(" "+StringConstants.STR_DOUBLE_ARROW, "");

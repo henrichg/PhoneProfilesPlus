@@ -200,7 +200,7 @@ public class PPListPreference extends DialogPreference {
         }
 
         public static final Creator<PPListPreference.SavedState> CREATOR =
-                new Creator<PPListPreference.SavedState>() {
+                new Creator<>() {
                     public PPListPreference.SavedState createFromParcel(Parcel in)
                     {
                         return new PPListPreference.SavedState(in);

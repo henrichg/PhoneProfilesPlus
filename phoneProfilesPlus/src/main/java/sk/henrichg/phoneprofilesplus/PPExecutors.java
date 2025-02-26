@@ -43,6 +43,7 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_SMS_EVENT_END = "SENSOR_TYPE_SMS_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER = "SENSOR_TYPE_WIFI_SCANNER";
     static final String SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END = "SENSOR_TYPE_APPLICATION_EVENT_END";
+    static final String SENSOR_NAME_SENSOR_TYPE_CALL_SCREENING_EVENT_END = "SENSOR_TYPE_CALL_SCREENING_EVENT_END";
 
     private PPExecutors() {
         // private constructor to prevent instantiation
@@ -126,6 +127,7 @@ class PPExecutors {
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
+//        PPApplicationStatic.logE("[BLUETOOTH] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "%%%%%%%%%%%%%%%%");
         handleEventsMianWorker(EventsHandler.SENSOR_TYPE_BRIGHTNESS, MainWorker.HANDLE_EVENTS_BRIGHTNESS_WORK_TAG/*, 0*/);
     }
 
@@ -211,6 +213,8 @@ class PPExecutors {
 
                 if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType.length != 0)) {
                     // start events handler
+//                    for (int st : sensorType)
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExecutors.handleEvents", ""+st);
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(sensorType);
                 }

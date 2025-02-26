@@ -495,11 +495,11 @@ public class ProfileListNotification {
         //if (!doNotShowNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 
-        clearOldNotification(appContext);
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            clearOldNotification(appContext);
 
         //if (PhoneProfilesService.getInstance() != null) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] ProfileListNotification.forceDrawNotification", "PPApplication.showPPPNotificationMutex");
-        synchronized (PPApplication.showPPPNotificationMutex) {
             //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.forceDrawNotification", "call of _showNotification");
             _showNotification(appContext/*, false*/);
@@ -947,11 +947,13 @@ public class ProfileListNotification {
             ApplicationPreferences.notificationProfileListDisplayNotification = true;
         }
 
-        if (clear) {
-            clearNotification(appContext);
-            GlobalUtils.sleep(100);
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            if (clear) {
+                clearNotification(appContext);
+                GlobalUtils.sleep(100);
+            }
+            _showNotification(appContext/*, false*/);
         }
-        _showNotification(appContext/*, false*/);
     }
 
     static void disable(Context appContext) {

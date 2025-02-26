@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +18,14 @@ import androidx.cursoradapter.widget.CursorAdapter;
 
 class ActivityLogAdapter extends CursorAdapter {
 
-    private final int KEY_AL_ID;
-    private final int KEY_AL_LOG_DATE_TIME;
-    private final int KEY_AL_LOG_TYPE;
-    private final int KEY_AL_EVENT_NAME;
-    private final int KEY_AL_PROFILE_NAME;
-    //private final int KEY_AL_PROFILE_ICON;
-    //private final int KEY_AL_DURATION_DELAY;
-    private final int KEY_AL_PROFILE_EVENT_COUNT;
+    private final int KEY_AL_ID_COLUMN_IDX;
+    private final int KEY_AL_LOG_DATE_TIME_COLUMN_IDX;
+    private final int KEY_AL_LOG_TYPE_COLUMN_IDX;
+    private final int KEY_AL_EVENT_NAME_COLUMN_IDX;
+    private final int KEY_AL_PROFILE_NAME_COLUMN_IDX;
+    //private final int KEY_AL_PROFILE_ICON_COLUMN_IDX;
+    //private final int KEY_AL_DURATION_DELAY_COLUMN_IDX;
+    private final int KEY_AL_PROFILE_EVENT_COUNT_COLUMN_IDX;
 
     private final SparseIntArray activityTypeStrings = new SparseIntArray();
     private final SparseIntArray activityTypeColors = new SparseIntArray();
@@ -32,14 +33,14 @@ class ActivityLogAdapter extends CursorAdapter {
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
-        KEY_AL_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_ID);
-        KEY_AL_LOG_DATE_TIME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
-        KEY_AL_LOG_TYPE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
-        KEY_AL_EVENT_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
-        KEY_AL_PROFILE_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
+        KEY_AL_ID_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_ID);
+        KEY_AL_LOG_DATE_TIME_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
+        KEY_AL_LOG_TYPE_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
+        KEY_AL_EVENT_NAME_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_EVENT_NAME);
+        KEY_AL_PROFILE_NAME_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
         //KEY_AL_PROFILE_ICON = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_ICON);
         //KEY_AL_DURATION_DELAY = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_DURATION_DELAY);
-        KEY_AL_PROFILE_EVENT_COUNT = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
+        KEY_AL_PROFILE_EVENT_COUNT_COLUMN_IDX = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_EVENT_COUNT);
 
         //activityTypeStrings.put(PPApplication.ALTYPE_LOG_TOP, R.string.altype_logTop);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, R.string.altype_profileActivation);
@@ -87,6 +88,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, R.string.altype_profileError_wifi);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, R.string.altype_profileError_wifiAP);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, R.string.altype_profileError_closeAllApplications);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS, R.string.altype_profileError_sendSMS);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_EXPORT, R.string.altype_dataExport);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, R.string.altype_actionFromExternalApp_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, R.string.altype_actionFromExternalApp_restartEvents);
@@ -105,6 +107,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, R.string.altype_extender_accessibility_service_enabled);
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, R.string.altype_extender_accessibility_service_not_enabled);
         activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, R.string.altype_extender_accessibility_service_unbind);
+        activityTypeStrings.put(PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, R.string.altype_callScreening_blockedCall);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_INSTALLATION, R.string.altype_applicationInstallation);
 
         //int otherColor = R.color.altype_other;
         /*
@@ -120,7 +124,7 @@ class ActivityLogAdapter extends CursorAdapter {
                 break;
         }*/
 
-        int color = shiftColor(ContextCompat.getColor(context, R.color.altype_profile), context);
+        int color = shiftColor(ContextCompat.getColor(context, R.color.altypeProfileColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ACTIVATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, color);
@@ -131,12 +135,12 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE, color);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_eventStart), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeEventStartColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_START, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_eventDelayStartEnd), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeEventDelayStartEndColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_START_DELAY, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_DELAY, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_eventEnd), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeEventEndColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_NONE, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE, color);
@@ -144,10 +148,10 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_STOP, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_restartEvents), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeRestartEventsColor), context);
         activityTypeColors.put(PPApplication.ALTYPE_RESTART_EVENTS, color);
         activityTypeColors.put(PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, color);
-        color = ContextCompat.getColor(context, R.color.altype_error);
+        color = ContextCompat.getColor(context, R.color.altypeErrorColor);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, color);
@@ -160,9 +164,10 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, color);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SEND_SMS, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND, color);
-        color = shiftColor(ContextCompat.getColor(context, R.color.altype_other), context);
+        color = shiftColor(ContextCompat.getColor(context, R.color.altypeOtherColor), context);
         //activityTypeColors.put(PPApplication.ALTYPE_LOG_TOP, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, color);
@@ -191,10 +196,24 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, color);
         activityTypeColors.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, color);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_INSTALLATION, color);
     }
 
     private void setRowData(MyRowViewHolder rowData, Cursor cursor, Context context) {
-        if (cursor.getInt(KEY_AL_ID) == -1) {
+        int logType = cursor.getInt(KEY_AL_LOG_TYPE_COLUMN_IDX);
+
+        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+            rowData.logDateTime.setTypeface(null, Typeface.BOLD);
+            rowData.logType.setTypeface(null, Typeface.BOLD);
+            rowData.logData.setTypeface(null, Typeface.BOLD);
+        } else {
+            rowData.logDateTime.setTypeface(null, Typeface.NORMAL);
+            rowData.logType.setTypeface(null, Typeface.NORMAL);
+            rowData.logData.setTypeface(null, Typeface.NORMAL);
+        }
+
+        if (cursor.getInt(KEY_AL_ID_COLUMN_IDX) == -1) {
             //Log.e("ActivityLogAdapter.setRowData", "KEY_AL_ID=-1");
             rowData.logTypeColor.setBackgroundResource(R.color.activityBackgroundColor);
             rowData.logTypeColor.setAlpha(0);
@@ -202,19 +221,21 @@ class ActivityLogAdapter extends CursorAdapter {
         }
         else {
             //Log.e("ActivityLogAdapter.setRowData", "color="+activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE)));
+            rowData.logTypeColor.setBackgroundColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE_COLUMN_IDX)));
             rowData.logTypeColor.setAlpha(1);
-            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+            rowData.logDateTime.setText(StringFormatUtils.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME_COLUMN_IDX)));
         }
 
-        int logType = cursor.getInt(KEY_AL_LOG_TYPE);
         String logTypeText;
-        if (cursor.getInt(KEY_AL_ID) == -1) {
+        if (cursor.getInt(KEY_AL_ID_COLUMN_IDX) == -1) {
             logTypeText = "---";
         } else {
             logTypeText = context.getString(activityTypeStrings.get(logType));
+            if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+                logTypeText = "*** " + logTypeText + " ***";
+            }
             if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
-                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
+                String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT_COLUMN_IDX);
                 if (profileEventCount != null)
                     logTypeText = logTypeText + " " + profileEventCount;
             }
@@ -222,14 +243,19 @@ class ActivityLogAdapter extends CursorAdapter {
         rowData.logType.setText(logTypeText);
 
         String logData = "";
-        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
-        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
-        if (event_name != null)
-            logData = logData + event_name;
-        if (profile_name != null) {
-            if (!logData.isEmpty())
-                logData = logData + " ";
-            logData = logData + profile_name;
+        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+            logData = context.getString(R.string.activityLog_blockedCall_telNumber) + " " +
+                    cursor.getString(KEY_AL_PROFILE_NAME_COLUMN_IDX); // in profile name is blocked tel. number
+        } else {
+            String event_name = cursor.getString(KEY_AL_EVENT_NAME_COLUMN_IDX);
+            String profile_name = cursor.getString(KEY_AL_PROFILE_NAME_COLUMN_IDX);
+            if (event_name != null)
+                logData = logData + event_name;
+            if (profile_name != null) {
+                if (!logData.isEmpty())
+                    logData = logData + " ";
+                logData = logData + profile_name;
+            }
         }
         rowData.logData.setText(logData);
         //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
@@ -274,8 +300,9 @@ class ActivityLogAdapter extends CursorAdapter {
         //TextView profileName;
     }
 
-    void reload(Context context/*DataWrapper dataWrapper*/) {
-        changeCursor(DatabaseHandler.getInstance(/*dataWrapper.*/context.getApplicationContext()).getActivityLogCursor());
+    void reload(Context context, int selectedFilter) {
+        changeCursor(DatabaseHandler.getInstance(
+                /*dataWrapper.*/context.getApplicationContext()).getActivityLogCursor(selectedFilter));
     }
 
     private int shiftColor(int color, Context context) {
