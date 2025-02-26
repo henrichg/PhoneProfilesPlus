@@ -104,4 +104,7 @@
     <dimen name="single_selection_subtitle_text_size">16dp</dimen>
     <dimen name="single_selection_title_paddingTop">15dp</dimen>
 
+    <dimen name="dialog_activity_button_min_height">42dp</dimen>
+    <dimen name="dialog_activity_button_marginTop">15dp</dimen>
+
 </resources>

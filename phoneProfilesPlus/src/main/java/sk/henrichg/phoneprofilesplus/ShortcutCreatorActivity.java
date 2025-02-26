@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -126,5 +127,18 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         GlobalGUIRoutines.reloadActivity(this, false);
     }
     */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 
 }
