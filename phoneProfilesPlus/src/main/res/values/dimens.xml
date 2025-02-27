@@ -212,5 +212,6 @@
 
     <dimen name="dialog_activity_button_min_height">42dp</dimen>
     <dimen name="dialog_activity_button_marginTop">15dp</dimen>
+    <dimen name="dialog_activity_button_marginBottom">10dp</dimen>
 
 </resources>

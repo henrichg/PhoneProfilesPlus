@@ -90,7 +90,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
 
-        <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
+        <item name="android:windowTitleStyle">@style/DialogTitleStyle</item>
 
         <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
 
@@ -127,7 +127,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
 
-        <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
+        <item name="android:windowTitleStyle">@style/DialogTitleStyle</item>
 
         <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
     </style>
@@ -225,11 +225,18 @@
 <!--        <item name="android:background">@drawable/actionbar_item_background</item>-->
     </style>
 
-    <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">
+    <style name="DialogTitleStyle" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">@dimen/dialog_title_text_size</item>
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">3</item>
     </style>
+
+<!--    <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">-->
+<!--        <item name="android:textSize">@dimen/dialog_title_text_size</item>-->
+<!--        <item name="android:singleLine">false</item>-->
+<!--        <item name="android:maxLines">3</item>-->
+<!--        <item name="android:paddingTop">@dimen/single_selection_title_paddingTop</item>-->
+<!--    </style>-->
 
     <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/preference_title_text_size</item>

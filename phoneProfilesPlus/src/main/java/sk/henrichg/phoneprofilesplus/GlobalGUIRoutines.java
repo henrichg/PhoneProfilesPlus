@@ -129,44 +129,10 @@ class GlobalGUIRoutines {
         }
         else
         if (forDonation) {
-            /*if (PPApplication.deviceIsOnePlus) {
-                if (Build.VERSION.SDK_INT >= 33)
-                    return R.style.DialogTheme_dayNight;
-                else
-                    return R.style.DialogTheme_dayNight_noRipple;
-            }
-            else
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
-                return R.style.DialogTheme_dayNight_noRipple;
-            }
-            else {
-                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
-                        (Build.VERSION.SDK_INT >= 33))
-                    return R.style.DialogTheme_dayNight_samsung;
-                else
-                    return R.style.DialogTheme_dayNight;
-            }*/
             return R.style.DonationTheme_dayNight;
         }
         else
         if (forDialog) {
-            /*if (PPApplication.deviceIsOnePlus) {
-                if (Build.VERSION.SDK_INT >= 33)
-                    return R.style.DialogTheme_dayNight;
-                else
-                    return R.style.DialogTheme_dayNight_noRipple;
-            }
-            else
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
-                return R.style.DialogTheme_dayNight_noRipple;
-            }
-            else {
-                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
-                        (Build.VERSION.SDK_INT >= 33))
-                    return R.style.DialogTheme_dayNight_samsung;
-                else
-                    return R.style.DialogTheme_dayNight;
-            }*/
             return R.style.DialogTheme_dayNight;
         }
         else
