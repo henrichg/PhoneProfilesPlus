@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,6 +98,7 @@ public class ActivityLogActivity extends AppCompatActivity
                 getString(R.string.activity_log_filter_all),
                 getString(R.string.activity_log_filter_blocked_calls),
                 getString(R.string.activity_log_filter_errors),
+                getString(R.string.activity_log_filter_events_lifecycle),
                 getString(R.string.activity_log_filter_event_start),
                 getString(R.string.activity_log_filter_event_end),
                 getString(R.string.activity_log_filter_event_stop),
@@ -134,6 +136,7 @@ public class ActivityLogActivity extends AppCompatActivity
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("ActivityLogActivity,filterSpinner.onItemSelected", "position="+position);
                 //if (!filterInitialized) {
                 //    filterInitialized = true;
                 //    return;
@@ -157,18 +160,21 @@ public class ActivityLogActivity extends AppCompatActivity
                         selectedFilter = PPApplication.ALFITER_ERRORS;
                         break;
                     case 3:
-                        selectedFilter = PPApplication.ALFILTER_EVENT_START;
+                        selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
                         break;
                     case 4:
-                        selectedFilter = PPApplication.ALFILTER_EVENT_END;
+                        selectedFilter = PPApplication.ALFILTER_EVENT_START;
                         break;
                     case 5:
-                        selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
+                        selectedFilter = PPApplication.ALFILTER_EVENT_END;
                         break;
                     case 6:
-                        selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
+                        selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
                         break;
                     case 7:
+                        selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
+                        break;
+                    case 8:
                         selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
                         break;
                     default:
@@ -381,8 +387,6 @@ public class ActivityLogActivity extends AppCompatActivity
         setAdapterAsyncTask =
                 new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
         setAdapterAsyncTask.execute();
-
-        filterSpinner.setSelection(selectedFilter);
     }
 
     private static class SetAdapterAsyncTask extends AsyncTask<Void, Integer, Void> {
