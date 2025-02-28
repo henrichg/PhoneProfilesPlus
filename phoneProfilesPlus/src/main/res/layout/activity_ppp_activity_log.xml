@@ -50,6 +50,24 @@
             android:background="@drawable/spinner_background"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
+        <Button
+            android:id="@+id/activity_log_filter_activated_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/profile_string_0"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:minHeight="@dimen/button_min_height"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
+            android:minWidth="@dimen/button_min_width"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="@drawable/pp_button_background_selector"
+            style="?android:attr/borderlessButtonStyle" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout

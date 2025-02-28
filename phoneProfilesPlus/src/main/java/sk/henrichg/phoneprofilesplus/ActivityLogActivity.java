@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class ActivityLogActivity extends AppCompatActivity
     AppCompatSpinner filterSpinner;
     Toolbar subToolbar;
     LinearLayout listHeader;
+    Button activatedProfileButton;
 
     private int selectedFilter = 0;
 
@@ -97,6 +99,8 @@ public class ActivityLogActivity extends AppCompatActivity
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
+        activatedProfileButton = findViewById(R.id.activity_log_filter_activated_profile);
+
         filterSpinner = findViewById(R.id.activity_log_filter_spinner);
         String[] filterItems = new String[] {
                 getString(R.string.activity_log_filter_all),
@@ -150,52 +154,61 @@ public class ActivityLogActivity extends AppCompatActivity
                     ((PPSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
-                boolean setFilter = true;
                 int selectedFilter;
                 switch (position) {
                     case 0:
                         //noinspection DuplicateBranchesInSwitch
                         selectedFilter = PPApplication.ALFILTER_ALL;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 1:
                         selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 2:
                         selectedFilter = PPApplication.ALFITER_ERRORS;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 3:
                         selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 4:
                         selectedFilter = PPApplication.ALFILTER_EVENT_START;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 5:
                         selectedFilter = PPApplication.ALFILTER_EVENT_END;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 6:
                         selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 7:
                         selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
+                        activatedProfileButton.setVisibility(View.GONE);
                         break;
                     case 8:
-                        ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
-                        if (!isFinishing())
-                            dialog.showDialog();
                         selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
-                        setFilter = false;
+                        activatedProfileButton.setVisibility(View.VISIBLE);
                         break;
                     default:
                         selectedFilter = PPApplication.ALFILTER_ALL;
+                        activatedProfileButton.setVisibility(View.GONE);
                 }
-                if (setFilter)
-                    selectFilterItem(selectedFilter);
+                selectFilterItem(selectedFilter);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
+        activatedProfileButton.setOnClickListener(v -> {
+            ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
+            if (!isFinishing())
+                dialog.showDialog();
+        });
 
         //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
