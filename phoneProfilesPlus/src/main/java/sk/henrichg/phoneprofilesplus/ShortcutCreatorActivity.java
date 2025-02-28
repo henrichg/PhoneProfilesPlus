@@ -17,6 +17,8 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false, false);
 
         super.onCreate(savedInstanceState);
+        // animation
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] ShortcutCreatorActivity.onCreate", "xxx");
 
@@ -139,6 +141,13 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
     }
 
 }

@@ -104,6 +104,8 @@ public class ActivatorActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false, false);
 
         super.onCreate(savedInstanceState);
+        // animation
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
 
         firstStartOfPPP = PPApplicationStatic.getSavedVersionCode(getApplicationContext()) == 0;
 
@@ -837,6 +839,13 @@ public class ActivatorActivity extends AppCompatActivity
                 }
             }
         }
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
     }
 
 }
