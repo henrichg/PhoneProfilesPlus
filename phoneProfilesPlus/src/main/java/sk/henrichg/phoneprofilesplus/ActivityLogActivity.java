@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +31,7 @@ import java.lang.ref.WeakReference;
 public class ActivityLogActivity extends AppCompatActivity
                                             implements AddedActivityLogListener {
 
+    //ActivityLogActivity mActivity;
     //private DataWrapper dataWrapper;
     private ListView listView;
     private LinearLayout progressLinearLayout;
@@ -42,6 +42,8 @@ public class ActivityLogActivity extends AppCompatActivity
     LinearLayout listHeader;
 
     private int selectedFilter = 0;
+
+    long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
@@ -72,6 +74,8 @@ public class ActivityLogActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //mActivity = this;
+
         GlobalGUIRoutines.countScreenOrientationLocks = 0;
 
         EditorActivity.itemDragPerformed = false;
@@ -136,7 +140,6 @@ public class ActivityLogActivity extends AppCompatActivity
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("ActivityLogActivity,filterSpinner.onItemSelected", "position="+position);
                 //if (!filterInitialized) {
                 //    filterInitialized = true;
                 //    return;
@@ -147,6 +150,7 @@ public class ActivityLogActivity extends AppCompatActivity
                     ((PPSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
+                boolean setFilter = true;
                 int selectedFilter;
                 switch (position) {
                     case 0:
@@ -175,12 +179,17 @@ public class ActivityLogActivity extends AppCompatActivity
                         selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
                         break;
                     case 8:
+                        ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
+                        if (!isFinishing())
+                            dialog.showDialog();
                         selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
+                        setFilter = false;
                         break;
                     default:
                         selectedFilter = PPApplication.ALFILTER_ALL;
                 }
-                selectFilterItem(selectedFilter);
+                if (setFilter)
+                    selectFilterItem(selectedFilter);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -295,7 +304,7 @@ public class ActivityLogActivity extends AppCompatActivity
         if (itemId == R.id.menu_activity_log_reload) {
             //addedNewLogs = false;
             addedNewLogsText.setVisibility(View.GONE);
-            activityLogAdapter.reload(getApplicationContext(), selectedFilter);
+            activityLogAdapter.reload(this, selectedFilter);
             listView.setSelection(0);
             return true;
         }
@@ -311,7 +320,7 @@ public class ActivityLogActivity extends AppCompatActivity
                         //addedNewLogs = false;
                         addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(getApplicationContext(), selectedFilter);
+                        activityLogAdapter.reload(this, selectedFilter);
                     },
                     null,
                     null,
@@ -337,7 +346,7 @@ public class ActivityLogActivity extends AppCompatActivity
             PPApplicationStatic.setActivityLogEnabled(getApplicationContext(), !enabled);
             if (!enabled)
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, "");
-            activityLogAdapter.reload(getApplicationContext(), selectedFilter);
+            activityLogAdapter.reload(this, selectedFilter);
             listView.setSelection(0);
             invalidateOptionsMenu();
             return true;
@@ -408,10 +417,17 @@ public class ActivityLogActivity extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... params) {
             Context context = contextWeakReference.get();
+            ActivityLogActivity activity = activityWeakReference.get();
 
-            if (context != null) {
+            if ((context != null) && (activity != null)) {
+                String profileName = "";
+                if ((activity.mActivatedProfileFilter != 0) &&
+                        (activity.mActivatedProfileFilter != Profile.PROFILE_NO_ACTIVATE))
+                    profileName = DatabaseHandler.getInstance(context.getApplicationContext()).
+                            getProfileName(activity.mActivatedProfileFilter);
                 activityLogCursor =
-                        DatabaseHandler.getInstance(context.getApplicationContext()).getActivityLogCursor(_selectedFilter);
+                        DatabaseHandler.getInstance(context.getApplicationContext())
+                                .getActivityLogCursor(_selectedFilter, profileName);
             }
 
             return null;
@@ -426,7 +442,7 @@ public class ActivityLogActivity extends AppCompatActivity
 
             if ((context != null) && (activity != null)) {
                 if (activityLogCursor != null) {
-                    activity.activityLogAdapter = new ActivityLogAdapter(activity.getBaseContext(), activityLogCursor);
+                    activity.activityLogAdapter = new ActivityLogAdapter(activity, activityLogCursor);
 
                     // Attach cursor adapter to the ListView
                     activity.listView.setAdapter(activity.activityLogAdapter);
@@ -463,4 +479,8 @@ public class ActivityLogActivity extends AppCompatActivity
 
     }
 
+    void setActivatedPorfilesFilter() {
+        int selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
+        selectFilterItem(selectedFilter);
+    }
 }

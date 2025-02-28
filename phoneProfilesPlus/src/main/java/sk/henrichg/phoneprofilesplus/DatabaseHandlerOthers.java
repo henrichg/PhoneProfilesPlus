@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Vibrator;
+import android.util.Log;
 
 class DatabaseHandlerOthers {
 
@@ -89,7 +90,8 @@ class DatabaseHandlerOthers {
         }
     }
 
-    static Cursor getActivityLogCursor(DatabaseHandler instance, int selectedFilter) {
+    static Cursor getActivityLogCursor(DatabaseHandler instance,
+                                       int selectedFilter, String activatedProfileName) {
         instance.importExportLock.lock();
         try {
             Cursor cursor = null;
@@ -176,6 +178,8 @@ class DatabaseHandlerOthers {
                                 PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE + ", " +
                                 PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION +
                                 ")";
+                        if (!activatedProfileName.isEmpty())
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_PROFILE_NAME + " LIKE '" + activatedProfileName + "%'";
                         break;
                     case PPApplication.ALFILTER_EVENTS_LIFECYCLE:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
