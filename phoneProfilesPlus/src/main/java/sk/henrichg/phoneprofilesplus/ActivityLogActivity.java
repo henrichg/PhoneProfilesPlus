@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +49,9 @@ public class ActivityLogActivity extends AppCompatActivity
     long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
+
+    private static final String EXTRA_SELECTED_FILTER = "EXTRA_SELECTED_FILTER";
+    private static final String EXTRA_ACTIVATED_PROFILE_DILTER = "EXTRA_ACTIVATED_PROFILE_DILTER";
 
     //boolean addedNewLogs = false;
 
@@ -89,6 +93,9 @@ public class ActivityLogActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_ppp_activity_log);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
+
+        mActivatedProfileFilter = getIntent().getLongExtra(EXTRA_ACTIVATED_PROFILE_DILTER, Profile.PROFILE_NO_ACTIVATE);
+        selectedFilter = getIntent().getIntExtra(EXTRA_SELECTED_FILTER, 0);
 
         Toolbar toolbar = findViewById(R.id.activity_log_toolbar);
         setSupportActionBar(toolbar);
@@ -403,6 +410,20 @@ public class ActivityLogActivity extends AppCompatActivity
         */
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putLong(EXTRA_ACTIVATED_PROFILE_DILTER, mActivatedProfileFilter);
+        savedInstanceState.putInt(EXTRA_SELECTED_FILTER, selectedFilter);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mActivatedProfileFilter = savedInstanceState.getLong(EXTRA_ACTIVATED_PROFILE_DILTER, Profile.PROFILE_NO_ACTIVATE);
+        selectedFilter = savedInstanceState.getInt(EXTRA_SELECTED_FILTER, 0);
+    }
+
     private void selectFilterItem(int selectedFilter) {
         this.selectedFilter = selectedFilter;
 
@@ -434,6 +455,7 @@ public class ActivityLogActivity extends AppCompatActivity
 
             if ((context != null) && (activity != null)) {
                 String profileName = "";
+                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "mActivatedProfileFilter="+activity.mActivatedProfileFilter);
                 if ((activity.mActivatedProfileFilter != 0) &&
                         (activity.mActivatedProfileFilter != Profile.PROFILE_NO_ACTIVATE))
                     profileName = DatabaseHandler.getInstance(context.getApplicationContext()).

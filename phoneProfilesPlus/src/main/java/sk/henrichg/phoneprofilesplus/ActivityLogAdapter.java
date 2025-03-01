@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -306,6 +307,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
     void reload(ActivityLogActivity activity, int selectedFilter) {
         String profileName = "";
+        Log.e("ActivityLogAdapter.reload", "mActivatedProfileFilter="+activity.mActivatedProfileFilter);
         if ((activity.mActivatedProfileFilter != 0) &&
                 (activity.mActivatedProfileFilter != Profile.PROFILE_NO_ACTIVATE))
             profileName = DatabaseHandler.getInstance(activity.getApplicationContext()).
