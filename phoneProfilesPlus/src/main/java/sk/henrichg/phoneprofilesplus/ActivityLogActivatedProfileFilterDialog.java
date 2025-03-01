@@ -30,9 +30,12 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     private ListView listView;
     private RelativeLayout emptyList;
 
+    long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
     private boolean profileSet = false;
 
     private ShowDialogAsyncTask showDialogAsyncTask = null;
+
+    private static final String EXTRA_ACTIVATED_PROFILE_FILTER = "EXTRA_ACTIVATED_PROFILE_FILTER";
 
     public ActivityLogActivatedProfileFilterDialog() {
     }
@@ -48,7 +51,11 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.activity = (ActivityLogActivity) getActivity();
         if (activity != null) {
-            GlobalGUIRoutines.lockScreenOrientation(activity);
+            //GlobalGUIRoutines.lockScreenOrientation(activity);
+
+            Bundle arguments = getArguments();
+            if (arguments != null)
+                mActivatedProfileFilter = arguments.getLong(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
@@ -94,14 +101,14 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
         dataWrapper.invalidateDataWrapper();
 
         if (activity != null) {
-            GlobalGUIRoutines.unlockScreenOrientation(activity);
+            //GlobalGUIRoutines.unlockScreenOrientation(activity);
             if (!profileSet)
                 activity.setActivatedPorfilesFilter();
         }
     }
 
     private void doShow() {
-        showDialogAsyncTask = new ShowDialogAsyncTask(activity.mActivatedProfileFilter, this, activity);
+        showDialogAsyncTask = new ShowDialogAsyncTask(mActivatedProfileFilter, this, activity);
         showDialogAsyncTask.execute();
     }
 
@@ -114,6 +121,7 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
                 profileId = dataWrapper.profileList.get(position - 1)._id;
             }
         }
+        mActivatedProfileFilter = profileId;
         activity.mActivatedProfileFilter = profileId;
         profileSet = true;
         activity.setActivatedPorfilesFilter();

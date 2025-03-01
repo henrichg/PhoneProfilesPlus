@@ -50,7 +50,7 @@ public class ActivityLogActivity extends AppCompatActivity
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
     private static final String EXTRA_SELECTED_FILTER = "EXTRA_SELECTED_FILTER";
-    private static final String EXTRA_ACTIVATED_PROFILE_DILTER = "EXTRA_ACTIVATED_PROFILE_DILTER";
+    private static final String EXTRA_ACTIVATED_PROFILE_FILTER = "EXTRA_ACTIVATED_PROFILE_FILTER";
 
     //boolean addedNewLogs = false;
 
@@ -93,7 +93,7 @@ public class ActivityLogActivity extends AppCompatActivity
         setContentView(R.layout.activity_ppp_activity_log);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
-        mActivatedProfileFilter = getIntent().getLongExtra(EXTRA_ACTIVATED_PROFILE_DILTER, Profile.PROFILE_NO_ACTIVATE);
+        mActivatedProfileFilter = getIntent().getLongExtra(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
         selectedFilter = getIntent().getIntExtra(EXTRA_SELECTED_FILTER, 0);
 
         Toolbar toolbar = findViewById(R.id.activity_log_toolbar);
@@ -211,9 +211,13 @@ public class ActivityLogActivity extends AppCompatActivity
         });
 
         activatedProfileButton.setOnClickListener(v -> {
-            ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
-            if (!isFinishing())
+            if (!isFinishing()) {
+                Bundle bundle = new Bundle();
+                bundle.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
+                ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
+                dialog.setArguments(bundle);
                 dialog.showDialog();
+            }
         });
 
         //addedNewLogs = false;
@@ -412,14 +416,14 @@ public class ActivityLogActivity extends AppCompatActivity
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putLong(EXTRA_ACTIVATED_PROFILE_DILTER, mActivatedProfileFilter);
+        savedInstanceState.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
         savedInstanceState.putInt(EXTRA_SELECTED_FILTER, selectedFilter);
     }
 
     @Override
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mActivatedProfileFilter = savedInstanceState.getLong(EXTRA_ACTIVATED_PROFILE_DILTER, Profile.PROFILE_NO_ACTIVATE);
+        mActivatedProfileFilter = savedInstanceState.getLong(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
         selectedFilter = savedInstanceState.getInt(EXTRA_SELECTED_FILTER, 0);
     }
 
