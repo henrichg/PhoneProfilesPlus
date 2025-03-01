@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -455,7 +454,6 @@ public class ActivityLogActivity extends AppCompatActivity
 
             if ((context != null) && (activity != null)) {
                 String profileName = "";
-                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "mActivatedProfileFilter="+activity.mActivatedProfileFilter);
                 if ((activity.mActivatedProfileFilter != 0) &&
                         (activity.mActivatedProfileFilter != Profile.PROFILE_NO_ACTIVATE))
                     profileName = DatabaseHandler.getInstance(context.getApplicationContext()).
