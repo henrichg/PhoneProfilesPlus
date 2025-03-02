@@ -45,7 +45,7 @@ public class ActivityLogActivity extends AppCompatActivity
     Button activatedProfileButton;
     Button eventButton;
 
-    private int selectedFilter = 0;
+    int mSelectedFilter = 0;
 
     long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
     long mEventFilter = 0;
@@ -99,7 +99,7 @@ public class ActivityLogActivity extends AppCompatActivity
 
         mActivatedProfileFilter = getIntent().getLongExtra(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
         mEventFilter = getIntent().getLongExtra(EXTRA_EVENT_FILTER, 0);
-        selectedFilter = getIntent().getIntExtra(EXTRA_SELECTED_FILTER, 0);
+        mSelectedFilter = getIntent().getIntExtra(EXTRA_SELECTED_FILTER, 0);
 
         Toolbar toolbar = findViewById(R.id.activity_log_toolbar);
         setSupportActionBar(toolbar);
@@ -166,60 +166,60 @@ public class ActivityLogActivity extends AppCompatActivity
                     ((PPSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
-                int selectedFilter;
+                int _selectedFilter;
                 switch (position) {
                     case 0:
                         //noinspection DuplicateBranchesInSwitch
-                        selectedFilter = PPApplication.ALFILTER_ALL;
+                        _selectedFilter = PPApplication.ALFILTER_ALL;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.GONE);
                         break;
                     case 1:
-                        selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
+                        _selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.GONE);
                         break;
                     case 2:
-                        selectedFilter = PPApplication.ALFITER_ERRORS;
+                        _selectedFilter = PPApplication.ALFITER_ERRORS;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.GONE);
                         break;
                     case 3:
-                        selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
+                        _selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.VISIBLE);
                         break;
                     case 4:
-                        selectedFilter = PPApplication.ALFILTER_EVENT_START;
+                        _selectedFilter = PPApplication.ALFILTER_EVENT_START;
                         activatedProfileButton.setVisibility(View.GONE);
-                        eventButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.VISIBLE);
                         break;
                     case 5:
-                        selectedFilter = PPApplication.ALFILTER_EVENT_END;
+                        _selectedFilter = PPApplication.ALFILTER_EVENT_END;
                         activatedProfileButton.setVisibility(View.GONE);
-                        eventButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.VISIBLE);
                         break;
                     case 6:
-                        selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
+                        _selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
                         activatedProfileButton.setVisibility(View.GONE);
-                        eventButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.VISIBLE);
                         break;
                     case 7:
-                        selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
+                        _selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.GONE);
                         break;
                     case 8:
-                        selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
+                        _selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
                         activatedProfileButton.setVisibility(View.VISIBLE);
                         eventButton.setVisibility(View.GONE);
                         break;
                     default:
-                        selectedFilter = PPApplication.ALFILTER_ALL;
+                        _selectedFilter = PPApplication.ALFILTER_ALL;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.GONE);
                 }
-                selectFilterItem(selectedFilter);
+                selectFilterItem(_selectedFilter);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -228,21 +228,21 @@ public class ActivityLogActivity extends AppCompatActivity
 
         activatedProfileButton.setOnClickListener(v -> {
             if (!isFinishing()) {
-                Bundle bundle = new Bundle();
+                /*Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
-                bundle.putLong(EXTRA_SELECTED_FILTER, selectedFilter);
+                bundle.putLong(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
                 ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
-                dialog.setArguments(bundle);
+                //dialog.setArguments(bundle);
                 dialog.showDialog();
             }
         });
         eventButton.setOnClickListener(v -> {
             if (!isFinishing()) {
-                Bundle bundle = new Bundle();
+                /*Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_EVENT_FILTER, mEventFilter);
-                bundle.putLong(EXTRA_SELECTED_FILTER, selectedFilter);
+                bundle.putLong(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
                 ActivityLogEventsFilterDialog dialog = new ActivityLogEventsFilterDialog((ActivityLogActivity) filterSpinner.getContext());
-                dialog.setArguments(bundle);
+                //dialog.setArguments(bundle);
                 dialog.showDialog();
             }
         });
@@ -309,7 +309,7 @@ public class ActivityLogActivity extends AppCompatActivity
         super.onStart();
 
         setAdapterAsyncTask =
-                new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
+                new SetAdapterAsyncTask(mSelectedFilter, this, getApplicationContext());
         setAdapterAsyncTask.execute();
     }
 
@@ -354,7 +354,7 @@ public class ActivityLogActivity extends AppCompatActivity
         if (itemId == R.id.menu_activity_log_reload) {
             //addedNewLogs = false;
             addedNewLogsText.setVisibility(View.GONE);
-            activityLogAdapter.reload(this, selectedFilter);
+            activityLogAdapter.reload(this, mSelectedFilter);
             listView.setSelection(0);
             return true;
         }
@@ -370,7 +370,7 @@ public class ActivityLogActivity extends AppCompatActivity
                         //addedNewLogs = false;
                         addedNewLogsText.setVisibility(View.GONE);
                         DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(this, selectedFilter);
+                        activityLogAdapter.reload(this, mSelectedFilter);
                     },
                     null,
                     null,
@@ -396,7 +396,7 @@ public class ActivityLogActivity extends AppCompatActivity
             PPApplicationStatic.setActivityLogEnabled(getApplicationContext(), !enabled);
             if (!enabled)
                 PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, "");
-            activityLogAdapter.reload(this, selectedFilter);
+            activityLogAdapter.reload(this, mSelectedFilter);
             listView.setSelection(0);
             invalidateOptionsMenu();
             return true;
@@ -445,7 +445,7 @@ public class ActivityLogActivity extends AppCompatActivity
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
         savedInstanceState.putLong(EXTRA_EVENT_FILTER, mEventFilter);
-        savedInstanceState.putInt(EXTRA_SELECTED_FILTER, selectedFilter);
+        savedInstanceState.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);
     }
 
     @Override
@@ -453,14 +453,15 @@ public class ActivityLogActivity extends AppCompatActivity
         super.onRestoreInstanceState(savedInstanceState);
         mActivatedProfileFilter = savedInstanceState.getLong(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
         mEventFilter = savedInstanceState.getLong(EXTRA_EVENT_FILTER, 0);
-        selectedFilter = savedInstanceState.getInt(EXTRA_SELECTED_FILTER, 0);
+        mSelectedFilter = savedInstanceState.getInt(EXTRA_SELECTED_FILTER, 0);
+        Log.e("ActivityLogActivity.onRestoreInstanceState", "mSelectedFilter="+mSelectedFilter);
     }
 
-    private void selectFilterItem(int selectedFilter) {
-        this.selectedFilter = selectedFilter;
+    private void selectFilterItem(int _selectedFilter) {
+        this.mSelectedFilter = _selectedFilter;
 
         setAdapterAsyncTask =
-                new SetAdapterAsyncTask(selectedFilter, this, getApplicationContext());
+                new SetAdapterAsyncTask(mSelectedFilter, this, getApplicationContext());
         setAdapterAsyncTask.execute();
     }
 
@@ -495,8 +496,9 @@ public class ActivityLogActivity extends AppCompatActivity
                 if (activity.mEventFilter != 0)
                     eventName = DatabaseHandler.getInstance(context.getApplicationContext()).
                             getEventName(activity.mEventFilter);
-                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "mEventFilter="+activity.mEventFilter);
-                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "eventName="+eventName);
+//                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "_selectedFilter="+_selectedFilter);
+//                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "mEventFilter="+activity.mEventFilter);
+//                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "eventName="+eventName);
 
                 activityLogCursor =
                         DatabaseHandler.getInstance(context.getApplicationContext())

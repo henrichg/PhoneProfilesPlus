@@ -250,10 +250,10 @@ class ActivityLogAdapter extends CursorAdapter {
         } else {
             String event_name = cursor.getString(KEY_AL_EVENT_NAME_COLUMN_IDX);
             String profile_name = cursor.getString(KEY_AL_PROFILE_NAME_COLUMN_IDX);
-            if (logType == PPApplication.ALTYPE_EVENT_START) {
-                Log.e("ActivityLogAdapter.setRowData", "event_name=" + event_name);
-                Log.e("ActivityLogAdapter.setRowData", "profile_name=" + profile_name);
-            }
+//            if (logType == PPApplication.ALTYPE_EVENT_START) {
+//                Log.e("ActivityLogAdapter.setRowData", "event_name=" + event_name);
+//                Log.e("ActivityLogAdapter.setRowData", "profile_name=" + profile_name);
+//            }
             if (event_name != null)
                 logData = logData + event_name;
             if (profile_name != null) {

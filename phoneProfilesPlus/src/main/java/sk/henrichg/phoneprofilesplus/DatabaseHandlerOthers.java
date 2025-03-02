@@ -131,10 +131,14 @@ class DatabaseHandlerOthers {
                         ")";
                         break;
                     case PPApplication.ALFILTER_EVENT_START:
+                        Log.e("DatabaseHandlerOthers.getActivityLogCursor", "eventName="+eventName);
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
                                 PPApplication.ALTYPE_EVENT_START + ", " +
                                 PPApplication.ALTYPE_EVENT_START_DELAY +
                                 ")";
+                        if (!eventName.isEmpty()) {
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "'";
+                        }
                         break;
                     case PPApplication.ALFILTER_EVENT_END:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
@@ -151,12 +155,18 @@ class DatabaseHandlerOthers {
                                 PPApplication.ALTYPE_EVENT_END_DELAY + ", " +
                                 PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT +
                                 ")";
+                        if (!eventName.isEmpty()) {
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "'";
+                        }
                         break;
                     case PPApplication.ALFILTER_EVENT_STOP:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
                                 PPApplication.ALTYPE_EVENT_STOP + ", " +
                                 PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT +
                                 ")";
+                        if (!eventName.isEmpty()) {
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "'";
+                        }
                         break;
                     case PPApplication.ALFILTER_RESTART_EVENTS:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
@@ -184,7 +194,6 @@ class DatabaseHandlerOthers {
                             whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_PROFILE_NAME + " LIKE '" + activatedProfileName + "%'";
                         break;
                     case PPApplication.ALFILTER_EVENTS_LIFECYCLE:
-                        Log.e("DatabaseHandlerOthers.getActivityLogCursor", "eventName="+eventName);
                         if (eventName.isEmpty()) {
                             whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE + " IN (" +
                                     PPApplication.ALTYPE_EVENT_START + ", " +

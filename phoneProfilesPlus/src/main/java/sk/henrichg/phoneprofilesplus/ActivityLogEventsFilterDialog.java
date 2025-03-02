@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,7 +14,6 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 import java.lang.ref.WeakReference;
@@ -34,7 +34,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
 
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
-    private int selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
+    //private int selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
     private long mEventFilter = 0;
     private boolean eventSet = false;
 
@@ -54,11 +54,19 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
         if (this.activity != null) {
             dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
+            GlobalGUIRoutines.lockScreenOrientation(activity);
+
+            /*
             Bundle arguments = getArguments();
             if (arguments != null) {
                 mEventFilter = arguments.getLong(ActivityLogActivity.EXTRA_EVENT_FILTER, 0);
-                selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
+                //selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
+                selectedFilter = activity.mSelectedFilter;
             }
+            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "mEventFilter="+mEventFilter);
+            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "selectedFilter="+selectedFilter);
+            */
+            mEventFilter = activity.mEventFilter;
 
             this.eventListFragment = (EditorEventListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
 
@@ -117,12 +125,10 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
         dataWrapper.invalidateDataWrapper();
 
         if (activity != null) {
-            //GlobalGUIRoutines.unlockScreenOrientation(activity);
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
             if (!eventSet)
-                activity.setEventFilter(selectedFilter);
+                activity.setEventFilter(activity.mSelectedFilter/*selectedFilter*/);
         }
-
-        this.eventListFragment = null;
     }
 
     private void doShow() {
@@ -142,7 +148,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
         mEventFilter = eventId;
         activity.mEventFilter = eventId;
         eventSet = true;
-        activity.setEventFilter(selectedFilter);
+        activity.setEventFilter(activity.mSelectedFilter/*selectedFilter*/);
 
         dismiss();
     }
@@ -150,7 +156,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing()))
             //mDialog.show();
-            show(activity.getSupportFragmentManager(), "ADD_EVENT_DIALOG");
+            show(activity.getSupportFragmentManager(), "ACTIVITY_LOG_EVENT_FILTER_DIALOG");
     }
 
     private static class AlphabeticallyComparator implements Comparator<Event> {
