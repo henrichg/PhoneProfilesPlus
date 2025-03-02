@@ -20,6 +20,7 @@ import java.util.List;
 class ActivityLogEventsFilterAdapter extends BaseAdapter {
 
     private final List<Event> eventList;
+    private final long eventId;
 
     private int defaultColor;
 
@@ -27,12 +28,17 @@ class ActivityLogEventsFilterAdapter extends BaseAdapter {
 
     private final Context context;
 
-    ActivityLogEventsFilterAdapter(ActivityLogEventsFilterDialog dialog, Context c, List<Event> eventList)
+    ActivityLogEventsFilterAdapter(ActivityLogEventsFilterDialog dialog, Context c, long eventId, List<Event> eventList)
     {
         context = c;
 
         this.dialog = dialog;
         this.eventList = eventList;
+
+        if (eventId == -1)
+            this.eventId = 0;
+        else
+            this.eventId = eventId;
 
         //LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -108,6 +114,8 @@ class ActivityLogEventsFilterAdapter extends BaseAdapter {
             event = eventList.get(position-1);
 
         if (event != null) {
+            holder.radioButton.setChecked(eventId == event._id);
+
             String eventName = event._name;
             if (event._ignoreManualActivation) {
                 if (event._noPauseByManualActivation)
@@ -373,6 +381,8 @@ class ActivityLogEventsFilterAdapter extends BaseAdapter {
         } else {
             if (position == 0)
             {
+                holder.radioButton.setChecked((eventId == 0));
+
                 String eventName = context.getString(R.string.activity_log_filter_events_all_events);
                 holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
                 holder.eventName.setText(eventName);

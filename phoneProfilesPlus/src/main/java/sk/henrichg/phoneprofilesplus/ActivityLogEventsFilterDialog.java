@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -19,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ActivityLogEventsFilterDialog extends DialogFragment
@@ -33,7 +33,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
     private ListView listView;
-    private TextView help;
     SwitchCompat hideEventDetailsSwitch;
     boolean hideEventDetailsValue;
 
@@ -94,7 +93,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
             rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
 
             listView = layout.findViewById(R.id.event_pref_dlg_listview);
-            help = layout.findViewById(R.id.event_pref_dlg_help);
             hideEventDetailsSwitch = layout.findViewById(R.id.event_hide_event_details);
             if (hideEventDetailsSwitch != null)
                 hideEventDetailsSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetails);
@@ -118,7 +116,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
                 hideEventDetailsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (!activity.isFinishing()) {
                         hideEventDetailsValue = isChecked;
-                        getEventsAsyncTask = new GetEventsAsyncTask(this, activity);
+                        getEventsAsyncTask = new GetEventsAsyncTask(mEventFilter, this, activity);
                         getEventsAsyncTask.execute();
                         //((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
                         //listView.invalidate();
@@ -150,7 +148,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     }
 
     private void doShow() {
-        getEventsAsyncTask = new GetEventsAsyncTask(this, activity);
+        getEventsAsyncTask = new GetEventsAsyncTask(mEventFilter, this, activity);
         getEventsAsyncTask.execute();
     }
 
@@ -177,16 +175,29 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
             show(activity.getSupportFragmentManager(), "ADD_EVENT_DIALOG");
     }
 
+    private static class AlphabeticallyComparator implements Comparator<Event> {
+
+        public int compare(Event lhs, Event rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs._name, rhs._name);
+            else
+                return 0;
+        }
+    }
+
+
     private static class GetEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
-        boolean profileNotExists = false;
+        final long selectedEvent;
 
         private final WeakReference<ActivityLogEventsFilterDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakRef;
 
-        public GetEventsAsyncTask(final ActivityLogEventsFilterDialog dialog,
+        public GetEventsAsyncTask(final long selectedEvent,
+                                  final ActivityLogEventsFilterDialog dialog,
                                   final Activity activity) {
             this.dialogWeakRef = new WeakReference<>(dialog);
             this.activityWeakRef = new WeakReference<>(activity);
+            this.selectedEvent = selectedEvent;
         }
 
         /*@Override
@@ -204,9 +215,9 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
                 dialog.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 dialog.dataWrapper.fillEventList();
 //                PPApplicationStatic.logE("[SYNCHRONIZED] AskForDurationActivateProfileDialog.ShowDialogAsyncTask", "DataWrapper.profileList");
-                //synchronized (dialog.dataWrapper.profileList) {
-                //    dialog.dataWrapper.profileList.sort(new ActivityLogActivatedProfileFilterDialog.AlphabeticallyComparator());
-                //}
+                synchronized (dialog.dataWrapper.eventList) {
+                    dialog.dataWrapper.eventList.sort(new ActivityLogEventsFilterDialog.AlphabeticallyComparator());
+                }
             }
 
             return null;
@@ -223,11 +234,31 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
                 dialog.linlaProgress.setVisibility(View.GONE);
                 dialog.rellaData.setVisibility(View.VISIBLE);
 
-                if (profileNotExists)
-                    dialog.help.setVisibility(View.VISIBLE);
-
-                ActivityLogEventsFilterAdapter eventAdapter = new ActivityLogEventsFilterAdapter(dialog, activity, dialog.eventList);
+                ActivityLogEventsFilterAdapter eventAdapter = new ActivityLogEventsFilterAdapter(dialog, activity, selectedEvent, dialog.eventList);
                 dialog.listView.setAdapter(eventAdapter);
+
+                //noinspection ExtractMethodRecommender
+                int position;
+                long iEventId;
+                iEventId = selectedEvent;
+                if (iEventId == 0)
+                    position = 0;
+                else {
+                    boolean found = false;
+                    position = 0;
+                    for (Event event : dialog.dataWrapper.eventList) {
+                        if (event._id == iEventId) {
+                            found = true;
+                            break;
+                        }
+                        position++;
+                    }
+                    if (found) {
+                        position++;
+                    } else
+                        position = 0;
+                }
+                dialog.listView.setSelection(position);
             }
         }
 

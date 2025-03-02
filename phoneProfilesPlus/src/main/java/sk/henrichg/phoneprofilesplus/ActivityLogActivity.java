@@ -42,6 +42,7 @@ public class ActivityLogActivity extends AppCompatActivity
     Toolbar subToolbar;
     LinearLayout listHeader;
     Button activatedProfileButton;
+    Button eventButton;
 
     private int selectedFilter = 0;
 
@@ -109,6 +110,7 @@ public class ActivityLogActivity extends AppCompatActivity
         }
 
         activatedProfileButton = findViewById(R.id.activity_log_filter_activated_profile);
+        eventButton = findViewById(R.id.activity_log_filter_event);
 
         filterSpinner = findViewById(R.id.activity_log_filter_spinner);
         String[] filterItems = new String[] {
@@ -169,42 +171,52 @@ public class ActivityLogActivity extends AppCompatActivity
                         //noinspection DuplicateBranchesInSwitch
                         selectedFilter = PPApplication.ALFILTER_ALL;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 1:
                         selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 2:
                         selectedFilter = PPApplication.ALFITER_ERRORS;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 3:
                         selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.VISIBLE);
                         break;
                     case 4:
                         selectedFilter = PPApplication.ALFILTER_EVENT_START;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 5:
                         selectedFilter = PPApplication.ALFILTER_EVENT_END;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 6:
                         selectedFilter = PPApplication.ALFILTER_EVENT_STOP;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 7:
                         selectedFilter = PPApplication.ALFILTER_RESTART_EVENTS;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     case 8:
                         selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
                         activatedProfileButton.setVisibility(View.VISIBLE);
+                        eventButton.setVisibility(View.GONE);
                         break;
                     default:
                         selectedFilter = PPApplication.ALFILTER_ALL;
                         activatedProfileButton.setVisibility(View.GONE);
+                        eventButton.setVisibility(View.GONE);
                 }
                 selectFilterItem(selectedFilter);
             }
@@ -223,7 +235,16 @@ public class ActivityLogActivity extends AppCompatActivity
                 dialog.showDialog();
             }
         });
-        // TODO sem daj volanie dialogu na vyber udalsoti
+        eventButton.setOnClickListener(v -> {
+            if (!isFinishing()) {
+                Bundle bundle = new Bundle();
+                bundle.putLong(EXTRA_EVENT_FILTER, mEventFilter);
+                bundle.putLong(EXTRA_SELECTED_FILTER, selectedFilter);
+                ActivityLogEventsFilterDialog dialog = new ActivityLogEventsFilterDialog((ActivityLogActivity) filterSpinner.getContext());
+                dialog.setArguments(bundle);
+                dialog.showDialog();
+            }
+        });
 
         //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);

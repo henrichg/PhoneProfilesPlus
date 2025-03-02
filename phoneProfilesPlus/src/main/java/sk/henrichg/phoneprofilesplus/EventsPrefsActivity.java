@@ -190,7 +190,6 @@ public class EventsPrefsActivity extends AppCompatActivity
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] EventsPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
 //        PPApplication.blockContactContentObserver = true;
 
-        // TODO !!! why I remove these dialogs for contacts?
         /*
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)

@@ -148,14 +148,14 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
 
         private final WeakReference<ActivityLogActivatedProfileFilterDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakReference;
-        final long afterDoProfile;
+        final long selectedProfile;
 
-        public ShowDialogAsyncTask(final long afterDoProfile,
+        public ShowDialogAsyncTask(final long selectedProfile,
                                    ActivityLogActivatedProfileFilterDialog dialog,
                                    Activity activity) {
             this.dialogWeakRef = new WeakReference<>(dialog);
             this.activityWeakReference = new WeakReference<>(activity);
-            this.afterDoProfile = afterDoProfile;
+            this.selectedProfile = selectedProfile;
         }
 
         /*@Override
@@ -202,13 +202,13 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
                     }
 
                     ActivityLogActivatedProfileFilterAdapter adapter = new ActivityLogActivatedProfileFilterAdapter(
-                            dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
+                            dialog, activity, selectedProfile, dialog.dataWrapper.profileList);
                     dialog.listView.setAdapter(adapter);
 
                     //noinspection ExtractMethodRecommender
                     int position;
                     long iProfileId;
-                    iProfileId = afterDoProfile;
+                    iProfileId = selectedProfile;
                     if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
                         position = 0;
                     else {
