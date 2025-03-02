@@ -2312,6 +2312,8 @@
     <string name="pref_dlg_contacts_button_refresh">Refresh</string>
     <string name="activity_log_filter_events_lifecycle">Events lifecycle</string>
     <string name="activity_log_filter_profile_activation_all_profiles">All profiles</string>
+    <string name="activity_log_filter_events_all_events">All events</string>
+    <string name="activity_log_filter_events_profile_not_exists">Profile not exists</string>
 
     <!-- **************************************************************************************** -->
 

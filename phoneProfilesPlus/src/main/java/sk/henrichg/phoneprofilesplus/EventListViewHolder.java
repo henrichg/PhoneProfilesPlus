@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-class AddEventViewHolder {
+class EventListViewHolder {
     RadioButton radioButton;
     TextView eventName;
     TextView eventPreferencesDescription;

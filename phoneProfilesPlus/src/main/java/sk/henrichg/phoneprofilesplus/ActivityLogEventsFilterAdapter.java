@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.text.Spannable;
@@ -18,20 +17,17 @@ import androidx.core.content.ContextCompat;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-class AddEventAdapter extends BaseAdapter {
+class ActivityLogEventsFilterAdapter extends BaseAdapter {
 
     private final List<Event> eventList;
-    private final String[] profileStartNamesArray;
-    private final String[] profileEndNamesArray;
-    private final int[] profileStartIconsArray;
-    private final int[] profileEndIconsArray;
+
     private int defaultColor;
 
-    private final AddEventDialog dialog;
+    private final ActivityLogEventsFilterDialog dialog;
 
     private final Context context;
 
-    AddEventAdapter(AddEventDialog dialog, Context c, List<Event> eventList)
+    ActivityLogEventsFilterAdapter(ActivityLogEventsFilterDialog dialog, Context c, List<Event> eventList)
     {
         context = c;
 
@@ -39,36 +35,21 @@ class AddEventAdapter extends BaseAdapter {
         this.eventList = eventList;
 
         //LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        profileStartNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
-        profileEndNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedEndProfilesArray);
-
-        //noinspection resource
-        TypedArray profileStartIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
-        profileStartIconsArray = new int[profileStartIconsTypedArray.length()];
-        int length = profileStartIconsTypedArray.length();
-        for (int i = 0; i < length; i++) {
-            profileStartIconsArray[i] = profileStartIconsTypedArray.getResourceId(i, -1);
-        }
-        profileStartIconsTypedArray.recycle();
-
-        //noinspection resource
-        TypedArray profileEndIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedEndProfileIconsArray);
-        profileEndIconsArray = new int[profileEndIconsTypedArray.length()];
-        int lenght = profileEndIconsTypedArray.length();
-        for (int i = 0; i < lenght; i++) {
-            profileEndIconsArray[i] = profileEndIconsTypedArray.getResourceId(i, -1);
-        }
-        profileEndIconsTypedArray.recycle();
     }
 
     public int getCount() {
+        if (eventList == null)
+            return 0;
+
         return eventList.size();
     }
 
     public Object getItem(int position) {
         Event event;
-        event = eventList.get(position);
+        if (position == 0)
+            event = null;
+        else
+            event = eventList.get(position-1);
         return event;
     }
 
@@ -92,9 +73,9 @@ class AddEventAdapter extends BaseAdapter {
         {
             //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (applicationNotHideEditorHideEventDetails)
-                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_event_preference, parent, false);
             else
-                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_event_preference_no_indicator, parent, false);
             holder = new EventListViewHolder();
             holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
@@ -120,12 +101,14 @@ class AddEventAdapter extends BaseAdapter {
         }
 
 
-        final Event event = (Event)getItem(position);
+        Event event;
+        if (position == 0)
+            event = null;
+        else
+            event = eventList.get(position-1);
 
         if (event != null) {
             String eventName = event._name;
-            if (position == 0)
-                eventName = context.getString(R.string.new_empty_event);
             if (event._ignoreManualActivation) {
                 if (event._noPauseByManualActivation)
                     eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
@@ -146,38 +129,24 @@ class AddEventAdapter extends BaseAdapter {
             }
 
             Spannable sbt = new SpannableString(eventName);
-            if (position == 0)
-                sbt.setSpan(new RelativeSizeSpan(0.8f), context.getString(R.string.new_empty_event).length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            else
-                sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
             holder.eventName.setText(sbt);
 
             if (applicationNotHideEditorHideEventDetails)
             {
                 if (holder.eventPreferencesDescription != null) {
-                    if (position == 0) {
-                        holder.eventPreferencesDescription.setVisibility(View.GONE);
+                    holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
+                    //String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
+                    //holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
+                    if (event._peferencesDecription != null)
+                        holder.eventPreferencesDescription.setText(event._peferencesDecription);
 
-                        /*
-                        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
-                        parameter.setMargins(0, GlobalGUIRoutines.dpToPx(2), 0, 0); // left, top, right, bottom
-                        holder.profilesRoot.setLayoutParams(parameter);
-                        */
-                    }
-                    else {
-                        holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
-                        //String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        //holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
-                        if (event._peferencesDecription != null)
-                            holder.eventPreferencesDescription.setText(event._peferencesDecription);
-
-                        /*
-                        RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
-                        parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
-                        holder.profilesRoot.setLayoutParams(parameter);
-                        */
-                    }
+                    /*
+                    RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
+                    parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
+                    holder.profilesRoot.setLayoutParams(parameter);
+                    */
                 }
             }
 
@@ -241,15 +210,10 @@ class AddEventAdapter extends BaseAdapter {
             }
             else
             {
-                String profileName = profileStartNamesArray[position];
-                if (position > 0) {
-                    profileName = "⊛ " + profileName;
-                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
-                }
-                else
-                    holder.profileStartName.setTextColor(defaultColor);
+                String profileName = context.getString(R.string.activity_log_filter_events_profile_not_exists);
+                holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
                 holder.profileStartName.setText(profileName);
-                holder.profileStartIcon.setImageResource(profileStartIconsArray[position]);
+                holder.profileStartIcon.setImageResource(R.drawable.ic_profile_default);
                 //if (ApplicationPreferences.applicationEditorPrefIndicator)
                 //{
                     //profilePrefIndicatorImageView.setImageBitmap(null);
@@ -351,14 +315,11 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileEndIndicator.setVisibility(View.GONE);
                     }
                 } else {
-                    String profileName;
+                    String profileName = context.getString(R.string.activity_log_filter_events_profile_not_exists);
                     //if (event._atEndHowUndo == 0) {
-                        profileName = profileEndNamesArray[position];
-                        if ((position > 0) && (!profileName.isEmpty())) {
+                        if (!profileName.isEmpty()) {
                             if (event._manualProfileActivationAtEnd)
-                                profileName = "⊛ " + StringConstants.STR_MANUAL_SPACE + profileName;
-                            else
-                                profileName = "⊛ " + profileName;
+                                profileName = StringConstants.STR_MANUAL_SPACE + profileName;
                             holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.errorColor));
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
@@ -392,7 +353,7 @@ class AddEventAdapter extends BaseAdapter {
                             profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     }
                     holder.profileEndName.setText(profileName);
-                    holder.profileEndIcon.setImageResource(profileEndIconsArray[position]);
+                    holder.profileEndIcon.setImageResource(R.drawable.ic_profile_default);
                     //if (ApplicationPreferences.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -409,6 +370,23 @@ class AddEventAdapter extends BaseAdapter {
                 }
             }
 
+        } else {
+            if (position == 0)
+            {
+                String eventName = context.getString(R.string.activity_log_filter_events_all_events);
+                holder.eventName.setTextColor(ContextCompat.getColor(context, R.color.activityNormalTextColor));
+                holder.eventName.setText(eventName);
+
+                holder.profileStartName.setVisibility(View.GONE);
+                holder.profileStartIcon.setVisibility(View.GONE);
+                holder.profileEndName.setVisibility(View.GONE);
+                holder.profileEndIcon.setVisibility(View.GONE);
+                if (applicationNotHideEditorHideEventDetails) {
+                    holder.eventPreferencesDescription.setVisibility(View.GONE);
+                    holder.profileStartIndicator.setVisibility(View.GONE);
+                    holder.profileEndIndicator.setVisibility(View.GONE);
+                }
+            }
         }
 
         holder.radioButton.setTag(position);
@@ -416,10 +394,10 @@ class AddEventAdapter extends BaseAdapter {
             RadioButton rb = (RadioButton) v;
             rb.setChecked(true);
             final Handler handler = new Handler(context.getMainLooper());
-            final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(dialog);
+            final WeakReference<ActivityLogEventsFilterDialog> dialogWeakRef = new WeakReference<>(dialog);
             final WeakReference<RadioButton> rbWeakRef = new WeakReference<>(rb);
             handler.postDelayed(() -> {
-                AddEventDialog dialog1 = dialogWeakRef.get();
+                ActivityLogEventsFilterDialog dialog1 = dialogWeakRef.get();
                 RadioButton rb1 = rbWeakRef.get();
                 if ((dialog1 != null) && (rb1 != null))
                     dialog1.doOnItemSelected((Integer) rb1.getTag());

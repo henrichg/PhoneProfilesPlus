@@ -46,11 +46,13 @@ public class ActivityLogActivity extends AppCompatActivity
     private int selectedFilter = 0;
 
     long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
+    long mEventFilter = 0;
 
     private SetAdapterAsyncTask setAdapterAsyncTask = null;
 
-    private static final String EXTRA_SELECTED_FILTER = "EXTRA_SELECTED_FILTER";
-    private static final String EXTRA_ACTIVATED_PROFILE_FILTER = "EXTRA_ACTIVATED_PROFILE_FILTER";
+    static final String EXTRA_SELECTED_FILTER = "EXTRA_SELECTED_FILTER";
+    static final String EXTRA_ACTIVATED_PROFILE_FILTER = "EXTRA_ACTIVATED_PROFILE_FILTER";
+    static final String EXTRA_EVENT_FILTER = "EXTRA_EVENT_FILTER";
 
     //boolean addedNewLogs = false;
 
@@ -94,6 +96,7 @@ public class ActivityLogActivity extends AppCompatActivity
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         mActivatedProfileFilter = getIntent().getLongExtra(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
+        mEventFilter = getIntent().getLongExtra(EXTRA_EVENT_FILTER, 0);
         selectedFilter = getIntent().getIntExtra(EXTRA_SELECTED_FILTER, 0);
 
         Toolbar toolbar = findViewById(R.id.activity_log_toolbar);
@@ -214,11 +217,13 @@ public class ActivityLogActivity extends AppCompatActivity
             if (!isFinishing()) {
                 Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
+                bundle.putLong(EXTRA_SELECTED_FILTER, selectedFilter);
                 ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
                 dialog.setArguments(bundle);
                 dialog.showDialog();
             }
         });
+        // TODO sem daj volanie dialogu na vyber udalsoti
 
         //addedNewLogs = false;
         addedNewLogsText = findViewById(R.id.activity_log_header_added_new_logs);
@@ -417,6 +422,7 @@ public class ActivityLogActivity extends AppCompatActivity
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
+        savedInstanceState.putLong(EXTRA_EVENT_FILTER, mEventFilter);
         savedInstanceState.putInt(EXTRA_SELECTED_FILTER, selectedFilter);
     }
 
@@ -424,6 +430,7 @@ public class ActivityLogActivity extends AppCompatActivity
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mActivatedProfileFilter = savedInstanceState.getLong(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
+        mEventFilter = savedInstanceState.getLong(EXTRA_EVENT_FILTER, 0);
         selectedFilter = savedInstanceState.getInt(EXTRA_SELECTED_FILTER, 0);
     }
 
@@ -516,8 +523,12 @@ public class ActivityLogActivity extends AppCompatActivity
 
     }
 
-    void setActivatedPorfilesFilter() {
-        int selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
-        selectFilterItem(selectedFilter);
+    void setActivatedPorfilesFilter(int _selectedFilter) {
+        selectFilterItem(_selectedFilter);
     }
+
+    void setEventFilter(int _selectedFilter) {
+        selectFilterItem(_selectedFilter);
+    }
+
 }

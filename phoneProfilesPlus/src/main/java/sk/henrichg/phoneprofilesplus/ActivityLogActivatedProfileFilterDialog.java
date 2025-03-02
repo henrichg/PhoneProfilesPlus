@@ -30,12 +30,11 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     private ListView listView;
     private RelativeLayout emptyList;
 
-    long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
+    private int selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
+    private long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
     private boolean profileSet = false;
 
     private ShowDialogAsyncTask showDialogAsyncTask = null;
-
-    private static final String EXTRA_ACTIVATED_PROFILE_FILTER = "EXTRA_ACTIVATED_PROFILE_FILTER";
 
     public ActivityLogActivatedProfileFilterDialog() {
     }
@@ -54,8 +53,10 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
             //GlobalGUIRoutines.lockScreenOrientation(activity);
 
             Bundle arguments = getArguments();
-            if (arguments != null)
-                mActivatedProfileFilter = arguments.getLong(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
+            if (arguments != null) {
+                mActivatedProfileFilter = arguments.getLong(ActivityLogActivity.EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
+                selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFITER_PROFILE_ACTIVATION);
+            }
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
@@ -103,7 +104,7 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
         if (activity != null) {
             //GlobalGUIRoutines.unlockScreenOrientation(activity);
             if (!profileSet)
-                activity.setActivatedPorfilesFilter();
+                activity.setActivatedPorfilesFilter(selectedFilter);
         }
     }
 
@@ -124,7 +125,7 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
         mActivatedProfileFilter = profileId;
         activity.mActivatedProfileFilter = profileId;
         profileSet = true;
-        activity.setActivatedPorfilesFilter();
+        activity.setActivatedPorfilesFilter(selectedFilter);
         dismiss();
     }
 

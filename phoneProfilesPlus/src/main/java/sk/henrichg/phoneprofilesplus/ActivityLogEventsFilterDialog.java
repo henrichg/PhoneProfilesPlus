@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import androidx.annotation.NonNull;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
@@ -21,12 +21,14 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddEventDialog extends DialogFragment
+public class ActivityLogEventsFilterDialog extends DialogFragment
 {
+    private DataWrapper dataWrapper;
+
     EditorEventListFragment eventListFragment;
 
     private AlertDialog mDialog;
-    private EditorActivity activity;
+    private ActivityLogActivity activity;
 
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
@@ -39,21 +41,31 @@ public class AddEventDialog extends DialogFragment
 
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
-    public AddEventDialog()
+    private int selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
+    private long mEventFilter = 0;
+    private boolean eventSet = false;
+
+    public ActivityLogEventsFilterDialog()
     {
     }
 
-    public AddEventDialog(EditorActivity activity/*, EditorEventListFragment eventListFragment*/)
+    public ActivityLogEventsFilterDialog(ActivityLogActivity activity)
     {
-        //this.eventListFragment = eventListFragment;
         this.activity = activity;
+        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.activity = (EditorActivity) getActivity();
+        this.activity = (ActivityLogActivity) getActivity();
         if (this.activity != null) {
+            Bundle arguments = getArguments();
+            if (arguments != null) {
+                mEventFilter = arguments.getLong(ActivityLogActivity.EXTRA_EVENT_FILTER, 0);
+                selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
+            }
+
             this.eventListFragment = (EditorEventListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -64,7 +76,7 @@ public class AddEventDialog extends DialogFragment
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
             LayoutInflater inflater = activity.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.dialog_add_event, null);
+            View layout = inflater.inflate(R.layout.dialog_event_preference, null);
             dialogBuilder.setView(layout);
 
             mDialog = dialogBuilder.create();
@@ -94,9 +106,9 @@ public class AddEventDialog extends DialogFragment
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
                 final Handler handler = new Handler(activity.getMainLooper());
-                final WeakReference<AddEventDialog> dialogWeakRef = new WeakReference<>(this);
+                final WeakReference<ActivityLogEventsFilterDialog> dialogWeakRef = new WeakReference<>(this);
                 handler.postDelayed(() -> {
-                    AddEventDialog dialog1 = dialogWeakRef.get();
+                    ActivityLogEventsFilterDialog dialog1 = dialogWeakRef.get();
                     if (dialog1 != null)
                         dialog1.doOnItemSelected(position);
                 }, 200);
@@ -106,7 +118,7 @@ public class AddEventDialog extends DialogFragment
                 hideEventDetailsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (!activity.isFinishing()) {
                         hideEventDetailsValue = isChecked;
-                        getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+                        getEventsAsyncTask = new GetEventsAsyncTask(this, activity);
                         getEventsAsyncTask.execute();
                         //((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
                         //listView.invalidate();
@@ -125,18 +137,37 @@ public class AddEventDialog extends DialogFragment
             getEventsAsyncTask.cancel(true);
         }
         getEventsAsyncTask = null;
+
+        dataWrapper.invalidateDataWrapper();
+
+        if (activity != null) {
+            //GlobalGUIRoutines.unlockScreenOrientation(activity);
+            if (!eventSet)
+                activity.setEventFilter(selectedFilter);
+        }
+
         this.eventListFragment = null;
     }
 
     private void doShow() {
-        getEventsAsyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+        getEventsAsyncTask = new GetEventsAsyncTask(this, activity);
         getEventsAsyncTask.execute();
     }
 
     void doOnItemSelected(int position)
     {
-        if (eventListFragment != null)
-            eventListFragment.startEventPreferencesActivity(null, position);
+        long eventId = 0;
+        if (position > 0) {
+//            PPApplicationStatic.logE("[SYNCHRONIZED] AskForDurationActivateProfileDialog.doOnItemSelected", "DataWrapper.profileList");
+            synchronized (dataWrapper.eventList) {
+                eventId = dataWrapper.eventList.get(position - 1)._id;
+            }
+        }
+        mEventFilter = eventId;
+        activity.mEventFilter = eventId;
+        eventSet = true;
+        activity.setEventFilter(selectedFilter);
+
         dismiss();
     }
 
@@ -147,20 +178,15 @@ public class AddEventDialog extends DialogFragment
     }
 
     private static class GetEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
-
-        final List<Event> _eventList = new ArrayList<>();
         boolean profileNotExists = false;
 
-        private final WeakReference<AddEventDialog> dialogWeakRef;
+        private final WeakReference<ActivityLogEventsFilterDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakRef;
-        final DataWrapper dataWrapper;
 
-        public GetEventsAsyncTask(final AddEventDialog dialog,
-                                  final Activity activity,
-                                  final DataWrapper dataWrapper) {
+        public GetEventsAsyncTask(final ActivityLogEventsFilterDialog dialog,
+                                  final Activity activity) {
             this.dialogWeakRef = new WeakReference<>(dialog);
             this.activityWeakRef = new WeakReference<>(activity);
-            this.dataWrapper = dataWrapper.copyDataWrapper();
         }
 
         /*@Override
@@ -173,22 +199,14 @@ public class AddEventDialog extends DialogFragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            Activity activity = activityWeakRef.get();
-            if (activity != null) {
-                Event event;
-                event = DataWrapperStatic.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
-                _eventList.add(event);
-                for (int index = 0; index < 6; index++) {
-                    event = dataWrapper.getPredefinedEvent(index, false, activity);
-                    if (event._fkProfileStart == 0)
-                        profileNotExists = true;
-                    if (event._fkProfileEnd == 0)
-                        profileNotExists = true;
-                    event._peferencesDecription = StringFormatUtils.fromHtml(
-                            event.getPreferencesDescription(activity, null, false),
-                            true, false, 0, 0, true);
-                    _eventList.add(event);
-                }
+            ActivityLogEventsFilterDialog dialog = dialogWeakRef.get();
+            if (dialog != null) {
+                dialog.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
+                dialog.dataWrapper.fillEventList();
+//                PPApplicationStatic.logE("[SYNCHRONIZED] AskForDurationActivateProfileDialog.ShowDialogAsyncTask", "DataWrapper.profileList");
+                //synchronized (dialog.dataWrapper.profileList) {
+                //    dialog.dataWrapper.profileList.sort(new ActivityLogActivatedProfileFilterDialog.AlphabeticallyComparator());
+                //}
             }
 
             return null;
@@ -199,7 +217,7 @@ public class AddEventDialog extends DialogFragment
         {
             super.onPostExecute(result);
 
-            AddEventDialog dialog = dialogWeakRef.get();
+            ActivityLogEventsFilterDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakRef.get();
             if ((dialog != null) && (activity != null)) {
                 dialog.linlaProgress.setVisibility(View.GONE);
@@ -208,11 +226,8 @@ public class AddEventDialog extends DialogFragment
                 if (profileNotExists)
                     dialog.help.setVisibility(View.VISIBLE);
 
-                dialog.eventList.clear();
-                dialog.eventList.addAll(_eventList);
-
-                AddEventAdapter addEventAdapter = new AddEventAdapter(dialog, activity, dialog.eventList);
-                dialog.listView.setAdapter(addEventAdapter);
+                ActivityLogEventsFilterAdapter eventAdapter = new ActivityLogEventsFilterAdapter(dialog, activity, dialog.eventList);
+                dialog.listView.setAdapter(eventAdapter);
             }
         }
 
