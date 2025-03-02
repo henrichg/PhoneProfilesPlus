@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,7 +33,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
 
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
-    //private int selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
+//    private int selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
     private long mEventFilter = 0;
     private boolean eventSet = false;
 
@@ -60,12 +59,12 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
             Bundle arguments = getArguments();
             if (arguments != null) {
                 mEventFilter = arguments.getLong(ActivityLogActivity.EXTRA_EVENT_FILTER, 0);
-                //selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
-                selectedFilter = activity.mSelectedFilter;
+                selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
             }
-            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "mEventFilter="+mEventFilter);
-            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "selectedFilter="+selectedFilter);
+//            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "mEventFilter="+mEventFilter);
+//            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "selectedFilter="+selectedFilter);
             */
+
             mEventFilter = activity.mEventFilter;
 
             this.eventListFragment = (EditorEventListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);

@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -230,7 +229,7 @@ public class ActivityLogActivity extends AppCompatActivity
             if (!isFinishing()) {
                 /*Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
-                bundle.putLong(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
+                bundle.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
                 ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
                 //dialog.setArguments(bundle);
                 dialog.showDialog();
@@ -238,9 +237,11 @@ public class ActivityLogActivity extends AppCompatActivity
         });
         eventButton.setOnClickListener(v -> {
             if (!isFinishing()) {
+//                Log.e("ActivityLogActivity.eventButton.omClick", "mEventFilter="+mEventFilter);
+//                Log.e("ActivityLogActivity.eventButton.omClick", "mSelectedFilter="+mSelectedFilter);
                 /*Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_EVENT_FILTER, mEventFilter);
-                bundle.putLong(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
+                bundle.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
                 ActivityLogEventsFilterDialog dialog = new ActivityLogEventsFilterDialog((ActivityLogActivity) filterSpinner.getContext());
                 //dialog.setArguments(bundle);
                 dialog.showDialog();
@@ -454,7 +455,7 @@ public class ActivityLogActivity extends AppCompatActivity
         mActivatedProfileFilter = savedInstanceState.getLong(EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
         mEventFilter = savedInstanceState.getLong(EXTRA_EVENT_FILTER, 0);
         mSelectedFilter = savedInstanceState.getInt(EXTRA_SELECTED_FILTER, 0);
-        Log.e("ActivityLogActivity.onRestoreInstanceState", "mSelectedFilter="+mSelectedFilter);
+//        Log.e("ActivityLogActivity.onRestoreInstanceState", "mSelectedFilter="+mSelectedFilter);
     }
 
     private void selectFilterItem(int _selectedFilter) {

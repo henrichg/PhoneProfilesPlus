@@ -60,6 +60,7 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
                 selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFITER_PROFILE_ACTIVATION);
             }
             */
+
             mActivatedProfileFilter = activity.mActivatedProfileFilter;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);

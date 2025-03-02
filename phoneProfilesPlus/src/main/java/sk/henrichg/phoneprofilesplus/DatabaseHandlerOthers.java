@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Vibrator;
-import android.util.Log;
 
 class DatabaseHandlerOthers {
 
@@ -131,7 +130,7 @@ class DatabaseHandlerOthers {
                         ")";
                         break;
                     case PPApplication.ALFILTER_EVENT_START:
-                        Log.e("DatabaseHandlerOthers.getActivityLogCursor", "eventName="+eventName);
+//                        Log.e("DatabaseHandlerOthers.getActivityLogCursor", "eventName="+eventName);
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
                                 PPApplication.ALTYPE_EVENT_START + ", " +
                                 PPApplication.ALTYPE_EVENT_START_DELAY +
