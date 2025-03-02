@@ -17,13 +17,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class ActivityLogEventsFilterDialog extends DialogFragment
 {
-    private DataWrapper dataWrapper;
+    DataWrapper dataWrapper;
 
     EditorEventListFragment eventListFragment;
 
@@ -33,10 +31,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
     private ListView listView;
-    SwitchCompat hideEventDetailsSwitch;
-    boolean hideEventDetailsValue;
-
-    final List<Event> eventList = new ArrayList<>();
 
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
@@ -51,7 +45,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     public ActivityLogEventsFilterDialog(ActivityLogActivity activity)
     {
         this.activity = activity;
-        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
     }
 
     @NonNull
@@ -59,6 +52,8 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.activity = (ActivityLogActivity) getActivity();
         if (this.activity != null) {
+            dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+
             Bundle arguments = getArguments();
             if (arguments != null) {
                 mEventFilter = arguments.getLong(ActivityLogActivity.EXTRA_EVENT_FILTER, 0);
@@ -93,10 +88,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
             rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
 
             listView = layout.findViewById(R.id.event_pref_dlg_listview);
-            hideEventDetailsSwitch = layout.findViewById(R.id.event_hide_event_details);
-            if (hideEventDetailsSwitch != null)
-                hideEventDetailsSwitch.setChecked(ApplicationPreferences.applicationEditorHideEventDetails);
-            hideEventDetailsValue = ApplicationPreferences.applicationEditorHideEventDetails;
 
             //noinspection DataFlowIssue
             listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -111,19 +102,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
                         dialog1.doOnItemSelected(position);
                 }, 200);
             });
-
-            if (hideEventDetailsSwitch != null) {
-                hideEventDetailsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    if (!activity.isFinishing()) {
-                        hideEventDetailsValue = isChecked;
-                        getEventsAsyncTask = new GetEventsAsyncTask(mEventFilter, this, activity);
-                        getEventsAsyncTask.execute();
-                        //((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-                        //listView.invalidate();
-                    }
-                });
-            }
-
         }
         return mDialog;
     }
@@ -234,7 +212,8 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
                 dialog.linlaProgress.setVisibility(View.GONE);
                 dialog.rellaData.setVisibility(View.VISIBLE);
 
-                ActivityLogEventsFilterAdapter eventAdapter = new ActivityLogEventsFilterAdapter(dialog, activity, selectedEvent, dialog.eventList);
+                ActivityLogEventsFilterAdapter eventAdapter = new ActivityLogEventsFilterAdapter(
+                        dialog, activity, selectedEvent, dialog.dataWrapper.eventList);
                 dialog.listView.setAdapter(eventAdapter);
 
                 //noinspection ExtractMethodRecommender

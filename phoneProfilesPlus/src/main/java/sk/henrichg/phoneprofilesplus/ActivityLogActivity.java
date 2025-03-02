@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -490,9 +491,16 @@ public class ActivityLogActivity extends AppCompatActivity
                         (activity.mActivatedProfileFilter != Profile.PROFILE_NO_ACTIVATE))
                     profileName = DatabaseHandler.getInstance(context.getApplicationContext()).
                             getProfileName(activity.mActivatedProfileFilter);
+                String eventName = "";
+                if (activity.mEventFilter != 0)
+                    eventName = DatabaseHandler.getInstance(context.getApplicationContext()).
+                            getEventName(activity.mEventFilter);
+                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "mEventFilter="+activity.mEventFilter);
+                Log.e("ActivityLogActivity.SetAdapterAsyncTask.doInBackground", "eventName="+eventName);
+
                 activityLogCursor =
                         DatabaseHandler.getInstance(context.getApplicationContext())
-                                .getActivityLogCursor(_selectedFilter, profileName);
+                                .getActivityLogCursor(_selectedFilter, profileName, eventName);
             }
 
             return null;

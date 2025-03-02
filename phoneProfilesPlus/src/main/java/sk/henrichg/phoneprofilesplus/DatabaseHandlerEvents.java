@@ -2331,6 +2331,38 @@ class DatabaseHandlerEvents {
         }
     }
 
+    static String getEventName(DatabaseHandler instance, long event_id)
+    {
+        instance.importExportLock.lock();
+        try {
+            String name = "";
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{DatabaseHandler.KEY_E_NAME},
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{Long.toString(event_id)}, null, null, null, null);
+
+                //if (cursor != null) {
+                if (cursor.moveToFirst())
+                    name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NAME));
+                cursor.close();
+                //}
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return name;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
     static int getEventSensorPassed(DatabaseHandler instance, EventPreferences eventPreferences, int eventType)
     {
         if (eventPreferences._event != null) {

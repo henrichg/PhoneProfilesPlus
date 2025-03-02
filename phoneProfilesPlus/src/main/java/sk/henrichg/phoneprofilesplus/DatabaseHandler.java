@@ -1026,6 +1026,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.getEventIdByName(this, name);
     }
 
+    String getEventName(long event_id)
+    {
+        return DatabaseHandlerEvents.getEventName(this, event_id);
+    }
+
     int getEventSensorPassed(EventPreferences eventPreferences, int eventType)
     {
         return DatabaseHandlerEvents.getEventSensorPassed(this, eventPreferences, eventType);
@@ -1440,8 +1445,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerOthers.clearActivityLog(this);
     }
 
-    Cursor getActivityLogCursor(int selectedFilter, String activatedProfileName) {
-        return DatabaseHandlerOthers.getActivityLogCursor(this, selectedFilter, activatedProfileName);
+    Cursor getActivityLogCursor(int selectedFilter, String activatedProfileName, String eventName) {
+        return DatabaseHandlerOthers.getActivityLogCursor(this, selectedFilter, activatedProfileName, eventName);
     }
 
 // OTHERS -------------------------------------------------------------------------

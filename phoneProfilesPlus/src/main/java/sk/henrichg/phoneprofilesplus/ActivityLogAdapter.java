@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,10 +250,10 @@ class ActivityLogAdapter extends CursorAdapter {
         } else {
             String event_name = cursor.getString(KEY_AL_EVENT_NAME_COLUMN_IDX);
             String profile_name = cursor.getString(KEY_AL_PROFILE_NAME_COLUMN_IDX);
-            /*if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
+            if (logType == PPApplication.ALTYPE_EVENT_START) {
                 Log.e("ActivityLogAdapter.setRowData", "event_name=" + event_name);
                 Log.e("ActivityLogAdapter.setRowData", "profile_name=" + profile_name);
-            }*/
+            }
             if (event_name != null)
                 logData = logData + event_name;
             if (profile_name != null) {
@@ -310,8 +311,15 @@ class ActivityLogAdapter extends CursorAdapter {
                 (activity.mActivatedProfileFilter != Profile.PROFILE_NO_ACTIVATE))
             profileName = DatabaseHandler.getInstance(activity.getApplicationContext()).
                     getProfileName(activity.mActivatedProfileFilter);
+        String eventName = "";
+        if (activity.mEventFilter != 0)
+            profileName = DatabaseHandler.getInstance(activity.getApplicationContext()).
+                    getEventName(activity.mEventFilter);
+        //Log.e("ActivityLogActivity.reload", "mEventFilter="+activity.mEventFilter);
+        //Log.e("ActivityLogActivity.reload", "eventName="+eventName);
+
         changeCursor(DatabaseHandler.getInstance(
-                /*dataWrapper.*/activity.getApplicationContext()).getActivityLogCursor(selectedFilter, profileName));
+                /*dataWrapper.*/activity.getApplicationContext()).getActivityLogCursor(selectedFilter, profileName, eventName));
     }
 
     private int shiftColor(int color, Context context) {

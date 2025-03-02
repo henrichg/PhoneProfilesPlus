@@ -42,7 +42,6 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     public ActivityLogActivatedProfileFilterDialog(ActivityLogActivity activity)
     {
         this.activity = activity;
-        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
     }
 
     @NonNull
@@ -50,6 +49,8 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.activity = (ActivityLogActivity) getActivity();
         if (activity != null) {
+            dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+
             //GlobalGUIRoutines.lockScreenOrientation(activity);
 
             Bundle arguments = getArguments();
