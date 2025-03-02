@@ -30,7 +30,7 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     private ListView listView;
     private RelativeLayout emptyList;
 
-    //private int selectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
+    private int mSelectedFilter = PPApplication.ALFITER_PROFILE_ACTIVATION;
     private long mActivatedProfileFilter = Profile.PROFILE_NO_ACTIVATE;
     private boolean profileSet = false;
 
@@ -51,17 +51,13 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
         if (activity != null) {
             dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            GlobalGUIRoutines.lockScreenOrientation(activity);
+            //GlobalGUIRoutines.lockScreenOrientation(activity);
 
-            /*
             Bundle arguments = getArguments();
             if (arguments != null) {
                 mActivatedProfileFilter = arguments.getLong(ActivityLogActivity.EXTRA_ACTIVATED_PROFILE_FILTER, Profile.PROFILE_NO_ACTIVATE);
-                selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFITER_PROFILE_ACTIVATION);
+                mSelectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFITER_PROFILE_ACTIVATION);
             }
-            */
-
-            mActivatedProfileFilter = activity.mActivatedProfileFilter;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
@@ -107,9 +103,9 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
         dataWrapper.invalidateDataWrapper();
 
         if (activity != null) {
-            GlobalGUIRoutines.unlockScreenOrientation(activity);
+            //GlobalGUIRoutines.unlockScreenOrientation(activity);
             if (!profileSet)
-                activity.setActivatedPorfilesFilter(activity.mSelectedFilter/*selectedFilter*/);
+                activity.setActivatedPorfilesFilter(mSelectedFilter/*selectedFilter*/);
         }
     }
 
@@ -130,7 +126,13 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
         mActivatedProfileFilter = profileId;
         activity.mActivatedProfileFilter = profileId;
         profileSet = true;
-        activity.setActivatedPorfilesFilter(activity.mSelectedFilter/*selectedFilter*/);
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(ActivityLogActivity.EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
+        bundle.putInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, mSelectedFilter);
+        setArguments(bundle);
+
+        activity.setActivatedPorfilesFilter(mSelectedFilter/*selectedFilter*/);
         dismiss();
     }
 

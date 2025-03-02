@@ -227,11 +227,11 @@ public class ActivityLogActivity extends AppCompatActivity
 
         activatedProfileButton.setOnClickListener(v -> {
             if (!isFinishing()) {
-                /*Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_ACTIVATED_PROFILE_FILTER, mActivatedProfileFilter);
-                bundle.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
+                bundle.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);
                 ActivityLogActivatedProfileFilterDialog dialog = new ActivityLogActivatedProfileFilterDialog((ActivityLogActivity) filterSpinner.getContext());
-                //dialog.setArguments(bundle);
+                dialog.setArguments(bundle);
                 dialog.showDialog();
             }
         });
@@ -239,11 +239,11 @@ public class ActivityLogActivity extends AppCompatActivity
             if (!isFinishing()) {
 //                Log.e("ActivityLogActivity.eventButton.omClick", "mEventFilter="+mEventFilter);
 //                Log.e("ActivityLogActivity.eventButton.omClick", "mSelectedFilter="+mSelectedFilter);
-                /*Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putLong(EXTRA_EVENT_FILTER, mEventFilter);
-                bundle.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);*/
+                bundle.putInt(EXTRA_SELECTED_FILTER, mSelectedFilter);
                 ActivityLogEventsFilterDialog dialog = new ActivityLogEventsFilterDialog((ActivityLogActivity) filterSpinner.getContext());
-                //dialog.setArguments(bundle);
+                dialog.setArguments(bundle);
                 dialog.showDialog();
             }
         });

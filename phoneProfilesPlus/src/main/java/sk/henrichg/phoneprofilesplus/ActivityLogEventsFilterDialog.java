@@ -22,8 +22,6 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
 {
     DataWrapper dataWrapper;
 
-    EditorEventListFragment eventListFragment;
-
     private AlertDialog mDialog;
     private ActivityLogActivity activity;
 
@@ -33,7 +31,7 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
 
     private GetEventsAsyncTask getEventsAsyncTask = null;
 
-//    private int selectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
+    private int mSelectedFilter = PPApplication.ALFILTER_EVENTS_LIFECYCLE;
     private long mEventFilter = 0;
     private boolean eventSet = false;
 
@@ -53,21 +51,15 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
         if (this.activity != null) {
             dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-            GlobalGUIRoutines.lockScreenOrientation(activity);
+            //GlobalGUIRoutines.lockScreenOrientation(activity);
 
-            /*
             Bundle arguments = getArguments();
             if (arguments != null) {
                 mEventFilter = arguments.getLong(ActivityLogActivity.EXTRA_EVENT_FILTER, 0);
-                selectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
+                mSelectedFilter = arguments.getInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, PPApplication.ALFILTER_EVENTS_LIFECYCLE);
             }
-//            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "mEventFilter="+mEventFilter);
-//            Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "selectedFilter="+selectedFilter);
-            */
-
-            mEventFilter = activity.mEventFilter;
-
-            this.eventListFragment = (EditorEventListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+            //Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "mEventFilter="+mEventFilter);
+            //Log.e("ActivityLogEventsFilterDialog.onCreateDialog", "selectedFilter="+mSelectedFilter);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
@@ -124,13 +116,14 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
         dataWrapper.invalidateDataWrapper();
 
         if (activity != null) {
-            GlobalGUIRoutines.unlockScreenOrientation(activity);
+            //GlobalGUIRoutines.unlockScreenOrientation(activity);
             if (!eventSet)
-                activity.setEventFilter(activity.mSelectedFilter/*selectedFilter*/);
+                activity.setEventFilter(mSelectedFilter/*selectedFilter*/);
         }
     }
 
     private void doShow() {
+//        Log.e("ActivityLogEventsFilterDialog.doShow", "mEventFilter="+mEventFilter);
         getEventsAsyncTask = new GetEventsAsyncTask(mEventFilter, this, activity);
         getEventsAsyncTask.execute();
     }
@@ -147,8 +140,13 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
         mEventFilter = eventId;
         activity.mEventFilter = eventId;
         eventSet = true;
-        activity.setEventFilter(activity.mSelectedFilter/*selectedFilter*/);
 
+        Bundle bundle = new Bundle();
+        bundle.putLong(ActivityLogActivity.EXTRA_EVENT_FILTER, mEventFilter);
+        bundle.putInt(ActivityLogActivity.EXTRA_SELECTED_FILTER, mSelectedFilter);
+        setArguments(bundle);
+
+        activity.setEventFilter(mSelectedFilter/*selectedFilter*/);
         dismiss();
     }
 
