@@ -2314,6 +2314,8 @@
     <string name="activity_log_filter_profile_activation_all_profiles">All profiles</string>
     <string name="activity_log_filter_events_all_events">All events</string>
     <string name="activity_log_filter_events_profile_not_exists">Profile not exists</string>
+    
+    <string name="phone_profiles_pref_default_roles_applications">Default roles applications</string>
 
     <!-- **************************************************************************************** -->
 

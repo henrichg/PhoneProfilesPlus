@@ -1416,7 +1416,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     // start preferences activity for default profile
                     //if (getActivity() != null) {
                         Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
-                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT);
+                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_DEFAULT_ROLES_APPLICATIONS_ROOT);
                         getActivity().startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
                     //}
                     return false;
