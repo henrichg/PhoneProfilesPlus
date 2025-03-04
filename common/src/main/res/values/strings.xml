@@ -2317,6 +2317,11 @@
     
     <string name="phone_profiles_pref_default_roles_applications">Default roles applications</string>
 
+    <string name="pref_event_simaulateRingingCall">Simulate ringing call</string>
+    <string name="pref_event_simaulateRingingCall_summary">For some devices (e.g. Motorola), call ringing simulation is not required if the profile change \"Sound Mode\" from silent to audible during the ringing.\nDisable this parameter if your device plays a ringtone from both the phone application and PPP simultaneously.</string>
+    <string name="pref_event_simaulateRingingCallEnabled">Simulation enabled</string>
+    <string name="pref_event_simaulateRingingCallDisabled">Simulation disabled</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

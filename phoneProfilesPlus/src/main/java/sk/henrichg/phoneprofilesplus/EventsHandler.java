@@ -1036,25 +1036,27 @@ class EventsHandler {
                 // start PhoneProfilesService for ringing call simulation
                 try {
                     boolean simulateRingingCall = false;
-                    String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
+                    if (ApplicationPreferences.applicationSimulateRingingCall) {
+                        String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
-                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                    if (contactsCache != null) {
-                        List<Contact> contactList;
+                        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                        if (contactsCache != null) {
+                            List<Contact> contactList;
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.doEndHandler", "PPApplication.contactsCacheMutex");
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "contactsCache.getList()");
-                        contactList = contactsCache.getList(/*false*/);
-                        for (Event _event : dataWrapper.eventList) {
-                            if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
-                                if (_event._eventPreferencesCall.isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/)) {
-                                    simulateRingingCall = true;
-                                    break;
+                            contactList = contactsCache.getList(/*false*/);
+                            for (Event _event : dataWrapper.eventList) {
+                                if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
+                                    if (_event._eventPreferencesCall.isPhoneNumberConfigured(contactList, phoneNumber/*, dataWrapper*/)) {
+                                        simulateRingingCall = true;
+                                        break;
+                                    }
                                 }
                             }
+                            if (contactList != null)
+                                contactList.clear();
                         }
-                        if (contactList != null)
-                            contactList.clear();
                     }
                     int simSlot = ApplicationPreferences.prefEventCallRunAfterCallEndFromSIMSlot;
 //                    PPApplicationStatic.logE("[RINGING_SIMULATION] EventsHandler.doEndHandler", "simulateRingingCall="+simulateRingingCall);

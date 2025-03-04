@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -540,6 +541,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         editor.apply();
 
+        Log.e("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxxxxxxxxxxxxx");
         PPApplicationStatic.loadApplicationPreferences(appContext);
 
         PPAppNotification.forceDrawNotificationFromSettings(appContext);

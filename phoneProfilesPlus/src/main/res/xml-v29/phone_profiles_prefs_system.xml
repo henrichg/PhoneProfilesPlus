@@ -40,6 +40,23 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:key="applicationSimulateRingingCallCategory"
+        app:title="@string/pref_event_simaulateRingingCall"
+        app:layout="@layout/mp_preference_category" >
+        <Preference
+            app:key="applicationSimulateRingingCallInfo"
+            app:title="@string/pref_event_simaulateRingingCall_summary"
+            app:summary=""
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationSimulateRingingCall"
+            app:title="@string/pref_event_simaulateRingingCall"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:key="applicationPowerParametersCategory"
         app:title="@string/phone_profiles_pref_applicationPowerParametersCategory"
         app:layout="@layout/mp_preference_category" >

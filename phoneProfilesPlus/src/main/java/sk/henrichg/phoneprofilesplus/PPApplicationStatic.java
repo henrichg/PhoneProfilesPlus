@@ -978,7 +978,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetListPrefIndicatorLightnessChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode(context);
-
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
             ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(context);
@@ -1024,6 +1023,8 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder(context);
 
             ApplicationPreferences.deleteBadPreferences(context);
+
+            ApplicationPreferences.applicationSimulateRingingCall(context);
         }
     }
 

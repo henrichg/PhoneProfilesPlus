@@ -35,6 +35,9 @@ class PlayRingingNotification
     static volatile  Timer notificationPlayTimer = null;
 
     static void doSimulatingRingingCall(Intent intent, Context context) {
+        if (!ApplicationPreferences.applicationSimulateRingingCall)
+            return;
+
         if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, false))
         {
             Context appContext = context.getApplicationContext();
@@ -300,6 +303,10 @@ class PlayRingingNotification
     static void startSimulatingRingingCall(/*int stream,*/ String ringtone, int ringingVolume, Context context) {
         Context appContext = context.getApplicationContext();
         stopSimulatingRingingCall(/*true*/true, appContext);
+
+        if (!ApplicationPreferences.applicationSimulateRingingCall)
+            return;
+
         if (!PlayRingingNotification.ringingCallIsSimulating) {
             AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
 

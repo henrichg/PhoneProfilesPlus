@@ -100,6 +100,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_EVENT_HIDE_NOT_USED_SENSORS = "eventHideNotUsedSensors";
     private static final int RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1999;
     private static final int RESULT_SET_CALL_SCREENING_ROLE = 2000;
+    private static final int RESULT_SIMULATE_RINGING_CALL = 2001;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1424,6 +1425,20 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        preference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(preference1 -> {
+                // start preferences activity for default profile
+                //if (activity != null) {
+                Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_SYSTEM_CATEGORY_ROOT);
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                activity.startActivityForResult(intent, RESULT_SIMULATE_RINGING_CALL);
+                //}
+                return false;
+            });
+        }
+
     }
 
     @Override
@@ -1779,6 +1794,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 PPApplication.updateGUI(true, false, context);
             }
         }
+
+        if (requestCode == RESULT_SIMULATE_RINGING_CALL) {
+
+        }
+
     }
 
     @SuppressWarnings("deprecation")
