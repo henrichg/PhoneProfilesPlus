@@ -2844,7 +2844,6 @@ class PPApplicationStatic {
             return false;
     }
 
-    /*
     // check if SmartLauncher is default --------------------------------------------------
 
     static boolean isSmartLauncherDefault(Context context) {
@@ -2873,7 +2872,6 @@ class PPApplicationStatic {
         else
             return false;
     }
-    */
 
     // get PPP version from relases.md ----------------------------------------------
 

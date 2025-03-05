@@ -41,7 +41,7 @@
             android:layout_alignParentEnd="true"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/widget_list_item" >
+            android:background="@drawable/widget_restart_events" >
 
             <ImageView
                 android:id="@+id/widget_one_row_header_restart_events"

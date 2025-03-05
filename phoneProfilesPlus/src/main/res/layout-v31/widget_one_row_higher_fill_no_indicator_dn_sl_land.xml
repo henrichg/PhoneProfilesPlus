@@ -35,10 +35,10 @@
             android:id="@+id/widget_one_row_header_restart_events_click"
             android:layout_width="@dimen/widget_restart_events_selector_radius"
             android:layout_height="@dimen/widget_restart_events_selector_radius"
-            android:layout_marginEnd="@dimen/widget_restart_events_marginEnd"
+            android:layout_marginBottom="@dimen/widget_restart_events_marginEnd"
             android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/widget_restart_events" >
@@ -60,18 +60,18 @@
             android:id="@+id/widget_one_row_header_profile_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:orientation="horizontal"
-            android:layout_toStartOf="@id/widget_one_row_header_restart_events_click"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true">
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:layout_above="@id/widget_one_row_header_restart_events_click"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true">
 
             <ImageView
                 android:id="@+id/widget_one_row_header_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"
                 android:scaleType="fitCenter"
@@ -89,7 +89,8 @@
                 android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:ignore="SpUsage" />
+                tools:ignore="SpUsage"
+                android:visibility="gone" />
 <!--            android:textColor="?android:attr/textColorPrimary"-->
 
         </LinearLayout>
