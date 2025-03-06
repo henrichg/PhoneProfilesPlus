@@ -68,6 +68,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
     }
 
+    /** @noinspection SameParameterValue*/
     void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect,
                          final boolean forceRefresh) {
         if (fragment != null)

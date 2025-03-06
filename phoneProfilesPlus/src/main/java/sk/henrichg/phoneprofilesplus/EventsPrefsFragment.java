@@ -1795,10 +1795,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (requestCode == RESULT_SIMULATE_RINGING_CALL) {
-
-        }
-
     }
 
     @SuppressWarnings("deprecation")

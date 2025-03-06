@@ -82,8 +82,8 @@
                 android:clipChildren="false" >
                 <TextView
                     android:id="@+id/widget_one_row_header_profile_name"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="@dimen/widget_onew_row_profile_name_sl_land_width"
+                    android:layout_height="@dimen/widget_onew_row_profile_name_sl_land_width"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:text="@string/profile_name_default"

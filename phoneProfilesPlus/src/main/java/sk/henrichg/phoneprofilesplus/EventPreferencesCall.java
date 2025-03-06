@@ -361,7 +361,7 @@ class EventPreferencesCall extends EventPreferences {
                 else
                     summary = context.getString(R.string.pref_event_simaulateRingingCallDisabled);
                 summary = summary + StringConstants.STR_SEPARATOR_LINE +
-                        context.getString(R.string.pref_event_simaulateRingingCall_summary);;
+                        context.getString(R.string.pref_event_simaulateRingingCall_summary);
                 preference.setSummary(summary);
             }
         }

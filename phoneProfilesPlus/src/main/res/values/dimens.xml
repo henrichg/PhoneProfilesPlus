@@ -216,5 +216,6 @@
 
     <dimen name="widget_one_row_profile_root_marginTop_sl_land">10dp</dimen>
 <!--    <bool name="widgetOneRowSLLandscape">false</bool>-->
+    <dimen name="widget_onew_row_profile_name_sl_land_width">300dp</dimen>
 
 </resources>

@@ -44,6 +44,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
+    /** @noinspection SameParameterValue*/
     void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect,
                          final boolean forceRefresh) {
         if (fragment != null)
