@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/pppColorSemitransparent"
+    android:background="?android:attr/colorBackground"
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
     tools:ignore="Overdraw">
 
     <ImageView
@@ -14,26 +15,26 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
+        android:tint="?android:attr/colorBackground"
         android:visibility="gone"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,UseAppTint" />
 
     <RelativeLayout
         android:id="@+id/widget_one_row_profile_list_header"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:layout_gravity="center" >
 
         <ImageView
             android:id="@+id/widget_one_row_profile_list_scroll_right_arrow"
-            android:layout_height="38dp"
-            android:layout_width="45dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="36dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="5dp"
             android:padding="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription=""
             android:scaleType="fitCenter"
@@ -47,19 +48,18 @@
             android:id="@+id/widget_one_row_profile_list_profiles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@id/widget_one_row_profile_list_scroll_right_arrow"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/widget_one_row_profile_list_scroll_right_arrow"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/widget_one_row_profile_list_scroll_left_arrow"
-                android:layout_height="38dp"
-                android:layout_width="45dp"
+                android:layout_width="36dp"
+                android:layout_height="53dp"
                 android:layout_marginStart="0dp"
                 android:padding="5dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:contentDescription=""
                 android:scaleType="fitCenter"
@@ -71,8 +71,8 @@
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_1_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -83,8 +83,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_1"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -92,24 +92,24 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_2_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -120,8 +120,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_2"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -129,25 +129,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_3_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -158,8 +158,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_3"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -167,25 +167,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_4_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -196,8 +196,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_4"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -205,17 +205,17 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_4"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -223,8 +223,8 @@
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_5_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -235,8 +235,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_5"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -244,25 +244,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_5"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_6_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -273,8 +273,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_6"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -282,25 +282,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_6"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_7_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -311,8 +311,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_7"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -320,25 +320,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_7"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_8_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -349,8 +349,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_8"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -358,25 +358,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_8"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_9_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -387,8 +387,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_9"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -396,25 +396,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_9"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_10_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -425,8 +425,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_10"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -434,25 +434,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_10"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_11_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -463,8 +463,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_11"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -472,25 +472,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_11"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_12_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -501,8 +501,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_12"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -510,25 +510,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_12"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_13_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -539,8 +539,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_13"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -548,25 +548,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_13"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_14_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -577,8 +577,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_14"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -586,25 +586,25 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_14"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_15_root"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
@@ -615,8 +615,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_icon_15"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
                     android:layout_marginBottom="0dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
@@ -624,17 +624,17 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_15"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -660,6 +660,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
         android:visibility="gone"
-        tools:ignore="ContentDescription" />
+        android:tint="?android:attr/colorSecondary"
+        tools:ignore="ContentDescription,UseAppTint" />
 
 </FrameLayout>

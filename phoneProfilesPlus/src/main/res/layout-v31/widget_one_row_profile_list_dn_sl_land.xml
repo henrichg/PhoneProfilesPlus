@@ -29,9 +29,10 @@
 
         <ImageView
             android:id="@+id/widget_one_row_profile_list_scroll_right_arrow"
-            android:layout_height="28dp"
+            android:layout_height="38dp"
             android:layout_width="45dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:padding="5dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
@@ -48,6 +49,7 @@
             android:id="@+id/widget_one_row_profile_list_profiles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
             android:layout_above="@id/widget_one_row_profile_list_scroll_right_arrow"
             android:layout_alignParentTop="true"
@@ -55,7 +57,7 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_profile_list_scroll_left_arrow"
-                android:layout_height="28dp"
+                android:layout_height="38dp"
                 android:layout_width="45dp"
                 android:layout_marginStart="0dp"
                 android:padding="5dp"

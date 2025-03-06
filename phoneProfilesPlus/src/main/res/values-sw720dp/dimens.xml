@@ -107,4 +107,6 @@
     <dimen name="dialog_activity_button_min_height">42dp</dimen>
     <dimen name="dialog_activity_button_marginTop">15dp</dimen>
 
+<!--    <bool name="widgetOneRowSLLandscape">false</bool>-->
+
 </resources>
