@@ -10,15 +10,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -902,8 +899,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
+                            }
                             else {
                                 if (PPApplicationStatic.isSmartLauncherDefault(context)) {
                                     int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
@@ -923,6 +930,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                     int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
                                     int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
                                     if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
                                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn_sl_land);
                                     else
                                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
@@ -930,8 +949,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
                             }
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
                         }
                     } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
                         configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
