@@ -77,21 +77,27 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_profile_default" />
 
-            <TextView
-                android:id="@+id/widget_one_row_header_profile_name"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/profile_name_widget_margin"
+                android:paddingBottom="@dimen/profile_name_widget_margin"
                 android:layout_gravity="center_horizontal"
-                android:paddingStart="@dimen/profile_name_widget_margin"
-                android:paddingEnd="@dimen/profile_name_widget_margin"
-                android:text="@string/profile_name_default"
-                android:textSize="22dp"
-                android:textStyle="bold"
-                android:ellipsize="end"
-                android:maxLines="1"
-                tools:ignore="SpUsage"
-                android:visibility="gone" />
-<!--            android:textColor="?android:attr/textColorPrimary"-->
+                android:clipChildren="false" >
+                <TextView
+                    android:id="@+id/widget_one_row_header_profile_name"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="@string/profile_name_default"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:rotation="-90"
+                    tools:ignore="SpUsage" />
+            </FrameLayout>
 
         </LinearLayout>
 
