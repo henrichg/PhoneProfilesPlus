@@ -70,7 +70,7 @@
                 android:id="@+id/widget_one_row_header_profile_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/widget_one_row_profile_root_marginTop_sl_land"
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"

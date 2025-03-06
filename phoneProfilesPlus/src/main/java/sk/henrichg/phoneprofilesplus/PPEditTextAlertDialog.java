@@ -79,8 +79,8 @@ public class PPEditTextAlertDialog extends DialogFragment {
             if (negativeText != null)
                 dialogBuilder.setNegativeButton(negativeText, negativeClick);
 
-            if (cancelListener != null)
-                dialogBuilder.setOnCancelListener(cancelListener);
+            //if (cancelListener != null)
+            //    dialogBuilder.setOnCancelListener(cancelListener);
 
             dialogBuilder.setCancelable(cancelable);
 
@@ -110,6 +110,12 @@ public class PPEditTextAlertDialog extends DialogFragment {
             mDialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
         }
         return mDialog;
+    }
+
+    public void onCancel (@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (cancelListener != null)
+            cancelListener.onCancel(dialog);
     }
 
     public void onDismiss(@NonNull DialogInterface dialog) {

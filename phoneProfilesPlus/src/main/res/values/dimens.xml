@@ -214,4 +214,6 @@
     <dimen name="dialog_activity_button_marginTop">15dp</dimen>
     <dimen name="dialog_activity_button_marginBottom">10dp</dimen>
 
+    <dimen name="widget_one_row_profile_root_marginTop_sl_land">10dp</dimen>
+
 </resources>
