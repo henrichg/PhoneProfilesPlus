@@ -77,7 +77,7 @@
                 android:id="@+id/widget_one_row_header_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
                 android:paddingStart="@dimen/profile_name_widget_margin"
                 android:paddingEnd="@dimen/profile_name_widget_margin"
                 android:text="@string/profile_name_default"

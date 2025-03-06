@@ -81,8 +81,8 @@
                 android:id="@+id/widget_one_row_header_profile_linLa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
                 android:visibility="gone">
 
                 <TextView
@@ -101,8 +101,8 @@
 
                 <ImageView
                     android:id="@+id/widget_one_row_header_profile_pref_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_preferences_indicator_height"
+                    android:layout_width="@dimen/profile_preferences_indicator_height"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="3dp"
                     android:adjustViewBounds="true"
