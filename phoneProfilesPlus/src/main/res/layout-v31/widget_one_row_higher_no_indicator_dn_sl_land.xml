@@ -83,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/profile_name_widget_margin"
                 android:paddingBottom="@dimen/profile_name_widget_margin"
+                android:layout_below="@id/widget_one_row_header_profile_icon"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:clipChildren="false" >
