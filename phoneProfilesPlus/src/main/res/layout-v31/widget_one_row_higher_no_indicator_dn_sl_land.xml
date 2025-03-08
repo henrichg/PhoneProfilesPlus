@@ -35,13 +35,13 @@
             android:id="@+id/widget_one_row_header_restart_events_click"
             android:layout_width="@dimen/widget_restart_events_selector_radius"
             android:layout_height="@dimen/widget_restart_events_selector_radius"
-            android:layout_marginBottom="@dimen/widget_restart_events_marginEnd"
             android:orientation="vertical"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/widget_restart_events" >
+<!--            android:layout_marginBottom="@dimen/widget_restart_events_marginEnd"-->
 
             <ImageView
                 android:id="@+id/widget_one_row_header_restart_events"
