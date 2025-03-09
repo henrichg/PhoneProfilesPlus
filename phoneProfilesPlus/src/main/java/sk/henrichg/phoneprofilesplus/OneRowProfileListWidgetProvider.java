@@ -886,43 +886,33 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 remoteViews.setOnClickPendingIntent(profileRootId[i], null);
             }
 
-            //boolean widgetOneRowSLLandscape = context.getApplicationContext().getResources().getBoolean(R.bool.widgetOneRowSLLandscape);
-            //Log.e("OneRowProfileListWidgetProvider._onUpdate", "widgetOneRowSLLandscape="+widgetOneRowSLLandscape);
             Bitmap bitmap;
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                     applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                 //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                 // left arrow
-                //if (PPApplicationStatic.isSmartLauncherDefault(context)) {
-                //    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
-                //    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
-                //    if (/*widgetOneRowSLLandscape &&*/ (width < height)) {
-                //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_top, true, context);
-                //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                //    } else {
-                //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
-                //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                //    }
-                //} else {
+                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                    if (width < height)
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_top, true, context);
+                    else
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                } else
                     bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
-                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                //}
+                bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
                 remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
                 // right arrow
-                //if (PPApplicationStatic.isSmartLauncherDefault(context)) {
-                //    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
-                //    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
-                //    if (/*widgetOneRowSLLandscape &&*/ (width < height)) {
-                //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_bottom, true, context);
-                //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                //    } else {
-                //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
-                //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                //    }
-                //} else {
+                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                    if (width < height)
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_bottom, true, context);
+                    else
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                } else
                     bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
-                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                //}
+                bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
                 remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                 //}
             } else {
@@ -931,36 +921,28 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
                 if (color != 0) {
                     // left arrow
-                    //if (PPApplicationStatic.isSmartLauncherDefault(context)) {
-                    //    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
-                    //    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
-                    //    if (/*widgetOneRowSLLandscape &&*/ (width < height)) {
-                    //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_top, true, context);
-                    //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                    //    } else {
-                    //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
-                    //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                    //    }
-                    //} else {
+                    if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                        int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                        int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                        if (width < height)
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_top, true, context);
+                        else
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                    } else
                         bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
-                        bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
-                    //}
+                    bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
                     // right arrow
-                    //if (PPApplicationStatic.isSmartLauncherDefault(context)) {
-                    //    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
-                    //    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
-                    //    if (/*widgetOneRowSLLandscape &&*/ (width < height)) {
-                    //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_bottom, true, context);
-                    //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                    //    } else {
-                    //        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
-                    //        bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
-                    //    }
-                    //} else {
+                    if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                        int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                        int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                        if (width < height)
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_bottom, true, context);
+                        else
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                    } else
                         bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
-                        bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
-                    //}
+                    bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                 }
             }

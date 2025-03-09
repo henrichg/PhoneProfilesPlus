@@ -215,7 +215,6 @@
     <dimen name="dialog_activity_button_marginBottom">10dp</dimen>
 
     <dimen name="widget_one_row_profile_root_marginTop_sl_land">10dp</dimen>
-<!--    <bool name="widgetOneRowSLLandscape">false</bool>-->
     <dimen name="widget_onew_row_profile_name_sl_land_width">200dp</dimen>
 
 </resources>

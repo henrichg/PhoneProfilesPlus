@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/widget_one_row_profile_list_scroll_right_arrow"
-            android:layout_height="43dp"
+            android:layout_height="33dp"
             android:layout_width="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -37,7 +37,7 @@
             android:adjustViewBounds="true"
             android:contentDescription=""
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_widget_profile_list_scroll_right"
+            android:src="@drawable/ic_widget_profile_list_scroll_bottom"
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/widget_list_item"
@@ -55,7 +55,7 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_profile_list_scroll_left_arrow"
-                android:layout_height="43dp"
+                android:layout_height="33dp"
                 android:layout_width="50dp"
                 android:layout_marginStart="0dp"
                 android:padding="5dp"
@@ -63,7 +63,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription=""
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_widget_profile_list_scroll_left"
+                android:src="@drawable/ic_widget_profile_list_scroll_top"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/widget_list_item"
