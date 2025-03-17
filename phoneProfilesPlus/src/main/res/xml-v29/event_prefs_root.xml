@@ -161,9 +161,9 @@
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/event_preferences_category_eventCallScreeningParameters"
             app:summary="@string/event_preference_sensor_call_screening_summary"
-            app:key="eventCallScreeningCategoryRoot"
+            app:key="eventCallControlCategoryRoot"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallScreeningParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallControlParameters" />
 
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:title="@string/event_preferences_category_eventSMSParameters"

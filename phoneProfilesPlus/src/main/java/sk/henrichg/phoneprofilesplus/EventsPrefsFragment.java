@@ -1411,7 +1411,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            preference = prefMng.findPreference(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_SET_CALL_SCREENING_ROLE);
+            preference = prefMng.findPreference(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_SET_CALL_SCREENING_ROLE);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference1 -> {
                     // start preferences activity for default profile
@@ -1788,7 +1788,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         if (requestCode == RESULT_SET_CALL_SCREENING_ROLE) {
             if (Build.VERSION.SDK_INT >= 29) {
-                event._eventPreferencesCallScreening.checkPreferences(prefMng, !nestedFragment, context);
+                event._eventPreferencesCallControl.checkPreferences(prefMng, !nestedFragment, context);
                 setRedTextToPreferences();
 
                 PPApplication.updateGUI(true, false, context);
@@ -1918,7 +1918,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             boolean showVPNSensor;
             boolean showWifiSensor;
             boolean showMusicSensor;
-            boolean showCallScreeningSensor;
+            boolean showCallControlSensor;
 
             if ((activity != null) && (!saveDisplayed) && (!activity.displayedSensors.isEmpty())) {
                 showAccessoriesSensor = activity.displayedSensors.contains(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
@@ -1947,7 +1947,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVPNSensor = activity.displayedSensors.contains(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
                 showWifiSensor= activity.displayedSensors.contains(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
                 showMusicSensor = activity.displayedSensors.contains(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
-                showCallScreeningSensor = activity.displayedSensors.contains(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED);
+                showCallControlSensor = activity.displayedSensors.contains(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED);
             }
             else {
                 showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
@@ -1976,7 +1976,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
                 showWifiSensor= preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
                 showMusicSensor = preferences.getBoolean(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false);
-                showCallScreeningSensor = preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false);
+                showCallControlSensor = preferences.getBoolean(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false);
             }
 
             if (saveDisplayed && (activity != null)) {
@@ -2033,8 +2033,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     activity.displayedSensors.add(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
                 if (showMusicSensor)
                     activity.displayedSensors.add(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
-                if (showCallScreeningSensor)
-                    activity.displayedSensors.add(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED);
+                if (showCallControlSensor)
+                    activity.displayedSensors.add(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED);
             }
 
             Preference preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
@@ -2064,7 +2064,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     (!showVPNSensor) &&
                     (!showWifiSensor) &&
                     (!showMusicSensor) &&
-                    (!showCallScreeningSensor)) {
+                    (!showCallControlSensor)) {
                 hideSensors = false;
                 if (preference != null)
                     preference.setEnabled(false);
@@ -2255,11 +2255,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     showSensor = showMusicSensor;
                 preference.setVisible(showSensor);
             }
-            preference = prefMng.findPreference(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_CATEGORY);
+            preference = prefMng.findPreference(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_CATEGORY);
             if (preference != null) {
                 boolean showSensor = !hideSensors;
                 if (hideSensors)
-                    showSensor = showCallScreeningSensor;
+                    showSensor = showCallControlSensor;
                 preference.setVisible(showSensor);
             }
         }

@@ -5015,7 +5015,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness));
         }
         /*
-        if (key.equals(PREF_CALL_SCREENING_CATEGORY_ROOT)) {
+        if (key.equals(PREF_CALL_CONTROL_CATEGORY_ROOT)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 String summary; //= getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);

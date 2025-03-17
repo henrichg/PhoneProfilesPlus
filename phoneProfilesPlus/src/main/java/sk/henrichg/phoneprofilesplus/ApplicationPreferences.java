@@ -51,10 +51,10 @@ class ApplicationPreferences {
     static volatile boolean prefEventRoamingDataInSIMSlot1;
     static volatile boolean prefEventRoamingNetworkInSIMSlot2;
     static volatile boolean prefEventRoamingDataInSIMSlot2;
-    //static volatile boolean prefEventCallScreeningActive;
-    static volatile long prefEventCallScreeningTime;
-    static volatile String prefEventCallScreeningPhoneNumber;
-    static volatile int prefEventCallScreeningCallDirection;
+    //static volatile boolean prefEventCallControlActive;
+    static volatile long prefEventCallControlTime;
+    static volatile String prefEventCallControlPhoneNumber;
+    static volatile int prefEventCallControlCallDirection;
 
     static volatile boolean applicationEventNeverAskForEnableRun;
     static volatile boolean applicationNeverAskForGrantRoot;

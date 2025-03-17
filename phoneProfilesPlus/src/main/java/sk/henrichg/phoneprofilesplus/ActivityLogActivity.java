@@ -174,7 +174,7 @@ public class ActivityLogActivity extends AppCompatActivity
                         eventButton.setVisibility(View.GONE);
                         break;
                     case 1:
-                        _selectedFilter = PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL;
+                        _selectedFilter = PPApplication.ALFILTER_CALL_CONTROL_BLOCKED_CALL;
                         activatedProfileButton.setVisibility(View.GONE);
                         eventButton.setVisibility(View.GONE);
                         break;
@@ -534,7 +534,7 @@ public class ActivityLogActivity extends AppCompatActivity
                         int logTypeIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_LOG_TYPE);
                         int logType = cursor.getInt(logTypeIndex);
 
-                        if (logType == PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL) {
+                        if (logType == PPApplication.ALTYPE_CALL_CONTROL_BLOCKED_CALL) {
 //                                Log.e("ActivityLogActivity.onItemClick", "blocked call");
                             int telNumberIndex = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_AL_PROFILE_NAME);
                             String telNumber = cursor.getString(telNumberIndex);

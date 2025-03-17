@@ -106,9 +106,9 @@ class DatabaseHandlerOthers {
 
                 String whereStr = "";
                 switch (selectedFilter) {
-                    case PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL:
+                    case PPApplication.ALFILTER_CALL_CONTROL_BLOCKED_CALL:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
-                                PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
+                                PPApplication.ALTYPE_CALL_CONTROL_BLOCKED_CALL;
                         break;
                     case PPApplication.ALFITER_ERRORS:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
@@ -372,7 +372,7 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_E_CALL_ENABLED + "," +
                         DatabaseHandler.KEY_E_SMS_ENABLED + "," +
                         DatabaseHandler.KEY_E_ROAMING_ENABLED + "," +
-                        DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + //"," +
+                        DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + //"," +
                         " FROM " + DatabaseHandler.TABLE_EVENTS;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
@@ -1560,12 +1560,12 @@ class DatabaseHandlerOthers {
                                 }
                             }
 
-                            if (eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED)) != 0) {
-                                PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, true, instance.context);
+                            if (eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED)) != 0) {
+                                PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, true, instance.context);
                                 if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE)) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, 0);
+                                    values.put(DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED, 0);
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }

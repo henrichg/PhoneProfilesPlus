@@ -262,7 +262,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
                     break;
                 case PhoneProfilesPrefsFragment.PREF_DEFAULT_ROLES_APPLICATIONS_ROOT:
-                    preferenceFragment = new PhoneProfilesPrefsCallScreening();
+                    preferenceFragment = new PhoneProfilesPrefsDefaultRolesApplications();
                     break;
             }
             //preferenceFragment.scrollToSet = true;

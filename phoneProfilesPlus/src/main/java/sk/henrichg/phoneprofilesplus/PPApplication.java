@@ -403,12 +403,12 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
-    static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+    static final int ALTYPE_CALL_CONTROL_BLOCKED_CALL = 114;
     // TODO actual max. value = 115;
 
     static final int ALFILTER_ALL = 0;
-    static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;
-        // ALTYPE_CALL_SCREENING_BLOCKED_CALL
+    static final int ALFILTER_CALL_CONTROL_BLOCKED_CALL = 1;
+        // ALTYPE_CALL_CONTROL_BLOCKED_CALL
     static final int ALFITER_ERRORS = 2;
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT
@@ -1100,7 +1100,7 @@ public class PPApplication extends Application
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
-    static volatile CallScreeningEventEndBroadcastReceiver callScreeningEventEndBroadcastReceiver = null;
+    static volatile CallControlEventEndBroadcastReceiver callControlEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 

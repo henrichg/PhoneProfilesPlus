@@ -535,7 +535,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     contactList.clear();
                                 }
 
-                                //Log.e("PPCallScreeningService.onScreenCall", "phoneNumberToBlock="+phoneNumberToBlock);
+                                //Log.e("PPExtenderProadcastReceover.onReceive", "phoneNumberToBlock="+phoneNumberToBlock);
 
                                 if (callingPhoneNumber) {
 //                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (5) *****");

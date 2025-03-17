@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2538;
+    static final int DATABASE_VERSION = 2539;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -103,7 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_VPN = 44;
     static final int ETYPE_BRIGHTNESS = 45;
     static final int ETYPE_MUSIC = 46;
-    static final int ETYPE_CALL_SCREENING = 47;
+    static final int ETYPE_CALL_CONTROL = 47;
 
     // Profiles Table Columns names
     static final String KEY_ID = "id";
@@ -469,21 +469,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_MUSIC_SENSOR_PASSED = "musicSensorPassed";
     static final String KEY_E_MUSIC_MUSIC_STATE = "musicMusicState";
     static final String KEY_E_MUSIC_APPLICATIONS = "musicApplications";
-    static final String KEY_E_CALL_SCREENING_ENABLED = "callScreeningEnabled";
-    static final String KEY_E_CALL_SCREENING_SENSOR_PASSED = "callScreeningSensorPassed";
-    static final String KEY_E_CALL_SCREENING_CONTACTS = "callScreeningContacts";
-    static final String KEY_E_CALL_SCREENING_CONTACT_GROUPS = "callScreeningContactGroups";
-    //static final String KEY_E_CALL_SCREENING_CONTACT_LIST_TYPE = "callScreeningContactListType";
-    static final String KEY_E_CALL_SCREENING_NOT_IN_CONTACTS = "callScreeningNotInContacts";
-    static final String KEY_E_CALL_SCREENING_BLOCK_CALLS = "callScreeningBlockCalls";
-    static final String KEY_E_CALL_SCREENING_SEND_SMS = "callScreeningSendSMS";
-    static final String KEY_E_CALL_SCREENING_SMS_TEXT = "callScreeningSMSText";
-    static final String KEY_E_CALL_SCREENING_START_TIME = "callScreeningStartTime";
-    static final String KEY_E_CALL_SCREENING_DURATION = "callScreeningDuration";
-    static final String KEY_E_CALL_SCREENING_PERMANENT_RUN = "callScreeningPermanentRun";
-    static final String KEY_E_CALL_SCREENING_CALL_DIRECTION = "callScreeningCallDirection";
+    static final String KEY_E_CALL_CONTROL_ENABLED = "callScreeningEnabled";
+    static final String KEY_E_CALL_CONTROL_SENSOR_PASSED = "callScreeningSensorPassed";
+    static final String KEY_E_CALL_CONTROL_CONTACTS = "callScreeningContacts";
+    static final String KEY_E_CALL_CONTROL_CONTACT_GROUPS = "callScreeningContactGroups";
+    //static final String KEY_E_CALL_CONTROL_CONTACT_LIST_TYPE = "callScreeningContactListType";
+    static final String KEY_E_CALL_CONTROL_NOT_IN_CONTACTS = "callScreeningNotInContacts";
+    static final String KEY_E_CALL_CONTROL_BLOCK_CALLS = "callScreeningBlockCalls";
+    static final String KEY_E_CALL_CONTROL_SEND_SMS = "callScreeningSendSMS";
+    static final String KEY_E_CALL_CONTROL_SMS_TEXT = "callScreeningSMSText";
+    static final String KEY_E_CALL_CONTROL_START_TIME = "callScreeningStartTime";
+    static final String KEY_E_CALL_CONTROL_DURATION = "callScreeningDuration";
+    static final String KEY_E_CALL_CONTROL_PERMANENT_RUN = "callScreeningPermanentRun";
+    static final String KEY_E_CALL_CONTROL_CALL_DIRECTION = "callScreeningCallDirection";
     static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
     static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
+    static final String KEY_E_CALL_CONTROL_CONTROL_TYPE = "callControlControlType";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1175,14 +1176,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.getApplicationStartTime(this, event);
     }
 
-    void updateCallScreeningStartTime(Event event)
+    void updateCallControlStartTime(Event event)
     {
-        DatabaseHandlerEvents.updateCallScreeningStartTime(this, event);
+        DatabaseHandlerEvents.updateCallControlStartTime(this, event);
     }
 
-    void getCallScreeningStartTime(Event event)
+    void getCallControlStartTime(Event event)
     {
-        DatabaseHandlerEvents.getCallScreeningStartTime(this, event);
+        DatabaseHandlerEvents.getCallControlStartTime(this, event);
     }
 
     void updateEventForceRun(Event event) {
@@ -1212,8 +1213,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.getEventIgnoreManualActivation(this, event_id);
     }
 
-    List<Event> getCallScreeningEvents() {
-        return DatabaseHandlerEvents.getCallScreeningEvents(this);
+    List<Event> getCallControlEvents() {
+        return DatabaseHandlerEvents.getCallControlEvents(this);
     }
 
 // EVENT TIMELINE ------------------------------------------------------------------
@@ -1465,12 +1466,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     int exportDB(boolean deleteGeofences, boolean deleteWifiSSIDs,
                  boolean deleteBluetoothNames, boolean deleteMobileCells,
                  boolean deleteCall, boolean deleteSMS, boolean deleteNotification,
-                 boolean deletePhoneCalls, boolean deleteCallScreening,
+                 boolean deletePhoneCalls, boolean deleteCallControl,
                  boolean deleteClearNotifications)
     {
         return DatabaseHandlerImportExport.exportDB(this,
                     deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
-                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls, deleteCallScreening,
+                    deleteCall, deleteSMS, deleteNotification, deletePhoneCalls, deleteCallControl,
                     deleteClearNotifications
                 );
     }

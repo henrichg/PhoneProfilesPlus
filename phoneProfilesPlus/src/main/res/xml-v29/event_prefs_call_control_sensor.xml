@@ -2,50 +2,50 @@
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     app:title="@string/event_preferences_category_eventCallScreeningParameters"
-    app:key="eventCallScreeningCategory">
+    app:key="eventCallControlCategory">
 
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
-        app:key="eventCallScreeningEnabled"
+        app:key="eventCallControlEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
-        app:key="eventCallScreeningSetCallScreeningRole"
+        app:key="eventCallControlSetCallScreeningRole"
         app:title="@string/phone_profiles_pref_call_screening"
         app:summary="@string/phone_profiles_pref_call_screening_setCallScreeningRole_summary"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget"/>
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_call_screening_call_direction"
         app:summary="@string/array_event_pref_call_screening_direction_incoming"
-        app:key="eventCallScreeningCallDireciton"
+        app:key="eventCallControlCallDireciton"
         app:defaultValue="0"
-        app:ppEntries="@array/eventCallScreeningCallDirecitonArray"
-        app:ppEntryValues="@array/eventCallScreeningCallDirecitonValues"
-        app:dependency="eventCallScreeningEnabled"
+        app:ppEntries="@array/eventCallControlCallDirecitonArray"
+        app:ppEntryValues="@array/eventCallControlCallDirecitonValues"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
-        app:key="eventCallScreeningContactGroups"
+        app:key="eventCallControlContactGroups"
         app:defaultValue=""
         app:title="@string/event_preferences_call_contact_groups"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
-        app:key="eventCallScreeningContacts"
+        app:key="eventCallControlContacts"
         app:defaultValue=""
         app:title="@string/event_preferences_call_contacts"
         app:layout="@layout/mp_preference_material_widget"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:withoutNumbers="false"/>
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
-        app:key="eventCallScreeningNotInContacts"
+        app:key="eventCallControlNotInContacts"
         app:title="@string/event_preference_callScreeningNotInContacts"
         app:defaultValue="false"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
 
@@ -53,60 +53,60 @@
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_contactListType"
         app:summary="@string/array_event_pref_contact_list_type_white_list"
-        app:key="eventCallScreeningContactListType"
+        app:key="eventCallControlContactListType"
         app:defaultValue="0"
         app:ppEntries="@array/phoneCallsContactListTypeArray"
         app:ppEntryValues="@array/phoneCallsContactListTypeValues"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     -->
 
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
-        app:key="eventCallScreeningPermanentRun"
+        app:key="eventCallControlPermanentRun"
         app:title="@string/pref_event_permanentRun"
         app:summary="@string/pref_event_permanentRun_summary"
         app:defaultValue="true"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-        app:key="eventCallScreeningDuration"
+        app:key="eventCallControlDuration"
         app:summary="@string/event_preferences_duration"
         app:title="@string/event_preferences_duration"
         app:defaultValue="5"
         app:dMin="5"
         app:dMax="86400"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.ExclamationPreference
-        app:key="eventCallScreeningBlockCallsInfo"
+        app:key="eventCallControlBlockCallsInfo"
         app:title="@string/event_preference_callScreeningBlockCalls"
         app:summary="@string/event_preference_callScreeningBlockCalls_summary"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
-        app:key="eventCallScreeningBlockCalls"
+        app:key="eventCallControlBlockCalls"
         app:title="@string/event_preference_callScreeningBlockCalls"
         app:defaultValue="false"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
 
     <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
         app:title="@string/event_preference_callScreeningSendSMS"
-        app:key="eventCallScreeningSendSMS"
+        app:key="eventCallControlSendSMS"
         app:defaultValue="false"
-        app:dependency="eventCallScreeningEnabled"
+        app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
-        app:key="eventCallScreeningSMSText"
+        app:key="eventCallControlSMSText"
         app:title="@string/event_preference_callScreeningSMSText"
         android:selectAllOnFocus="true"
         app:defaultValue=""
-        app:dependency="eventCallScreeningSendSMS"
+        app:dependency="eventCallControlSendSMS"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

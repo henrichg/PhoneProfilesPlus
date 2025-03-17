@@ -2974,9 +2974,9 @@ public class EditorActivity extends AppCompatActivity
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSendSMS);
                 //noinspection DataFlowIssue
                 boolean deletePhoneCalls = checkbox.isChecked();
-                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallScreening);
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallControl);
                 //noinspection DataFlowIssue
-                boolean deleteCallScreening = checkbox.isChecked();
+                boolean deleteCallControl = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogClearNotifications);
                 //noinspection DataFlowIssue
                 boolean deleteClearNotificaitons = checkbox.isChecked();
@@ -2984,7 +2984,7 @@ public class EditorActivity extends AppCompatActivity
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
                         deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
                         deleteCall, deleteSMS, deleteNotification, deletePhoneCalls,
-                        deleteCallScreening, deleteClearNotificaitons,
+                        deleteCallControl, deleteClearNotificaitons,
                         activity);
                 exportAsyncTask.execute();
             });
@@ -4485,7 +4485,7 @@ public class EditorActivity extends AppCompatActivity
         final boolean deleteSMS;
         final boolean deleteNotification;
         final boolean deletePhoneCalls;
-        final boolean deleteCallScreening;
+        final boolean deleteCallControl;
         final boolean deleteClearNotifications;
         File zipFile = null;
 
@@ -4494,7 +4494,7 @@ public class EditorActivity extends AppCompatActivity
                                final boolean deleteBluetoothNames, final boolean deleteMobileCells,
                                final boolean deleteCall, final boolean deleteSMS,
                                final boolean deleteNotification, final boolean deletePhoneCalls,
-                               final boolean deleteCallScreening, final boolean deleteClearNotifications,
+                               final boolean deleteCallControl, final boolean deleteClearNotifications,
                                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
@@ -4508,7 +4508,7 @@ public class EditorActivity extends AppCompatActivity
             this.deleteSMS = deleteSMS;
             this.deleteNotification = deleteNotification;
             this.deletePhoneCalls = deletePhoneCalls;
-            this.deleteCallScreening = deleteCallScreening;
+            this.deleteCallControl = deleteCallControl;
             this.deleteClearNotifications = deleteClearNotifications;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -4569,7 +4569,7 @@ public class EditorActivity extends AppCompatActivity
                             this.deleteGeofences, this.deleteWifiSSIDs,
                             this.deleteBluetoothNames, this.deleteMobileCells,
                             this.deleteCall, this.deleteSMS, this.deleteNotification,
-                            this.deletePhoneCalls, this.deleteCallScreening,
+                            this.deletePhoneCalls, this.deleteCallControl,
                             this.deleteClearNotifications
                     );
                     if (ret == 1) {
