@@ -1723,5 +1723,13 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="eventCallControlControlTypeArray">
+        <item>@string/event_preference_call_control_control_type_nothing</item>
+        <item>@string/event_preference_call_control_control_type_blockCalls</item>
+    </string-array>
+    <string-array name="eventCallControlControlTypeValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 
 </resources>

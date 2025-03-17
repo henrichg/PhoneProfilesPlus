@@ -94,20 +94,20 @@ public class PPCallScreeningService extends CallScreeningService {
                                     //int contactListType = event._eventPreferencesCallScreening._contactListType;
                                     boolean notInContacts = event._eventPreferencesCallControl._notInContacts;
                                     int direction = event._eventPreferencesCallControl._callDirection;
-                                    boolean blockCalls = event._eventPreferencesCallControl._blockCalls;
+                                    boolean blockCalls = event._eventPreferencesCallControl._controlType == EventPreferencesCallControl.CONTROL_TYPE_BLOCK_CALLS;
                                     sendSMS = event._eventPreferencesCallControl._sendSMS;
                                     smsText = event._eventPreferencesCallControl._smsText;
 
                                     if (notInContacts) {
-                                        if (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
+                                        //if (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
                                             blockCallingPhoneNumber = !isPhoneNumberInContacts(contactList, callingPhoneNumber);
                                     } else {
                                         if ((
                                                 /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                                                 ((contacts != null) && (!contacts.isEmpty())) ||
                                                         ((contactGroups != null) && (!contactGroups.isEmpty()))
-                                        ) && (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
-                                                && blockCalls) {
+                                        ) && /*(direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
+                                                &&*/ blockCalls) {
                                             blockCallingPhoneNumber = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
                                         }
                                     }

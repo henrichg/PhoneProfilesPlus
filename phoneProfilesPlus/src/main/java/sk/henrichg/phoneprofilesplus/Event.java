@@ -477,7 +477,7 @@ class Event {
 
     void createEventPreferencesCallControl()
     {
-        this._eventPreferencesCallControl = new EventPreferencesCallControl(this, false, 0, "", "", /*0,*/false, false, false, "", false, 5);
+        this._eventPreferencesCallControl = new EventPreferencesCallControl(this, false, 0, "", "", /*0,*/false, false, "", false, 5, EventPreferencesCallControl.CONTROL_TYPE_NOTHING);
     }
 
     void createEventPreferences()

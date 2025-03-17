@@ -3727,11 +3727,12 @@ class DatabaseHandlerCreateUpdateDB {
                             event._eventPreferencesCallControl._callDirection = EventPreferencesCallControl.CALL_DIRECTION_INCOMING;
                             event._eventPreferencesCallControl._contacts = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACTS));
                             event._eventPreferencesCallControl._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_CONTACT_GROUPS));
-                            event._eventPreferencesCallControl._blockCalls = true;
+                            //event._eventPreferencesCallControl._blockCalls = true;
                             event._eventPreferencesCallControl._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SEND_SMS)) == 1);
                             event._eventPreferencesCallControl._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PHONE_CALLS_SMS_TEXT));
                             event._eventPreferencesCallControl._duration = 5;
                             event._eventPreferencesCallControl._permanentRun = false;
+                            event._eventPreferencesCallControl._controlType = EventPreferencesCallControl.CONTROL_TYPE_NOTHING;
 
                             DatabaseHandlerEvents.addEvent(event, db);
                         }

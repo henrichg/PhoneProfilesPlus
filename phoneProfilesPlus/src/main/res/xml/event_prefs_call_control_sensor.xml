@@ -18,6 +18,23 @@
         app:layout="@layout/mp_preference_material_widget"/>
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_call_control_control_type"
+        app:summary="@string/event_preference_call_control_control_type_nothing"
+        app:key="eventCallControlControlType"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallControlControlTypeArray"
+        app:ppEntryValues="@array/eventCallControlControlTypeValues"
+        app:dependency="eventCallControlEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ExclamationPreference
+        app:key="eventCallControlBlockCallsInfo"
+        app:title="@string/event_preference_callScreeningBlockCalls"
+        app:summary="@string/event_preference_callScreeningBlockCalls_summary"
+        app:dependency="eventCallControlEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_call_screening_call_direction"
         app:summary="@string/array_event_pref_call_screening_direction_incoming"
         app:key="eventCallControlCallDireciton"
@@ -78,20 +95,13 @@
         app:dependency="eventCallControlEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.ExclamationPreference
-        app:key="eventCallControlBlockCallsInfo"
-        app:title="@string/event_preference_callScreeningBlockCalls"
-        app:summary="@string/event_preference_callScreeningBlockCalls_summary"
-        app:dependency="eventCallControlEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-
-    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
-        app:key="eventCallControlBlockCalls"
-        app:title="@string/event_preference_callScreeningBlockCalls"
-        app:defaultValue="false"
-        app:dependency="eventCallControlEnabled"
-        app:layout="@layout/mp_preference_material_widget"
-        app:widgetLayout="@layout/preference_widget_custom_switch" />
+<!--    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference-->
+<!--        app:key="eventCallControlBlockCalls"-->
+<!--        app:title="@string/event_preference_callScreeningBlockCalls"-->
+<!--        app:defaultValue="false"-->
+<!--        app:dependency="eventCallControlEnabled"-->
+<!--        app:layout="@layout/mp_preference_material_widget"-->
+<!--        app:widgetLayout="@layout/preference_widget_custom_switch" />-->
 
 <!--    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference-->
 <!--        app:title="@string/event_preference_callScreeningSendSMS"-->

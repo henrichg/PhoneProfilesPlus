@@ -1516,7 +1516,7 @@ class DatabaseHandlerEvents {
                 //eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_CONTACT_LIST_TYPE));
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_CONTACT_GROUPS));
                 eventPreferences._notInContacts = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_NOT_IN_CONTACTS)) == 1);
-                eventPreferences._blockCalls = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_BLOCK_CALLS)) == 1);
+                //eventPreferences._blockCalls = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_BLOCK_CALLS)) == 1);
                 eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_SEND_SMS)) == 1);
                 eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_SMS_TEXT));
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_DURATION));
@@ -2055,7 +2055,7 @@ class DatabaseHandlerEvents {
         //values.put(DatabaseHandler.KEY_E_CALL_CONTROL_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(DatabaseHandler.KEY_E_CALL_CONTROL_CONTACT_GROUPS, eventPreferences._contactGroups);
         values.put(DatabaseHandler.KEY_E_CALL_CONTROL_NOT_IN_CONTACTS, (eventPreferences._notInContacts) ? 1 : 0);
-        values.put(DatabaseHandler.KEY_E_CALL_CONTROL_BLOCK_CALLS, (eventPreferences._blockCalls) ? 1 : 0);
+        //values.put(DatabaseHandler.KEY_E_CALL_CONTROL_BLOCK_CALLS, (eventPreferences._blockCalls) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_CONTROL_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_CONTROL_SMS_TEXT, eventPreferences._smsText);
         values.put(DatabaseHandler.KEY_E_CALL_CONTROL_DURATION, eventPreferences._duration);

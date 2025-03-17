@@ -2322,6 +2322,9 @@
     <string name="array_event_pref_call_screening_direction_incoming">Incoming calls</string>
     <string name="array_event_pref_call_screening_direction_outgoing">Outgoing calls</string>
     <string name="array_event_pref_call_screening_direction_all">All calls</string>
+    <string name="event_preferences_call_control_control_type">Control type</string>
+    <string name="event_preference_call_control_control_type_nothing">Nothing</string>
+    <string name="event_preference_call_control_control_type_blockCalls">Block phone calls</string>
 
     <!-- **************************************************************************************** -->
 
