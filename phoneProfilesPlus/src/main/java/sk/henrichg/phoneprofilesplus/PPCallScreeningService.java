@@ -99,15 +99,15 @@ public class PPCallScreeningService extends CallScreeningService {
                                     smsText = event._eventPreferencesCallControl._smsText;
 
                                     if (notInContacts) {
-                                        //if (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
+                                        if (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
                                             blockCallingPhoneNumber = !isPhoneNumberInContacts(contactList, callingPhoneNumber);
                                     } else {
                                         if ((
                                                 /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                                                 ((contacts != null) && (!contacts.isEmpty())) ||
                                                         ((contactGroups != null) && (!contactGroups.isEmpty()))
-                                        ) && /*(direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
-                                                &&*/ blockCalls) {
+                                        ) && (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
+                                                && blockCalls) {
                                             blockCallingPhoneNumber = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
                                         }
                                     }

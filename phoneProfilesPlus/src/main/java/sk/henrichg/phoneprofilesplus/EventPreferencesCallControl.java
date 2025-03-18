@@ -63,8 +63,8 @@ class EventPreferencesCallControl extends EventPreferences {
 
     static final int CONTROL_TYPE_NOTHING = 0;
     static final int CONTROL_TYPE_BLOCK_CALLS = 1;
-    static final int CONTROL_TYPE_ANSWER_CALLS = 2;
-    static final int CONTROL_TYPE_END_CALLS = 3;
+    //static final int CONTROL_TYPE_ANSWER_CALLS = 2;
+    //static final int CONTROL_TYPE_END_CALLS = 3;
 
     static final int CALL_DIRECTION_INCOMING = 0;
     static final int CALL_DIRECTION_OUTGOING = 1;
@@ -174,8 +174,8 @@ class EventPreferencesCallControl extends EventPreferences {
                     String[] controlType = context.getResources().getStringArray(R.array.eventCallControlControlTypeArray);
                     _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(controlType[this._controlType], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
 
-                    if ((_controlType == CONTROL_TYPE_NOTHING) ||
-                        (_controlType == CONTROL_TYPE_END_CALLS)) {
+                    if ((_controlType == CONTROL_TYPE_NOTHING) //||
+                        /*(_controlType == CONTROL_TYPE_END_CALLS)*/) {
                         _value.append(context.getString(R.string.event_preferences_call_screening_call_direction));
                         String[] callDirections = context.getResources().getStringArray(R.array.eventCallControlCallDirecitonArray);
                         _value.append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(callDirections[this._callDirection], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_BULLET);
@@ -464,7 +464,7 @@ class EventPreferencesCallControl extends EventPreferences {
                         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTROL_CALL_DIRECTION);
                         if (preference != null)
                             preference.setEnabled(isRoleHeld &&
-                                    ((controlType == CONTROL_TYPE_NOTHING) || (controlType == CONTROL_TYPE_END_CALLS)));
+                                    ((controlType == CONTROL_TYPE_NOTHING)/* || (controlType == CONTROL_TYPE_END_CALLS)*/));
                         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTROL_CONTACTS);
                         if (preference != null)
                             preference.setEnabled(isRoleHeld && (!notInContacts));
@@ -490,16 +490,16 @@ class EventPreferencesCallControl extends EventPreferences {
                         if (preference != null)
                             preference.setEnabled(isRoleHeld &&
                                     ((controlType == CONTROL_TYPE_NOTHING) ||
-                                     (controlType == CONTROL_TYPE_BLOCK_CALLS) ||
-                                     (controlType == CONTROL_TYPE_END_CALLS)));
+                                     (controlType == CONTROL_TYPE_BLOCK_CALLS)/* ||
+                                     (controlType == CONTROL_TYPE_END_CALLS)*/));
 
                         boolean sendSMS = preferences.getBoolean(PREF_EVENT_CALL_CONTROL_SEND_SMS, false);
                         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTROL_SMS_TEXT);
                         if (preference != null)
                             preference.setEnabled(isRoleHeld && sendSMS &&
                                     ((controlType == CONTROL_TYPE_NOTHING) ||
-                                     (controlType == CONTROL_TYPE_BLOCK_CALLS) ||
-                                     (controlType == CONTROL_TYPE_END_CALLS)));
+                                     (controlType == CONTROL_TYPE_BLOCK_CALLS)/* ||
+                                     (controlType == CONTROL_TYPE_END_CALLS)*/));
                     }
                 }
 
