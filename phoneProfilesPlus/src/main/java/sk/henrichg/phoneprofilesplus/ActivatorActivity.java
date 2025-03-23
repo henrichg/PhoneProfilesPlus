@@ -196,6 +196,8 @@ public class ActivatorActivity extends AppCompatActivity
                         y = -(runStopIndicatorLocation[1] - (activityHeight - popupHeight));
                 }
 
+                GlobalGUIRoutines.lockScreenOrientation(this);
+
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
