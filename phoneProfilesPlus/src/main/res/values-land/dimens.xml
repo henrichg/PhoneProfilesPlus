@@ -52,7 +52,7 @@
     <dimen name="listItem_editorEventList_eventName_size">13sp</dimen>
     <dimen name="listItem_editorEventList_description_size">11sp</dimen>
     <dimen name="listItem_editorEventList_profileName_size">11sp</dimen>
-    <dimen name="listItem_profileGrid_paddingTop_height">2dp</dimen>
+    <dimen name="listItem_profileGrid_paddingTop_height">7dp</dimen>
 
     <dimen name="activity_log_filter_marginStart">17dp</dimen>
     <dimen name="activity_log_tab_paddingTopBottom">5dp</dimen>
