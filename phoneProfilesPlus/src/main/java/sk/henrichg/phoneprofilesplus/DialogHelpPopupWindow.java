@@ -2,10 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatImageButton;
 
 class DialogHelpPopupWindow extends GuiInfoPopupWindow {
 
@@ -49,7 +50,7 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
 //        });
     }
 
-    static void showPopup(ImageView helpIcon,
+    static void showPopup(AppCompatImageButton helpIcon,
                           int titleStringId,
                           Activity activity,
                           /*final Dialog dialog,*/
@@ -68,10 +69,19 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
             int popupWidth = contentView.getMeasuredWidth();
             int popupHeight = contentView.getMeasuredHeight();
 
+//            Log.e("DialogHelpPopupWindow.showPopup", "popupWidth="+popupWidth);
+//            Log.e("DialogHelpPopupWindow.showPopup", "popupHeight="+popupHeight);
+
+            /*
             ViewGroup activityView = activity.findViewById(android.R.id.content);
             //noinspection DataFlowIssue
             int activityHeight = activityView.getHeight();
             //int activityWidth = activityView.getWidth();
+            */
+            DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+            //int activityWidth = metrics.widthPixels;
+            int activityHeight = metrics.heightPixels;
+//            Log.e("DialogHelpPopupWindow.showPopup", "activityHeight="+activityHeight);
 
             //int[] activityLocation = new int[2];
             //_eventStatusView.getLocationOnScreen(location);
@@ -80,6 +90,9 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
             int[] locationHelpIcon = new int[2];
             helpIcon.getLocationOnScreen(locationHelpIcon); // must be used this in dialogs.
             //helpIcon.getLocationInWindow(locationHelpIcon);
+
+//            Log.e("DialogHelpPopupWindow.showPopup", "locationHelpIcon[0]="+locationHelpIcon[0]);
+//            Log.e("DialogHelpPopupWindow.showPopup", "locationHelpIcon[1]="+locationHelpIcon[1]);
 
             int x = 0;
             int y = 0;
@@ -90,6 +103,9 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
             if ((locationHelpIcon[1] + popupHeight) > activityHeight)
                 y = -(locationHelpIcon[1] - (activityHeight - popupHeight));
 
+//            Log.e("DialogHelpPopupWindow.showPopup", "x="+x);
+//            Log.e("DialogHelpPopupWindow.showPopup", "y="+y);
+
             popup.setClippingEnabled(false); // disabled for draw outside activity
             popup.showOnAnchor(helpIcon, VerticalPosition.ALIGN_TOP,
                     HorizontalPosition.ALIGN_RIGHT, x, y, false);
@@ -98,7 +114,7 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
     }
 
     /** @noinspection SameParameterValue*/
-    static void showPopup(ImageView helpIcon,
+    static void showPopup(AppCompatImageButton helpIcon,
                           int titleStringId,
                           Activity activity,
                           /*final Dialog dialog,*/
