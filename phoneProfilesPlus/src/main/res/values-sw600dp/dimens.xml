@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <bool name="screen_is_landscape">false</bool>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_margin_start">0dp</dimen>
     <dimen name="activity_margin_end">0dp</dimen>

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -172,9 +173,13 @@ public class ActivatorActivity extends AppCompatActivity
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 int popupWidth = contentView.getMeasuredWidth();
-                //int popupHeight = contentView.getMeasuredHeight();
+                int popupHeight = contentView.getMeasuredHeight();
                 //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
                 //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+
+                DisplayMetrics metrics = getResources().getDisplayMetrics();
+                //int activityWidth = metrics.widthPixels;
+                int activityHeight = metrics.heightPixels;
 
                 int[] runStopIndicatorLocation = new int[2];
                 eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
@@ -185,6 +190,11 @@ public class ActivatorActivity extends AppCompatActivity
 
                 if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
                     x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
+
+                if (getResources().getBoolean(R.bool.screen_is_landscape)) {
+                    if ((runStopIndicatorLocation[1] + popupHeight) > activityHeight)
+                        y = -(runStopIndicatorLocation[1] - (activityHeight - popupHeight));
+                }
 
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,

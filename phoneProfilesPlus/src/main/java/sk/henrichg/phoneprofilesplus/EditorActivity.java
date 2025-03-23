@@ -30,6 +30,7 @@ import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -534,9 +535,13 @@ public class EditorActivity extends AppCompatActivity
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 int popupWidth = contentView.getMeasuredWidth();
-                //int popupHeight = contentView.getMeasuredHeight();
+                int popupHeight = contentView.getMeasuredHeight();
                 //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
                 //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+
+                DisplayMetrics metrics = getResources().getDisplayMetrics();
+                //int activityWidth = metrics.widthPixels;
+                int activityHeight = metrics.heightPixels;
 
                 int[] runStopIndicatorLocation = new int[2];
                 //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
@@ -547,6 +552,11 @@ public class EditorActivity extends AppCompatActivity
 
                 if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
                     x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
+
+                if (getResources().getBoolean(R.bool.screen_is_landscape)) {
+                    if ((runStopIndicatorLocation[1] + popupHeight) > activityHeight)
+                        y = -(runStopIndicatorLocation[1] - (activityHeight - popupHeight));
+                }
 
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,

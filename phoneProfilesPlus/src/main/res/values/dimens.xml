@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <bool name="screen_is_landscape">false</bool>
+
     <!-- Match 56dp default ActionBar height on portrait orientation -->
     <!--<dimen name="naw_drawer_margin_offset">-8dp</dimen>-->
 
