@@ -16,7 +16,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
-        app:titleTextAppearance="@style/PreferenceToolbarTitleText"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
         app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
         app:contentInsetEnd="@dimen/content_inset_end"
         app:contentInsetStart="@dimen/content_inset_start"
@@ -31,7 +31,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
-        app:titleTextAppearance="@style/PreferenceToolbarTitleText"
+        app:titleTextAppearance="@style/ActivityToolbarTitleText"
         app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
         app:contentInsetEnd="@dimen/content_inset_end"
         app:contentInsetStart="@dimen/content_inset_start"
@@ -47,11 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/preference_category_title_with_arrow_margin"
+        android:layout_marginBottom="@dimen/preference_category_title_with_arrow_margin"
         android:text=""
-        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-        android:textSize="17sp"/>
+        style="@style/PreferenceToolbarTitleText" />
+<!--        android:textSize="17sp"/>-->
 
     <View
         android:id="@+id/activity_preferences_divider"

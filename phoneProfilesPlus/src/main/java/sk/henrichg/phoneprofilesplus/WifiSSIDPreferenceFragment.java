@@ -158,7 +158,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         });
         */
 
-        final ImageView helpIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
+        final AppCompatImageButton helpIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {

@@ -113,6 +113,11 @@ public class DurationDialogPreferenceFragment extends PreferenceDialogFragmentCo
             mSeekBarMinutes.setProgress(minutes1);
             mSeekBarSeconds.setProgress(seconds1);
         }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
+        if (getActivity() != null) {
+            mValueDialog.setOnShowListener(dialog -> GlobalGUIRoutines.lockScreenOrientation(getActivity()));
+            mValueDialog.setOnCancelListener(dialog -> GlobalGUIRoutines.unlockScreenOrientation(getActivity()));
+        }
+
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), prefContext);
         mValue.setOnClickListener(view12 -> {
                 int hours12 = mSeekBarHours.getProgress();

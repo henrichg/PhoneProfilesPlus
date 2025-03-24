@@ -14,10 +14,10 @@ import androidx.appcompat.widget.TooltipCompat;
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
     final View popupView;
-    //private final Activity activity;
+    private final Activity activity;
 
     GuiInfoPopupWindow(int layoutId, int titleStringId, Activity _activity) {
-        //activity = _activity;
+        activity = _activity;
         popupView = LayoutInflater.from(_activity).inflate(layoutId, null);
         setContentView(popupView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -51,10 +51,11 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
             closeButton.setOnClickListener(v -> dismiss());
         }
 
-//        setOnDismissListener(() -> {
+        setOnDismissListener(() -> {
+            GlobalGUIRoutines.unlockScreenOrientation(activity);
 //            ViewGroup root1 = (ViewGroup) activity.getWindow().getDecorView().getRootView();
 //            clearDim(root1);
-//        });
+        });
     }
 
 //    static void applyDim(@NonNull ViewGroup parent){

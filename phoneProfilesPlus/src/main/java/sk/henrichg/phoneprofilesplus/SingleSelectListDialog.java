@@ -67,8 +67,10 @@ public class SingleSelectListDialog extends DialogFragment
             View layout = inflater.inflate(R.layout.dialog_pp_list_preference, null);
             dialogBuilder.setView(layout);
 
+            /*
             if (cancelListener != null)
                 dialogBuilder.setOnCancelListener(cancelListener);
+            */
 
             View buttonsDivider = layout.findViewById(R.id.pp_list_pref_dlg_buttonBarDivider);
             //if (hideButtonsDivider)
@@ -104,6 +106,12 @@ public class SingleSelectListDialog extends DialogFragment
 
         }
         return mDialog;
+    }
+
+    public void onCancel (@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (cancelListener != null)
+            cancelListener.onCancel(dialog);
     }
 
     public void onDismiss(@NonNull DialogInterface dialog) {

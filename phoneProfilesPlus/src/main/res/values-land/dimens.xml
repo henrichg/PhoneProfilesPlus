@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources >
+    <bool name="screen_is_landscape">true</bool>
+
     <!-- Match 48dp default ActionBar height on landscape orientation -->
     <!--<dimen name="naw_drawer_margin_offset">-8dp</dimen>-->
 
@@ -50,7 +52,7 @@
     <dimen name="listItem_editorEventList_eventName_size">13sp</dimen>
     <dimen name="listItem_editorEventList_description_size">11sp</dimen>
     <dimen name="listItem_editorEventList_profileName_size">11sp</dimen>
-    <dimen name="listItem_profileGrid_paddingTop_height">2dp</dimen>
+    <dimen name="listItem_profileGrid_paddingTop_height">7dp</dimen>
 
     <dimen name="activity_log_filter_marginStart">17dp</dimen>
     <dimen name="activity_log_tab_paddingTopBottom">5dp</dimen>
@@ -69,6 +71,11 @@
     <dimen name="popup_window_run_stop_indicator_width">350dp</dimen>
 
     <bool name="forceHideHeaderOrBottomBar">true</bool>
+
+    <dimen name="profile_event_preference_toolbar_height">52dp</dimen>
+    <dimen name="preference_category_title_with_arrow_margin">1dp</dimen>
+    <dimen name="preference_title_text_size">15sp</dimen>
+    <dimen name="preference_subtitle_text_size">14dp</dimen>
 
     <dimen name="dialog_with_edittext_padding">62dp</dimen>
 
@@ -92,6 +99,7 @@
 
     <dimen name="dialog_choose_language_help_pading">5dp</dimen>
 
+    <dimen name="dialog_button_min_height">48dp</dimen>
     <dimen name="filter_button_min_height">34dp</dimen>
     <dimen name="filter_button_text_size">14sp</dimen>
 
@@ -100,5 +108,8 @@
     <dimen name="single_selection_title_text_size">15sp</dimen>
     <dimen name="single_selection_subtitle_text_size">14dp</dimen>
     <dimen name="single_selection_title_paddingTop">10dp</dimen>
+
+    <dimen name="dialog_activity_button_min_height">34dp</dimen>
+    <dimen name="dialog_activity_button_marginTop">12dp</dimen>
 
 </resources>

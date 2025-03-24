@@ -87,7 +87,7 @@ class Permissions {
     static final int PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS = 56;
     static final int PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM = 57;
     static final int PERMISSION_TYPE_PROFILE_SEND_SMS = 58;
-    static final int PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES = 59;
+    static final int PERMISSION_TYPE_EVENT_CALL_CONTROL_PREFERENCES = 59;
     static final int PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS = 60;
     static final int PERMISSION_TYPE_PROFILE_SCREEN_NIGHT_LIGHT = 61;
     static final int PERMISSION_TYPE_PROFILE_VPN = 62;
@@ -1279,8 +1279,8 @@ class Permissions {
         }
     }
 
-    static void checkEventCallScreening(Context context, Event event, SharedPreferences preferences,
-                                        ArrayList<PermissionType>  permissions, int sensorType) {
+    static void checkEventCallControl(Context context, Event event, SharedPreferences preferences,
+                                      ArrayList<PermissionType>  permissions, int sensorType) {
         if (Build.VERSION.SDK_INT >= 29) {
             if ((event == null) && (preferences == null)) return; // true;
 
@@ -1292,32 +1292,32 @@ class Permissions {
                 boolean grantedSendSMS;
                 if (event != null) {
                     try {
-                        if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
-                            if (event._eventPreferencesCallScreening._enabled) {
+                        if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_CONTROL)) {
+                            if (event._eventPreferencesCallControl._enabled) {
                                 grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-//                                Log.e("Permissions.checkEventCallScreening", "grantedContacts="+grantedContacts);
+//                                Log.e("Permissions.checkEventCallControl", "grantedContacts="+grantedContacts);
                                 if ((permissions != null) && (!grantedContacts))
-                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
-                                if (event._eventPreferencesCallScreening._sendSMS) {
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_CONTROL_PREFERENCES, permission.READ_CONTACTS));
+                                if (event._eventPreferencesCallControl._sendSMS) {
                                     grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-//                                    Log.e("Permissions.checkEventCallScreening", "grantedSendSMS="+grantedSendSMS);
+//                                    Log.e("Permissions.checkEventCallControl", "grantedSendSMS="+grantedSendSMS);
                                     if ((permissions != null) && (!grantedSendSMS))
-                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.SEND_SMS));
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_CONTROL_PREFERENCES, permission.SEND_SMS));
                                 }
                             }
                         }
                     } catch (Exception ignored) {
                     }
                 } else {
-                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_SCREENING)) {
-                        if (preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false)) {
+                    if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_CALL_CONTROL)) {
+                        if (preferences.getBoolean(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false)) {
                             grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                             if ((permissions != null) && (!grantedContacts))
-                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.READ_CONTACTS));
-                            if (preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_SEND_SMS, false)) {
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_CONTROL_PREFERENCES, permission.READ_CONTACTS));
+                            if (preferences.getBoolean(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_SEND_SMS, false)) {
                                 grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
                                 if ((permissions != null) && (!grantedSendSMS))
-                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES, permission.SEND_SMS));
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_CONTROL_PREFERENCES, permission.SEND_SMS));
                             }
                         }
                     }
@@ -1383,7 +1383,7 @@ class Permissions {
         checkEventLocation(context, event, preferences, permissions, sensorType);
         checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
         //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
-        checkEventCallScreening(context, event, preferences, permissions, sensorType);
+        checkEventCallControl(context, event, preferences, permissions, sensorType);
 
         return permissions;
     }
@@ -1412,7 +1412,7 @@ class Permissions {
                             permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
                         if (event._eventPreferencesCall._sendSMS) {
                             grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-//                                    Log.e("Permissions.checkEventCallScreening", "grantedSendSMS="+grantedSendSMS);
+//                                    Log.e("Permissions.checkEventCallControl", "grantedSendSMS="+grantedSendSMS);
                             if ((permissions != null) && (!grantedSendSMS))
                                 permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.SEND_SMS));
                         }

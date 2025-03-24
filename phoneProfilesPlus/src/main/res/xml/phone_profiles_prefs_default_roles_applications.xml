@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:key="callScreeningCategory"
-    app:title="@string/phone_profiles_pref_call_screening">
+    app:key="categoryDefaultRolesApplications"
+    app:title="@string/phone_profiles_pref_default_roles_applications">
 
     <sk.henrichg.phoneprofilesplus.StartActivityPreference
         app:key="setCallScreeningRoleSettings"

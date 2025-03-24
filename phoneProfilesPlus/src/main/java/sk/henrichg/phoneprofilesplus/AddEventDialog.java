@@ -90,7 +90,7 @@ public class AddEventDialog extends DialogFragment
 
             //noinspection DataFlowIssue
             listView.setOnItemClickListener((parent, item, position, id) -> {
-                AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
+                EventListViewHolder viewHolder = (EventListViewHolder) item.getTag();
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
                 final Handler handler = new Handler(activity.getMainLooper());

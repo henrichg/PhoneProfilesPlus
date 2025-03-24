@@ -89,7 +89,10 @@ class DatabaseHandlerOthers {
         }
     }
 
-    static Cursor getActivityLogCursor(DatabaseHandler instance, int selectedFilter) {
+    static Cursor getActivityLogCursor(DatabaseHandler instance,
+                                       int selectedFilter,
+                                       String activatedProfileName,
+                                       String eventName) {
         instance.importExportLock.lock();
         try {
             Cursor cursor = null;
@@ -103,9 +106,9 @@ class DatabaseHandlerOthers {
 
                 String whereStr = "";
                 switch (selectedFilter) {
-                    case PPApplication.ALFILTER_CALL_SCREENING_BLOCKED_CALL:
+                    case PPApplication.ALFILTER_CALL_CONTROL_BLOCKED_CALL:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+"="+
-                                PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL;
+                                PPApplication.ALTYPE_CALL_CONTROL_BLOCKED_CALL;
                         break;
                     case PPApplication.ALFITER_ERRORS:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
@@ -127,10 +130,14 @@ class DatabaseHandlerOthers {
                         ")";
                         break;
                     case PPApplication.ALFILTER_EVENT_START:
+//                        Log.e("DatabaseHandlerOthers.getActivityLogCursor", "eventName="+eventName);
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
                                 PPApplication.ALTYPE_EVENT_START + ", " +
                                 PPApplication.ALTYPE_EVENT_START_DELAY +
                                 ")";
+                        if (!eventName.isEmpty()) {
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "'";
+                        }
                         break;
                     case PPApplication.ALFILTER_EVENT_END:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
@@ -147,12 +154,18 @@ class DatabaseHandlerOthers {
                                 PPApplication.ALTYPE_EVENT_END_DELAY + ", " +
                                 PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT +
                                 ")";
+                        if (!eventName.isEmpty()) {
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "'";
+                        }
                         break;
                     case PPApplication.ALFILTER_EVENT_STOP:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
                                 PPApplication.ALTYPE_EVENT_STOP + ", " +
                                 PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT +
                                 ")";
+                        if (!eventName.isEmpty()) {
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "'";
+                        }
                         break;
                     case PPApplication.ALFILTER_RESTART_EVENTS:
                         whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE+" IN ("+
@@ -176,6 +189,52 @@ class DatabaseHandlerOthers {
                                 PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE + ", " +
                                 PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION +
                                 ")";
+                        if (!activatedProfileName.isEmpty())
+                            whereStr = whereStr + " AND " + DatabaseHandler.KEY_AL_PROFILE_NAME + " LIKE '" + activatedProfileName + "%'";
+                        break;
+                    case PPApplication.ALFILTER_EVENTS_LIFECYCLE:
+                        if (eventName.isEmpty()) {
+                            whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE + " IN (" +
+                                    PPApplication.ALTYPE_EVENT_START + ", " +
+                                    PPApplication.ALTYPE_EVENT_START_DELAY + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_NONE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_DELAY + ", " +
+                                    PPApplication.ALTYPE_EVENT_STOP + ", " +
+                                    PPApplication.ALTYPE_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION +
+                                    ")";
+                        } else {
+                            whereStr = " WHERE " + DatabaseHandler.KEY_AL_LOG_TYPE + " IN (" +
+                                    PPApplication.ALTYPE_EVENT_START + ", " +
+                                    PPApplication.ALTYPE_EVENT_START_DELAY + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_NONE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_UNDO_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_DELAY + ", " +
+                                    PPApplication.ALTYPE_EVENT_STOP + ", " +
+                                    PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS + ", " +
+                                    PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION +
+                                    ")";
+                                whereStr = whereStr + " AND (" + DatabaseHandler.KEY_AL_PROFILE_NAME + " LIKE '%" + eventName + "%'";
+                                whereStr = whereStr + " OR " + DatabaseHandler.KEY_AL_EVENT_NAME + "='" + eventName + "')";
+                        }
                         break;
                 }
                 countQuery = countQuery + whereStr;
@@ -313,7 +372,7 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_E_CALL_ENABLED + "," +
                         DatabaseHandler.KEY_E_SMS_ENABLED + "," +
                         DatabaseHandler.KEY_E_ROAMING_ENABLED + "," +
-                        DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED + //"," +
+                        DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + //"," +
                         " FROM " + DatabaseHandler.TABLE_EVENTS;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
@@ -1501,12 +1560,12 @@ class DatabaseHandlerOthers {
                                 }
                             }
 
-                            if (eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED)) != 0) {
-                                PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, true, instance.context);
+                            if (eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED)) != 0) {
+                                PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, true, instance.context);
                                 if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE)) {
                                     values.clear();
-                                    values.put(DatabaseHandler.KEY_E_CALL_SCREENING_ENABLED, 0);
+                                    values.put(DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED, 0);
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }

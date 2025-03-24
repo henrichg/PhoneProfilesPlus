@@ -35,14 +35,29 @@ class PlayRingingNotification
     static volatile  Timer notificationPlayTimer = null;
 
     static void doSimulatingRingingCall(Intent intent, Context context) {
+        if (!ApplicationPreferences.applicationSimulateRingingCall)
+            return;
+
         if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, false))
         {
             Context appContext = context.getApplicationContext();
 
             PlayRingingNotification.ringingCallIsSimulating = false;
 
+            AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
             // wait for change of ringer mode+volume by profile activation
-            GlobalUtils.sleep(3000);
+            if (audioManager != null) {
+                int counter = 0;
+                while (counter < 30) {
+                    int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
+                    if (ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode))
+                        break;
+                    GlobalUtils.sleep(100);
+                    ++counter;
+                }
+            } else
+                GlobalUtils.sleep(3000);
 
             int oldRingerMode = intent.getIntExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, 0);
             //int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
@@ -90,7 +105,7 @@ class PlayRingingNotification
             else*/ {
                 //newRingerMode = ApplicationPreferences.prefRingerMode;
                 //newZenMode = ApplicationPreferences.prefZenMode;
-                AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+                //AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
                     switch (audioManager.getRingerMode()) {
                         case AudioManager.RINGER_MODE_SILENT:
@@ -288,6 +303,10 @@ class PlayRingingNotification
     static void startSimulatingRingingCall(/*int stream,*/ String ringtone, int ringingVolume, Context context) {
         Context appContext = context.getApplicationContext();
         stopSimulatingRingingCall(/*true*/true, appContext);
+
+        if (!ApplicationPreferences.applicationSimulateRingingCall)
+            return;
+
         if (!PlayRingingNotification.ringingCallIsSimulating) {
             AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
 
@@ -380,11 +399,10 @@ class PlayRingingNotification
                         PlayRingingNotification.ringingCallIsSimulating = true;
                     }
                 } catch (Exception e) {
-//                    Log.e("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
-                    PlayRingingNotification.ringingMediaPlayer = null;
-
-                    PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
-                    PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                    stopSimulatingRingingCall(true, appContext);
+                    //PlayRingingNotification.ringingMediaPlayer = null;
+                    //PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
+                    //PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
                     Permissions.grantPlayRingtoneNotificationPermissions(appContext, false);
                 }

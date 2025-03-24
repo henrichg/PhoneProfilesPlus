@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.preference.PreferenceManager;
 
-public class PhoneProfilesPrefsCallScreening extends PhoneProfilesPrefsFragment {
+public class PhoneProfilesPrefsDefaultRolesApplications extends PhoneProfilesPrefsFragment {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -17,7 +17,7 @@ public class PhoneProfilesPrefsCallScreening extends PhoneProfilesPrefsFragment 
             loadSharedPreferences(preferences, applicationPreferences);
         }
 
-        setPreferencesFromResource(R.xml.phone_profiles_prefs_call_screening, rootKey);
+        setPreferencesFromResource(R.xml.phone_profiles_prefs_default_roles_applications, rootKey);
     }
 
     /*

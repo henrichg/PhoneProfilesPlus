@@ -35,6 +35,8 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
+            android:layout_marginTop="@dimen/dialog_title_divider_paddingTop"
+            android:layout_marginBottom="@dimen/dialog_title_divider_paddingTop"
             android:background="@color/dialogDividerColor" />
 
         <ListView
@@ -96,10 +98,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dialog_activity_button_marginTop"
             android:layout_marginBottom="0dp"
             android:layout_marginEnd="15dp"
-            android:minHeight="@dimen/button_min_height"
+            android:minHeight="@dimen/dialog_activity_button_min_height"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:minWidth="@dimen/button_min_width"

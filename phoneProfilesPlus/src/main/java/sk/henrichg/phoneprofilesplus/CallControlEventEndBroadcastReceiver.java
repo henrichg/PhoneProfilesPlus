@@ -4,12 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class CallScreeningEventEndBroadcastReceiver extends BroadcastReceiver {
+public class CallControlEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplicationStatic.logE("[IN_BROADCAST] SMSEventEndBroadcastReceiver.onReceive", "xxx");
-//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] SMSEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CallControlEventEndBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CallControlEventEndBroadcastReceiver.onReceive", "xxx");
 
         String action = intent.getAction();
         if (action != null) {
@@ -25,8 +25,8 @@ public class CallScreeningEventEndBroadcastReceiver extends BroadcastReceiver {
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             PPExecutors.handleEvents(appContext,
-                    new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING_EVENT_END},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_CALL_SCREENING_EVENT_END, 0);
+                    new int[]{EventsHandler.SENSOR_TYPE_CALL_CONTROL_EVENT_END},
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_CALL_CONTROL_EVENT_END, 0);
         }
     }
 

@@ -147,7 +147,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_WIDGET_PANEL_CATEGORY_ROOT = "categoryWidgetPanelRoot";
     static final String PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT = "categoryWidgetDashClockRoot";
-    static final String PREF_CALL_SCREENING_CATEGORY_ROOT = "categoryCallScreeningRoot";
 
     static final String PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO = "applicationUnlinkRingerNotificationVolumesInfo";
     static final String PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "applicationEventPeriodicScanningScanIntervalInfo";
@@ -189,6 +188,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO = "applicationWidgetOneRowLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO = "applicationWidgetListLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_PANEL_INFO = "applicationWidgetPanelInfo";
+
+    static final String PREF_DEFAULT_ROLES_APPLICATIONS_ROOT = "categoryDefaultRolesApplicationsRoot";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -530,7 +531,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceCategoryScreen = findPreference(PREF_WIDGET_PANEL_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
-            preferenceCategoryScreen = findPreference(PREF_CALL_SCREENING_CATEGORY_ROOT);
+            preferenceCategoryScreen = findPreference(PREF_DEFAULT_ROLES_APPLICATIONS_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
 
@@ -5013,7 +5014,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness));
         }
-        if (key.equals(PREF_CALL_SCREENING_CATEGORY_ROOT)) {
+        /*
+        if (key.equals(PREF_CALL_CONTROL_CATEGORY_ROOT)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 String summary; //= getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
@@ -5028,6 +5030,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _value.append(summary);
             }
         }
+        */
 
         /*if (addEnd) {
             if (!summary.isEmpty()) summary = summary + " • ";

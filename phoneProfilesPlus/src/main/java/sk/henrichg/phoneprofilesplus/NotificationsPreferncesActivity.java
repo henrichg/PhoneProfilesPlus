@@ -34,7 +34,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
 
         if (activityStarted) {
             if (ApplicationPreferences.notificationProfileListDisplayNotification) {
-                GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+                GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
 
                 SingleSelectListDialog dialog = new SingleSelectListDialog(
                         false,

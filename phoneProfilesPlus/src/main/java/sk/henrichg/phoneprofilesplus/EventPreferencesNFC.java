@@ -26,6 +26,7 @@ class EventPreferencesNFC extends EventPreferences {
     private static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
     private static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
     static final String PREF_EVENT_NFC_READ_NFC_TAG_SHORTCUT = "eventNFCCreateReadNFCTagShortcut";
+    private final static String PREF_EVENT_NFC_READ_NFC_TAG_SHORTCUT_INFO = "eventNFCCreateReadNFCTagShortcutInfo";
 
     static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategoryRoot";
 
@@ -257,14 +258,20 @@ class EventPreferencesNFC extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_NFC_ENABLED) != null) {
                 boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                 Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
-                Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
-                Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
                 if (nfcTagsPreference != null)
                     nfcTagsPreference.setEnabled(enabled);
+                Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
                 if (permanentRunPreference != null)
                     permanentRunPreference.setEnabled(enabled);
+                Preference readNFCTagShortcutPreference = prefMng.findPreference(PREF_EVENT_NFC_READ_NFC_TAG_SHORTCUT);
+                if (readNFCTagShortcutPreference != null)
+                    readNFCTagShortcutPreference.setEnabled(enabled);
+                Preference readNFCTagShortcutInfoPreference = prefMng.findPreference(PREF_EVENT_NFC_READ_NFC_TAG_SHORTCUT_INFO);
+                if (readNFCTagShortcutInfoPreference != null)
+                    readNFCTagShortcutInfoPreference.setEnabled(enabled);
 
                 if (preferences != null) {
+                    Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
                     boolean permanentRun = preferences.getBoolean(PREF_EVENT_NFC_PERMANENT_RUN, false);
                     enabled = enabled && (!permanentRun);
                     if (durationPreference != null)

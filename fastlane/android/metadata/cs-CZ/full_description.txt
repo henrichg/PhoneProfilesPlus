@@ -24,14 +24,15 @@ Zobrazí se dialogové okno, protože PPP má cílovou verzi SDK 28 (Android 9).
 - Co se má spustit (Aktivátor, Editor) z domovské obrazovky, miniaplikací a oznamování
 - Globální povolení / zakázání startování událostí
 
+V nových verzích PPP budou přidány další funkce.
 
 **Vlastnosti profilu:**
 
-- Mód vyzvánění, hlasitost, hlasitý odposlech, tóny, režim letadlo, automatická synchronizace dat, mobilní data, Typ mobilní síťe, WiFi, Bluetooth, GPS, NFC, čas zhasnutí dispeje, jas displeje, auto rotace displeje, spuštění aplikace, pozadí home obrazovky, uzamykací obrazovka zapnout/vypnout, Wi-Fi přístupový bod, zamknutí zařízení, připojit k SSID
+- Mód vyzvánění, hlasitost, hlasitý odposlech, tóny, režim letadlo, automatická synchronizace dat, mobilní data, Typ mobilní síťe, WiFi, Bluetooth, GPS, NFC, čas zhasnutí dispeje, jas displeje, auto rotace displeje, spuštění aplikace, pozadí home obrazovky, uzamykací obrazovka zapnout/vypnout, Wi-Fi přístupový bod, zamknutí zařízení, připojit k SSID, ...
 
 
 **Vlastnosti událostí:**
 
-- Priorita, profil, který chcete aktivovat při startu / konci, ignoruj ​​manuální aktivaci profilu, zvuková notifikace, vrať zpět profil aktivován před startem události, pozdržení startu události
-- Typy událostí: čas, kalendář, baterie, hovor, příslušenství, WiFi (SSID), Obrazovka (zapnutí /vypnutí), Bluetooth, SMS, Notifikace, Aplikace, Poloha, Orientace, Mobilní buňky, NFC tagy, Rádia, Budík.
+- Priorita, profil, který chcete aktivovat při startu / konci, ignoruj ​​manuální aktivaci profilu, zvuková notifikace, vrať zpět profil aktivován před startem události, pozdržení startu události, ...
+- Typy událostí: čas, kalendář, baterie, hovor, příslušenství, WiFi (SSID), Obrazovka (zapnutí /vypnutí), Bluetooth, SMS, Notifikace, Aplikace, Poloha, Orientace, Mobilní buňky, NFC tagy, Rádia, Budík, ...
 

@@ -535,7 +535,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     contactList.clear();
                                 }
 
-                                //Log.e("PPCallScreeningService.onScreenCall", "phoneNumberToBlock="+phoneNumberToBlock);
+                                //Log.e("PPExtenderProadcastReceover.onReceive", "phoneNumberToBlock="+phoneNumberToBlock);
 
                                 if (callingPhoneNumber) {
 //                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (5) *****");
@@ -750,14 +750,15 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return PPApplicationStatic.getVersionCode(pInfo);
-            }
-            else {
-                return 0;
-            }
+            //}
+            //else {
+            //    return 0;
+            //}
         }
         catch (Exception e) {
             // extender is not installed = package not found
@@ -771,14 +772,15 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return pInfo.versionName;
-            }
-            else {
-                return "";
-            }
+            //}
+            //else {
+            //    return "";
+            //}
         }
         catch (Exception e) {
             // extender is not installed = package not found

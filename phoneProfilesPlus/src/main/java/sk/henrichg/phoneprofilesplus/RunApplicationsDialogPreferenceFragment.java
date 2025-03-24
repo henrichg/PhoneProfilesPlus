@@ -85,7 +85,7 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(applicationsListView);
 
-        final ImageView helpIcon = view.findViewById(R.id.run_applications_pref_dlg_helpIcon);
+        final AppCompatImageButton helpIcon = view.findViewById(R.id.run_applications_pref_dlg_helpIcon);
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {

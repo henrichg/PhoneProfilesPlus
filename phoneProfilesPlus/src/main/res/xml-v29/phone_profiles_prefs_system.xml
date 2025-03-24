@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categorySystem"
+    app:title="@string/phone_profiles_pref_category_system">
+
+    <PreferenceCategory
+        app:key="applicationUnlinkRingerNotificationVolumesCategory"
+        app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
+        app:layout="@layout/mp_preference_category" >
+        <Preference
+            app:key="applicationUnlinkRingerNotificationVolumesInfo"
+            app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
+            app:summary=""
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationUnlinkRingerNotificationVolumes"
+            app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="applicationUnlinkRingerNotificationVolumesImportantInfo"
+            app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
+            app:summary="@string/phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.InformationPreference
+            app:key="applicationForceSetMergeRingNotificationVolumesInfo"
+            app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
+            app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:key="applicationForceSetMergeRingNotificationVolumes"
+            app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
+            app:summary="@string/array_pref_forceSetMergeRingNotificationVolumes_keepDetected"
+            app:defaultValue="0"
+            app:ppEntries="@array/forceSetMergeRingNotificationVolumesArray"
+            app:ppEntryValues="@array/forceSetMergeRingNotificationVolumesValues"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="applicationSimulateRingingCallCategory"
+        app:title="@string/pref_event_simaulateRingingCall"
+        app:layout="@layout/mp_preference_category" >
+        <Preference
+            app:key="applicationSimulateRingingCallInfo"
+            app:title="@string/pref_event_simaulateRingingCall_summary"
+            app:summary=""
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationSimulateRingingCall"
+            app:title="@string/pref_event_simaulateRingingCall"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="applicationPowerParametersCategory"
+        app:title="@string/phone_profiles_pref_applicationPowerParametersCategory"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="applicationBatteryOptimization"
+            app:title="@string/phone_profiles_pref_applicationBatteryOptimization"
+            app:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
+            app:layout="@layout/mp_preference_material_widget"/>
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="applicationDoNotKillMyApp"
+            app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"
+            app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary1"
+            app:layout="@layout/mp_preference_material_widget"/>
+        <sk.henrichg.phoneprofilesplus.StartActivityPreference
+            app:key="applicationSystemPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationBatterySaver"
+            app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+            app:layout="@layout/mp_preference_material_widget"/>
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory-->
+<!--        app:key="applicationAutostartCategory"-->
+<!--        app:title="@string/phone_profiles_pref_applicationAutostartCategory"-->
+<!--        app:layout="@layout/mp_preference_category" >-->
+<!--        <Preference-->
+<!--            app:key="applicationAutoStartManager"-->
+<!--            app:title="@string/phone_profiles_pref_systemAutoStartManager"-->
+<!--            app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"-->
+<!--            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--            app:layout="@layout/mp_preference_material_widget"/>-->
+<!--    </PreferenceCategory>-->
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="categoryDefaultRolesApplicationsRoot"
+        app:title="@string/phone_profiles_pref_default_roles_applications"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsCallScreening" />
+
+    <PreferenceCategory
+        app:key="applicationOtherParametersCategory"
+        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+            app:key="applicationUseAlarmClock"
+            app:title="@string/phone_profiles_pref_applicationUseAlarmClock"
+            app:summary="@string/phone_profiles_pref_applicationUseAlarmClock_summary"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget"
+            app:widgetLayout="@layout/preference_widget_custom_switch" />
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

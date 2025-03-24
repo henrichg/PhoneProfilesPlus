@@ -890,7 +890,7 @@ public class EditorEventListFragment extends Fragment
     }
 */
 
-    private void duplicateEvent(Event origEvent)
+    void duplicateEvent(Event origEvent)
     {
         /*
         Event newEvent = new Event(
@@ -976,38 +976,11 @@ public class EditorEventListFragment extends Fragment
 
         final Event event = (Event)view.getTag();
 
-        int itemsRes;
-        if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP)
-            itemsRes = R.array.eventListItemEditEnableRunArray;
-        else
-            itemsRes = R.array.eventListItemEditStopArray;
-
-        SingleSelectListDialog dialog = new SingleSelectListDialog(
-                true,
-                getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + event._name,
-                getString(R.string.tooltip_options_menu),
-                itemsRes,
-                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
-                (dialog1, which) -> {
-                    switch (which) {
-                        case 0:
-                            //runStopEvent(event);
-                            EventStatic.runStopEvent(activityDataWrapper, event, (EditorActivity) getActivity());
-                            break;
-                        case 1:
-                            duplicateEvent(event);
-                            break;
-                        case 2:
-                            deleteEventWithAlert(event);
-                            break;
-                        default:
-                    }
-                },
-                null,
-                //false,
-                (AppCompatActivity) getActivity());
+        EditorEventListItemMenuDialog dialog = new EditorEventListItemMenuDialog((EditorActivity) getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putLong(PPApplication.EXTRA_EVENT_ID, event._id);
+        dialog.setArguments(bundle);
         dialog.showDialog();
-
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -1062,7 +1035,7 @@ public class EditorEventListFragment extends Fragment
  */
     }
 
-    private void deleteEventWithAlert(Event event)
+    void deleteEventWithAlert(Event event)
     {
         final Event _event = event;
 
@@ -1902,6 +1875,13 @@ public class EditorEventListFragment extends Fragment
 
         final Event event = (Event)view.getTag();
 
+        EditorEventListItemIgnoreManualActivationMenuDialog dialog = new EditorEventListItemIgnoreManualActivationMenuDialog((EditorActivity) getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putLong(PPApplication.EXTRA_EVENT_ID, event._id);
+        dialog.setArguments(bundle);
+        dialog.showDialog();
+
+        /*
         int value;
         if (event._ignoreManualActivation && event._noPauseByManualActivation)
             value = 2;
@@ -1957,6 +1937,7 @@ public class EditorEventListFragment extends Fragment
                 //false,
                 (AppCompatActivity) getActivity());
         dialog.showDialog();
+        */
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -2171,7 +2152,7 @@ public class EditorEventListFragment extends Fragment
                             DatabaseHandler.getInstance(dataWrapper.context).getDeviceBootStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getPeriodicStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getApplicationStartTime(event);
-                            DatabaseHandler.getInstance(dataWrapper.context).getCallScreeningStartTime(event);
+                            DatabaseHandler.getInstance(dataWrapper.context).getCallControlStartTime(event);
                         }
                     }
 

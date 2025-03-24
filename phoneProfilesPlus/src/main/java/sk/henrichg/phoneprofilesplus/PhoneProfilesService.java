@@ -70,7 +70,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
     static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
-    static final String ACTION_CALL_SCREENING_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallScreeningEventEndBroadcastReceiver";
+    static final String ACTION_CALL_CONTROL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallControlEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -140,8 +140,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR = "register_receivers_for_sms_sensor";
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
     static final String EXTRA_DISABLE_NOT_USED_SCANNERS = "disable_not_used_scanners";
-    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "register_receivers_for_call_screening_sensor";
-    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "unregister_receivers_for_call_screening_sensor";
+    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR = "register_receivers_for_call_control_sensor";
+    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR = "unregister_receivers_for_call_control_sensor";
 
     static final String EXTRA_START_FOR_SHIZUKU_START = "start_for_shizuku_start";
 
@@ -843,10 +843,10 @@ public class PhoneProfilesService extends Service
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 2, false, false);
 
-                //EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
-                EventPreferencesCallScreening.setEventCallScreeningTime(appContext, 0);
-                EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(appContext, "");
-                EventPreferencesCallScreening.setEventCallScreeningCallDirection(appContext, 0);
+                //EventPreferencesCallControl.setEventCallControlActive(appContext, false);
+                EventPreferencesCallControl.setEventCallControlTime(appContext, 0);
+                EventPreferencesCallControl.setEventCallControlPhoneNumber(appContext, "");
+                EventPreferencesCallControl.setEventCallControlCallDirection(appContext, 0);
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()

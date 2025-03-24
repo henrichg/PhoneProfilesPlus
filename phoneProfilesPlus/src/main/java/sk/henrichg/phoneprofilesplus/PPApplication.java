@@ -403,12 +403,12 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
-    static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+    static final int ALTYPE_CALL_CONTROL_BLOCKED_CALL = 114;
     // TODO actual max. value = 115;
 
     static final int ALFILTER_ALL = 0;
-    static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;
-        // ALTYPE_CALL_SCREENING_BLOCKED_CALL
+    static final int ALFILTER_CALL_CONTROL_BLOCKED_CALL = 1;
+        // ALTYPE_CALL_CONTROL_BLOCKED_CALL
     static final int ALFITER_ERRORS = 2;
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT
@@ -461,6 +461,25 @@ public class PPApplication extends Application
         // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
         // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
         // ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION
+    static final int ALFILTER_EVENTS_LIFECYCLE = 8;
+        // ALTYPE_EVENT_START
+        // ALTYPE_EVENT_START_DELAY
+        // ALTYPE_EVENT_END_NONE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE
+        // ALTYPE_EVENT_END_UNDO_PROFILE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE
+        // ALTYPE_EVENT_END_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
+        // ALTYPE_EVENT_END_DELAY
+        // ALTYPE_EVENT_STOP
+        // ALTYPE_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_MERGED_PROFILE_ACTIVATION
+        // ALTYPE_PROFILE_ACTIVATION
 
     static final String MODEL_NEXUS = "Nexus";
     static final String MANUFACTURER_HMD_GLOBAL = "HMD Global";
@@ -1081,7 +1100,7 @@ public class PPApplication extends Application
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
-    static volatile CallScreeningEventEndBroadcastReceiver callScreeningEventEndBroadcastReceiver = null;
+    static volatile CallControlEventEndBroadcastReceiver callControlEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 

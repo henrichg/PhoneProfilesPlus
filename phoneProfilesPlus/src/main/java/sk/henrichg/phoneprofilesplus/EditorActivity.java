@@ -30,6 +30,7 @@ import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -242,7 +243,7 @@ public class EditorActivity extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false, false);
 
         //if (Build.VERSION.SDK_INT >= 34)
         //    EdgeToEdge.enable(this);
@@ -534,9 +535,13 @@ public class EditorActivity extends AppCompatActivity
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 int popupWidth = contentView.getMeasuredWidth();
-                //int popupHeight = contentView.getMeasuredHeight();
+                int popupHeight = contentView.getMeasuredHeight();
                 //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
                 //Log.d("ActivatorActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+
+                DisplayMetrics metrics = getResources().getDisplayMetrics();
+                //int activityWidth = metrics.widthPixels;
+                int activityHeight = metrics.heightPixels;
 
                 int[] runStopIndicatorLocation = new int[2];
                 //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
@@ -547,6 +552,13 @@ public class EditorActivity extends AppCompatActivity
 
                 if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
                     x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
+
+                if (getResources().getBoolean(R.bool.screen_is_landscape)) {
+                    if ((runStopIndicatorLocation[1] + popupHeight) > activityHeight)
+                        y = -(runStopIndicatorLocation[1] - (activityHeight - popupHeight));
+                }
+
+                GlobalGUIRoutines.lockScreenOrientation(this);
 
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
@@ -2974,9 +2986,9 @@ public class EditorActivity extends AppCompatActivity
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogSendSMS);
                 //noinspection DataFlowIssue
                 boolean deletePhoneCalls = checkbox.isChecked();
-                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallScreening);
+                checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogCallControl);
                 //noinspection DataFlowIssue
-                boolean deleteCallScreening = checkbox.isChecked();
+                boolean deleteCallControl = checkbox.isChecked();
                 checkbox = layout.findViewById(R.id.deleteSecureDataInExportDialogClearNotifications);
                 //noinspection DataFlowIssue
                 boolean deleteClearNotificaitons = checkbox.isChecked();
@@ -2984,7 +2996,7 @@ public class EditorActivity extends AppCompatActivity
                 exportAsyncTask = new ExportAsyncTask(email, toAuthor, share,
                         deleteGeofences, deleteWifiSSIDs, deleteBluetoothNames, deleteMobileCells,
                         deleteCall, deleteSMS, deleteNotification, deletePhoneCalls,
-                        deleteCallScreening, deleteClearNotificaitons,
+                        deleteCallControl, deleteClearNotificaitons,
                         activity);
                 exportAsyncTask.execute();
             });
@@ -4485,7 +4497,7 @@ public class EditorActivity extends AppCompatActivity
         final boolean deleteSMS;
         final boolean deleteNotification;
         final boolean deletePhoneCalls;
-        final boolean deleteCallScreening;
+        final boolean deleteCallControl;
         final boolean deleteClearNotifications;
         File zipFile = null;
 
@@ -4494,7 +4506,7 @@ public class EditorActivity extends AppCompatActivity
                                final boolean deleteBluetoothNames, final boolean deleteMobileCells,
                                final boolean deleteCall, final boolean deleteSMS,
                                final boolean deleteNotification, final boolean deletePhoneCalls,
-                               final boolean deleteCallScreening, final boolean deleteClearNotifications,
+                               final boolean deleteCallControl, final boolean deleteClearNotifications,
                                EditorActivity activity) {
             this.activityWeakRef = new WeakReference<>(activity);
             this.email = email;
@@ -4508,7 +4520,7 @@ public class EditorActivity extends AppCompatActivity
             this.deleteSMS = deleteSMS;
             this.deleteNotification = deleteNotification;
             this.deletePhoneCalls = deletePhoneCalls;
-            this.deleteCallScreening = deleteCallScreening;
+            this.deleteCallControl = deleteCallControl;
             this.deleteClearNotifications = deleteClearNotifications;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -4569,7 +4581,7 @@ public class EditorActivity extends AppCompatActivity
                             this.deleteGeofences, this.deleteWifiSSIDs,
                             this.deleteBluetoothNames, this.deleteMobileCells,
                             this.deleteCall, this.deleteSMS, this.deleteNotification,
-                            this.deletePhoneCalls, this.deleteCallScreening,
+                            this.deletePhoneCalls, this.deleteCallControl,
                             this.deleteClearNotifications
                     );
                     if (ret == 1) {

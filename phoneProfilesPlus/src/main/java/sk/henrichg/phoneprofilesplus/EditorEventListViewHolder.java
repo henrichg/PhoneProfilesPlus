@@ -506,6 +506,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     int x = GlobalGUIRoutines.dpToPx(10);
                     int y = 0;
 
+                    GlobalGUIRoutines.lockScreenOrientation(editorFragment.getActivity());
+
                     //noinspection DataFlowIssue
                     popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);

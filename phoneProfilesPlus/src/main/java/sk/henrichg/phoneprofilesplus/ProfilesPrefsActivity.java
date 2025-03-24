@@ -56,7 +56,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         //if (Build.VERSION.SDK_INT >= 34)
@@ -65,7 +65,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_profile_events_preferences);
+        setContentView(R.layout.activity_profile_event_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -76,7 +76,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
         //noinspection DataFlowIssue
-        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
+        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences)+"   ");
         toolbar.setTitle(getString(R.string.profile_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
@@ -144,7 +144,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
 //        PPApplication.blockContactContentObserver = true;
 
-        // TODO !!! why I remove these dialogs for contacts?
         /*
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)

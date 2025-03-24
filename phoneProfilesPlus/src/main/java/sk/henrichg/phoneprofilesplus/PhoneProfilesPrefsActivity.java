@@ -67,7 +67,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         //if (Build.VERSION.SDK_INT >= 34)
@@ -261,8 +261,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 case PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
                     break;
-                case PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT:
-                    preferenceFragment = new PhoneProfilesPrefsCallScreening();
+                case PhoneProfilesPrefsFragment.PREF_DEFAULT_ROLES_APPLICATIONS_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsDefaultRolesApplications();
                     break;
             }
             //preferenceFragment.scrollToSet = true;

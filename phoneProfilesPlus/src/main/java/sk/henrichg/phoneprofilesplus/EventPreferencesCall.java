@@ -52,6 +52,7 @@ class EventPreferencesCall extends EventPreferences {
     static final String PREF_EVENT_CALL_SEND_SMS_INFO = "eventCallSendSMSInfo";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
+    static final String PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS = "eventCallSimulateRingingCallSettings";
 
     static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategoryRoot";
 
@@ -351,6 +352,19 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
         }
+        if (key.equals(PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS)) {
+            StartActivityPreference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary;
+                if (ApplicationPreferences.applicationSimulateRingingCall)
+                    summary = context.getString(R.string.pref_event_simaulateRingingCallEnabled);
+                else
+                    summary = context.getString(R.string.pref_event_simaulateRingingCallDisabled);
+                summary = summary + StringConstants.STR_SEPARATOR_LINE +
+                        context.getString(R.string.pref_event_simaulateRingingCall_summary);
+                preference.setSummary(summary);
+            }
+        }
 
         Event event = new Event();
         event.createEventPreferences();
@@ -424,6 +438,9 @@ class EventPreferencesCall extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
+        if (key.equals(PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS)) {
+            setSummary(prefMng, key, "", context);
+        }
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -439,6 +456,7 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_FOR_SIM_CARD, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SEND_SMS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_SMS_TEXT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -569,8 +587,9 @@ class EventPreferencesCall extends EventPreferences {
                     if (preference != null)
                         preference.setEnabled(sendSMS && contactListType == CONTACT_LIST_TYPE_WHITE_LIST);
                 }
-
                 setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
+
+                setSummary(prefMng, PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS, preferences, context);
             }
         }
         setCategorySummary(prefMng, preferences, context);

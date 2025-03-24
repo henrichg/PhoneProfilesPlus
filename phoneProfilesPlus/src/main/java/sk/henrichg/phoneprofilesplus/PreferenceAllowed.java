@@ -3478,7 +3478,7 @@ class PreferenceAllowed {
 //                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "(1) Shizuku not granted");
                         preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                         notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
-                        notAllowedShizuku = true;
+                        notAllowedPPPPS = true;
                     } else
                         preferenceAllowed = PREFERENCE_ALLOWED;
                 } else {
@@ -3488,7 +3488,7 @@ class PreferenceAllowed {
 //                            PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_SCREEN_TIMEOUT", "(2) Shizuku not granted");
                             preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                             notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
-                            notAllowedShizuku = true;
+                            notAllowedPPPPS = true;
                         } else
                             preferenceAllowed = PREFERENCE_ALLOWED;
                     }
