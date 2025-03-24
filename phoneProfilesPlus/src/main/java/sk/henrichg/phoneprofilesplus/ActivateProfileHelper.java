@@ -9568,14 +9568,23 @@ class ActivateProfileHelper {
     static int isPPPPutSettingsInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
+            /*List<PackageInfo> pInfos = packageManager.getInstalledPackages(0);
+            for (PackageInfo pInfo : pInfos) {
+                if (pInfo.packageName.equals(PPApplication.PACKAGE_NAME_PPPPS))
+                    return PPApplicationStatic.getVersionCode(pInfo);
+            }
+            return 0;*/
+
             ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return PPApplicationStatic.getVersionCode(pInfo);
-            } else {
-                return 0;
-            }
+            //} else {
+            //    return 0;
+            //}
+
         } catch (Exception e) {
             // extender is not installed = package not found
             //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
@@ -9588,14 +9597,15 @@ class ActivateProfileHelper {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return pInfo.versionName;
-            }
-            else {
-                return "";
-            }
+            //}
+            //else {
+            //    return "";
+            //}
         }
         catch (Exception e) {
             // extender is not installed = package not found
