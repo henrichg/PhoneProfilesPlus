@@ -70,6 +70,11 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <!-- Sem daj kategoriu na Answer call, do nej ci odpovedat+dlzka zvoneia. Povol tuto kategoriu len pre
+         Call event=Ringing -->
+    <!-- Sem daj kategoriu na End call, do nej ci odpovedat+dlzka hovoru. Povol tuto kategoriu len pre
+         Call event=Inconning call answered/Outgoing call started -->
+
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="eventCallSendSMSInfo"
         app:title="@string/event_preference_callSendSMS"
