@@ -2203,12 +2203,20 @@ class PPApplicationStatic {
                                final boolean shutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             PPApplicationStatic.logE("PPApplication._exitApp", "shutdown="+shutdown);
+            PPApplicationStatic.logE("PPApplication._exitApp", "exitByUser="+exitByUser);
+
+            if (exitByUser) {
+                String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_exiting_toast);
+                PPApplication.showToast(context, text, Toast.LENGTH_SHORT);
+            }
 
             if (!shutdown)
                 cancelAllWorks(/*false*/);
 
-            if (dataWrapper != null)
-                dataWrapper.stopAllEvents(false, false, false, false);
+            if (!exitByUser) {
+                if (dataWrapper != null)
+                    dataWrapper.stopAllEvents(false, false, false, false);
+            }
 
             if (!shutdown) {
                 // clear cahches
@@ -2350,7 +2358,6 @@ class PPApplicationStatic {
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);
 
-            PPApplicationStatic.logE("PPApplication._exitApp", "*********** exitByUser="+exitByUser);
             if (exitByUser) {
                 //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
@@ -2367,6 +2374,9 @@ class PPApplicationStatic {
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission(context);
 
                 ApplicationPreferences.applicationStartOnBoot(context);
+
+                String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_exited_toast);
+                PPApplication.showToast(context, text, Toast.LENGTH_SHORT);
             }
 
         } catch (Exception e) {
