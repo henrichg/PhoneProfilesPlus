@@ -2326,8 +2326,8 @@
     <string name="event_preference_call_control_control_type_nothing">Nothing</string>
     <string name="event_preference_call_control_control_type_blockCalls">Block phone calls</string>
 
-    <string name="application_is_exiting_toast">is exiting…</string>
-    <string name="application_is_exited_toast">is exited</string>
+    <string name="application_is_exiting_toast">is ending…</string>
+    <string name="application_is_exited_toast">is ended</string>
 
     <!-- **************************************************************************************** -->
 
