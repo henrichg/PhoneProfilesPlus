@@ -2329,6 +2329,9 @@
     <string name="application_is_exiting_toast">is ending…</string>
     <string name="application_is_exited_toast">is ended</string>
 
+    <string name="event_preferences_call_answerCall">Answer call</string>
+    <string name="event_preferences_call_answerCall_ringingLength">Ringing length</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

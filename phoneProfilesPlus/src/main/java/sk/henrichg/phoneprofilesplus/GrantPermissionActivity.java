@@ -1334,10 +1334,18 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                finishActivity = permissionsChanged && (!modifyPhonePermission);
 //            }
             if (!permissionsChanged) {
-                boolean phonePermission = Permissions.checkPhone(context);
+                boolean phonePermission = Permissions.checkReadPhoneState(context);
                 permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!phonePermission);
+            }
+            if (Build.VERSION.SDK_INT >= 29) {
+                if (!permissionsChanged) {
+                    boolean phonePermission = Permissions.checkAnswerPhoneCalls(context);
+                    permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
+                    // finish Editor when permission is disabled
+                    finishActivity = permissionsChanged && (!phonePermission);
+                }
             }
             if (!permissionsChanged) {
                 boolean storagePermission = Permissions.checkReadStorage(context);

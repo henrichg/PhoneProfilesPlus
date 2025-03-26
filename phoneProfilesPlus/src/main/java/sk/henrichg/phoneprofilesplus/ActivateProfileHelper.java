@@ -3660,7 +3660,7 @@ class ActivateProfileHelper {
                                 int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
                                 if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                                    if (Permissions.checkPhone(appContext))
+                                    if (Permissions.checkReadPhoneState(appContext))
                                         linkUnlink = linkUnlinkVolumes;
                                 }
 
@@ -6960,7 +6960,7 @@ class ActivateProfileHelper {
 
         if (simExists)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "ask for root enabled and is rooted");
                 try {
                     // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -7776,7 +7776,7 @@ class ActivateProfileHelper {
         }
 //        Log.e("ActivateProfileHelper.setDefaultSimCard", "(2) simCard="+simCard);
 
-        if (Permissions.checkPhone(context.getApplicationContext())) {
+        if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
 //            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
             boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
@@ -8118,7 +8118,7 @@ class ActivateProfileHelper {
         //noinspection ConstantValue
         if (true /*simExists*/)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
                 // Get the value of the "TRANSACTION_ssetSubscriptionEnabled" field.
                 int transactionCode;
                 if (Build.VERSION.SDK_INT < 31) {

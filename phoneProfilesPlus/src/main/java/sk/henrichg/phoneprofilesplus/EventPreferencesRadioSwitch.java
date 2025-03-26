@@ -1079,7 +1079,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                         if ((phoneCount > 1) && twoSimCards) {
                             tested = true;
-                            if (Permissions.checkPhone(eventsHandler.context.getApplicationContext())) {
+                            if (Permissions.checkReadPhoneState(eventsHandler.context.getApplicationContext())) {
                                 if (_defaultSIMForCalls != 0) {
                                     int defaultSubscriptionId = SubscriptionManager.getDefaultSubscriptionId();
                                     int simCard = GlobalUtils.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);

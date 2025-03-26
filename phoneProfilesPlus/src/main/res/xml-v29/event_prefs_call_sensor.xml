@@ -70,8 +70,14 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <!-- Sem daj kategoriu na Answer call, do nej ci odpovedat+dlzka zvoneia. Povol tuto kategoriu len pre
-         Call event=Ringing -->
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/event_preferences_call_answerCall"
+        app:summary=""
+        app:key="eventCallAnswerCallCategoryRoot"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallAnswerCallParameters" />
+
     <!-- Sem daj kategoriu na End call, do nej ci odpovedat+dlzka hovoru. Povol tuto kategoriu len pre
          Call event=Inconning call answered/Outgoing call started -->
 

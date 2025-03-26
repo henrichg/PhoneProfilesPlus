@@ -2326,7 +2326,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                            finishActivity = permissionsChanged && (!modifyPhonePermission);
 //                        }
                         if (!permissionsChanged) {
-                            boolean phonePermission = Permissions.checkPhone(context);
+                            boolean phonePermission = Permissions.checkReadPhoneState(context);
                             permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!phonePermission);

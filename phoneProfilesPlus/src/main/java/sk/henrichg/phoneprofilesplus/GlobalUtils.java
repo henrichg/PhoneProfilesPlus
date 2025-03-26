@@ -444,7 +444,7 @@ class GlobalUtils {
         hasSIMCardData.hasSIM1 = false;
         hasSIMCardData.hasSIM2 = false;
 
-        if (Permissions.checkPhone(appContext)) {
+        if (Permissions.checkReadPhoneState(appContext)) {
             TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
@@ -488,7 +488,7 @@ class GlobalUtils {
     static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-                if (Permissions.checkPhone(appContext)) {
+                if (Permissions.checkReadPhoneState(appContext)) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
                     if (mSubscriptionManager != null) {
