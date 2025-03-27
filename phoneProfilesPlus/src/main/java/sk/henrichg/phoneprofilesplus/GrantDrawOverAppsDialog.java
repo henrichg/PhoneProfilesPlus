@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class GrantDrawOverAppsDialog extends DialogFragment
 {
@@ -165,9 +166,12 @@ public class GrantDrawOverAppsDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
+        if ((activity != null) && (!activity.isFinishing())) {
             //mDialog.show();
-            show(activity.getSupportFragmentManager(), "GRANT_DRAW_OVER_APPS_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "GRANT_DRAW_OVER_APPS_DIALOG");
+        }
     }
 
 }

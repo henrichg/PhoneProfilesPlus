@@ -25,6 +25,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -640,8 +641,11 @@ public class RunApplicationEditorDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "RUN_APPLICATION_EDITOR_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "RUN_APPLICATION_EDITOR_DIALOG");
+        }
     }
 
 }

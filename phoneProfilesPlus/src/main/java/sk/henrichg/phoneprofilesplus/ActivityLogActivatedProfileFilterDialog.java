@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
@@ -137,8 +138,11 @@ public class ActivityLogActivatedProfileFilterDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "ACTIVITY_LOG_PROFILE_FILTER_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "ACTIVITY_LOG_PROFILE_FILTER_DIALOG");
+        }
     }
 
     private static class AlphabeticallyComparator implements Comparator<Profile> {

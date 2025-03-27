@@ -452,7 +452,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //if (fragmentManager != null) {
                 //noinspection deprecation
                 dialogFragment.setTargetFragment(this, 0);
-                dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".ProfilesPrefsActivity.DIALOG");
+                if (!fragmentManager.isDestroyed())
+                    dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".ProfilesPrefsActivity.DIALOG");
                 //}
             }
         }
