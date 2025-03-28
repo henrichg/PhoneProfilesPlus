@@ -3824,7 +3824,7 @@ class DatabaseHandlerCreateUpdateDB {
 
                 if (cursor.moveToFirst()) {
                     do {
-                        long event_id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
+                        //long event_id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
                         int blockCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_CONTROL_BLOCK_CALLS));
 
                         if (blockCalls == 1) {
