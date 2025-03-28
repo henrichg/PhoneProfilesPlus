@@ -2446,8 +2446,6 @@
     <string name="pppputsettings_battery_optimization_optimized">Optimized</string>
     <string name="pppputsettings_battery_optimization_not_optimized">Not optimized</string>
     <string name="pppputsettings_battery_optimization_button">Open Battery optimization</string>
-    <string name="pppputsettings_battery_optimization_enabled">Enabled</string>
-    <string name="pppputsettings_battery_optimization_disabled">Disabled</string>
 
 </resources>
 

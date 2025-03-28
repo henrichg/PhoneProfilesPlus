@@ -10,12 +10,14 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -54,7 +56,7 @@ class EventPreferencesCall extends EventPreferences {
     static final String PREF_EVENT_CALL_SMS_TEXT = "eventCallSMSText";
     static final String PREF_EVENT_CALL_SEND_SMS_INFO = "eventCallSendSMSInfo";
 
-    static final String PREF_EVENT_CALL_ANSWER_CALL_CATEGORY_ROOT = "eventCallAnswerCallCategoryRoot";
+    private static final String PREF_EVENT_CALL_ANSWER_CALL_CATEGORY_ROOT = "eventCallAnswerCallCategoryRoot";
     static final String PREF_EVENT_CALL_ANSWER_CALL = "eventCallAnswerCall";
     static final String PREF_EVENT_CALL_ANSWER_CALL_RINGING_LENGTH = "eventCallAnswerCallRingingLength";
 
@@ -245,7 +247,7 @@ class EventPreferencesCall extends EventPreferences {
                     }
 
                     if (Build.VERSION.SDK_INT >= 29) {
-                        if (this._answerCall && (this._contactListType == CONTACT_LIST_TYPE_WHITE_LIST)) {
+                        if (this._answerCall && (this._callEvent == CALL_EVENT_RINGING) && (this._contactListType == CONTACT_LIST_TYPE_WHITE_LIST)) {
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_call_answerCall));
                             _value.append(" - ").append(context.getString(R.string.event_preferences_call_answerCall_ringingLength)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._answerCallRingingLength), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                         }
@@ -408,14 +410,16 @@ class EventPreferencesCall extends EventPreferences {
                 if (preference != null) {
                     if (prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_ANSWER_CALL, false)) {
                         String length = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_ANSWER_CALL_RINGING_LENGTH, "5");
+                        boolean cellEventRinging = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(CALL_EVENT_RINGING));
+                        Log.e("EventPreferencesCall.setSummary", "cellEventRinging="+cellEventRinging);
                         preference.setSummary(
                                 StringFormatUtils.fromHtml(
                                         context.getString(R.string.event_preferences_call_answerCall_ringingLength) +
                                                 StringConstants.STR_COLON_WITH_SPACE + StringConstants.TAG_BOLD_START_HTML +
                                                 getColorForChangedPreferenceValue(
                                                         StringFormatUtils.getDurationString(Integer.parseInt(length)),
-                                                        false, false, context) + StringConstants.TAG_BOLD_END_HTML,
-                                        false,  false, 0, 0, true));
+                                                        !cellEventRinging, false, context) + StringConstants.TAG_BOLD_END_HTML,
+                                        false, false, 0, 0, true));
                     } else
                         preference.setSummary("");
                 }
@@ -469,8 +473,9 @@ class EventPreferencesCall extends EventPreferences {
             preference = prefMng.findPreference(PREF_EVENT_CALL_ANSWER_CALL_CATEGORY_ROOT);
             if (preference != null) {
                 boolean whiteList = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0").equals(String.valueOf(CONTACT_LIST_TYPE_WHITE_LIST));
+                boolean cellEventRinging = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(CALL_EVENT_RINGING));
                 boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_ANSWER_CALL, false);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold && whiteList, false, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold && cellEventRinging && whiteList, false, false, false, false);
             }
             preference = prefMng.findPreference(PREF_EVENT_CALL_ANSWER_CALL);
             if (preference != null) {
@@ -681,12 +686,14 @@ class EventPreferencesCall extends EventPreferences {
                         preference.setEnabled(sendSMS && contactListType == CONTACT_LIST_TYPE_WHITE_LIST);
 
                     if (Build.VERSION.SDK_INT >= 29) {
-                    boolean contactsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
-                    boolean contactGroupsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
-                    preference = prefMng.findPreference(PREF_EVENT_CALL_ANSWER_CALL_CATEGORY_ROOT);
-                    if (preference != null)
-                        preference.setEnabled((contactsConfigured || contactGroupsConfigured)
-                                && contactListType == CONTACT_LIST_TYPE_WHITE_LIST);
+                        boolean contactsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
+                        boolean contactGroupsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
+                        preference = prefMng.findPreference(PREF_EVENT_CALL_ANSWER_CALL_CATEGORY_ROOT);
+                        if (preference != null) {
+                            boolean cellEventRinging = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(CALL_EVENT_RINGING));
+                            preference.setEnabled((contactsConfigured || contactGroupsConfigured)
+                                    && cellEventRinging && (contactListType == CONTACT_LIST_TYPE_WHITE_LIST));
+                        }
                     }
                 }
                 setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
@@ -736,6 +743,12 @@ class EventPreferencesCall extends EventPreferences {
                 (_callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                 (_callEvent == CALL_EVENT_OUTGOING_CALL_ENDED))
             setRunAfterCallEndAlarm(computeRunAfterCallEndAlarm(), context);
+
+        Log.e("EventPreferencesCall.setSystemEventForPause", "xxxxx");
+
+        // TODO
+        if ((_callEvent == CALL_EVENT_RINGING) && _answerCall)
+            setAnswerCallRingingLengthAlarm(computeAnswerCallRingingLengthAlarm(), context);
     }
 
     @Override
@@ -776,11 +789,18 @@ class EventPreferencesCall extends EventPreferences {
                         Intent editorIntent = new Intent(context, EditorActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                        AlarmManager.AlarmClockInfo clockInfo;
+                        if (_runAfterCallEndTime * 1000L >= Event.EVENT_ALARM_TIME_SOFT_OFFSET)
+                            clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        else
+                            clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     }
                     else {
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                        if (_runAfterCallEndTime * 1000L >= Event.EVENT_ALARM_TIME_OFFSET)
+                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        else
+                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     }
                 }
             }
@@ -985,6 +1005,61 @@ class EventPreferencesCall extends EventPreferences {
             editor.apply();
         }
     }
+
+    private void setAnswerCallRingingLengthAlarm(long alarmTime, Context context) {
+        if (_answerCall) {
+            if (_answerCallRingingLength > 0) {
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_ANSWER_CALL_RINGING_LENGTH_BROADCAST_RECEIVER);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+                        Intent editorIntent = new Intent(context, EditorActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo;
+                        if (_answerCallRingingLength * 1000L >= Event.EVENT_ALARM_TIME_SOFT_OFFSET)
+                            clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        else
+                            clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    }
+                    else {
+                        if (_answerCallRingingLength * 1000L >= Event.EVENT_ALARM_TIME_OFFSET)
+                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        else
+                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    }
+                }
+            }
+        }
+    }
+
+    private long computeAnswerCallRingingLengthAlarm() {
+        Calendar answerCallTime = Calendar.getInstance();
+        long nowMilis = answerCallTime.getTimeInMillis();
+
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+        //Log.e("EventPreferencesCall.computeAnswerCallRingingLengthAlarm",
+        //        "_answerCallRingingLength=" + _answerCallRingingLength);
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+        String time = sdf.format((nowMilis - gmtOffset) + (_answerCallRingingLength * 1000L));
+        Log.e("EventPreferencesCall.computeAnswerCallRingingLengthAlarm",
+                "alarm=" + time);
+
+        answerCallTime.setTimeInMillis((nowMilis - gmtOffset) + (_answerCallRingingLength * 1000L));
+
+        long alarmTime;
+        alarmTime = answerCallTime.getTimeInMillis();
+
+        return alarmTime;
+    }
+
 
     @SuppressLint({"MissingPermission", "PrivateApi"})
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {

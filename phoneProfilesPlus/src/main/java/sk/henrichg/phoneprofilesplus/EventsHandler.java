@@ -162,6 +162,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_MUSIC = 56;
     static final int SENSOR_TYPE_CALL_CONTROL = 57;
     static final int SENSOR_TYPE_CALL_CONTROL_EVENT_END = 58;
+    static final int SENSOR_TYPE_PHONE_CALL_ANSWER_CALL = 59;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -967,6 +968,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_NOTIFICATION;*/
             case SENSOR_TYPE_PHONE_CALL:
             case SENSOR_TYPE_PHONE_CALL_EVENT_END:
+            case SENSOR_TYPE_PHONE_CALL_ANSWER_CALL:
                 return DatabaseHandler.ETYPE_CALL;
             case SENSOR_TYPE_SMS:
             case SENSOR_TYPE_SMS_EVENT_END:

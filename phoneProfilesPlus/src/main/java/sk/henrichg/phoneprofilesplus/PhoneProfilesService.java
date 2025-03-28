@@ -71,6 +71,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
     static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
     static final String ACTION_CALL_CONTROL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallControlEventEndBroadcastReceiver";
+    static final String ACTION_ANSWER_CALL_RINGING_LENGTH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AnswerCallRingingLengthBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
