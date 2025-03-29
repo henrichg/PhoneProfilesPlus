@@ -744,7 +744,9 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_CALL_SEND_SMS,
                         DatabaseHandler.KEY_E_CALL_SMS_TEXT,
                         DatabaseHandler.KEY_E_CALL_ANSWER_CALL,
-                        DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH
+                        DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH,
+                        DatabaseHandler.KEY_E_CALL_END_CALL,
+                        DatabaseHandler.KEY_E_CALL_END_CALL_CALL_LENGTH
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -770,6 +772,8 @@ class DatabaseHandlerEvents {
                 eventPreferences._runAfterCallEndFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT));
                 eventPreferences._answerCall = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_ANSWER_CALL)) == 1);
                 eventPreferences._answerCallRingingLength = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH));
+                eventPreferences._endCall = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_END_CALL)) == 1);
+                eventPreferences._endCallCallLength = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_END_CALL_CALL_LENGTH));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1631,6 +1635,8 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, eventPreferences._runAfterCallEndFromSIMSlot);
         values.put(DatabaseHandler.KEY_E_CALL_ANSWER_CALL, (eventPreferences._answerCall) ? 1 : 0);
         values.put(DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH, eventPreferences._answerCallRingingLength);
+        values.put(DatabaseHandler.KEY_E_CALL_END_CALL, (eventPreferences._endCall) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_END_CALL_CALL_LENGTH, eventPreferences._endCallCallLength);
 
         // updating row
         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",

@@ -2332,6 +2332,9 @@
     <string name="event_preferences_call_answerCall">Answer call</string>
     <string name="event_preferences_call_answerCall_ringingLength">Ringing length</string>
 
+    <string name="event_preferences_call_endCall">End call</string>
+    <string name="event_preferences_call_endCall_callLength">Call length</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
