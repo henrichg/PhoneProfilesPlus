@@ -2245,7 +2245,6 @@
     <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
     <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
     <string name="array_pref_atEndDo_none">Nothing</string>
     <string name="menu_mastodon" translatable="false">Mastodon</string>
@@ -2334,6 +2333,7 @@
 
     <string name="event_preferences_call_endCall">End call</string>
     <string name="event_preferences_call_endCall_callLength">Call length</string>
+    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\" and \"End call\".</string>
 
     <!-- **************************************************************************************** -->
 

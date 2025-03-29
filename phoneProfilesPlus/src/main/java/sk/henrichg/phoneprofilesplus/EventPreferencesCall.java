@@ -68,8 +68,8 @@ class EventPreferencesCall extends EventPreferences {
     static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategoryRoot";
 
     static final int CALL_EVENT_RINGING = 0;
-    private static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
-    private static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
+    static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
+    static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
     static final int CALL_EVENT_MISSED_CALL = 3;
     static final int CALL_EVENT_INCOMING_CALL_ENDED = 4;
     static final int CALL_EVENT_OUTGOING_CALL_ENDED = 5;
@@ -83,8 +83,8 @@ class EventPreferencesCall extends EventPreferences {
     //static final int PHONE_CALL_EVENT_OUTGOING_CALL_STARTED = 2;
     private static final int PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
     private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
-    private static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
-    private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
+    static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
+    static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
     static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
     private static final int PHONE_CALL_EVENT_SERVICE_UNBIND = 8;
 
@@ -253,7 +253,7 @@ class EventPreferencesCall extends EventPreferences {
                         else
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.pref_event_duration)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._runAfterCallEndDuration), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
 
-                        if ((this._callEvent == CALL_EVENT_MISSED_CALL)) {
+                        if ((this._callEvent == CALL_EVENT_MISSED_CALL) && this._sendSMS) {
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preference_callSendSMS));
                         }
                     }
@@ -270,6 +270,8 @@ class EventPreferencesCall extends EventPreferences {
                                 (this._contactListType == CONTACT_LIST_TYPE_WHITE_LIST)) {
                             _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preferences_call_endCall));
                             _value.append(" - ").append(context.getString(R.string.event_preferences_call_endCall_callLength)).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._endCallCallLength), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
+                            if (this._sendSMS)
+                                _value.append(StringConstants.STR_BULLET).append(context.getString(R.string.event_preference_callSendSMS));
                         }
                     }
 
@@ -768,16 +770,31 @@ class EventPreferencesCall extends EventPreferences {
                     String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
                     int contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
                     preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS);
-                    if (preference != null)
-                        preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
+                    boolean sendSMSEnabled = callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL));
+                    if (preference != null) {
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            boolean contactsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
+                            boolean contactGroupsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
+                            int iCallEvent = Integer.parseInt(prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_EVENT, "0"));
+                            boolean cellEventInCall = (iCallEvent == CALL_EVENT_RINGING) ||
+                                    (iCallEvent == CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                                    (iCallEvent == CALL_EVENT_OUTGOING_CALL_STARTED);
+                            sendSMSEnabled = sendSMSEnabled ||
+                                    ((contactsConfigured || contactGroupsConfigured) &&
+                                     cellEventInCall && (contactListType == CONTACT_LIST_TYPE_WHITE_LIST) &&
+                                     (preferences.getBoolean(PREF_EVENT_CALL_END_CALL, false)));
+                        }
+                        preference.setEnabled(sendSMSEnabled);
+                    }
                     preference = prefMng.findPreference(PREF_EVENT_CALL_SEND_SMS_INFO);
                     if (preference != null)
-                        preference.setEnabled(callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
+                        preference.setEnabled(sendSMSEnabled);
 
                     boolean sendSMS = preferences.getBoolean(PREF_EVENT_CALL_SEND_SMS, false);
                     preference = prefMng.findPreference(PREF_EVENT_CALL_SMS_TEXT);
                     if (preference != null)
-                        preference.setEnabled(sendSMS && contactListType == CONTACT_LIST_TYPE_WHITE_LIST);
+                        preference.setEnabled(sendSMS && (contactListType == CONTACT_LIST_TYPE_WHITE_LIST)
+                                                && sendSMSEnabled);
 
                     if (Build.VERSION.SDK_INT >= 29) {
                         boolean contactsConfigured = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
