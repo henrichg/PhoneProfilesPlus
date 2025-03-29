@@ -10,14 +10,12 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -445,7 +443,6 @@ class EventPreferencesCall extends EventPreferences {
                     if (prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALL_ANSWER_CALL, false)) {
                         String length = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_ANSWER_CALL_RINGING_LENGTH, "5");
                         boolean cellEventRinging = prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(CALL_EVENT_RINGING));
-                        Log.e("EventPreferencesCall.setSummary", "cellEventRinging="+cellEventRinging);
                         preference.setSummary(""); // must be called for properly set suppary with hltm
                         preference.setSummary(
                                 StringFormatUtils.fromHtml(
@@ -481,7 +478,6 @@ class EventPreferencesCall extends EventPreferences {
                         boolean cellEventInCall = (callEvent == CALL_EVENT_RINGING) ||
                                                     (callEvent == CALL_EVENT_INCOMING_CALL_ANSWERED) ||
                                                     (callEvent == CALL_EVENT_OUTGOING_CALL_STARTED);
-                        Log.e("EventPreferencesCall.setSummary", "cellEventInCall="+cellEventInCall);
                         preference.setSummary(""); // must be called for properly set suppary with hltm
                         preference.setSummary(
                                 StringFormatUtils.fromHtml(
@@ -853,7 +849,6 @@ class EventPreferencesCall extends EventPreferences {
                 (_callEvent == CALL_EVENT_OUTGOING_CALL_ENDED))
             setRunAfterCallEndAlarm(computeRunAfterCallEndAlarm(), context);
 
-        Log.e("EventPreferencesCall.setSystemEventForPause", "xxxxx");
         if ((_callEvent == CALL_EVENT_RINGING) && _answerCall)
             setAnswerCallRingingLengthAlarm(computeAnswerCallRingingLengthAlarm(), context);
         if (((_callEvent == CALL_EVENT_RINGING) ||
@@ -1122,6 +1117,7 @@ class EventPreferencesCall extends EventPreferences {
             if (_answerCallRingingLength > 0) {
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_ANSWER_CALL_RINGING_LENGTH_BROADCAST_RECEIVER);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -1155,14 +1151,6 @@ class EventPreferencesCall extends EventPreferences {
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
-        //Log.e("EventPreferencesCall.computeAnswerCallRingingLengthAlarm",
-        //        "_answerCallRingingLength=" + _answerCallRingingLength);
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-        String time = sdf.format((nowMilis - gmtOffset) + (_answerCallRingingLength * 1000L));
-        Log.e("EventPreferencesCall.computeAnswerCallRingingLengthAlarm",
-                "alarm=" + time);
-
         answerCallTime.setTimeInMillis((nowMilis - gmtOffset) + (_answerCallRingingLength * 1000L));
 
         long alarmTime;
@@ -1176,6 +1164,7 @@ class EventPreferencesCall extends EventPreferences {
             if (_endCallCallLength > 0) {
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_END_CALL_CALL_LENGTH_BROADCAST_RECEIVER);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -1208,14 +1197,6 @@ class EventPreferencesCall extends EventPreferences {
         long nowMilis = endCallTime.getTimeInMillis();
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-
-        //Log.e("EventPreferencesCall.computeEndCallCallLengthAlarm",
-        //        "_endCallCallLength=" + _endCallCallLength);
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-        String time = sdf.format((nowMilis - gmtOffset) + (_endCallCallLength * 1000L));
-        Log.e("EventPreferencesCall.computeEndCallCallLengthAlarm",
-                "alarm=" + time);
 
         endCallTime.setTimeInMillis((nowMilis - gmtOffset) + (_endCallCallLength * 1000L));
 
