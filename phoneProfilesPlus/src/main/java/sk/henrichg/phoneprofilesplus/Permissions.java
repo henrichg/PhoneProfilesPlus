@@ -1410,22 +1410,36 @@ class Permissions {
 //                                Log.e("Permissions.checkEventCall", "grantedContacts="+grantedContacts);
                         if ((permissions != null) && (!grantedContacts))
                             permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
-                        if (event._eventPreferencesCall._sendSMS) {
+                        if (((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                (((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING) ||
+                                  (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                                  (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED))
+                                        && event._eventPreferencesCall._endCall))
+                                && event._eventPreferencesCall._sendSMS) {
                             grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
 //                                    Log.e("Permissions.checkEventCallControl", "grantedSendSMS="+grantedSendSMS);
                             if ((permissions != null) && (!grantedSendSMS))
                                 permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.SEND_SMS));
                         }
                         if (Build.VERSION.SDK_INT >= 29) {
-                            if (event._eventPreferencesCall._answerCall) {
+                            boolean answerCallAdded = false;
+                            if ((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
+                                    && event._eventPreferencesCall._answerCall) {
                                 grantedAnswerCall = ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED;
-                                if ((permissions != null) && (!grantedAnswerCall))
+                                if ((permissions != null) && (!grantedAnswerCall)) {
                                     permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.ANSWER_PHONE_CALLS));
+                                    answerCallAdded = true;
+                                }
                             }
-                            if (event._eventPreferencesCall._endCall) {
-                                grantedAnswerCall = ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED;
-                                if ((permissions != null) && (!grantedAnswerCall))
-                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.ANSWER_PHONE_CALLS));
+                            if (!answerCallAdded) {
+                                if (((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING) ||
+                                        (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                                        (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED))
+                                        && event._eventPreferencesCall._endCall) {
+                                    grantedAnswerCall = ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED;
+                                    if ((permissions != null) && (!grantedAnswerCall))
+                                        permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.ANSWER_PHONE_CALLS));
+                                }
                             }
                         }
                     }
@@ -1440,20 +1454,37 @@ class Permissions {
                     if ((permissions != null) && (!grantedContacts))
                         permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
                     if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_SEND_SMS, false)) {
-                        grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-                        if ((permissions != null) && (!grantedSendSMS))
-                            permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.SEND_SMS));
+                        boolean sendSMSAllowed =
+                                preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
+                                 ((preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_RINGING)) ||
+                                   preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)) ||
+                                   preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)))
+                                  && preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_END_CALL, false));
+                        if (sendSMSAllowed) {
+                            grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                            if ((permissions != null) && (!grantedSendSMS))
+                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.SEND_SMS));
+                        }
                     }
                     if (Build.VERSION.SDK_INT >= 29) {
-                        if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ANSWER_CALL, false)) {
+                        boolean answerCallAdded = false;
+                        if (preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_RINGING))
+                                && preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ANSWER_CALL, false)) {
                             grantedAnswerCall = ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED;
-                            if ((permissions != null) && (!grantedAnswerCall))
+                            if ((permissions != null) && (!grantedAnswerCall)) {
                                 permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.ANSWER_PHONE_CALLS));
+                                answerCallAdded = true;
+                            }
                         }
-                        if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_END_CALL, false)) {
-                            grantedAnswerCall = ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED;
-                            if ((permissions != null) && (!grantedAnswerCall))
-                                permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.ANSWER_PHONE_CALLS));
+                        if (!answerCallAdded) {
+                            if ((preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_RINGING)) ||
+                                    preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)) ||
+                                    preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_EVENT, "0").equals(String.valueOf(EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)))
+                                    && preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_END_CALL, false)) {
+                                grantedAnswerCall = ContextCompat.checkSelfPermission(context, permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED;
+                                if ((permissions != null) && (!grantedAnswerCall))
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_CALL_PREFERENCES, permission.ANSWER_PHONE_CALLS));
+                            }
                         }
                     }
                 }

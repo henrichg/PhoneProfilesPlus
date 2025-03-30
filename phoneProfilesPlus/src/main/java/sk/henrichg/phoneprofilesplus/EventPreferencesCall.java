@@ -41,7 +41,7 @@ class EventPreferencesCall extends EventPreferences {
     int _runAfterCallEndFromSIMSlot;
 
     static final String PREF_EVENT_CALL_ENABLED = "eventCallEnabled";
-    private static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
+    static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
     static final String PREF_EVENT_CALL_CONTACTS = "eventCallContacts";
     static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
     private static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
