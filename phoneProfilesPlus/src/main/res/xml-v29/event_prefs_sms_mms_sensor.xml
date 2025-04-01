@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     app:title="@string/event_preferences_category_eventSMSParameters"
     app:key="eventSMSCategory" >
 
@@ -72,6 +73,21 @@
         app:ppEntries="@array/eventSMSForSimCardArray"
         app:ppEntryValues="@array/eventSMSForSimCardValues"
         app:dependency="eventSMSEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference
+        app:title="@string/event_preference_smsSendSMS"
+        app:key="eventSMSSendSMS"
+        app:defaultValue="false"
+        app:dependency="eventSMSEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference
+        app:key="eventSMSSMSText"
+        app:title="@string/event_preference_smsSMSText"
+        android:selectAllOnFocus="true"
+        app:defaultValue=""
+        app:dependency="eventSMSSendSMS"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference

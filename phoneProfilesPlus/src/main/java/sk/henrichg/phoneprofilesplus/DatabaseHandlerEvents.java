@@ -941,7 +941,9 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_SMS_PERMANENT_RUN,
                         DatabaseHandler.KEY_E_SMS_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT,
-                        DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD
+                        DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD,
+                        DatabaseHandler.KEY_E_SMS_SEND_SMS,
+                        DatabaseHandler.KEY_E_SMS_SMS_TEXT
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -963,6 +965,8 @@ class DatabaseHandlerEvents {
                 eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_START_TIME));
                 eventPreferences._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT));
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD));
+                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SEND_SMS)) == 1);
+                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SMS_TEXT));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1745,6 +1749,8 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_SMS_START_TIME, eventPreferences._startTime);
         values.put(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT, eventPreferences._fromSIMSlot);
         values.put(DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD, eventPreferences._forSIMCard);
+        values.put(DatabaseHandler.KEY_E_SMS_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_SMS_SMS_TEXT, eventPreferences._smsText);
 
         values.put(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED, eventPreferences.getSensorPassed());
 

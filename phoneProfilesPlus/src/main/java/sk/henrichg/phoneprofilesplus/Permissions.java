@@ -1378,7 +1378,7 @@ class Permissions {
         checkEventCalendar(context, event, preferences, permissions, sensorType);
         checkEventPhoneState(context, event, preferences, permissions, sensorType);
         checkEventCall(context, event, preferences, permissions, sensorType);
-        checkEventSMSContacts(context, event, preferences, permissions, sensorType);
+        checkEventSMS(context, event, preferences, permissions, sensorType);
         checkEventLocation(context, event, preferences, permissions, sensorType);
         checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
         //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
@@ -1492,8 +1492,8 @@ class Permissions {
         }
     }
 
-    static private void checkEventSMSContacts(Context context, Event event, SharedPreferences preferences,
-                                              ArrayList<PermissionType>  permissions, int sensorType) {
+    static private void checkEventSMS(Context context, Event event, SharedPreferences preferences,
+                                      ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
@@ -1503,6 +1503,13 @@ class Permissions {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
                             permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (event._eventPreferencesSMS._sendSMS) {
+                                boolean grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                                if ((permissions != null) && (!grantedSendSMS))
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.SEND_SMS));
+                            }
+                        }
                     }
                 }
             } catch (Exception ignored) {}
@@ -1514,6 +1521,13 @@ class Permissions {
                         boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                         if ((permissions != null) && (!granted))
                             permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_SEND_SMS, false)) {
+                                boolean grantedSendSMS = ContextCompat.checkSelfPermission(context, permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+                                if ((permissions != null) && (!grantedSendSMS))
+                                    permissions.add(new PermissionType(PERMISSION_TYPE_EVENT_SMS_PREFERENCES, permission.SEND_SMS));
+                            }
+                        }
                     }
                 }
             } catch (Exception ignored) {}
