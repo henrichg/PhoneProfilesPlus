@@ -2338,6 +2338,9 @@
     <string name="event_preference_smsSendSMS">Send SMS</string>
     <string name="event_preference_smsSMSText">SMS Text</string>
 
+    <string name="phone_profiles_defaultRolesApplications_summary_restrictedSettings">If is not possible to set PhoneProfilesPlus in \"Default role application\", maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
+    <string name="profile_preference_sendSMSSendSMS_summary_restrictedSettings">If is not possible to grant SMS permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

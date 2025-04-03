@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +112,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT = "prf_pref_deviceRadiosAirplaneModeCategoryRoot";
     private static final String PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettings";
-    private static final String PREF_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettingsRestrictedSettings";
+    private static final String PREF_CLEAR_NOTOFICATION_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettingsRestrictedSettings";
 
     private static final String PREF_PROFILE_VOLUME_ZEN_MODE_INFO = "prf_pref_volumeZenModeInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_INFO = "prf_pref_volumeSoundMode_info";
@@ -133,6 +134,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO = "prf_pref_deviceWallpaperHuaweiInfo";
     private static final String PREF_PROFILE_DEVICE_KEYGUARD_INFO = "prf_pref_deviceKeyguardInfo";
     private static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_INFO = "prf_pref_forceStopApplicationsInfo";
+    private static final String PREF_PROFILE_SEND_SMS_RESTRICTED_SETTINGS = "prf_pref_sendSMS_restrictedSettings";
 
     private static final String PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT = "prf_pref_activationDurationCategoryRoot";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT = "prf_pref_soundProfileCategoryRoot";
@@ -1745,7 +1747,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
         if (Build.VERSION.SDK_INT >= 33) {
-            InfoDialogPreference infoDialogPreference2 = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
+            InfoDialogPreference infoDialogPreference2 = prefMng.findPreference(PREF_CLEAR_NOTOFICATION_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
             if (infoDialogPreference2 != null) {
                 infoDialogPreference2.setOnPreferenceClickListener(preference120 -> {
 //                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
@@ -1816,6 +1818,34 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary) + "\n"
                     + getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary_2));
         }
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            InfoDialogPreference _infoDialogPreference = prefMng.findPreference(PREF_PROFILE_SEND_SMS_RESTRICTED_SETTINGS);
+            if (_infoDialogPreference != null) {
+                _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
+                    Log.e("ProfilesPrefsFragment.onActivityCreated", "preference clicked");
+
+                    _infoDialogPreference.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                    );
+                    _infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
+        }
+
     }
 
     @Override

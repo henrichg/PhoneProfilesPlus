@@ -188,6 +188,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO = "applicationWidgetOneRowLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO = "applicationWidgetListLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_PANEL_INFO = "applicationWidgetPanelInfo";
+    private static final String PREF_DEFAULT_ROLES_APPLICATIONS_RESTRICTED_SETTINGS = "defaultRolesApplicationsRestrictedSettings";
 
     static final String PREF_DEFAULT_ROLES_APPLICATIONS_ROOT = "categoryDefaultRolesApplicationsRoot";
 
@@ -2121,6 +2122,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 return false;
             });
+        }
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            InfoDialogPreference _infoDialogPreference = prefMng.findPreference(PREF_DEFAULT_ROLES_APPLICATIONS_RESTRICTED_SETTINGS);
+            if (_infoDialogPreference != null) {
+                _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
+//                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
+
+                    _infoDialogPreference.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                    );
+                    _infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
         }
 
     }
