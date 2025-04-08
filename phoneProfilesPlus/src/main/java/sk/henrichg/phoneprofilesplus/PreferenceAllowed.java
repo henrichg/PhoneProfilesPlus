@@ -3589,4 +3589,12 @@ class PreferenceAllowed {
             preferenceAllowed = PREFERENCE_ALLOWED;
     }
 
+    void isProfilePreferenceAllowed_PREF_PROFILE_PLAY_MUSIC(Context context) {
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+            preferenceAllowed = PREFERENCE_ALLOWED;
+        } else {
+            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+        }
+    }
+
 }

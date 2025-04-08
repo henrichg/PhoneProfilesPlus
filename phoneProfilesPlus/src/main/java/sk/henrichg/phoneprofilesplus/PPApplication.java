@@ -1290,6 +1290,7 @@ public class PPApplication extends Application
             return;
         }
 
+        // must be there, requires Context
         romIsGalaxy = isGalaxyROM(getApplicationContext());
         //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
 

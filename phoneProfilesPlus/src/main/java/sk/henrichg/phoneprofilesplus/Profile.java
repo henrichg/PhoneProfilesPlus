@@ -147,6 +147,7 @@ class Profile {
     int _screenNightLight;
     int _screenNightLightPrefs;
     int _screenOnOff;
+    int _playMusic;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -291,6 +292,7 @@ class Profile {
     static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT = "prf_pref_screenNightLight";
     static final String PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS = "prf_pref_screenNightLightPrefs";
     static final String PREF_PROFILE_SCREEN_ON_OFF = "prf_pref_screenOnOff";
+    static final String PREF_PROFILE_PLAY_MUSIC = "prf_pref_playMusic";
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;
@@ -463,6 +465,7 @@ class Profile {
         defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT, "0");
         defaultValuesString.put(PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, "0");
         defaultValuesString.put(PREF_PROFILE_SCREEN_ON_OFF, "0");
+        defaultValuesString.put(PREF_PROFILE_PLAY_MUSIC, "0");
     }
 
     static final int[] profileIconId = {
@@ -1138,7 +1141,8 @@ class Profile {
                    String clearNotificationText,
                    int screenNightLight,
                    int screenNightLightPrefs,
-                   int screenOnOff
+                   int screenOnOff,
+                   int playMusic
             )
     {
         this._id = id;
@@ -1270,6 +1274,7 @@ class Profile {
         this._screenNightLight = screenNightLight;
         this._screenNightLightPrefs = screenNightLightPrefs;
         this._screenOnOff = screenOnOff;
+        this._playMusic = playMusic;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1405,7 +1410,8 @@ class Profile {
             String clearNotificationText,
             int screenNightLight,
             int screenNightLightPrefs,
-            int screenOnOff
+            int screenOnOff,
+            int playMusic
     )
     {
         this._name = name;
@@ -1536,6 +1542,7 @@ class Profile {
         this._screenNightLight = screenNightLight;
         this._screenNightLightPrefs = screenNightLightPrefs;
         this._screenOnOff = screenOnOff;
+        this._playMusic = playMusic;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1673,6 +1680,7 @@ class Profile {
         this._screenNightLight = profile._screenNightLight;
         this._screenNightLightPrefs = profile._screenNightLightPrefs;
         this._screenOnOff = profile._screenOnOff;
+        this._playMusic = profile._playMusic;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -2060,6 +2068,8 @@ class Profile {
                     this._screenNightLightPrefs = withProfile._screenNightLightPrefs;
                 if (withProfile._screenOnOff != 0)
                     this._screenOnOff = withProfile._screenOnOff;
+                if (withProfile._playMusic != 0)
+                    this._playMusic = withProfile._playMusic;
             }
 
             // set merged profile as activated
@@ -2480,6 +2490,9 @@ class Profile {
                 return false;
             }
             if (this._screenNightLight != withProfile._screenNightLight) {
+                return false;
+            }
+            if (this._playMusic != withProfile._playMusic) {
                 return false;
             }
 
@@ -3549,6 +3562,7 @@ class Profile {
         editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT, Integer.toString(this._screenNightLight));
         editor.putString(PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, Integer.toString(this._screenNightLightPrefs));
         editor.putString(PREF_PROFILE_SCREEN_ON_OFF, Integer.toString(this._screenOnOff));
+        editor.putString(PREF_PROFILE_PLAY_MUSIC, Integer.toString(this._playMusic));
 
         editor.apply();
     }

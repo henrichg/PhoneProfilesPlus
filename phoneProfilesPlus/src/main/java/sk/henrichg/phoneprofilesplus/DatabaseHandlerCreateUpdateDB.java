@@ -156,7 +156,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_SCREEN_ON_OFF + " " + DatabaseHandler.INTEGER_TYPE// + ","
+                + DatabaseHandler.KEY_SCREEN_ON_OFF + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_PLAY_MUSIC + " " + DatabaseHandler.INTEGER_TYPE //+ ","
                 + ")";
     }
 
@@ -747,6 +748,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_SCREEN_ON_OFF, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_PLAY_MUSIC, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -2729,6 +2731,7 @@ class DatabaseHandlerCreateUpdateDB {
                                 "",
                                 0,
                                 0,
+                                0,
                                 0
                         );
 
@@ -3865,6 +3868,13 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2542) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_SEND_SMS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_SMS_SMS_TEXT + "=''");
+        }
+
+        if (oldVersion < 2543)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_PLAY_MUSIC + "=0");
+
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PLAY_MUSIC + "=0");
         }
 
     }

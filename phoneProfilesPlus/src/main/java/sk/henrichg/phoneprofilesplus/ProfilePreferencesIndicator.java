@@ -2123,6 +2123,23 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
+            // play music
+            if (profile._playMusic != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, sharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._playMusic > 0) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_playMusic);
+                        if (fillStrings)
+                            strings[countDrawables++] = "plmu";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_play_music;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
 
             // enable wifi scanning
             if (profile._applicationEnableWifiScanning != 0) {

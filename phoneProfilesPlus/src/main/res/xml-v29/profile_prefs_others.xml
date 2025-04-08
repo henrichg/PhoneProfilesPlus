@@ -58,4 +58,10 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsSendSMS" />
 
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/profile_preferences_category_play_music"
+        app:key="prf_pref_playMusicCategoryRoot"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsPlayMusic" />
+
 </androidx.preference.PreferenceScreen>

@@ -150,6 +150,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT = "prf_pref_sendSMSCategoryRoot";
     private static final String PREF_PROFILE_NOTIFICATIONS_CATTEGORY_ROOT = "prf_pref_NotificationsCategoryRoot";
     private static final String PREF_PROFILE_CLEAR_NOTIFICATIONS_CATTEGORY_ROOT = "prf_pref_clearNotificationsCategoryRoot";
+    private static final String PREF_PROFILE_PLAY_MUSIC_CATTEGORY_ROOT = "prf_pref_playMusicCategoryRoot";
 
     private static final String TAG_RINGTONE_NAME = "<ringtone_name>";
     private static final String TAG_NOTIFICATION_NAME = "<notification_name>";
@@ -1817,6 +1818,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             preference.setSummary(getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary) + "\n"
                     + getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary_2));
+        }
+
+        preference = findPreference(Profile.PREF_PROFILE_PLAY_MUSIC);
+        if (preference != null) {
+            disableDependedPref(Profile.PREF_PROFILE_PLAY_MUSIC);
         }
 
         if (Build.VERSION.SDK_INT >= 33) {
@@ -4089,9 +4095,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.bold = true;
                 if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
+                /*
                 _value.append(StringConstants.TAG_BOLD_START_HTML)
                         .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context))
                         .append(StringConstants.TAG_BOLD_END_HTML);
+                */
+                _value.append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context));
+            }
+        }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PLAY_MUSIC, R.string.profile_preferences_playMusic, context);
+        if (!title.isEmpty()) {
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+
+                cattegorySummaryData.bold = true;
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+                /*
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PLAY_MUSIC_CATTEGORY_ROOT, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+                */
+                _value.append(ProfileStatic.getColorForChangedPreferenceValue(title, prefMng, PREF_PROFILE_PLAY_MUSIC_CATTEGORY_ROOT, context));
             }
         }
 
@@ -5092,6 +5116,48 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    /** @noinspection SameReturnValue*/
+    private boolean setCategorySummaryPlayMusic(Context context,
+                                                CattegorySummaryData cattegorySummaryData) {
+
+        StringBuilder _value = new StringBuilder(cattegorySummaryData.summary);
+
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_PLAY_MUSIC, R.string.profile_preferences_category_play_music, context);
+        if (!title.isEmpty()) {
+
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+                cattegorySummaryData.bold = true;
+                if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
+
+                String value = preferences.getString(Profile.PREF_PROFILE_PLAY_MUSIC,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC));
+                if ((value != null) &&
+                        (!value.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC)))) {
+                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML);
+
+                    String whatToDo = StringFormatUtils.getListPreferenceString(value,
+                            R.array.playMusicValues, R.array.playMusicArray, context);
+                    _value.append(whatToDo).append(StringConstants.TAG_BOLD_END_HTML);
+                } //else {
+                //    _value.append(title);
+                //}
+            }// else {
+            //    _value.append(title);
+            //}
+        }
+
+        cattegorySummaryData.summary = _value.toString();
+
+        /*
+        Profile profile = new Profile();
+        profile._playMusic = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PLAY_MUSIC, "0"));
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfilePlayMusic(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.isEmpty();
+        */
+
+        return false;
+    }
 
     private void setCategorySummary(String key, Context context) {
         Preference preferenceScreen = prefMng.findPreference(key);
@@ -5222,6 +5288,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(PREF_PROFILE_CLEAR_NOTIFICATIONS_CATTEGORY_ROOT)) {
             if (setCategorySummaryClearNotifications(context, cattegorySummaryData))
+                return;
+        }
+
+        if (key.equals(PREF_PROFILE_PLAY_MUSIC_CATTEGORY_ROOT)) {
+            if (setCategorySummaryPlayMusic(context, cattegorySummaryData))
                 return;
         }
 
@@ -7119,6 +7190,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
         disableDependedPref(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
         disableDependedPref(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
+        disableDependedPref(Profile.PREF_PROFILE_PLAY_MUSIC);
 
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
@@ -7253,6 +7325,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT);
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
         setSummary(Profile.PREF_PROFILE_SCREEN_ON_OFF);
+        setSummary(Profile.PREF_PROFILE_PLAY_MUSIC);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
@@ -7274,6 +7347,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SEND_SMS_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_CLEAR_NOTIFICATIONS_CATTEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_PLAY_MUSIC_CATTEGORY_ROOT, context);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

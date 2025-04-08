@@ -728,7 +728,8 @@ class ProfileStatic {
                     profile._clearNotificationText,
                     profile._screenNightLight,
                     profile._screenNightLightPrefs,
-                    profile._screenOnOff
+                    profile._screenOnOff,
+                    profile._playMusic
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1033,6 +1034,9 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION( preferenceKey, null, sharedPreferences);
                     break;
+                case Profile.PREF_PROFILE_PLAY_MUSIC:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_PLAY_MUSIC(context);
+                    break;
                 default:
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
@@ -1289,6 +1293,18 @@ class ProfileStatic {
     }
     static String getNightLightPrefsStringString(Context context) {
         return context.getString(getNightLightStringPrefsId());
+    }
+
+    static int getPlayMusicValue(String _playMusic)
+    {
+        int value;
+        try {
+            String[] splits = _playMusic.split(StringConstants.STR_SPLIT_REGEX);
+            value = Integer.parseInt(splits[1]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value;
     }
 
 }
