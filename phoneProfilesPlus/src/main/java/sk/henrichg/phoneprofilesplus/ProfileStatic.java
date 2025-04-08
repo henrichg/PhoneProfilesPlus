@@ -1021,7 +1021,7 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS();
                 case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED:
-                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED();
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED(context);
                 case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( null, sharedPreferences, fromUIThread, context);
                     break;

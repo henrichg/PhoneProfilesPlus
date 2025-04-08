@@ -111,8 +111,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_APPLICATION_NOTIFICATION_SCAN_INTERVAL_INFO = "prf_pref_applicationNotificationScanIntervalInfo";
     private static final String PREF_PROFILE_APPLICATION_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "prf_pref_applicationPeriodicScanningScanIntervalInfo";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_CATEGORY_ROOT = "prf_pref_deviceRadiosAirplaneModeCategoryRoot";
-    private static final String PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettings";
+    private static final String PREF_CLEAR_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettings";
     private static final String PREF_CLEAR_NOTOFICATION_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "prf_pref_clearNotificationNotificationsAccessSettingsRestrictedSettings";
+    private static final String PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "prf_pref_playMusicNotificationsAccessSettings";
+    private static final String PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "prf_pref_playMusicNotificationsAccessSettingsRestrictedSettings";
 
     private static final String PREF_PROFILE_VOLUME_ZEN_MODE_INFO = "prf_pref_volumeZenModeInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_INFO = "prf_pref_volumeSoundMode_info";
@@ -1705,7 +1707,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
         }
 
-        preference = findPreference(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        preference = findPreference(PREF_CLEAR_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference114 -> {
@@ -1846,6 +1848,75 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
                     );
                     _infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
+        }
+
+        preference = findPreference(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference114 -> {
+                boolean ok = false;
+                String action;
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(action, activity.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(action);
+                        startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+                if (!ok) {
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference114.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            false,
+                            activity
+                    );
+
+                    if (!activity.isFinishing())
+                        dialog.showDialog();
+                }
+                return false;
+            });
+        }
+        if (Build.VERSION.SDK_INT >= 33) {
+            InfoDialogPreference infoDialogPreference2 = prefMng.findPreference(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
+            if (infoDialogPreference2 != null) {
+                infoDialogPreference2.setOnPreferenceClickListener(preference120 -> {
+//                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
+
+                    infoDialogPreference2.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                    );
+                    infoDialogPreference2.setIsHtml(true);
 
                     return false;
                 });
@@ -2226,9 +2297,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //}
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) {
-            setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+            setSummary(PREF_CLEAR_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
             setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
             //disableDependedPref(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
+            setSummary(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+            setSummary(Profile.PREF_PROFILE_PLAY_MUSIC);
         }
     }
 
@@ -6451,7 +6524,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (key.equals(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+        if (key.equals(PREF_CLEAR_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = getString(R.string.profile_preferences_clearNotificationsAccessSettings_summary);
@@ -6532,6 +6605,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean _permissionGranted = permissions.isEmpty();
 
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, !_permissionGranted, false);
+            }
+        }
+        if (key.equals(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = getString(R.string.profile_preferences_playMusicAccessSettings_summary);
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
+                    summary = "* " + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "! *" + StringConstants.STR_SEPARATOR_LINE +
+                            summary;
+                } else {
+                    summary = getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary) + StringConstants.STR_SEPARATOR_WITH_DOT +
+                            summary;
+                }
+                preference.setSummary(summary);
             }
         }
 
@@ -7314,7 +7401,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(Profile.PREF_PROFILE_SEND_SMS_CONTACT_LIST_TYPE);
         setSummary(Profile.PREF_PROFILE_SEND_SMS_SEND_SMS);
         setSummary(Profile.PREF_PROFILE_SEND_SMS_SMS_TEXT);
-        setSummary(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
+        setSummary(PREF_CLEAR_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
         setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED);
         setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS);
         setSummary(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS);
@@ -7326,6 +7413,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS);
         setSummary(Profile.PREF_PROFILE_SCREEN_ON_OFF);
         setSummary(Profile.PREF_PROFILE_PLAY_MUSIC);
+        setSummary(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
 
         setCategorySummary(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT, context);
@@ -7751,7 +7839,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED) ||
-                key.equals(PREF_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) ||
+                key.equals(PREF_CLEAR_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_APPLICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_CONTACTS) ||
                 key.equals(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CONTACTS) ||
@@ -7782,6 +7870,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_CHECK_TEXT);
             if (preference != null)
                 preference.setEnabled(listenerEnabled && clearEnabled && applicationsSet);
+        }
+
+        if (key.equals(Profile.PREF_PROFILE_PLAY_MUSIC) ||
+                key.equals(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
+
+            boolean listenerEnabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false);
+            //noinspection DataFlowIssue
+            String playMusicValue = preferences.getString(Profile.PREF_PROFILE_PLAY_MUSIC,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC));
+            boolean playMusicSet = (playMusicValue != null) &&
+                    (!playMusicValue.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC)));
+
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_PLAY_MUSIC);
+            if (preference != null)
+                preference.setEnabled(listenerEnabled && playMusicSet);
         }
 
         disableDependentPrefsScreenOnOffDeviceKeyguard(key, sValue);
