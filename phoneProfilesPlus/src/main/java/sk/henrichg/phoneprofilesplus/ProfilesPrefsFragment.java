@@ -7876,15 +7876,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(PREF_PLAY_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
 
             boolean listenerEnabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false);
-            //noinspection DataFlowIssue
-            String playMusicValue = preferences.getString(Profile.PREF_PROFILE_PLAY_MUSIC,
-                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC));
-            boolean playMusicSet = (playMusicValue != null) &&
-                    (!playMusicValue.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC)));
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_PLAY_MUSIC);
             if (preference != null)
-                preference.setEnabled(listenerEnabled && playMusicSet);
+                preference.setEnabled(listenerEnabled);
         }
 
         disableDependentPrefsScreenOnOffDeviceKeyguard(key, sValue);
