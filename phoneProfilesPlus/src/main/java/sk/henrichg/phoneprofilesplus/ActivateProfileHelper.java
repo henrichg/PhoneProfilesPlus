@@ -59,7 +59,6 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.WindowManager;
 
@@ -5512,8 +5511,7 @@ class ActivateProfileHelper {
         }
     }
 
-    // TODO
-    static void executeForPlaMusic(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
+    static void executeForPlayMusic(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
         Context appContext = context.getApplicationContext();
         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             MediaSessionManager mediaSessionManager = (MediaSessionManager)context.getSystemService(Context.MEDIA_SESSION_SERVICE);
@@ -6213,7 +6211,7 @@ class ActivateProfileHelper {
         if (profile._playMusic == 1)
         {
 //            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForPlayMusic");
-            executeForPlaMusic(profile, appContext, executedProfileSharedPreferences);
+            executeForPlayMusic(profile, appContext, executedProfileSharedPreferences);
         }
 
 //            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");
