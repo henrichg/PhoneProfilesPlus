@@ -1734,6 +1734,8 @@
     <string-array name="playMusicArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_playMusicArray_play</item>
+        <item>@string/array_pref_playMusicArray_next</item>
+        <item>@string/array_pref_playMusicArray_previous</item>
         <item>@string/array_pref_playMusicArray_pause</item>
         <item>@string/array_pref_playMusicArray_stop</item>
     </string-array>
@@ -1742,6 +1744,8 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>

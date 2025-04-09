@@ -2345,6 +2345,8 @@
     <string name="profile_preferences_playMusic">Play music</string>
     <string name="profile_preferences_playMusicAccessSettings_summary">Please enable \"Notification access\". Without this, play music will not work.</string>
     <string name="array_pref_playMusicArray_play">Play</string>
+    <string name="array_pref_playMusicArray_next">Next</string>
+    <string name="array_pref_playMusicArray_previous">Previous</string>
     <string name="array_pref_playMusicArray_pause">Pause</string>
     <string name="array_pref_playMusicArray_stop">Stop</string>
 

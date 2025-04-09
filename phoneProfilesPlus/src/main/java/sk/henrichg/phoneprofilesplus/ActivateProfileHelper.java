@@ -30,6 +30,9 @@ import android.hardware.camera2.CameraAccessException;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
+import android.media.session.PlaybackState;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -56,6 +59,7 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.WindowManager;
 
@@ -4831,6 +4835,10 @@ class ActivateProfileHelper {
     private static void executeForRunApplications(Profile profile, Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
+            if (PPApplication.blockProfileEventActions)
+                // not start applications after boot
+                return;
+
             // startActivity from background: Android 10 (API level 29)
             // Exception:
             // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
@@ -5146,12 +5154,6 @@ class ActivateProfileHelper {
             return;
 
         Context appContext = context.getApplicationContext();
-
-        if (profile._deviceRunApplicationChange == 1)
-        {
-//            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForRunApplications");
-            executeForRunApplications(profile, appContext);
-        }
 
         // startActivity from background: Android 10 (API level 29)
         // Exception:
@@ -5507,6 +5509,72 @@ class ActivateProfileHelper {
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
+        }
+    }
+
+    // TODO
+    static void executeForPlaMusic(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
+        Context appContext = context.getApplicationContext();
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            MediaSessionManager mediaSessionManager = (MediaSessionManager)context.getSystemService(Context.MEDIA_SESSION_SERVICE);
+            if (mediaSessionManager != null) {
+
+                for (MediaController controller : mediaSessionManager.getActiveSessions(new ComponentName(context, PPNotificationListenerService.class))) {
+                    PlaybackState playbackState = controller.getPlaybackState();
+                    if (playbackState != null) {
+                        int state = playbackState.getState();
+                        if (state == PlaybackState.STATE_PLAYING) {
+                            switch (profile._playMusic) {
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                                case 4:
+                                    controller.getTransportControls().pause();
+                                    break;
+                                case 5:
+                                    controller.getTransportControls().stop();
+                                    break;
+                            }
+                            break;
+                        }
+                        if (state == PlaybackState.STATE_PAUSED) {
+                            switch (profile._playMusic) {
+                                case 1:
+                                case 4:
+                                    controller.getTransportControls().play();
+                                    break;
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                                case 5:
+                                    controller.getTransportControls().stop();
+                                    break;
+                            }
+                        }
+                        if ((state == PlaybackState.STATE_STOPPED) || (state == PlaybackState.STATE_NONE)) {
+                            switch (profile._playMusic) {
+                                case 1:
+                                case 4:
+                                    controller.getTransportControls().play();
+                                    break;
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 
@@ -6135,10 +6203,21 @@ class ActivateProfileHelper {
             // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
         }
-        else {
-//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");
-            executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
+
+        if (profile._deviceRunApplicationChange == 1)
+        {
+//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForRunApplications");
+            executeForRunApplications(profile, appContext);
         }
+
+        if (profile._playMusic == 1)
+        {
+//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForPlayMusic");
+            executeForPlaMusic(profile, appContext, executedProfileSharedPreferences);
+        }
+
+//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");
+        executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
     }
 
     private static void _setScreenTimeount(int screenTimeoutValue, boolean forceSet, Context appContext) {
