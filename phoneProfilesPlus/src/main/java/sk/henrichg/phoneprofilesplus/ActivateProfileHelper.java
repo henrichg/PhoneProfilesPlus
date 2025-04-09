@@ -5154,6 +5154,19 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
+        if (profile._deviceRunApplicationChange == 1)
+        {
+//            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForRunApplications");
+            executeForRunApplications(profile, appContext);
+        }
+
+        // TODO tu sprav ten delay, play musioc musi byt zavolany az par sekund po spusteni prehravaca hudby
+        if (profile._playMusic == 1)
+        {
+//            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForPlayMusic");
+            executeForPlayMusic(profile, appContext, executedProfileSharedPreferences);
+        }
+
         // startActivity from background: Android 10 (API level 29)
         // Exception:
         // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
@@ -6197,25 +6210,18 @@ class ActivateProfileHelper {
             dataWrapper.invalidateDataWrapper();
         }
 
+        // Do not chage this (keep if/else)!!
+        // executeForInteractivePreferences() is called also in PPExtenderBroadcastReceiver.onReceive()
+        // for PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END.
+        // For this reason, after end of force stop is executeForInteractivePreferences() also called.
         if (profile._deviceForceStopApplicationChange >= 1) {
             // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
         }
-
-        if (profile._deviceRunApplicationChange == 1)
-        {
-//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForRunApplications");
-            executeForRunApplications(profile, appContext);
-        }
-
-        if (profile._playMusic == 1)
-        {
-//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForPlayMusic");
-            executeForPlayMusic(profile, appContext, executedProfileSharedPreferences);
-        }
-
+        else {
 //            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");
-        executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
+            executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
+        }
     }
 
     private static void _setScreenTimeount(int screenTimeoutValue, boolean forceSet, Context appContext) {
