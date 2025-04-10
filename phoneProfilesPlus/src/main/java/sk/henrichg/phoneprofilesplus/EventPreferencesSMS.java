@@ -460,7 +460,7 @@ class EventPreferencesSMS extends EventPreferences {
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, false, context);
         if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
-                                                                this._permanentRun, this._duration, this._forSIMCard, false, "");
+                                                                this._permanentRun, this._duration, this._forSIMCard, this._sendSMS, this._smsText);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 

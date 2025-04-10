@@ -1295,16 +1295,4 @@ class ProfileStatic {
         return context.getString(getNightLightStringPrefsId());
     }
 
-    static int getPlayMusicValue(String _playMusic)
-    {
-        int value;
-        try {
-            String[] splits = _playMusic.split(StringConstants.STR_SPLIT_REGEX);
-            value = Integer.parseInt(splits[1]);
-        } catch (Exception e) {
-            value = 1;
-        }
-        return value;
-    }
-
 }
