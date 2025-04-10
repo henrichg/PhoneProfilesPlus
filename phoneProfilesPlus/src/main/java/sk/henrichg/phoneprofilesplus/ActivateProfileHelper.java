@@ -5160,7 +5160,8 @@ class ActivateProfileHelper {
             executeForRunApplications(profile, appContext);
         }
 
-        // TODO tu sprav ten delay, play musioc musi byt zavolany az par sekund po spusteni prehravaca hudby
+        // WARNING: play music must be called after run applicaitons, because media player mus be started
+        // to working play music
         if (profile._playMusic == 1)
         {
 //            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForPlayMusic");
@@ -5530,7 +5531,11 @@ class ActivateProfileHelper {
             MediaSessionManager mediaSessionManager = (MediaSessionManager)context.getSystemService(Context.MEDIA_SESSION_SERVICE);
             if (mediaSessionManager != null) {
 
-                for (MediaController controller : mediaSessionManager.getActiveSessions(new ComponentName(context, PPNotificationListenerService.class))) {
+                List<MediaController> mediaControlers = mediaSessionManager.getActiveSessions(new ComponentName(context, PPNotificationListenerService.class));
+                if (!mediaControlers.isEmpty())
+                    GlobalUtils.sleep(2000);
+
+                for (MediaController controller : mediaControlers) {
                     PlaybackState playbackState = controller.getPlaybackState();
                     if (playbackState != null) {
                         int state = playbackState.getState();
