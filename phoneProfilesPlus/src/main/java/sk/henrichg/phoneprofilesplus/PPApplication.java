@@ -60,7 +60,7 @@ public class PPApplication extends Application
     // TODO set it to false if you do not want to show News
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
     // TODO set it to false if you do not want to show notification
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     //// Extender versions
     // for this version will be displayed upgrade notification
