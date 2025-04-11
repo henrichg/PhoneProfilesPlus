@@ -1103,6 +1103,7 @@ public class PPApplication extends Application
     static volatile CallControlEventEndBroadcastReceiver callControlEventEndBroadcastReceiver = null;
     static volatile AnswerCallRingingLengthBroadcastReceiver answerCallRingingLengthBroadcastReceiver = null;
     static volatile EndCallCallLengthBroadcastReceiver endCallCallLengthBroadcastReceiver = null;
+    static volatile ActivatedProfileEventEndBroadcastReceiver activatedProfileEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 

@@ -1466,6 +1466,14 @@ class PhoneProfilesServiceStatic
                     PPApplication.activatedProfileEventBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.activatedProfileEventEndBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.activatedProfileEventEndBroadcastReceiver);
+                    PPApplication.activatedProfileEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.activatedProfileEventEndBroadcastReceiver = null;
+                }
+            }
         }
         if (register) {
             boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, appContext).preferenceAllowed ==
@@ -1482,6 +1490,14 @@ class PhoneProfilesServiceStatic
                     if (Build.VERSION.SDK_INT >= 34)
                         receiverFlags = RECEIVER_NOT_EXPORTED;
                     appContext.registerReceiver(PPApplication.activatedProfileEventBroadcastReceiver, intentFilter23, receiverFlags);
+                }
+                if (PPApplication.activatedProfileEventEndBroadcastReceiver == null) {
+                    PPApplication.activatedProfileEventEndBroadcastReceiver = new ActivatedProfileEventEndBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_END_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.activatedProfileEventEndBroadcastReceiver, intentFilter23, receiverFlags);
                 }
             }
             else

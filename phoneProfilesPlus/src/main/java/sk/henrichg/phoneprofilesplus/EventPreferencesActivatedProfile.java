@@ -438,16 +438,17 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         }
     }
 
-    void saveStartTime(DataWrapper dataWrapper, String tagName, long startTime) {
+    void saveStartTime(DataWrapper dataWrapper) {
         if (this._startTime == 0) {
             // alarm for end is not set
 
             long activatedProfile = dataWrapper.getActivatedProfileId();
-
             boolean startProfileActivated = activatedProfile == this._startProfile;
 
-            if (startProfileActivated)
-                this._startTime = startTime; //  + (10 * 1000);
+            if (startProfileActivated) {
+                Calendar calendar = Calendar.getInstance();
+                this._startTime = calendar.getTimeInMillis();
+            }
             else
                 this._startTime = 0;
 
@@ -493,27 +494,21 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                         DatabaseHandler.getInstance(eventsHandler.context).updateActivatedProfileStartTime(_event);
                     }
 
-                    if (!eventsHandler.notAllowedActivatedProfile) {
-                        if (eventsHandler.activatedProfilePassed)
-                            setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
-                        else
-                            setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-                    }
-
                 } else {
                     if ((this._startProfile != 0) && (this._endProfile != 0)) {
                         eventsHandler.activatedProfilePassed =
                                 this._running == RUNNING_RUNNING;
                     } else
                         eventsHandler.notAllowedActivatedProfile = true;
-
-                    if (!eventsHandler.notAllowedActivatedProfile) {
-                        if (eventsHandler.activatedProfilePassed)
-                            setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
-                        else
-                            setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-                    }
                 }
+
+                if (!eventsHandler.notAllowedActivatedProfile) {
+                    if (eventsHandler.activatedProfilePassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+
             } else
                 eventsHandler.notAllowedActivatedProfile = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);

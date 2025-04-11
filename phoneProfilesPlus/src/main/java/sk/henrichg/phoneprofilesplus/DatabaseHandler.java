@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2543;
+    static final int DATABASE_VERSION = 2544;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -492,6 +492,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALL_END_CALL_CALL_LENGTH = "callEndCallCallLength";
     static final String KEY_E_SMS_SEND_SMS = "smsSendSMS";
     static final String KEY_E_SMS_SMS_TEXT = "smsSMSText";
+    static final String KEY_E_ACTIVATED_PROFILE_USE_DURATION = "activatedProfileUseDuration";
+    static final String KEY_E_ACTIVATED_PROFILE_DURATION = "activatedProfileDuration";
+    static final String KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN = "activatedProfilePermanentRun";
+    static final String KEY_E_ACTIVATED_PROFILE_START_TIME = "activatedProfileStartTime";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1222,6 +1226,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     List<Event> getCallControlEvents() {
         return DatabaseHandlerEvents.getCallControlEvents(this);
+    }
+
+    void updateActivatedProfileStartTime(Event event)
+    {
+        DatabaseHandlerEvents.updateActivatedProfileStartTime(this, event);
+    }
+
+    void getActivatedProfileStartTime(Event event)
+    {
+        DatabaseHandlerEvents.getActivatedProfileStartTime(this, event);
     }
 
 // EVENT TIMELINE ------------------------------------------------------------------

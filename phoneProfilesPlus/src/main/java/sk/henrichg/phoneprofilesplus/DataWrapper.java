@@ -2796,6 +2796,12 @@ class DataWrapper {
             _event._eventPreferencesPeriodic.removeAlarm(context);
         }
 
+        if (force || _event._eventPreferencesActivatedProfile._permanentRun) {
+            _event._eventPreferencesActivatedProfile._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateActivatedProfileStartTime(_event);
+            _event._eventPreferencesActivatedProfile.removeAlarm(context);
+        }
+
     }
 
     boolean eventTypeExists(int eventType/*, boolean onlyRunning*/) {
