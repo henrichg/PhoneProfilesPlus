@@ -2350,6 +2350,8 @@
     <string name="array_pref_playMusicArray_pause">Pause</string>
     <string name="array_pref_playMusicArray_stop">Stop</string>
 
+    <string name="event_preferences_activated_profile_useDuration">Use duration</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
