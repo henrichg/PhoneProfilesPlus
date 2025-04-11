@@ -6236,7 +6236,7 @@ class DatabaseHandlerEvents {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    event._eventPreferencesActivatedProfile._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NFC_START_TIME));
+                    event._eventPreferencesActivatedProfile._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME));
                 }
 
                 cursor.close();
