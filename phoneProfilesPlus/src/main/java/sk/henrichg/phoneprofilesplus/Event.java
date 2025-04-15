@@ -457,7 +457,7 @@ class Event {
 
     private void createEventPreferencesActivatedProfile()
     {
-        this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0);
+        this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0, false, true, 5);
     }
 
     private void createEventPreferencesRoaming()

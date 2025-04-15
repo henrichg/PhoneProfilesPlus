@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -27,6 +26,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
     long _startTime;
 
     static final String PREF_EVENT_ACTIVATED_PROFILE_ENABLED = "eventActivatedProfileEnabled";
+    private static final String PREF_EVENT_ACTIVATED_PROFILE_INFO = "eventActivatedProfileInfo";
     private static final String PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE = "eventActivatedProfileStartProfile";
     private static final String PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE = "eventActivatedProfileEndProfile";
     private static final String PREF_EVENT_ACTIVATED_PROFILE_USE_DURATION = "eventActivatedProfileUseDuration";
@@ -132,6 +132,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                         _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
                 } else {
+                    _value.append(StringConstants.STR_BULLET);
                     if (this._permanentRun)
                         _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     else
@@ -173,6 +174,30 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             }
         }
 
+        if (key.equals(PREF_EVENT_ACTIVATED_PROFILE_USE_DURATION)) {
+            SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
+            if (permanentRunPreference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false, false);
+            }
+
+            Preference preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_INFO);
+            if (preference != null)
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
+            /*preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE);
+            if (preference != null)
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));*/
+            preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE);
+            if (preference != null)
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
+            preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN);
+            if (preference != null)
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
+            preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_DURATION);
+            if (preference != null) {
+                boolean permanentRun = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN, false);
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING) && (!permanentRun));
+            }
+        }
         if (key.equals(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
@@ -200,6 +225,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         boolean isRunnable = event._eventPreferencesActivatedProfile.isRunnable(context);
         //boolean isAllConfigured = event._eventPreferencesActivatedProfile.isAllConfigured(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
+        boolean useDuration = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_USE_DURATION, false);
         ProfilePreference preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE, "0").equals("0");
@@ -208,7 +234,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE, "0").equals("0");
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled && (!useDuration), bold, false, true, !isRunnable, false);
         }
     }
 
@@ -312,16 +338,18 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 setSummary(prefMng, PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE, preferences, context);
 
                 boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED;
-                Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN);
-                if (permanentRunPreference != null)
-                    permanentRunPreference.setEnabled(enabled);
-
                 if (preferences != null) {
+                    boolean useDuration = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_USE_DURATION, false);
+
+                    Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN);
+                    if (permanentRunPreference != null)
+                        permanentRunPreference.setEnabled(enabled && useDuration);
+
                     Preference durationPreference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_DURATION);
                     boolean permanentRun = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN, false);
                     enabled = enabled && (!permanentRun);
                     if (durationPreference != null)
-                        durationPreference.setEnabled(enabled);
+                        durationPreference.setEnabled(enabled && useDuration);
                 }
 
                 setSummary(prefMng, PREF_EVENT_ACTIVATED_PROFILE_ENABLED, preferences, context);
@@ -460,7 +488,6 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             }
         }
     }
-
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
