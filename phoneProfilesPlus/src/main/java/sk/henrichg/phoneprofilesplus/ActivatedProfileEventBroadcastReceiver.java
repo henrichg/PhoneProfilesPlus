@@ -61,14 +61,10 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                                             if (_event._eventPreferencesActivatedProfile._startTime == 0) {
                                                 // alarm is  not started
                                                 long startProfile = _event._eventPreferencesActivatedProfile._startProfile;
-                                                if (profileId == startProfile) {
-                                                    //_event._eventPreferencesActivatedProfile._running =
-                                                    //        EventPreferencesActivatedProfile.RUNNING_RUNNING;
-                                                    // save running to database
-                                                    //databaseHandler.
-                                                    //        updateActivatedProfileSensorRunningParameter(_event);
-
-//                                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "SENSOR_TYPE_ACTIVATED_PROFILE");
+                                                long detectedProfile = _event._eventPreferencesActivatedProfile._detectedProfile;
+                                                if ((detectedProfile != profileId) && (profileId == startProfile)) {
+                                                    // activated profile changed
+//                                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "SENSOR_TYPE_ACTIVATED_PROFILE");
                                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE});
                                                 }

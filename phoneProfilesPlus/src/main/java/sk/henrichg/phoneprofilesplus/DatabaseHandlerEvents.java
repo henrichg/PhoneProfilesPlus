@@ -1375,7 +1375,8 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ACTIVATED_PROFILE_USE_DURATION,
                         DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION,
                         DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME,
-                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN,
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE,
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -1394,6 +1395,7 @@ class DatabaseHandlerEvents {
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION));
                 eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME));
                 eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN)) == 1);
+                eventPreferences._detectedProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
@@ -2005,6 +2007,7 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION, eventPreferences._duration);
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME, eventPreferences._startTime);
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE, eventPreferences._detectedProfile);
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -6250,5 +6253,81 @@ class DatabaseHandlerEvents {
             instance.stopRunningCommand();
         }
     }
+
+    static void updateActivatedProfileDetectedProfile(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE, event._eventPreferencesActivatedProfile._detectedProfile);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    /*
+    static void getActivatedProfileDetectedProfile(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                //if (cursor != null) {
+                cursor.moveToFirst();
+
+                if (cursor.getCount() > 0) {
+                    event._eventPreferencesActivatedProfile._detectedProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE));
+                }
+
+                cursor.close();
+                //}
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+    */
 
 }

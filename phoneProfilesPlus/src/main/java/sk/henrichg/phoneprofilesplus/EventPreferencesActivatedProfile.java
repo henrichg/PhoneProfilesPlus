@@ -24,6 +24,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
     int _running;
     long _startTime;
+    long _detectedProfile;
 
     static final String PREF_EVENT_ACTIVATED_PROFILE_ENABLED = "eventActivatedProfileEnabled";
     private static final String PREF_EVENT_ACTIVATED_PROFILE_INFO = "eventActivatedProfileInfo";
@@ -56,6 +57,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         this._duration = duration;
 
         this._startTime = 0;
+        this._detectedProfile = 0;
         this._running = RUNNING_NOTSET;
     }
 
@@ -70,6 +72,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesActivatedProfile.getSensorPassed());
 
         this._startTime = 0;
+        this._detectedProfile = 0;
         this._running = RUNNING_NOTSET;
     }
 
@@ -94,6 +97,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         this._permanentRun = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_PERMANENT_RUN, true);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_ACTIVATED_PROFILE_DURATION, "5"));
 
+        this._detectedProfile = 0;
         // set it to NOSET when parameters are changed
         this._running = RUNNING_NOTSET;
     }
@@ -309,7 +313,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             runnable = runnable && (this._startProfile != 0);
         else
             runnable = runnable && (this._startProfile != 0) && (this._endProfile != 0)
-                          && (this._startProfile != this._endProfile);
+                    && (this._startProfile != this._endProfile);
 
         return runnable;
     }
@@ -321,9 +325,8 @@ class EventPreferencesActivatedProfile extends EventPreferences {
 
         if (this._useDuration)
             allConfigured = allConfigured && (this._startProfile != 0);
-        else {
+        else
             allConfigured = allConfigured && (this._startProfile != 0) && (this._endProfile != 0);
-        }
 
         return allConfigured;
     }
@@ -471,11 +474,12 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             // alarm for end is not set
 
             long activatedProfile = dataWrapper.getActivatedProfileId();
-            boolean startProfileActivated = activatedProfile == this._startProfile;
+            boolean startProfileActivated = (activatedProfile == this._startProfile) /*&& (activatedProfile != this._detectedProfile)*/;
 
             if (startProfileActivated) {
                 Calendar calendar = Calendar.getInstance();
                 this._startTime = calendar.getTimeInMillis();
+                saveDetectedProfile(dataWrapper.context, activatedProfile);
             }
             else
                 this._startTime = 0;
@@ -486,6 +490,15 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 //if (_event.getStatus() == Event.ESTATUS_RUNNING)
                 setSystemEventForPause(dataWrapper.context);
             }
+        }
+    }
+
+    void saveDetectedProfile(Context context, long profileId) {
+        if (this._detectedProfile != profileId) {
+            // alarm for end is not set
+
+            this._detectedProfile = profileId;
+            DatabaseHandler.getInstance(context).updateActivatedProfileDetectedProfile(_event);
         }
     }
 
