@@ -5528,6 +5528,20 @@ class ActivateProfileHelper {
     static void executeForPlayMusic(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
         Context appContext = context.getApplicationContext();
         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            // do not change play music during call
+            AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                /*if ((audioManager.getMode() == AudioManager.MODE_IN_CALL) ||
+                        (audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION) ||
+                        (audioManager.getMode() == AudioManager.MODE_CALL_REDIRECT) ||
+                        (audioManager.getMode() == AudioManager.MODE_COMMUNICATION_REDIRECT) ||
+                        (audioManager.getMode() == AudioManager.MODE_RINGTONE)
+                )*/
+                if (audioManager.getMode() != AudioManager.MODE_NORMAL)
+                    return;
+            }
+
             MediaSessionManager mediaSessionManager = (MediaSessionManager)context.getSystemService(Context.MEDIA_SESSION_SERVICE);
             if (mediaSessionManager != null) {
 
