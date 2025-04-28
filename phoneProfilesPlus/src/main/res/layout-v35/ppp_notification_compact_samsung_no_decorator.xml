@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notification_activated_profile_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="0dp"
-    android:paddingBottom="0dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:paddingStart="12dp"
-    android:paddingEnd="15dp" >
+    android:paddingEnd="18dp" >
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="8dp"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:layout_alignParentStart="true">
@@ -40,7 +40,7 @@
             android:layout_gravity="center_vertical"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="@dimen/profile_name_notification_margin"
+            android:layout_marginEnd="20dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
