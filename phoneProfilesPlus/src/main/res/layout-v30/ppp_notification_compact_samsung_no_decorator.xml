@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
 
-            <include layout="@layout/ppp_notification_text_compat" />
+            <include layout="@layout/ppp_notification_text_compat_samsung" />
 
         </LinearLayout>
 
