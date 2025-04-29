@@ -1628,6 +1628,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        boolean showInfoAboutApplicaitonIcons = true;
         if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             preference = findPreference(PREF_WIDGET_ICON_NOT_WORKING_NIUI_INFO);
             if (preference != null) {
@@ -1653,11 +1654,27 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
+            if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 35))) {
+                preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
+                if (preference != null) {
+                    PreferenceCategory preferenceCategory = findPreference(PREF_NOTIFICATION_STATUS_BAR_CATEGORY);
+                    if (preferenceCategory != null) {
+                        preferenceCategory.removePreference(preference);
+                        showInfoAboutApplicaitonIcons = false;
+                    }
+                }
+            }
+        }
+        if (showInfoAboutApplicaitonIcons) {
             preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
             if (preference != null) {
-                PreferenceCategory preferenceCategory = findPreference(PREF_NOTIFICATION_STATUS_BAR_CATEGORY);
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
+                String _summary = preference.getSummary().toString() +
+                        StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_NEW_LINE+
+                        getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary);
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 35))
+                    _summary = _summary+StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_NEW_LINE+
+                            getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary);
+                preference.setSummary(_summary);
             }
         }
 
