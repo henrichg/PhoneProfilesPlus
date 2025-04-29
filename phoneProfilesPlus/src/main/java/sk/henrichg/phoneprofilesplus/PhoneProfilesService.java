@@ -1185,6 +1185,7 @@ public class PhoneProfilesService extends Service
         PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
     }
 
+    //TODO - add here change of application preferences after package replaced
     @SuppressLint("ObsoleteSdkInt")
     private boolean doForPackageReplaced(Context appContext, int oldVersionCode) {
         //int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
@@ -1853,6 +1854,34 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                if (actualVersionCode <= 7270) {
+                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                            (Build.VERSION.SDK_INT >= 35)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.notificationUseDecorationDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                            editor.apply();
+                        }
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI &&
+                            (Build.VERSION.SDK_INT >= 28)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                }
             }
 
             // Keep this !!! stop tap target for package replaced

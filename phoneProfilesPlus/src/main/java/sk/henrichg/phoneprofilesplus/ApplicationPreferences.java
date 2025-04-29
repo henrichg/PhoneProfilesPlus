@@ -1508,7 +1508,8 @@ class ApplicationPreferences {
         boolean defaultValue;
         if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31))
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
-        else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))
+        else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                (Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
         else
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
@@ -1596,7 +1597,7 @@ class ApplicationPreferences {
         notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, notificationNotificationStyleDefaultValue());
     }
 
-    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = true; //false;
+    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = true;
     static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_OTHERS = true;
     static boolean notificationShowProfileIconDefaultValue() {
         boolean defaultValue;
@@ -1609,7 +1610,6 @@ class ApplicationPreferences {
     static void notificationShowProfileIcon(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_SHOW_PROFILE_ICON)) {
-                // not contains this preference set to false
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P);
