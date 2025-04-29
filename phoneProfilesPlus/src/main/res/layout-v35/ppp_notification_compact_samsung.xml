@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notification_activated_profile_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
+<!--    android:layout_height="wrap_content"-->
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
@@ -12,7 +13,7 @@
         android:layout_alignParentEnd="true"
         android:padding="2dp"
         android:layout_marginStart="@dimen/profile_name_notification_margin"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="10dp"
         android:contentDescription="@string/menu_restart_events"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -25,10 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:layout_alignParentStart="true">
-<!--        android:layout_marginStart="3dp"-->
 
         <ImageView
             android:id="@+id/notification_activated_profile_icon"
@@ -41,7 +41,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
-        <include layout="@layout/ppp_notification_text_compat" />
+        <include layout="@layout/ppp_notification_text_compat_samsung" />
 
     </LinearLayout>
 
