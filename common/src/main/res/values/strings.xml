@@ -2358,6 +2358,8 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Click here to show how.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notiifcaitons, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Click here to show how.</string>
 
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

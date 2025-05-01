@@ -1818,8 +1818,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference((PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_INFO));
         if (preference != null) {
-            preference.setSummary(getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary) + "\n"
-                    + getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary_2));
+            preference.setSummary(getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary) + "\n\n" +
+                    getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary_2) +
+                    " " + getString(R.string.profile_preferences_deviceForceStopApplicationsInfo_summary_3) +
+                    " \"" + getString(R.string.array_pref_force_stop_with_command) + "\".");
         }
 
         preference = findPreference(Profile.PREF_PROFILE_PLAY_MUSIC);
