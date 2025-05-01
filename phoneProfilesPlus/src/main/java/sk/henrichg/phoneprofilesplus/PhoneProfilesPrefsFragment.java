@@ -1666,15 +1666,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (showInfoAboutApplicaitonIcons) {
-            preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
-            if (preference != null) {
-                String _summary = preference.getSummary().toString() +
-                        StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_NEW_LINE+
-                        getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary);
-                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 35))
-                    _summary = _summary+StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_NEW_LINE+
+            InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
+            if (infoDialogPreference != null) {
+                String infoText;
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 35)) {
+                    infoDialogPreference.setSummary(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary);
+                    infoText = getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary) +
+                            StringConstants.TAG_DOUBLE_BREAK_HTML+
+                            getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary);
+                    infoText = infoText+StringConstants.TAG_DOUBLE_BREAK_HTML+
                             getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary);
-                preference.setSummary(_summary);
+                } else {
+                    infoDialogPreference.setSummary(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary);
+                    infoText = getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary) +
+                            StringConstants.TAG_DOUBLE_BREAK_HTML+
+                            getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary);
+                }
+                infoDialogPreference.setInfoText(infoText);
+                infoDialogPreference.setIsHtml(true);
             }
         }
 

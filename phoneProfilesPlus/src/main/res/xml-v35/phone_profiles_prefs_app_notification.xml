@@ -30,10 +30,10 @@
         app:title="@string/phone_profiles_pref_notificationStatusBarCategory"
         app:layout="@layout/mp_preference_category" >
 
-        <sk.henrichg.phoneprofilesplus.InformationPreference
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreference
             app:key="notificationAppInstedProfileIconInStatusBarInfo"
             app:title="@string/phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title"
-            app:summary="@string/phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary"
+            app:infoText=""
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.InformationPreference
