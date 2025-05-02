@@ -2352,11 +2352,11 @@
 
     <string name="event_preferences_activated_profile_useDuration">Use duration</string>
 
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">If, in notiifcaitons, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Switch off \"Settings\"/\"Notifications\"/\"Advanced settings\"/\"Show app icon in notifications\".</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Displayed will be icons configured in notifications (displayed in notification status bar, decoration). PPP uses this for displaying profile icons.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">After switch off this parameter, recommended is disabing \"Show profile icon\" in PPP \"Application notification\" settings.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">If, in notifications, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Switch off \"Settings\"/\"Notifications\"/\"Advanced settings\"/\"Show app icon in notifications\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Displayed will be, in all notifications, icons configured for notifications (displayed by system in notification status bar, decoration). PPP uses this for displaying profile icons.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">After switch off this parameter, recommended is disabling \"Show profile icon\" in PPP \"Application notification\" settings.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Click here to show how.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notiifcaitons, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Click here to show how.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notifications, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Click here to show how.</string>
 
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
 
