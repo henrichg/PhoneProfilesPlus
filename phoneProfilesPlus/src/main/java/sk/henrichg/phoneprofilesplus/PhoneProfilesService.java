@@ -1858,12 +1858,12 @@ public class PhoneProfilesService extends Service
                     if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
                             (Build.VERSION.SDK_INT >= 35)) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                        /*if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
                                 ApplicationPreferences.notificationUseDecorationDefaultValue())) {
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
                             editor.apply();
-                        }*/
+                        }
                         if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
                                 ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
                             SharedPreferences.Editor editor = preferences.edit();
