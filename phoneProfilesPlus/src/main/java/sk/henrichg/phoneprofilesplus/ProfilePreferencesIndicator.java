@@ -89,9 +89,12 @@ class ProfilePreferencesIndicator {
 
             //noinspection ConstantValue
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -197,9 +200,12 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -257,9 +263,12 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -344,9 +353,12 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -404,15 +416,21 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
 
-        try {
-            preferenceBitmap.recycle();
-        } catch (Exception ignored) {}
+        if (!preferenceBitmap.isRecycled()) {
+            try {
+                preferenceBitmap.recycle();
+            } catch (Exception ignored) {
+            }
+        }
 
     }
 

@@ -3306,10 +3306,12 @@ class Profile {
     {
         if (_iconBitmap != null)
         {
-            //if (!_iconBitmap.isRecycled())
-            try {
-                _iconBitmap.recycle();
-            } catch (Exception ignored) {}
+            if (!_iconBitmap.isRecycled()) {
+                try {
+                    _iconBitmap.recycle();
+                } catch (Exception ignored) {
+                }
+            }
             _iconBitmap = null;
         }
     }
@@ -3318,10 +3320,12 @@ class Profile {
     {
         if (_preferencesIndicator != null)
         {
-            //if (!_preferencesIndicator.isRecycled())
-            try {
-                _preferencesIndicator.recycle();
-            } catch (Exception ignored) {}
+            if (!_preferencesIndicator.isRecycled()) {
+                try {
+                    _preferencesIndicator.recycle();
+                } catch (Exception ignored) {
+                }
+            }
             _preferencesIndicator = null;
         }
     }

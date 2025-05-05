@@ -4315,12 +4315,14 @@ class ActivateProfileHelper {
                                 null, profile._name, "");
                         //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
                     } catch (Exception e) {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                                 null, profile._name, "");
                         //PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
                     }
                 } else {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
@@ -4374,9 +4376,9 @@ class ActivateProfileHelper {
                         }
                     }
 
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
 
                     // this is required for "change random image from folder"
@@ -4386,17 +4388,17 @@ class ActivateProfileHelper {
                             null, profile._name, "");
                     //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
                 } catch (Exception e) {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                             null, profile._name, "");
                     //PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
                 }
             }
