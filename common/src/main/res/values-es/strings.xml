@@ -2317,4 +2317,10 @@
     <string name="array_pref_playMusicArray_pause">Pausa</string>
     <string name="array_pref_playMusicArray_stop">Parar</string>
     <string name="event_preferences_activated_profile_useDuration">Usar duración</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Si, en las notificaciones, se muestra la aplicación PhoneProfilesPlus en lugar del icono del perfil, puedes cambiarlo. Desactiva \"Configuración\"/\"Avisos\"/\"Ajustes avanzados\"/\"Mostrar icono de la aplicación en las notificaciones\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Se mostrarán, en todas las notificaciones, los iconos configurados para las notificaciones (mostrados por el sistema en la barra de estado de notificaciones, decoración). PPP utiliza esto para mostrar los iconos de perfil.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">Después de desactivar este parámetro, se recomienda desactivar \"Mostrar icono de perfil\" en la configuración de PPP \"Notificación de aplicación\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Si en la barra de estado se muestra la aplicación PhoneProfilesPlus en lugar del icono del perfil, puedes cambiarlo. Haz clic aquí para mostrar cómo.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Si en las notificaciones se muestra la aplicación PhoneProfilesPlus en lugar del icono del perfil, puedes cambiarlo. Haz clic aquí para mostrar cómo.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">En esta situación se recomienda</string>
 </resources>

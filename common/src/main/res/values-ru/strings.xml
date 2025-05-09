@@ -2317,4 +2317,10 @@
     <string name="array_pref_playMusicArray_pause">Приостановить</string>
     <string name="array_pref_playMusicArray_stop">Остановить</string>
     <string name="event_preferences_activated_profile_useDuration">Продолжительность</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Если в уведомлениях вместо иконки профиля отображается иконка приложения PhoneProfilesPlus, это можно изменить. Зайдите в \"Настройки\"/\"Уведомления\"/\"Дополнительные параметры\" и отключите \"Значок в уведомлениях\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Тогда во всех уведомлениях будут отображаться иконки для уведомлений, которые PPP использует для отображения иконок профилей.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">После отключения этого параметра рекомендуется также отключить параметр \"Показывать иконку профиля\" в разделе \"Уведомления приложения\" в настройках PPP.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Если в строке состояния вместо иконки профиля отображается иконка приложения PhoneProfilesPlus, это можно изменить. Чтобы узнать, как, нажмите сюда.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Если в уведомлениях вместо иконки профиля отображается иконка приложения PhoneProfilesPlus, это можно изменить. Чтобы узнать, как, нажмите сюда.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">В такой ситуации рекомендуется</string>
 </resources>

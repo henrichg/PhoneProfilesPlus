@@ -2317,4 +2317,10 @@
     <string name="array_pref_playMusicArray_pause">Пауза</string>
     <string name="array_pref_playMusicArray_stop">Зупинити</string>
     <string name="event_preferences_activated_profile_useDuration">Використовувати тривалість</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Якщо, у сповіщеннях показаний застосунок PhoneProfilesPlus замість іконки профілю, Ви можете це змінити. Вимкніть параметр \"/\"Сповіщення\"/\"Додаткові налаштування\"/\"Показати іконку застосунку у сповіщеннях\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Іконки будуть показуватись у всіх сповіщеннях де налаштовані. РРР використовує це для показу іконок профілів.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">Після вимкнення цього параметру рекомендовано відключати параметр \"Показувати іконку профілю\" в налаштуваннях PPP \"Сповіщення додатка\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Якщо в панелі статусу іконка застосунку PhoneProfilesPlus замість іконки профілю, Ви можете змінити це. Натисніть тут, щоб побачити як.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Якщо в сповіщеннях іконка застосунку PhoneProfilesPlus замість іконки профілю, Ви можете змінити це. Натисніть тут, щоб побачити як.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">В цьому випадку рекомендується</string>
 </resources>

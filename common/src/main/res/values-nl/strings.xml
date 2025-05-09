@@ -2317,4 +2317,10 @@
     <string name="array_pref_playMusicArray_pause">Pauze</string>
     <string name="array_pref_playMusicArray_stop">Stop</string>
     <string name="event_preferences_activated_profile_useDuration">Gebruiksduur</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Als in meldingen PhoneProfilesPlus applicatie wordt weergegeven in plaats van het profielpictogram, kun je dit wijzigen. Schakel \"Instellingen\"/\"Meldingen\"/\"Geavanceerde instellingen\"/\"Toon app pictogram in meldingen\" uit.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">In alle notificaties kun je een icon voor notificaties configureren (weergegeven door het systeem in de notificatie statusbalk). PPP gebruikt dit voor het weergeven van profielpictogrammen.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">Aanbeveling na het uitschakelen van deze parameter, zet \"Toon profielpictogram\" uit in PPP \"Applicatie meldingen\" instellingen.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Als de statusbalk de PhoneProfilesPlus applicatie weergeeft in plaats van het profielpictogram, kunt u deze wijzigen. Klik hier om te tonen hoe.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Als je PhoneProfilesPlus meldingen weergeeft in plaats van het profielpictogram, kun je dit wijzigen. Klik hier om te zien hoe dat kan.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In deze situatie aanbevolen</string>
 </resources>

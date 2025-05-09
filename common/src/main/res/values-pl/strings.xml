@@ -2304,17 +2304,23 @@
     <string name="event_preferences_call_endCall">Zakończyć rozmowę</string>
     <string name="event_preferences_call_endCall_callLength">Długość rozmowy</string>
     <string name="event_preference_callSendSMS_info_summary">Ten parametr dotyczy \"Zdarzenie rozmowy\"=\"Nieodebrane połączenie\" oraz \"Zakończyć rozmowę\".</string>
-    <string name="event_preference_smsSendSMS">Send SMS</string>
-    <string name="event_preference_smsSMSText">SMS Text</string>
-    <string name="phone_profiles_defaultRolesApplications_summary_restrictedSettings">If is not possible to set PhoneProfilesPlus in \"Default role application\", maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
-    <string name="profile_preference_sendSMSSendSMS_summary_restrictedSettings">If is not possible to grant SMS permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
-    <string name="profile_preferences_category_play_music">Play music</string>
-    <string name="profile_preferences_playMusic">Play music</string>
-    <string name="profile_preferences_playMusicAccessSettings_summary">Please enable \"Notification access\". Without this, play music will not work.</string>
-    <string name="array_pref_playMusicArray_play">Play</string>
-    <string name="array_pref_playMusicArray_next">Next</string>
-    <string name="array_pref_playMusicArray_previous">Previous</string>
-    <string name="array_pref_playMusicArray_pause">Pause</string>
+    <string name="event_preference_smsSendSMS">Wyślij SMS</string>
+    <string name="event_preference_smsSMSText">Tekst SMS</string>
+    <string name="phone_profiles_defaultRolesApplications_summary_restrictedSettings">Jeśli nie jest możliwe ustawienie PhoneProfilesPlus jako \"aplikacji domyślnej\", to być może PhoneProfilesPlus nie ma dostępu do ustawień zastrzeżonych. Kliknij tu, aby go włączyć.</string>
+    <string name="profile_preference_sendSMSSendSMS_summary_restrictedSettings">Jeśli nie jest możliwe włączenie dostępu do SMS, to być może PhoneProfilesPlus nie ma dostępu do ustawień zastrzeżonych. Kliknij tu, aby go włączyć.</string>
+    <string name="profile_preferences_category_play_music">Odtwarzaj muzykę</string>
+    <string name="profile_preferences_playMusic">Odtwarzaj muzykę</string>
+    <string name="profile_preferences_playMusicAccessSettings_summary">Proszę włączyć \"dostęp do powiadomień\". Bez tego nie będzie działać odtwarzanie muzyki.</string>
+    <string name="array_pref_playMusicArray_play">Graj</string>
+    <string name="array_pref_playMusicArray_next">Następny</string>
+    <string name="array_pref_playMusicArray_previous">Poprzedni</string>
+    <string name="array_pref_playMusicArray_pause">Pauza</string>
     <string name="array_pref_playMusicArray_stop">Stop</string>
     <string name="event_preferences_activated_profile_useDuration">Użyj czasu trwania</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Jeśli w powiadomieniach, zamiast ikony profilu, wyświetlana jest ikona aplikacji PhoneProfilesPlus, możesz ją zmienić. Wyłącz opcję \"Ustawienia\"/\"Powiadomienia\"/\"Ustawienia zaawansowane\"/\"Pokaż ikonę aplikacji w powiadomieniach\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Wyświetlane będą we wszystkich powiadomieniach ikony skonfigurowane dla powiadomień (wyświetlane przez system na pasku stanu, dekoracji). PPP używa tego do wyświetlania ikon profilu.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">Po wyłączeniu tego parametru, zalecane jest wyłączenie \"Pokaż ikonę profilu\" w ustawieniach PPP \"Powiadomienie aplikacji\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">If, in status bar, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notifications, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
 </resources>

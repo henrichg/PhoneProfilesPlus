@@ -2317,4 +2317,10 @@
     <string name="array_pref_playMusicArray_pause">Pozastavenie</string>
     <string name="array_pref_playMusicArray_stop">Zastavenie</string>
     <string name="event_preferences_activated_profile_useDuration">Použiť trvanie</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Ak sa v notifikáciách namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Vypnite \"Nastavenia\"/\"Oznámenia\"/\"Rozšírené nastavenia\"/\"Zobr. ikonu aplik. v oznámeniach“.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Vo všetkých notifikáciách sa zobrazia ikony nakonfigurované pre notifikácie (zobrazované systémom v stavovom riadku notifikácií, dekorácii). PPP to používa na zobrazenie ikon profilov.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">Po vypnutí tohto parametra sa odporúča vypnúť možnosť \"Zobrazovať ikonu profilu\" v nastaveniach PPP v \"Notifikácia aplikácie\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Ak sa v stavovom riadku namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Kliknite sem, zobrazí sa ako.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Ak sa v notifikáciách zobrazuje namiesto ikony profilu ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Kliknite sem, zobrazí sa ako.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">V tejto situácii sa odporúča</string>
 </resources>
