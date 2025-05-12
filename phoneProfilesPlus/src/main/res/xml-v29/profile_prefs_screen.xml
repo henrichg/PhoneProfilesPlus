@@ -90,6 +90,11 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsLockDevice" />
 
+    <sk.henrichg.phoneprofilesplus.InformationPreference
+        app:key="prf_pref_headsUpNotificationsInfo"
+        app:title="@string/profile_preferences_headsUpNotifications"
+        app:summary="@string/profile_preferences_notificationLedInfo_summary"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_headsUpNotifications"
         app:summary="@string/array_pref_no_change"

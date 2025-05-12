@@ -94,6 +94,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     //private static final String PREF_LOCK_DEVICE_LAUNCH_EXTENDER = "prf_pref_lockDeviceLaunchExtender";
     private static final String PREF_NOTIFICATION_ACCESS_ENABLED = "prf_pref_notificationAccessEnable";
     private static final String PREF_NOTIFICATION_LED_INFO = "prf_pref_notificationLedInfo";
+    private static final String PREF_HEADS_UP_NOTIFICATIONS_INFO = "prf_pref_headsUpNotificationsInfo";
     private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
     private static final String PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceRadiosDualSIMSupportCategoryRoot";
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
@@ -1067,6 +1068,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
+        }
+        preference = findPreference(PREF_HEADS_UP_NOTIFICATIONS_INFO);
+        if (preference != null) {
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, preferences, true, context);
+            preference.setEnabled((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
         }
         preference = findPreference(PREF_ALWAYS_ON_DISPLAY_INFO);
         if (preference != null) {
