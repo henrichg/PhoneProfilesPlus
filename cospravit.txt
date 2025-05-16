@@ -575,6 +575,35 @@ pauseEvent() moze byt aj s mergedProfile == null a to:
 Takze co robim, ked je == null?
 - aktivujem end profile a robim undo, restart events nerobim
 
+--------------------------
+
+Check critical PPP release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Zmen na PPApplication.PROFILE_NOTIFICATION_CHANNEL. Da sa toto vypnut cez action button.
+- notifikacia: PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID
+- Maze najprv nekriticku notifikaciu: PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID
+- Alarm je v shared preferences v PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm"
+- Este sa zapisuje PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification"
+  To by malo zapisovat release code PPP. Pozri kde ako sa pouziva.
+Check PPP release - mesacne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Rozmyslaj, ci nezmenis na PPApplication.PROFILE_NOTIFICATION_CHANNEL.
+  Lebo ak denny check uzivatel zakaze, mohol by tento zistit novu verziu.
+- notifikacia: PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID
+- Nezobrazuje tuto ak je zobrazena kriticka PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_PPP_RELEASE_ALARM = "github_release_alarm"
+- Tu zistuje ci je daky obchod nainstalovany. Ak je, vola _doWorkOthers(), inac _doWorkGitHub().
+  Je mozne, ze su identicke, mal by som to skontrolovat.
+Check PPPE release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Nechaj ako je. Tu sa zobrazuje, ci je nova verzia PPPE aj u parametroch proflu/udalosti.
+- notifikacia: PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_REQUIRED_EXTENDER_RELEASE_ALARM = "required_extender_release_alarm"
+Check PPPPS release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Nechaj ako je. Tu sa zobrazuje, ci je nova verzia PPPE aj u parametroch proflu/udalosti.
+- notifikacia: PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_LATEST_PPPPS_RELEASE_ALARM = "latest_pppps_release_alarm"
 
 --------------------------
 

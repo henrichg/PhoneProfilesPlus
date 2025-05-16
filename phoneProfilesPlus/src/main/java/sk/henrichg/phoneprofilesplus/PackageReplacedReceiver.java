@@ -30,15 +30,17 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        // reset GitHub version for critical check releaaes notification
-                        CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
+                        if (!DebugVersion.enabled) {
+                            // reset GitHub version for critical check releaaes notification
+                            CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
 
-                        // reset alarm for month check releaaes notification
-                        CheckPPPReleasesBroadcastReceiver.setShowPPPReleasesNotification(appContext, 0);
-                        CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
+                            // reset alarm for month check releaaes notification
+                            CheckPPPReleasesBroadcastReceiver.setShowPPPReleasesNotification(appContext, 0);
+                            CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
-                        // reset donation donated
-                        PPApplicationStatic.setDonationDonated(appContext, false);
+                            // reset donation donated
+                            PPApplicationStatic.setDonationDonated(appContext, false);
+                        }
 
                         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                         PPApplicationStatic.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);
