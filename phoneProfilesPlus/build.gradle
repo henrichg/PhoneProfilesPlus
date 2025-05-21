@@ -91,7 +91,7 @@ dependencies {
 
     /// for usage of @hidden Android API
     // https://mvnrepository.com/artifact/org.lsposed.hiddenapibypass/hiddenapibypass
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.0' //4.3
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'//6.0'
     //implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:+' // not good, generates warning
 
     /// ACRA
