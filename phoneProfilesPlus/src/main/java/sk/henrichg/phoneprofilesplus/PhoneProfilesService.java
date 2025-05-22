@@ -1854,7 +1854,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (actualVersionCode <= 7270) {
+                if (actualVersionCode <= 7280) {
                     if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
                             (Build.VERSION.SDK_INT >= 35)) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
@@ -1874,6 +1874,21 @@ public class PhoneProfilesService extends Service
                     if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI &&
                             (Build.VERSION.SDK_INT >= 28)) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                    if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 36)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.notificationUseDecorationDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                            editor.apply();
+                        }
                         if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
                                 ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
                             SharedPreferences.Editor editor = preferences.edit();

@@ -1506,8 +1506,12 @@ class ApplicationPreferences {
     static private final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS = false;
     static boolean notificationUseDecorationDefaultValue() {
         boolean defaultValue;
-        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31))
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+        if (PPApplication.deviceIsPixel) {
+            if ((Build.VERSION.SDK_INT >= 31) && (Build.VERSION.SDK_INT < 36))
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+            else
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
+        }
         else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
                 (Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
