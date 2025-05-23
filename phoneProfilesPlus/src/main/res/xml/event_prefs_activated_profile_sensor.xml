@@ -11,6 +11,14 @@
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
 
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="eventActivatedProfileUseDuration"
+        app:title="@string/event_preferences_activated_profile_useDuration"
+        app:defaultValue="false"
+        app:dependency="eventActivatedProfileEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="eventActivatedProfileInfo"
         app:title="@string/event_preferences_activated_profile_info"
@@ -31,6 +39,24 @@
         app:key="eventActivatedProfileEndProfile"
         app:title="@string/event_preferences_activated_profile_endProfile"
         app:addNoActivateItem="0"
+        app:dependency="eventActivatedProfileEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.CustomSwitchPreference
+        app:key="eventActivatedProfilePermanentRun"
+        app:title="@string/pref_event_permanentRun"
+        app:summary="@string/pref_event_permanentRun_summary"
+        app:defaultValue="true"
+        app:dependency="eventActivatedProfileEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:widgetLayout="@layout/preference_widget_custom_switch" />
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+        app:key="eventActivatedProfileDuration"
+        app:summary="@string/event_preferences_duration"
+        app:title="@string/event_preferences_duration"
+        app:defaultValue="5"
+        app:dMin="5"
+        app:dMax="86400"
         app:dependency="eventActivatedProfileEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
@@ -151,9 +152,12 @@ public class ActivityLogEventsFilterDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
+        if ((activity != null) && (!activity.isFinishing())) {
             //mDialog.show();
-            show(activity.getSupportFragmentManager(), "ACTIVITY_LOG_EVENT_FILTER_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "ACTIVITY_LOG_EVENT_FILTER_DIALOG");
+        }
     }
 
     private static class AlphabeticallyComparator implements Comparator<Event> {

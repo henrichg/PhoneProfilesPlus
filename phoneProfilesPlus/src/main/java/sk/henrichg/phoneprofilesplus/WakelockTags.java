@@ -82,6 +82,8 @@ class WakelockTags {
     static final String WAKELOCK_TAG_WifiStateChangedBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_ActivateProfileHelper_screenOff = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_screenOff";
     static final String WAKELOCK_TAG_ActivateProfileHelper_screenOn = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_screenOn";
+    static final String WAKELOCK_TAG_AnswerCallRingingLengthBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":AnswerCallRingingLengthBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_EndCallCallLengthBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":EndCallCallLengthBroadcastReceiver_onReceive";
 
     private WakelockTags() {
         // private constructor to prevent instantiation

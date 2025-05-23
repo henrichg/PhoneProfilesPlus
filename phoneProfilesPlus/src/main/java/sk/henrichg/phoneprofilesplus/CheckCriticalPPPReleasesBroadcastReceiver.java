@@ -55,6 +55,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
 //        String time = sdf.format(lastAlarm);
 //        PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.lastAlarm", "lastAlarm="+time);
+//        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.lastAlarm", "lastAlarm="+time);
 
         long alarmTime;
 
@@ -175,6 +176,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             else
                 url = PPApplication.PPP_RELEASES_MD_URL;
 //            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "url="+url);
+//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "url="+url);
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
@@ -209,6 +211,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                             // version in releases.md file exists in IzzyOnDroid, but is not installed
                                             // (installed PPP versionCode < pppReleaseData.versionCodeInReleases => pppReleaseData != null)
 //                                            PPApplicationStatic.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "IzzyOnDroid version not installed - xxxxxxxxxxxxxxxx");
+//                                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "IzzyOnDroid version not installed - xxxxxxxxxxxxxxxx");
                                             try {
                                                 boolean critical = pppReleaseData.critical;
                                                 String versionNameInReleases = pppReleaseData.versionNameInReleases;
@@ -317,7 +320,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             nTitle = appContext.getString(R.string.ppp_app_name) + StringConstants.STR_COLON_WITH_SPACE + appContext.getString(R.string.normal_github_release);
             nText = appContext.getString(R.string.normal_github_release_notification);
         }
-        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
+        //mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
+        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.informationColor))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
                 .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))

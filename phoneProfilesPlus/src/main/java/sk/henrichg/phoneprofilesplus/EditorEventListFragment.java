@@ -2153,6 +2153,7 @@ public class EditorEventListFragment extends Fragment
                             DatabaseHandler.getInstance(dataWrapper.context).getPeriodicStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getApplicationStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getCallControlStartTime(event);
+                            DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileStartTime(event);
                         }
                     }
 

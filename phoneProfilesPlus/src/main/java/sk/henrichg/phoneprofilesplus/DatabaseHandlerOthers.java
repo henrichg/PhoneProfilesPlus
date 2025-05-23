@@ -341,7 +341,8 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_VOLUME_SPEAKER_PHONE + "," +
                         DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + "," +
                         DatabaseHandler.KEY_DEVICE_KEYGUARD + "," +
-                        DatabaseHandler.KEY_SCREEN_ON_OFF +
+                        DatabaseHandler.KEY_SCREEN_ON_OFF + //"," +
+                        //DatabaseHandler.KEY_PLAY_MUSIC +
                         " FROM " + DatabaseHandler.TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
                         DatabaseHandler.KEY_E_WIFI_ENABLED + "," +
@@ -1233,6 +1234,7 @@ class DatabaseHandlerOthers {
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }
                             }
+
 
                         } while (profilesCursor.moveToNext());
                     }

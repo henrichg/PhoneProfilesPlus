@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class PPEditTextAlertDialog extends DialogFragment {
     private AlertDialog mDialog;
@@ -134,7 +135,9 @@ public class PPEditTextAlertDialog extends DialogFragment {
 
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing())) {
-            show(activity.getSupportFragmentManager(), "PP_EDIT_TEXT_ALERT_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "PP_EDIT_TEXT_ALERT_DIALOG");
         }
     }
 

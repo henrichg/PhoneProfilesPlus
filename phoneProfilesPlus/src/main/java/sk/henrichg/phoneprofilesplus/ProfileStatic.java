@@ -728,7 +728,8 @@ class ProfileStatic {
                     profile._clearNotificationText,
                     profile._screenNightLight,
                     profile._screenNightLightPrefs,
-                    profile._screenOnOff
+                    profile._screenOnOff,
+                    profile._playMusic
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1020,7 +1021,7 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_SEND_SMS_SEND_SMS:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SEND_SMS();
                 case Profile.PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED:
-                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED();
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED(context);
                 case Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_NIGHT_LIGHT( null, sharedPreferences, fromUIThread, context);
                     break;
@@ -1032,6 +1033,9 @@ class ProfileStatic {
                     break;
                 case Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE:
                     preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION( preferenceKey, null, sharedPreferences);
+                    break;
+                case Profile.PREF_PROFILE_PLAY_MUSIC:
+                    preferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_PLAY_MUSIC(context);
                     break;
                 default:
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;

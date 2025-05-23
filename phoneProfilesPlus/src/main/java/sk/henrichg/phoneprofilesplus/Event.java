@@ -341,7 +341,7 @@ class Event {
 
     private void createEventPreferencesCall()
     {
-        this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5, 0, false, "");
+        this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5, 0, false, "", false, 5, false, 5);
     }
 
     private void createEventPreferencesAccessories()
@@ -377,7 +377,7 @@ class Event {
 
     private void createEventPreferencesSMS()
     {
-        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, false, 5, 0);
+        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, false, 5, 0, false, "");
     }
 
     private void createEventPreferencesNotification()
@@ -457,7 +457,7 @@ class Event {
 
     private void createEventPreferencesActivatedProfile()
     {
-        this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0);
+        this._eventPreferencesActivatedProfile = new EventPreferencesActivatedProfile(this, false, 0, 0, false, true, 5);
     }
 
     private void createEventPreferencesRoaming()

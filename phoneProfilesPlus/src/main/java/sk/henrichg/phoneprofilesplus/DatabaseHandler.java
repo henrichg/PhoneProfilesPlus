@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2539;
+    static final int DATABASE_VERSION = 2545;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -243,6 +243,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_SCREEN_NIGHT_LIGHT = "screenNightLight";
     static final String KEY_SCREEN_NIGHT_LIGHT_PREFS = "screenNightLightPrefs";
     static final String KEY_SCREEN_ON_OFF = "screenOnOff";
+    static final String KEY_PLAY_MUSIC = "playMusic";
 
     // Events Table Columns names
     static final String KEY_E_ID = "id";
@@ -485,6 +486,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_CALL_SEND_SMS = "callSendSMS";
     static final String KEY_E_CALL_SMS_TEXT = "callSMSText";
     static final String KEY_E_CALL_CONTROL_CONTROL_TYPE = "callControlControlType";
+    static final String KEY_E_CALL_ANSWER_CALL = "callAnswerCall";
+    static final String KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH = "callAnswerCallRingingLength";
+    static final String KEY_E_CALL_END_CALL = "callEndCall";
+    static final String KEY_E_CALL_END_CALL_CALL_LENGTH = "callEndCallCallLength";
+    static final String KEY_E_SMS_SEND_SMS = "smsSendSMS";
+    static final String KEY_E_SMS_SMS_TEXT = "smsSMSText";
+    static final String KEY_E_ACTIVATED_PROFILE_USE_DURATION = "activatedProfileUseDuration";
+    static final String KEY_E_ACTIVATED_PROFILE_DURATION = "activatedProfileDuration";
+    static final String KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN = "activatedProfilePermanentRun";
+    static final String KEY_E_ACTIVATED_PROFILE_START_TIME = "activatedProfileStartTime";
+    static final String KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE = "activatedProfileDetectedProfile";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1216,6 +1228,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     List<Event> getCallControlEvents() {
         return DatabaseHandlerEvents.getCallControlEvents(this);
     }
+
+    void updateActivatedProfileStartTime(Event event)
+    {
+        DatabaseHandlerEvents.updateActivatedProfileStartTime(this, event);
+    }
+
+    void getActivatedProfileStartTime(Event event)
+    {
+        DatabaseHandlerEvents.getActivatedProfileStartTime(this, event);
+    }
+
+    void updateActivatedProfileDetectedProfile(Event event)
+    {
+        DatabaseHandlerEvents.updateActivatedProfileDetectedProfile(this, event);
+    }
+
+    /*
+    void getActivatedProfileDetectedProfile(Event event)
+    {
+        DatabaseHandlerEvents.getActivatedProfileDetectedProfile(this, event);
+    }
+    */
 
 // EVENT TIMELINE ------------------------------------------------------------------
 

@@ -3510,8 +3510,12 @@ class PreferenceAllowed {
         //}
     }
 
-    void isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED() {
-        preferenceAllowed = PREFERENCE_ALLOWED;
+    void isProfilePreferenceAllowed_PREF_PROFILE_CLEAR_NOTIFICATION_ENABLED(Context context) {
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+            preferenceAllowed = PREFERENCE_ALLOWED;
+        } else {
+            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+        }
     }
 
     void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION(
@@ -3587,6 +3591,14 @@ class PreferenceAllowed {
             }
         } else
             preferenceAllowed = PREFERENCE_ALLOWED;
+    }
+
+    void isProfilePreferenceAllowed_PREF_PROFILE_PLAY_MUSIC(Context context) {
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context, false)) {
+            preferenceAllowed = PREFERENCE_ALLOWED;
+        } else {
+            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+        }
     }
 
 }

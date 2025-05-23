@@ -30,6 +30,9 @@ import android.hardware.camera2.CameraAccessException;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
+import android.media.session.PlaybackState;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -3660,7 +3663,7 @@ class ActivateProfileHelper {
                                 int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
                                 if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                                    if (Permissions.checkPhone(appContext))
+                                    if (Permissions.checkReadPhoneState(appContext))
                                         linkUnlink = linkUnlinkVolumes;
                                 }
 
@@ -4312,12 +4315,14 @@ class ActivateProfileHelper {
                                 null, profile._name, "");
                         //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
                     } catch (Exception e) {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                                 null, profile._name, "");
                         //PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
                     }
                 } else {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
@@ -4371,9 +4376,9 @@ class ActivateProfileHelper {
                         }
                     }
 
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
 
                     // this is required for "change random image from folder"
@@ -4383,17 +4388,17 @@ class ActivateProfileHelper {
                             null, profile._name, "");
                     //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
                 } catch (Exception e) {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                             null, profile._name, "");
                     //PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
                 }
             }
@@ -4831,6 +4836,10 @@ class ActivateProfileHelper {
     private static void executeForRunApplications(Profile profile, Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
+            if (PPApplication.blockProfileEventActions)
+                // not start applications after boot
+                return;
+
             // startActivity from background: Android 10 (API level 29)
             // Exception:
             // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
@@ -5151,6 +5160,14 @@ class ActivateProfileHelper {
         {
 //            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForRunApplications");
             executeForRunApplications(profile, appContext);
+        }
+
+        // WARNING: play music must be called after run applicaitons, because media player mus be started
+        // to working play music
+        if (profile._playMusic == 1)
+        {
+//            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForPlayMusic");
+            executeForPlayMusic(profile, appContext, executedProfileSharedPreferences);
         }
 
         // startActivity from background: Android 10 (API level 29)
@@ -5507,6 +5524,89 @@ class ActivateProfileHelper {
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
+        }
+    }
+
+    static void executeForPlayMusic(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
+        Context appContext = context.getApplicationContext();
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            // do not change play music during call
+            AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                /*if ((audioManager.getMode() == AudioManager.MODE_IN_CALL) ||
+                        (audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION) ||
+                        (audioManager.getMode() == AudioManager.MODE_CALL_REDIRECT) ||
+                        (audioManager.getMode() == AudioManager.MODE_COMMUNICATION_REDIRECT) ||
+                        (audioManager.getMode() == AudioManager.MODE_RINGTONE)
+                )*/
+                if (audioManager.getMode() != AudioManager.MODE_NORMAL)
+                    return;
+            }
+
+            MediaSessionManager mediaSessionManager = (MediaSessionManager)context.getSystemService(Context.MEDIA_SESSION_SERVICE);
+            if (mediaSessionManager != null) {
+
+                List<MediaController> mediaControlers = mediaSessionManager.getActiveSessions(new ComponentName(context, PPNotificationListenerService.class));
+                if (!mediaControlers.isEmpty())
+                    GlobalUtils.sleep(2000);
+
+                for (MediaController controller : mediaControlers) {
+                    PlaybackState playbackState = controller.getPlaybackState();
+                    if (playbackState != null) {
+                        int state = playbackState.getState();
+                        if (state == PlaybackState.STATE_PLAYING) {
+                            switch (profile._playMusic) {
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                                case 4:
+                                    controller.getTransportControls().pause();
+                                    break;
+                                case 5:
+                                    controller.getTransportControls().stop();
+                                    break;
+                            }
+                            break;
+                        }
+                        if (state == PlaybackState.STATE_PAUSED) {
+                            switch (profile._playMusic) {
+                                case 1:
+                                case 4:
+                                    controller.getTransportControls().play();
+                                    break;
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                                case 5:
+                                    controller.getTransportControls().stop();
+                                    break;
+                            }
+                        }
+                        if ((state == PlaybackState.STATE_STOPPED) || (state == PlaybackState.STATE_NONE)) {
+                            switch (profile._playMusic) {
+                                case 1:
+                                case 4:
+                                    controller.getTransportControls().play();
+                                    break;
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 
@@ -6131,6 +6231,10 @@ class ActivateProfileHelper {
             dataWrapper.invalidateDataWrapper();
         }
 
+        // Do not chage this (keep if/else)!!
+        // executeForInteractivePreferences() is called also in PPExtenderBroadcastReceiver.onReceive()
+        // for PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END.
+        // For this reason, after end of force stop is executeForInteractivePreferences() also called.
         if (profile._deviceForceStopApplicationChange >= 1) {
             // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
@@ -6960,7 +7064,7 @@ class ActivateProfileHelper {
 
         if (simExists)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "ask for root enabled and is rooted");
                 try {
                     // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -7776,7 +7880,7 @@ class ActivateProfileHelper {
         }
 //        Log.e("ActivateProfileHelper.setDefaultSimCard", "(2) simCard="+simCard);
 
-        if (Permissions.checkPhone(context.getApplicationContext())) {
+        if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
 //            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
             boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
@@ -8118,7 +8222,7 @@ class ActivateProfileHelper {
         //noinspection ConstantValue
         if (true /*simExists*/)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
                 // Get the value of the "TRANSACTION_ssetSubscriptionEnabled" field.
                 int transactionCode;
                 if (Build.VERSION.SDK_INT < 31) {

@@ -162,6 +162,7 @@ class EventsHandler {
     static final int SENSOR_TYPE_MUSIC = 56;
     static final int SENSOR_TYPE_CALL_CONTROL = 57;
     static final int SENSOR_TYPE_CALL_CONTROL_EVENT_END = 58;
+    static final int SENSOR_TYPE_ACTIVATED_PROFILE_EVENT_END = 59;
     static final int SENSOR_TYPE_ALL = 999;
 
     EventsHandler(Context context) {
@@ -514,6 +515,17 @@ class EventsHandler {
                         }
                         if (contactList != null)
                             contactList.clear();
+                    }
+                }
+
+                if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_ACTIVATED_PROFILE)) {
+                    // search for nfc events, save start time
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesActivatedProfile._enabled) {
+                                _event._eventPreferencesActivatedProfile.saveStartTime(dataWrapper);
+                            }
+                        }
                     }
                 }
 
@@ -995,6 +1007,7 @@ class EventsHandler {
             case SENSOR_TYPE_DEVICE_BOOT_EVENT_END:
                 return DatabaseHandler.ETYPE_DEVICE_BOOT;
             case SENSOR_TYPE_ACTIVATED_PROFILE:
+            case SENSOR_TYPE_ACTIVATED_PROFILE_EVENT_END:
                 return DatabaseHandler.ETYPE_ACTIVATED_PROFILE;
             case SENSOR_TYPE_ROAMING:
                 return DatabaseHandler.ETYPE_ROAMING;

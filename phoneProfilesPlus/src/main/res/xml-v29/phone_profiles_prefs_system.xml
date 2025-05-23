@@ -93,7 +93,7 @@
         app:key="categoryDefaultRolesApplicationsRoot"
         app:title="@string/phone_profiles_pref_default_roles_applications"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsCallScreening" />
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsDefaultRolesApplications" />
 
     <PreferenceCategory
         app:key="applicationOtherParametersCategory"

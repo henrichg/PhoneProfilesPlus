@@ -742,7 +742,11 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_CALL_FOR_SIM_CARD,
 //                        DatabaseHandler.KEY_E_CALL_STOP_RINGING,
                         DatabaseHandler.KEY_E_CALL_SEND_SMS,
-                        DatabaseHandler.KEY_E_CALL_SMS_TEXT
+                        DatabaseHandler.KEY_E_CALL_SMS_TEXT,
+                        DatabaseHandler.KEY_E_CALL_ANSWER_CALL,
+                        DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH,
+                        DatabaseHandler.KEY_E_CALL_END_CALL,
+                        DatabaseHandler.KEY_E_CALL_END_CALL_CALL_LENGTH
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -766,6 +770,10 @@ class DatabaseHandlerEvents {
                 eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SMS_TEXT));
                 eventPreferences._runAfterCallEndTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME));
                 eventPreferences._runAfterCallEndFromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT));
+                eventPreferences._answerCall = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_ANSWER_CALL)) == 1);
+                eventPreferences._answerCallRingingLength = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH));
+                eventPreferences._endCall = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_END_CALL)) == 1);
+                eventPreferences._endCallCallLength = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_END_CALL_CALL_LENGTH));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_SENSOR_PASSED)));
             }
             cursor.close();
@@ -933,7 +941,9 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_SMS_PERMANENT_RUN,
                         DatabaseHandler.KEY_E_SMS_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT,
-                        DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD
+                        DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD,
+                        DatabaseHandler.KEY_E_SMS_SEND_SMS,
+                        DatabaseHandler.KEY_E_SMS_SMS_TEXT
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -955,6 +965,8 @@ class DatabaseHandlerEvents {
                 eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_START_TIME));
                 eventPreferences._fromSIMSlot = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT));
                 eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD));
+                eventPreferences._sendSMS = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SEND_SMS)) == 1);
+                eventPreferences._smsText = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SMS_TEXT));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1359,7 +1371,12 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_PROFILE,
                         DatabaseHandler.KEY_E_ACTIVATED_PROFILE_END_PROFILE,
-                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_RUNNING
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_RUNNING,
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_USE_DURATION,
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION,
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME,
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN,
+                        DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE,
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -1374,6 +1391,11 @@ class DatabaseHandlerEvents {
                 eventPreferences._startProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_PROFILE));
                 eventPreferences._endProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_END_PROFILE));
                 eventPreferences._running = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_RUNNING));
+                eventPreferences._useDuration = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_USE_DURATION)) == 1);
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION));
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME));
+                eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN)) == 1);
+                eventPreferences._detectedProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1625,6 +1647,10 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_CALL_SMS_TEXT, eventPreferences._smsText);
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_TIME, eventPreferences._runAfterCallEndTime);
         values.put(DatabaseHandler.KEY_E_CALL_RUN_AFTER_CALL_END_FROM_SIM_SLOT, eventPreferences._runAfterCallEndFromSIMSlot);
+        values.put(DatabaseHandler.KEY_E_CALL_ANSWER_CALL, (eventPreferences._answerCall) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_ANSWER_CALL_RINGING_LENGTH, eventPreferences._answerCallRingingLength);
+        values.put(DatabaseHandler.KEY_E_CALL_END_CALL, (eventPreferences._endCall) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_CALL_END_CALL_CALL_LENGTH, eventPreferences._endCallCallLength);
 
         // updating row
         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -1733,6 +1759,8 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_SMS_START_TIME, eventPreferences._startTime);
         values.put(DatabaseHandler.KEY_E_SMS_FROM_SIM_SLOT, eventPreferences._fromSIMSlot);
         values.put(DatabaseHandler.KEY_E_SMS_FOR_SIM_CARD, eventPreferences._forSIMCard);
+        values.put(DatabaseHandler.KEY_E_SMS_SEND_SMS, (eventPreferences._sendSMS) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_SMS_SMS_TEXT, eventPreferences._smsText);
 
         values.put(DatabaseHandler.KEY_E_SMS_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
@@ -1975,6 +2003,11 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_PROFILE, eventPreferences._startProfile);
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_END_PROFILE, eventPreferences._endProfile);
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_RUNNING, eventPreferences._running);
+        values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_USE_DURATION, (eventPreferences._useDuration) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION, eventPreferences._duration);
+        values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME, eventPreferences._startTime);
+        values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE, eventPreferences._detectedProfile);
         values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -6146,5 +6179,155 @@ class DatabaseHandlerEvents {
         }
         return eventList;
     }
+
+    static void updateActivatedProfileStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME, event._eventPreferencesActivatedProfile._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void getActivatedProfileStartTime(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                //if (cursor != null) {
+                cursor.moveToFirst();
+
+                if (cursor.getCount() > 0) {
+                    event._eventPreferencesActivatedProfile._startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME));
+                }
+
+                cursor.close();
+                //}
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    static void updateActivatedProfileDetectedProfile(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE, event._eventPreferencesActivatedProfile._detectedProfile);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+
+    /*
+    static void getActivatedProfileDetectedProfile(DatabaseHandler instance, Event event)
+    {
+        instance.importExportLock.lock();
+        try {
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                //if (cursor != null) {
+                cursor.moveToFirst();
+
+                if (cursor.getCount() > 0) {
+                    event._eventPreferencesActivatedProfile._detectedProfile = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE));
+                }
+
+                cursor.close();
+                //}
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+    */
 
 }

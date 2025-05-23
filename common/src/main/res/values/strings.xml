@@ -1381,7 +1381,7 @@
     <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
     <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead of profile icon</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
@@ -2245,7 +2245,6 @@
     <string name="profile_preferences_types_shizuku_permission_is_installed">Shizuku is installed, but not running. Please open Shizuku and start it from its application.</string>
     <string name="profile_preferences_types_shizuku_permission_launch_shizuku">Open</string>
     <string name="profile_preferences_types_shizuku_permission_show_help">Help</string>
-    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\".</string>
     <string name="event_preferences_orientation_checkLight_info">\"Light\" is ambient light detected by Light device sensor.</string>
     <string name="array_pref_atEndDo_none">Nothing</string>
     <string name="menu_mastodon" translatable="false">Mastodon</string>
@@ -2325,6 +2324,41 @@
     <string name="event_preferences_call_control_control_type">Control type</string>
     <string name="event_preference_call_control_control_type_nothing">Nothing</string>
     <string name="event_preference_call_control_control_type_blockCalls">Block phone calls</string>
+
+    <string name="application_is_exiting_toast">is ending…</string>
+    <string name="application_is_exited_toast">is ended</string>
+
+    <string name="event_preferences_call_answerCall">Answer call</string>
+    <string name="event_preferences_call_answerCall_ringingLength">Ringing length</string>
+
+    <string name="event_preferences_call_endCall">End call</string>
+    <string name="event_preferences_call_endCall_callLength">Call length</string>
+    <string name="event_preference_callSendSMS_info_summary">This parameter is for \"Call event\"=\"Missed call\" and \"End call\".</string>
+
+    <string name="event_preference_smsSendSMS">Send SMS</string>
+    <string name="event_preference_smsSMSText">SMS Text</string>
+
+    <string name="phone_profiles_defaultRolesApplications_summary_restrictedSettings">If is not possible to set PhoneProfilesPlus in \"Default role application\", maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
+    <string name="profile_preference_sendSMSSendSMS_summary_restrictedSettings">If is not possible to grant SMS permission, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
+
+    <string name="profile_preferences_category_play_music">Play music</string>
+    <string name="profile_preferences_playMusic">Play music</string>
+    <string name="profile_preferences_playMusicAccessSettings_summary">Please enable \"Notification access\". Without this, play music will not work.</string>
+    <string name="array_pref_playMusicArray_play">Play</string>
+    <string name="array_pref_playMusicArray_next">Next</string>
+    <string name="array_pref_playMusicArray_previous">Previous</string>
+    <string name="array_pref_playMusicArray_pause">Pause</string>
+    <string name="array_pref_playMusicArray_stop">Stop</string>
+
+    <string name="event_preferences_activated_profile_useDuration">Use duration</string>
+
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">If, in notifications, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Switch off \"Settings\"/\"Notifications\"/\"Advanced settings\"/\"Show app icon in notifications\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Displayed will be, in all notifications, icons configured for notifications (displayed by system in notification status bar, decoration). PPP uses this for displaying profile icons.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">After switch off this parameter, recommended is disabling \"Show profile icon\" in PPP \"Application notification\" settings.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">If, in status bar, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notifications, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
+
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2436,6 +2470,10 @@
     <string name="pppputsettings_menu_reddit" translatable="false">Reddit</string>
     <string name="pppputsettings_menu_bluesky" translatable="false">Bluesky</string>
     <string name="pppputsettings_menu_mastodon" translatable="false">Mastodon</string>
+    <string name="pppputsettings_battery_optimization_text">Battery optimization for PPPPutSettings - please add it to \"Not optimized\" group</string>
+    <string name="pppputsettings_battery_optimization_optimized">Optimized</string>
+    <string name="pppputsettings_battery_optimization_not_optimized">Not optimized</string>
+    <string name="pppputsettings_battery_optimization_button">Open Battery optimization</string>
 
 </resources>
 

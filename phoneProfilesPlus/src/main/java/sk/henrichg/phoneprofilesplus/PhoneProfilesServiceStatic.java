@@ -1466,6 +1466,14 @@ class PhoneProfilesServiceStatic
                     PPApplication.activatedProfileEventBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.activatedProfileEventEndBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.activatedProfileEventEndBroadcastReceiver);
+                    PPApplication.activatedProfileEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.activatedProfileEventEndBroadcastReceiver = null;
+                }
+            }
         }
         if (register) {
             boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false, appContext).preferenceAllowed ==
@@ -1482,6 +1490,14 @@ class PhoneProfilesServiceStatic
                     if (Build.VERSION.SDK_INT >= 34)
                         receiverFlags = RECEIVER_NOT_EXPORTED;
                     appContext.registerReceiver(PPApplication.activatedProfileEventBroadcastReceiver, intentFilter23, receiverFlags);
+                }
+                if (PPApplication.activatedProfileEventEndBroadcastReceiver == null) {
+                    PPApplication.activatedProfileEventEndBroadcastReceiver = new ActivatedProfileEventEndBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_END_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.activatedProfileEventEndBroadcastReceiver, intentFilter23, receiverFlags);
                 }
             }
             else
@@ -2181,6 +2197,22 @@ class PhoneProfilesServiceStatic
                     PPApplication.missedCallEventEndBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.answerCallRingingLengthBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.answerCallRingingLengthBroadcastReceiver);
+                    PPApplication.answerCallRingingLengthBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.answerCallRingingLengthBroadcastReceiver = null;
+                }
+            }
+            if (PPApplication.endCallCallLengthBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.endCallCallLengthBroadcastReceiver);
+                    PPApplication.endCallCallLengthBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.endCallCallLengthBroadcastReceiver = null;
+                }
+            }
         }
         if (register) {
             boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false, appContext).preferenceAllowed ==
@@ -2197,6 +2229,22 @@ class PhoneProfilesServiceStatic
                     if (Build.VERSION.SDK_INT >= 34)
                         receiverFlags = RECEIVER_NOT_EXPORTED;
                     appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23, receiverFlags);
+                }
+                if (PPApplication.answerCallRingingLengthBroadcastReceiver == null) {
+                    PPApplication.answerCallRingingLengthBroadcastReceiver = new AnswerCallRingingLengthBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_ANSWER_CALL_RINGING_LENGTH_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.answerCallRingingLengthBroadcastReceiver, intentFilter23, receiverFlags);
+                }
+                if (PPApplication.endCallCallLengthBroadcastReceiver == null) {
+                    PPApplication.endCallCallLengthBroadcastReceiver = new EndCallCallLengthBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_END_CALL_CALL_LENGTH_BROADCAST_RECEIVER);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.endCallCallLengthBroadcastReceiver, intentFilter23, receiverFlags);
                 }
 
 //                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");

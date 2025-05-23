@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -141,9 +142,12 @@ public class AddEventDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
+        if ((activity != null) && (!activity.isFinishing())) {
             //mDialog.show();
-            show(activity.getSupportFragmentManager(), "ADD_EVENT_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "ADD_EVENT_DIALOG");
+        }
     }
 
     private static class GetEventsAsyncTask extends AsyncTask<Void, Integer, Void> {

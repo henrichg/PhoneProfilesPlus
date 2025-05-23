@@ -60,15 +60,15 @@ public class PPApplication extends Application
     // TODO set it to false if you do not want to show News
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
     // TODO set it to false if you do not want to show notification
-    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = true;
+    static final boolean SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS = false;
 
     //// Extender versions
     // for this version will be displayed upgrade notification
     //  required must by <= latest
-    static final int VERSION_CODE_EXTENDER_REQUIRED = 910;
-    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0";
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 930;
+    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0.1.2";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_EXTENDER_LATEST = 910;
+    static final int VERSION_CODE_EXTENDER_LATEST = 930;
     //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.7";
     ///////
 
@@ -1101,6 +1101,9 @@ public class PPApplication extends Application
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
     static volatile CallControlEventEndBroadcastReceiver callControlEventEndBroadcastReceiver = null;
+    static volatile AnswerCallRingingLengthBroadcastReceiver answerCallRingingLengthBroadcastReceiver = null;
+    static volatile EndCallCallLengthBroadcastReceiver endCallCallLengthBroadcastReceiver = null;
+    static volatile ActivatedProfileEventEndBroadcastReceiver activatedProfileEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 
@@ -1288,6 +1291,7 @@ public class PPApplication extends Application
             return;
         }
 
+        // must be there, requires Context
         romIsGalaxy = isGalaxyROM(getApplicationContext());
         //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
 

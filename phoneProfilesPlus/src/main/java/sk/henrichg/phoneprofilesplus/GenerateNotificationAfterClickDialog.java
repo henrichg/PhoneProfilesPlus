@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class GenerateNotificationAfterClickDialog extends DialogFragment
 {
@@ -97,9 +98,12 @@ public class GenerateNotificationAfterClickDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
+        if ((activity != null) && (!activity.isFinishing())) {
             //mDialog.show();
-            show(activity.getSupportFragmentManager(), "GENERATE_NTIFICATION_AFTER_CLICK_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "GENERATE_NTIFICATION_AFTER_CLICK_DIALOG");
+        }
     }
 
 }

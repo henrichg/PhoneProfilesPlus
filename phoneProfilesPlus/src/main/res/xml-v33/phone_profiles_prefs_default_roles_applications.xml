@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryDefaultRolesApplications"
+    app:title="@string/phone_profiles_pref_default_roles_applications">
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="setCallScreeningRoleSettings"
+        app:title="@string/phone_profiles_pref_call_screening"
+        app:summary="@string/phone_profiles_pref_call_screening_setCallScreeningRole_summary"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <sk.henrichg.phoneprofilesplus.InfoDialogPreference
+        app:key="defaultRolesApplicationsRestrictedSettings"
+        app:title="@string/phone_profiles_pref_call_screening"
+        app:summary="@string/phone_profiles_defaultRolesApplications_summary_restrictedSettings"
+        app:infoText=""
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>
