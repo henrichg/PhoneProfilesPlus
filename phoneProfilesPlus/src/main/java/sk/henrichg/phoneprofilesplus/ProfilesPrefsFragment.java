@@ -1844,7 +1844,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             InfoDialogPreference _infoDialogPreference = prefMng.findPreference(PREF_PROFILE_SEND_SMS_RESTRICTED_SETTINGS);
             if (_infoDialogPreference != null) {
                 _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
-                    Log.e("ProfilesPrefsFragment.onActivityCreated", "preference clicked");
+//                    Log.e("ProfilesPrefsFragment.onActivityCreated", "preference clicked");
 
                     _infoDialogPreference.setInfoText(
                             StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
