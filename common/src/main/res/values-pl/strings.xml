@@ -2297,7 +2297,7 @@
     <string name="event_preferences_call_control_control_type">Typ kontroli</string>
     <string name="event_preference_call_control_control_type_nothing">Brak</string>
     <string name="event_preference_call_control_control_type_blockCalls">Blokuj połączenia telefoniczne</string>
-    <string name="application_is_exiting_toast">zamyka się ...</string>
+    <string name="application_is_exiting_toast">zamyka się…</string>
     <string name="application_is_exited_toast">zamknięta</string>
     <string name="event_preferences_call_answerCall">Odebranie połączenia</string>
     <string name="event_preferences_call_answerCall_ringingLength">Długość dzwonka</string>
