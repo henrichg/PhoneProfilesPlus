@@ -36,7 +36,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -126,12 +125,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_COSE_ALL_APPLICATIONS_INFO = "prf_pref_deviceCloseAllApplicationsInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_VIBRATION_INFO = "prf_pref_volumeSoundModeVibrationInfo";
     private static final String PREF_PROFILE_DEVICE_SCREEN_TIMEOUT_AND_KEEP_SCREEN_ON_INFO = "prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo";
+    private static final String PREF_PROFILE_VOLUME_MEDIA_INFO = "prf_pref_volumeMediaInfo";
     private static final String PREF_PROFILE_VOLUME_MEDIA_ONEPLUS_INFO = "prf_pref_volumeMediaOnePlusInfo";
     private static final String PREF_PROFILE_SOUND_PROFILE_PPPPS = "prf_pref_soundProfilePPPPS";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY = "prf_pref_soundProfileCategory";
     private static final String PREF_PROFILE_OTHERS_CATTEGORY = "prf_pref_othersCategory";
     private static final String PREF_PROFILE_SCREEN_CATTEGORY = "prf_pref_screenCategory";
-    private static final String PREF_PROFILE_VOLUME_TYPE_CATTEGORY = "prf_pref_volumeTypeCategory";
+    //private static final String PREF_PROFILE_VOLUME_TYPE_CATTEGORY = "prf_pref_volumeTypeCategory";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_CATTEGORY = "prf_pref_deviceWallpaperCategory";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO = "prf_pref_deviceWallpaperHuaweiInfo";
     private static final String PREF_PROFILE_DEVICE_KEYGUARD_INFO = "prf_pref_deviceKeyguardInfo";
@@ -1641,19 +1641,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setIsHtml(true);
         }
 
+        preference = findPreference(PREF_PROFILE_VOLUME_MEDIA_INFO);
+        if (preference != null)
+            preference.setSummary(getString(R.string.profile_preferences_volumeMediaInfo_summary)+StringConstants.CHAR_NEW_LINE+
+                    (getString(R.string.profile_preferences_volumeMediaInfo_summary_2)));
+
         preference = findPreference(PREF_PROFILE_VOLUME_MEDIA_ONEPLUS_INFO);
-        if (!PPApplication.deviceIsOnePlus) {
+        // keep it displayed, because is more devices with this restriction (OnePlus, Oppo, ...)
+        /*if (!(PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo))  {
             if (preference != null) {
                 PreferenceCategory preferenceCategory = findPreference(PREF_PROFILE_VOLUME_TYPE_CATTEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-        } else {
+        } else {*/
             if (Build.VERSION.SDK_INT >= 33) {
                 if (preference != null)
                     preference.setSummary(R.string.profile_preferences_volumeMediaOnePlusInfo_33_summary);
             }
-        }
+        //}
 
         long workMinInterval = TimeUnit.MILLISECONDS.toMinutes(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
