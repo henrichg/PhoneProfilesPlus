@@ -36,6 +36,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
         */
+        setTitle(R.string.donation_activity_title);
     }
 
     @Override

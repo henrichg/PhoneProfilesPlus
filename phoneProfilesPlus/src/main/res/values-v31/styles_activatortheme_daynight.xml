@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ActivatorTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_activator_dayNight">
+        <item name="listViewItemBackground">@drawable/listview_item_background</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background</item>
+
+        <item name="android:selectableItemBackground">@drawable/listview_item_background</item>
+        <item name="selectableItemBackground">@drawable/listview_item_background</item>
+        <item name="android:actionBarItemBackground">@drawable/actionbar_item_background</item>
+        <item name="actionBarItemBackground">@drawable/actionbar_item_background</item>
+
+<!--        <item name="windowFixedWidthMajor">65%</item>-->
+<!--        <item name="windowFixedWidthMinor">85%</item>-->
+        <item name="android:windowMinWidthMinor">@dimen/activator_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@dimen/activator_min_width_major</item>
+
+        <item name="android:windowSplashScreenBackground">@android:color/transparent</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="android:windowSplashScreenAnimationDuration">0</item>
+
+    </style>
+</resources>
