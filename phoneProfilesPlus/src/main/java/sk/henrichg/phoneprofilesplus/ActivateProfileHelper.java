@@ -1375,18 +1375,20 @@ class ActivateProfileHelper {
             }
         }
 
+        /* Must be after change of media volume especially for OnePLus, Oppo
         if (forProfileActivation) {
-                if (profile.getVolumeAccessibilityChange()) {
-                    try {
-                        //EventPreferencesVolumes.internalChange = true;
-                        if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
-                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
+            if (profile.getVolumeAccessibilityChange()) {
+                try {
+                    //EventPreferencesVolumes.internalChange = true;
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
+                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
                 }
+            }
         }
+        */
 
         if (forRingerMode) {
 
@@ -1672,6 +1674,59 @@ class ActivateProfileHelper {
                                 audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
                                 profile.getVolumeMediaValue(),
                                 profile._volumeMediaChangeDuringPlay, true);
+
+                        if (profile._volumeMediaChangeDuringPlay || (!audioManager.isMusicActive())) {
+                            // set accessibility volume recomputed from media volume
+                            // it is required for OnePlus, Oppo, ...
+                            if (PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo) {
+                                // get prercentage of media volume
+                                int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                                int mediaVolume = profile.getVolumeMediaValue();
+                                float percentage = (float) mediaVolume / maximumMediaValue * 100.0f;
+
+                                // set recomputed accessibility volume
+                                int maximumAccessibilityValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+                                int accessibilityVolume = Math.round(maximumAccessibilityValue / 100.0f * percentage);
+
+                                if (Build.VERSION.SDK_INT >= 31) {
+                                    GlobalUtils.sleep(500);
+                                    try {
+                                        // this not working - moved to Extedner. required is Accessibility service
+                                        //audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, accessibilityVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        // send broadcast to Extender
+                                        Intent intent = new Intent(PPApplication.ACTION_SET_ACCESSIBILITY_VOLUME);
+                                        intent.putExtra(PPApplication.EXTRA_ACCESSIBILITY_VOLUME_VALUE, accessibilityVolume);
+                                        appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                } else {
+                                    audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, accessibilityVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (profile.getVolumeAccessibilityChange()) {
+                // For OnePlus, Oppo, ... must be used Extender, because Accessibility service is required
+                if ((Build.VERSION.SDK_INT >= 31) && (PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo)) {
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue()) {
+                        GlobalUtils.sleep(500);
+                        // send broadcast to Extender
+                        Intent intent = new Intent(PPApplication.ACTION_SET_ACCESSIBILITY_VOLUME);
+                        intent.putExtra(PPApplication.EXTRA_ACCESSIBILITY_VOLUME_VALUE, profile.getVolumeAccessibilityValue());
+                        appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+                    }
+                } else {
+                    try {
+                        //EventPreferencesVolumes.internalChange = true;
+                        if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
+                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }

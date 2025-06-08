@@ -36,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -125,13 +126,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_COSE_ALL_APPLICATIONS_INFO = "prf_pref_deviceCloseAllApplicationsInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_VIBRATION_INFO = "prf_pref_volumeSoundModeVibrationInfo";
     private static final String PREF_PROFILE_DEVICE_SCREEN_TIMEOUT_AND_KEEP_SCREEN_ON_INFO = "prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo";
+    private static final String PREF_PROFILE_VOLUME_SYSTEM_INFO = "prf_pref_volumeMergedRingSyatemVolumeInfo";
     private static final String PREF_PROFILE_VOLUME_MEDIA_INFO = "prf_pref_volumeMediaInfo";
     private static final String PREF_PROFILE_VOLUME_MEDIA_ONEPLUS_INFO = "prf_pref_volumeMediaOnePlusInfo";
+    private static final String PREF_PROFILE_VOLUME_ACESSIBILITY_ONEPLUS_INFO = "prf_pref_volumeAccessibilityOnePlusInfo";
+    private static final String PREF_PROFILE_VOLUME_ACESSIBILITY_EXTENDER = "prf_pref_volumeAccessibilityExtender";
     private static final String PREF_PROFILE_SOUND_PROFILE_PPPPS = "prf_pref_soundProfilePPPPS";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY = "prf_pref_soundProfileCategory";
     private static final String PREF_PROFILE_OTHERS_CATTEGORY = "prf_pref_othersCategory";
     private static final String PREF_PROFILE_SCREEN_CATTEGORY = "prf_pref_screenCategory";
-    //private static final String PREF_PROFILE_VOLUME_TYPE_CATTEGORY = "prf_pref_volumeTypeCategory";
+    private static final String PREF_PROFILE_VOLUME_TYPE_CATTEGORY = "prf_pref_volumeTypeCategory";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_CATTEGORY = "prf_pref_deviceWallpaperCategory";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_HUAWEI_INFO = "prf_pref_deviceWallpaperHuaweiInfo";
     private static final String PREF_PROFILE_DEVICE_KEYGUARD_INFO = "prf_pref_deviceKeyguardInfo";
@@ -1647,19 +1651,32 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     (getString(R.string.profile_preferences_volumeMediaInfo_summary_2)));
 
         preference = findPreference(PREF_PROFILE_VOLUME_MEDIA_ONEPLUS_INFO);
-        // keep it displayed, because is more devices with this restriction (OnePlus, Oppo, ...)
-        /*if (!(PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo))  {
+        if ((Build.VERSION.SDK_INT <= 31) || (!(PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo)))  {
             if (preference != null) {
                 PreferenceCategory preferenceCategory = findPreference(PREF_PROFILE_VOLUME_TYPE_CATTEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-        } else {*/
-            if (Build.VERSION.SDK_INT >= 33) {
-                if (preference != null)
-                    preference.setSummary(R.string.profile_preferences_volumeMediaOnePlusInfo_33_summary);
+        } else {
+            if (preference != null)
+                preference.setSummary(R.string.profile_preferences_volumeMediaOnePlusInfo_31_summary);
+        }
+        preference = findPreference(PREF_PROFILE_VOLUME_ACESSIBILITY_ONEPLUS_INFO);
+        if ((Build.VERSION.SDK_INT <= 31) || (!(PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo)))  {
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference(PREF_PROFILE_VOLUME_TYPE_CATTEGORY);
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
             }
-        //}
+        }
+        preference = findPreference(PREF_PROFILE_VOLUME_ACESSIBILITY_EXTENDER);
+        if ((Build.VERSION.SDK_INT <= 31) || (!(PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo)))  {
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference(PREF_PROFILE_VOLUME_TYPE_CATTEGORY);
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
 
         long workMinInterval = TimeUnit.MILLISECONDS.toMinutes(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
@@ -7575,10 +7592,37 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_SYSTEM);
         if (_preference != null)
             _preference.setEnabled(!enabledMuteSound);
-        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_MEDIA);
+        _preference = prefMng.findPreference(PREF_PROFILE_VOLUME_SYSTEM_INFO);
         if (_preference != null)
             _preference.setEnabled(!enabledMuteSound);
         _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_DTMF);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_VOICE);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_MEDIA);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(PREF_PROFILE_VOLUME_MEDIA_INFO);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(PREF_PROFILE_VOLUME_MEDIA_ONEPLUS_INFO);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(PREF_PROFILE_VOLUME_ACESSIBILITY_ONEPLUS_INFO);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(PREF_PROFILE_VOLUME_ACESSIBILITY_EXTENDER);
         if (_preference != null)
             _preference.setEnabled(!enabledMuteSound);
 

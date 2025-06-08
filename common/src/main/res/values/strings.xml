@@ -2346,8 +2346,11 @@
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
 
     <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working, when PhoneProfilesPlus is in background.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In some devices (OnePlus, Oppo, …), change of media volume not working, when PhoneProfilesPlus is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume for these devices.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working.For this reason PPP must change accessibility volume for these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
 
     <!-- **************************************************************************************** -->
 
