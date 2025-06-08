@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Число профілів на сторінці</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Світлість стрілок та мітки активованого профілю</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На пристроях One Plus зміна гучності медіа не працює коли PhoneProfilesPlus є у фоні.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">На пристроях One Plus зміна гучності медіа не працює, коли PhoneProfilesPlus є у фоні.\nДля ручної активації профілю також потрібно налаштувати доступ до гучності у \"Спеціальних можливостях\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Примітка: Не всі програми \"Годинник\" використовують гучність системного будильника, оскільки вони використовують свою власну налаштовану гучність.</string>
     <string name="connect_to_ssid_dialog_help">У цьому діалозі показується список налаштованих Wi-Fi SSIDs.\nНатисніть тут, щоб переглянути екран налаштувань Wi-Fi. Він містить параметр для налаштування мереж Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>

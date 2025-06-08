@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Arrows and marker of the activated profile lightness</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Note: Not all Clock applications use the system alarm volume because they use their own volume configured in their settings.</string>
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>

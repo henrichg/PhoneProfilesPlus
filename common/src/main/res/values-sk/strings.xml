@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Počet profilov na stránku</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Svetlosť šípky a značky aktivovaného profilu</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">V zariadeniach OnePlus nefunguje zmena hlasitosti médií, keď je PhoneProfilesPlus na pozadí.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">V zariadeniach OnePlus nefunguje zmena hlasitosti médií, keď je PhoneProfilesPlus na pozadí.\nPre manuálnu aktiváciu profilu musíte nakonfigurovať aj \"Hlasitosť hlášok dostupnosti\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Poznámka: Nie všetky aplikácie Hodiny používajú systémovú hlasitosť alarmov, pretože používajú svoju vlastnú hlasitosť nakonfigurovanú vo svojich nastaveniach.</string>
     <string name="connect_to_ssid_dialog_help">V tomto dialógu sa zobrazí zoznam nakonfigurovaných Wi-Fi SSID.\nKliknutím sem zobrazíte obrazovku nastavení Wi-Fi. Obsahuje parameter pre konfiguráciu Wi-Fi sietí.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>

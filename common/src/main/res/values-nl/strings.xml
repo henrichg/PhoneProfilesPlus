@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Aantal profielen per pagina</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Pijlen en markering van het geactiveerde profiel helderheid</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.\nVoor handmatige profiel activering moet u ook \"Toegankelijkheid vraagt volume\" configureren.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Opmerking: niet alle Klok programma\'s gebruiken het systeem alarmvolume omdat ze hun eigen volume gebruiken in hun instellingen.</string>
     <string name="connect_to_ssid_dialog_help">In dit venster vind je een lijst van geconfigureerde SSID\'s.\nKlik hier om het Wi-Fi instellingen scherm te bekijken. Het bevat een instellingen voor het configureren van wifi-netwerken.</string>
     <string name="pppps_pref_dialog_title">PPPPutInstellingen</string>

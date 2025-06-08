@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Número de perfiles por página</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Flechas y marcadores de la luminosidad del perfil activo</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">En los dispositivos OnePlus, el cambio de volumen de medios no funciona cuando PhoneProfilesPlus está en segundo plano.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">En los dispositivos OnePlus, el cambio de volumen de medios no funciona cuando PhoneProfilesPlus está en segundo plano.\nPara la activación manual del perfil debes configurar también \"Volumen de los avisos de accesibilidad\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Nota: No todas las aplicaciones de Reloj utilizan el volumen de alarma del sistema porque utilizan su propio volumen configurado en sus ajustes.</string>
     <string name="connect_to_ssid_dialog_help">En este cuadro de diálogo se muestra la lista de SSID Wi-Fi configurados.\nHaz clic aquí para ver la pantalla de configuración Wi-Fi. Contiene un parámetro para configurar redes Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>

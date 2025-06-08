@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">每页情景数量</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">箭头和高亮标记已激活的情景</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">在 One Plus 设备中，当PhoneProfilesPlus 处于后台时，改变媒体音量不可用。</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">在 One Plus 设备中，当PhoneProfilesPlus 处于后台时，改变媒体音量不可用。\n手动激活个人资料时，您必须配置“辅助功能提示音量”。</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">注意：并非所有时钟应用程序都使用系统报警音量，因为它们使用自己在设置中配置的音量。</string>
     <string name="connect_to_ssid_dialog_help">在此对话框中显示已配置的 Wi-Fi SSID 列表。\n点击这里查看Wi-Fi设置屏幕。它包含配置Wi-Fi网络的参数。</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>

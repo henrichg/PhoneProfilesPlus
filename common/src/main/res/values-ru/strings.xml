@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Количество профилей на страницу</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Яркость стрелочек и метки активированного профиля</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На устройствах OnePlus изменение громкости медиа не работает, когда PhoneProfilesPlus находится в фоновом режиме.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">На устройствах OnePlus изменение громкости медиа не работает, когда PhoneProfilesPlus находится в фоновом режиме.\nТакже для ручной активации профиля нужно установить \"Громкость запросов спец. возможностей\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Примечание: не все приложения-будильники используют системный уровень громкости будильника - они могут использовать и собственный уровень громкости, заданный в настройках этих приложений.</string>
     <string name="connect_to_ssid_dialog_help">В этом диалоговом окне отображается список настроенных Wi-Fi SSID.\nНажмите сюда, чтобы открыть экран настроек Wi-Fi. Он содержит параметры для настройки сетей Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>

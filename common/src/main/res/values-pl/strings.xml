@@ -1895,7 +1895,6 @@
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Liczba profili na stronie</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Jakość strzałek i znacznika aktywowanego profilu</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">W urządzeniach OnePlus zmiana głośności mediów nie działa, gdy PhoneProfilesPlus jest w tle.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">W urządzeniach OnePlus zmiana głośności mediów nie działa, gdy PhoneProfilesPlus jest w tle.\nAby ręcznie aktywować profil, musisz skonfigurować również \"Ułatwienie dostępu do głośności\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Uwaga: Nie wszystkie aplikacje zegara używają systemowej głośności alarmu, ponieważ używają własnego poziomu głośności skonfigurowanego w ustawieniach.</string>
     <string name="connect_to_ssid_dialog_help">W tym oknie dialogowym wyświetlana jest lista skonfigurowanych SSID Wi-Fi.\nKliknij tutaj, aby wyświetlić ekran ustawień Wi-Fi. Zawiera on parametr konfiguracji sieci Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
