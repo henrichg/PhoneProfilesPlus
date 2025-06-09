@@ -8280,6 +8280,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             this.ringtoneUri = ringtoneUri;
             this.notificationUri = notificationUri;
             this.alarmUri = alarmUri;
+            this.ringtoneName = context.getString(R.string.ringtone_preference_not_set);
+            this.notificationName = context.getString(R.string.ringtone_preference_not_set);
+            this.alarmName = context.getString(R.string.ringtone_preference_not_set);;
         }
 
         @Override
