@@ -8386,6 +8386,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             this.ringtoneSIM2Uri = ringtoneSIM2Uri;
             this.notificationSIM1Uri = notificationSIM1Uri;
             this.notificationSIM2Uri = notificationSIM2Uri;
+            this.ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_not_set);;
+            this.ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_not_set);;
+            this.notificationNameSIM1 = context.getString(R.string.ringtone_preference_not_set);;
+            this.notificationNameSIM2 = context.getString(R.string.ringtone_preference_not_set);;
         }
 
         @Override
