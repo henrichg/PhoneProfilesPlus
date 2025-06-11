@@ -954,6 +954,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        /*
         if (PPApplication.SHOW_IMPORTANT_INFO_NEWS) {
             TextView panelsAppLink = view.findViewById(R.id.important_info_news_3_PanelsAppLink);
             if (panelsAppLink != null) {
@@ -985,14 +986,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 panelsAppLink.setText(spannable);
                 panelsAppLink.setMovementMethod(LinkMovementMethod.getInstance());
-            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
-                getString(R.string.important_info_translations),
-                getString(R.string.about_application_translations2),
-                getString(R.string.about_application_translations_subject),
-                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
-                true, activity);*/
+                //AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                //    getString(R.string.important_info_translations),
+                //    getString(R.string.about_application_translations2),
+                //    getString(R.string.about_application_translations_subject),
+                //    AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                //    true, activity);
             }
         }
+        */
     }
 
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
