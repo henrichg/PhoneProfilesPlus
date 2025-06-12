@@ -11,6 +11,7 @@ import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
@@ -19,6 +20,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import java.sql.Date;
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /** @noinspection ExtractMethodRecommender*/
@@ -631,17 +633,139 @@ class EventPreferencesTime extends EventPreferences {
             hoursEndTime.set(Calendar.SECOND, 0);
             hoursEndTime.set(Calendar.MILLISECOND, 0);
 
+            Log.e("EventPreferencesTime.computeAlarm", "*******************");
+            Log.e("EventPreferencesTime.computeAlarm", "event="+_event._name);
+
+            if (hoursStartTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis()) {
+                // times are in the same day
+                Log.e("EventPreferencesTime.computeAlarm", "times are in the same day");
+
+                calStartTime = hoursStartTime;
+                calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+                calEndTime = hoursEndTime;
+                calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+                if (calEndTime.getTimeInMillis() < now.getTimeInMillis()) {
+                    // end time is up
+                    Log.e("EventPreferencesTime.computeAlarm", "end time is up");
+                    calStartTime.add(Calendar.DAY_OF_YEAR, 1);
+                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                }
+            } else {
+                // times are past midnight
+                Log.e("EventPreferencesTime.computeAlarm", "times are past midnight");
+
+                Calendar nowHours = Calendar.getInstance();
+                nowHours.set(Calendar.DAY_OF_MONTH, 0);
+                nowHours.set(Calendar.MONTH, 0);
+                nowHours.set(Calendar.YEAR, 0);
+
+                Calendar midnightMinusOneHours = Calendar.getInstance();
+                midnightMinusOneHours.set(Calendar.HOUR_OF_DAY, 23);
+                midnightMinusOneHours.set(Calendar.MINUTE, 59);
+                midnightMinusOneHours.set(Calendar.SECOND, 59);
+                midnightMinusOneHours.set(Calendar.MILLISECOND, Integer.MAX_VALUE);
+                midnightMinusOneHours.set(Calendar.DAY_OF_MONTH, 0);
+                midnightMinusOneHours.set(Calendar.MONTH, 0);
+                midnightMinusOneHours.set(Calendar.YEAR, 0);
+
+                Calendar midnightHours = Calendar.getInstance();
+                midnightHours.set(Calendar.HOUR_OF_DAY, 0);
+                midnightHours.set(Calendar.MINUTE, 0);
+                midnightHours.set(Calendar.SECOND, 0);
+                midnightHours.set(Calendar.MILLISECOND, 0);
+                midnightHours.set(Calendar.DAY_OF_MONTH, 0);
+                midnightHours.set(Calendar.MONTH, 0);
+                midnightHours.set(Calendar.YEAR, 0);
+
+                if (nowHours.getTimeInMillis() < hoursStartTime.getTimeInMillis()) {
+                    // now hours are before start time hours
+                    Log.e("EventPreferencesTime.computeAlarm", "now hours are before start time hours");
+
+                    // start time is today
+                    calStartTime = hoursStartTime;
+                    calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+                    // end time is tomorrow
+                    calEndTime = hoursEndTime;
+                    calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                } else
+                if ((nowHours.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
+                     (nowHours.getTimeInMillis() <= midnightMinusOneHours.getTimeInMillis())) {
+                    // now hours is aftert start timer hours but before of mihnight hours
+                    Log.e("EventPreferencesTime.computeAlarm", "now hours is aftert start timer hours but before of mihnight hours");
+
+                    // start time is today
+                    calStartTime = hoursStartTime;
+                    calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+                    // end time is tomorrow
+                    calEndTime = hoursEndTime;
+                    calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                } else
+                if ((nowHours.getTimeInMillis() <= hoursEndTime.getTimeInMillis()) &&
+                        (nowHours.getTimeInMillis() >= midnightHours.getTimeInMillis())) {
+                    // now hours is after midnight hours but before end time hours
+                    Log.e("EventPreferencesTime.computeAlarm", "now hours is after midnight hours but before end time hours");
+
+                    // start time is today
+                    calStartTime = hoursStartTime;
+                    calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    calStartTime.add(Calendar.DAY_OF_YEAR, -1);
+
+                    // end time is tomorrow
+                    calEndTime = hoursEndTime;
+                    calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                } else {
+                    Log.e("EventPreferencesTime.computeAlarm", "others");
+
+                    // start time is today
+                    calStartTime = hoursStartTime;
+                    calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+                    // end time is tomorrow
+                    calEndTime = hoursEndTime;
+                    calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                    calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                    calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                    calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+                }
+
+            }
+
+            /*
             Calendar nowTime = Calendar.getInstance();
             nowTime.set(Calendar.DAY_OF_MONTH, 0);
             nowTime.set(Calendar.MONTH, 0);
             nowTime.set(Calendar.YEAR, 0);
 
-            /*Calendar hoursNowTime = Calendar.getInstance();
-            hoursNowTime.set(Calendar.DAY_OF_MONTH, 0);
-            hoursNowTime.set(Calendar.MONTH, 0);
-            hoursNowTime.set(Calendar.YEAR, 0);
-            hoursNowTime.set(Calendar.SECOND, 0);
-            hoursNowTime.set(Calendar.MILLISECOND, 0);*/
+            //Calendar hoursNowTime = Calendar.getInstance();
+            //hoursNowTime.set(Calendar.DAY_OF_MONTH, 0);
+            //hoursNowTime.set(Calendar.MONTH, 0);
+            //hoursNowTime.set(Calendar.YEAR, 0);
+            //hoursNowTime.set(Calendar.SECOND, 0);
+            //hoursNowTime.set(Calendar.MILLISECOND, 0);
 
             Calendar midnightTime = Calendar.getInstance();
             midnightTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -709,6 +833,7 @@ class EventPreferencesTime extends EventPreferences {
                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                 }
             }
+            */
 
             //// update calendar for startTime a endTime by selected day of week
             boolean[] daysOfWeek = new boolean[8];
@@ -1004,6 +1129,13 @@ class EventPreferencesTime extends EventPreferences {
         }
 
         if (setAlarm) {
+            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+            String time = sdf.format(calStartTime.getTimeInMillis());
+            Log.e("EventPreferencesTime.computeAlarm", "calStartTime="+time);
+            time = sdf.format(calEndTime.getTimeInMillis());
+            Log.e("EventPreferencesTime.computeAlarm", "calEndTime="+time);
+
+
             long alarmTime;
             if (startEvent)
                 alarmTime = calStartTime.getTimeInMillis();
