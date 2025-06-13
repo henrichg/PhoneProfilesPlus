@@ -652,7 +652,38 @@ class EventPreferencesTime extends EventPreferences {
         midnightHours.set(Calendar.MONTH, 0);
         midnightHours.set(Calendar.YEAR, 0);
 
-        if (nowHours.getTimeInMillis() < hoursStartTime.getTimeInMillis()) {
+        if (yesterday &&
+                (nowHours.getTimeInMillis() <= hoursEndTime.getTimeInMillis()) &&
+                (nowHours.getTimeInMillis() >= midnightHours.getTimeInMillis()))
+        {
+            // now hours is before end time hours but after midnight hours
+            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is after midnight hours but before end time hours");
+
+            // start time is today
+            calStartTime.setTimeInMillis(now.getTimeInMillis());
+            calStartTime.set(Calendar.HOUR_OF_DAY, hoursStartTime.get(Calendar.HOUR_OF_DAY));
+            calStartTime.set(Calendar.MINUTE, hoursStartTime.get(Calendar.MINUTE));
+            calStartTime.set(Calendar.SECOND, hoursStartTime.get(Calendar.SECOND));
+            calStartTime.set(Calendar.MILLISECOND, 0);
+            calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+            calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+            calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+            // end time is tomorrow
+            calEndTime.setTimeInMillis(now.getTimeInMillis());
+            calEndTime.set(Calendar.HOUR_OF_DAY, hoursEndTime.get(Calendar.HOUR_OF_DAY));
+            calEndTime.set(Calendar.MINUTE, hoursEndTime.get(Calendar.MINUTE));
+            calEndTime.set(Calendar.SECOND, hoursEndTime.get(Calendar.SECOND));
+            calEndTime.set(Calendar.MILLISECOND, 0);
+            calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+            calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+            calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+            calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+
+            return true;
+        } else
+        if ((!yesterday) &&
+                nowHours.getTimeInMillis() < hoursStartTime.getTimeInMillis()) {
             // now hours are before start time hours
             Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours are before start time hours");
 
@@ -679,7 +710,8 @@ class EventPreferencesTime extends EventPreferences {
 
             return true;
         } else
-        if ((nowHours.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
+        if ((!yesterday) &&
+                (nowHours.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                 (nowHours.getTimeInMillis() <= midnightMinusOneHours.getTimeInMillis())) {
             // now hours is aftert start time hours but before of mihnight hours
             Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is aftert start timer hours but before of mihnight hours");
@@ -706,36 +738,8 @@ class EventPreferencesTime extends EventPreferences {
             calEndTime.add(Calendar.DAY_OF_YEAR, 1);
 
             return true;
-        } else
-        if ((nowHours.getTimeInMillis() <= hoursEndTime.getTimeInMillis()) &&
-                (nowHours.getTimeInMillis() >= midnightHours.getTimeInMillis())) {
-            // now hours is before end time hours but after midnight hours
-            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is after midnight hours but before end time hours");
-
-            // start time is today
-            calStartTime.setTimeInMillis(now.getTimeInMillis());
-            calStartTime.set(Calendar.HOUR_OF_DAY, hoursStartTime.get(Calendar.HOUR_OF_DAY));
-            calStartTime.set(Calendar.MINUTE, hoursStartTime.get(Calendar.MINUTE));
-            calStartTime.set(Calendar.SECOND, hoursStartTime.get(Calendar.SECOND));
-            calStartTime.set(Calendar.MILLISECOND, 0);
-            calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
-            calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
-            calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
-            calStartTime.add(Calendar.DAY_OF_YEAR, -1);
-
-            // end time is tomorrow
-            calEndTime.setTimeInMillis(now.getTimeInMillis());
-            calEndTime.set(Calendar.HOUR_OF_DAY, hoursEndTime.get(Calendar.HOUR_OF_DAY));
-            calEndTime.set(Calendar.MINUTE, hoursEndTime.get(Calendar.MINUTE));
-            calEndTime.set(Calendar.SECOND, hoursEndTime.get(Calendar.SECOND));
-            calEndTime.set(Calendar.MILLISECOND, 0);
-            calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
-            calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
-            calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
-
-            return true;
         } else {
-            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "others");
+            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "*** others ***");
 
             // start time is today
             calStartTime.setTimeInMillis(now.getTimeInMillis());
@@ -1228,16 +1232,17 @@ class EventPreferencesTime extends EventPreferences {
             Log.e("EventPreferencesTime.computeAlarm", "calEndTime="+time);
 
 
+            Log.e("EventPreferencesTime.computeAlarm", "startEvent="+startEvent);
             long alarmTime;
             if (startEvent) {
                 alarmTime = calStartTime.getTimeInMillis();
                 time = sdf.format(calStartTime.getTimeInMillis());
-                Log.e("EventPreferencesTime.computeAlarm", "alarmTime="+time);
+                Log.e("EventPreferencesTime.computeAlarm", "(1) alarmTime="+time);
             }
             else {
                 alarmTime = calEndTime.getTimeInMillis();
                 time = sdf.format(calEndTime.getTimeInMillis());
-                Log.e("EventPreferencesTime.computeAlarm", "alarmTime="+time);
+                Log.e("EventPreferencesTime.computeAlarm", "(2) alarmTime="+time);
             }
 
             return alarmTime;
@@ -1249,6 +1254,8 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     void setSystemEventForStart(Context context)
     {
+        Log.e("EventPreferencesTime.setSystemEventForStart", "XXXXXXXXXXXX");
+
         // set alarm for state PAUSE
 
         // this alarm generates broadcast, that change state into RUNNING;
@@ -1261,17 +1268,25 @@ class EventPreferencesTime extends EventPreferences {
             return;
 
         long alarmTime = computeAlarm(true/*, context*/);
-        if (alarmTime > 0)
+        Log.e("EventPreferencesTime.setSystemEventForStart", "startEvent=true, alarmTime="+alarmTime);
+        if (alarmTime > 0) {
+            Log.e("EventPreferencesTime.setSystemEventForStart", "setAlarm called - startEvent=true");
             setAlarm(true, alarmTime, context);
+        }
 
         alarmTime = computeAlarm(false/*, context*/);
-        if (alarmTime > 0)
+        Log.e("EventPreferencesTime.setSystemEventForStart", "startEvent=false, alarmTime="+alarmTime);
+        if (alarmTime > 0) {
+            Log.e("EventPreferencesTime.setSystemEventForStart", "setAlarm called - startEvent=false");
             setAlarm(false, alarmTime, context);
+        }
     }
 
     @Override
     void setSystemEventForPause(Context context)
     {
+        Log.e("EventPreferencesTime.setSystemEventForPause", "YYYYYYYYYYYYY");
+
         // set alarm for state RUNNING
 
         // this alarm generates broadcast, that change state into PAUSE;
@@ -1284,12 +1299,18 @@ class EventPreferencesTime extends EventPreferences {
             return;
 
         long alarmTime = computeAlarm(false/*, context*/);
-        if (alarmTime > 0)
+        Log.e("EventPreferencesTime.setSystemEventForPause", "startEvent=false, alarmTime="+alarmTime);
+        if (alarmTime > 0) {
+            Log.e("EventPreferencesTime.setSystemEventForPause", "setAlarm called - startEvent=false");
             setAlarm(false, alarmTime, context);
+        }
 
         alarmTime = computeAlarm(true/*, context*/);
-        if (alarmTime > 0)
+        Log.e("EventPreferencesTime.setSystemEventForPause", "startEvent=true, alarmTime="+alarmTime);
+        if (alarmTime > 0) {
+            Log.e("EventPreferencesTime.setSystemEventForPause", "setAlarm called - startEvent=true");
             setAlarm(true, alarmTime, context);
+        }
     }
 
     @Override
@@ -1428,7 +1449,7 @@ class EventPreferencesTime extends EventPreferences {
                 }
                 else {
                     eventsHandler.timePassed = false;
-                    Log.e("EventPreferencesTime.doHandleEvent", "(2) timePassed="+eventsHandler.timePassed);
+                    Log.e("EventPreferencesTime.doHandleEvent", "(2) timePassed=false");
                 }
                 /*}
                 else {
