@@ -23,7 +23,7 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/androidTestDebug" />
-    <orderEntry type="jdk" jdkName="Android API 35, extension level 13 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 36, extension level 17 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.recyclerview:recyclerview:1.4.0@aar" level="project" />

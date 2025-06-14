@@ -18,7 +18,7 @@
     <content url="file://$MODULE_DIR$/../../../android-betterpickers/build/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../android-betterpickers/src/test" />
     <content url="file://$MODULE_DIR$/../../../android-betterpickers/src/testDebug" />
-    <orderEntry type="jdk" jdkName="Android API 35, extension level 13 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 36, extension level 17 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.android-betterpickers.main" scope="TEST" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common.main" scope="TEST" />

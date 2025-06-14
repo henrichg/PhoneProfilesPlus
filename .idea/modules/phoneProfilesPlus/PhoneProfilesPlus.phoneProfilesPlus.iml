@@ -23,7 +23,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 35, extension level 13 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 36, extension level 17 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
