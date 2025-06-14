@@ -637,3 +637,65 @@ Fix: Wrong displayed required PPPPS for "Screen timeout" for Oppo device.
 Fix: Not detected PPPPS if is disabled by system (Samsung deep sleep).
 Fix: Fixed permission check for "Answer call" and "End call" in "Call sensor".
 
+---------------------
+
+Toto cele je volane z doHandleEvent(). Tem je volanie:
+- startAlarmTime = computeAlarm(true/*, eventsHandler.context*/);
+- endAlarmTime = computeAlarm(false/*, eventsHandler.context*/);
+Tie su tiez zalogovane (vid dole).
+Toto cele vobec nezavisi od toho, ci je volany setAlarm(). Nemusi byt, casy sa tu testuju nezavisle od setAlarm().
+setAlarm() je len na to, aby sa doHandleEvent() zavolalo ked vyprsi alarm, cize ako okamzita reakcia na vyprsanie alarmu.
+
+startEvent = true
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  *******************
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  event=Overnight
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  now millis=1749802826280
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  times are past midnight
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=true
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  *** others ***
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=false
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  now hours are before start time hours
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=1749848400000
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=1749888000000
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=13.06.25 23:00:00:0
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=14.06.25 10:00:00:0
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  startEvent=true
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (1) alarmTime=13.06.25 23:00:00:0
+
+startEvent = false
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  *******************
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  event=Overnight
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  now millis=1749802826282
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  times are past midnight
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=true
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  *** others ***
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=false
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  now hours are before start time hours
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=1749848400000
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=1749888000000
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=13.06.25 23:00:00:0
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=14.06.25 10:00:00:0
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  startEvent=false
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (2) alarmTime=14.06.25 10:00:00:0
+
+Samotne volanie handlera - timePassed=false je v poriadku, este nie je 23:00
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  startAlarmTime=1749848400000
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  endAlarmTime=1749888000000
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  nowAlarmTime=1749802826283
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  (1) timePassed=false
+
+------------
+
+Toto je na nastavenie alarmu na start a pause udalosti.
+
+Ako pozeram nahadzuje to oba alarmy. Prvy na start udalosti, druhy na end udalosti.
+Casy krasne sedia, tak hadam je to OK.
+Sice nechapem, preco oba alarmy som tam dal ale budis.
+V setSystemEventForPause() su opacne. najprv end time a potom start time.
+2025-06-13 10:36:33.093  5590-5678  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (1) alarmTime=13.06.25 23:00:00:0
+2025-06-13 10:36:33.093  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=true, alarmTime=1749848400000
+2025-06-13 10:36:33.093  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=true
+2025-06-13 10:36:33.100  5590-5678  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (2) alarmTime=14.06.25 10:00:00:0
+2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=false, alarmTime=1749888000000
+2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=false
+

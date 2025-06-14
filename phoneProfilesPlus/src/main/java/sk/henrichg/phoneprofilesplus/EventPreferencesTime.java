@@ -1041,7 +1041,6 @@ class EventPreferencesTime extends EventPreferences {
                             hoursStartTime.set(Calendar.SECOND, 0);
                             hoursStartTime.set(Calendar.MILLISECOND, 0);
 
-                            Calendar hoursEndTime = Calendar.getInstance();
                             if (_timeType == TIME_TYPE_SUNRISE_SUNSET) {
                                 Calendar todaySunset = Calendar.getInstance();
                                 todaySunset.setTimeInMillis(twilightState.getTodaySunset());
@@ -1058,6 +1057,8 @@ class EventPreferencesTime extends EventPreferences {
                                 if (now.compareTo(calEndTime) > 0)
                                     calEndTime.setTimeInMillis(twilightState.getTomorrowSunrise());
                             }
+                            /*
+                            Calendar hoursEndTime = Calendar.getInstance();
                             hoursEndTime.setTimeInMillis(calEndTime.getTimeInMillis());
                             hoursEndTime.set(Calendar.DAY_OF_MONTH, 0);
                             hoursEndTime.set(Calendar.MONTH, 0);
@@ -1065,8 +1066,6 @@ class EventPreferencesTime extends EventPreferences {
                             hoursEndTime.set(Calendar.SECOND, 0);
                             hoursEndTime.set(Calendar.MILLISECOND, 0);
 
-
-                            /*
                             ///// set calendar for startTime and endTime
                             boolean previousDayUsed = false;
                             if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis()) {
