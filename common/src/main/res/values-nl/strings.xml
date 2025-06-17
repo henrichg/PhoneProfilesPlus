@@ -1894,7 +1894,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Één rij profiellijst</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Aantal profielen per pagina</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Pijlen en markering van het geactiveerde profiel helderheid</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Opmerking: niet alle Klok programma\'s gebruiken het systeem alarmvolume omdat ze hun eigen volume gebruiken in hun instellingen.</string>
     <string name="connect_to_ssid_dialog_help">In dit venster vind je een lijst van geconfigureerde SSID\'s.\nKlik hier om het Wi-Fi instellingen scherm te bekijken. Het bevat een instellingen voor het configureren van wifi-netwerken.</string>
     <string name="pppps_pref_dialog_title">PPPPutInstellingen</string>
@@ -2258,9 +2257,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Verander icoon helderheid door Donkere modus</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Verander voorkeur indicator lichtheid door Donkere modus</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Verander pijlen en markering van de geactiveerde profiel-lichtheid met Donkere modus</string>
-    <string name="important_info_edge_panel_replacement1">Sinds OneUI 7 worden de Edge Panels van applicaties van derden niet meer ondersteund. Daarom werd het verwijderd uit PPP.</string>
-    <string name="important_info_edge_panel_replacement2">Een vervanging is gemaakt met de widget \"Panel\". Deze kun je gebruiken als zelfstandige widget maar ook al \"Panels\" applicatie al vervanging van Edge-panelen in Samsung OneUI. Het voordeel is dat het ook werkt in andere merken en niet alleen met Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Link naar de \"Panels\" toepassing</string>
     <string name="location_editor_title_not_actual_location">Sorry, de huidige locatie niet bekent. Moment geduld.</string>
     <string name="location_editor_rename_with_address_message">Hernoem locatienaam met echt adres?</string>
     <string name="pref_dlg_contacts_button_refresh">Vernieuwen</string>
@@ -2322,4 +2318,10 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Als de statusbalk de PhoneProfilesPlus applicatie weergeeft in plaats van het profielpictogram, kunt u deze wijzigen. Klik hier om te tonen hoe.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Als je PhoneProfilesPlus meldingen weergeeft in plaats van het profielpictogram, kun je dit wijzigen. Klik hier om te zien hoe dat kan.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In deze situatie aanbevolen</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Opmerking: dit werkt mogelijk niet vanuit PPP. Het is beter om het uit te schakelen in de instellingen.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Op sommige apparaten (OnePlus, Oppo, …), werkt het wijzigen van mediavolume niet goed. Om deze reden moet PPP het toegankelijkheidsvolume in deze apparaten wijzigen.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">Op sommige apparaten (OnePlus, Oppo, …), werkt het mediavolume niet goed. Om deze reden moet PPP het toegankelijkheidsvolume in deze apparaten wijzigen. Hiervoor is PhoneProfielsPlusExtender nodig. Installeer PhoneProfielsPlusExtender en zet het aan.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">Op sommige apparaten (OnePlus, Oppo, …), is wijzigen van \"Toegankelijkheid prompt volume\" nodig PhoneProfielsPlusExtender. Installeer PhoneProfielsPlusExtender en zet het aan.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Om \"Toegankelijkheid prompt volume\" te wijzigen, klik je hier om PhoneProfilesPlusExtender te installeren.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Sta PhoneProfilesPlusExtender toe in \"Instellingen voor toegankelijkheid\" toe om \"Toegankelijkheid prompt volume\" aan te passen.</string>
 </resources>

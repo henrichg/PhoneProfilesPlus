@@ -220,6 +220,8 @@ public class ActivatorListFragment extends Fragment {
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
+        private int numColumns;
+
         private static class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
                 int res = 0;
@@ -260,6 +262,8 @@ public class ActivatorListFragment extends Fragment {
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
                 //fragment.progressBar.setVisibility(View.VISIBLE);
+
+                numColumns = fragment.gridView.getNumColumns();
             }
         }
 
@@ -296,8 +300,6 @@ public class ActivatorListFragment extends Fragment {
                         if (profile._showInActivator)
                             ++count;
                     }
-
-                    int numColumns = fragment.gridView.getNumColumns();
 
                     int modulo = count % numColumns;
                     if (modulo > 0) {

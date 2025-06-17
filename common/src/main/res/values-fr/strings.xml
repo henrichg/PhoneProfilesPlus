@@ -1894,7 +1894,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget : Liste des profils sur une ligne</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Nombre de profils par page</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Flèches et marqueur de la luminosité du profil activé</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Sur les appareils OnePlus, le changement de volume multimédia ne fonctionne pas lorsque PhoneProfilesPlus est en arrière-plan.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Remarque : toutes les applications Horloge n\'utilisent pas le volume d\'alarme du système car elles utilisent leur propre volume configuré dans leurs paramètres.</string>
     <string name="connect_to_ssid_dialog_help">Cette boîte de dialogue affiche la liste des SSID Wi-Fi configurés.\nCliquez ici pour voir les paramètres Wi-Fi. Il sera possible de configurer les réseaux Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2258,9 +2257,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Modifier la luminosité des icônes en mode sombre</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Modifier la luminosité de l\'indicateur de préférences en mode sombre</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Changer la luminosité des flèches et du marqueur du profil activé en mode sombre</string>
-    <string name="important_info_edge_panel_replacement1">Depuis OneUI 7, les panneaux Edge des applications tierces ne sont plus pris en charge. Et par conséquent, ils ont été supprimés de PPP.</string>
-    <string name="important_info_edge_panel_replacement2">Un remplacement a été créé, un widget appelé \"Panel\". Il peut être utilisé comme widget autonome, mais il peut également être utilisé dans l\'application « Panels », qui peut remplacer Edge Panels de OneUI. L\'avantage est que l\'application peut être utilisée sur d\'autres appareils, pas seulement sur ceux de Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Lien vers l\'application \"Panels\"</string>
     <string name="location_editor_title_not_actual_location">Localisation indisponible. Veuillez patienter pendant l’acquisition du signal.</string>
     <string name="location_editor_rename_with_address_message">Renommer le nom de l\'emplacement avec l\'adresse réelle ?</string>
     <string name="pref_dlg_contacts_button_refresh">Actualiser</string>
@@ -2322,4 +2318,10 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Si l’application PhoneProfilesPlus s’affiche dans la barre d’état au lieu de l’icône de profil, vous pouvez modifier cela. Cliquez ici pour voir comment procéder.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Si l\'application PhoneProfilesPlus s\'affiche dans les notifications au lieu de l\'icône de profil, vous pouvez modifier cela. Cliquez ici pour savoir comment procéder.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">Dans cette situation, il est recommandé</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Remarque : cette option peut ne pas fonctionner avec PPP. Il est préférable de la désactiver dans les paramètres de l\'appareil.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Sur certains appareils (OnePlus, Oppo, etc.), le réglage du volume multimédia ne fonctionne pas. C\'est pourquoi PPP doit modifier le volume d\'accessibilité sur ces appareils.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">Sur certains appareils (OnePlus, Oppo, etc.), le réglage du volume multimédia ne fonctionne pas. C\'est pourquoi PPP doit modifier le volume d\'accessibilité sur ces appareils. PhoneProfielsPlusExtender est requis pour cela. Veuillez l\'installer et l\'activer.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">Sur certains appareils (OnePlus, Oppo, etc.), la modification du « Volume des invites d\'accessibilité » nécessite PhoneProfilesPlusExtender. Veuillez l\'installer et l\'activer.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Pour modifier le « Volume des invites d\'accessibilité », cliquez ici pour installer PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Pour modifier le « volume des invites d\'accessibilité », donnez l\'autorisation « accessibilité » à PhoneProfilesPlusExtender dans les paramètres système.</string>
 </resources>

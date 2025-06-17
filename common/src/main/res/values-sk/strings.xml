@@ -1894,7 +1894,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Miniaplikácia: Jednoriadkový zoznam profilov</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Počet profilov na stránku</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Svetlosť šípky a značky aktivovaného profilu</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">V zariadeniach OnePlus nefunguje zmena hlasitosti médií, keď je PhoneProfilesPlus na pozadí.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Poznámka: Nie všetky aplikácie Hodiny používajú systémovú hlasitosť alarmov, pretože používajú svoju vlastnú hlasitosť nakonfigurovanú vo svojich nastaveniach.</string>
     <string name="connect_to_ssid_dialog_help">V tomto dialógu sa zobrazí zoznam nakonfigurovaných Wi-Fi SSID.\nKliknutím sem zobrazíte obrazovku nastavení Wi-Fi. Obsahuje parameter pre konfiguráciu Wi-Fi sietí.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2258,9 +2257,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Meniť svetlosť ikon pomocou tmavého režimu</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Meniť svetlosť indikátora parametrov pomocou tmavého režimu</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Meniť svetlosť šípok a značky aktivovaného profilu pomocou tmavého režimu</string>
-    <string name="important_info_edge_panel_replacement1">Od OneUI 7 už nie sú podporované Edge Panely od aplikácií tretích strán. A preto aj z PPP bol odstánený.</string>
-    <string name="important_info_edge_panel_replacement2">Vytvorená bola náhrada, miniaplikácia s názvom \"Panel\". Dá sa používať ako štandardná miniaplikácia, ale je možné ju použiť aj v aplikácii \"Panels\", ktorá vie nahradiť Edge Panely z OneUI. Výhodou je, že je aplikáciu možné použiť aj v iných zariadeniach, nie len v tých od Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Linka na \"Panels\" aplikáciu</string>
     <string name="location_editor_title_not_actual_location">Ľutujeme, aktuálna poloha nie je momentálne určená. Počkajte, kým sa určí.</string>
     <string name="location_editor_rename_with_address_message">Premenovať názov polohy na skutočnú adresu?</string>
     <string name="pref_dlg_contacts_button_refresh">Obnoviť</string>
@@ -2322,4 +2318,10 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Ak sa v stavovom riadku namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Kliknite sem, zobrazí sa ako.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Ak sa v notifikáciách zobrazuje namiesto ikony profilu ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Kliknite sem, zobrazí sa ako.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">V tejto situácii sa odporúča</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
 </resources>

@@ -1894,7 +1894,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Виджет: Однострочный список профилей</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Количество профилей на страницу</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Яркость стрелочек и метки активированного профиля</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На устройствах OnePlus изменение громкости медиа не работает, когда PhoneProfilesPlus находится в фоновом режиме.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Примечание: не все приложения-будильники используют системный уровень громкости будильника - они могут использовать и собственный уровень громкости, заданный в настройках этих приложений.</string>
     <string name="connect_to_ssid_dialog_help">В этом диалоговом окне отображается список настроенных Wi-Fi SSID.\nНажмите сюда, чтобы открыть экран настроек Wi-Fi. Он содержит параметры для настройки сетей Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2258,9 +2257,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Изменять яркость иконок по Тёмному режиму</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Изменять яркость индикатора настроек по Тёмному режиму</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Изменять яркость стрелочек и метки активированного профиля по Тёмному режиму</string>
-    <string name="important_info_edge_panel_replacement1">Начиная с OneUI 7, панели Edge из сторонних приложений больше не поддерживаются. По этой причине они были удалены из PPP.</string>
-    <string name="important_info_edge_panel_replacement2">В качестве замены был создан виджет \"Панель\". Его можно использовать и как отдельный виджет, и в приложении Panels, которое может заменить панели Edge из OneUI. Преимущество этого приложения в том, что его можно использовать не только на устройствах Samsung, но и на устройствах других производителей.</string>
-    <string name="important_info_edge_panel_replacement3">Ссылка на приложение Panels</string>
     <string name="location_editor_title_not_actual_location">К сожалению, фактическое местоположение пока не определено. Дождитесь, пожалуйста, пока оно определится.</string>
     <string name="location_editor_rename_with_address_message">Сменить название местоположения на текущий адрес?</string>
     <string name="pref_dlg_contacts_button_refresh">Обновить</string>
@@ -2322,4 +2318,10 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Если в строке состояния вместо иконки профиля отображается иконка приложения PhoneProfilesPlus, это можно изменить. Чтобы узнать, как, нажмите сюда.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Если в уведомлениях вместо иконки профиля отображается иконка приложения PhoneProfilesPlus, это можно изменить. Чтобы узнать, как, нажмите сюда.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">В такой ситуации рекомендуется</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Примечание: из PPP отключение может не сработать. Лучше отключить его в настройках устройства.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На некоторых устройствах (OnePlus, Oppo, …) изменение громкости медиа не работает. По этой причине на таких устройствах PPP должен изменять громкость спец. возможностей.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">На некоторых устройствах (OnePlus, Oppo, …) изменение громкости медиа не работает. По этой причине на таких устройствах PPP должен изменять громкость спец. возможностей, но для этого требуется PhoneProfielsPlusExtender. Пожалуйста, установите и запустите его.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">На некоторых устройствах (OnePlus, Oppo, …) для изменения громкости запросов спец. возможностей требуется PhoneProfielsPlusExtender. Пожалуйста, установите и запустите его.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Чтобы изменять громкость запросов спец. возможностей, установите PhoneProfilesPlusExtender. Для этого нажмите сюда.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Чтобы изменять громкость запросов спец. возможностей, разрешите PhoneProfilesPlusExtender доступ к спец. возможностям в настройках системы.</string>
 </resources>

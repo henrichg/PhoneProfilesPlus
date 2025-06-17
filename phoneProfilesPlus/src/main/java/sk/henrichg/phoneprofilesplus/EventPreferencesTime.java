@@ -11,7 +11,6 @@ import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
@@ -20,7 +19,6 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import java.sql.Date;
 import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /** @noinspection ExtractMethodRecommender*/
@@ -606,7 +604,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     private boolean computeAlarmPastMidnight(boolean yesterday) {
-        Log.e("EventPreferencesTime.computeAlarmPastMidnight", "yesterday="+yesterday);
+//        Log.e("EventPreferencesTime.computeAlarmPastMidnight", "yesterday="+yesterday);
         Calendar now = Calendar.getInstance();
         if (yesterday)
             now.add(Calendar.DAY_OF_MONTH, -1);
@@ -657,7 +655,7 @@ class EventPreferencesTime extends EventPreferences {
                 (nowHours.getTimeInMillis() >= midnightHours.getTimeInMillis()))
         {
             // now hours is before end time hours but after midnight hours
-            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is after midnight hours but before end time hours");
+//            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is after midnight hours but before end time hours");
 
             // start time is today
             calStartTime.setTimeInMillis(now.getTimeInMillis());
@@ -685,7 +683,7 @@ class EventPreferencesTime extends EventPreferences {
         if ((!yesterday) &&
                 nowHours.getTimeInMillis() < hoursStartTime.getTimeInMillis()) {
             // now hours are before start time hours
-            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours are before start time hours");
+//            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours are before start time hours");
 
             // start time is today
             calStartTime.setTimeInMillis(now.getTimeInMillis());
@@ -714,7 +712,7 @@ class EventPreferencesTime extends EventPreferences {
                 (nowHours.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
                 (nowHours.getTimeInMillis() <= midnightMinusOneHours.getTimeInMillis())) {
             // now hours is aftert start time hours but before of mihnight hours
-            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is aftert start timer hours but before of mihnight hours");
+//            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "now hours is aftert start timer hours but before of mihnight hours");
 
             // start time is today
             calStartTime.setTimeInMillis(now.getTimeInMillis());
@@ -739,7 +737,7 @@ class EventPreferencesTime extends EventPreferences {
 
             return true;
         } else {
-            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "*** others ***");
+//            Log.e("EventPreferencesTime.computeAlarmPastMidnight", "*** others ***");
 
             // start time is today
             calStartTime.setTimeInMillis(now.getTimeInMillis());
@@ -775,8 +773,8 @@ class EventPreferencesTime extends EventPreferences {
 
         boolean setAlarm = false;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-        String time;
+        //SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+        //String time;
 
         if (_timeType == TIME_TYPE_EXACT) {
             setAlarm = true;
@@ -800,10 +798,10 @@ class EventPreferencesTime extends EventPreferences {
             hoursEndTime.set(Calendar.MONTH, 0);
             hoursEndTime.set(Calendar.YEAR, 0);
 
-            Log.e("EventPreferencesTime.computeAlarm", "*******************");
-            Log.e("EventPreferencesTime.computeAlarm", "event="+_event._name);
+//            Log.e("EventPreferencesTime.computeAlarm", "*******************");
+//            Log.e("EventPreferencesTime.computeAlarm", "event="+_event._name);
 
-            Log.e("EventPreferencesTime.computeAlarm", "now millis="+now.getTimeInMillis());
+//            Log.e("EventPreferencesTime.computeAlarm", "now millis="+now.getTimeInMillis());
             /*
             time = sdf.format(now.getTimeInMillis());
             Log.e("EventPreferencesTime.computeAlarm", "now="+time);
@@ -814,7 +812,7 @@ class EventPreferencesTime extends EventPreferences {
 
             if (hoursStartTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis()) {
                 // times are in the same day
-                Log.e("EventPreferencesTime.computeAlarm", "times are in the same day");
+//                Log.e("EventPreferencesTime.computeAlarm", "times are in the same day");
 
                 calStartTime.setTimeInMillis(now.getTimeInMillis());
                 calStartTime.set(Calendar.HOUR_OF_DAY, hoursStartTime.get(Calendar.HOUR_OF_DAY));
@@ -836,20 +834,20 @@ class EventPreferencesTime extends EventPreferences {
 
                 if (now.getTimeInMillis() > calEndTime.getTimeInMillis()) {
                     // end time is up
-                    Log.e("EventPreferencesTime.computeAlarm", "(1) end time is up");
+//                    Log.e("EventPreferencesTime.computeAlarm", "(1) end time is up");
                     calStartTime.add(Calendar.DAY_OF_YEAR, 1);
                     calEndTime.add(Calendar.DAY_OF_YEAR, 1);
                 }
             } else {
                 // times are past midnight
-                Log.e("EventPreferencesTime.computeAlarm", "times are past midnight");
+//                Log.e("EventPreferencesTime.computeAlarm", "times are past midnight");
 
                 if (!computeAlarmPastMidnight(true))
                     computeAlarmPastMidnight(false);
             }
 
-            Log.e("EventPreferencesTime.computeAlarm", "calStartTime="+calStartTime.getTimeInMillis());
-            Log.e("EventPreferencesTime.computeAlarm", "calEndTime="+calEndTime.getTimeInMillis());
+//            Log.e("EventPreferencesTime.computeAlarm", "calStartTime="+calStartTime.getTimeInMillis());
+//            Log.e("EventPreferencesTime.computeAlarm", "calEndTime="+calEndTime.getTimeInMillis());
 
             /*
             Calendar nowTime = Calendar.getInstance();
@@ -1225,23 +1223,23 @@ class EventPreferencesTime extends EventPreferences {
         }
 
         if (setAlarm) {
-            time = sdf.format(calStartTime.getTimeInMillis());
-            Log.e("EventPreferencesTime.computeAlarm", "calStartTime="+time);
-            time = sdf.format(calEndTime.getTimeInMillis());
-            Log.e("EventPreferencesTime.computeAlarm", "calEndTime="+time);
+//            time = sdf.format(calStartTime.getTimeInMillis());
+//            Log.e("EventPreferencesTime.computeAlarm", "calStartTime="+time);
+//            time = sdf.format(calEndTime.getTimeInMillis());
+//            Log.e("EventPreferencesTime.computeAlarm", "calEndTime="+time);
 
 
-            Log.e("EventPreferencesTime.computeAlarm", "startEvent="+startEvent);
+//            Log.e("EventPreferencesTime.computeAlarm", "startEvent="+startEvent);
             long alarmTime;
             if (startEvent) {
                 alarmTime = calStartTime.getTimeInMillis();
-                time = sdf.format(calStartTime.getTimeInMillis());
-                Log.e("EventPreferencesTime.computeAlarm", "(1) alarmTime="+time);
+//                time = sdf.format(calStartTime.getTimeInMillis());
+//                Log.e("EventPreferencesTime.computeAlarm", "(1) alarmTime="+time);
             }
             else {
                 alarmTime = calEndTime.getTimeInMillis();
-                time = sdf.format(calEndTime.getTimeInMillis());
-                Log.e("EventPreferencesTime.computeAlarm", "(2) alarmTime="+time);
+//                time = sdf.format(calEndTime.getTimeInMillis());
+//                Log.e("EventPreferencesTime.computeAlarm", "(2) alarmTime="+time);
             }
 
             return alarmTime;
@@ -1253,7 +1251,7 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     void setSystemEventForStart(Context context)
     {
-        Log.e("EventPreferencesTime.setSystemEventForStart", "XXXXXXXXXXXX");
+//        Log.e("EventPreferencesTime.setSystemEventForStart", "XXXXXXXXXXXX");
 
         // set alarm for state PAUSE
 
@@ -1267,16 +1265,16 @@ class EventPreferencesTime extends EventPreferences {
             return;
 
         long alarmTime = computeAlarm(true/*, context*/);
-        Log.e("EventPreferencesTime.setSystemEventForStart", "startEvent=true, alarmTime="+alarmTime);
+//        Log.e("EventPreferencesTime.setSystemEventForStart", "startEvent=true, alarmTime="+alarmTime);
         if (alarmTime > 0) {
-            Log.e("EventPreferencesTime.setSystemEventForStart", "setAlarm called - startEvent=true");
+//            Log.e("EventPreferencesTime.setSystemEventForStart", "setAlarm called - startEvent=true");
             setAlarm(true, alarmTime, context);
         }
 
         alarmTime = computeAlarm(false/*, context*/);
-        Log.e("EventPreferencesTime.setSystemEventForStart", "startEvent=false, alarmTime="+alarmTime);
+//        Log.e("EventPreferencesTime.setSystemEventForStart", "startEvent=false, alarmTime="+alarmTime);
         if (alarmTime > 0) {
-            Log.e("EventPreferencesTime.setSystemEventForStart", "setAlarm called - startEvent=false");
+//            Log.e("EventPreferencesTime.setSystemEventForStart", "setAlarm called - startEvent=false");
             setAlarm(false, alarmTime, context);
         }
     }
@@ -1284,7 +1282,7 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     void setSystemEventForPause(Context context)
     {
-        Log.e("EventPreferencesTime.setSystemEventForPause", "YYYYYYYYYYYYY");
+//        Log.e("EventPreferencesTime.setSystemEventForPause", "YYYYYYYYYYYYY");
 
         // set alarm for state RUNNING
 
@@ -1298,16 +1296,16 @@ class EventPreferencesTime extends EventPreferences {
             return;
 
         long alarmTime = computeAlarm(false/*, context*/);
-        Log.e("EventPreferencesTime.setSystemEventForPause", "startEvent=false, alarmTime="+alarmTime);
+//        Log.e("EventPreferencesTime.setSystemEventForPause", "startEvent=false, alarmTime="+alarmTime);
         if (alarmTime > 0) {
-            Log.e("EventPreferencesTime.setSystemEventForPause", "setAlarm called - startEvent=false");
+//            Log.e("EventPreferencesTime.setSystemEventForPause", "setAlarm called - startEvent=false");
             setAlarm(false, alarmTime, context);
         }
 
         alarmTime = computeAlarm(true/*, context*/);
-        Log.e("EventPreferencesTime.setSystemEventForPause", "startEvent=true, alarmTime="+alarmTime);
+//        Log.e("EventPreferencesTime.setSystemEventForPause", "startEvent=true, alarmTime="+alarmTime);
         if (alarmTime > 0) {
-            Log.e("EventPreferencesTime.setSystemEventForPause", "setAlarm called - startEvent=true");
+//            Log.e("EventPreferencesTime.setSystemEventForPause", "setAlarm called - startEvent=true");
             setAlarm(true, alarmTime, context);
         }
     }
@@ -1419,13 +1417,13 @@ class EventPreferencesTime extends EventPreferences {
 
                 startAlarmTime = computeAlarm(true/*, eventsHandler.context*/);
                 endAlarmTime = computeAlarm(false/*, eventsHandler.context*/);
-                Log.e("EventPreferencesTime.doHandleEvent", "startAlarmTime="+startAlarmTime);
-                Log.e("EventPreferencesTime.doHandleEvent", "endAlarmTime="+endAlarmTime);
+//                Log.e("EventPreferencesTime.doHandleEvent", "startAlarmTime="+startAlarmTime);
+//                Log.e("EventPreferencesTime.doHandleEvent", "endAlarmTime="+endAlarmTime);
 
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
-                Log.e("EventPreferencesTime.doHandleEvent", "nowAlarmTime="+nowAlarmTime);
+//                Log.e("EventPreferencesTime.doHandleEvent", "nowAlarmTime="+nowAlarmTime);
 
                 /*boolean[] daysOfWeek =  new boolean[8];
                 daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
@@ -1444,11 +1442,11 @@ class EventPreferencesTime extends EventPreferences {
                 // startTime of week is selected
                 if ((startAlarmTime > 0) && (endAlarmTime > 0)) {
                     eventsHandler.timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
-                    Log.e("EventPreferencesTime.doHandleEvent", "(1) timePassed="+eventsHandler.timePassed);
+//                    Log.e("EventPreferencesTime.doHandleEvent", "(1) timePassed="+eventsHandler.timePassed);
                 }
                 else {
                     eventsHandler.timePassed = false;
-                    Log.e("EventPreferencesTime.doHandleEvent", "(2) timePassed=false");
+//                    Log.e("EventPreferencesTime.doHandleEvent", "(2) timePassed=false");
                 }
                 /*}
                 else {

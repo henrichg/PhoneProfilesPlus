@@ -1894,7 +1894,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Einzeilige Profilliste</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Anzahl der Profile pro Seite</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Pfeile und Kennzeichen der aktivierten Profilhelligkeit</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Bei OnePlus-Geräten funktioniert die Änderung der Medienlautstärke nicht, wenn PhoneProfilesPlus im Hintergrund ausgeführt wird.</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Note: Not all Clock applications use the system alarm volume because they use their own volume configured in their settings.</string>
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2258,9 +2257,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Change icon lightness by Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Change preferences indicator lightness by Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Change arrows and marker of the activated profile lightness by Dark mode</string>
-    <string name="important_info_edge_panel_replacement1">Seit OneUI 7 werden Edge Panels von Drittanbieter-Anwendungen nicht mehr unterstützt. Und deshalb wurde es aus PPP entfernt.</string>
-    <string name="important_info_edge_panel_replacement2">Es wurde ein Ersatz geschaffen, ein Widget namens „Panel“. Es kann als eigenständiges Widget verwendet werden, aber es kann auch in der Anwendung „Panels“ verwendet werden, die die Edge-Panels von OneUI ersetzen kann. Der Vorteil ist, dass die Anwendung in anderen Geräten verwendet werden kann, nicht nur in denen von Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Link zur App „Panels“</string>
     <string name="location_editor_title_not_actual_location">Leider ist der tatsächliche Standort derzeit noch nicht festgelegt. Bitte warten Sie, bis er bestimmt wurde.</string>
     <string name="location_editor_rename_with_address_message">Namen des Standorts in aktuelle Adresse umbenennen?</string>
     <string name="pref_dlg_contacts_button_refresh">Refresh</string>
@@ -2322,4 +2318,10 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Wenn in der Statusleiste die PhoneProfilesPlus-Anwendung anstelle des Profilsymbols angezeigt wird, kann das geändert werden. Hier klicken, um eine Anleitung zu erhalten.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Wenn in den Benachrichtigungen die PhoneProfilesPlus-Anwendung anstelle des Profilsymbols angezeigt wird, können Sie dies ändern. Hier klicken, um eine Anleitung zu erhalten.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In dieser Situation wird empfohlen</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Hinweis: Dies funktioniert möglicherweise nicht über PPP. Es ist besser, dies in den Geräteeinstellungen zu deaktivieren.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In einigen Geräten (OnePlus, Oppo, …), funknktionieren Änderungen der Medien-Lautstärke nicht. Aus diesem Grund muss PPP die Zugänglichkeit zur Lautstärke bei diesen Geräten ändern.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In einigen Geräten (OnePlus, Oppo, …), funknktionieren Änderungen der Medien-Lautstärke nicht. Aus diesem Grund muss PPP die Zugänglichkeit zur Lautstärke bei diesen Geräten ändern. Dafür wird aber der PhoneProfielsPlusExtender benötigt. Bitte installieren und aktivieren Sie ihn.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
 </resources>

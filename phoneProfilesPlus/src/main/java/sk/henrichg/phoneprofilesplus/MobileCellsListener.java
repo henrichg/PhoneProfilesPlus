@@ -117,9 +117,12 @@ class MobileCellsListener extends PhoneStateListener {
                             }
                         }
                     } else if (_cellInfo instanceof CellInfoCdma) {
+                        //noinspection deprecation
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
+                        //noinspection deprecation
                         if (MobileCellsScanner.isValidCellId(identityCdma.getBasestationId(), Long.MAX_VALUE)) {
                             if (_cellInfo.isRegistered()) {
+                                //noinspection deprecation
                                 registeredCell = identityCdma.getBasestationId();
                                 registeredCellLong = Long.MAX_VALUE;
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();

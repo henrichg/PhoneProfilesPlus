@@ -1894,7 +1894,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">小部件：单行情景列表</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">每页情景数量</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">箭头和高亮标记已激活的情景</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">在 One Plus 设备中，当PhoneProfilesPlus 处于后台时，改变媒体音量不可用。</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">注意：并非所有时钟应用程序都使用系统报警音量，因为它们使用自己在设置中配置的音量。</string>
     <string name="connect_to_ssid_dialog_help">在此对话框中显示已配置的 Wi-Fi SSID 列表。\n点击这里查看Wi-Fi设置屏幕。它包含配置Wi-Fi网络的参数。</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2258,9 +2257,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">使用暗色模式更改图标亮度</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">使用暗色模式更改设置指示灯亮度</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">使用暗色模式更改已激活情景箭头和标记的亮度</string>
-    <string name="important_info_edge_panel_replacement1">由于OneUI 7的边缘面板不再支持第三方应用程序, 因此从PPP中删除。</string>
-    <string name="important_info_edge_panel_replacement2">创建一个叫做“面板”的部件。 它可以用作独立的小部件，但也可以在“面板”应用程序中使用，它可以替换来自OneUI的边缘面板。 其优点在于，应用程序可以用于其他装置，而不仅仅是三星的装置。</string>
-    <string name="important_info_edge_panel_replacement3">链接到“面板”应用程序</string>
     <string name="location_editor_title_not_actual_location">对不起，当前未确定实际位置。请等待确定。</string>
     <string name="location_editor_rename_with_address_message">将位置名称重命名为实际地址？</string>
     <string name="pref_dlg_contacts_button_refresh">刷新</string>
@@ -2322,4 +2318,10 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">如果在状态栏显示PhoneProfilesPlus 应用程序而不是情景图标，您可以更改它。点此查看如何显示。</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">如果在通知中显示PhoneProfilesPlus 应用程序而不是情景图标，您可以更改它。点此查看如何显示。</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">在这种情况下建议使用</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
 </resources>

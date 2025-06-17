@@ -217,7 +217,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
         if (preference.forVolumesSensor == 0) {
 
             if (buttonView.getId() == R.id.volumePrefDialogNoChange) {
