@@ -2349,7 +2349,7 @@
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
 
     <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
-    <string name="vpn_profile_pref_dlg_info_app_install_links">By configured parameter \"VPN application\" is required application, which must be installed.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
     <string name="vpn_profile_pref_dlg_info_openvpnconnect">OpenVPN Connect:</string>
     <string name="vpn_profile_pref_dlg_info_openvpnforandroid">OpenVPN for Android:</string>
     <string name="vpn_profile_pref_dlg_info_wireguard">WireGuard:</string>
