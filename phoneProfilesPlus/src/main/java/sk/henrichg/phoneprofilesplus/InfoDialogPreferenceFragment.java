@@ -73,6 +73,9 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.PPP_APP_INFO_SCREEN);
         boolean showDroidifyInstallationSite = linkUrl.startsWith(InfoDialogPreference.DROIDIFY_INSTALLATION_SITE);
         boolean grantRoot = linkUrl.equals(InfoDialogPreference.GRANT_ROOT);
+        boolean showOpenVPNConectInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_OPENVPN_CONNECT);
+        boolean showOpenVPNForAndroidInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_OPENVPN_FOR_ANDROID);
+        boolean showWireguardInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_WIREGUARD);
 
         int iiFragment;// = -1;
         // 0 = System
@@ -142,6 +145,30 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             if (rooted) {
                 Permissions.grantRootX(null, activity);
             }
+        }
+        if (showOpenVPNConectInstallationSite) {
+            String url = PPApplication.OPENVPN_CONNECT_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
+        if (showOpenVPNForAndroidInstallationSite) {
+            String url = PPApplication.OPENVPN_FOR_ANDROID_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
+        if (showWireguardInstallationSite) {
+            String url = PPApplication.WIREGUARD_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
         }
     }
 

@@ -141,6 +141,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_KEYGUARD_INFO = "prf_pref_deviceKeyguardInfo";
     private static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_INFO = "prf_pref_forceStopApplicationsInfo";
     private static final String PREF_PROFILE_SEND_SMS_RESTRICTED_SETTINGS = "prf_pref_sendSMS_restrictedSettings";
+    private static final String PREF_PROFILE_DEVICE_VPN_INFO = "prf_pref_deviceVPNInfo";
 
     private static final String PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT = "prf_pref_activationDurationCategoryRoot";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT = "prf_pref_soundProfileCategoryRoot";
@@ -1956,6 +1957,40 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             }
+        }
+
+        infoDialogPreference = prefMng.findPreference(PREF_PROFILE_DEVICE_VPN_INFO);
+        if (infoDialogPreference != null) {
+            infoDialogPreference.setInfoText(
+                    getString(R.string.vpn_profile_pref_dlg_info_app_install_links) +
+                    StringConstants.TAG_DOUBLE_BREAK_HTML +
+
+                    // <ul><li>
+                    StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+
+                            // <a href>
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.VPN_OPENVPN_CONNECT + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            getString(R.string.vpn_profile_pref_dlg_info_openvpnconnect) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li>
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+
+                            //<li>
+                            StringConstants.TAG_LIST_ITEM_START_HTML +
+                            // <a href>
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.VPN_OPENVPN_FOR_ANDROID + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            getString(R.string.vpn_profile_pref_dlg_info_openvpnforandroid) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li>
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+
+                            //<li>
+                            StringConstants.TAG_LIST_ITEM_START_HTML +
+                            // <a href>
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.VPN_WIREGUARD + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            getString(R.string.vpn_profile_pref_dlg_info_wireguard) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            //</li></ul>
+                            StringConstants.TAG_LIST_END_LAST_ITEM_HTML
+            );
+            infoDialogPreference.setIsHtml(true);
         }
 
     }

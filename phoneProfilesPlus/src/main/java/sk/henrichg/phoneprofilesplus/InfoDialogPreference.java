@@ -22,6 +22,9 @@ public class InfoDialogPreference extends DialogPreference {
     static final String PPP_APP_INFO_SCREEN = "@ppp_app_info_screen";
     static final String DROIDIFY_INSTALLATION_SITE = "@droidify_installation_site";
     static final String GRANT_ROOT = "@grant_root";
+    static final String VPN_OPENVPN_CONNECT = "@openvpn_connect";
+    static final String VPN_OPENVPN_FOR_ANDROID = "@openvpn_for_android";
+    static final String VPN_WIREGUARD = "@wireguard";
 
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

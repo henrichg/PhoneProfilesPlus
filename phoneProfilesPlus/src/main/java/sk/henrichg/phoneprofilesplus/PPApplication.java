@@ -198,6 +198,10 @@ public class PPApplication extends Application
     // TODO change to latest version
     static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.4/InstallWithOptions_0.6.4-release.apk";
 
+    static final String OPENVPN_CONNECT_APPLICATION_URL = "https://play.google.com/store/apps/details?id=net.openvpn.openvpn";
+    static final String OPENVPN_FOR_ANDROID_APPLICATION_URL = "https://play.google.com/store/apps/details?id=de.blinkt.openvpn";
+    static final String WIREGUARD_APPLICATION_URL = "https://play.google.com/store/apps/details?id=com.wireguard.android&";
+
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
     //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
 
