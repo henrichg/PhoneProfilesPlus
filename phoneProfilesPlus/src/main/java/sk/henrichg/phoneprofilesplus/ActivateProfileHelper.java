@@ -7300,11 +7300,17 @@ class ActivateProfileHelper {
                         wifiApManager.stopTethering();
                 //}
             }
-            else {
+            else if (Build.VERSION.SDK_INT < 36) {
                 if (enable)
                     WifiApManager.startTethering30(context, doNotChangeWifi);
                 else
                     WifiApManager.stopTethering30(context);
+            }
+            else {
+                if (enable)
+                    WifiApManager.startTethering36(context, doNotChangeWifi);
+                else
+                    WifiApManager.stopTethering36(context);
             }
 
         } catch (SecurityException e) {
