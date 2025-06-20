@@ -425,8 +425,8 @@ final class WifiApManager {
         }
 
         Intent intent = new Intent("dev.shadoe.delta.action.START_SOFT_AP");
-        intent.setPackage("dev.shadoe.delta");
-        intent.setClassName("dev.shadoe.delta", "dev.shadoe.delta.SoftApBroadcastReceiver");
+        intent.setPackage(PPApplication.PACKAGE_NAME_DELTA);
+        intent.setClassName(PPApplication.PACKAGE_NAME_DELTA, "dev.shadoe.delta.SoftApBroadcastReceiver");
         //intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
         context.sendBroadcast(intent);
     }
@@ -435,8 +435,8 @@ final class WifiApManager {
         Log.e("WifiApManager.stopTethering36", "(1)");
 
         Intent intent = new Intent("dev.shadoe.delta.action.STOP_SOFT_AP");
-        intent.setPackage("dev.shadoe.delta");
-        intent.setClassName("dev.shadoe.delta", "dev.shadoe.delta.SoftApBroadcastReceiver");
+        intent.setPackage(PPApplication.PACKAGE_NAME_DELTA);
+        intent.setClassName(PPApplication.PACKAGE_NAME_DELTA, "dev.shadoe.delta.SoftApBroadcastReceiver");
         //intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
         context.sendBroadcast(intent);
     }

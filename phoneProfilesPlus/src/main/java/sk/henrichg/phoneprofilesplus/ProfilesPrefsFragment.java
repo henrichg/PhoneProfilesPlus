@@ -1049,7 +1049,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
                             (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED)||
-                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
+                            (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))||
+                            ((Build.VERSION.SDK_INT >= 36) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA)));
         }
 
         PPListPreference notificationLEDPreference = findPreference(Profile.PREF_PROFILE_NOTIFICATION_LED);
@@ -2421,6 +2422,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean notRootedOrGrantetRoot;
     private boolean notInstalledPPPPS;
     private boolean notGrantedShizuku;
+    private boolean notInstalledDelta;
 
     private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId,
                                                          Context context) {
@@ -2443,12 +2445,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean _notGrantedShizuku =
                 (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                         (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED);
+        boolean _notInstalledDelta =
+                (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                        (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA);
         if ((preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                 _notGrantedG1Permission ||
                 _notRootedOrGrantedRoot ||
                 _notGrantedShizuku ||
                 _notDefaultAssistant ||
-                _notInstalledPPPS) {
+                _notInstalledPPPS ||
+                _notInstalledDelta) {
             String defaultValueS;
             switch (key) {
                 case Profile.PREF_PROFILE_ASK_FOR_DURATION:
@@ -2582,6 +2588,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                             title = StringConstants.STR_PPPPS_SHIZUKU_ROOT + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction);
                                     } else
                                         title = getString(preferenceTitleId);
+                                }
+                                break;
+                            case Profile.PREF_PROFILE_DEVICE_WIFI_AP:
+                                if (VPNDialogPreference.changeEnabled(value)) {
+                                    title = getString(preferenceTitleId);
+                                    notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
+                                    notRootedOrGrantetRoot = notRootedOrGrantetRoot || _notRootedOrGrantedRoot;
+                                    notInstalledPPPPS = notInstalledPPPPS || _notInstalledPPPS;
+                                    notGrantedShizuku = notGrantedShizuku || _notGrantedShizuku;
+                                    notInstalledDelta = notInstalledDelta || _notInstalledDelta;
                                 }
                                 break;
                             default:
@@ -3207,7 +3223,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         notGrantedG1Permission ||
                         notRootedOrGrantetRoot ||
                         notInstalledPPPPS ||
-                        notGrantedShizuku, false);
+                        notGrantedShizuku,
+                        false);
             }
         }
 
@@ -5328,6 +5345,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         notRootedOrGrantetRoot = false;
         notInstalledPPPPS = false;
         notGrantedShizuku = false;
+        notInstalledDelta = false;
 
         if (key.equals(PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT)) {
             if (setCategorySummaryActivationDuration(context,
@@ -5446,7 +5464,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 notGrantedG1Permission ||
                 notRootedOrGrantetRoot ||
                 notInstalledPPPPS ||
-                notGrantedShizuku, false);
+                notGrantedShizuku ||
+                notInstalledDelta,
+                false);
         if (cattegorySummaryData.bold || cattegorySummaryData.forceSet)
             preferenceScreen.setSummary(StringFormatUtils.fromHtml(cattegorySummaryData.summary, false,  false, 0, 0, true));
         else
@@ -6932,7 +6952,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NFC) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
@@ -6973,8 +6992,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setSummary(summary);
 
                     boolean _permissionGranted = true;
-                    if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
-                            key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
+                    if (key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                             key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
                             key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                         Profile profile = new Profile();
@@ -7117,6 +7135,54 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            {
+//                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
+//                    Log.e("ProfilesPrefsFragment.setSummaryRadios", "network type  not allowed");
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    boolean errorColor = false;
+                    if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED) &&
+                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS) &&
+                            ((Build.VERSION.SDK_INT <= 36) || (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA)))
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, errorColor, true);
+                }
+            }
+            else
+            {
+                String sValue = value.toString();
+                PPListPreference preference = prefMng.findPreference(key);
+                if (preference !=  null) {
+                    int index = preference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? preference.getEntries()[index] : null;
+                    preference.setEnabled(true);
+                    preference.setSummary(summary);
+
+                    boolean _permissionGranted = true;
+                    Profile profile = new Profile();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
+                    profile._deviceWiFiAP = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "0"));
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
+                    _permissionGranted = permissions.isEmpty();
+
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, index > 0, false, false, !_permissionGranted, false);
+                }
+            }
+        }
+
             if (phoneCount > 1) {
 
                 /*

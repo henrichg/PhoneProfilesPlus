@@ -2354,6 +2354,8 @@
     <string name="vpn_profile_pref_dlg_info_openvpnforandroid">OpenVPN for Android</string>
     <string name="vpn_profile_pref_dlg_info_wireguard">WireGuard</string>
 
+    <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -9842,6 +9842,29 @@ class ActivateProfileHelper {
         }
     }
 
+    static boolean isDeltaInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_DELTA, PackageManager.MATCH_ALL);
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
+            PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+            return PPApplicationStatic.getVersionCode(pInfo) > 0;
+            //} else {
+            //    return 0;
+            //}
+
+        } catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
+            return false;
+        }
+    }
+
+
     /*
     static int isShizukuInstalled(Context context) {
         try {
