@@ -7307,10 +7307,21 @@ class ActivateProfileHelper {
                     WifiApManager.stopTethering30(context);
             }
             else {
-                if (enable)
-                    WifiApManager.startTethering36(context, doNotChangeWifi);
-                else
-                    WifiApManager.stopTethering36(context);
+                if (ActivateProfileHelper.isDeltaInstalled(context)) {
+                    if (ShizukuUtils.hasShizukuPermission()) {
+                        if (enable)
+                            WifiApManager.startTethering36(context, doNotChangeWifi);
+                        else
+                            WifiApManager.stopTethering36(context);
+                    } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            RootUtils.isRooted(/*false*/)) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiAP", "PPApplication.rootMutex");
+                        if (enable)
+                            WifiApManager.startTethering36(context, doNotChangeWifi);
+                        else
+                            WifiApManager.stopTethering36(context);
+                    }
+                }
             }
 
         } catch (SecurityException e) {
