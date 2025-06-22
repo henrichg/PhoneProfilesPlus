@@ -739,15 +739,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        /*
+        if (Build.VERSION.SDK_INT >= 36) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
-            if (preference != null)
-            {
-                preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceWiFiAP));
+            if (preference != null) {
+                preference.setTitle(StringConstants.STR_SHIZUKU_ROOT + getString(R.string.profile_preferences_deviceWiFiAP));
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "");
                 setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP, value);
             }
-        */
+        }
+
         if (PPApplication.HAS_FEATURE_TELEPHONY)
         {
             fillDeviceNetworkTypePreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context);
@@ -3571,6 +3571,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //if (Build.VERSION.SDK_INT < 30) {
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, R.string.profile_preferences_deviceWiFiAP, context);
             if (!title.isEmpty()) {
+                if (Build.VERSION.SDK_INT >= 36)
+                    title = StringConstants.STR_SHIZUKU_ROOT + title;
                 cattegorySummaryData.bold = true;
                 if (_value.length() > 0) _value.append(StringConstants.STR_BULLET);
 
