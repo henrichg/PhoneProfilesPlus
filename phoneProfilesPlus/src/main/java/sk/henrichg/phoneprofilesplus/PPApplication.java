@@ -201,6 +201,7 @@ public class PPApplication extends Application
     static final String OPENVPN_CONNECT_APPLICATION_URL = "https://play.google.com/store/apps/details?id=net.openvpn.openvpn";
     static final String OPENVPN_FOR_ANDROID_APPLICATION_URL = "https://play.google.com/store/apps/details?id=de.blinkt.openvpn";
     static final String WIREGUARD_APPLICATION_URL = "https://play.google.com/store/apps/details?id=com.wireguard.android&";
+    static final String DELTA_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/dev.shadoe.delta";
 
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
     //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
