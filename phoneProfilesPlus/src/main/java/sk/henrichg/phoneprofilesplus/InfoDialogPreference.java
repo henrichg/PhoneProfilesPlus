@@ -25,6 +25,7 @@ public class InfoDialogPreference extends DialogPreference {
     static final String VPN_OPENVPN_CONNECT = "@openvpn_connect";
     static final String VPN_OPENVPN_FOR_ANDROID = "@openvpn_for_android";
     static final String VPN_WIREGUARD = "@wireguard";
+    static final String DELTA_APP = "@delta_app";
 
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

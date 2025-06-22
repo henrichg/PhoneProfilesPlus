@@ -122,7 +122,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_VOLUME_IGNORE_SOUND_MODE_INFO2 = "prf_pref_volumeIgnoreSoundModeInfo2";
     private static final String PREF_PROFILE_DEVICE_WALLPAPER_FOLDER_INFO = "prf_pref_deviceWallpaperFolderInfo";
     private static final String PREF_PROFILE_PREFERENCE_TYPES_INFO = "prf_pref_preferenceTypesInfo";
-    private static final String PREF_PROFILE_DEVICE_WIFI_AP_INFO = "prf_pref_deviceWiFiAPInfo";
     private static final String PREF_PROFILE_DEVICE_COSE_ALL_APPLICATIONS_INFO = "prf_pref_deviceCloseAllApplicationsInfo";
     private static final String PREF_PROFILE_VOLUME_SOUND_MODE_VIBRATION_INFO = "prf_pref_volumeSoundModeVibrationInfo";
     private static final String PREF_PROFILE_DEVICE_SCREEN_TIMEOUT_AND_KEEP_SCREEN_ON_INFO = "prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo";
@@ -142,6 +141,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_INFO = "prf_pref_forceStopApplicationsInfo";
     private static final String PREF_PROFILE_SEND_SMS_RESTRICTED_SETTINGS = "prf_pref_sendSMS_restrictedSettings";
     private static final String PREF_PROFILE_DEVICE_VPN_INFO = "prf_pref_deviceVPNInfo";
+    private static final String PREF_PROFILE_DEVICE_WIFI_AP_INFO = "prf_pref_deviceWiFiAPInfo";
+    private static final String PREF_PROFILE_DEVICE_WIFI_AP_INFO_36 = "prf_pref_deviceWiFiAPInfo36";
 
     private static final String PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT = "prf_pref_activationDurationCategoryRoot";
     private static final String PREF_PROFILE_SOUND_PROFILE_CATTEGORY_ROOT = "prf_pref_soundProfileCategoryRoot";
@@ -1020,18 +1021,45 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         */
 
         if (Build.VERSION.SDK_INT >= 29) {
-            //if (Build.VERSION.SDK_INT < 30) {
-                preference = findPreference(PREF_PROFILE_DEVICE_WIFI_AP_INFO);
-                if (preference != null) {
-                    preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
-                            StringConstants.CHAR_NEW_LINE + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
-                            StringConstants.CHAR_NEW_LINE + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
-                }
-            //}
             preference = findPreference(PREF_PROFILE_DEVICE_COSE_ALL_APPLICATIONS_INFO);
             if (preference != null) {
                 preference.setSummary(getString(R.string.profile_preferences_deviceCloseAllApplicationsInfo_summary) + StringConstants.CHAR_NEW_LINE +
                         getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary));
+            }
+        }
+        if ((Build.VERSION.SDK_INT >= 29) && (Build.VERSION.SDK_INT < 36)) {
+            preference = findPreference(PREF_PROFILE_DEVICE_WIFI_AP_INFO);
+            if (preference != null) {
+                preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
+                        StringConstants.CHAR_NEW_LINE + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
+                        StringConstants.CHAR_NEW_LINE + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
+            }
+        }
+        if (Build.VERSION.SDK_INT >= 36) {
+            infoDialogPreference = prefMng.findPreference(PREF_PROFILE_DEVICE_WIFI_AP_INFO_36);
+            if (infoDialogPreference != null) {
+                infoDialogPreference.setInfoText(
+                        getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
+                        StringConstants.TAG_BREAK_HTML + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
+                        StringConstants.TAG_BREAK_HTML + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary) +
+                        StringConstants.TAG_DOUBLE_BREAK_HTML +
+
+                        getString(R.string.wifi_ap_profile_pref_dlg_info_app_install_links) +
+                                StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                // <ul><li>
+                                StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+
+                                // <a href>
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DELTA_APP + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                getString(R.string.wifi_ap_profile_pref_dlg_info_delta) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                //</li></ul>
+                                StringConstants.TAG_LIST_END_LAST_ITEM_HTML +
+
+                                getString(R.string.wifi_ap_profile_pref_dlg_info_delta_config_1) +
+                                StringConstants.TAG_BREAK_HTML + getString(R.string.wifi_ap_profile_pref_dlg_info_delta_config_2) +
+                                StringConstants.TAG_BREAK_HTML + getString(R.string.wifi_ap_profile_pref_dlg_info_delta_config_3)
+                );
+                infoDialogPreference.setIsHtml(true);
             }
         }
 
