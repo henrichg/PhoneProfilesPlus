@@ -79,6 +79,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
     private static final String PREF_NOT_INSTALLED_PPPPS = "prf_pref_notInstammedPPPPS";
     private static final String PREF_GRANT_SHIZUKU_PREFERENCES = "prf_pref_grantShizukuPermissions";
+    private static final String PREF_INSTALL_DELTA_PREFERENCES = "prf_pref_installDelata";
 
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_EXTENDER = "prf_pref_deviceForceStopApplicationExtender";
@@ -8639,6 +8640,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (profile != null) {
                         // test only root or G1 parameters, because key is not set but profile is
                         preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
+                        //if (profile._name.equals("Profile"))
+                        //    Log.e("ProfilePrefsFragment.SetRedTextToPreferencesAsyncTask.doInBackground", "preferenceAllowed="+preferenceAllowed.)
                         profilePermissions = Permissions.checkProfilePermissions(context, profile);
                         canChangeZenMode = ActivateProfileHelper.canChangeZenMode(context);
                         accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext(), false);
@@ -8791,6 +8794,46 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 Permissions.grantShizukuPermission(fragment, activity);
                                 return false;
                             });
+                        }
+                    }
+
+                    preference = prefMng.findPreference(PREF_INSTALL_DELTA_PREFERENCES);
+                    if (!preferenceAllowed.notInstalledDelta) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    } else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new StartActivityPreference(context);
+                                preference.setKey(PREF_INSTALL_DELTA_PREFERENCES);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title;
+                            _title = order + ". " + context.getString(R.string.preferences_installDeltaPreferences_title);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            Spannable summary;
+                            summary = new SpannableString(context.getString(R.string.profile_preferences_types_shizuku_show_info1));
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            /*
+                            preference.setOnPreferenceClickListener(preference12 -> {
+                                Permissions.grantShizukuPermission(fragment, activity);
+                                return false;
+                            });
+                            */
                         }
                     }
 

@@ -20,6 +20,7 @@ class PreferenceAllowed {
     boolean notAllowedG1;
     boolean notAllowedPPPPS;
     boolean notAllowedShizuku;
+    boolean notInstalledDelta;
 
     private int _isRooted = -1;
     private int _serviceBinaryExists = -1;
@@ -59,6 +60,7 @@ class PreferenceAllowed {
         notAllowedG1 = preferenceAllowed.notAllowedG1;
         notAllowedPPPPS = preferenceAllowed.notAllowedPPPPS;
         notAllowedShizuku = preferenceAllowed.notAllowedShizuku;
+        notInstalledDelta = preferenceAllowed.notInstalledDelta;
     }
 
     String getNotAllowedPreferenceReasonString(Context context) {
@@ -1097,10 +1099,15 @@ class PreferenceAllowed {
                             } else
                                 preferenceAllowed = PREFERENCE_ALLOWED;
                         } else {
-                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
-                            notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                            return;
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0) {
+                                    preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                                    notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                                    notInstalledDelta = true;
+                                }
+                            } else
+                                preferenceAllowed = PREFERENCE_ALLOWED;
                         }
                     } else if (isRooted() == 1) {
                         // device is rooted
@@ -1129,14 +1136,21 @@ class PreferenceAllowed {
 //                            sim0Exists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                             TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null)
+                                //noinspection deprecation
                                 sim0Exists = telephonyManager.getPhoneCount() > 0;
                             if (!sim0Exists) {
                                 preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
                         } else {
-                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0) {
+                                    preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                                    notInstalledDelta = true;
+                                }
+                            } else
+                                preferenceAllowed = PREFERENCE_ALLOWED;
                         }
                     } else {
                         if (profile != null) {
