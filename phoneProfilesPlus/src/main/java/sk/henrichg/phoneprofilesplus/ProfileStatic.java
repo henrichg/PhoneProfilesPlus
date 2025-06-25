@@ -1234,14 +1234,14 @@ class ProfileStatic {
             grantedShizukuPermission = false;
         }
 
-        boolean installDelta = true;
-        if (preferenceAllowed.notInstalledDelta) {
-            installDelta = false;
-        }
-
         boolean installedPPPPS = true;
         if (preferenceAllowed.notAllowedPPPPS) {
             installedPPPPS = false;
+        }
+
+        boolean installDelta = true;
+        if (preferenceAllowed.notInstalledDelta) {
+            installDelta = false;
         }
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);

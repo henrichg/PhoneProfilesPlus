@@ -1101,13 +1101,12 @@ class PreferenceAllowed {
                         } else {
                             if (profile != null) {
                                 if (profile._deviceWiFiAP != 0) {
-                                    preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
-                                    notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                                     notInstalledDelta = true;
                                 }
-                            } else
-                                preferenceAllowed = PREFERENCE_ALLOWED;
+                            }
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                            notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
                     } else if (isRooted() == 1) {
                         // device is rooted
@@ -1145,12 +1144,12 @@ class PreferenceAllowed {
                         } else {
                             if (profile != null) {
                                 if (profile._deviceWiFiAP != 0) {
-                                    preferenceAllowed = PREFERENCE_NOT_ALLOWED;
-                                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
                                     notInstalledDelta = true;
                                 }
-                            } else
-                                preferenceAllowed = PREFERENCE_ALLOWED;
+                            }
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                            notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
                     } else {
                         if (profile != null) {

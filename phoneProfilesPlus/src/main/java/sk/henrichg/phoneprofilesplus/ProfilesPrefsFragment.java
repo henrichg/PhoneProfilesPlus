@@ -24,6 +24,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7168,6 +7169,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            if ((Build.VERSION.SDK_INT <= 36) || (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA))
+                Log.e("ProfilePrefsFragment.setSummaryRadios", "");
             if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
 //                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
@@ -8797,46 +8800,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
 
-                    preference = prefMng.findPreference(PREF_INSTALL_DELTA_PREFERENCES);
-                    if (!preferenceAllowed.notInstalledDelta) {
-                        if (preference != null) {
-                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
-                            if (preferenceCategory != null)
-                                preferenceCategory.removePreference(preference);
-                        }
-                    } else {
-                        if (preference == null) {
-                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
-                            if (preferenceCategory != null) {
-                                preference = new StartActivityPreference(context);
-                                preference.setKey(PREF_INSTALL_DELTA_PREFERENCES);
-                                preference.setIconSpaceReserved(false);
-                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                                preference.setOrder(-100);
-                                preferenceCategory.addPreference(preference);
-                            }
-                        }
-                        if (preference != null) {
-                            String _title;
-                            _title = order + ". " + context.getString(R.string.preferences_installDeltaPreferences_title);
-                            ++order;
-                            Spannable title = new SpannableString(_title);
-                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
-                            preference.setTitle(title);
-                            Spannable summary;
-                            summary = new SpannableString(context.getString(R.string.profile_preferences_types_shizuku_show_info1));
-                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
-                            preference.setSummary(summary);
-
-                            /*
-                            preference.setOnPreferenceClickListener(preference12 -> {
-                                Permissions.grantShizukuPermission(fragment, activity);
-                                return false;
-                            });
-                            */
-                        }
-                    }
-
                     // not some permissions
                     if (profilePermissions.isEmpty()) {
                         preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
@@ -9053,6 +9016,49 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             }
                         }
                     }
+
+                    // not installed Delta
+                    preference = prefMng.findPreference(PREF_INSTALL_DELTA_PREFERENCES);
+                    if (!preferenceAllowed.notInstalledDelta) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
+                        }
+                    } else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = fragment.findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new StartActivityPreference(context);
+                                preference.setKey(PREF_INSTALL_DELTA_PREFERENCES);
+                                preference.setIconSpaceReserved(false);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-100);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            String _title;
+                            _title = order + ". " + context.getString(R.string.preferences_installDeltaPreferences_title);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            Spannable summary;
+                            summary = new SpannableString(context.getString(R.string.profile_preferences_types_shizuku_show_info1));
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
+                            preference.setSummary(summary);
+
+                            // TODO tu este dorob instalaciu Delta
+                            /*
+                            preference.setOnPreferenceClickListener(preference12 -> {
+                                Permissions.grantShizukuPermission(fragment, activity);
+                                return false;
+                            });
+                            */
+                        }
+                    }
+
                 } else
                     hidePreferences = true;
 
