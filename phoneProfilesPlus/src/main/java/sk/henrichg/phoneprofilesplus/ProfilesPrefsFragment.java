@@ -24,7 +24,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7169,8 +7168,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
             PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-            if ((Build.VERSION.SDK_INT <= 36) || (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA))
-                Log.e("ProfilePrefsFragment.setSummaryRadios", "");
             if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             {
 //                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))

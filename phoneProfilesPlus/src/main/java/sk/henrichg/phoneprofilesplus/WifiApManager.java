@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -409,7 +408,6 @@ final class WifiApManager {
     }
 
     static void startTethering36(final Context context, boolean doNotChangeWifi) {
-        Log.e("WifiApManager.startTethering36", "(1)");
         if (!doNotChangeWifi) {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             if (wifiManager != null) {
@@ -432,8 +430,6 @@ final class WifiApManager {
     }
 
     static void stopTethering36(Context context) {
-        Log.e("WifiApManager.stopTethering36", "(1)");
-
         Intent intent = new Intent("dev.shadoe.delta.action.STOP_SOFT_AP");
         intent.setPackage(PPApplication.PACKAGE_NAME_DELTA);
         intent.setClassName(PPApplication.PACKAGE_NAME_DELTA, "dev.shadoe.delta.SoftApBroadcastReceiver");
