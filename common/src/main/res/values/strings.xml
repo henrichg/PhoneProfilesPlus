@@ -2350,14 +2350,14 @@
 
     <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
     <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
-    <string name="vpn_profile_pref_dlg_info_openvpnconnect">OpenVPN Connect</string>
-    <string name="vpn_profile_pref_dlg_info_openvpnforandroid">OpenVPN for Android</string>
-    <string name="vpn_profile_pref_dlg_info_wireguard">WireGuard</string>
+    <string name="vpn_profile_pref_dlg_info_openvpnconnect" translatable="false">OpenVPN Connect</string>
+    <string name="vpn_profile_pref_dlg_info_openvpnforandroid" translatable="false">OpenVPN for Android</string>
+    <string name="vpn_profile_pref_dlg_info_wireguard" translatable="false">WireGuard</string>
 
     <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
     <string name="profile_preferences_deviceWiFiAPInfo36_summary">This parameter requires an application Delta that must be installed. Click here for more information.</string>
     <string name="wifi_ap_profile_pref_dlg_info_app_install_links">It is important that you have installed application Delta on your device.</string>
-    <string name="wifi_ap_profile_pref_dlg_info_delta">Delta</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta" translatable="false">Delta</string>
 
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Important: in application Delta must be enabled \"Tasker integration\".</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
