@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">Имя профиля OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Название туннеля WireGuard:</string>
     <string name="altype_profileError_setVPN">профиль - ошибка VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Подключение/отключение VPN для OpenVPN перенесено из \"Прочих\"/\"Запуск приложений, ярлыков, intent\'ов\" в параметр \"VPN\".</string>
     <string name="permission_why_profile_wireguard">для включения/отключения туннеля приложением WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard не установлен или версия не поддерживается.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">Приложение OpenVPN Connect не установлено.</string>
@@ -2324,4 +2323,13 @@
     <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">На некоторых устройствах (OnePlus, Oppo, …) для изменения громкости запросов спец. возможностей требуется PhoneProfielsPlusExtender. Пожалуйста, установите и запустите его.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Чтобы изменять громкость запросов спец. возможностей, установите PhoneProfilesPlusExtender. Для этого нажмите сюда.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Чтобы изменять громкость запросов спец. возможностей, разрешите PhoneProfilesPlusExtender доступ к спец. возможностям в настройках системы.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">This parameter requires an application Delta that must be installed. Click here for more information.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">It is important that you have installed application Delta on your device.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Important: in application Delta must be enabled \"Tasker integration\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Don\'t forget to save the change by clicking the \"Save\" button.</string>
+    <string name="preferences_installDeltaPreferences_title">Delta application is not installed.</string>
 </resources>

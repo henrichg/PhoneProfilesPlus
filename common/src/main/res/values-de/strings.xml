@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">Name des OpenVPN-Profils:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Name des WireGuard-Tunnels:</string>
     <string name="altype_profileError_setVPN">Profil - Fehler beim Festlegen des VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">VPN für OpenVPN verbinden/trennen wurde von „Andere“/„Anwendungen, Tastaturkürzel und Absichten ausführen“ in den Parameter „VPN“ verschoben.</string>
     <string name="permission_why_profile_wireguard">zum Auf- und Abbau des Tunnels durch die WireGuard-Anwendung</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard ist nicht installiert oder liegt in einer nicht unterstützten Version vor.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect ist nicht installiert.</string>
@@ -2321,7 +2320,16 @@
     <string name="profile_preferences_volumeMediaInfo_summary_2">Hinweis: Dies funktioniert möglicherweise nicht über PPP. Es ist besser, dies in den Geräteeinstellungen zu deaktivieren.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In einigen Geräten (OnePlus, Oppo, …), funknktionieren Änderungen der Medien-Lautstärke nicht. Aus diesem Grund muss PPP die Zugänglichkeit zur Lautstärke bei diesen Geräten ändern.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In einigen Geräten (OnePlus, Oppo, …), funknktionieren Änderungen der Medien-Lautstärke nicht. Aus diesem Grund muss PPP die Zugänglichkeit zur Lautstärke bei diesen Geräten ändern. Dafür wird aber der PhoneProfielsPlusExtender benötigt. Bitte installieren und aktivieren Sie ihn.</string>
-    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accessibility prompt volume\" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Dieser Parameter erfordert eine Anwendung, die installiert werden muss. Klicken Sie hier für weitere Informationen.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Es ist wichtig, dass Sie die Anwendung auf Ihrem Gerät installiert haben, die im Parameter „VPN-Anwendung“ konfiguriert ist.</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">Delta nicht installiert</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Dieser Parameter erfordert die Anwendung Delta, die installiert werden muss. Klicken Sie hier für weitere Informationen.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Es ist wichtig, dass die Anwendung Delta auf Ihrem Gerät installiert ist.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Wichtig: In der Anwendung Delta muss die „Tasker-Integration“ aktiviert sein.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Aktivieren Sie den Parameter unter „Einstellungen“ ➜ „Erweiterte Einstellungen“ ➜ „Tasker-Integration“.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Vergessen Sie nicht, die Änderung zu speichern, indem Sie auf die Schaltfläche „Speichern“ klicken.</string>
+    <string name="preferences_installDeltaPreferences_title">Die Anwendung Delta ist nicht installiert.</string>
 </resources>

@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">Názov profilu OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Názov tunelu WireGuard:</string>
     <string name="altype_profileError_setVPN">profil - chyba pri nastavovaní VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Pripojiť/odpojiť VPN pre OpenVPN sa presunulo z \"Ostatné\"/\"Spustiť aplikácie, odkazy, intenty\" do parametra \"VPN\".</string>
     <string name="permission_why_profile_wireguard">pre nastavenie zapnutia/vypnutia tunelu pomocou aplikácie WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard nie je nainštalovaný alebo je v nepodporovanej verzii.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect nie je nainštalovaný.</string>
@@ -2318,10 +2317,19 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Ak sa v stavovom riadku namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Kliknite sem, zobrazí sa ako.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Ak sa v notifikáciách zobrazuje namiesto ikony profilu ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Kliknite sem, zobrazí sa ako.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">V tejto situácii sa odporúča</string>
-    <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
-    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
-    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Poznámka: Toto nemusí fungovať v PPP. Je lepšie to vypnúť v nastaveniach zariadenia.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">V niektorých zariadeniach (OnePlus, Oppo, …) nefunguje zmena hlasitosti médií. Z tohto dôvodu musí PPP v týchto zariadeniach zmeniť hlasitosť hlášok dostupnosti.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">V niektorých zariadeniach (OnePlus, Oppo, …) nefunguje zmena hlasitosti médií. Z tohto dôvodu musí PPP v týchto zariadeniach zmeniť hlasitosť hlášok dostupnosti. Na to je však potrebný PhoneProfielsPlusExtender. Nainštalujte a povoľte ho.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">V niektorých zariadeniach (OnePlus, Oppo, …) si zmena \"Hlasitosť hlášok dostupnosti\" vyžaduje aplikáciu PhoneProfilesPlusExtender. Nainštalujte a povoľte ho.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Ak chcete zmeniť \"Hlasitosť hlášok dostupnosti\", kliknite sem a nainštalujte aplikáciu PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Ak chcete zmeniť \"Hlasitosť hlášok dostupnosti\", povoľte v systémových nastaveniach funkciu \"Zjednodušenie ovládania\" pre PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Tento parameter vyžaduje nainštalovanú aplikáciu. Kliknite sem pre viac informácií.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Je dôležité, aby ste mali na svojom zariadení nainštalovanú aplikáciu, ktorá je nakonfigurovaná v parametri \"VPN aplikácia\".</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">nie je nainštalované Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Tento parameter vyžaduje nainštalovanú aplikáciu Delta. Kliknite sem pre viac informácií.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Je dôležité, aby ste mali na svojom zariadení nainštalovanú aplikáciu Delta.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Dôležité: v aplikácii Delta musí byť povolené \"Tasker integration\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter sa nachádza v \"Settings/Advanced settings/Tasker integration\". Povoľte ho.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Nezabudnite uložiť zmenu kliknutím na tlačidlo \"Save\".</string>
+    <string name="preferences_installDeltaPreferences_title">Aplikácia Delta nie je nainštalovaná.</string>
 </resources>

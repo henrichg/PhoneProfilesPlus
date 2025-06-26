@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN Tercih ismi:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard Tünel ismi:</string>
     <string name="altype_profileError_setVPN">Tercih - VPN ayarlamada hata</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">OpenVPN için VPN\'e bağlan/bağlantıyı kes, \"Diğerleri\"/\"Uygulamaları, kısayolları, intent\'leri çalıştır\" bölümünden \"VPN\" değerine taşındı.</string>
     <string name="permission_why_profile_wireguard">WireGuard uygulamasıyla tüneli yukarı/aşağı ayarlamak için</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard kurulu değil veya desteklenmeyen bir sürümde.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect yüklü değil.</string>
@@ -2321,7 +2320,16 @@
     <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
-    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accesibility prompt volume\" requires PhoneProfielsPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accessibility prompt volume\" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">This parameter requires an application Delta that must be installed. Click here for more information.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">It is important that you have installed application Delta on your device.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Important: in application Delta must be enabled \"Tasker integration\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Don\'t forget to save the change by clicking the \"Save\" button.</string>
+    <string name="preferences_installDeltaPreferences_title">Delta application is not installed.</string>
 </resources>

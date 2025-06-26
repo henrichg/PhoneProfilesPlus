@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profielnaam:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnelnaam:</string>
     <string name="altype_profileError_setVPN">profiel - fout bij instellen VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Verbinden/verbreken van VPN voor OpenVPN is verplaatst van \"Overige\"/\"Programma\'s uitvoeren, snelkoppelingen, intents\" naar de parameter \"VPN\".</string>
     <string name="permission_why_profile_wireguard">voor het instellen van tunnel aan/uit door WireGuard toepassing</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is niet geïnstalleerd of is een niet-ondersteunde versie.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN verbinding is niet geïnstalleerd.</string>
@@ -2324,4 +2323,13 @@
     <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">Op sommige apparaten (OnePlus, Oppo, …), is wijzigen van \"Toegankelijkheid prompt volume\" nodig PhoneProfielsPlusExtender. Installeer PhoneProfielsPlusExtender en zet het aan.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Om \"Toegankelijkheid prompt volume\" te wijzigen, klik je hier om PhoneProfilesPlusExtender te installeren.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Sta PhoneProfilesPlusExtender toe in \"Instellingen voor toegankelijkheid\" toe om \"Toegankelijkheid prompt volume\" aan te passen.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Deze parameter vereist een App die moet worden geïnstalleerd. Klik hier voor meer informatie.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Het is belangrijk dat je de App hebt geïnstalleerd die is geconfigureerd bij \"VPN applicatie\".</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">niet geïnstalleerde Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Deze parameter vereist de App Delta die geïnstalleerd moet zijn. Klik hier voor meer informatie.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Het is belangrijk dat je App Delta hebt geïnstalleerd op je apparaat.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Belangrijk: In de App Delta moet \"Tasker-integratie\" actief zijn.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter in \"Instellingen/Geavanceerde instellingen/Tasker integratie\". Schakel het in.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Vergeet niet om de wijziging op te slaan door op de knop \"Opslaan\" te klikken.</string>
+    <string name="preferences_installDeltaPreferences_title">Delta App is niet geïnstalleerd.</string>
 </resources>
