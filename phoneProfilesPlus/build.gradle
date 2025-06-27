@@ -179,9 +179,9 @@ dependencies {
     implementation 'com.github.simbiose:Encryption:2.0.1'
 
     /// for Shizuku usage of profile parameters in non-rooted devices
-    //noinspection GradleDependency
+    //noinspection NewerVersionAvailable,GradleDependency
     implementation "dev.rikka.shizuku:api:$ppVersions.shizuku"
-    //noinspection GradleDependency
+    //noinspection NewerVersionAvailable,GradleDependency
     implementation "dev.rikka.shizuku:provider:$ppVersions.shizuku"
     /////
 
