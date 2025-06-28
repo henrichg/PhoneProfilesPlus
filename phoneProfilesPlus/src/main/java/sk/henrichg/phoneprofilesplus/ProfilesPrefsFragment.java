@@ -9046,13 +9046,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                             preference.setSummary(summary);
 
-                            // TODO tu este dorob instalaciu Delta
-                            /*
                             preference.setOnPreferenceClickListener(preference12 -> {
-                                Permissions.grantShizukuPermission(fragment, activity);
+                                InfoDialogPreferenceFragment.installDelta(activity);
                                 return false;
                             });
-                            */
                         }
                     }
 

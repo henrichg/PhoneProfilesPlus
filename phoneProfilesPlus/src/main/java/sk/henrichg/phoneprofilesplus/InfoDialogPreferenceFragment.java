@@ -173,50 +173,59 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             } catch (Exception ignored) {}
         }
         if (showDeltaInstallationSite) {
-            PackageManager packageManager = activity.getPackageManager();
-            Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
-            boolean fdroidInstalled = (_intent != null);
-            _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
-            boolean droidifyInstalled = (_intent != null);
-            _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
-            boolean neostoreInstalled = (_intent != null);
-
-            if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
-                if (droidifyInstalled) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=dev.shadoe.delta"));
-                    intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
-                    try {
-                        activity.startActivity(intent);
-                    } catch (Exception ignored) {}
-                } else if (neostoreInstalled) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=dev.shadoe.delta"));
-                    intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
-                    try {
-                        activity.startActivity(intent);
-                    } catch (Exception ignored) {}
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=dev.shadoe.delta"));
-                    intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
-                    try {
-                        activity.startActivity(intent);
-                    } catch (Exception ignored) {}
-                }
-            } else {
-                String url = PPApplication.DELTA_APPLICATION_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
-            }
+            installDelta(activity);
         }
     }
 
     @Override
     public void onLongClick(String text) {
+
+    }
+
+    static void installDelta(final Activity activity) {
+        if (activity == null) {
+            return;
+        }
+
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+        boolean fdroidInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+        boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
+
+        if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
+            if (droidifyInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {}
+            } else if (neostoreInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {}
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {}
+            }
+        } else {
+            String url = PPApplication.DELTA_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
 
     }
 
