@@ -8,6 +8,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -894,34 +895,86 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        // TODO sem daj moznost instalacie Shizuku zo storov, ak ich ma naistalovane. Ako u Delta.
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+        boolean fdroidInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+        boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
+
         TextView helpForShizukuDownloadTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_2);
         if (helpForShizukuDownloadTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-            Spannable spannable = new SpannableString(str1);
-            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    ds.setColor(ds.linkColor);    // you can use custom color
-                    ds.setUnderlineText(false);    // this remove the underline
-                }
-
-                @Override
-                public void onClick(@NonNull View textView) {
-                    String url = "https://shizuku.rikka.app/download/";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
+            if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
+                String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                Spannable spannable = new SpannableString(str1);
+                //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
                     }
-                }
-            };
-            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-            helpForShizukuDownloadTextView.setText(spannable);
-            helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        if (droidifyInstalled) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {}
+                        } else if (neostoreInstalled) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {}
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                };
+                spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                helpForShizukuDownloadTextView.setText(spannable);
+                helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            } else {
+                String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                Spannable spannable = new SpannableString(str1);
+                //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        String url = "https://shizuku.rikka.app/download/";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                };
+                spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                helpForShizukuDownloadTextView.setText(spannable);
+                helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
 
         TextView helpForShizukuSetupTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_3);

@@ -195,8 +195,8 @@ public class PPApplication extends Application
 
     static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
 
-    // TODO change to latest version
-    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.4/InstallWithOptions_0.6.4-release.apk";
+    // TODO change InstallWithOptions downlaod to latest version
+    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.7.5/InstallWithOptions_0.7.5-release.apk";
 
     static final String OPENVPN_CONNECT_APPLICATION_URL = "https://play.google.com/store/apps/details?id=net.openvpn.openvpn";
     static final String OPENVPN_FOR_ANDROID_APPLICATION_URL = "https://play.google.com/store/apps/details?id=de.blinkt.openvpn";
