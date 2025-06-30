@@ -263,7 +263,8 @@ public class ActivatorListFragment extends Fragment {
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
                 //fragment.progressBar.setVisibility(View.VISIBLE);
 
-                numColumns = fragment.gridView.getNumColumns();
+                if (applicationActivatorGridLayout)
+                    numColumns = fragment.gridView.getNumColumns();
             }
         }
 
