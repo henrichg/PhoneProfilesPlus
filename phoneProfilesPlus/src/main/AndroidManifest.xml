@@ -88,7 +88,7 @@
     <!-- for "Night light settings" profile parameter in "Samsung devices -->
     <uses-permission android:name="com.samsung.android.permission.SEC_EYECOMFORT_BROADCAST"/>
 
-    <!-- for Termux application -required for SentIntent commands impleneted fot Tasker -->
+    <!-- for Termux application - required for SentIntent commands implemented for Tasker -->
     <uses-permission android:name="com.termux.permission.RUN_COMMAND"/>
 
 <!--    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>-->
