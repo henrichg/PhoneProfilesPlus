@@ -187,6 +187,10 @@ public class PPApplication extends Application
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG = "https://henrichg.github.io/PhoneProfilesPlus/airplane_mode_radios_config.html";
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/airplane_mode_radios_config.md";
 
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md
+    static final String HELP_INSTALL_SHIZUKU_URL = "https://henrichg.github.io/PhoneProfilesPlus/install_shizuku.html";
+    static final String HELP_INSTALL_SHIZUKU_URL_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/install_shizuku.md";
+
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
     //This file: https://github.com/henrichg/PPPPutSettings/blob/main/docs/install_apk_from_pc.md
@@ -196,7 +200,7 @@ public class PPApplication extends Application
     //static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
 
     // TODO change InstallWithOptions downlaod to latest version
-    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.7.5/InstallWithOptions_0.7.5-release.apk";
+    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.8.0/InstallWithOptions_0.8.0-release.apk";
 
     static final String OPENVPN_CONNECT_APPLICATION_URL = "https://play.google.com/store/apps/details?id=net.openvpn.openvpn";
     static final String OPENVPN_FOR_ANDROID_APPLICATION_URL = "https://play.google.com/store/apps/details?id=de.blinkt.openvpn";

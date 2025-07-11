@@ -375,6 +375,7 @@ class EventStatic {
                 try {
                     connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 } catch (Exception e) {
+                    //noinspection UnusedAssignment
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 }
                 if (connManager == null)

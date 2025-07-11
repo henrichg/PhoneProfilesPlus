@@ -895,7 +895,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
-        // TODO sem daj moznost instalacie Shizuku zo storov, ak ich ma naistalovane. Ako u Delta.
         PackageManager packageManager = activity.getPackageManager();
         Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
         boolean fdroidInstalled = (_intent != null);
@@ -906,8 +905,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView helpForShizukuDownloadTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_2);
         if (helpForShizukuDownloadTextView != null) {
+            String str1;
             if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
-                String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
                 Spannable spannable = new SpannableString(str1);
                 //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -946,9 +946,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 helpForShizukuDownloadTextView.setText(spannable);
-                helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
             } else {
-                String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
                 Spannable spannable = new SpannableString(str1);
                 //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -961,7 +960,11 @@ public class ImportantInfoHelpFragment extends Fragment {
                     @Override
                     public void onClick(@NonNull View textView) {
                         //String url = "https://shizuku.rikka.app/download/";
-                        String url = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md";
+                        String url;
+                        if (DebugVersion.enabled)
+                            url = PPApplication.HELP_INSTALL_SHIZUKU_URL_DEVEL;
+                        else
+                            url = PPApplication.HELP_INSTALL_SHIZUKU_URL;
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         try {
@@ -974,8 +977,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 helpForShizukuDownloadTextView.setText(spannable);
-                helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
             }
+            helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         TextView helpForShizukuSetupTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_3);

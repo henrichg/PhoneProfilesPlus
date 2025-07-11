@@ -3508,6 +3508,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 enableLightnessArrows = !useDynamicColorsWidgetOneRowProfileList;
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
+                //noinspection ConstantValue
                 _preference.setEnabled((!useDynamicColorsWidgetOneRowProfileList) && enableLightnessArrows);
         }
 

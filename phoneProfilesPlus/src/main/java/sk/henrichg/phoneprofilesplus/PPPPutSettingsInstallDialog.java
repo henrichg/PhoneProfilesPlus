@@ -381,7 +381,6 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
         //noinspection DataFlowIssue
         text0.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
-        // TODO sem daj moznost instalacie Shizuku zo storov, ak ich ma naistalovane. Ako u Delta.
         TextView text1 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text1);
         if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
             String str1 = activity.getString(R.string.install_pppps_text13_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
@@ -426,7 +425,11 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
             text1.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             //String url = "https://shizuku.rikka.app/download/";
-            String url = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md";
+            String url;
+            if (DebugVersion.enabled)
+                url = PPApplication.HELP_INSTALL_SHIZUKU_URL_DEVEL;
+            else
+                url = PPApplication.HELP_INSTALL_SHIZUKU_URL;
             dialogText = activity.getString(R.string.install_pppps_text13) + " " +
                     StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML;
             //noinspection DataFlowIssue
@@ -434,7 +437,6 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
             text1.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
-        // TODO sem daj moznost instalacie InstallWithOptions zo storov, ak ich ma naistalovane. Ako u Delta.
         TextView text2 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text2);
         if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
             String str1 = activity.getString(R.string.install_pppps_text14_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;

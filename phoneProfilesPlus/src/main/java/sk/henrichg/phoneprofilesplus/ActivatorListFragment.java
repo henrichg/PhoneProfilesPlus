@@ -367,6 +367,7 @@ public class ActivatorListFragment extends Fragment {
                                 // Activator must be displayed for grant notification permission
                                 if (((ActivatorActivity) fragment.getActivity()).firstStartOfPPP) {
                                     try {
+                                        //noinspection DataFlowIssue
                                         fragment.getActivity().finish();
                                     } catch (Exception e) {
                                         PPApplicationStatic.recordException(e);
@@ -625,6 +626,7 @@ public class ActivatorListFragment extends Fragment {
             }
         }
         else {
+            //noinspection DataFlowIssue
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
