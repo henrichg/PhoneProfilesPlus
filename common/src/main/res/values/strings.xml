@@ -2369,7 +2369,7 @@
     <string name="install_pppps_text13_1">1. Install and start Shizuku (if device is not rooted). Click here to install it from store.</string>
     <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
 
-    <string name="important_info_advanced_protection">IMPORTANT: If is enabled in device \"Adwanced protection\", is not possible to install required apllicaitons (PPPE, PPPPS, InstallWithOptions, Shizuku) from third-party applications stores (Drofi-ify, F-Droid, NeoStore). Also most of functionalities in PPP not correctly working. Please disable it.</string>
+    <string name="important_info_advanced_protection">IMPORTANT: If is enabled in device \"Advanced protection\", is not possible to install required apllicaitons (PPPE, PPPPS, InstallWithOptions, Shizuku) from third-party applications stores (Drofi-ify, F-Droid, NeoStore). Also most of functionalities in PPP not correctly working. Please disable it.</string>
 
     <!-- **************************************************************************************** -->
 
