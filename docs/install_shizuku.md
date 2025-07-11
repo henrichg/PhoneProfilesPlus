@@ -9,6 +9,7 @@ Shizuku is in IzzyOnDroid repository. Recommended is installing it from supporte
 IzzyOnDroid repository:
 - <https://apt.izzysoft.de/fdroid/index/apk/moe.shizuku.privileged.api>
 
+
 But is also possible to install it directly from downloaded apk:
 - <https://github.com/RikkaApps/Shizuku/releases>
 
