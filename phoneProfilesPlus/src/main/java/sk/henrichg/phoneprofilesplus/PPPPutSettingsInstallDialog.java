@@ -425,7 +425,8 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
             text1.setText(spannable);
             text1.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
-            String url = "https://shizuku.rikka.app/download/";
+            //String url = "https://shizuku.rikka.app/download/";
+            String url = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md";
             dialogText = activity.getString(R.string.install_pppps_text13) + " " +
                     StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML;
             //noinspection DataFlowIssue

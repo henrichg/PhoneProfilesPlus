@@ -193,7 +193,7 @@ public class PPApplication extends Application
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://henrichg.github.io/PPPPutSettings/install_apk_from_pc.html";
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
-    static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
+    //static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
 
     // TODO change InstallWithOptions downlaod to latest version
     static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.7.5/InstallWithOptions_0.7.5-release.apk";

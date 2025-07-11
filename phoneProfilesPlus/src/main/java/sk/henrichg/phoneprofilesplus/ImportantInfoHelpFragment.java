@@ -960,7 +960,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                     @Override
                     public void onClick(@NonNull View textView) {
-                        String url = "https://shizuku.rikka.app/download/";
+                        //String url = "https://shizuku.rikka.app/download/";
+                        String url = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md";
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         try {
