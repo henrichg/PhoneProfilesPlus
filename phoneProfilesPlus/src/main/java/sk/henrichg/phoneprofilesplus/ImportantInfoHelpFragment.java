@@ -191,6 +191,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView infoTextnews2 = view.findViewById(R.id.important_info_news_2);
         TextView infoTextnews3 = view.findViewById(R.id.important_info_news_3);
         TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);*/
+        TextView infoTextnewAP = view.findViewById(R.id.activity_info_advancedProtection_news);
         if (!news) {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
@@ -204,6 +205,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoTextnews3.setVisibility(View.GONE);
             if (infoTextnews4 != null)
                 infoTextnews4.setVisibility(View.GONE);*/
+            if (infoTextnewAP != null)
+                infoTextnewAP.setVisibility(View.GONE);
         } else {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
@@ -212,6 +215,18 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoTextNewsSeparator.setVisibility(View.VISIBLE);
 
             //TODO add textVews of News
+
+            if (infoTextnewAP != null) {
+                if (Build.VERSION.SDK_INT >= 36) {
+                    infoTextnewAP.setVisibility(View.VISIBLE);
+                }
+                else {
+                    infoTextNews.setVisibility(View.GONE);
+                    infoTextNewsSeparator.setVisibility(View.GONE);
+                    infoTextnewAP.setVisibility(View.GONE);
+                }
+            }
+
             /*if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.VISIBLE);
             if (infoTextnews2 != null)
@@ -1052,6 +1067,13 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         }
         */
+
+        if (Build.VERSION.SDK_INT < 36) {
+            TextView infoText99 = view.findViewById(R.id.activity_info_advancedProtection);
+            if (infoText99 != null)
+                infoText99.setVisibility(View.GONE);
+        }
+
     }
 
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
