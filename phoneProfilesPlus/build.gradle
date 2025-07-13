@@ -176,7 +176,8 @@ dependencies {
     implementation 'com.linkedin.dexmaker:dexmaker:2.28.5' //2.28.4'
 
     /// for backup/restore encripted data
-    implementation 'com.github.simbiose:Encryption:2.0.1'
+    /// replaced with module encryption
+    //implementation 'com.github.simbiose:Encryption:2.0.1'
 
     /// for Shizuku usage of profile parameters in non-rooted devices
     //noinspection NewerVersionAvailable,GradleDependency
@@ -195,4 +196,5 @@ dependencies {
     implementation project(':AndroidClearChroma')
     implementation project(':recyclerview-fastscroll')
     implementation project(':noobcameraflash')
+    implementation project(':encryption')
 }
