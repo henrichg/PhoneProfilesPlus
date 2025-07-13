@@ -56,7 +56,7 @@ public class PPApplication extends Application
                                         //implements Application.ActivityLifecycleCallbacks
 {
     // this version code must by <= then version code in dependencies.gradle
-    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7240;
+    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7281;
     // TODO set it to false if you do not want to show News
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
     // TODO set it to false if you do not want to show notification
@@ -65,10 +65,10 @@ public class PPApplication extends Application
     //// Extender versions
     // for this version will be displayed upgrade notification
     //  required must by <= latest
-    static final int VERSION_CODE_EXTENDER_REQUIRED = 910;
-    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0";
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 935;
+    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0.1.3";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_EXTENDER_LATEST = 910;
+    static final int VERSION_CODE_EXTENDER_LATEST = 935;
     //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.7";
     ///////
 
@@ -187,16 +187,25 @@ public class PPApplication extends Application
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG = "https://henrichg.github.io/PhoneProfilesPlus/airplane_mode_radios_config.html";
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/airplane_mode_radios_config.md";
 
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md
+    static final String HELP_INSTALL_SHIZUKU_URL = "https://henrichg.github.io/PhoneProfilesPlus/install_shizuku.html";
+    static final String HELP_INSTALL_SHIZUKU_URL_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/install_shizuku.md";
+
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
     //This file: https://github.com/henrichg/PPPPutSettings/blob/main/docs/install_apk_from_pc.md
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://henrichg.github.io/PPPPutSettings/install_apk_from_pc.html";
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
-    static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
+    //static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
 
-    // TODO change to latest version
-    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.4/InstallWithOptions_0.6.4-release.apk";
+    // TODO change InstallWithOptions downlaod to latest version
+    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.8.0/InstallWithOptions_0.8.0-release.apk";
+
+    static final String OPENVPN_CONNECT_APPLICATION_URL = "https://play.google.com/store/apps/details?id=net.openvpn.openvpn";
+    static final String OPENVPN_FOR_ANDROID_APPLICATION_URL = "https://play.google.com/store/apps/details?id=de.blinkt.openvpn";
+    static final String WIREGUARD_APPLICATION_URL = "https://play.google.com/store/apps/details?id=com.wireguard.android&";
+    static final String DELTA_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/dev.shadoe.delta";
 
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
     //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
@@ -403,12 +412,12 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
-    static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+    static final int ALTYPE_CALL_CONTROL_BLOCKED_CALL = 114;
     // TODO actual max. value = 115;
 
     static final int ALFILTER_ALL = 0;
-    static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;
-        // ALTYPE_CALL_SCREENING_BLOCKED_CALL
+    static final int ALFILTER_CALL_CONTROL_BLOCKED_CALL = 1;
+        // ALTYPE_CALL_CONTROL_BLOCKED_CALL
     static final int ALFITER_ERRORS = 2;
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT
@@ -461,6 +470,25 @@ public class PPApplication extends Application
         // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
         // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
         // ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION
+    static final int ALFILTER_EVENTS_LIFECYCLE = 8;
+        // ALTYPE_EVENT_START
+        // ALTYPE_EVENT_START_DELAY
+        // ALTYPE_EVENT_END_NONE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE
+        // ALTYPE_EVENT_END_UNDO_PROFILE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE
+        // ALTYPE_EVENT_END_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
+        // ALTYPE_EVENT_END_DELAY
+        // ALTYPE_EVENT_STOP
+        // ALTYPE_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_MERGED_PROFILE_ACTIVATION
+        // ALTYPE_PROFILE_ACTIVATION
 
     static final String MODEL_NEXUS = "Nexus";
     static final String MANUFACTURER_HMD_GLOBAL = "HMD Global";
@@ -499,6 +527,7 @@ public class PPApplication extends Application
     static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
     static final String PACKAGE_NAME_PPPPS = "sk.henrichg.pppputsettings";
     //static final String PACKAGE_NAME_SHIZUKU = "moe.shizuku.privileged.api";
+    static final String PACKAGE_NAME_DELTA = "dev.shadoe.delta";
 
     static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
@@ -802,6 +831,7 @@ public class PPApplication extends Application
     static final String ACTION_SMS_MMS_RECEIVED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_SMS_MMS_RECEIVED";
     static final String ACTION_CALL_RECEIVED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_CALL_RECEIVED";
     static final String ACTION_LOCK_DEVICE = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_LOCK_DEVICE";
+    static final String ACTION_SET_ACCESSIBILITY_VOLUME = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_SET_ACCESSIBILITY_VOLUME";
     static final String PPP_EXTENDER_PERMISSION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACCESSIBILITY_SERVICE_PERMISSION";
 
     //static final String ACTION_SHOW_PROFILE_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION";
@@ -836,6 +866,7 @@ public class PPApplication extends Application
 
     static final String EXTRA_APPLICATIONS = "extra_applications";
     static final String EXTRA_BLOCK_PROFILE_EVENT_ACTION = "extra_block_profile_event_actions";
+    static final String EXTRA_ACCESSIBILITY_VOLUME_VALUE = "extra_accessibility_volume_value";
 
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
@@ -1081,7 +1112,10 @@ public class PPApplication extends Application
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
-    static volatile CallScreeningEventEndBroadcastReceiver callScreeningEventEndBroadcastReceiver = null;
+    static volatile CallControlEventEndBroadcastReceiver callControlEventEndBroadcastReceiver = null;
+    static volatile AnswerCallRingingLengthBroadcastReceiver answerCallRingingLengthBroadcastReceiver = null;
+    static volatile EndCallCallLengthBroadcastReceiver endCallCallLengthBroadcastReceiver = null;
+    static volatile ActivatedProfileEventEndBroadcastReceiver activatedProfileEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 
@@ -1269,6 +1303,7 @@ public class PPApplication extends Application
             return;
         }
 
+        // must be there, requires Context
         romIsGalaxy = isGalaxyROM(getApplicationContext());
         //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
 

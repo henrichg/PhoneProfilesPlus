@@ -78,7 +78,7 @@ class AddEventAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        AddEventViewHolder holder;
+        EventListViewHolder holder;
 
         View vi = convertView;
 
@@ -95,7 +95,7 @@ class AddEventAdapter extends BaseAdapter {
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
-            holder = new AddEventViewHolder();
+            holder = new EventListViewHolder();
             holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
             holder.profileStartName = vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
@@ -116,7 +116,7 @@ class AddEventAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (AddEventViewHolder)vi.getTag();
+            holder = (EventListViewHolder)vi.getTag();
         }
 
 

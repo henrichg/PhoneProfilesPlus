@@ -154,6 +154,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, profile._screenNightLight);
                 values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS, profile._screenNightLightPrefs);
                 values.put(DatabaseHandler.KEY_SCREEN_ON_OFF, profile._screenOnOff);
+                values.put(DatabaseHandler.KEY_PLAY_MUSIC, profile._playMusic);
 
                 // Insert Row
                 if (!merged) {
@@ -318,7 +319,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT,
                                 DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT,
                                 DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS,
-                                DatabaseHandler.KEY_SCREEN_ON_OFF
+                                DatabaseHandler.KEY_SCREEN_ON_OFF,
+                                DatabaseHandler.KEY_PLAY_MUSIC
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -456,7 +458,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PLAY_MUSIC))
                         );
                     }
 
@@ -614,7 +617,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT + "," +
                         DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT + "," +
                         DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS + "," +
-                        DatabaseHandler.KEY_SCREEN_ON_OFF +
+                        DatabaseHandler.KEY_SCREEN_ON_OFF + "," +
+                        DatabaseHandler.KEY_PLAY_MUSIC +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -756,6 +760,7 @@ class DatabaseHandlerProfiles {
                         profile._screenNightLight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT));
                         profile._screenNightLightPrefs = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS));
                         profile._screenOnOff = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF));
+                        profile._playMusic = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PLAY_MUSIC));
 
                         // Adding profile to list
                         profileList.add(profile);
@@ -916,6 +921,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT, profile._screenNightLight);
                 values.put(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS, profile._screenNightLightPrefs);
                 values.put(DatabaseHandler.KEY_SCREEN_ON_OFF, profile._screenOnOff);
+                values.put(DatabaseHandler.KEY_PLAY_MUSIC, profile._playMusic);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1290,7 +1296,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT,
                                 DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT,
                                 DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS,
-                                DatabaseHandler.KEY_SCREEN_ON_OFF
+                                DatabaseHandler.KEY_SCREEN_ON_OFF,
+                                DatabaseHandler.KEY_PLAY_MUSIC
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1430,7 +1437,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CLEAR_NOTIFICATION_TEXT)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_NIGHT_LIGHT_PREFS)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF))
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_SCREEN_ON_OFF)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PLAY_MUSIC))
                                 );
                     }
 

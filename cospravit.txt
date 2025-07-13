@@ -575,40 +575,127 @@ pauseEvent() moze byt aj s mergedProfile == null a to:
 Takze co robim, ked je == null?
 - aktivujem end profile a robim undo, restart events nerobim
 
+--------------------------
+
+Check critical PPP release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Zmen na PPApplication.PROFILE_NOTIFICATION_CHANNEL. Da sa toto vypnut cez action button.
+- notifikacia: PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID
+- Maze najprv nekriticku notifikaciu: PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID
+- Alarm je v shared preferences v PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm"
+- Este sa zapisuje PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification"
+  To by malo zapisovat release code PPP. Pozri kde ako sa pouziva.
+Check PPP release - mesacne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Rozmyslaj, ci nezmenis na PPApplication.PROFILE_NOTIFICATION_CHANNEL.
+  Lebo ak denny check uzivatel zakaze, mohol by tento zistit novu verziu.
+- notifikacia: PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID
+- Nezobrazuje tuto ak je zobrazena kriticka PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_PPP_RELEASE_ALARM = "github_release_alarm"
+- Tu zistuje ci je daky obchod nainstalovany. Ak je, vola _doWorkOthers(), inac _doWorkGitHub().
+  Je mozne, ze su identicke, mal by som to skontrolovat.
+Check PPPE release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Nechaj ako je. Tu sa zobrazuje, ci je nova verzia PPPE aj u parametroch proflu/udalosti.
+- notifikacia: PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_REQUIRED_EXTENDER_RELEASE_ALARM = "required_extender_release_alarm"
+Check PPPPS release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Nechaj ako je. Tu sa zobrazuje, ci je nova verzia PPPE aj u parametroch proflu/udalosti.
+- notifikacia: PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_LATEST_PPPPS_RELEASE_ALARM = "latest_pppps_release_alarm"
 
 --------------------------
 
-Add: Panel widget. Removed Samsung Edge panel.
-Change: Call of BT detector at screen on.
-Change: Better BT connected devices detection for disconnection.
-Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.
-Change: Increased speed of profile activation.
-Change: Support for Smart Launcher rounded corners in widgets.
-Change: Enabled rounded corners radius for SmartLauncher.
-Change: Rounded corners radius up to 32 (for Smart Launcher support).
-Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.
-Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.
-Change: Better show,hide header and bottom toolbar at scroll in Editor.
-Change: GUI components size different for landscape orientation.
-Change: Small GUI changes.
-Change: Changes in widgets.
-Change: Removed toolbar from Location editor.
-Change: Location editor - display map immediately at start od editor.
-Change: Show dialog about offline device status in Location editor.
-Change: Better functionality of "Rename with address" button in Location editor.
-Change: Empty line in preference summary changed to dots.
-Change: Permanent display also thumb of scrollbars.
-Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.
-Change: Do not rotate to default orientation if is required to lock orientation change.
-Change: Increased max. log file size.
-Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.
-Fix: Not working good BT van connection.
-Fix: Fixed not refreshed Tones dialog after grant permission.
-Fix: Not disabled buttons in Mobile cells registration dialog at its start.
-Fix: Not deleted red text after deletion of profile, event with errors.
-Fix: Maybe fixed draw of PPP notification at first start.
-Fix: Restart events not working properly in specific situations.
-Fix: Location preference dialog GUI.
-Fix: WindowLeak exception generated for dialogs in orientation change.
-Fix: Undo in profile duration and event end.
+Add: Added "Answer call" into "Call sensor".
+Add: Added "End call" into "Call sensor".
+Add: Added "Send SMS" into "SMS sensor".
+Add: "Play music" profile parameter.
+Change: Smart Launcher support.
+Change: Samsung One UI 7 support.
+Change: Android 16 support.
+Change: Layout changes in landscape mode.
+Change: Another changes in layout.
+Change: Small changes in simulating call ringing.
+Change: Added button "Refresh" for contacts, contact groups dialog.
+Change: Added "Events lifecycle" into "Activity log" filters.
+Change: Added configuration of activated profile for "Activity log" filter "Profile activations".
+Change: Added configuration of event for "Activity log" event filters.
+Change: Moved "Set call screening" preference into "System" with name "Default roles applications".
+Change: Added parameter into Settings for disable ringing call simulation.
+Change: "Call screening" event sensor renamed to "Call control".
+Change: Added toast about exit of application by user (from Editor menu, notification).
+Change: Better configuration of alarm for sensors with parameter "Duration".
+Change: Added required info preferences about "Restricted settings".
+Change: Added "Duration" into "Activated profile sensor".
+Change: Small changes in profile parameter "Force stop applications".
+Change: Check PPP release: Minimizing suppression of new PPP version notification.
+Change: New required PPPE version 9.0.1.2.
+Fix: Small fixes in Time and NFC sensor.
+Fix: Do not close PopupWindow at orientation change.
+Fix: Wrong displayed required PPPPS for "Screen timeout" for Oppo device.
+Fix: Not detected PPPPS if is disabled by system (Samsung deep sleep).
+Fix: Fixed permission check for "Answer call" and "End call" in "Call sensor".
+
+---------------------
+
+Toto cele je volane z doHandleEvent(). Tem je volanie:
+- startAlarmTime = computeAlarm(true/*, eventsHandler.context*/);
+- endAlarmTime = computeAlarm(false/*, eventsHandler.context*/);
+Tie su tiez zalogovane (vid dole).
+Toto cele vobec nezavisi od toho, ci je volany setAlarm(). Nemusi byt, casy sa tu testuju nezavisle od setAlarm().
+setAlarm() je len na to, aby sa doHandleEvent() zavolalo ked vyprsi alarm, cize ako okamzita reakcia na vyprsanie alarmu.
+
+startEvent = true
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  *******************
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  event=Overnight
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  now millis=1749802826280
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  times are past midnight
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=true
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  *** others ***
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=false
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  now hours are before start time hours
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=1749848400000
+2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=1749888000000
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=13.06.25 23:00:00:0
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=14.06.25 10:00:00:0
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  startEvent=true
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (1) alarmTime=13.06.25 23:00:00:0
+
+startEvent = false
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  *******************
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  event=Overnight
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  now millis=1749802826282
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  times are past midnight
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=true
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  *** others ***
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=false
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  now hours are before start time hours
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=1749848400000
+2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=1749888000000
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=13.06.25 23:00:00:0
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=14.06.25 10:00:00:0
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  startEvent=false
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (2) alarmTime=14.06.25 10:00:00:0
+
+Samotne volanie handlera - timePassed=false je v poriadku, este nie je 23:00
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  startAlarmTime=1749848400000
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  endAlarmTime=1749888000000
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  nowAlarmTime=1749802826283
+2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  (1) timePassed=false
+
+------------
+
+Toto je na nastavenie alarmu na start a pause udalosti.
+
+Ako pozeram nahadzuje to oba alarmy. Prvy na start udalosti, druhy na end udalosti.
+Casy krasne sedia, tak hadam je to OK.
+Sice nechapem, preco oba alarmy som tam dal ale budis.
+V setSystemEventForPause() su opacne. najprv end time a potom start time.
+2025-06-13 10:36:33.093  5590-5678  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (1) alarmTime=13.06.25 23:00:00:0
+2025-06-13 10:36:33.093  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=true, alarmTime=1749848400000
+2025-06-13 10:36:33.093  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=true
+2025-06-13 10:36:33.100  5590-5678  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (2) alarmTime=14.06.25 10:00:00:0
+2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=false, alarmTime=1749888000000
+2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=false
 

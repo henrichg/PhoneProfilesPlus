@@ -71,7 +71,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         if (preference.forVolumesSensor == 1) {
             PPSpinnerAdapter voiceSpinnerAdapter = new PPSpinnerAdapter(
                     (EventsPrefsActivity) context,
-                    R.layout.ppp_spinner_filter,
+                    R.layout.ppp_spinner,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
             voiceSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);
@@ -217,7 +217,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
         if (preference.forVolumesSensor == 0) {
 
             if (buttonView.getId() == R.id.volumePrefDialogNoChange) {

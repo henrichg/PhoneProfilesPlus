@@ -261,8 +261,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
                 case PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
                     break;
-                case PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT:
-                    preferenceFragment = new PhoneProfilesPrefsCallScreening();
+                case PhoneProfilesPrefsFragment.PREF_DEFAULT_ROLES_APPLICATIONS_ROOT:
+                    preferenceFragment = new PhoneProfilesPrefsDefaultRolesApplications();
                     break;
             }
             //preferenceFragment.scrollToSet = true;

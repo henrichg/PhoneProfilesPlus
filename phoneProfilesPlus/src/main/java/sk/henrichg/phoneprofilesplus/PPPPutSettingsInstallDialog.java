@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class PPPPutSettingsInstallDialog extends DialogFragment
 {
@@ -100,8 +101,11 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "PPPPS_INSTALL_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "PPPPS_INSTALL_DIALOG");
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -337,6 +341,7 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
         return dialog;
     }
 
+    @SuppressLint("InflateParams")
     private AlertDialog installPPPPutSettingsFromGitHub34(final Activity activity,
                                                           boolean finishActivity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -344,8 +349,17 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
                 activity.getString(R.string.install_pppps_dialog_title), null);
         //dialogBuilder.setTitle(activity.getString(R.string.install_pppps_dialog_title));
 
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+        boolean fdroidInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+        boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
+
+        View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.dialog_install_pppps_34, null);
+        layout = inflater.inflate(R.layout.dialog_install_pppps_34, null);
         dialogBuilder.setView(layout);
 
         String dialogText = "";
@@ -368,84 +382,176 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
         text0.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
 
         TextView text1 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text1);
-        String url = PPApplication.SHIUKU_HOW_TO_START_URL;
-        dialogText = activity.getString(R.string.install_pppps_text13) + " " +
-                StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML;
-        //noinspection DataFlowIssue
-        text1.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));
-        text1.setMovementMethod(LinkMovementMethod.getInstance());
+        if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
+            String str1 = activity.getString(R.string.install_pppps_text13_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
 
-        TextView text2 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text2);
-        url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
-        CharSequence str1Text2 = activity.getString(R.string.install_pppps_text14);
-        CharSequence str2Text2 = str1Text2 + " " + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-        Spannable sbt = new SpannableString(str2Text2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpanText2 = new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
-
-            @Override
-            public void onClick(@NonNull View textView) {
-                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                    // In One UI is bug in system downloader. Chrome, as default browser, do not downlaod
-                    // For this reason used is DownloadManager
-                    try {
-                        String text = activity.getString(R.string.downloading_toast_text);
-                        PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
-
-                        String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
-                        Uri Download_Uri = Uri.parse(url);
-                        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-
-                        //Restrict the types of networks over which this download may proceed.
-                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                        //Set whether this download may proceed over a roaming connection.
-                        request.setAllowedOverRoaming(false);
-                        //Set the title of this download, to be displayed in notifications (if enabled).
-                        request.setTitle(activity.getString(R.string.download_installWithOptions_title));
-                        //Set a description of this download, to be displayed in notifications (if enabled)
-                        request.setDescription(activity.getString(R.string.downloading_file_description));
-                        //Set the local destination for the downloaded file to a path within the application's external files directory
-                        request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "InstallWithOptions.apk");
-                        //request.allowScanningByMediaScanner();
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        //Enqueue a new download and same the referenceId
-                        DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-                        if (downloadManager != null)
-                            /*DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions =*/ downloadManager.enqueue(request);
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                } else {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL));
-                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
+                @Override
+                public void onClick(@NonNull View textView) {
+                    if (droidifyInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {}
+                    } else if (neostoreInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                        intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {}
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                        intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {}
                     }
                 }
-            }
-        };
-        sbt.setSpan(clickableSpanText2, str1Text2.length()+1, str2Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //noinspection DataFlowIssue
-        text2.setText(sbt);
-        text2.setMovementMethod(LinkMovementMethod.getInstance());
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text1.setText(spannable);
+            text1.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            //String url = "https://shizuku.rikka.app/download/";
+            String url;
+            if (DebugVersion.enabled)
+                url = PPApplication.HELP_INSTALL_SHIZUKU_URL_DEVEL;
+            else
+                url = PPApplication.HELP_INSTALL_SHIZUKU_URL;
+            dialogText = activity.getString(R.string.install_pppps_text13) + " " +
+                    StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML;
+            //noinspection DataFlowIssue
+            text1.setText(StringFormatUtils.fromHtml(dialogText, false, false, 0, 0, true));
+            text1.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        TextView text2 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text2);
+        if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
+            String str1 = activity.getString(R.string.install_pppps_text14_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    if (droidifyInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=dev.zwander.installwithoptions"));
+                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {}
+                    } else if (neostoreInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=dev.zwander.installwithoptions"));
+                        intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {}
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=dev.zwander.installwithoptions"));
+                        intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {}
+                    }
+                }
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text2.setText(spannable);
+            text2.setMovementMethod(LinkMovementMethod.getInstance());
+        } else {
+            String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
+            CharSequence str1Text2 = activity.getString(R.string.install_pppps_text14);
+            CharSequence str2Text2 = str1Text2 + " " + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            Spannable sbt = new SpannableString(str2Text2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpanText2 = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                        // In One UI is bug in system downloader. Chrome, as default browser, do not downlaod
+                        // For this reason used is DownloadManager
+                        try {
+                            String text = activity.getString(R.string.downloading_toast_text);
+                            PPApplication.showToast(activity.getApplicationContext(), text, Toast.LENGTH_LONG);
+
+                            String url = PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL;
+                            Uri Download_Uri = Uri.parse(url);
+                            DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+
+                            //Restrict the types of networks over which this download may proceed.
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            //Set whether this download may proceed over a roaming connection.
+                            request.setAllowedOverRoaming(false);
+                            //Set the title of this download, to be displayed in notifications (if enabled).
+                            request.setTitle(activity.getString(R.string.download_installWithOptions_title));
+                            //Set a description of this download, to be displayed in notifications (if enabled)
+                            request.setDescription(activity.getString(R.string.downloading_file_description));
+                            //Set the local destination for the downloaded file to a path within the application's external files directory
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "InstallWithOptions.apk");
+                            //request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            //Enqueue a new download and same the referenceId
+                            DownloadManager downloadManager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+                            if (downloadManager != null)
+                                /*DownloadCompletedBroadcastReceiver.downloadReferenceInstallWithOptions =*/
+                                downloadManager.enqueue(request);
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    } else {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(PPApplication.INSTALL_WITH_OPTIONS_DOWNLOAD_URL));
+                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        try {
+                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpanText2, str1Text2.length() + 1, str2Text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //noinspection DataFlowIssue
+            text2.setText(sbt);
+            text2.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
         TextView text3 = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text3);
-        url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+        String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
         /*dialogText = activity.getString(R.string.install_pppps_text15) + " " +
                 StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML +
                 StringConstants.TAG_BREAK_HTML;
         text3.setText(StringFormatUtils.fromHtml(dialogText, false,  false, 0, 0, true));*/
         CharSequence str1Text3 = activity.getString(R.string.install_pppps_text15);
         CharSequence str2Text3 = str1Text3 + " " + url + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-        sbt = new SpannableString(str2Text3);
+        Spannable sbt = new SpannableString(str2Text3);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1Text3.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpanText3 = new ClickableSpan() {
             @Override

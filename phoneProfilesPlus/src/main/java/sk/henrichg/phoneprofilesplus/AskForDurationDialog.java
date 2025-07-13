@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -297,7 +298,7 @@ public class AskForDurationDialog extends DialogFragment implements SeekBar.OnSe
             afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
             PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                     mActivity,
-                    R.layout.ppp_spinner_filter,
+                    R.layout.ppp_spinner,
                     mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
             spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             //noinspection DataFlowIssue
@@ -454,8 +455,11 @@ public class AskForDurationDialog extends DialogFragment implements SeekBar.OnSe
     }
 
     void showDialog() {
-        if ((mActivity != null) && (!mActivity.isFinishing()))
-            show(mActivity.getSupportFragmentManager(), "ASK_FOR_DURATION_DIALOG");
+        if ((mActivity != null) && (!mActivity.isFinishing())) {
+            FragmentManager manager = mActivity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "ASK_FOR_DURATION_DIALOG");
+        }
     }
 
     private void updateProfileView()

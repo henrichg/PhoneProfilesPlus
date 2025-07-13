@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.gridlayout.widget.GridLayout;
 
 public class ProfileIconColorChooserDialog extends DialogFragment implements View.OnClickListener {
@@ -294,7 +295,9 @@ public class ProfileIconColorChooserDialog extends DialogFragment implements Vie
 
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing())) {
-            show(activity.getSupportFragmentManager(), "PROFILE_ICON_COLOR_CHOOSER_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "PROFILE_ICON_COLOR_CHOOSER_DIALOG");
         }
     }
 

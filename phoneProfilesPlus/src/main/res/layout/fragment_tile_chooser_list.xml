@@ -35,6 +35,8 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
+            android:layout_marginTop="@dimen/dialog_title_divider_paddingTop"
+            android:layout_marginBottom="@dimen/dialog_title_divider_paddingTop"
             android:background="@color/dialogDividerColor" />
 
         <ListView

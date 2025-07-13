@@ -2783,17 +2783,25 @@ class DataWrapper {
             _event._eventPreferencesDeviceBoot.removeAlarm(context);
         }
 
-        if (force || _event._eventPreferencesCallScreening._permanentRun) {
+        if (force || _event._eventPreferencesCallControl._permanentRun) {
             //Log.e("DataWrapper.clearSensorsStartTime", "*** _startTime = 0");
-            _event._eventPreferencesCallScreening._startTime = 0;
-            DatabaseHandler.getInstance(context.getApplicationContext()).updateCallScreeningStartTime(_event);
-            _event._eventPreferencesCallScreening.removeAlarm(context);
+            _event._eventPreferencesCallControl._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateCallControlStartTime(_event);
+            _event._eventPreferencesCallControl.removeAlarm(context);
         }
 
         if (force) {
             _event._eventPreferencesPeriodic._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updatePeriodicStartTime(_event);
             _event._eventPreferencesPeriodic.removeAlarm(context);
+        }
+
+        if (force || _event._eventPreferencesActivatedProfile._permanentRun) {
+            _event._eventPreferencesActivatedProfile._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateActivatedProfileStartTime(_event);
+            _event._eventPreferencesActivatedProfile._detectedProfile = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateActivatedProfileDetectedProfile(_event);
+            _event._eventPreferencesActivatedProfile.removeAlarm(context);
         }
 
     }
@@ -2978,8 +2986,8 @@ class DataWrapper {
                         case DatabaseHandler.ETYPE_MUSIC:
                             sensorEnabled = _event._eventPreferencesMusic._enabled;
                             break;
-                        case DatabaseHandler.ETYPE_CALL_SCREENING:
-                            sensorEnabled = _event._eventPreferencesCallScreening._enabled;
+                        case DatabaseHandler.ETYPE_CALL_CONTROL:
+                            sensorEnabled = _event._eventPreferencesCallControl._enabled;
                             break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:

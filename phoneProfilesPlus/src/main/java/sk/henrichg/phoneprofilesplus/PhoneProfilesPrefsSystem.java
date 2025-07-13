@@ -25,6 +25,7 @@ public class PhoneProfilesPrefsSystem  extends PhoneProfilesPrefsFragment {
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
         editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES_DEFAULT_VALUE));
         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK_DEFAULT_VALUE));
+        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SIMULATE_RINGING_CALL, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SIMULATE_RINGING_CALL, ApplicationPreferences.PREF_APPLICATION_SIMULATE_RINGING_CALL_DEFAULT_VALUE));
     }
 
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+    <bool name="screen_is_landscape">false</bool>
+
     <!-- Match 56dp default ActionBar height on portrait orientation -->
     <!--<dimen name="naw_drawer_margin_offset">-8dp</dimen>-->
 
@@ -125,7 +127,7 @@
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
     <!-- this is height of BottomNavigationView -->
-    <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>
+<!--    <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>-->
 
     <dimen name="fastScrollTrackWidth">10dp</dimen>
     <dimen name="fastScrollThumbWidth">8dp</dimen>
@@ -212,5 +214,9 @@
 
     <dimen name="dialog_activity_button_min_height">42dp</dimen>
     <dimen name="dialog_activity_button_marginTop">15dp</dimen>
+    <dimen name="dialog_activity_button_marginBottom">10dp</dimen>
+
+    <dimen name="widget_one_row_profile_root_marginTop_sl_land">10dp</dimen>
+    <dimen name="widget_onew_row_profile_name_sl_land_width">200dp</dimen>
 
 </resources>

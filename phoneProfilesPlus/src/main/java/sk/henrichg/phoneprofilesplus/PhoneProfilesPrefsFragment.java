@@ -147,7 +147,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_WIDGET_PANEL_CATEGORY_ROOT = "categoryWidgetPanelRoot";
     static final String PREF_WIDGET_DASH_CLOCK_CATEGORY_ROOT = "categoryWidgetDashClockRoot";
-    static final String PREF_CALL_SCREENING_CATEGORY_ROOT = "categoryCallScreeningRoot";
 
     static final String PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO = "applicationUnlinkRingerNotificationVolumesInfo";
     static final String PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "applicationEventPeriodicScanningScanIntervalInfo";
@@ -167,6 +166,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_EVENT_WIFI_SCAN_THROTTLING_INFO = "applicationEventWifiScanThrottlingInfo";
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR_INFO = "notificationBackgroundColorInfo";
     static final String PREF_NOTIFICATION_USE_DECORATOR_INFO = "notificationUseDecoratorInfo";
+    static final String PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_NOTIFICATION_PANEL_INFO = "notificationAppInstedProfileIconInNotificationPanelInfo";
 
     static final String PREF_DO_NOT_KILL_MY_APP = "applicationDoNotKillMyApp";
     static final String PREF_CREATE_EDITOR_SHORTCUT = "applicationCreateEditorShortcut";
@@ -185,10 +185,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_WIDGET_LISY_CATEGORY = "categoryWidgetList";
     static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_CONFIGURE_CELLS = "applicationEventMobileCellsConfigureCells";
+    static final String PREF_NOTIFICATION_NOTIFICATION_PANEL_CATEGORY = "notificationNotificationPanelCategory";
     private static final String PREF_APPLICATION_WIDGET_DASH_CLOCK_INFO = "applicationWidgetDashClockInfo";
     private static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T_INFO = "applicationWidgetOneRowLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T_INFO = "applicationWidgetListLightnessTInfo";
     private static final String PREF_APPLICATION_WIDGET_PANEL_INFO = "applicationWidgetPanelInfo";
+    private static final String PREF_DEFAULT_ROLES_APPLICATIONS_RESTRICTED_SETTINGS = "defaultRolesApplicationsRestrictedSettings";
+
+    static final String PREF_DEFAULT_ROLES_APPLICATIONS_ROOT = "categoryDefaultRolesApplicationsRoot";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -381,7 +385,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //if (fragmentManager != null) {
                 //noinspection deprecation
                 dialogFragment.setTargetFragment(this, 0);
-                dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".PhoneProfilesPrefsActivity.DIALOG");
+                if (!fragmentManager.isDestroyed())
+                    dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".PhoneProfilesPrefsActivity.DIALOG");
                 //}
             }
         }
@@ -530,7 +535,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preferenceCategoryScreen = findPreference(PREF_WIDGET_PANEL_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
-            preferenceCategoryScreen = findPreference(PREF_CALL_SCREENING_CATEGORY_ROOT);
+            preferenceCategoryScreen = findPreference(PREF_DEFAULT_ROLES_APPLICATIONS_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
 
@@ -1625,6 +1630,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        boolean showInfoAboutApplicaitonIcons = true;
         if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             preference = findPreference(PREF_WIDGET_ICON_NOT_WORKING_NIUI_INFO);
             if (preference != null) {
@@ -1653,8 +1659,48 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
             if (preference != null) {
                 PreferenceCategory preferenceCategory = findPreference(PREF_NOTIFICATION_STATUS_BAR_CATEGORY);
-                if (preferenceCategory != null)
+                if (preferenceCategory != null) {
                     preferenceCategory.removePreference(preference);
+                    showInfoAboutApplicaitonIcons = false;
+                }
+            }
+        }
+        if (showInfoAboutApplicaitonIcons) {
+            InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
+            if (infoDialogPreference != null) {
+                String infoText;
+                infoDialogPreference.setSummary(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary);
+                infoText = getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary) +
+                        StringConstants.TAG_DOUBLE_BREAK_HTML+
+                        getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary);
+                infoDialogPreference.setInfoText(infoText);
+                infoDialogPreference.setIsHtml(true);
+            }
+        }
+
+        showInfoAboutApplicaitonIcons = true;
+        if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 35))) {
+            preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_NOTIFICATION_PANEL_INFO);
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference(PREF_NOTIFICATION_NOTIFICATION_PANEL_CATEGORY);
+                if (preferenceCategory != null) {
+                    preferenceCategory.removePreference(preference);
+                    showInfoAboutApplicaitonIcons = false;
+                }
+            }
+        }
+        if (showInfoAboutApplicaitonIcons) {
+            InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_NOTIFICATION_PANEL_INFO);
+            if (infoDialogPreference != null) {
+                String infoText;
+                infoDialogPreference.setSummary(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary);
+                infoText = getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary) +
+                        StringConstants.TAG_DOUBLE_BREAK_HTML+
+                        getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary);
+                infoText = infoText+StringConstants.TAG_DOUBLE_BREAK_HTML+
+                        getString(R.string.phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary);
+                infoDialogPreference.setInfoText(infoText);
+                infoDialogPreference.setIsHtml(true);
             }
         }
 
@@ -2121,6 +2167,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            InfoDialogPreference _infoDialogPreference = prefMng.findPreference(PREF_DEFAULT_ROLES_APPLICATIONS_RESTRICTED_SETTINGS);
+            if (_infoDialogPreference != null) {
+                _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
+//                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
+
+                    _infoDialogPreference.setInfoText(
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                    );
+                    _infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
+        }
+
     }
 
     private void doOnActivityCreatedBatterySaver(String key, PhoneProfilesPrefsActivity activity) {
@@ -2325,7 +2398,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                            finishActivity = permissionsChanged && (!modifyPhonePermission);
 //                        }
                         if (!permissionsChanged) {
-                            boolean phonePermission = Permissions.checkPhone(context);
+                            boolean phonePermission = Permissions.checkReadPhoneState(context);
                             permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!phonePermission);
@@ -3435,6 +3508,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 enableLightnessArrows = !useDynamicColorsWidgetOneRowProfileList;
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
+                //noinspection ConstantValue
                 _preference.setEnabled((!useDynamicColorsWidgetOneRowProfileList) && enableLightnessArrows);
         }
 
@@ -5013,7 +5087,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _value.append(StringConstants.STR_BULLET);
             _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness));
         }
-        if (key.equals(PREF_CALL_SCREENING_CATEGORY_ROOT)) {
+        /*
+        if (key.equals(PREF_CALL_CONTROL_CATEGORY_ROOT)) {
             if (Build.VERSION.SDK_INT >= 29) {
                 String summary; //= getString(R.string.phone_profiles_pref_call_screening_setCallScreeningRole_summary);
                 RoleManager roleManager = (RoleManager) context.getSystemService(ROLE_SERVICE);
@@ -5028,6 +5103,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _value.append(summary);
             }
         }
+        */
 
         /*if (addEnd) {
             if (!summary.isEmpty()) summary = summary + " • ";

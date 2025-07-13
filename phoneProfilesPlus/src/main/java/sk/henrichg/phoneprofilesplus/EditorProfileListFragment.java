@@ -251,7 +251,7 @@ public class EditorProfileListFragment extends Fragment
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_profile) {
                 if (profileListAdapter != null) {
-                    if (!activity.isFinishing()) {
+                    if ((activity != null) && (!activity.isFinishing())) {
                         ((EditorActivity) activity).addProfileDialog = new AddProfileDialog((EditorActivity) activity/*, this*/);
                         ((EditorActivity) activity).addProfileDialog.showDialog();
                     }
@@ -272,16 +272,18 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_generate_predefined_profiles) {
-                final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
-                final Runnable progressBarRunnable = () -> {
-                    EditorProfileListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
-                        fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
-                        fragment.loadAsyncTask.execute();
-                    }
-                };
-                progressBarHandler.post(progressBarRunnable);
+                if (activity != null) {
+                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
+                    final Runnable progressBarRunnable = () -> {
+                        EditorProfileListFragment fragment = fragmentWeakRef.get();
+                        if (fragment != null) {
+                            fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
+                            fragment.loadAsyncTask.execute();
+                        }
+                    };
+                    progressBarHandler.post(progressBarRunnable);
+                }
                 return true;
             }
             else
@@ -293,16 +295,18 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                    final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
-                    final Runnable progressBarRunnable = () -> {
-                        EditorProfileListFragment fragment = fragmentWeakRef.get();
-                        if (fragment != null) {
-                            fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
-                            fragment.loadAsyncTask.execute();
-                        }
-                    };
-                    progressBarHandler.post(progressBarRunnable);
+                    if (activity != null) {
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
+                        final Runnable progressBarRunnable = () -> {
+                            EditorProfileListFragment fragment = fragmentWeakRef.get();
+                            if (fragment != null) {
+                                fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
+                                fragment.loadAsyncTask.execute();
+                            }
+                        };
+                        progressBarHandler.post(progressBarRunnable);
+                    }
                 } else {
                     if (profileListAdapter != null) {
                         // added touch helper for drag and drop items
@@ -660,7 +664,7 @@ public class EditorProfileListFragment extends Fragment
         onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex);
     }
 
-    private void duplicateProfile(Profile origProfile)
+    void duplicateProfile(Profile origProfile)
     {
         int editMode;
 
@@ -749,29 +753,10 @@ public class EditorProfileListFragment extends Fragment
 
         final Profile profile = (Profile)view.getTag();
 
-        SingleSelectListDialog dialog = new SingleSelectListDialog(
-                true,
-                getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
-                getString(R.string.tooltip_options_menu),
-                R.array.profileListItemEditArray,
-                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
-                (dialog1, which) -> {
-                    switch (which) {
-                        case 0:
-                            activateProfile(profile/*, true*/, false);
-                            break;
-                        case 1:
-                            duplicateProfile(profile);
-                            break;
-                        case 2:
-                            deleteProfileWithAlert(profile);
-                            break;
-                        default:
-                    }
-                },
-                null,
-                //false,
-                (AppCompatActivity) getActivity());
+        EditorProfileListItemMenuDialog dialog = new EditorProfileListItemMenuDialog((EditorActivity) getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        dialog.setArguments(bundle);
         dialog.showDialog();
 
 /*
@@ -817,7 +802,7 @@ public class EditorProfileListFragment extends Fragment
 */
     }
 
-    private void deleteProfileWithAlert(Profile profile)
+    void deleteProfileWithAlert(Profile profile)
     {
         final Profile _profile = profile;
 
@@ -1193,46 +1178,10 @@ public class EditorProfileListFragment extends Fragment
 
         if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
-            int value;
-            if (profile._showInActivator)
-                value = 1;
-            else
-                value = 0;
-
-            SingleSelectListDialog dialog = new SingleSelectListDialog(
-                    true,
-                    getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
-                    getString(R.string.profile_preferences_showInActivator),
-                    R.array.profileListItemShowInActivatorArray,
-                    value,
-                    (dialog1, which) -> {
-                        switch (which) {
-                            case 0:
-                                profile._showInActivator = false;
-                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                                //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
-
-                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                        getString(R.string.show_profile_in_activator_not_show_toast),
-                                        Toast.LENGTH_LONG);
-                                break;
-                            case 1:
-                                profile._showInActivator = true;
-                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                                //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
-
-                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                        getString(R.string.show_profile_in_activator_show_toast),
-                                        Toast.LENGTH_LONG);
-                                break;
-                            default:
-                        }
-                    },
-                    null,
-                    //false,
-                    (AppCompatActivity) getActivity());
+            EditorProfileListItemShowInActivatorMenuDialog dialog = new EditorProfileListItemShowInActivatorMenuDialog((EditorActivity) getActivity());
+            Bundle bundle = new Bundle();
+            bundle.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            dialog.setArguments(bundle);
             dialog.showDialog();
 
 /*

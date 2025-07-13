@@ -726,16 +726,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row);
+                            }
                         }
                         else {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator);
+                            }
                         }
                     } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
                         configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
@@ -743,16 +783,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher);
+                            }
                         }
                         else {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator);
+                            }
                         }
                     } else {
                         configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
@@ -760,16 +840,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest);
+                            }
                         }
                         else {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator);
+                            }
                         }
                     }
                 } else {
@@ -779,16 +899,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_dn);
+                            }
                         }
                         else {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_no_indicator_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
+                            }
                         }
                     } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
                         configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
@@ -796,16 +956,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_dn);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_dn);
+                            }
                         }
                         else {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_dn);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_no_indicator_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_dn);
+                            }
                         }
                     } else {
                         configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
@@ -813,16 +1013,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (maxHeight < configuredHeight)
                             applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_dn);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_dn);
+                            }
                         }
                         else {
-                            if (applicationWidgetOneRowFillBackground)
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_dn);
-                            else
-                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_dn);
+                            if (applicationWidgetOneRowFillBackground) {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_no_indicator_dn);
+                            }
+                            else {
+                                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                                    if (width < height)
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_dn_sl_land);
+                                    else
+                                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_dn);
+                                }
+                                else
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_no_indicator_dn);
+                            }
                         }
                     }
                 }

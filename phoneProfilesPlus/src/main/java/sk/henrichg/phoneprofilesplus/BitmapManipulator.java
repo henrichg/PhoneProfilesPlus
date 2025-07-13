@@ -138,7 +138,8 @@ class BitmapManipulator {
                         Bitmap rotatedBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);
 
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
 
                         return rotatedBitmap;
                     } else
@@ -210,7 +211,8 @@ class BitmapManipulator {
     /*static int getDominantColor(Bitmap bitmap) {
         Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
         final int color = newBitmap.getPixel(0, 0);
-        newBitmap.recycle();
+        if (!newBitmap.isRecycled()) {
+            newBitmap.recycle();
         return color;
     }*/
 
@@ -321,7 +323,9 @@ class BitmapManipulator {
         }
         try {
             Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            bitmap.recycle();
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
             return bmRotated;
         }
         catch (OutOfMemoryError e) {

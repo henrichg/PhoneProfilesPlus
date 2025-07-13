@@ -813,7 +813,7 @@ public class PPAppNotification {
         notificationBuilder.setGroup(PPApplication.PROFILE_NOTIFICATION_GROUP);
 
         if (Build.VERSION.SDK_INT >= 33) {
-            // required, because in API 33+ foreground serbice notification is dismissable
+            // required, because in API 33+ foreground service notification is dismissable
             notificationBuilder.setOngoing(true);
         }
         if (Build.VERSION.SDK_INT >= 33) {

@@ -30,6 +30,9 @@ import android.hardware.camera2.CameraAccessException;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
+import android.media.session.PlaybackState;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -1372,18 +1375,20 @@ class ActivateProfileHelper {
             }
         }
 
+        /* Must be after change of media volume especially for OnePLus, Oppo
         if (forProfileActivation) {
-                if (profile.getVolumeAccessibilityChange()) {
-                    try {
-                        //EventPreferencesVolumes.internalChange = true;
-                        if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
-                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
+            if (profile.getVolumeAccessibilityChange()) {
+                try {
+                    //EventPreferencesVolumes.internalChange = true;
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
+                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
                 }
+            }
         }
+        */
 
         if (forRingerMode) {
 
@@ -1669,6 +1674,59 @@ class ActivateProfileHelper {
                                 audioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
                                 profile.getVolumeMediaValue(),
                                 profile._volumeMediaChangeDuringPlay, true);
+
+                        if (profile._volumeMediaChangeDuringPlay || (!audioManager.isMusicActive())) {
+                            // set accessibility volume recomputed from media volume
+                            // it is required for OnePlus, Oppo, ...
+                            if (PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo) {
+                                // get prercentage of media volume
+                                int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                                int mediaVolume = profile.getVolumeMediaValue();
+                                float percentage = (float) mediaVolume / maximumMediaValue * 100.0f;
+
+                                // set recomputed accessibility volume
+                                int maximumAccessibilityValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+                                int accessibilityVolume = Math.round(maximumAccessibilityValue / 100.0f * percentage);
+
+                                if (Build.VERSION.SDK_INT >= 31) {
+                                    GlobalUtils.sleep(500);
+                                    try {
+                                        // this not working - moved to Extedner. required is Accessibility service
+                                        //audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, accessibilityVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                        // send broadcast to Extender
+                                        Intent intent = new Intent(PPApplication.ACTION_SET_ACCESSIBILITY_VOLUME);
+                                        intent.putExtra(PPApplication.EXTRA_ACCESSIBILITY_VOLUME_VALUE, accessibilityVolume);
+                                        appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                } else {
+                                    audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, accessibilityVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (profile.getVolumeAccessibilityChange()) {
+                // For OnePlus, Oppo, ... must be used Extender, because Accessibility service is required
+                if ((Build.VERSION.SDK_INT >= 31) && (PPApplication.deviceIsOnePlus || PPApplication.deviceIsOppo)) {
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue()) {
+                        GlobalUtils.sleep(500);
+                        // send broadcast to Extender
+                        Intent intent = new Intent(PPApplication.ACTION_SET_ACCESSIBILITY_VOLUME);
+                        intent.putExtra(PPApplication.EXTRA_ACCESSIBILITY_VOLUME_VALUE, profile.getVolumeAccessibilityValue());
+                        appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+                    }
+                } else {
+                    try {
+                        //EventPreferencesVolumes.internalChange = true;
+                        if (audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY) != profile.getVolumeAccessibilityValue())
+                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }
@@ -3660,7 +3718,7 @@ class ActivateProfileHelper {
                                 int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
                                 if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                                    if (Permissions.checkPhone(appContext))
+                                    if (Permissions.checkReadPhoneState(appContext))
                                         linkUnlink = linkUnlinkVolumes;
                                 }
 
@@ -4312,12 +4370,14 @@ class ActivateProfileHelper {
                                 null, profile._name, "");
                         //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
                     } catch (Exception e) {
                         PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                                 null, profile._name, "");
                         //PPApplicationStatic.recordException(e);
-                        decodedSampleBitmap.recycle();
+                        if (!decodedSampleBitmap.isRecycled())
+                            decodedSampleBitmap.recycle();
                     }
                 } else {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
@@ -4371,9 +4431,9 @@ class ActivateProfileHelper {
                         }
                     }
 
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
 
                     // this is required for "change random image from folder"
@@ -4383,17 +4443,17 @@ class ActivateProfileHelper {
                             null, profile._name, "");
                     //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
                 } catch (Exception e) {
                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
                             null, profile._name, "");
                     //PPApplicationStatic.recordException(e);
-                    if (decodedSampleBitmapHome != null)
+                    if ((decodedSampleBitmapHome != null) && (!decodedSampleBitmapHome.isRecycled()))
                         decodedSampleBitmapHome.recycle();
-                    if (decodedSampleBitmapLock != null)
+                    if ((decodedSampleBitmapLock != null) && (!decodedSampleBitmapLock.isRecycled()))
                         decodedSampleBitmapLock.recycle();
                 }
             }
@@ -4831,6 +4891,10 @@ class ActivateProfileHelper {
     private static void executeForRunApplications(Profile profile, Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
+            if (PPApplication.blockProfileEventActions)
+                // not start applications after boot
+                return;
+
             // startActivity from background: Android 10 (API level 29)
             // Exception:
             // - The app is granted the SYSTEM_ALERT_WINDOW permission by the user.
@@ -5151,6 +5215,14 @@ class ActivateProfileHelper {
         {
 //            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForRunApplications");
             executeForRunApplications(profile, appContext);
+        }
+
+        // WARNING: play music must be called after run applicaitons, because media player mus be started
+        // to working play music
+        if (profile._playMusic == 1)
+        {
+//            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForPlayMusic");
+            executeForPlayMusic(profile, appContext, executedProfileSharedPreferences);
         }
 
         // startActivity from background: Android 10 (API level 29)
@@ -5507,6 +5579,89 @@ class ActivateProfileHelper {
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
+        }
+    }
+
+    static void executeForPlayMusic(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
+        Context appContext = context.getApplicationContext();
+        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, executedProfileSharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+            // do not change play music during call
+            AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                /*if ((audioManager.getMode() == AudioManager.MODE_IN_CALL) ||
+                        (audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION) ||
+                        (audioManager.getMode() == AudioManager.MODE_CALL_REDIRECT) ||
+                        (audioManager.getMode() == AudioManager.MODE_COMMUNICATION_REDIRECT) ||
+                        (audioManager.getMode() == AudioManager.MODE_RINGTONE)
+                )*/
+                if (audioManager.getMode() != AudioManager.MODE_NORMAL)
+                    return;
+            }
+
+            MediaSessionManager mediaSessionManager = (MediaSessionManager)context.getSystemService(Context.MEDIA_SESSION_SERVICE);
+            if (mediaSessionManager != null) {
+
+                List<MediaController> mediaControlers = mediaSessionManager.getActiveSessions(new ComponentName(context, PPNotificationListenerService.class));
+                if (!mediaControlers.isEmpty())
+                    GlobalUtils.sleep(2000);
+
+                for (MediaController controller : mediaControlers) {
+                    PlaybackState playbackState = controller.getPlaybackState();
+                    if (playbackState != null) {
+                        int state = playbackState.getState();
+                        if (state == PlaybackState.STATE_PLAYING) {
+                            switch (profile._playMusic) {
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                                case 4:
+                                    controller.getTransportControls().pause();
+                                    break;
+                                case 5:
+                                    controller.getTransportControls().stop();
+                                    break;
+                            }
+                            break;
+                        }
+                        if (state == PlaybackState.STATE_PAUSED) {
+                            switch (profile._playMusic) {
+                                case 1:
+                                case 4:
+                                    controller.getTransportControls().play();
+                                    break;
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                                case 5:
+                                    controller.getTransportControls().stop();
+                                    break;
+                            }
+                        }
+                        if ((state == PlaybackState.STATE_STOPPED) || (state == PlaybackState.STATE_NONE)) {
+                            switch (profile._playMusic) {
+                                case 1:
+                                case 4:
+                                    controller.getTransportControls().play();
+                                    break;
+                                case 2:
+                                    controller.getTransportControls().skipToNext();
+                                    break;
+                                case 3:
+                                    controller.getTransportControls().skipToPrevious();
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 
@@ -6131,6 +6286,10 @@ class ActivateProfileHelper {
             dataWrapper.invalidateDataWrapper();
         }
 
+        // Do not chage this (keep if/else)!!
+        // executeForInteractivePreferences() is called also in PPExtenderBroadcastReceiver.onReceive()
+        // for PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END.
+        // For this reason, after end of force stop is executeForInteractivePreferences() also called.
         if (profile._deviceForceStopApplicationChange >= 1) {
             // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
@@ -6960,7 +7119,7 @@ class ActivateProfileHelper {
 
         if (simExists)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "ask for root enabled and is rooted");
                 try {
                     // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -7141,11 +7300,28 @@ class ActivateProfileHelper {
                         wifiApManager.stopTethering();
                 //}
             }
-            else {
+            else if (Build.VERSION.SDK_INT < 36) {
                 if (enable)
                     WifiApManager.startTethering30(context, doNotChangeWifi);
                 else
                     WifiApManager.stopTethering30(context);
+            }
+            else {
+                if (ActivateProfileHelper.isDeltaInstalled(context)) {
+                    if (ShizukuUtils.hasShizukuPermission()) {
+                        if (enable)
+                            WifiApManager.startTethering36(context, doNotChangeWifi);
+                        else
+                            WifiApManager.stopTethering36(context);
+                    } else if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            RootUtils.isRooted(/*false*/)) {
+//                            PPApplicationStatic.logE("[SYNCHRONIZED] ActivateProfileHelper.setWifiAP", "PPApplication.rootMutex");
+                        if (enable)
+                            WifiApManager.startTethering36(context, doNotChangeWifi);
+                        else
+                            WifiApManager.stopTethering36(context);
+                    }
+                }
             }
 
         } catch (SecurityException e) {
@@ -7776,7 +7952,7 @@ class ActivateProfileHelper {
         }
 //        Log.e("ActivateProfileHelper.setDefaultSimCard", "(2) simCard="+simCard);
 
-        if (Permissions.checkPhone(context.getApplicationContext())) {
+        if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
 //            Log.e("ActivateProfileHelper.setDefaultSimCard", "called hasSIMCard");
             HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
             boolean simExists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
@@ -8118,7 +8294,7 @@ class ActivateProfileHelper {
         //noinspection ConstantValue
         if (true /*simExists*/)
         {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
+            if (Permissions.checkReadPhoneState(context.getApplicationContext())) {
                 // Get the value of the "TRANSACTION_ssetSubscriptionEnabled" field.
                 int transactionCode;
                 if (Build.VERSION.SDK_INT < 31) {
@@ -9568,14 +9744,23 @@ class ActivateProfileHelper {
     static int isPPPPutSettingsInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
+            /*List<PackageInfo> pInfos = packageManager.getInstalledPackages(0);
+            for (PackageInfo pInfo : pInfos) {
+                if (pInfo.packageName.equals(PPApplication.PACKAGE_NAME_PPPPS))
+                    return PPApplicationStatic.getVersionCode(pInfo);
+            }
+            return 0;*/
+
             ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return PPApplicationStatic.getVersionCode(pInfo);
-            } else {
-                return 0;
-            }
+            //} else {
+            //    return 0;
+            //}
+
         } catch (Exception e) {
             // extender is not installed = package not found
             //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
@@ -9588,14 +9773,15 @@ class ActivateProfileHelper {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return pInfo.versionName;
-            }
-            else {
-                return "";
-            }
+            //}
+            //else {
+            //    return "";
+            //}
         }
         catch (Exception e) {
             // extender is not installed = package not found
@@ -9666,6 +9852,29 @@ class ActivateProfileHelper {
             GlobalUtils.sleep(500);
         }
     }
+
+    static boolean isDeltaInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_DELTA, PackageManager.MATCH_ALL);
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
+            PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+            return PPApplicationStatic.getVersionCode(pInfo) > 0;
+            //} else {
+            //    return 0;
+            //}
+
+        } catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
+            return false;
+        }
+    }
+
 
     /*
     static int isShizukuInstalled(Context context) {

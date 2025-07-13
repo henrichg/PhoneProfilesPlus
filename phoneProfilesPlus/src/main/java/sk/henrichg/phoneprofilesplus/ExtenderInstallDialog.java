@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class ExtenderInstallDialog extends DialogFragment
 {
@@ -92,8 +93,11 @@ public class ExtenderInstallDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "EXTENDER_INSTALL_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "EXTENDER_INSTALL_DIALOG");
+        }
     }
 
     @SuppressLint("InflateParams")

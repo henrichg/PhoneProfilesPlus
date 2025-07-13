@@ -70,7 +70,10 @@ public class PhoneProfilesService extends Service
     static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
     static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
-    static final String ACTION_CALL_SCREENING_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallScreeningEventEndBroadcastReceiver";
+    static final String ACTION_CALL_CONTROL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallControlEventEndBroadcastReceiver";
+    static final String ACTION_ANSWER_CALL_RINGING_LENGTH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AnswerCallRingingLengthBroadcastReceiver";
+    static final String ACTION_END_CALL_CALL_LENGTH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EndCallCallLengthBroadcastReceiver";
+    static final String ACTION_ACTIVATED_PROFILE_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ActivatedProfileEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -140,8 +143,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR = "register_receivers_for_sms_sensor";
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
     static final String EXTRA_DISABLE_NOT_USED_SCANNERS = "disable_not_used_scanners";
-    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "register_receivers_for_call_screening_sensor";
-    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "unregister_receivers_for_call_screening_sensor";
+    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR = "register_receivers_for_call_control_sensor";
+    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR = "unregister_receivers_for_call_control_sensor";
 
     static final String EXTRA_START_FOR_SHIZUKU_START = "start_for_shizuku_start";
 
@@ -843,10 +846,10 @@ public class PhoneProfilesService extends Service
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 2, false, false);
 
-                //EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
-                EventPreferencesCallScreening.setEventCallScreeningTime(appContext, 0);
-                EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(appContext, "");
-                EventPreferencesCallScreening.setEventCallScreeningCallDirection(appContext, 0);
+                //EventPreferencesCallControl.setEventCallControlActive(appContext, false);
+                EventPreferencesCallControl.setEventCallControlTime(appContext, 0);
+                EventPreferencesCallControl.setEventCallControlPhoneNumber(appContext, "");
+                EventPreferencesCallControl.setEventCallControlCallDirection(appContext, 0);
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
@@ -1182,6 +1185,7 @@ public class PhoneProfilesService extends Service
         PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
     }
 
+    //TODO - add here change of application preferences after package replaced
     @SuppressLint("ObsoleteSdkInt")
     private boolean doForPackageReplaced(Context appContext, int oldVersionCode) {
         //int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
@@ -1850,6 +1854,49 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                if (actualVersionCode <= 7280) {
+                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                            (Build.VERSION.SDK_INT >= 35)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.notificationUseDecorationDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                            editor.apply();
+                        }
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI &&
+                            (Build.VERSION.SDK_INT >= 28)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                    if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 36)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.notificationUseDecorationDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                            editor.apply();
+                        }
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                }
             }
 
             // Keep this !!! stop tap target for package replaced

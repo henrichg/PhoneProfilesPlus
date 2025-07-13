@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class PPEditTextAlertDialog extends DialogFragment {
     private AlertDialog mDialog;
@@ -79,8 +80,8 @@ public class PPEditTextAlertDialog extends DialogFragment {
             if (negativeText != null)
                 dialogBuilder.setNegativeButton(negativeText, negativeClick);
 
-            if (cancelListener != null)
-                dialogBuilder.setOnCancelListener(cancelListener);
+            //if (cancelListener != null)
+            //    dialogBuilder.setOnCancelListener(cancelListener);
 
             dialogBuilder.setCancelable(cancelable);
 
@@ -112,6 +113,12 @@ public class PPEditTextAlertDialog extends DialogFragment {
         return mDialog;
     }
 
+    public void onCancel (@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (cancelListener != null)
+            cancelListener.onCancel(dialog);
+    }
+
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         if (activity != null)
@@ -128,7 +135,9 @@ public class PPEditTextAlertDialog extends DialogFragment {
 
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing())) {
-            show(activity.getSupportFragmentManager(), "PP_EDIT_TEXT_ALERT_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "PP_EDIT_TEXT_ALERT_DIALOG");
         }
     }
 

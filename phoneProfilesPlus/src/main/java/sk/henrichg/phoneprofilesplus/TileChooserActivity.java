@@ -27,6 +27,8 @@ public class TileChooserActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false, false);
 
         super.onCreate(savedInstanceState);
+        // animation
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] TileChooserActivity.onCreate", "xxx");
 
@@ -121,6 +123,7 @@ public class TileChooserActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.title_activity_tile_chooser);
             getSupportActionBar().setElevation(0);
         }*/
+        setTitle(R.string.title_activity_tile_chooser);
 
         setTitle(R.string.title_activity_tile_chooser);
     }
@@ -259,6 +262,13 @@ public class TileChooserActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
     }
 
 }

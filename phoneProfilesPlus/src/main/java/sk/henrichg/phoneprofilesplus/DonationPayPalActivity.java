@@ -22,6 +22,8 @@ public class DonationPayPalActivity extends AppCompatActivity {
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
+        // animation
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
 
         setContentView(R.layout.activity_paypal_donation);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
@@ -34,9 +36,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
         */
-
-        // animation
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        setTitle(R.string.donation_activity_title);
     }
 
     @Override
@@ -66,12 +66,19 @@ public class DonationPayPalActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
     }
 
 }

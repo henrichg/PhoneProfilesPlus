@@ -718,10 +718,10 @@ class PPApplicationStatic {
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 0);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 1);
         EventPreferencesRoaming.getEventRoamingInSIMSlot(context, 2);
-        //EventPreferencesCallScreening.getEventCallScreeningActive(context);
-        EventPreferencesCallScreening.getEventCallScreeningTime(context);
-        EventPreferencesCallScreening.getEventCallScreeningPhoneNumber(context);
-        EventPreferencesCallScreening.getEventCallScreeningCallDirection(context);
+        //EventPreferencesCallControl.getEventCallControlActive(context);
+        EventPreferencesCallControl.getEventCallControlTime(context);
+        EventPreferencesCallControl.getEventCallControlPhoneNumber(context);
+        EventPreferencesCallControl.getEventCallControlCallDirection(context);
 
         ApplicationPreferences.loadStartTargetHelps(context);
     }
@@ -978,7 +978,6 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetListPrefIndicatorLightnessChangeByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode(context);
-
             ApplicationPreferences.applicationEventHideNotUsedSensors(context);
             //ApplicationPreferences.applicationContactsInBackupEncripted(context);
             ApplicationPreferences.applicationHyperOsWifiBluetoothDialogs(context);
@@ -1024,6 +1023,8 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEditorHideEventDetailsForStartOrder(context);
 
             ApplicationPreferences.deleteBadPreferences(context);
+
+            ApplicationPreferences.applicationSimulateRingingCall(context);
         }
     }
 
@@ -2109,14 +2110,14 @@ class PPApplicationStatic {
     }
 
     /*
-    static void registerReceiversForCallScreeningSensor(boolean register, Context context) {
+    static void registerReceiversForCallControlSensor(boolean register, Context context) {
         try {
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             if (register)
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR, true);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR, true);
             else
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR, true);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR, true);
             runCommand(context, commandIntent);
 //            Log.e("PPApplication.registerReceiversForSMSSensor", "xxx");
         } catch (Exception e) {
@@ -2202,12 +2203,20 @@ class PPApplicationStatic {
                                final boolean shutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             PPApplicationStatic.logE("PPApplication._exitApp", "shutdown="+shutdown);
+            PPApplicationStatic.logE("PPApplication._exitApp", "exitByUser="+exitByUser);
+
+            if (exitByUser) {
+                String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_exiting_toast);
+                PPApplication.showToast(context, text, Toast.LENGTH_SHORT);
+            }
 
             if (!shutdown)
                 cancelAllWorks(/*false*/);
 
-            if (dataWrapper != null)
-                dataWrapper.stopAllEvents(false, false, false, false);
+            if (!exitByUser) {
+                if (dataWrapper != null)
+                    dataWrapper.stopAllEvents(false, false, false, false);
+            }
 
             if (!shutdown) {
                 // clear cahches
@@ -2349,7 +2358,6 @@ class PPApplicationStatic {
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);
 
-            PPApplicationStatic.logE("PPApplication._exitApp", "*********** exitByUser="+exitByUser);
             if (exitByUser) {
                 //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
@@ -2366,6 +2374,9 @@ class PPApplicationStatic {
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission(context);
 
                 ApplicationPreferences.applicationStartOnBoot(context);
+
+                String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_exited_toast);
+                PPApplication.showToast(context, text, Toast.LENGTH_SHORT);
             }
 
         } catch (Exception e) {
@@ -2843,7 +2854,6 @@ class PPApplicationStatic {
             return false;
     }
 
-    /*
     // check if SmartLauncher is default --------------------------------------------------
 
     static boolean isSmartLauncherDefault(Context context) {
@@ -2872,7 +2882,6 @@ class PPApplicationStatic {
         else
             return false;
     }
-    */
 
     // get PPP version from relases.md ----------------------------------------------
 
