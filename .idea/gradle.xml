@@ -16,13 +16,13 @@
             <option value="$PROJECT_DIR$/ToastCompat" />
             <option value="$PROJECT_DIR$/android-betterpickers" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/encryption" />
             <option value="$PROJECT_DIR$/noobcameraflash" />
             <option value="$PROJECT_DIR$/phoneProfilesPlus" />
             <option value="$PROJECT_DIR$/recyclerview-fastscroll" />
             <option value="$PROJECT_DIR$/time-duration-picker" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

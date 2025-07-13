@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply from: '../dependencies.gradle'
+
+android {
+    namespace 'se.simbio.encryption'
+
+    compileSdkVersion ppVersions.compileSdk
+    buildToolsVersion ppVersions.buildTools
+
+    defaultConfig {
+        minSdkVersion ppVersions.minSdk
+        targetSdkVersion ppVersions.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    lint {
+        disable += ['ExpiredTargetSdkVersion']
+    }
+
+}
+
+dependencies {
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    //implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
+
+    /*
+    // appcompat 1.7.0 - dependencies problem, this fixed it
+    constraints {
+        //noinspection ForeignDelegate
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$ppVersions.kotlinStdlibJdk8")
+    }
+    */
+}
