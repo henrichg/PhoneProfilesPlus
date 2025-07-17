@@ -1512,10 +1512,13 @@ class ApplicationPreferences {
             else
                 defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
         }
-        else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
-                (Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
         else
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            if ((Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+            else
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
+        } else
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
