@@ -2105,7 +2105,6 @@
     <string name="install_pppps_text10">对于Android 14+，无法在设备上直接安装 PPPPutSettings</string>
     <string name="install_pppps_text11">但存在的解决方案。这需要 InstallWithOptions 和 Shizuku (如果设备未Root)。</string>
     <string name="install_pppps_text12">如何继续：</string>
-    <string name="install_pppps_text13">1. 安装并启动 Shizuku (如果设备未rooted)。如何：</string>
     <string name="install_pppps_text14">2. 安装 InstallWithOptions：</string>
     <string name="install_pppps_text15">3. 下载 PPPPutSettings：</string>
     <string name="install_pppps_text16">启用 InstallWithOptions: \"绕过低目标SDK块”，“替换现有\"。</string>
@@ -2332,4 +2331,9 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Don\'t forget to save the change by clicking the \"Save\" button.</string>
     <string name="preferences_installDeltaPreferences_title">Delta application is not installed.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Click here to install Shizuku from store.</string>
+    <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). Click here to download it.</string>
+    <string name="install_pppps_text13_1">1. Install and start Shizuku (if device is not rooted). Click here to install it from store.</string>
+    <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
+    <string name="important_info_advanced_protection">IMPORTANT: If is enabled in device \"Advanced protection\", is not possible to install required apllicaitons (PPPE, PPPPS, InstallWithOptions, Shizuku) from third-party applications stores (Drofi-ify, F-Droid, NeoStore). Also most of functionalities in PPP not correctly working. Please disable it.</string>
 </resources>

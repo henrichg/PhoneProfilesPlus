@@ -2105,7 +2105,6 @@
     <string name="install_pppps_text10">На устройства с Android 14+ невозможно установить PPPPutSettings обычным способом.</string>
     <string name="install_pppps_text11">Но есть решение. Для него потребуются InstallWithOptions и Shizuku (если устройство без рута).</string>
     <string name="install_pppps_text12">Что нужно сделать:</string>
-    <string name="install_pppps_text13">1. Установите и запустите Shizuku (если устройство без рута). Как это сделать:</string>
     <string name="install_pppps_text14">2. Установите InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Скачайте PPPPutSettings:</string>
     <string name="install_pppps_text16">4. В InstallWithOptions отметьте Bypass Low Target SDK Block и Replace existing.</string>
@@ -2323,13 +2322,18 @@
     <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">На некоторых устройствах (OnePlus, Oppo, …) для изменения громкости запросов спец. возможностей требуется PhoneProfielsPlusExtender. Пожалуйста, установите и запустите его.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Чтобы изменять громкость запросов спец. возможностей, установите PhoneProfilesPlusExtender. Для этого нажмите сюда.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Чтобы изменять громкость запросов спец. возможностей, разрешите PhoneProfilesPlusExtender доступ к спец. возможностям в настройках системы.</string>
-    <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
-    <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
-    <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
-    <string name="profile_preferences_deviceWiFiAPInfo36_summary">This parameter requires an application Delta that must be installed. Click here for more information.</string>
-    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">It is important that you have installed application Delta on your device.</string>
-    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Important: in application Delta must be enabled \"Tasker integration\".</string>
-    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
-    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Don\'t forget to save the change by clicking the \"Save\" button.</string>
-    <string name="preferences_installDeltaPreferences_title">Delta application is not installed.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Для работы этого параметра требуется наличие установленного приложения. Для получения дополнительной информации нажмите сюда.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Важно, чтобы на вашем устройстве было установлено приложение, указанное в параметре \"Приложение VPN\".</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">не установлено приложение Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Для работы этого параметра требуется наличие установленного приложения Delta. Для получения дополнительной информации нажмите сюда.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Важно, чтобы приложение Delta было установлено на вашем устройстве.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Важно: в приложении Delta должна быть включена \"Интеграция Tasker\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Её можно включить в разделе \"Настройки\"/\"Расширенные настройки\"/\"Интеграция Tasker\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Не забудьте сохранить изменения, нажав кнопку \"Сохранить\".</string>
+    <string name="preferences_installDeltaPreferences_title">Приложение Delta не установлено.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Нажмите сюда, чтобы установить Shizuku из магазина приложений.</string>
+    <string name="install_pppps_text13">1. Установите и запустите Shizuku (если устройство без рута). Нажмите сюда, чтобы скачать его.</string>
+    <string name="install_pppps_text13_1">1. Установите и запустите Shizuku (если устройство без рута). Нажмите сюда, чтобы установить его из магазина приложений.</string>
+    <string name="install_pppps_text14_1">2. Установите InstallWithOptions. Нажмите сюда, чтобы установить его из магазина приложений.</string>
+    <string name="important_info_advanced_protection">ВАЖНО: Если на устройстве включена \"Дополнительная защита\", то установить требуемые приложения (PPPE, PPPPS, InstallWithOptions, Shizuku) из сторонних магазинов (Drofi-ify, F-Droid, NeoStore) будет невозможно. Помимо этого, большая часть функционала PPP также не будет работать должным образом. Пожалуйста, отключите её.</string>
 </resources>

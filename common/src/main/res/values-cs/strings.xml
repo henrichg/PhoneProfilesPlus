@@ -2105,7 +2105,6 @@
     <string name="install_pppps_text10">Pro Android 14+ není normálně možné nainstalovat PPPPutSettings přímo v zařízení.</string>
     <string name="install_pppps_text11">Ale existuje řešení. Vyžaduje to InstallWithOptions a Shizuku (pokud zařízení není rootováno).</string>
     <string name="install_pppps_text12">Jak postupovat:</string>
-    <string name="install_pppps_text13">1. Nainstalujte a spusťte Shizuku (pokud zařízení není rootováno). Jak, je v:</string>
     <string name="install_pppps_text14">2. Nainstalujte InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Stáhněte PPPPutSettings:</string>
     <string name="install_pppps_text16">4. V InstallWithOptions povolte: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2332,4 +2331,9 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parametr se nachází v \"Settings/Advanced settings/Tasker integration\". Povolte jej.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Nezapomeňte uložit změnu kliknutím na tlačítko \"Save\".</string>
     <string name="preferences_installDeltaPreferences_title">Aplikácia Delta nie je nainštalovaná.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Klikněte zde pro instalaci Shizuku z obchodu.</string>
+    <string name="install_pppps_text13">1. Nainstalujte a spusťte Shizuku (pokud zařízení nemá root). Klikněte zde pro jeho stažení.</string>
+    <string name="install_pppps_text13_1">1. Nainstalujte a spusťte Shizuku (pokud zařízení není rootnuto). Klikněte zde pro instalaci z obchodu.</string>
+    <string name="install_pppps_text14_1">2. Nainstalujte InstallWithOptions. Klikněte zde pro instalaci z obchodu.</string>
+    <string name="important_info_advanced_protection">DŮLEŽITÉ: Pokud je v zařízení povolena možnost \"Rozšířená ochrana“, nelze nainstalovat požadované aplikace (PPPE, PPPPS, InstallWithOptions, Shizuku) z obchodů s aplikacemi třetích stran (Drofi-ify, F-Droid, NeoStore). Také většina funkcí v PPP nefunguje správně. Prosim vypněte ji.</string>
 </resources>

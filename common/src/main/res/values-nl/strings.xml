@@ -2105,7 +2105,6 @@
     <string name="install_pppps_text10">Bij Android 14+ is het normaal gesproken niet mogelijk om PPutSettings rechtstreeks op het apparaat te installeren.</string>
     <string name="install_pppps_text11">Er is een oplossing. Dit vereist InstallWithOptions en Shizuku (als het apparaat niet geroot is).</string>
     <string name="install_pppps_text12">Hoe verder te gaan:</string>
-    <string name="install_pppps_text13">1. Installeer en start Shizuku (als het apparaat niet geroot is). Hoe, staat in:</string>
     <string name="install_pppps_text14">2. Installeer InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Download PPPPutSettings:</string>
     <string name="install_pppps_text16">4. In InstallWithOptions ingeschakelen: \"Bypass Low Target SDK Block\", \"Vervang bestaande\".</string>
@@ -2332,4 +2331,9 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter in \"Instellingen/Geavanceerde instellingen/Tasker integratie\". Schakel het in.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Vergeet niet om de wijziging op te slaan door op de knop \"Opslaan\" te klikken.</string>
     <string name="preferences_installDeltaPreferences_title">Delta App is niet geïnstalleerd.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Klik hier om Shizuku uit de App store te installeren.</string>
+    <string name="install_pppps_text13">1. Installeer en start Shizuku (als het apparaat niet geroot is). Klik hier om te downloaden.</string>
+    <string name="install_pppps_text13_1">1. Installeer en start Shizuku (als het apparaat niet geroot is). Klik hier om het te installeren vanuit de App store.</string>
+    <string name="install_pppps_text14_1">2. Installeer InstallWithOptions. Klik hier om het vanuit de App store te installeren.</string>
+    <string name="important_info_advanced_protection">BELANGRIJK: Indien ingeschakeld in \"Geavanceerde bescherming\", is het niet mogelijk om de vereiste applicaties te installeren (PPPE, PPPPPPS, InstallWithOptions, Shizuku) via applicatiewinkels van derden (Drofi-ify, F-Droid, NeoStore). Ook de meeste functionaliteiten in PPP werken niet correct. Schakel het uit.</string>
 </resources>

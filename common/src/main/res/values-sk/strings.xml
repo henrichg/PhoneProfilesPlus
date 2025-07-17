@@ -2105,7 +2105,6 @@
     <string name="install_pppps_text10">Pre Android 14+ nie je normálne možné nainštalovať PPPPutSettings priamo v zariadení.</string>
     <string name="install_pppps_text11">Ale existuje riešenie. Vyžaduje to InstallWithOptions a Shizuku (ak zariadenie nie je rootované).</string>
     <string name="install_pppps_text12">Ako postupovať:</string>
-    <string name="install_pppps_text13">1. Nainštalujte a spustite Shizuku (ak zariadenie nie je rootované). Ako, je v:</string>
     <string name="install_pppps_text14">2. Nainštalujte InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Stiahnite PPPPutSettings:</string>
     <string name="install_pppps_text16">4. V InstallWithOptions povoľte: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2332,4 +2331,9 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter sa nachádza v \"Settings/Advanced settings/Tasker integration\". Povoľte ho.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Nezabudnite uložiť zmenu kliknutím na tlačidlo \"Save\".</string>
     <string name="preferences_installDeltaPreferences_title">Aplikácia Delta nie je nainštalovaná.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Kliknite sem pre inštaláciu Shizuku z obchodu.</string>
+    <string name="install_pppps_text13">1. Nainštalujte a spustite Shizuku (ak zariadenie nie je rootované). Kliknite sem a stiahnite ho.</string>
+    <string name="install_pppps_text13_1">1. Nainštalujte a spustite Shizuku (ak zariadenie nie je rootované). Kliknite sem a nainštalujte ho z obchodu.</string>
+    <string name="install_pppps_text14_1">2. Nainštalujte InstallWithOptions. Kliknite sem pre inštaláciu z obchodu.</string>
+    <string name="important_info_advanced_protection">DÔLEŽITÉ: Ak je v zariadení povolená možnosť \"Rozšírená ochrana\", nie je možné nainštalovať požadované aplikácie (PPPE, PPPPS, InstallWithOptions, Shizuku) z obchodov s aplikáciami tretích strán (Drofi-ify, F-Droid, NeoStore). Taktiež väčšina funkcií v PPP nefunguje správne. Prosím vypnite ju.</string>
 </resources>
