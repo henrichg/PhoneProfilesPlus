@@ -4,7 +4,7 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 PhoneProfilesPlus (PPP)
-===========================
+=======================
 
 [![version](https://img.shields.io/badge/version-7.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
@@ -20,6 +20,9 @@ PhoneProfilesPlus (PPP)
 Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3 \
 \
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
+
+### How to build PPP
+- [Show it](docs/build.md)
 
 ### Sources of PhoneProfilesPlus:
 
