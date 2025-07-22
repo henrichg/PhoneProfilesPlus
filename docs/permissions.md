@@ -8,6 +8,7 @@ Permissions
 - ACCESS_NOTIFICATION_POLICY
 - ACCESS_SUPERUSER
 - ACCESS_WIFI_STATE
+- ANSWER_PHONE_CALLS
 - BLUETOOTH
 - BLUETOOTH_ADMIN
 - CAMERA (needed for profile parameter Camera flash)
@@ -44,4 +45,5 @@ Permissions
 - moe.shizuku.manager.permission.API_V23 (needed for Shizuku)
 - sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION (needed for send/receive broadcast to/from PhoneProfilesPlusExtender)
 - sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION  (needed for send/receive broadcast to/from PPPPutSettings)
-
+- com.samsung.android.permission.SEC_EYECOMFORT_BROADCAST (for "Night light settings" profile parameter in Samsung devices)
+- com.termux.permission.RUN_COMMAND (for Termux application - required for SentIntent commands implemented for Tasker)
