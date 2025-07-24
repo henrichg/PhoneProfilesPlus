@@ -1678,7 +1678,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        //TODO
         showInfoAboutApplicaitonIcons = true;
         if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 35))) {
             preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_NOTIFICATION_PANEL_INFO);
@@ -3509,6 +3508,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 enableLightnessArrows = !useDynamicColorsWidgetOneRowProfileList;
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE);
             if (_preference != null)
+                //noinspection ConstantValue
                 _preference.setEnabled((!useDynamicColorsWidgetOneRowProfileList) && enableLightnessArrows);
         }
 

@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">Nombre de perfil de OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Nombre del túnel de WireGuard:</string>
     <string name="altype_profileError_setVPN">error de perfil al establecer VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Conectar/desconectar VPN para OpenVPN se ha movido de \"Otros\"/\"Ejecutar aplicaciones, atajos, intentos\" al parámetro \"VPN\".</string>
     <string name="permission_why_profile_wireguard">para configurar el túnel de subida/bajada mediante la aplicación WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard no está instalado o la versión no es compatible.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect no está instalado.</string>
@@ -1894,8 +1893,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Lista de perfiles de una fila</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Número de perfiles por página</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Flechas y marcadores de la luminosidad del perfil activo</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">En los dispositivos OnePlus, el cambio de volumen de medios no funciona cuando PhoneProfilesPlus está en segundo plano.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">En los dispositivos OnePlus, el cambio de volumen de medios no funciona cuando PhoneProfilesPlus está en segundo plano.\nPara la activación manual del perfil debes configurar también \"Volumen de los avisos de accesibilidad\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Nota: No todas las aplicaciones de Reloj utilizan el volumen de alarma del sistema porque utilizan su propio volumen configurado en sus ajustes.</string>
     <string name="connect_to_ssid_dialog_help">En este cuadro de diálogo se muestra la lista de SSID Wi-Fi configurados.\nHaz clic aquí para ver la pantalla de configuración Wi-Fi. Contiene un parámetro para configurar redes Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2108,7 +2105,6 @@
     <string name="install_pppps_text10">En Android 14+ no es posible instalar PPPPutSettings directamente en el dispositivo.</string>
     <string name="install_pppps_text11">Pero existe una solución. Esto requiere InstallWithOptions y Shizuku (si el dispositivo no está rooteado).</string>
     <string name="install_pppps_text12">¿Cómo proceder?</string>
-    <string name="install_pppps_text13">1. Instala e inicia Shizuku (si el dispositivo no está rooteado). Cómo se indica en:</string>
     <string name="install_pppps_text14">2. Instala InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Descargar PPPPutSettings:</string>
     <string name="install_pppps_text16">4. En InstallWithOptions habilita: \"Bypass Low Target SDK Block\", \"Reemplazar existente\".</string>
@@ -2259,9 +2255,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Cambiar la iluminación del icono por el Modo Oscuro</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Cambiar las preferencias de indicador por el Modo Oscuro</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Cambiar las flechas y el marcador de la luz del perfil activo por el Modo Oscuro</string>
-    <string name="important_info_edge_panel_replacement1">A partir de OneUI 7 los paneles Edge de aplicaciones de terceros ya no están soportados y, por lo tanto, se han eliminado de PPP.</string>
-    <string name="important_info_edge_panel_replacement2">Se ha creado un reemplazo, un widget llamado \"Panel\". Se puede utilizar como un widget independiente, pero también se puede utilizar en la aplicación \"Panels\", que puede reemplazar a los Paneles de Borde de OneUI. La ventaja es que la aplicación se puede utilizar en otros dispositivos, no solo en los de Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Enlace a la aplicación \"Panels\"</string>
     <string name="location_editor_title_not_actual_location">Lo sentimos, la ubicación actual no está siendo determinada. Por favor, espera a que se determine.</string>
     <string name="location_editor_rename_with_address_message">¿Renombrar el nombre de la ubicación con la dirección real?</string>
     <string name="pref_dlg_contacts_button_refresh">Actualizar</string>
@@ -2323,4 +2316,24 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Si en la barra de estado se muestra la aplicación PhoneProfilesPlus en lugar del icono del perfil, puedes cambiarlo. Haz clic aquí para mostrar cómo.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Si en las notificaciones se muestra la aplicación PhoneProfilesPlus en lugar del icono del perfil, puedes cambiarlo. Haz clic aquí para mostrar cómo.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">En esta situación se recomienda</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Nota: Esto puede no funcionar desde PPP. Es mejor desactivarlo en la configuración del dispositivo.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">En algunos dispositivos (OnePlus, Ophone, …), el cambio de volumen de medios no funciona. Por esta razón, PPP debe cambiar el volumen de accesibilidad en estos dispositivos.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">En algunos dispositivos (OnePlus, Ophone, …), el cambio de volumen de medios no funciona. Por esta razón, PPP debe cambiar el volumen de accesibilidad en estos dispositivos. Pero es necesario PhoneProfielsPlusExtender para esto. Por favor, instálalo y actívalo.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">En algunos dispositivos (OnePlus, Ophone, …), el cambio de \"Volumen del prompt de accesibilidad\" requiere PhoneProfielsPlusExtender. Instálalo y habilítalo.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Para cambiar \"Volumen de accesibilidad\", haz clic aquí para instalar PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Para cambiar el \"volumen de accesibilidad\", permite a PhoneProfilesPlusExtender \"Accesibilidad\" en los ajustes del sistema.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Este parámetro requiere una aplicación que debe ser instalada. Haz clic aquí para más información.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Es importante que hayas instalado la aplicación en tu dispositivo, que está configurada en el parámetro \"Aplicación VPN\".</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">Delta no instalado</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Este parámetro requiere una aplicación Delta que debe ser instalada. Haz clic aquí para más información.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Es importante que hayas instalado la aplicación Delta en tu dispositivo.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Importante: en la aplicación Delta debe estar habilitada \"integración con Tasker\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">El parámetro está en \"Configuración/Configuración avanzada/Integración con Tasker\". Habilítalo.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">No olvides guardar el cambio haciendo clic en el botón \"Guardar\".</string>
+    <string name="preferences_installDeltaPreferences_title">La aplicación Delta no está instalada.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Haz clic aquí para instalar Shizuku desde la tienda.</string>
+    <string name="install_pppps_text13">1. Instala e inicia Shizuku (si el dispositivo no está rooteado). Haz clic aquí para descargarlo.</string>
+    <string name="install_pppps_text13_1">1. Instala e inicia Shizuku (si el dispositivo no está rooteado). Haz clic aquí para instalarlo desde la tienda.</string>
+    <string name="install_pppps_text14_1">2. Instala InstallWithOptions. Haz clic aquí para instalarlo desde la tienda.</string>
+    <string name="important_info_advanced_protection">IMPORTANTE: Si está habilitada la \"Protección avanzada\" en el dispositivo, no será posible instalar las aplicaciones requeridas (PPPE, PPS, InstallWithOptions, Shizuku) desde las tiendas de aplicaciones de terceros (Drofi-ify, F-Droid, NeoStore). Tampoco funcionarán correctamente la mayoría de las funcionalidades de PPP. Por favor, desactívala.</string>
 </resources>

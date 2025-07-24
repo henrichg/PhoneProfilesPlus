@@ -882,6 +882,7 @@ class ProfileStatic {
         preferenceAllowed.notAllowedG1 = false;
         preferenceAllowed.notAllowedPPPPS = false;
         preferenceAllowed.notAllowedShizuku = false;
+        preferenceAllowed.notInstalledDelta = false;
 
         //noinspection IfStatementWithIdenticalBranches
         if (profile == null) {
@@ -1096,7 +1097,8 @@ class ProfileStatic {
             if (preferenceAllowed.notAllowedG1 ||
                     preferenceAllowed.notAllowedRoot ||
                     preferenceAllowed.notAllowedPPPPS ||
-                    preferenceAllowed.notAllowedShizuku)
+                    preferenceAllowed.notAllowedShizuku ||
+                    preferenceAllowed.notInstalledDelta)
                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             return preferenceAllowed;
@@ -1237,6 +1239,11 @@ class ProfileStatic {
             installedPPPPS = false;
         }
 
+        boolean installDelta = true;
+        if (preferenceAllowed.notInstalledDelta) {
+            installDelta = false;
+        }
+
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
 
         boolean accessibilityNotRequired = true;
@@ -1254,7 +1261,8 @@ class ProfileStatic {
                     (!enabledNotificationAccess) ||
                     (!accessibilityEnabled) ||
                     (!defaultAssistantEnabled) ||
-                    (!installedPPPPS);
+                    (!installedPPPPS) ||
+                    (!installDelta);
         else
             return (!grantedAllPermissions) ||
                     (!grantedRoot) ||
@@ -1263,7 +1271,8 @@ class ProfileStatic {
                     (!accessibilityEnabled) ||
                     (!defaultAssistantEnabled) ||
                     (!installedPPPPS) ||
-                    (!grantedShizukuPermission);
+                    (!grantedShizukuPermission) ||
+                    (!installDelta);
     }
 
     static int getNightLightStringId() {

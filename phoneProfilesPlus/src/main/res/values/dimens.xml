@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <bool name="screen_is_landscape">false</bool>
 
     <!-- Match 56dp default ActionBar height on portrait orientation -->
@@ -127,7 +127,7 @@
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
     <!-- this is height of BottomNavigationView -->
-    <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>
+<!--    <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>-->
 
     <dimen name="fastScrollTrackWidth">10dp</dimen>
     <dimen name="fastScrollThumbWidth">8dp</dimen>

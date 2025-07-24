@@ -18,6 +18,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
+        setTitle(R.string.notifications_preferences_notification_type);
 
         activityStarted = true;
     }

@@ -88,6 +88,9 @@
     <!-- for "Night light settings" profile parameter in "Samsung devices -->
     <uses-permission android:name="com.samsung.android.permission.SEC_EYECOMFORT_BROADCAST"/>
 
+    <!-- for Termux application - required for SentIntent commands implemented for Tasker -->
+    <uses-permission android:name="com.termux.permission.RUN_COMMAND"/>
+
 <!--    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>-->
 
 
@@ -239,6 +242,14 @@
             android:exported="true"
             android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
+        <!--
+        <provider
+            android:name=".SLBackupContentProvider"
+            android:authorities="${applicationId}.widgetConfigProvider"
+            android:exported="true"
+            tools:ignore="ExportedContentProvider" />
+        -->
+
 <!-- https://developer.android.com/about/versions/13/features/app-languages
      requires appcompat 1.6.0+ -->
 <!--        <service-->
@@ -251,12 +262,13 @@
 <!--        </service>-->
 
         <!-- !!! android:theme must be set here -->
+        <!-- android:label is required, will be used for launcher icon (because of category LAUCHER)  -->
         <activity
             android:name=".ActivatorActivity"
             android:label="@string/title_activity_ppp"
-            android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
             android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
             android:theme="@style/ActivatorTheme_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
@@ -265,12 +277,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--            android:label="@string/title_activity_phone_profiles"-->
 
         <!-- android:theme must be used, because of flickering of withe bacground in Huawei -->
         <activity
             android:name=".EditorActivity"
-            android:label="@string/title_activity_editor"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
             android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
@@ -280,6 +290,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+<!--        android:label="@string/title_activity_editor"-->
 
         <activity
             android:name=".ProfilesPrefsActivity">
@@ -291,18 +302,17 @@
 <!--    android:label="@string/title_activity_event_preferences">-->
         <activity
             android:name=".PhoneProfilesPrefsActivity"
-            android:label="@string/title_activity_phone_profiles_preferences"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+<!--        android:label="@string/title_activity_phone_profiles_preferences"-->
         <activity
             android:name=".ShortcutCreatorActivity"
             android:excludeFromRecents="true"
             android:icon="@drawable/ic_shortcut"
-            android:label="@string/title_activity_shortcut_creator"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:launchMode="singleInstance"
             android:theme="@style/DialogTheme_dayNight"
@@ -313,6 +323,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+<!--        android:label="@string/title_activity_shortcut_creator"-->
         <activity
             android:name=".BackgroundActivateProfileActivity"
             android:excludeFromRecents="true"
@@ -353,21 +364,21 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".ActivityLogActivity"
-            android:label="@string/title_activity_activity_log">
+            android:name=".ActivityLogActivity">
         </activity>
+<!--    android:label="@string/title_activity_activity_log">-->
         <activity
-            android:name=".ActivityLogHelpActivity"
-            android:label="@string/about_application_title">
+            android:name=".ActivityLogHelpActivity">
         </activity>
+<!--    android:label="@string/about_application_title">-->
         <activity
-            android:name=".ImportantInfoActivity"
-            android:label="@string/important_info_activity_title">
+            android:name=".ImportantInfoActivity">
         </activity>
+<!--    android:label="@string/important_info_activity_title">-->
         <activity
-            android:name=".ImportantInfoActivityForceScroll"
-            android:label="@string/important_info_activity_title">
+            android:name=".ImportantInfoActivityForceScroll">
         </activity>
+<!--    android:label="@string/important_info_activity_title">-->
         <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
@@ -376,9 +387,9 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".LocationGeofenceEditorActivityOSM"
-            android:label="@string/location_editor_title">
+            android:name=".LocationGeofenceEditorActivityOSM">
         </activity>
+<!--    android:label="@string/location_editor_title">-->
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"
@@ -388,12 +399,11 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".AboutApplicationActivity"
-            android:label="@string/about_application_title">
+            android:name=".AboutApplicationActivity">
         </activity>
+<!--    android:label="@string/about_application_title">-->
         <activity
             android:name=".NFCTagWriteActivity"
-            android:label="@string/nfc_tag_pref_dlg_writeTagTitle"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -401,6 +411,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+<!--        android:label="@string/nfc_tag_pref_dlg_writeTagTitle"-->
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
@@ -429,12 +440,12 @@
         </activity>
         <activity
             android:name=".NFCTagReadForegroundActivity"
-            android:label="@string/nfc_tag_pref_dlg_readNfcTag_title"
             tools:ignore="IntentFilterExportedReceiver">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
 <!--            </intent-filter>-->
         </activity>
+<!--        android:label="@string/nfc_tag_pref_dlg_readNfcTag_title"-->
         <activity
             android:name=".ActivatorTargetHelpsActivity"
             android:label=""
@@ -460,9 +471,9 @@
         </activity>
         <activity
             android:name=".RunApplicationEditorIntentActivity"
-            android:label="@string/intent_editor_title"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+<!--        android:label="@string/intent_editor_title"-->
         <activity
             android:name=".NotUsedMobileCellsDetectedActivity"
             android:label=""
@@ -478,14 +489,14 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".GitHubAssetsScreenshotActivity"
-            android:label="@string/github_assets_screenshot_label">
+            android:name=".GitHubAssetsScreenshotActivity">
         </activity>
+<!--    android:label="@string/github_assets_screenshot_label">-->
         <activity
             android:name=".DonationPayPalActivity"
-            android:label="@string/donation_activity_title"
             android:theme="@style/DialogTheme_dayNight"
             >
+<!--            android:label="@string/donation_activity_title"-->
         </activity>
         <activity
             android:name=".CheckCriticalPPPReleasesDisableActivity"
@@ -499,11 +510,11 @@
             android:name=".TileChooserActivity"
             android:excludeFromRecents="true"
             android:icon="@drawable/ic_profile_default"
-            android:label="@string/title_activity_tile_chooser"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/DialogTheme_dayNight"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
         </activity>
+<!--        android:label="@string/title_activity_tile_chooser"-->
         <activity
             android:name=".TileChooserLongClickActivity"
             android:excludeFromRecents="true"
@@ -584,7 +595,6 @@
         <activity
             android:name=".NotificationsPreferncesActivity"
             android:exported="true"
-            android:label="@string/notifications_preferences_notification_type"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
@@ -592,6 +602,7 @@
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
+<!--        android:label="@string/notifications_preferences_notification_type"-->
         <activity
             android:name=".GenerateNotificationAfterClickActivity"
             android:label=""

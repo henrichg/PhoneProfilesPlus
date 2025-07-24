@@ -1245,6 +1245,7 @@ class EventPreferencesCall extends EventPreferences {
 
                 if (callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED) {
                     if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
+                        //noinspection UnusedAssignment
                         eventsHandler.callPassed = false;
                     else {
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "PPApplicationStatic.getContactsCache()");

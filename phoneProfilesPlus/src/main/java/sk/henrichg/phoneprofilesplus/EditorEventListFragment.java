@@ -306,7 +306,7 @@ public class EditorEventListFragment extends Fragment
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
-                    if (!activity.isFinishing()) {
+                    if ((activity != null) && (!activity.isFinishing())) {
                         ((EditorActivity) activity).addEventDialog = new AddEventDialog(((EditorActivity) activity)/*, this*/);
                         ((EditorActivity) activity).addEventDialog.showDialog();
                     }
@@ -329,16 +329,18 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_generate_predefined_events) {
                 //final Activity activity = getActivity();
                 //final EditorEventListFragment fragment = this;
-                final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
-                final Runnable progressBarRunnable = () -> {
-                    EditorEventListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
-                        fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
-                        fragment.loadAsyncTask.execute();
-                    }
-                };
-                progressBarHandler.post(progressBarRunnable);
+                if (activity != null) {
+                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
+                    final Runnable progressBarRunnable = () -> {
+                        EditorEventListFragment fragment = fragmentWeakRef.get();
+                        if (fragment != null) {
+                            fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
+                            fragment.loadAsyncTask.execute();
+                        }
+                    };
+                    progressBarHandler.post(progressBarRunnable);
+                }
                 return true;
             }
             else

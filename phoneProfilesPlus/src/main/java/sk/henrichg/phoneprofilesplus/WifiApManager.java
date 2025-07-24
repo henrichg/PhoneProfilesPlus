@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 //import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -404,6 +405,36 @@ final class WifiApManager {
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
+    }
+
+    static void startTethering36(final Context context, boolean doNotChangeWifi) {
+        if (!doNotChangeWifi) {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (wifiManager != null) {
+                int wifiState = wifiManager.getWifiState();
+                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                if (isWifiEnabled) {
+                    //if (Build.VERSION.SDK_INT >= 29)
+                    //    CmdWifi.setWifi(false);
+                    ActivateProfileHelper.setWifi(context.getApplicationContext(), false);
+                    //wifiManager.setWifiEnabled(false);
+                }
+            }
+        }
+
+        Intent intent = new Intent("dev.shadoe.delta.action.START_SOFT_AP");
+        intent.setPackage(PPApplication.PACKAGE_NAME_DELTA);
+        intent.setClassName(PPApplication.PACKAGE_NAME_DELTA, "dev.shadoe.delta.SoftApBroadcastReceiver");
+        //intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
+        context.sendBroadcast(intent);
+    }
+
+    static void stopTethering36(Context context) {
+        Intent intent = new Intent("dev.shadoe.delta.action.STOP_SOFT_AP");
+        intent.setPackage(PPApplication.PACKAGE_NAME_DELTA);
+        intent.setClassName(PPApplication.PACKAGE_NAME_DELTA, "dev.shadoe.delta.SoftApBroadcastReceiver");
+        //intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
+        context.sendBroadcast(intent);
     }
 
 }

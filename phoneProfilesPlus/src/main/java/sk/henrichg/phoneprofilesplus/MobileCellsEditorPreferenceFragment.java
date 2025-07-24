@@ -1018,6 +1018,8 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     fragment.popupWindow = new PopupWindow(popupView, width, height, focusable);
                     fragment.popupWindow.showAtLocation(fragment.cellsListView, Gravity.CENTER, 0, 0);
                 }
+
+                _cellFilterValue = fragment.cellFilter.getText().toString();
             }
         }
 
@@ -1038,7 +1040,6 @@ public class MobileCellsEditorPreferenceFragment extends PreferenceDialogFragmen
                     //_cellName = fragment.cellName.getText().toString();
                     _cellsList = new ArrayList<>();
                     _filteredCellsList = new ArrayList<>();
-                    _cellFilterValue = fragment.cellFilter.getText().toString();
                     _value = fragment.preference.value;
                     _sortCellsBy = fragment.preference.sortCellsBy;
 

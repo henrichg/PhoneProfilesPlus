@@ -251,7 +251,7 @@ public class EditorProfileListFragment extends Fragment
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_profile) {
                 if (profileListAdapter != null) {
-                    if (!activity.isFinishing()) {
+                    if ((activity != null) && (!activity.isFinishing())) {
                         ((EditorActivity) activity).addProfileDialog = new AddProfileDialog((EditorActivity) activity/*, this*/);
                         ((EditorActivity) activity).addProfileDialog.showDialog();
                     }
@@ -272,16 +272,18 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_generate_predefined_profiles) {
-                final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
-                final Runnable progressBarRunnable = () -> {
-                    EditorProfileListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
-                        fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
-                        fragment.loadAsyncTask.execute();
-                    }
-                };
-                progressBarHandler.post(progressBarRunnable);
+                if (activity != null) {
+                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
+                    final Runnable progressBarRunnable = () -> {
+                        EditorProfileListFragment fragment = fragmentWeakRef.get();
+                        if (fragment != null) {
+                            fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
+                            fragment.loadAsyncTask.execute();
+                        }
+                    };
+                    progressBarHandler.post(progressBarRunnable);
+                }
                 return true;
             }
             else
@@ -293,16 +295,18 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                    final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
-                    final Runnable progressBarRunnable = () -> {
-                        EditorProfileListFragment fragment = fragmentWeakRef.get();
-                        if (fragment != null) {
-                            fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
-                            fragment.loadAsyncTask.execute();
-                        }
-                    };
-                    progressBarHandler.post(progressBarRunnable);
+                    if (activity != null) {
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
+                        final Runnable progressBarRunnable = () -> {
+                            EditorProfileListFragment fragment = fragmentWeakRef.get();
+                            if (fragment != null) {
+                                fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
+                                fragment.loadAsyncTask.execute();
+                            }
+                        };
+                        progressBarHandler.post(progressBarRunnable);
+                    }
                 } else {
                     if (profileListAdapter != null) {
                         // added touch helper for drag and drop items

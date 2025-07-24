@@ -151,10 +151,10 @@
 <!--        app:widgetLayout="@layout/preference_widget_info_preference_clickable"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
 
-    <sk.henrichg.phoneprofilesplus.InformationPreference
+    <sk.henrichg.phoneprofilesplus.InfoDialogPreference
         app:key="prf_pref_deviceVPNInfo"
         app:title="@string/profile_preferences_deviceVPNInfo"
-        app:summary="@string/profile_preferences_deviceVPNInfo_summary2"
+        app:summary="@string/profile_preferences_deviceVPNInfo_summary"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.VPNDialogPreference

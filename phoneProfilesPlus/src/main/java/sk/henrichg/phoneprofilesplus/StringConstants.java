@@ -112,6 +112,8 @@ class StringConstants {
     //static final String CHAR_SQUARE = "■";
     static final String INSTALLED_STORE_INDICATOR = "•"; //"⭆";
 
+    //static final String THREE_DOT="…";
+
     private StringConstants() {
         // private constructor to prevent instantiation
     }

@@ -4,9 +4,9 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 PhoneProfilesPlus (PPP)
-===========================
+=======================
 
-[![version](https://img.shields.io/badge/version-7.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1)
+[![version](https://img.shields.io/badge/version-7.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.1)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
@@ -20,6 +20,9 @@ PhoneProfilesPlus (PPP)
 Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3 \
 \
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
+
+### How to build PPP
+- [Show it](docs/build.md)
 
 ### Sources of PhoneProfilesPlus:
 
@@ -125,7 +128,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - From Android 8.0
 - minSdkVersion = 26
 - targetSdkVersion = 28
-- compiledSdkVersion = 35
+- compiledSdkVersion = 36
 
 ##### Required external libs - open-source
 
@@ -144,8 +147,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - ExpandableLayout - https://github.com/skydoves/ExpandableLayout
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
-- Encryption - https://github.com/simbiose/Encryption
 - Shizuku - https://github.com/RikkaApps/Shizuku, https://github.com/RikkaApps/Shizuku-API
+- Encryption (as module, code modified) - https://github.com/simbiose/Encryption
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker

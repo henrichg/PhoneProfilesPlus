@@ -20,6 +20,7 @@ class PreferenceAllowed {
     boolean notAllowedG1;
     boolean notAllowedPPPPS;
     boolean notAllowedShizuku;
+    boolean notInstalledDelta;
 
     private int _isRooted = -1;
     private int _serviceBinaryExists = -1;
@@ -49,6 +50,7 @@ class PreferenceAllowed {
     static final int PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS = 15;
     static final int PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS = 16;
     static final int PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED = 17;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA = 18;
 
     void copyFrom(PreferenceAllowed preferenceAllowed) {
         this.preferenceAllowed = preferenceAllowed.preferenceAllowed;
@@ -58,6 +60,7 @@ class PreferenceAllowed {
         notAllowedG1 = preferenceAllowed.notAllowedG1;
         notAllowedPPPPS = preferenceAllowed.notAllowedPPPPS;
         notAllowedShizuku = preferenceAllowed.notAllowedShizuku;
+        notInstalledDelta = preferenceAllowed.notInstalledDelta;
     }
 
     String getNotAllowedPreferenceReasonString(Context context) {
@@ -82,6 +85,7 @@ class PreferenceAllowed {
             case PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT: return context.getString(R.string.preference_not_allowed_reason_not_set_as_assistant);
             case PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS: return context.getString(R.string.preference_not_allowed_reason_not_installed_ppps);
             case PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED: return context.getString(R.string.preference_not_allowed_reason_not_granted_shizuku);
+            case PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA: return context.getString(R.string.preference_not_allowed_reason_not_installed_delta);
             default: return "";
         }
     }
@@ -1064,8 +1068,7 @@ class PreferenceAllowed {
                         if (profile != null) {
                             if (profile._deviceWiFiAP != 0)
                                 preferenceAllowed = PREFERENCE_ALLOWED;
-                        }
-                        else
+                        } else
                             preferenceAllowed = PREFERENCE_ALLOWED;
 
                         boolean sim0Exists = false;
@@ -1078,14 +1081,97 @@ class PreferenceAllowed {
                             preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                             notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
-                    }
-                    else {
+                    } else {
                         //if ((profile != null) && (profile._deviceWiFiAP != 0)) {
                         //    notAllowedRoot = true;
                         //}
                         preferenceAllowed = PREFERENCE_NOT_ALLOWED;
                         notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+                } else
+                if (Build.VERSION.SDK_INT >= 36) {
+                    if (isShiuzkuGranted(true) == 1) {
+                        if (ActivateProfileHelper.isDeltaInstalled(context)) {
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0)
+                                    preferenceAllowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed = PREFERENCE_ALLOWED;
+                        } else {
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0) {
+                                    notInstalledDelta = true;
+                                }
+                            }
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                            notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        }
+                    } else if (isRooted() == 1) {
+                        // device is rooted
+                        if (ActivateProfileHelper.isDeltaInstalled(context)) {
+                            if (profile != null) {
+                                // test if grant root is disabled
+                                if (profile._deviceWiFiAP != 0) {
+                                    if (applicationNeverAskForGrantRoot) {
+                                        preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        return;
+                                    }
+                                }
+                            } else if (sharedPreferences != null) {
+                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                    if (applicationNeverAskForGrantRoot) {
+                                        preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        // not needed to test all parameters
+                                        return;
+                                    }
+                                }
+                            }
+                            boolean sim0Exists = false;
+//                            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+//                            sim0Exists = hasSIMCardData.simCount > 0;//hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                            TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null)
+                                //noinspection deprecation
+                                sim0Exists = telephonyManager.getPhoneCount() > 0;
+                            if (!sim0Exists) {
+                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+                        } else {
+                            if (profile != null) {
+                                if (profile._deviceWiFiAP != 0) {
+                                    notInstalledDelta = true;
+                                }
+                            }
+                            preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_DELTA;
+                            notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        }
+                    } else {
+                        if (profile != null) {
+                            if (profile._deviceWiFiAP != 0) {
+//                                    PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP", "(1) Shizuku not granted");
+                                preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                notAllowedShizuku = true;
+                            } else
+                                preferenceAllowed = PREFERENCE_ALLOWED;
+                        } else {
+                            //noinspection ConstantConditions
+                            if (sharedPreferences != null) {
+                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+//                                        PPApplicationStatic.logE("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP", "(2) Shizuku not granted");
+                                    preferenceAllowed = PREFERENCE_NOT_ALLOWED;
+                                    notAllowedReason = PREFERENCE_NOT_ALLOWED_SHIZUKU_NOT_GRANTED;
+                                    notAllowedShizuku = true;
+                                } else
+                                    preferenceAllowed = PREFERENCE_ALLOWED;
+                            }
+                        }
                     }
                 } else {
                     // this must be called first, because WifiApManager.canExploitWifiTethering30(appContext) requires SIM inserted

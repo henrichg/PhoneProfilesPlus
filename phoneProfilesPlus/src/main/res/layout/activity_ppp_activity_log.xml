@@ -121,7 +121,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_log_time"
                 android:textStyle="bold"
-                android:textSize="16dp"
+                android:textSize="15sp"
                 android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage"/>
 
@@ -133,7 +133,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_data_type"
                 android:textStyle="bold"
-                android:textSize="16dp"
+                android:textSize="15sp"
                 android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage" />
 
@@ -145,7 +145,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_data"
                 android:textStyle="bold"
-                android:textSize="16dp"
+                android:textSize="15sp"
                 android:textColor="@color/activityNormalTextColor"
                 tools:ignore="SpUsage" />
 

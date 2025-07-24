@@ -123,6 +123,7 @@ public class TileChooserActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.title_activity_tile_chooser);
             getSupportActionBar().setElevation(0);
         }*/
+        setTitle(R.string.title_activity_tile_chooser);
 
         setTitle(R.string.title_activity_tile_chooser);
     }

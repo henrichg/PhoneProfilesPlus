@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">Ім\'я профілю OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Назва тунелю WireGuard:</string>
     <string name="altype_profileError_setVPN">профіль - помилка при налаштуванні VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Увімкнути/вимкнути VPN для OpenVPN переміщено з \"Інші\"/\"Запустити застосунки, ярлики, intents\" до параметра \"VPN\".</string>
     <string name="permission_why_profile_wireguard">для налаштування вмикання/вимикання тунелю застосунком WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard не встановлено або версія не підтримується.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN з\'єднання не встановлено.</string>
@@ -1894,8 +1893,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Віджет: Список профілів в один ряд</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Число профілів на сторінці</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Світлість стрілок та мітки активованого профілю</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На пристроях One Plus зміна гучності медіа не працює коли PhoneProfilesPlus є у фоні.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">На пристроях One Plus зміна гучності медіа не працює, коли PhoneProfilesPlus є у фоні.\nДля ручної активації профілю також потрібно налаштувати доступ до гучності у \"Спеціальних можливостях\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Примітка: Не всі програми \"Годинник\" використовують гучність системного будильника, оскільки вони використовують свою власну налаштовану гучність.</string>
     <string name="connect_to_ssid_dialog_help">У цьому діалозі показується список налаштованих Wi-Fi SSIDs.\nНатисніть тут, щоб переглянути екран налаштувань Wi-Fi. Він містить параметр для налаштування мереж Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2108,7 +2105,6 @@
     <string name="install_pppps_text10">Для Android 14+, встановити PPPPutSettings безпосередньо на пристрій неможливо.</string>
     <string name="install_pppps_text11">Але існує рішення. Потрібні InstallWithOptions та Shizuku (якщо пристрій не має root).</string>
     <string name="install_pppps_text12">Отже:</string>
-    <string name="install_pppps_text13">1. Встановіть та запустіть Shizuku (якщо пристрій не має прав root-права). Інструкція:</string>
     <string name="install_pppps_text14">Встановіть InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Завантажити PPPPutSettings:</string>
     <string name="install_pppps_text16">4. В InstallWithOptions позначте: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2259,9 +2255,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Змінити світлість іконки за допомогою темного режиму</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Змінити світлість індикатора налаштувань за допомогою темного режиму</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Змінити світлість стрілок і мітку активованого профілю за допомогою темного режиму</string>
-    <string name="important_info_edge_panel_replacement1">Edge Panels в OneUI 7 не підтримують застосунки сторонніх розробників. Тому вилучена підтримка в PPP.</string>
-    <string name="important_info_edge_panel_replacement2">Але є заміна, віджет \"Панель\". Він може використовуватись сам по собі, а може з застосунком \"Панелі\", який може замінити Edge Panels. Перевага застосунку також в тому, що він може використовуватись не тільки на телефонах від Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Посилання на застосунок \"Панелі\"</string>
     <string name="location_editor_title_not_actual_location">Поточне розташування не визначено. Чекаємо.</string>
     <string name="location_editor_rename_with_address_message">Змінити назву місцеперебування на фактичну?</string>
     <string name="pref_dlg_contacts_button_refresh">Оновити</string>
@@ -2323,4 +2316,24 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Якщо в панелі статусу іконка застосунку PhoneProfilesPlus замість іконки профілю, Ви можете змінити це. Натисніть тут, щоб побачити як.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Якщо в сповіщеннях іконка застосунку PhoneProfilesPlus замість іконки профілю, Ви можете змінити це. Натисніть тут, щоб побачити як.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">В цьому випадку рекомендується</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Увага: Це може не працювати з під PPP. Краще буде вимкнути в налаштуваннях пристрою.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accessibility prompt volume\" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Натисніть тут і встановіть PhoneProfilesPlusExtender, щоб змінювати звук служби спеціальних можливостей.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Щоб змінювати звук \"Спеціальні можливості\", дозвольте PhoneProfilesPlusExtender \"Спеціальні можливості\" в налаштуваннях системи.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Цей параметр вимагає встановлення застосунку. Натисніть щоб отримати більше інформації.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Важливо щоб був встановлений застосунок який є налаштований у параметрі \"VPN застосунок\".</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">Delta не встановлений</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Цей параметр вимагає встановлення застосунку Delta. Натисніть щоб отримати більше інформації.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Важливо щоб на пристрої був встановлений застосунок Delta.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Важливо: у застосунку Delta має бути увімкнута \"Інтеграція Tasker\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Це в \"Налаштування/Додаткові налаштування/Інтеграція Tasker\". Увімкніть його.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Не забудьте зберегти зміни, натиснувши кнопку \"Зберегти\".</string>
+    <string name="preferences_installDeltaPreferences_title">Застосунок Delta не встановлений.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Натисніть тут, щоб встановити Shizuku з магазину.</string>
+    <string name="install_pppps_text13">1. Встановіть і запустіть Shizuku (якщо пристрій не має прав root). Натисніть тут, щоб завантажити його.</string>
+    <string name="install_pppps_text13_1">1. Install and start Shizuku (if device is not rooted). Click here to install it from store.</string>
+    <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
+    <string name="important_info_advanced_protection">ВАЖЛИВО: Якщо на пристрої активовано \"Розширений захист\", неможливо встановити потрібні застосунки (PPPE, PPS, InstallWithOptions, Shizuku) з інших магазинів застосунків (Drofi-ify, F-Droid, NeoStore). Також більшість функцій в PPP не будуть працюють правильно. Будь ласка, вимкніть його.</string>
 </resources>

@@ -298,7 +298,7 @@ public class AskForDurationDialog extends DialogFragment implements SeekBar.OnSe
             afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
             PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                     mActivity,
-                    R.layout.ppp_spinner_filter,
+                    R.layout.ppp_spinner,
                     mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
             spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             //noinspection DataFlowIssue

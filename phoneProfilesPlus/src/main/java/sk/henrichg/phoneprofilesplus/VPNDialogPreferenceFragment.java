@@ -60,7 +60,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         PPSpinnerAdapter vpnApplicationSpinnerAdapter = new PPSpinnerAdapter(
                 (ProfilesPrefsActivity) preference._context,
-                R.layout.ppp_spinner_filter,
+                R.layout.ppp_spinner,
                 getResources().getStringArray(R.array.vpnApplicationArray));
         vpnApplicationSpinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
         vpnApplicationSpinner.setAdapter(vpnApplicationSpinnerAdapter);

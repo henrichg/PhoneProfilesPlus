@@ -1845,7 +1845,6 @@
     <string name="vpn_profile_name_pref_dlg_label">Nazwa profilu OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Nazwa tunelu WireGuard:</string>
     <string name="altype_profileError_setVPN">profil - błąd  ustawień VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Połącz/rozłącz VPN dla OpenVPN przeniesiono z \"Inne\"/\"Uruchom aplikacje, skróty, intencje\" do parametru \"VPN\".</string>
     <string name="permission_why_profile_wireguard">dla ustawienia tunelu w górę/w dół przez aplikację WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard nie jest zainstalowany lub jest w nieobsługiwanej wersji.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect nie jest zainstalowany.</string>
@@ -1894,8 +1893,6 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widżet: Jednowierszowa lista profili</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Liczba profili na stronie</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Jakość strzałek i znacznika aktywowanego profilu</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">W urządzeniach OnePlus zmiana głośności mediów nie działa, gdy PhoneProfilesPlus jest w tle.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">W urządzeniach OnePlus zmiana głośności mediów nie działa, gdy PhoneProfilesPlus jest w tle.\nAby ręcznie aktywować profil, musisz skonfigurować również \"Ułatwienie dostępu do głośności\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Uwaga: Nie wszystkie aplikacje zegara używają systemowej głośności alarmu, ponieważ używają własnego poziomu głośności skonfigurowanego w ustawieniach.</string>
     <string name="connect_to_ssid_dialog_help">W tym oknie dialogowym wyświetlana jest lista skonfigurowanych SSID Wi-Fi.\nKliknij tutaj, aby wyświetlić ekran ustawień Wi-Fi. Zawiera on parametr konfiguracji sieci Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2108,7 +2105,6 @@
     <string name="install_pppps_text10">Dla Androida 14+ zazwyczaj nie jest możliwa bezpośrednia instalacja PPPPutSettings na urządzeniu.</string>
     <string name="install_pppps_text11">Ale istnieje rozwiązanie. Wymaga to instalacji InstallWithOptions i Shizuku (jeśli urządzenie nie jest zrootowane).</string>
     <string name="install_pppps_text12">Procedura postępowania:</string>
-    <string name="install_pppps_text13">1. Zainstaluj i uruchom Shizuku (jeśli urządzenie nie jest zrootowane). Jak to zrobić:</string>
     <string name="install_pppps_text14">2. Zainstaluj InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Pobierz PPPPutsettings:</string>
     <string name="install_pppps_text16">4. W InstallWithOptions włącz: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2259,9 +2255,6 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessChangeColorsByNightMode">Zmiana jasności ikony w Trybie Ciemnym</string>
     <string name="phone_profiles_pref_applicationWidgetPrefIndicatorLightnessChangeColorsByNightMode">Zmiana jasności wskaźnika preferencji w Trybie Ciemnym</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightnessChangeColorsByNightMode">Zmień jasność strzałek i znacznika aktywowanego profilu w Trybie Ciemnym</string>
-    <string name="important_info_edge_panel_replacement1">Poczynając od OneUI 7 panele Edge pochodzące z aplikacji firm trzecich nie są obsługiwane. Dlatego zostały usunięte z PPP.</string>
-    <string name="important_info_edge_panel_replacement2">W zamian został utworzony widżet o nazwie \"Panel\". Może być używany samodzielnie, jak również w aplikacji \"Panels\", która może zastąpić panele Edge z OneUI. Zaletą aplikacji jest to, że może być używana na innych urządzeniach, nie tylko firmy Samsung.</string>
-    <string name="important_info_edge_panel_replacement3">Link do aplikacji \"Panels\"</string>
     <string name="location_editor_title_not_actual_location">Przepraszamy, aktualna lokalizacja nie jest obecnie określona. Proszę czekać, aż zostanie ustalona.</string>
     <string name="location_editor_rename_with_address_message">Zamienić nazwę lokalizacji na wskazany adres?</string>
     <string name="pref_dlg_contacts_button_refresh">Odśwież</string>
@@ -2320,7 +2313,27 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7_summary">Jeśli w powiadomieniach, zamiast ikony profilu, wyświetlana jest ikona aplikacji PhoneProfilesPlus, możesz ją zmienić. Wyłącz opcję \"Ustawienia\"/\"Powiadomienia\"/\"Ustawienia zaawansowane\"/\"Pokaż ikonę aplikacji w powiadomieniach\".</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo2_summary">Wyświetlane będą we wszystkich powiadomieniach ikony skonfigurowane dla powiadomień (wyświetlane przez system na pasku stanu, dekoracji). PPP używa tego do wyświetlania ikon profilu.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo3OneUI7_summary">Po wyłączeniu tego parametru, zalecane jest wyłączenie \"Pokaż ikonę profilu\" w ustawieniach PPP \"Powiadomienie aplikacji\".</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">If, in status bar, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notifications, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
-    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">Jeśli na pasku stanu wyświetlana jest ikona aplikacji PhoneProfilesPlus zamiast ikony profilu, możesz to zmienić. Kliknij tutaj, aby zobaczyć, jak to zrobić.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Jeśli w powiadomieniach wyświetlana jest ikona aplikacji PhoneProfilesPlus zamiast ikony profilu, możesz to zmienić. Kliknij tutaj, aby zobaczyć, jak to zrobić.</string>
+    <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">W takiej sytuacji zaleca się</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">Uwaga: To może nie działać z PPP. Lepiej to wyłączyć w ustawieniach urządzenia.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">W niektórych urządzeniach (OnePlus, Oppo, …) zmiana głośności mediów nie działa. Z tego powodu PPP musi zmieniać głośność komunikatów dostępności.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">W niektórych urządzeniach (OnePlus, Oppo, …) zmiana głośności mediów nie działa. Z tego powodu PPP musi zmieniać głośność komunikatów dostępności. Do tego wymagany jest PhoneProfilesPlusExtender . Proszę zainstalować i włączyć.</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">W niektórych urządzeniach (OnePlus, Oppo, …), zmiana \"głośności komunikatów dostępności\" wymaga PhoneProfilesPlusExtender. Proszę go zainstalować i włączyć.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Aby zmienić \"głośność komunikatów dostępności\", kliknij tutaj, aby zainstalować PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">Aby zmienić \"głośność komunikatów dostępności\", włącz usługę dostępności \"PhoneProfilesPlusExtender\" w ustawieniach systemu.</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Ten parametr wymaga zainstalowanej aplikacji. Kliknij tutaj, aby uzyskać więcej informacji.</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">Ważne jest, aby zainstalować aplikację na swoim urządzeniu, która jest skonfigurowana w parametrze \"Aplikacja VPN\".</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">nie zainstalowano Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">Ten parametr wymaga zainstalowanej aplikacji Delta. Kliknij tutaj, aby uzyskać więcej informacji.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_app_install_links">Ważne jest, aby zainstalować aplikację Delta na swoim urządzeniu.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Ważne: w aplikacji Delta musi być włączona \"Integracja z Tasker\".</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parametr znajduje się w \"Ustawieniach/Zaawansowane ustawienia/integracja z Tasker\". Należy go włączyć.</string>
+    <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Nie zapomnij zapisać zmiany klikając przycisk \"Zapisz\".</string>
+    <string name="preferences_installDeltaPreferences_title">Aplikacja Delta nie jest zainstalowana.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Kliknij tutaj, aby zainstalować Shizuku ze sklepu.</string>
+    <string name="install_pppps_text13">1. Zainstaluj i uruchom Shizuku (jeśli urządzenie nie jest zrootowane). Kliknij tutaj, aby go pobrać.</string>
+    <string name="install_pppps_text13_1">1. Zainstaluj i uruchom Shizuku (jeśli urządzenie nie jest zrootowane). Kliknij tutaj, aby zainstalować je ze sklepu.</string>
+    <string name="install_pppps_text14_1">2. Zainstaluj InstallWithOptions. Kliknij tutaj, aby zainstalować go ze sklepu.</string>
+    <string name="important_info_advanced_protection">WAŻNE: Jeśli jest włączona w urządzeniu \"Zaawansowana ochrona\", nie jest możliwe zainstalowanie wymaganych aplikacji (PPPE, PPPPS, InstallWithOptions, Shizuku) z innych źródeł aplikacji (Drofi-ify, F-Droid, NeoStore). Również większość funkcji PPP nie działa poprawnie. Proszę ją wyłączyć.</string>
 </resources>
