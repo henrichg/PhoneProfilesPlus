@@ -45,8 +45,9 @@ public class TileChooserListFragment extends Fragment {
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-        loadAsyncTask = new LoadProfileListAsyncTask(this);
-
+        if (getActivity() != null) {
+            loadAsyncTask = new LoadProfileListAsyncTask(this);
+        }
     }
 
     @Override

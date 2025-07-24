@@ -278,8 +278,10 @@ public class EditorProfileListFragment extends Fragment
                     final Runnable progressBarRunnable = () -> {
                         EditorProfileListFragment fragment = fragmentWeakRef.get();
                         if (fragment != null) {
-                            fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
-                            fragment.loadAsyncTask.execute();
+                            if (fragment.getActivity() != null) {
+                                fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
+                                fragment.loadAsyncTask.execute();
+                            }
                         }
                     };
                     progressBarHandler.post(progressBarRunnable);
@@ -301,8 +303,10 @@ public class EditorProfileListFragment extends Fragment
                         final Runnable progressBarRunnable = () -> {
                             EditorProfileListFragment fragment = fragmentWeakRef.get();
                             if (fragment != null) {
-                                fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
-                                fragment.loadAsyncTask.execute();
+                                if (fragment.getActivity() != null) {
+                                    fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
+                                    fragment.loadAsyncTask.execute();
+                                }
                             }
                         };
                         progressBarHandler.post(progressBarRunnable);
