@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.unitTest.iml" />
@@ -18,7 +17,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ToastCompat/PhoneProfilesPlus.ToastCompat.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ToastCompat/PhoneProfilesPlus.ToastCompat.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ToastCompat/PhoneProfilesPlus.ToastCompat.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ToastCompat/PhoneProfilesPlus.ToastCompat.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ToastCompat/PhoneProfilesPlus.ToastCompat.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ToastCompat/PhoneProfilesPlus.ToastCompat.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.iml" filepath="$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.main.iml" filepath="$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/android-betterpickers/PhoneProfilesPlus.android-betterpickers.unitTest.iml" />
@@ -26,7 +24,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.iml" filepath="$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.main.iml" filepath="$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/noobcameraflash/PhoneProfilesPlus.noobcameraflash.unitTest.iml" />
@@ -38,7 +35,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.main.iml" filepath="$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.main.iml" filepath="$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.unitTest.iml" />
