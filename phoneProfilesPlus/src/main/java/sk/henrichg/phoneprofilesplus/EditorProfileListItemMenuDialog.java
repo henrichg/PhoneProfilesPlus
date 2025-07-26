@@ -79,6 +79,9 @@ public class EditorProfileListItemMenuDialog extends DialogFragment
                                     case 2:
                                         fragment.deleteProfileWithAlert(profile);
                                         break;
+                                    case 3:
+                                        fragment.createShortcutToProfile(profile);
+                                        break;
                                     default:
                                 }
                             };

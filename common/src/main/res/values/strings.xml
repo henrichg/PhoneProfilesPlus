@@ -2339,37 +2339,33 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">If, in status bar, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">If, in notifications, is displayed PhoneProfilesPlus application icon instead of profile icon, you can change it. Click here to show how.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">In this situation is recommended</string>
-
     <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of "Accessibility prompt volume" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
-
     <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
     <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
     <string name="vpn_profile_pref_dlg_info_openvpnconnect" translatable="false">OpenVPN Connect</string>
     <string name="vpn_profile_pref_dlg_info_openvpnforandroid" translatable="false">OpenVPN for Android</string>
     <string name="vpn_profile_pref_dlg_info_wireguard" translatable="false">WireGuard</string>
-
     <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
     <string name="profile_preferences_deviceWiFiAPInfo36_summary">This parameter requires an application Delta that must be installed. Click here for more information.</string>
     <string name="wifi_ap_profile_pref_dlg_info_app_install_links">It is important that you have installed application Delta on your device.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta" translatable="false">Delta</string>
-
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Important: in application Delta must be enabled \"Tasker integration\".</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Don\'t forget to save the change by clicking the \"Save\" button.</string>
-
     <string name="preferences_installDeltaPreferences_title">Delta application is not installed.</string>
-
     <string name="important_info_profile_shizuku_howTo_2_1">Click here to install Shizuku from store.</string>
     <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). Click here to download it.</string>
     <string name="install_pppps_text13_1">1. Install and start Shizuku (if device is not rooted). Click here to install it from store.</string>
     <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
-
     <string name="important_info_advanced_protection">IMPORTANT: If is enabled in device \"Advanced protection\", is not possible to install required apllicaitons (PPPE, PPPPS, InstallWithOptions, Shizuku) from third-party applications stores (Drofi-ify, F-Droid, NeoStore). Also most of functionalities in PPP not correctly working. Please disable it.</string>
+
+    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
+    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
 
     <!-- **************************************************************************************** -->
 
