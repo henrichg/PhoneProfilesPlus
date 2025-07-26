@@ -301,7 +301,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
                         profileName = profile._name;
-                        longLabel = fragment.getString(R.string.shortcut_activate_profile) + profileName;
+                        longLabel = /*fragment.getString(R.string.shortcut_activate_profile) +*/ profileName;
                         useCustomColor = profile.getUseCustomColorForIcon();
                         String id;
                         if (position == 0) {
