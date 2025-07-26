@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,7 +93,6 @@ public class EditorProfileListFragment extends Fragment
 
     private int filterType = FILTER_TYPE_ALL;
 
-    private static final String SHORTCUT_ID_PROFILE = "ppp_profile";
     private static final String ACTION_SHORTCUT_TO_PROFILE_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_PROFILE_ADDED";
 
     private ShortcutToProfileAddedBroadcastReceiver shortcutToProfileAddedReceiver;
