@@ -2366,6 +2366,10 @@
 
     <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
     <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut for \"Reastart events\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut for \"Reastart events\" in home launcher</string>
+    <string name="shortcut_for_restart_events_dialog_title">Shortcut for \"Restart events\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Shortcut for \"Restart events\" created</string>
 
     <!-- **************************************************************************************** -->
 

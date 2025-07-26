@@ -1772,9 +1772,9 @@ public class EditorProfileListFragment extends Fragment
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
 
-        public CreateShortcutAsyncTask(final Profile position,
+        public CreateShortcutAsyncTask(final Profile profile,
                                        EditorProfileListFragment fragment) {
-            this.profile = position;
+            this.profile = profile;
             this.fragmentWeakRef = new WeakReference<>(fragment);
         }
 
