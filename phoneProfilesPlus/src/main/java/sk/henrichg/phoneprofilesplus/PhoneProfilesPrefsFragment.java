@@ -53,7 +53,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
@@ -1900,7 +1899,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //Context appContext = activity.getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
-                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
                     if (shortcut.getId().equals(SHORTCUT_ID_EDITOR)) {
@@ -1908,7 +1907,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         break;
                     }
                 }
-                if (!exists) {
+                if (!exists) {*/
                     if (shortcutToEditorAddedReceiver == null) {
                         shortcutToEditorAddedReceiver = new ShortcutToEditorAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
@@ -1968,9 +1967,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         return false;
                     });
-                }
+                /*}
                 else
-                    preference.setVisible(false);
+                    preference.setVisible(false);*/
             } else
                 preference.setVisible(false);
         }
@@ -2007,7 +2006,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //Context appContext = activity.getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
-                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
                     if (shortcut.getId().equals(SHORTCUT_ID_MOBILE_CELL_SCANNING)) {
@@ -2015,7 +2014,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         break;
                     }
                 }
-                if (!exists) {
+                if (!exists) {*/
                     if (shortcutToMobileCellScanningAddedReceiver == null) {
                         shortcutToMobileCellScanningAddedReceiver = new ShortcutToMobileCellScanningAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
@@ -2075,9 +2074,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         return false;
                     });
-                }
+                /*}
                 else
-                    preference.setVisible(false);
+                    preference.setVisible(false);*/
             } else
                 preference.setVisible(false);
         }

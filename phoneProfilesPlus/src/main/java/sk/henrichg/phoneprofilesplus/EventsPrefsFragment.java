@@ -46,7 +46,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 /** @noinspection ExtractMethodRecommender*/
 public class EventsPrefsFragment extends PreferenceFragmentCompat
@@ -1265,7 +1264,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             Context appContext = context.getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
-                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
                     if (shortcut.getId().equals(EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG)) {
@@ -1273,7 +1272,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         break;
                     }
                 }
-                if (!exists) {
+                if (!exists) {*/
                     if (shortcutToReadNFCTagAddedReceiver == null) {
                         shortcutToReadNFCTagAddedReceiver = new ShortcutToReadNFCTagAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
@@ -1338,9 +1337,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                         return false;
                     });
-                }
+                /*}
                 else
-                    preference.setVisible(false);
+                    preference.setVisible(false);*/
             } else
                 preference.setVisible(false);
         }
