@@ -209,10 +209,14 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PPApplicationStatic.setDaysForNextDonationNotification(appContext, daysForNextNotification);
             }
         } else {
-            int daysForOneNotification = 9;
+            /*int daysForOneNotification = 9;
             for (int i = 1; i <= donationNotificationCount; i++) {
                 daysForOneNotification = daysForOneNotification + 9 * (i + 1);
-            }
+            }*/
+            int daysForOneNotification = 30;
+            if (donationNotificationCount == 1) daysForOneNotification = daysAfterFirstStart + 50;
+            if (donationNotificationCount == 2) daysForOneNotification = daysAfterFirstStart + 75;
+            if (donationNotificationCount == 3) daysForOneNotification = daysAfterFirstStart + 90;
 //            Log.e("DonationBroadcastReceiver._doWork", "daysForOneNotification="+daysForOneNotification);
 
             notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
