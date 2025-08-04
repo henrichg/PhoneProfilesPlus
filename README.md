@@ -57,9 +57,9 @@ __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
-__GitHub (better is using Droid-ify instead):__
+__GitHub (better is using Droid-ify, F-Droid, NeoStore, or similar app store instead):__
 
-- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
+- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, F-Droid, NeoStore, or similar app store, if in your device is not supported application store, and install PhoneProfilesPlus from it.
 
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
