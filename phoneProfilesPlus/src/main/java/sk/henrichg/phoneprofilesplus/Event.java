@@ -36,7 +36,7 @@ class Event {
     long _fkProfileEnd;
     //public boolean _undoneProfile;
     int _atEndDo;
-    private int _status;
+    int _status;
     String _notificationSoundStart;
     boolean _notificationVibrateStart;
     boolean _repeatNotificationStart;

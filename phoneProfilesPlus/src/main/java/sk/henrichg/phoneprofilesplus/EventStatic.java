@@ -758,16 +758,31 @@ class EventStatic {
 
     static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
         Context appContext = context.getApplicationContext();
-        boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).isEmpty();
-        /*if (Build.VERSION.SDK_INT >= 29) {
-            if (!Settings.canDrawOverlays(context))
-                grantedAllPermissions = false;
-        }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
 
-        boolean eventIsRunnable = event.isRunnable(appContext, false) &&
-                                    event.isAllConfigured(appContext, false);
+        //(event._status <> Event.ESTATUS_STOP) &&
+
+        boolean enabledSomeSensor;
+        boolean grantedAllPermissions;
+        boolean accessibilityEnabled;
+        boolean eventIsRunnable;
+
+        if (event._status == Event.ESTATUS_STOP) {
+            enabledSomeSensor = true;
+            grantedAllPermissions = true;
+            accessibilityEnabled =  true;
+            eventIsRunnable = true;
+        } else {
+            enabledSomeSensor = event.isEnabledSomeSensor(appContext);
+            grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).isEmpty();
+            /*if (Build.VERSION.SDK_INT >= 29) {
+                if (!Settings.canDrawOverlays(context))
+                    grantedAllPermissions = false;
+            }*/
+            accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
+
+            eventIsRunnable = event.isRunnable(appContext, false) &&
+                                event.isAllConfigured(appContext, false);
+        }
 
         return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
