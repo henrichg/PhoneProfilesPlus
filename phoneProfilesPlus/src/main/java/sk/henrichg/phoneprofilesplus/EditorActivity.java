@@ -4442,6 +4442,8 @@ public class EditorActivity extends AppCompatActivity
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false);
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
                     PPApplicationStatic.startPPService(activity, serviceIntent, true);
+
+                    PhoneProfilesServiceStatic.disableNotUsedScanners(_dataWrapper);
                 }
 
                 if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {
