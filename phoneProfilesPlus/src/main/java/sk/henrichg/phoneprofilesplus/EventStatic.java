@@ -568,28 +568,29 @@ class EventStatic {
                         Event event = eventWeakRef.get();
 
                         if ((dataWrapper != null) && (event != null)) {
-                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                            synchronized (PPApplication.handleEventsMutex) {
 
-    //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
-                                synchronized (PPApplication.eventsHandlerMutex) {
+                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
                                     event.pauseEvent(dataWrapper, false, false,
                                             false, true, null, false, false, false, true);
-                                }
 
-                            } catch (Exception e) {
-    //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplicationStatic.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                    PPApplicationStatic.recordException(e);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             }
@@ -619,28 +620,27 @@ class EventStatic {
                     Event event = eventWeakRef.get();
 
                     if ((dataWrapper != null) && (event != null)) {
-                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                        synchronized (PPApplication.handleEventsMutex) {
+                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-    //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
-                            synchronized (PPApplication.eventsHandlerMutex) {
+                                //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
                                 event.stopEvent(dataWrapper, false, false,
                                         true, true, true); // activate return profile
-                            }
-
-                        } catch (Exception e) {
-    //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }

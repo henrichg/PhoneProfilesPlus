@@ -397,9 +397,7 @@ public class MainWorker extends Worker {
                         ////// unblock all events for first start
                         //     that may be blocked in previous application run
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] MainWorker.doAfterFirstStart", "(1) PPApplication.eventsHandlerMutex");
-                        synchronized (PPApplication.eventsHandlerMutex) {
-                            dataWrapper.pauseAllEvents(false, false, true, false, false, false);
-                        }
+                        dataWrapper.pauseAllEvents(false, false, true, false, false, false);
                     }
                 }
 
@@ -452,7 +450,7 @@ public class MainWorker extends Worker {
                 ////// unblock all events for first start
                 //     that may be blocked in previous application run
 //                PPApplicationStatic.logE("[SYNCHRONIZED] MainWorker.doAfterFirstStart", "(2) PPApplication.eventsHandlerMutex");
-                synchronized (PPApplication.eventsHandlerMutex) {
+                synchronized (PPApplication.handleEventsMutex) {
                     dataWrapper.pauseAllEvents(true, false, true, false, false, false);
                 }
             }

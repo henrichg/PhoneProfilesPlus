@@ -965,7 +965,7 @@ public class PPApplication extends Application
     static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
     static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
-    static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
+    //static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     static final MobileCellsScannerMutex mobileCellsScannerMutex = new MobileCellsScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();

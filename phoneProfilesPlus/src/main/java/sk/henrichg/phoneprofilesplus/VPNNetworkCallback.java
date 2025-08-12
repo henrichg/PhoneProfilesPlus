@@ -56,24 +56,27 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
         final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_VPNNetworkCallback_doConnection_1);
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+            synchronized (PPApplication.handleEventsMutex) {
 
-                _doConnection(appContext);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_VPNNetworkCallback_doConnection_1);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-            } catch (Exception e) {
+                    _doConnection(appContext);
+
+                } catch (Exception e) {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }
@@ -84,18 +87,15 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private void _doConnection(Context appContext) {
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-            synchronized (PPApplication.handleEventsMutex) {
 
-                //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-                //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+            //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+            //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 
-                // start events handler
+            // start events handler
 
 //            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] VPNNetworkCallback._doConnection", "SENSOR_TYPE_VPN");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_VPN});
-            }
-
+            EventsHandler eventsHandler = new EventsHandler(appContext);
+            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_VPN});
         }
     }
 

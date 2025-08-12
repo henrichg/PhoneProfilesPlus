@@ -171,7 +171,7 @@ class EventsHandler {
 
     void handleEvents(int[] sensorType) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.eventsHandlerMutex");
-        synchronized (PPApplication.eventsHandlerMutex) {
+        //synchronized (PPApplication.eventsHandlerMutex) {
 //            Log.e("EventsHandler.handleEvents", "(1) *****************");
             boolean manualRestart = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             boolean isRestart = (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_RESTART_EVENTS)) || manualRestart;
@@ -929,7 +929,7 @@ class EventsHandler {
 
 //                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
 
-        }
+        //}
     }
 
     private boolean alwaysEnabledSensor(int sensorType) {

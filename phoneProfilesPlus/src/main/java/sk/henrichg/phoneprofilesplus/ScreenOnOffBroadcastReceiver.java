@@ -40,6 +40,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             //Context appContext= appContextWeakRef.get();
 
             //if (appContext != null) {
+            synchronized (PPApplication.handleEventsMutex) {
+
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -57,7 +59,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 try {
                                     //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
                                     //if (ppService != null) {
-                                        GlobalUtils.switchKeyguard(appContext);
+                                    GlobalUtils.switchKeyguard(appContext);
                                     //}
                                 } catch (Exception e) {
                                     PPApplicationStatic.recordException(e);
@@ -213,7 +215,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 }
-            //}
+                //}
+            }
 
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
@@ -276,14 +279,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "SENSOR_TYPE_SCREEN,SENSOR_TYPE_BRIGHTNESS,SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
-                    synchronized (PPApplication.handleEventsMutex) {
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(new int[]{
-                                EventsHandler.SENSOR_TYPE_SCREEN,
-                                EventsHandler.SENSOR_TYPE_BRIGHTNESS,
-                                EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION,
-                                EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
-                    }
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(new int[]{
+                            EventsHandler.SENSOR_TYPE_SCREEN,
+                            EventsHandler.SENSOR_TYPE_BRIGHTNESS,
+                            EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION,
+                            EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
                 }
 
                 break;
@@ -327,12 +328,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "SENSOR_TYPE_SCREEN");
-                    synchronized (PPApplication.handleEventsMutex) {
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SCREEN});
-                        // do not call this when screen is off
-                        //handleEventsForBrightnessSensor();
-                    }
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SCREEN});
+                    // do not call this when screen is off
+                    //handleEventsForBrightnessSensor();
                 }
 
                 break;
@@ -344,12 +343,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "SENSOR_TYPE_SCREEN,SENSOR_TYPE_BRIGHTNESS");
-                    synchronized (PPApplication.handleEventsMutex) {
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(new int[]{
-                                EventsHandler.SENSOR_TYPE_SCREEN,
-                                EventsHandler.SENSOR_TYPE_BRIGHTNESS});
-                    }
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(new int[]{
+                            EventsHandler.SENSOR_TYPE_SCREEN,
+                            EventsHandler.SENSOR_TYPE_BRIGHTNESS});
                 }
 
                 break;
