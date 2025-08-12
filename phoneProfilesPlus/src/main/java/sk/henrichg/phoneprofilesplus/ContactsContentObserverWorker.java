@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+//*** vraj Worker bezi vo vlastnom threade, vid:
+// https://developer.android.com/develop/background-work/background-tasks/persistent/threading/worker
 public class ContactsContentObserverWorker extends Worker {
 
     final Context context;

@@ -36,30 +36,34 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     private void doOnChange(/*boolean selfChange, Uri uri*/) {
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
+            Runnable runnable = () -> {
 
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileDataStateChangedContentObserver_onChange);
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileDataStateChangedContentObserver_onChange);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataStateChangedContentObserver.onChange", "SENSOR_TYPE_RADIO_SWITCH");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
 
-            } catch (Exception e) {
+                } catch (Exception e) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataStateChangedContentObserver.onChange", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
-            }
+            };
+            PPApplicationStatic.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
     }
 
