@@ -34,9 +34,11 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
 
-                //Context appContext= appContextWeakRef.get();
+                synchronized (PPApplication.handleEventsMutex) {
 
-                //if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -80,7 +82,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
 
 
-                                    // start events handler
+                                // start events handler
 
 //                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_RADIO_SWITCH,SENSOR_TYPE_BLUETOOTH_STATE,SENSOR_TYPE_BLUETOOTH_CONNECTION");
 //                                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "call of handle events");
@@ -105,7 +107,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                //}
+                    //}
+                }
             };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);

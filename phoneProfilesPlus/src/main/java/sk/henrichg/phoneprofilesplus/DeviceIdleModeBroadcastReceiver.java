@@ -25,8 +25,10 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                 Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
+                    synchronized (PPApplication.handleEventsMutex) {
+
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
                         PowerManager powerManager1 = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -52,12 +54,10 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                                    PPApplicationStatic.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
-                                }
-                                else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                                } else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                                    PPApplicationStatic.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
-                                }
-                                else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
+                                } else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                     rescan = true;
                                 if (rescan) {
                                     PPApplicationStatic.rescanAllScanners(appContext);
@@ -83,7 +83,9 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    //}
+                        //}
+
+                    }
                 };
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);

@@ -204,36 +204,39 @@ class PPExecutors {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
 
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG + sensorName);
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType.length != 0)) {
-                    // start events handler
-//                    for (int st : sensorType)
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExecutors.handleEvents", ""+st);
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(sensorType);
-                }
-
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start;
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
-            } catch (Exception e) {
-//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+            synchronized (PPApplication.handleEventsMutex) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG + sensorName);
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType.length != 0)) {
+                        // start events handler
+    //                    for (int st : sensorType)
+    //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExecutors.handleEvents", ""+st);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(sensorType);
+                    }
+
+    //                long finish = System.currentTimeMillis();
+    //                long timeElapsed = finish - start;
+    //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
+                } catch (Exception e) {
+    //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
-                //worker.shutdown();
+
             }
         };
         if (delay == 0) {

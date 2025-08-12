@@ -976,6 +976,7 @@ public class PPApplication extends Application
     static final PanelWidgetDatasetChangedMutex panelWidgetDatasetChangedMutex = new PanelWidgetDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
     static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
+    static final HandleEventsMutex handleEventsMutex = new HandleEventsMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 

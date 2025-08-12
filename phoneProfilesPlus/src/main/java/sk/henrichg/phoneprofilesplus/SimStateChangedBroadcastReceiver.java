@@ -84,6 +84,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     if (EventStatic.getGlobalEventsRunning(appContext)) {
                         //if (PhoneProfilesService.getInstance() != null) {
 
+                        synchronized (PPApplication.handleEventsMutex) {
                             // start events handler
 
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_SIM_STATE_CHANGED,SENSOR_TYPE_RADIO_SWITCH");
@@ -91,6 +92,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                             eventsHandler.handleEvents(new int[]{
                                     EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED,
                                     EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
+                        }
 
                         //}
                     }

@@ -77,20 +77,23 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                 if (EventStatic.getGlobalEventsRunning(getApplicationContext())) {
 
-                    boolean callEventsHandler = false;
-                    Set<String> tags = getTags();
-                    for (String tag : tags) {
+                    synchronized (PPApplication.handleEventsMutex) {
 
-                        if (tag.equals(WORK_TAG)) {
-                            callEventsHandler = true;
-                            break;
+                        boolean callEventsHandler = false;
+                        Set<String> tags = getTags();
+                        for (String tag : tags) {
+
+                            if (tag.equals(WORK_TAG)) {
+                                callEventsHandler = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if (callEventsHandler) {
+                        if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
-                        EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
-                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER});
+                            EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
+                            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER});
+                        }
                     }
                 }
 

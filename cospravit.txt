@@ -699,3 +699,22 @@ V setSystemEventForPause() su opacne. najprv end time a potom start time.
 2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=false, alarmTime=1749888000000
 2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=false
 
+-------------
+
+1. do handleEvents() vstupuje sensor type a hladam, ci mam udalosti s takym.
+   !!! Citanie z DB
+2. Pootm pouizjem DataWrapper a nacitam udpasti, timelines a profily.
+   !!! Citanie z BD
+3. Potom robim specialitky pre niektore senzory
+4. Pootm cital profil co je aktivuvany pred samotnum startom handlera
+   !!! Citanie z BD
+5. Potom volam doHanleEvent() pre kazdy nestopnuty event -
+   !!! Zapis do DB stavu udalosti
+6. Potom riesim ked nie je ziadna udalost running, zistujem default profil
+7. Potom aktivujem profil, bud mergnuty z udalosti ak taky je, alebo default profil
+   !!! Zapis do BD aktivivaneho profil
+8. Nakoniec volam doEndHanlder() na spracovanie simulacie zvonenia, je to broadcast tak OK.
+
+
+
+

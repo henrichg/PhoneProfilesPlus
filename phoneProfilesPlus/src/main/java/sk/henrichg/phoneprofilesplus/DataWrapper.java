@@ -2100,61 +2100,65 @@ class DataWrapper {
                     PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, "");
             }
 
-            //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
-            if ((EventStatic.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
+            synchronized (PPApplication.handleEventsMutex) {
+
+                //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
+                if ((EventStatic.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
 //                PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEvents", "(1)");
 
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
-                EventsHandler eventsHandler = new EventsHandler(context);
-                // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK});
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK});
 
-                return;
-            }
+                    return;
+                }
 
-            //Profile activatedProfile = getActivatedProfile();
+                //Profile activatedProfile = getActivatedProfile();
 
-            if (unblockEventsRun) {
+                if (unblockEventsRun) {
 //                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.profileList");
-                synchronized (profileList) {
-                    // remove alarm for profile duration
-                    if (!profileListFilled)
-                        fillProfileList(false, false);
-                    for (Profile profile : profileList)
-                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
-                }
-                //Profile.setActivatedProfileForDuration(context, 0);
-
-                EventStatic.setEventsBlocked(context, false);
-//                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.eventList");
-                synchronized (eventList) {
-                    fillEventList();
-                    //noinspection ForLoopReplaceableByForEach
-                    for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
-                        Event event = it.next();
-                        if (event != null)
-                            event._blocked = false;
+                    synchronized (profileList) {
+                        // remove alarm for profile duration
+                        if (!profileListFilled)
+                            fillProfileList(false, false);
+                        for (Profile profile : profileList)
+                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
                     }
+                    //Profile.setActivatedProfileForDuration(context, 0);
+
+                    EventStatic.setEventsBlocked(context, false);
+//                PPApplicationStatic.logE("[SYNCHRONIZED] DataWrapper._restartEvents", "DataWrapper.eventList");
+                    synchronized (eventList) {
+                        fillEventList();
+                        //noinspection ForLoopReplaceableByForEach
+                        for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                            Event event = it.next();
+                            if (event != null)
+                                event._blocked = false;
+                        }
+                    }
+
+                    DatabaseHandler.getInstance(context).unblockAllEvents();
+                    EventStatic.setForceRunEventRunning(context, false);
                 }
 
-                DatabaseHandler.getInstance(context).unblockAllEvents();
-                EventStatic.setForceRunEventRunning(context, false);
-            }
+                /*if (!notClearActivatedProfile) {
+                    DatabaseHandler.getInstance(context).deactivateProfile();
+                    setProfileActive(null);
+                }*/
 
-            /*if (!notClearActivatedProfile) {
-                DatabaseHandler.getInstance(context).deactivateProfile();
-                setProfileActive(null);
-            }*/
-
-            EventsHandler eventsHandler = new EventsHandler(context);
-            if (manualRestart) {
+                EventsHandler eventsHandler = new EventsHandler(context);
+                if (manualRestart) {
 //                PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEvents", "(3)");
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_MANUAL_RESTART_EVENTS");
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS});
-            } else {
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS});
+                } else {
 //                PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._restartEvents", "(4)");
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "SENSOR_TYPE_RESTART_EVENTS");
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS});
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RESTART_EVENTS});
+                }
+
             }
 //        }
     }

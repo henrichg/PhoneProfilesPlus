@@ -23,9 +23,11 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
-                //Context appContext= appContextWeakRef.get();
+                synchronized (PPApplication.handleEventsMutex) {
 
-                //if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -71,7 +73,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                //}
+                    //}
+                }
             };
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);

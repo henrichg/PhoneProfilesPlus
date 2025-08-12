@@ -27,26 +27,30 @@ public class PPAudioPlaybackCallback extends  AudioManager.AudioPlaybackCallback
         //final Context appContext = context.getApplicationContext();
         Runnable runnable = () -> {
 
-            // Iterate all playback configurations
-            for (int i = 0; i < configs.size(); i++) {
-                // Check if usage of current configuration is media
-                if (configs.get(i).getAudioAttributes().getUsage() == AudioAttributes.USAGE_MEDIA) {
-                    // Set is media playing to true since active playback was found
-                    //Log.e("PPAudioPlaybackCallback.onPlaybackConfigChanged", "played");
+            synchronized (PPApplication.handleEventsMutex) {
 
-                    // start events handler
+                // Iterate all playback configurations
+                for (int i = 0; i < configs.size(); i++) {
+                    // Check if usage of current configuration is media
+                    if (configs.get(i).getAudioAttributes().getUsage() == AudioAttributes.USAGE_MEDIA) {
+                        // Set is media playing to true since active playback was found
+                        //Log.e("PPAudioPlaybackCallback.onPlaybackConfigChanged", "played");
+
+                        // start events handler
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPAudioPlaybackCallback.onPlaybackConfigChanged", "SENSOR_TYPE_MUSIC");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
 
-                    return;
+                        return;
+                    }
                 }
+                // Set is media playing to false since no active playback found
+                //Log.e("PPAudioPlaybackCallback.onPlaybackConfigChanged", "not played");
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPAudioPlaybackCallback.onPlaybackConfigChanged", "SENSOR_TYPE_MUSIC");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
+
             }
-            // Set is media playing to false since no active playback found
-            //Log.e("PPAudioPlaybackCallback.onPlaybackConfigChanged", "not played");
-//        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPAudioPlaybackCallback.onPlaybackConfigChanged", "SENSOR_TYPE_MUSIC");
-            EventsHandler eventsHandler = new EventsHandler(appContext);
-            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
 
         };
         PPApplicationStatic.createBasicExecutorPool();

@@ -84,14 +84,17 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private void _doConnection(Context appContext) {
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-            //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-            //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+            synchronized (PPApplication.handleEventsMutex) {
 
-            // start events handler
+                //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+                //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+
+                // start events handler
 
 //            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] VPNNetworkCallback._doConnection", "SENSOR_TYPE_VPN");
-            EventsHandler eventsHandler = new EventsHandler(appContext);
-            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_VPN});
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_VPN});
+            }
 
         }
     }

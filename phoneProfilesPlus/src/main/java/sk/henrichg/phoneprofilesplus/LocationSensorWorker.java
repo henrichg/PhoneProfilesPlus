@@ -36,8 +36,10 @@ public class LocationSensorWorker extends Worker {
 
             if (EventStatic.getGlobalEventsRunning(context)) {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationSensorWorker.doWork", "SENSOR_TYPE_LOCATION_SCANNER");
-                EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER});
+                synchronized (PPApplication.handleEventsMutex) {
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER});
+                }
             }
 
             enqueueWork(false, context);

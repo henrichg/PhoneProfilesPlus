@@ -493,7 +493,7 @@ class EventsHandler {
                 if (Arrays.stream(sensorType).anyMatch(i ->
                         (i == SENSOR_TYPE_CALL_CONTROL) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
-                    // search for sms events, save start time
+                    // search for call control events and contact cache change, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
@@ -547,7 +547,7 @@ class EventsHandler {
 
             //boolean notified = false;
 
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+            //List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
             Event notifiedPausedEvent = null;
@@ -709,6 +709,10 @@ class EventsHandler {
             //// activate background profile when no profile is activated
 
             // get running events count
+            //!!! toto nie je chyba? Ved eventTimelineList sa podla mna nikde hore nemeni
+            //Nemal by som tu skor pozerat ten z dataWrapper.eventTimelines ???
+            // OPRAVENE, testuj
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
             int runningEventCountE = eventTimelineList.size();
 
             // activated profile may be changed, when event has enabled manual profile activation

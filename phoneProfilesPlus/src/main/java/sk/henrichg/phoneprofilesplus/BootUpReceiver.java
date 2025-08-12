@@ -50,8 +50,10 @@ public class BootUpReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
+                synchronized (PPApplication.handleEventsMutex) {
+
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -140,7 +142,9 @@ public class BootUpReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                //}
+                    //}
+
+                }
             };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);

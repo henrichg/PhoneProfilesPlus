@@ -98,14 +98,17 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
                 Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
-                    //Context appContext= appContextWeakRef.get();
+                    synchronized (PPApplication.handleEventsMutex) {
 
-                    //if (appContext != null) {
+                        //Context appContext= appContextWeakRef.get();
+
+                        //if (appContext != null) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCTagReadForegroundActivity.onCreate", "SENSOR_TYPE_NFC_TAG");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventNFCParameters(_tagData, _time);
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_NFC_TAG});
-                    //}
+                        //}
+                    }
 
                 };
                 PPApplicationStatic.createEventsHandlerExecutor();
