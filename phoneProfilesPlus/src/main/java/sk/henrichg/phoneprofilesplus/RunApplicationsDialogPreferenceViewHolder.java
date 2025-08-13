@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -62,17 +64,26 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
-        String text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_APPLICATION + application.appLabel;
-        if (application.shortcutId > 0) {
-            Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);
-            if (shortcut != null)
-                text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_SHORTCUT + shortcut._name;
+        String text = "";
+        if (application.type == CApplication.TYPE_APPLICATION)
+            text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_APPLICATION + application.appLabel;
+        else
+        if (application.type == CApplication.TYPE_SHORTCUT) {
+            text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_SHORTCUT;
+            if (application.shortcutId > 0) {
+                Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);
+                if (shortcut != null)
+                    text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_SHORTCUT + shortcut._name;
+            }
         }
         else
-        if (application.intentId > 0) {
-            PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(application.intentId);
-            if (intent != null)
-                text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_INTENT + intent._name;
+        if (application.type == CApplication.TYPE_INTENT) {
+            text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_INTENT;
+            if (application.intentId > 0) {
+                PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(application.intentId);
+                if (intent != null)
+                    text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_INTENT + intent._name;
+            }
         }
         textViewAppName.setText(text);
         boolean errorColor = false;
@@ -80,6 +91,13 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
             errorColor = true;
         if ((application.type == CApplication.TYPE_INTENT) && (application.intentId == 0))
             errorColor = true;
+        if (application.type == CApplication.TYPE_APPLICATION) {
+            //String packageName = CApplication.getPackageName(application.packageName);
+            PackageManager packageManager = context.getPackageManager();
+            Intent appIntent = packageManager.getLaunchIntentForPackage(application.packageName);
+            if (appIntent == null)
+                errorColor = true;
+        }
         setTextStyle(textViewAppName, errorColor);
 
         text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);

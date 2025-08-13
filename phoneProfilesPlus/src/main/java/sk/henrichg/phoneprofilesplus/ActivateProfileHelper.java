@@ -4959,6 +4959,11 @@ class ActivateProfileHelper {
     }
 
     static void doExecuteForRunApplications(Context context, String profileName, String runApplicationData) {
+//        Log.e("ActivateProfileHelper.doExecuteForRunApplications", "runApplicationData="+runApplicationData);
+
+        if (runApplicationData.equals("-"))
+            return;
+
         Intent appIntent;
         PackageManager packageManager = context.getPackageManager();
 
