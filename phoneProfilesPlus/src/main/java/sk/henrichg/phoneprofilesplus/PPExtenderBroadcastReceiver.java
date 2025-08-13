@@ -158,47 +158,49 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                             setApplicationInForeground(appContext, "");
 
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.setEventApplicationParameters("", 0);
-                            eventsHandler.handleEvents(new int[]{
-                                    EventsHandler.SENSOR_TYPE_APPLICATION,
-                                    EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
-
-                        /*
-                        boolean applicationsAllowed = false;
-                        boolean orientationAllowed = false;
-
-                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                        dataWrapper4.fillEventList();
-                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
-                        if (applicationExists)
-                            applicationsAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED);
-                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
-                        if (orientationExists)
-                            orientationAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED);
-                        dataWrapper4.invalidateDataWrapper();
-
-                        if ((applicationsAllowed) || (orientationAllowed)) {
-                            setApplicationInForeground(appContext, "");
-
                             if (EventStatic.getGlobalEventsRunning(appContext)) {
-                                //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-
+//                              PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                if (applicationExists) {
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (2)");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                }
-                                if (orientationExists) {
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (2)");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                eventsHandler.setEventApplicationParameters("", 0);
+                                eventsHandler.handleEvents(new int[]{
+                                        EventsHandler.SENSOR_TYPE_APPLICATION,
+                                        EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
+                            }
+
+                            /*
+                            boolean applicationsAllowed = false;
+                            boolean orientationAllowed = false;
+
+                            DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                            dataWrapper4.fillEventList();
+                            boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
+                            if (applicationExists)
+                                applicationsAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                            boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
+                            if (orientationExists)
+                                orientationAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                            dataWrapper4.invalidateDataWrapper();
+
+                            if ((applicationsAllowed) || (orientationAllowed)) {
+                                setApplicationInForeground(appContext, "");
+
+                                if (EventStatic.getGlobalEventsRunning(appContext)) {
+                                    //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    if (applicationExists) {
+        //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (2)");
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                    }
+                                    if (orientationExists) {
+        //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (2)");
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                    }
                                 }
                             }
-                        }
-                        */
+                            */
 
                         } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

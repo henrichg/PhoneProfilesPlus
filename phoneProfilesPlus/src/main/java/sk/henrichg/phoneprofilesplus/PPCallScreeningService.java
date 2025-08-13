@@ -23,7 +23,7 @@ public class PPCallScreeningService extends CallScreeningService {
             final Context appContext = getApplicationContext();
 
             Uri callHandle =  callDetails.getHandle();
-            if (callHandle != null) //noinspection ExtractMethodRecommender
+            if (EventStatic.getGlobalEventsRunning(appContext) && (callHandle != null))
             {
 
                 //Runnable runnable = () -> { // NOT WORKING BLOCK CALL WTH THIS !!!
