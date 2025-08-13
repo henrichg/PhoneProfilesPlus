@@ -980,6 +980,8 @@ public class PPApplication extends Application
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
+    static volatile boolean shizukuBinded;
+
     static volatile ApplicationsCache applicationsCache;
     static volatile ContactsCache contactsCache;
     static volatile ContactGroupsCache contactGroupsCache;
@@ -1316,6 +1318,7 @@ public class PPApplication extends Application
             GlobalGUIRoutines.darkColorScheme = dynamicTonalPaletteSamsung.dynamicDarkColorSchemeSamsung(getApplicationContext());
         }*/
 
+        PPApplication.shizukuBinded = false;
         RootUtils.initRoot();
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
