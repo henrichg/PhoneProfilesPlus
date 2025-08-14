@@ -192,7 +192,8 @@ class PPExecutors {
 */
 
     // !!! call this only when is needed partial wakelock or delay > 0
-    static void handleEvents(Context context, int[] _sensorType, String _sensorName, int delay) {
+    static void handleEvents(Context context, int[] _sensorType, String _sensorName,
+                             int delay, boolean cancelOld) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 
         final Context appContext = context.getApplicationContext();
@@ -203,6 +204,9 @@ class PPExecutors {
         Runnable runnable = () -> {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
+
+//            if (sensorName.equals(PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION))
+//                Log.e("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
 
             synchronized (PPApplication.handleEventsMutex) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -245,8 +249,12 @@ class PPExecutors {
         }
         else {
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
-            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
-        }
+            if (cancelOld) {
+                if (PPApplication.scheduledFutureEventsHandlerExecutor != null)
+                    PPApplication.scheduledFutureEventsHandlerExecutor.cancel(false);
+                PPApplication.scheduledFutureEventsHandlerExecutor = PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+            } else
+                PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);        }
     }
 
     static private void handleEventsMianWorker(int _sensorType, String _sensorWorkTag/*, int delay*/) {

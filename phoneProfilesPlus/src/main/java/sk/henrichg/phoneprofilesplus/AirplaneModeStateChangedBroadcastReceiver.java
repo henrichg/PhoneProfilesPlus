@@ -21,7 +21,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                     final Context appContext = context.getApplicationContext();
                     PPExecutors.handleEvents(appContext,
                             new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH},
-                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_RADIO_SWITCH, 0);
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_RADIO_SWITCH, 0, false);
                 }
             }
         }

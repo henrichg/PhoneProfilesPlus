@@ -496,7 +496,7 @@ class MobileCellsListener extends PhoneStateListener {
 
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_MOBILE_CELLS},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_MOBILE_CELLS, 5);
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_MOBILE_CELLS, 5, false);
         }
 
         /*

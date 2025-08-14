@@ -9650,7 +9650,7 @@ class ActivateProfileHelper {
             if (savedMode != mode) {
                 PPExecutors.handleEvents(context,
                         new int[]{EventsHandler.SENSOR_TYPE_SOUND_PROFILE},
-                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5);
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5, false);
             }
         }
     }
@@ -9681,7 +9681,7 @@ class ActivateProfileHelper {
             if (savedMode != mode) {
                 PPExecutors.handleEvents(context,
                         new int[]{EventsHandler.SENSOR_TYPE_SOUND_PROFILE},
-                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5);
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE, 5, false);
             }
         }
     }

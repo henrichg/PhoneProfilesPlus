@@ -387,7 +387,7 @@ class BluetoothScanner {
                 {
                     PPExecutors.handleEvents(context,
                             new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
-                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5, false);
                 }
 
                 BluetoothScanner.tmpBluetoothScanResults = null;

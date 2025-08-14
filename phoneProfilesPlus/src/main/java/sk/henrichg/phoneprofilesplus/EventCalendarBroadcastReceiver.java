@@ -26,7 +26,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
             final Context appContext = context.getApplicationContext();
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_CALENDAR},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_CALENDAR, 0);
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_CALENDAR, 0, false);
         }
     }
 

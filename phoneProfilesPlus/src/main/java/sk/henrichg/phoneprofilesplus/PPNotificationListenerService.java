@@ -97,14 +97,18 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
 
         String packageName = sbn.getPackageName();
-        if (packageName.equals(PPApplication.PACKAGE_NAME)) {
+//        Log.e("PPNotificationListenerService.onNotificationPosted", "packageName="+packageName);
+
+        if (packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
+                packageName.equals(PPApplication.PACKAGE_NAME) ||
+                packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
+                packageName.equals(PPApplication.PACKAGE_NAME_PPPPS)) {
 //            PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn= for PPP");
             return;
         }
         // check also systemui notificatyion, may be required for notification sensor
         //if (packageName.equals("com.android.systemui"))
         //    return;
-
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
 
         final Context appContext = getApplicationContext();
@@ -122,7 +126,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (EventStatic.getGlobalEventsRunning(appContext)) {
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5, true);
         }
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "END");
@@ -162,7 +166,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
 
         String packageName = sbn.getPackageName();
-        if (packageName.equals(PPApplication.PACKAGE_NAME)) {
+//        Log.e("PPNotificationListenerService.onNotificationRemoved", "packageName="+packageName);
+
+        if (packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
+                packageName.equals(PPApplication.PACKAGE_NAME) ||
+                packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
+                packageName.equals(PPApplication.PACKAGE_NAME_PPPPS)) {
 //            PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn=for PPP");
             return;
         }
@@ -184,7 +193,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         PPExecutors.handleEvents(appContext,
                 new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
-                PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
+                PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5, true);
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "END");
     }

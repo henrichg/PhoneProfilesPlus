@@ -22,7 +22,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_TIME},
-                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_TIME, 0);
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_TIME, 0, false);
             }
 
         }
