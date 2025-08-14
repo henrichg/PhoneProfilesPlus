@@ -86,6 +86,7 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
             }
         }
         textViewAppName.setText(text);
+        //noinspection ExtractMethodRecommender
         boolean errorColor = false;
         if ((application.type == CApplication.TYPE_SHORTCUT) && (application.shortcutId == 0))
             errorColor = true;

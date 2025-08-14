@@ -32,7 +32,7 @@ class WakelockTags {
     static final String WAKELOCK_TAG_DataWrapper_stopAllEventsFromMainThread = PPApplication.PACKAGE_NAME + ":DataWrapper_stopAllEventsFromMainThread";
     static final String WAKELOCK_TAG_DataWrapper_activateProfileFromMainThread = PPApplication.PACKAGE_NAME + ":DataWrapper_activateProfileFromMainThread";
     static final String WAKELOCK_TAG_DataWrapper_restartEventsWithRescan = PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithRescan";
-    static final String WAKELOCK_TAG_DataWrapper_restartEventsWithDelay = PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay";
+    //static final String WAKELOCK_TAG_DataWrapper_restartEventsWithDelay = PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay";
     static final String WAKELOCK_TAG_DeviceIdleModeBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":DeviceIdleModeBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_DonationBroadcastReceiver_doWork = PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_doWork";
     static final String WAKELOCK_TAG_DrawOverAppsPermissionNotification_showNotification = PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification";

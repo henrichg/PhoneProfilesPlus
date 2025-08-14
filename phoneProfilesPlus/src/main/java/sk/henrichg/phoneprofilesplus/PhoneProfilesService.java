@@ -1190,6 +1190,168 @@ public class PhoneProfilesService extends Service
     }
 
     //TODO - add here change of application preferences after package replaced
+    private void _doForPackageReplaced_older(Context appContext, int oldVersionCode, int actualVersionCode) {
+        if (actualVersionCode <= 2322) {
+            // for old packages use Priority in events
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
+            editor.apply();
+        }
+        if (actualVersionCode <= 2400) {
+            PPApplicationStatic.setDaysAfterFirstStart(appContext, 0);
+            PPApplicationStatic.setDonationNotificationCount(appContext, 0);
+            DonationBroadcastReceiver.setAlarm(appContext);
+        }
+
+        if (actualVersionCode <= 2700) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+            editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
+            editor.apply();
+        }
+        if (actualVersionCode <= 3200) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, true);
+            editor.apply();
+        }
+        if (actualVersionCode <= 3500) {
+            if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+                editor.apply();
+            }
+
+            // continue donation notification
+            if (PPApplicationStatic.getDaysAfterFirstStart(appContext) == 8) {
+                PPApplicationStatic.setDonationNotificationCount(appContext, 1);
+            }
+        }
+
+        if (actualVersionCode <= 3900) {
+            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
+                    preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
+                    preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
+            editor.apply();
+        }
+
+        if (actualVersionCode <= 4550) {
+            if (Build.VERSION.SDK_INT < 29) {
+                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                boolean darkBackground = preferences.getBoolean("notificationDarkBackground", false);
+                if (darkBackground) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                    editor.apply();
+                }
+            }
+        }
+
+        if (actualVersionCode <= 4600) {
+            List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+            for (Event event : eventList) {
+                if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
+                    String searchStringOrig = event._eventPreferencesCalendar._searchString;
+                    //String searchStringNew = "";
+                    StringBuilder str = new StringBuilder();
+                    String[] searchStringSplits = searchStringOrig.split(StringConstants.STR_SPLIT_REGEX);
+                    for (String split : searchStringSplits) {
+                        if (!split.isEmpty()) {
+                            if (str.length() > 0)
+                                str.append("|");
+                            if (split.startsWith("!"))
+                                str.append("\\");
+                            str.append(split);
+                        }
+                    }
+                    event._eventPreferencesCalendar._searchString = str.toString();
+                    DatabaseHandler.getInstance(appContext).updateEvent(event);
+                }
+            }
+        }
+
+        if (actualVersionCode <= 4870) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
+
+            String theme = ApplicationPreferences.applicationTheme(appContext, false);
+            if (!(theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE) ||
+                    theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK) ||
+                    theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE))) {
+                String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
+                if (Build.VERSION.SDK_INT >= 28)
+                    defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
+                GlobalGUIRoutines.switchNightMode(appContext, true);
+            }
+
+            editor.apply();
+        }
+
+        if (actualVersionCode <= 5020) {
+            if (Build.VERSION.SDK_INT >= 28) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE);
+                GlobalGUIRoutines.switchNightMode(appContext, true);
+                editor.apply();
+            }
+        }
+
+        if (actualVersionCode <= 5250) {
+            if (oldVersionCode <= 5210) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+
+                NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
+                try {
+                    NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+                    if (channel != null) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+
+                int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
+                if (filterEventsSelectedItem == 2)
+                    filterEventsSelectedItem++;
+                editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+                editor.apply();
+                ApplicationPreferences.editorEventsViewSelectedItem(appContext);
+            }
+        }
+
+        if (actualVersionCode <= 5430) {
+            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+            String notificationBackgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+            SharedPreferences.Editor editor = preferences.edit();
+            if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
+                editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
+            if (notificationBackgroundColor.equals("2")) {
+                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+            } else if (notificationBackgroundColor.equals("4")) {
+                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
+                editor.apply();
+            }
+            editor.apply();
+        }
+    }
+
     @SuppressLint("ObsoleteSdkInt")
     private boolean doForPackageReplaced(Context appContext, int oldVersionCode) {
         //int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
@@ -1213,165 +1375,7 @@ public class PhoneProfilesService extends Service
             if (oldVersionCode < actualVersionCode) {
                 PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "is new version");
 
-                if (actualVersionCode <= 2322) {
-                    // for old packages use Priority in events
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
-                    editor.apply();
-                }
-                if (actualVersionCode <= 2400) {
-                    PPApplicationStatic.setDaysAfterFirstStart(appContext, 0);
-                    PPApplicationStatic.setDonationNotificationCount(appContext, 0);
-                    DonationBroadcastReceiver.setAlarm(appContext);
-                }
-
-                if (actualVersionCode <= 2700) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-
-                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
-                    editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.apply();
-                }
-                if (actualVersionCode <= 3200) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, true);
-                    editor.apply();
-                }
-                if (actualVersionCode <= 3500) {
-                    if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
-                        editor.apply();
-                    }
-
-                    // continue donation notification
-                    if (PPApplicationStatic.getDaysAfterFirstStart(appContext) == 8) {
-                        PPApplicationStatic.setDonationNotificationCount(appContext, 1);
-                    }
-                }
-
-                if (actualVersionCode <= 3900) {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
-                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
-                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
-                    editor.apply();
-                }
-
-                if (actualVersionCode <= 4550) {
-                    if (Build.VERSION.SDK_INT < 29) {
-                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                        boolean darkBackground = preferences.getBoolean("notificationDarkBackground", false);
-                        if (darkBackground) {
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
-                            editor.apply();
-                        }
-                    }
-                }
-
-                if (actualVersionCode <= 4600) {
-                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
-                    for (Event event : eventList) {
-                        if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
-                            String searchStringOrig = event._eventPreferencesCalendar._searchString;
-                            //String searchStringNew = "";
-                            StringBuilder str = new StringBuilder();
-                            String[] searchStringSplits = searchStringOrig.split(StringConstants.STR_SPLIT_REGEX);
-                            for (String split : searchStringSplits) {
-                                if (!split.isEmpty()) {
-                                    if (str.length() > 0)
-                                        str.append("|");
-                                    if (split.startsWith("!"))
-                                        str.append("\\");
-                                    str.append(split);
-                                }
-                            }
-                            event._eventPreferencesCalendar._searchString = str.toString();
-                            DatabaseHandler.getInstance(appContext).updateEvent(event);
-                        }
-                    }
-                }
-
-                if (actualVersionCode <= 4870) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
-
-                    String theme = ApplicationPreferences.applicationTheme(appContext, false);
-                    if (!(theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE) ||
-                            theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK) ||
-                            theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE))) {
-                        String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
-                        if (Build.VERSION.SDK_INT >= 28)
-                            defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
-                        GlobalGUIRoutines.switchNightMode(appContext, true);
-                    }
-
-                    editor.apply();
-                }
-
-                if (actualVersionCode <= 5020) {
-                    if (Build.VERSION.SDK_INT >= 28) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE);
-                        GlobalGUIRoutines.switchNightMode(appContext, true);
-                        editor.apply();
-                    }
-                }
-
-                if (actualVersionCode <= 5250) {
-                    if (oldVersionCode <= 5210) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-
-                            NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
-                            try {
-                                NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
-                                if (channel != null) {
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
-                                            channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
-                                }
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-
-                        int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
-                        if (filterEventsSelectedItem == 2)
-                            filterEventsSelectedItem++;
-                        editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
-                        editor.apply();
-                        ApplicationPreferences.editorEventsViewSelectedItem(appContext);
-                    }
-                }
-
-                if (actualVersionCode <= 5430) {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                    String notificationBackgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
-                    SharedPreferences.Editor editor = preferences.edit();
-                    if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
-                        editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
-                    if (notificationBackgroundColor.equals("2")) {
-                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
-                    } else if (notificationBackgroundColor.equals("4")) {
-                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
-                        editor.apply();
-                    }
-                    editor.apply();
-                }
+                _doForPackageReplaced_older(appContext, oldVersionCode, actualVersionCode);
 
                 if (actualVersionCode <= 6200) {
                     if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0) {

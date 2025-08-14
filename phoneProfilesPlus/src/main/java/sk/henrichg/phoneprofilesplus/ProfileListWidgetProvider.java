@@ -36,6 +36,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     //private boolean isLargeLayout;
 
+    /** @noinspection DataFlowIssue*/
     private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, /*boolean largeLayout,*/ DataWrapper dataWrapper)
     {
         String applicationWidgetListLauncher;

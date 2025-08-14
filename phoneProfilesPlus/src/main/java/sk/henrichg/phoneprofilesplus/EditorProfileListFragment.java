@@ -1758,7 +1758,7 @@ public class EditorProfileListFragment extends Fragment
 
     private static class CreateShortcutAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        Profile profile;
+        final Profile profile;
         boolean isIconResourceID;
         String iconIdentifier;
         Bitmap profileBitmap;

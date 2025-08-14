@@ -276,6 +276,7 @@ class DatabaseHandlerImportExport {
         }
     }
 
+    /** @noinspection DataFlowIssue*/
     static private void afterImportDbNonGrantedUri(DatabaseHandler instance, SQLiteDatabase db) {
         Cursor cursorImportDB = null;
 
