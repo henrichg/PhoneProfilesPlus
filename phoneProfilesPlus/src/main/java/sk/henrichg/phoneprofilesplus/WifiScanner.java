@@ -175,7 +175,7 @@ class WifiScanner {
                                     {
                                         PPExecutors.handleEvents(context,
                                                 new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
-                                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5, false);
+                                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
                                     }
                                 }
                             }

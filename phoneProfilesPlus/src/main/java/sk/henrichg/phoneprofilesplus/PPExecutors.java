@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 class PPExecutors {
 
-    private static final String WAKELOCK_TAG = PPApplication.PACKAGE_NAME + ":PPPExecutors_handleEvents_";
+    static final String WAKELOCK_TAG = PPApplication.PACKAGE_NAME + ":PPPExecutors_handleEvents_";
 
     static final String SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE = "SENSOR_TYPE_SOUND_PROFILE";
     static final String SENSOR_NAME_SENSOR_TYPE_RADIO_SWITCH = "SENSOR_TYPE_RADIO_SWITCH";
@@ -192,8 +192,7 @@ class PPExecutors {
 */
 
     // !!! call this only when is needed partial wakelock or delay > 0
-    static void handleEvents(Context context, int[] _sensorType, String _sensorName,
-                             int delay, boolean cancelOld) {
+    static void handleEvents(Context context, int[] _sensorType, String _sensorName, int delay) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEvents", "schedule - " + _sensorName);
 
         final Context appContext = context.getApplicationContext();
@@ -249,12 +248,7 @@ class PPExecutors {
         }
         else {
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
-            if (cancelOld) {
-                if (PPApplication.scheduledFutureEventsHandlerExecutor != null)
-                    PPApplication.scheduledFutureEventsHandlerExecutor.cancel(false);
-                PPApplication.scheduledFutureEventsHandlerExecutor = PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
-            } else
-                PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);        }
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);        }
     }
 
     static private void handleEventsMianWorker(int _sensorType, String _sensorWorkTag/*, int delay*/) {

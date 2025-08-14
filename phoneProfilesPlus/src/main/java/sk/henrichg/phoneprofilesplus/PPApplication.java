@@ -1181,7 +1181,7 @@ public class PPApplication extends Application
     volatile static ScheduledFuture<?> scheduledFutureUpdateGuiExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
-    volatile static ScheduledFuture<?> scheduledFutureEventsHandlerExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureNotificationListenerEventsHandlerExecutor = null;
 
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;

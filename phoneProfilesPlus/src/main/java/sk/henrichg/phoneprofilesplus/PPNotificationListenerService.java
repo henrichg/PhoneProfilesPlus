@@ -1,12 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
@@ -98,7 +100,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         String packageName = sbn.getPackageName();
 //        Log.e("PPNotificationListenerService.onNotificationPosted", "packageName="+packageName);
-
         if (packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
                 packageName.equals(PPApplication.PACKAGE_NAME) ||
                 packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
@@ -106,6 +107,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //            PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn= for PPP");
             return;
         }
+
         // check also systemui notificatyion, may be required for notification sensor
         //if (packageName.equals("com.android.systemui"))
         //    return;
@@ -124,9 +126,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-            PPExecutors.handleEvents(appContext,
-                    new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5, true);
+            handleEventsNotificationListener(appContext);
         }
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "END");
@@ -191,11 +191,67 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        PPExecutors.handleEvents(appContext,
-                new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
-                PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5, true);
+        if (EventStatic.getGlobalEventsRunning(appContext)) {
+            handleEventsNotificationListener(appContext);
+        }
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "END");
+    }
+
+    private void handleEventsNotificationListener(Context context) {
+//        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEventsNotificationListener", "schedule - " + _sensorName);
+
+        final Context appContext = context.getApplicationContext();
+        final int[] sensorType = new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION};
+        final String sensorName = PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION;
+
+        //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        Runnable runnable = () -> {
+//            long start = System.currentTimeMillis();
+//            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
+
+//            Log.e("[IN_EXECUTOR]  ***** PPNotificationListenerService.handleEventsNotificationListener", "--------------- START - " + sensorName);
+
+            synchronized (PPApplication.handleEventsMutex) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPExecutors.WAKELOCK_TAG + sensorName);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    if (EventStatic.getGlobalEventsRunning(appContext)/* && (sensorType.length != 0)*/) {
+                        // start events handler
+                        //                    for (int st : sensorType)
+                        //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExecutors.handleEvents", ""+st);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(sensorType);
+                    }
+
+                    //                long finish = System.currentTimeMillis();
+                    //                long timeElapsed = finish - start;
+                    //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
+                } catch (Exception e) {
+                    //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
+                }
+
+            }
+        };
+        PPApplicationStatic.createDelayedEventsHandlerExecutor();
+        if (PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor != null)
+            PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor.cancel(false);
+        PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor =
+                PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
     @Override

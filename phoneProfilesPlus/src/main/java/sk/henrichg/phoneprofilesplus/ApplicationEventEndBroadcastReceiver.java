@@ -28,7 +28,7 @@ public class ApplicationEventEndBroadcastReceiver extends BroadcastReceiver {
             final Context appContext = context.getApplicationContext();
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_APPLICATION_EVENT_END},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END, 0, false);
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END, 0);
         }
     }
 

@@ -460,7 +460,7 @@ class LocationScanner
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
                                 new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER},
-                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 0, false);
+                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 0);
                     }
                 }
             }

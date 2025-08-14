@@ -3486,7 +3486,7 @@ class PhoneProfilesServiceStatic
                                 if (PPApplication.notificationScannerRunning) {
                                     PPExecutors.handleEvents(appContext,
                                             new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
-                                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5, false);
+                                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
                                 }
                             }
                             dataWrapper.invalidateDataWrapper();

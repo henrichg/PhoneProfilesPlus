@@ -441,7 +441,7 @@ class EventPreferencesPeriodic extends EventPreferences {
 
                     PPExecutors.handleEvents(dataWrapper.context,
                             new int[]{EventsHandler.SENSOR_TYPE_PERIODIC},
-                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5, false);
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5);
                 }
             } else {
                 _counter = 0;

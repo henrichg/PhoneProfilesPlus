@@ -28,7 +28,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             final Context appContext = context.getApplicationContext();
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
-                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 0, false);
+                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 0);
         }
     }
 

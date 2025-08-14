@@ -74,7 +74,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION},
-                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_HEADSET_CONNECTION, 0, false);
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_HEADSET_CONNECTION, 0);
             }
         }
 

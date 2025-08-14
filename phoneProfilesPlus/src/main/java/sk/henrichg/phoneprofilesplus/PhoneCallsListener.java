@@ -194,7 +194,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 final Context appContext = savedContext.getApplicationContext();
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
-                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0, false);
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
             }
         }
 
