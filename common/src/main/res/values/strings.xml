@@ -2371,6 +2371,7 @@
     <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
 
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
 
     <!-- **************************************************************************************** -->
 

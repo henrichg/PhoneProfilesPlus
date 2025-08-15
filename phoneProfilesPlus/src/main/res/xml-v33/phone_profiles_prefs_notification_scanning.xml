@@ -30,6 +30,16 @@
         app:infoText=""
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+        app:key="applicationEventNotificationScanInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventNotificationScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventNotificationScanInterval"
+        app:defaultValue="5"
+        app:min="5"
+        app:max="60"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
         app:dependency="applicationEventNotificationEnableScannig"

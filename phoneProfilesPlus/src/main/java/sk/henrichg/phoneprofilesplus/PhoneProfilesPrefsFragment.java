@@ -3026,6 +3026,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
         setSummary(PREF_APPLICATION_WIDGET_PANEL_INFO);
 
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL);
+
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, true, activity.getApplicationContext());
         if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
@@ -4349,7 +4351,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING)) {
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL)) {
             if (!preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false)) {
                 if (ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
@@ -5051,6 +5055,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             else {
                 ApplicationPreferences.applicationEventNotificationEnableScanning(context);
                 ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(context);
+                ApplicationPreferences.applicationEventNotificationScanInterval(context);
                 _value.append(getString(R.string.phone_profiles_pref_applicationEventNotificationEnableScanning)).append(StringConstants.STR_COLON_WITH_SPACE);
                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML)
@@ -5069,6 +5074,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary), prefMng, key, activity))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
+                    _value.append(StringConstants.TAG_SEPARATOR_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventNotificationScanInterval)).append(StringConstants.STR_COLON_WITH_SPACE)
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventNotificationScanInterval), prefMng, key, activity))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                     _value.append(StringConstants.TAG_SEPARATOR_BREAK_HTML);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {

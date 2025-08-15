@@ -877,6 +877,7 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventWifiScanIgnoreHotspot(context);
             ApplicationPreferences.applicationEventNotificationEnableScanning(context);
+            ApplicationPreferences.applicationEventNotificationScanInterval(context);
             ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode(context);
             ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius(context);

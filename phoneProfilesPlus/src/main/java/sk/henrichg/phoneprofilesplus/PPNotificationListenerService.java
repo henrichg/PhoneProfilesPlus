@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 
@@ -99,7 +100,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
 
         String packageName = sbn.getPackageName();
-//        Log.e("PPNotificationListenerService.onNotificationPosted", "packageName="+packageName);
+        Log.e("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "packageName="+packageName);
+/*
         if (packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
                 packageName.equals(PPApplication.PACKAGE_NAME) ||
                 packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER) ||
@@ -107,7 +109,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //            PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn= for PPP");
             return;
         }
-
+*/
         // check also systemui notificatyion, may be required for notification sensor
         //if (packageName.equals("com.android.systemui"))
         //    return;
@@ -210,7 +212,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
 
-//            Log.e("[IN_EXECUTOR]  ***** PPNotificationListenerService.handleEventsNotificationListener", "--------------- START - " + sensorName);
+            Log.e("[IN_EXECUTOR]  ***** PPNotificationListenerService.handleEventsNotificationListener", "--------------- START - " + sensorName);
 
             synchronized (PPApplication.handleEventsMutex) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -251,7 +253,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor != null)
             PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor.cancel(false);
         PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor =
-                PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                PPApplication.delayedEventsHandlerExecutor.schedule(runnable,
+                        ApplicationPreferences.applicationEventNotificationScanInterval, TimeUnit.SECONDS);
     }
 
     @Override
