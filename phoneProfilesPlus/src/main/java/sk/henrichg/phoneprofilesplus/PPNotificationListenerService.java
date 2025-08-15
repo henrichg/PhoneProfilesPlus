@@ -77,7 +77,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (!PPApplication.notificationScannerRunning)
             return;
 
-        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
@@ -145,7 +144,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (!PPApplication.notificationScannerRunning)
             return;
 
-        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(getApplicationContext());
         if (isPowerSaveMode) {
             if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
@@ -203,6 +201,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
     private void handleEventsNotificationListener(Context context) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.handleEventsNotificationListener", "schedule - " + _sensorName);
 
+        if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+            return;
+        int scanInterval = ApplicationPreferences.applicationEventNotificationScanInterval;
+        if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("1"))
+            scanInterval = 2 * scanInterval;
+
         final Context appContext = context.getApplicationContext();
         final int[] sensorType = new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION};
         final String sensorName = PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION;
@@ -253,8 +257,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor != null)
             PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor.cancel(false);
         PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor =
-                PPApplication.delayedEventsHandlerExecutor.schedule(runnable,
-                        ApplicationPreferences.applicationEventNotificationScanInterval, TimeUnit.SECONDS);
+                PPApplication.delayedEventsHandlerExecutor.schedule(runnable, scanInterval, TimeUnit.SECONDS);
     }
 
     @Override

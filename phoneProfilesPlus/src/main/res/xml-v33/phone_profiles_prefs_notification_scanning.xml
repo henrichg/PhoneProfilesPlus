@@ -49,10 +49,12 @@
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
             app:summary="@string/array_pref_scanInPowerSaveMode_scan"
             app:defaultValue="1"
-            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
-            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:ppEntries="@array/scanInPowerSaveModeArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
+<!--        app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"-->
+<!--        app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"-->
         <sk.henrichg.phoneprofilesplus.StartActivityPreference
             app:key="applicationNotificationPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
