@@ -51,6 +51,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] LocationModeChangedBroadcastReceiver.onReceive", "PPApplication.locationScannerMutex");
                         synchronized (PPApplication.locationScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+//                                Log.e("LocationModeChangedBroadcastReceiver.onReceive", "(1) call of updateTransitionsByLastKnownLocation");
                                 String provider = PPApplication.locationScanner.getProvider(false);
                                 PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }

@@ -188,6 +188,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 }
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
+//                                Log.e("LocationScannerSwitchGPSBroadcastReceiver.doWork", "(5) call of updateTransitionsByLastKnownLocation");
                                 String provider = PPApplication.locationScanner.startLocationUpdates();
                                 PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }

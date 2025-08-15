@@ -67,6 +67,7 @@ class LocationScanner
                                 synchronized (PPApplication.locationScannerMutex) {
                                     if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                                         PPApplication.locationScanner.clearAllEventGeofences();
+//                                        Log.e("LocationScanner.connect", "(2) call of updateTransitionsByLastKnownLocation");
                                         String provider = PPApplication.locationScanner.startLocationUpdates();
                                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                                     }
@@ -413,7 +414,8 @@ class LocationScanner
 
 //            PPApplicationStatic.logE("LocationScanner.updateTransitionsByLastKnownLocation", "LocationSensorWorker.enqueueWork + doLocationChanged");
                 LocationSensorWorker.enqueueWork(true, context);
-                doLocationChanged(location, true);
+//                Log.e("LocationScanner.updateTransitionsByLastKnownLocation", "doLocationChanged");
+                doLocationChanged(location, false/*true*/);
             } catch (SecurityException e) {
                 //
             } catch (Exception e) {
@@ -470,6 +472,7 @@ class LocationScanner
 
                     if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
+//                        Log.e("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
                                 new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER},
                                 PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 0);
@@ -502,6 +505,7 @@ class LocationScanner
                         PPApplication.locationScannerUseGPS = true;
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
+//                        Log.e("LocationScanner.onlineStatusChanged", "(3) call of updateTransitionsByLastKnownLocation");
                         String provider = PPApplication.locationScanner.startLocationUpdates();
                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
 
@@ -513,6 +517,7 @@ class LocationScanner
                         GlobalUtils.sleep(1000);
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
+//                        Log.e("LocationScanner.onlineStatusChanged", "(4) call of updateTransitionsByLastKnownLocation");
                         String provider = PPApplication.locationScanner.startLocationUpdates();
                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                     }

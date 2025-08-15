@@ -3437,6 +3437,7 @@ class PhoneProfilesServiceStatic
 //                                    PPApplicationStatic.logE("[SYNCHRONIZED] PhoneProfilesServiceStatic.doCommand", "PPApplication.locationScannerMutex");
                                 synchronized (PPApplication.locationScannerMutex) {
                                     if (PPApplication.locationScanner != null) {
+//                                        Log.e("PhoneProfilesServiceStatic.doCommand", "(6) call of updateTransitionsByLastKnownLocation");
                                         String provider = PPApplication.locationScanner.getProvider(true);
                                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                                     }
@@ -3829,6 +3830,7 @@ class PhoneProfilesServiceStatic
             PPApplication.locationScanner.connect(resetUseGPS);
         }
         else {
+//            Log.e("PhoneProfilesServiceStatic.startLocationScanner", "(7) call of updateTransitionsByLastKnownLocation");
             String provider = PPApplication.locationScanner.getProvider(true);
             PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
         }
