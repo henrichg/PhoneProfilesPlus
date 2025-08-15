@@ -211,7 +211,19 @@ class LocationScanner
 
         if (mLocationManager != null) {
 
+            /*
+            List<String> providers = mLocationManager.getAllProviders();
+            for (String _provider : providers)
+                Log.e("LocationScanner.getProvider", "getAllProviders - _provider="+_provider);
+
+            providers = mLocationManager.getProviders(true);
+            for (String _provider : providers)
+                Log.e("LocationScanner.getProvider", "getProviders - _provider="+_provider);
+            */
+
             // check if GPS provider is enabled in system settings
+            // if not, force to network provider
+            // this working only when in Location scaning is enabled "Use GPS ...".
             if (provider.equals(LocationManager.GPS_PROVIDER)) {
                 try {
                     locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -350,7 +362,7 @@ class LocationScanner
 
         //if (ApplicationPreferences.applicationEventLocationUseGPS &&
         //        CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
-            // recursive call this for switch usage of GPS
+        // recursive call this for switch usage of GPS
         LocationScannerSwitchGPSBroadcastReceiver.setAlarm(context);
         //}
         //else

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 class LocationScannerListener implements LocationListener {
 
     public void onLocationChanged(@NonNull Location location) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onLocationChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationScannerListener.onLocationChanged", "xxx");
         LocationScanner.doLocationChanged(location, false);
     }
 
