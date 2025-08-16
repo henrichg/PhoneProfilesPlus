@@ -314,7 +314,11 @@ public class MainWorker extends Worker {
                                 // application is not started
                                 return Result.success();
 
-                            EventDelayStartBroadcastReceiver.doWork(false, appContext);
+                            if (EventStatic.getGlobalEventsRunning(appContext)) {
+                                synchronized (PPApplication.handleEventsMutex) {
+                                    EventDelayStartBroadcastReceiver.doWork(false, appContext);
+                                }
+                            }
                         }
                         else
                         if (tag.startsWith(EVENT_DELAY_END_WORK_TAG)) {
@@ -322,7 +326,11 @@ public class MainWorker extends Worker {
                                 // application is not started
                                 return Result.success();
 
-                            EventDelayEndBroadcastReceiver.doWork(false, appContext);
+                            if (EventStatic.getGlobalEventsRunning(appContext)) {
+                                synchronized (PPApplication.handleEventsMutex) {
+                                    EventDelayEndBroadcastReceiver.doWork(false, appContext);
+                                }
+                            }
                         }
                         else
                         if (tag.startsWith(START_EVENT_NOTIFICATION_WORK_TAG)) {
@@ -330,8 +338,12 @@ public class MainWorker extends Worker {
                                 // application is not started
                                 return Result.success();
 
-                            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
-                            StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
+                            if (EventStatic.getGlobalEventsRunning(appContext)) {
+                                synchronized (PPApplication.handleEventsMutex) {
+                                    long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
+                                    StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
+                                }
+                            }
                         }
 
                         break;
@@ -401,8 +413,6 @@ public class MainWorker extends Worker {
                     }
                 }
 
-                dataWrapper.firstStartEvents(true, false, false);
-
                 PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
                 PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                 PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
@@ -410,6 +420,8 @@ public class MainWorker extends Worker {
                 PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
                 PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
                 PhoneProfilesServiceStatic.registerEventsReceiversAndWorkers(false, appContext);
+
+                dataWrapper.firstStartEvents(true, false, false);
 
                 if ((!startForShizukuStart) && PPApplication.deviceBoot) {
                     PPApplication.deviceBoot = false;
