@@ -2022,8 +2022,6 @@ public class PPApplication extends Application
                     //worker.shutdown();
                 }
             };
-
-
 //            Log.e("PPApplication.updateGUI", "xxx call of shedule xxx");
             if (scheduledFutureUpdateGuiExecutor != null)
                 scheduledFutureUpdateGuiExecutor.cancel(false);

@@ -424,6 +424,7 @@ class LocationScanner
         }
     }
 
+    /** @noinspection SameParameterValue*/
     static void doLocationChanged(Location location, boolean callEventsHandler) {
         if (location == null) {
 //            PPApplicationStatic.logE("[LOCATION_SCAN_TEST] LocationScanner.doLocationChanged", "location == null");

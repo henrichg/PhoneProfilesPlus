@@ -50,7 +50,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
-                synchronized (PPApplication.handleEventsMutex) {
+                //synchronized (PPApplication.handleEventsMutex) {
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -111,8 +111,13 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 if (EventStatic.getGlobalEventsRunning(appContext)) {
 
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "SENSOR_TYPE_BOOT_COMPLETED");
+                                    PPExecutors.handleEvents(appContext,
+                                            new int[]{EventsHandler.SENSOR_TYPE_BOOT_COMPLETED},
+                                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_BOOT_COMPLETED, 0);
+                                    /*
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_BOOT_COMPLETED});
+                                    */
                                 }
                             }
                         } else {
@@ -144,7 +149,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                     }
                     //}
 
-                }
+                //}
             };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);

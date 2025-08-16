@@ -168,7 +168,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                     //Context appContext= appContextWeakRef.get();
 
-                    //if (appContext != null) {
+                    synchronized (PPApplication.handleEventsMutex) {
+                        //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -193,7 +194,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    //}
+                        //}
+                    }
                 }
             };
             PPApplicationStatic.createEventsHandlerExecutor();

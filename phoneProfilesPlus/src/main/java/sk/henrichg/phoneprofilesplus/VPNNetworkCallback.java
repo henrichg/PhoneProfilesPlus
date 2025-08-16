@@ -82,7 +82,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
             }
         };
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     private void _doConnection(Context appContext) {

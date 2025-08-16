@@ -89,44 +89,46 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                     PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                     Runnable runnable = () -> {
+                        synchronized (PPApplication.handleEventsMutex) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (PhoneProfilesService.getInstance() != null) {
-                                DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                dataWrapper2.fillEventList();
-                                //dataWrapper2.fillProfileList(false, false);
-                                PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                    dataWrapper2.fillEventList();
+                                    //dataWrapper2.fillProfileList(false, false);
+                                    PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
 //                                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
-                                PPApplicationStatic.restartAllScanners(appContext, false);
+                                    PPApplicationStatic.restartAllScanners(appContext, false);
 
-                                PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
-                                        null, null, "");
+                                    PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
+                                            null, null, "");
 
-                                dataWrapper2.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
-                            }
+                                    dataWrapper2.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
+                                }
 
-                        } catch (Exception e) {
+                            } catch (Exception e) {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
+                            //}
                         }
-                        //}
                     };
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);

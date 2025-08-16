@@ -597,7 +597,7 @@ class EventStatic {
                         }
                     };
                     PPApplicationStatic.createBasicExecutorPool();
-                    PPApplication.basicExecutorPool.submit(runnable);
+                    PPApplication.eventsHandlerExecutor.submit(runnable);
 
                 }
                 else {
@@ -647,7 +647,7 @@ class EventStatic {
                     }
                 };
                 PPApplicationStatic.createBasicExecutorPool();
-                PPApplication.basicExecutorPool.submit(runnable);
+                PPApplication.eventsHandlerExecutor.submit(runnable);
 
             }
 

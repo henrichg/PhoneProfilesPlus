@@ -22,27 +22,30 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
             //if (appContext != null) {
                 if (event_id != 0) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_StartEventNotificationDeletedReceiver_onReceive);
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                    synchronized (PPApplication.handleEventsMutex) {
 
-                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                        Event event = databaseHandler.getEvent(event_id);
-                        if (event != null)
-                            StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_StartEventNotificationDeletedReceiver_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                    } catch (Exception e) {
+                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                            Event event = databaseHandler.getEvent(event_id);
+                            if (event != null)
+                                StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
+
+                        } catch (Exception e) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }

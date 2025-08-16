@@ -928,31 +928,33 @@ class DataWrapper {
             //Activity activity = activityWeakRef.get();
 
             if (/*(appContext != null) &&*/ (dataWrapper != null) && (profile != null) /*&& (activity != null)*/) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_stopEventsForProfileFromMainThread);
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                synchronized (PPApplication.handleEventsMutex) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_stopEventsForProfileFromMainThread);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    dataWrapper.stopEventsForProfile(profile, alsoUnlink);
+                        dataWrapper.stopEventsForProfile(profile, alsoUnlink);
 
-                } catch (Exception e) {
+                    } catch (Exception e) {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
             }
         };
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean ignoreGlobalPrefs, boolean activateReturnProfile,
@@ -1044,7 +1046,7 @@ class DataWrapper {
             }
         };
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     // stops all events
@@ -1086,31 +1088,33 @@ class DataWrapper {
             //Activity activity = activityWeakRef.get();
 
             if (/*(appContext != null) &&*/ (dataWrapper != null) /*&& (profile != null) && (activity != null)*/) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_stopAllEventsFromMainThread);
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                synchronized (PPApplication.handleEventsMutex) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_stopAllEventsFromMainThread);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true, true);
+                        dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true, true);
 
-                } catch (Exception e) {
+                    } catch (Exception e) {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
             }
         };
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     private void unlinkEventsFromProfile(Profile profile)
@@ -1702,7 +1706,7 @@ class DataWrapper {
             }
         };
         PPApplicationStatic.createBasicExecutorPool();
-        PPApplication.basicExecutorPool.submit(runnable);
+        PPApplication.eventsHandlerExecutor.submit(runnable);
 
         // for startActivityForResult
         if (activity != null)
@@ -2262,7 +2266,7 @@ class DataWrapper {
                 }
             };
             PPApplicationStatic.createBasicExecutorPool();
-            PPApplication.basicExecutorPool.submit(runnable);
+            PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else {
 //            PPApplicationStatic.logE("[BLUETOOTH] DataWrapper.restartEventsWithRescan", "(2) $$$$$$$$");
