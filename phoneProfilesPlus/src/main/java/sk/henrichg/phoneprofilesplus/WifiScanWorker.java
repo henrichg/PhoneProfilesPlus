@@ -102,6 +102,7 @@ public class WifiScanWorker extends Worker {
 
             if (EventStatic.getGlobalEventsRunning(context)) {
 //                PPApplicationStatic.logE("[BLUETOOTH] WifiScanWorker.doWork", "xxxxxxxxx startScanner");
+//                Log.e("WifiScanWorker.doWork", "start wifi scan");
                 startScanner(context, false);
             }
 
@@ -315,7 +316,7 @@ public class WifiScanWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
+//                            Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
                         }
                         if (allFinished) {
                             break;
@@ -357,7 +358,7 @@ public class WifiScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
+//                        Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
                         return false;
                     }
                 }
@@ -394,7 +395,7 @@ public class WifiScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+//                        Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
                         return false;
                     }
                 }

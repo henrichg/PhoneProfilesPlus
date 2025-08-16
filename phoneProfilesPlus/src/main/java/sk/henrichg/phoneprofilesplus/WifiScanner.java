@@ -173,9 +173,15 @@ class WifiScanner {
                                 if (ApplicationPreferences.prefEventWifiWaitForResult) {
                                     if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
-                                        PPExecutors.handleEvents(context,
-                                                new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
-                                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
+                                        if (fromDialog)
+                                            PPExecutors.handleEvents(context,
+                                                    new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
+                                                    PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
+                                        else {
+                                            EventsHandler eventsHandler = new EventsHandler(context);
+                                            eventsHandler.handleEvents(new int[]{
+                                                    EventsHandler.SENSOR_TYPE_WIFI_SCANNER});
+                                        }
                                     }
                                 }
                             }
@@ -371,6 +377,7 @@ class WifiScanner {
                                     if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
                                         GlobalUtils.sleep(5000);
 //                                        PPApplicationStatic.logE("[BLUETOOTH] WifiScanner.enableWifi", "(2) @@@@@@@");
+//                                        Log.e("WifiScanner.enableWifi", "start wifi scan");
                                         scanner.startScan(appContext);
                                         break;
                                     }

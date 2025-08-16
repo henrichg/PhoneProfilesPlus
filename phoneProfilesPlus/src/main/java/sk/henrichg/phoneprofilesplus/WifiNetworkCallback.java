@@ -26,6 +26,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(@NonNull Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
+//        Log.e("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         PPApplication.wifiNetworkconnected = false;
         doConnection(false);
     }
@@ -33,6 +34,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onUnavailable() {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+//        Log.e("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         PPApplication.wifiNetworkconnected = false;
         doConnection(false);
     }
@@ -40,12 +42,14 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLosing(@NonNull Network network, int maxMsToLive) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
+//        Log.e("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection(true);
     }
 
     @Override
     public void onAvailable(@NonNull Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
+//        Log.e("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         PPApplication.wifiNetworkconnected = true;
         doConnection(false);
     }
@@ -53,6 +57,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onCapabilitiesChanged (@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
+//        Log.e("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection(true);
     }
 
