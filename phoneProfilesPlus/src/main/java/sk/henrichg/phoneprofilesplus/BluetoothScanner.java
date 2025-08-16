@@ -15,6 +15,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+// BT CL, LE scanner methods
+
 /** @noinspection ExtractMethodRecommender*/
 class BluetoothScanner {
 
@@ -162,6 +164,7 @@ class BluetoothScanner {
                                                                     false);
 
                                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
+//                                        Log.e("BluetoothScanner.doScan", "startCLScan()");
                                         /*BluetoothScanWorker.*/startCLScan(context);
                                     } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                         BluetoothScanWorker.setScanRequest(context, false);
@@ -193,6 +196,7 @@ class BluetoothScanner {
                                                                     true);
 
                                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
+//                                        Log.e("BluetoothScanner.doScan", "startLEScan()");
                                         /*BluetoothScanWorker.*/startLEScan(context);
                                     } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                         BluetoothScanWorker.setLEScanRequest(context, false);
@@ -204,7 +208,7 @@ class BluetoothScanner {
                                             ApplicationPreferences.prefEventBluetoothLEWaitForResult) {
 
                                         // wait for scan end
-                                        waitForLEBluetoothScanEnd(context);
+                                        waitForBluetoothLEScanEnd(context);
 
 //                                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] BluetoothScanner.doScan", "xxx");
                                         // send broadcast for start EventsHandler
@@ -385,6 +389,7 @@ class BluetoothScanner {
 
                 if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
+//                    Log.e("BluetoothScanner.finishCLScan", "call event handler SENSOR_TYPE_BLUETOOTH_SCANNER");
                     PPExecutors.handleEvents(context,
                             new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
@@ -614,7 +619,7 @@ class BluetoothScanner {
         /*BluetoothScanWorker.*/stopCLScan();
     }
 
-    private void waitForLEBluetoothScanEnd(Context context)
+    private void waitForBluetoothLEScanEnd(Context context)
     {
         if (bluetoothLESupported(/*context*/)) {
             int applicationEventBluetoothLEScanDuration = ApplicationPreferences.applicationEventBluetoothLEScanDuration;

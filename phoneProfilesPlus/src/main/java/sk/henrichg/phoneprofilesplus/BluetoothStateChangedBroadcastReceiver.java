@@ -67,6 +67,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
 //                            PPApplicationStatic.logE("BluetoothStateChangedBroadcastReceiver.onReceive", "BT==ON, call Detector");
 //                            PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "(1) called BluetoothStateChangedBroadcastReceiver.getConnectedDevices");
+                            // do not call events handler, because is called separated later
                             BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
                         }
 
@@ -86,6 +87,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
 //                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_RADIO_SWITCH,SENSOR_TYPE_BLUETOOTH_STATE,SENSOR_TYPE_BLUETOOTH_CONNECTION");
 //                                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothStateChangedBroadcastReceiver.onReceive", "call of handle events");
+//                                Log.e("BluetoothStateChangedBroadcastReceiver.onReceive", "call of event handler");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(new int[]{
                                         EventsHandler.SENSOR_TYPE_RADIO_SWITCH,

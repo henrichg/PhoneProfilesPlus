@@ -60,8 +60,10 @@ class BluetoothConnectedDevicesDetector {
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(connectedDevices/*appContext, false*/);
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
-                if (_callEventHandler)
+                if (_callEventHandler) {
+//                    Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(1) call of event handler from MainWorker");
                     callEventHandler();
+                }
 
 //                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(BT not enabled) END of getConnectedDevices");
 
@@ -91,6 +93,9 @@ class BluetoothConnectedDevicesDetector {
                         // must be called with delay, because immediate call after
                         //   BluetoothDevice.ACTION_ACL_CONNECTED may not detect BT device as connected
                         Runnable runnable = () -> {
+//                            Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "xxxxxxxxxx");
+
+
                             List<BluetoothDeviceData> _connectedDevices = new ArrayList<>();
                             BluetoothConnectionBroadcastReceiver.clearConnectedDevices(_connectedDevices/*appContext, false*/);
                             // this also clears shared preferences
@@ -124,8 +129,10 @@ class BluetoothConnectedDevicesDetector {
                                 }
 //                                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "*** end of isConnected() ***");
 
-                                if (_callEventHandler && deviceDetected)
+                                if (_callEventHandler && deviceDetected) {
+//                                    Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(2) call of event handler from MainWorker");
                                     callEventHandler();
+                                }
                             }
 
                             BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
@@ -450,8 +457,10 @@ class BluetoothConnectedDevicesDetector {
                                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.SAP);
                             } catch (Exception ignored) {}
 
-                            if (_callEventHandler)
+                            if (_callEventHandler) {
+//                                Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(3) call of event handler from MainWorker");
                                 callEventHandler();
+                            }
                         };
                         PPApplicationStatic.createBluetoothConnectedDevicesDetectorExecutor();
                         PPApplication.bluetoothConnectedDevicesDetectorExecutor.schedule(runnable, 5, TimeUnit.SECONDS);

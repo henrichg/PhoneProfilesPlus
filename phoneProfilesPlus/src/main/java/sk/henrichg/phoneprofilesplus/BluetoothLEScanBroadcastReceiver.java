@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+// result broadcast for LE BT scanning
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -30,6 +31,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
             if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
             {
+//                Log.e("BluetoothLEScanBroadcastReceiver.onReceive", "call event handler SENSOR_TYPE_BLUETOOTH_SCANNER");
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
                         PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);

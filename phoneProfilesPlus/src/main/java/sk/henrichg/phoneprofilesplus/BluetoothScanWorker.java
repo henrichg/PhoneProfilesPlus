@@ -26,6 +26,8 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+// BT scaner Worker
+
 /** @noinspection ExtractMethodRecommender*/
 public class BluetoothScanWorker extends Worker {
 
@@ -91,6 +93,7 @@ public class BluetoothScanWorker extends Worker {
                 bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
             if (EventStatic.getGlobalEventsRunning(context)) {
+//                Log.e("BluetoothScanWorker.doWork", "startScanner");
                 startScanner(context, false);
             }
 

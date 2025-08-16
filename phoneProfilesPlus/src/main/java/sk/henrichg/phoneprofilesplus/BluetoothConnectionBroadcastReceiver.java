@@ -83,10 +83,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             final Context appContext = context.getApplicationContext();
 
             if (_device != null) {
-                // in it is used Runnable with depaly 5 seconds
+                // in it is used Runnable with delay 5 seconds
 //                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "called BluetoothConnectedDevicesDetector.getConnectedDevices");
                 BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
                 // in it is used w0rk with delay 8 seconds
+//                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "(1) call of event handler from MainWorker");
                 callEventHandler(appContext);
             }
         }
