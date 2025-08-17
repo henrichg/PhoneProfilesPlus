@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6136,6 +6137,7 @@ class DatabaseHandlerEvents {
             // Select All Query
             final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
                     DatabaseHandler.KEY_E_STATUS + "," +
+                    DatabaseHandler.KEY_E_PRIORITY + "," +
                     DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + "," +
                     DatabaseHandler.KEY_E_CALL_CONTROL_CALL_DIRECTION + "," +
                     DatabaseHandler.KEY_E_CALL_CONTROL_CONTACTS + "," +
@@ -6152,7 +6154,7 @@ class DatabaseHandlerEvents {
                     DatabaseHandler.KEY_E_CALL_CONTROL_CONTROL_TYPE +
                     " FROM " + DatabaseHandler.TABLE_EVENTS +
                     " WHERE " + DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + "=1" +
-                    " ORDER BY " + DatabaseHandler.KEY_E_ID;
+                    " ORDER BY " + DatabaseHandler.KEY_E_START_ORDER; //KEY_E_ID;
 
             //SQLiteDatabase db = this.getReadableDatabase();
             SQLiteDatabase db = instance.getMyWritableDatabase();
@@ -6165,6 +6167,8 @@ class DatabaseHandlerEvents {
                     Event event = new Event();
                     event._id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
                     event.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_STATUS)));
+                    event._priority = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PRIORITY));
+
                     event.createEventPreferencesCallControl();
                     getEventPreferencesCallControl(event, db);
                     eventList.add(event);
@@ -6178,6 +6182,44 @@ class DatabaseHandlerEvents {
             PPApplicationStatic.recordException(e);
         }
         return eventList;
+    }
+
+    static boolean checkCallControlAllowedRunning(DatabaseHandler instance, int priorityToCheck)
+    {
+        instance.importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS +
+                        " WHERE " + DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING +
+                          " AND " + DatabaseHandler.KEY_E_PRIORITY + ">" + priorityToCheck;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                //if (cursor != null) {
+                cursor.moveToFirst();
+                r = cursor.getInt(0);
+                cursor.close();
+                //}
+
+//                Log.e("DatabaseHandlerEvents.checkCallControlAllowedRunning", "priorityToCheck="+priorityToCheck);
+//                Log.e("DatabaseHandlerEvents.checkCallControlAllowedRunning", "r="+r);
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return r == 0;
+        } finally {
+            instance.stopRunningCommand();
+        }
     }
 
     static void updateActivatedProfileStartTime(DatabaseHandler instance, Event event)

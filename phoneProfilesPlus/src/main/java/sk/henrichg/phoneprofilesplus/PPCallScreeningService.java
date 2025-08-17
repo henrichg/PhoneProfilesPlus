@@ -89,15 +89,10 @@ public class PPCallScreeningService extends CallScreeningService {
                                 event._eventPreferencesCallControl.isRunnable(appContext) &&
                                 event.getStatus() != Event.ESTATUS_STOP) {
 
-//                                Log.e("PPCallScreeningService.onScreenCall", "event is running");
+                                boolean runningAllowed = DatabaseHandler.getInstance(appContext).checkCallControlAllowedRunning(event._priority);
+//                                Log.e("PPCallScreeningService.onScreenCall", "runningAllowed="+runningAllowed);
 
-                                // call event._eventPreferencesCallScreening.doHableEvent()
-                                // to get sensor pass for event
-                                //EventsHandler eventsHandler = new EventsHandler(appContext);
-                                //event._eventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection(eventsHandler, callingPhoneNumber, callDirection);
-                                //if ((!eventsHandler.notAllowedCallScreening) && eventsHandler.callScreeningPassed) {
-                                    // snsor is passed block call
-                                    //Log.e("PPCallScreeningService.onScreenCall", "semsor passed for event="+event._name);
+                                if (runningAllowed) {
 
                                     String contacts = event._eventPreferencesCallControl._contacts;
                                     String contactGroups = event._eventPreferencesCallControl._contactGroups;
@@ -122,7 +117,8 @@ public class PPCallScreeningService extends CallScreeningService {
 //                                            Log.e("PPCallScreeningService.onScreenCall", "blockCallingPhoneNumber="+blockCallingPhoneNumber);
                                         }
                                     }
-                                //}
+                                    //}
+                                }
                             }
                             if (blockCallingPhoneNumber)
                                 break;

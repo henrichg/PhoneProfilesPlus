@@ -1229,6 +1229,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.getCallControlEvents(this);
     }
 
+    boolean checkCallControlAllowedRunning(int priorityToCheck) {
+        return DatabaseHandlerEvents.checkCallControlAllowedRunning(this, priorityToCheck);
+    }
+
     void updateActivatedProfileStartTime(Event event)
     {
         DatabaseHandlerEvents.updateActivatedProfileStartTime(this, event);
