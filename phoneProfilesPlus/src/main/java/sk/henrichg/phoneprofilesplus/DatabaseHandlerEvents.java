@@ -6195,8 +6195,9 @@ class DatabaseHandlerEvents {
                 // Select All Query
                 final String selectQuery = "SELECT COUNT(*) " +
                         " FROM " + DatabaseHandler.TABLE_EVENTS +
-                        " WHERE " + DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING +
-                          " AND " + DatabaseHandler.KEY_E_PRIORITY + ">" + priorityToCheck;
+                        " WHERE " + "(" + DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + ")" +
+                          " AND " + "(" + DatabaseHandler.KEY_E_PRIORITY + "<>" + Event.EPRIORITY_DO_NOT_USE + ")" +
+                          " AND " + "(" + DatabaseHandler.KEY_E_PRIORITY + ">" + priorityToCheck + ")";
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = instance.getMyWritableDatabase();
