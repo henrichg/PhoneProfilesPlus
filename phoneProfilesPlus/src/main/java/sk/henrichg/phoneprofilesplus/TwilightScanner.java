@@ -87,6 +87,7 @@ class TwilightScanner {
                     return;
 
                 if (EventStatic.getGlobalEventsRunning(context)) {
+//                    Log.e("TwilightScanner.setTwilightState", "call of events handler");
                     PPExecutors.handleEvents(context,
                             new int[]{EventsHandler.SENSOR_TYPE_TIME},
                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_TIME, 10);
@@ -179,6 +180,7 @@ class TwilightScanner {
 
             switch (msg.what) {
                 case MSG_PROCESS_NEW_LOCATION: {
+//                    Log.e("TwilightScanner.LocationHandler.handleMessage", "MSG_PROCESS_NEW_LOCATION");
                     final Location location = (Location) msg.obj;
                     final boolean hasMoved = hasMoved(mLocation, location);
                     final boolean hasBetterAccuracy = mLocation == null
@@ -191,6 +193,7 @@ class TwilightScanner {
                 }
 
                 case MSG_GET_NEW_LOCATION_UPDATE:
+//                    Log.e("TwilightScanner.LocationHandler.handleMessage", "MSG_GET_NEW_LOCATION_UPDATE");
                     if (!mNetworkListenerEnabled) {
                         // Don't do anything -- we are still trying to get a
                         // location.
@@ -211,6 +214,7 @@ class TwilightScanner {
 
                     // Fall through to re-register listener.
                 case MSG_ENABLE_LOCATION_UPDATES:
+//                    Log.e("TwilightScanner.LocationHandler.handleMessage", "MSG_ENABLE_LOCATION_UPDATES");
                     // enable network provider to receive at least location updates for a given
                     // distance.
                     boolean networkLocationEnabled;
@@ -254,6 +258,7 @@ class TwilightScanner {
                     if (!mPassiveListenerEnabled && passiveLocationEnabled) {
                         if (Permissions.checkLocation(context)) {
                             mPassiveListenerEnabled = true;
+//                            Log.e("TwilightScanner.LocationHandler.handleMessage", "mLocationManager.requestLocationUpdates()");
                             mLocationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,
                                     0, LOCATION_UPDATE_DISTANCE_METER, mLocationListener);
                         }
@@ -271,6 +276,7 @@ class TwilightScanner {
                     break;
 
                 case MSG_DO_TWILIGHT_UPDATE:
+//                    Log.e("TwilightScanner.LocationHandler.handleMessage", "MSG_DO_TWILIGHT_UPDATE");
                     updateTwilightState(true/*, true*/);
                     break;
             }
@@ -500,6 +506,7 @@ class TwilightScanner {
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(@NonNull Location location) {
 //            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onLocationChanged", "xxx");
+//            Log.e("TwilightScanner.LocationListener.onLocationChanged", "xxx");
             mLocationHandler.processNewLocation(location);
         }
 
