@@ -27,6 +27,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
             if (calendarEventsExists)
             {*/
                 final Context appContext = context.getApplicationContext();
+//                Log.e("CalendarProviderChangedBroadcastReceiver.onReceive", "call of events handler");
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED},
                         PPExecutors.SENSOR_NAME_SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED, 0);
