@@ -605,116 +605,52 @@ Check PPPPS release - denne:
 - notifikacia: PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID
 - alarm je v shared preferences v PREF_LATEST_PPPPS_RELEASE_ALARM = "latest_pppps_release_alarm"
 
---------------------------
-
-Add: Added "Answer call" into "Call sensor".
-Add: Added "End call" into "Call sensor".
-Add: Added "Send SMS" into "SMS sensor".
-Add: "Play music" profile parameter.
-Change: Smart Launcher support.
-Change: Samsung One UI 7 support.
-Change: Android 16 support.
-Change: Layout changes in landscape mode.
-Change: Another changes in layout.
-Change: Small changes in simulating call ringing.
-Change: Added button "Refresh" for contacts, contact groups dialog.
-Change: Added "Events lifecycle" into "Activity log" filters.
-Change: Added configuration of activated profile for "Activity log" filter "Profile activations".
-Change: Added configuration of event for "Activity log" event filters.
-Change: Moved "Set call screening" preference into "System" with name "Default roles applications".
-Change: Added parameter into Settings for disable ringing call simulation.
-Change: "Call screening" event sensor renamed to "Call control".
-Change: Added toast about exit of application by user (from Editor menu, notification).
-Change: Better configuration of alarm for sensors with parameter "Duration".
-Change: Added required info preferences about "Restricted settings".
-Change: Added "Duration" into "Activated profile sensor".
-Change: Small changes in profile parameter "Force stop applications".
-Change: Check PPP release: Minimizing suppression of new PPP version notification.
-Change: New required PPPE version 9.0.1.2.
-Fix: Small fixes in Time and NFC sensor.
-Fix: Do not close PopupWindow at orientation change.
-Fix: Wrong displayed required PPPPS for "Screen timeout" for Oppo device.
-Fix: Not detected PPPPS if is disabled by system (Samsung deep sleep).
-Fix: Fixed permission check for "Answer call" and "End call" in "Call sensor".
-
----------------------
-
-Toto cele je volane z doHandleEvent(). Tem je volanie:
-- startAlarmTime = computeAlarm(true/*, eventsHandler.context*/);
-- endAlarmTime = computeAlarm(false/*, eventsHandler.context*/);
-Tie su tiez zalogovane (vid dole).
-Toto cele vobec nezavisi od toho, ci je volany setAlarm(). Nemusi byt, casy sa tu testuju nezavisle od setAlarm().
-setAlarm() je len na to, aby sa doHandleEvent() zavolalo ked vyprsi alarm, cize ako okamzita reakcia na vyprsanie alarmu.
-
-startEvent = true
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  *******************
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  event=Overnight
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  now millis=1749802826280
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  times are past midnight
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=true
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  *** others ***
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=false
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  now hours are before start time hours
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=1749848400000
-2025-06-13 10:20:26.281  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=1749888000000
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=13.06.25 23:00:00:0
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=14.06.25 10:00:00:0
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  startEvent=true
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (1) alarmTime=13.06.25 23:00:00:0
-
-startEvent = false
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  *******************
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  event=Overnight
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  now millis=1749802826282
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  times are past midnight
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=true
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  *** others ***
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  yesterday=false
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...stMidnight sk.henrichg.phoneprofilesplus        E  now hours are before start time hours
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=1749848400000
-2025-06-13 10:20:26.282  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=1749888000000
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calStartTime=13.06.25 23:00:00:0
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  calEndTime=14.06.25 10:00:00:0
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  startEvent=false
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (2) alarmTime=14.06.25 10:00:00:0
-
-Samotne volanie handlera - timePassed=false je v poriadku, este nie je 23:00
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  startAlarmTime=1749848400000
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  endAlarmTime=1749888000000
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  nowAlarmTime=1749802826283
-2025-06-13 10:20:26.283  4729-4828  EventPrefe...andleEvent sk.henrichg.phoneprofilesplus        E  (1) timePassed=false
-
-------------
-
-Toto je na nastavenie alarmu na start a pause udalosti.
-
-Ako pozeram nahadzuje to oba alarmy. Prvy na start udalosti, druhy na end udalosti.
-Casy krasne sedia, tak hadam je to OK.
-Sice nechapem, preco oba alarmy som tam dal ale budis.
-V setSystemEventForPause() su opacne. najprv end time a potom start time.
-2025-06-13 10:36:33.093  5590-5678  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (1) alarmTime=13.06.25 23:00:00:0
-2025-06-13 10:36:33.093  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=true, alarmTime=1749848400000
-2025-06-13 10:36:33.093  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=true
-2025-06-13 10:36:33.100  5590-5678  EventPrefe...mputeAlarm sk.henrichg.phoneprofilesplus        E  (2) alarmTime=14.06.25 10:00:00:0
-2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  startEvent=false, alarmTime=1749888000000
-2025-06-13 10:36:33.100  5590-5678  EventPrefe...ntForStart sk.henrichg.phoneprofilesplus        E  setAlarm called - startEvent=false
 
 -------------
 
-1. do handleEvents() vstupuje sensor type a hladam, ci mam udalosti s takym.
-   !!! Citanie z DB
-2. Pootm pouizjem DataWrapper a nacitam udpasti, timelines a profily.
-   !!! Citanie z BD
-3. Potom robim specialitky pre niektore senzory
-4. Pootm cital profil co je aktivuvany pred samotnum startom handlera
-   !!! Citanie z BD
-5. Potom volam doHanleEvent() pre kazdy nestopnuty event -
-   !!! Zapis do DB stavu udalosti
-6. Potom riesim ked nie je ziadna udalost running, zistujem default profil
-7. Potom aktivujem profil, bud mergnuty z udalosti ak taky je, alebo default profil
-   !!! Zapis do BD aktivivaneho profil
-8. Nakoniec volam doEndHanlder() na spracovanie simulacie zvonenia, je to broadcast tak OK.
+EventPreferencesNotification.doHanleEvents()
+- Vola isNotificationVisible() a v nom je citanie ContactCache.
+  Ako pozeram, tak prechadza notifikacie primarne, cize len v ramci notifikcie pozera kontakty.
+  V ramci notiikacie pozera konkretnu notifikaciu a v nej hlada, ci je z kontaktu v _contacts.
+  A pozera len notifikacie z:
+  - com.google.android.dialer
+  - android.incallui
+  - com.android.server.telecom
+  - com.google.android.dialer
+  - com.samsung.android.dialer
+  - com.android.phone
+  - com.android.contacts
 
+EventPreferencesCall.doHanleEvents()
+- Vola PPApplicationStatic.getContactsCache().
+  Ako pozeram, tak prechadza konkretne tel. cislo ak callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED
+!!!
+  Tu je otazne, ci ak nebezi hovor sa ApplicationPreferences.prefEventCallEventType nastavi na PHONE_CALL_EVENT_UNDEFINED.
+  Toto pozri, je to velmi dolezite.
+  Toot je spravene.
 
+PPCallScreeningService.onScreenCall()
+- Vola PPApplicationStatic.getContactsCache().
+  V nom checkuje konkretne tel. cislo co pride do servisu.
+
+EventPreferencesCallControl.doHanleEvents()
+- Vola PPApplicationStatic.getContactsCache().
+  V nom checkuje konkretne tel. cislo co pride do servisum vid .onScreenCall().
+!!!
+  Tu je otazne, ci, sa niekedy a kedy vobec ApplicationPreferences.prefEventCallControlPhoneNumber da prazdne.
+  Toto pozri, je to velmi dolezite.
+  Tak nie, nikdy sa nevynuluje to tel. cislo a ktohovie kedy sa teda ma vobec zmenit. Myslim ze minimalne odchytenim
+  konca hovoru.
+  SPRAVIL SOM
+
+PPExtenderBroadcastReceiver.ACTION_SMS_MMS_RECEIVED
+- Toto je OK, lebo tu hlada c cache len konkretne tel cislo, co odchyti Extender.
+  A hlave pride to, len ak Extender zachyti smsku.
+
+PPExtenderBroadcastReceiver.ACTION_CALL_RECEIVED
+- Toto je OK, lebo tu hlada c cache len konkretne tel cislo, co odchyti Extender.
+  A hlave pride to, len ak Extender zachyti hovor.
+
+------------
 
 

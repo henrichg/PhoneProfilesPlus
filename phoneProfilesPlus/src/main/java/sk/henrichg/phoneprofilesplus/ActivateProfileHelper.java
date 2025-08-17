@@ -8934,6 +8934,7 @@ class ActivateProfileHelper {
                                             ((profile._sendSMSContactGroups != null) && (!profile._sendSMSContactGroups.isEmpty()))) {
 
 //                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "PPApplicationStatic.getContactsCache()");
+//                                Log.e("[CONTACTS_CACHE] ActivateProfileHelper.sendSMS", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 List<Contact> contactList = null;
                                 if (contactsCache != null) {
@@ -9034,6 +9035,7 @@ class ActivateProfileHelper {
                             //noinspection RedundantLengthCheck
                             if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
 //                                PPApplicationStatic.logE("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "PPApplicationStatic.getContactsCache()");
+//                                Log.e("[CONTACTS_CACHE] ActivateProfileHelper.clearNotificaitons", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache != null) {
                                     List<Contact> contactList;

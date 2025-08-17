@@ -418,6 +418,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SMS});
                                 //}
 
+//                                Log.e("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "(1) PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 List<Contact> contactList = null;
                                 if (contactsCache != null) {
@@ -579,6 +580,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                     //noinspection ExtractMethodRecommender
 //                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PPApplicationStatic.getContactsCache()");
+//                                    Log.e("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "(2) PPApplicationStatic.getContactsCache()");
                                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                     List<Contact> contactList = null;
                                     if (contactsCache != null) {

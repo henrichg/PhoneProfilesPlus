@@ -498,18 +498,22 @@ public class MainWorker extends Worker {
 
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache");
 
-        // must be first
         synchronized (PPApplication.handleEventsMutex) {
 
+            // must be first
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (1)");
 //        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactsCache()");
+//            Log.e("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactsCache()");
             PPApplicationStatic.createContactsCache(appContext, true, true/*, true*/, false);
             //must be seconds, this ads groups into contacts
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (2)");
 //        PPApplicationStatic.logE("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactGroupsCache()");
+//            Log.e("[CONTACTS_CACHE] MainWorker.doAfterFirstStart", "PPApplicationStatic.createContactGroupsCache()");
             PPApplicationStatic.createContactGroupsCache(appContext, true/*, true*//*, true*/, false);
+
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (3)");
 //        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
+//            Log.e("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
         }

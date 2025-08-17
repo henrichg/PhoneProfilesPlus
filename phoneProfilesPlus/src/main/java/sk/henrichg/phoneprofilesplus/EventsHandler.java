@@ -387,6 +387,7 @@ class EventsHandler {
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
@@ -430,6 +431,7 @@ class EventsHandler {
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call events, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
@@ -496,6 +498,7 @@ class EventsHandler {
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call control events and contact cache change, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
@@ -1058,6 +1061,7 @@ class EventsHandler {
                         String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
+//                        Log.e("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache != null) {
                             List<Contact> contactList;
@@ -1123,6 +1127,9 @@ class EventsHandler {
         else
         if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
             setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
+        }
+        if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_CALL_CONTROL)) {
+            setEventCallControlParameters("", 0, EventPreferencesCallControl.CALL_DIRECTION_ALL);
         }
     }
 
