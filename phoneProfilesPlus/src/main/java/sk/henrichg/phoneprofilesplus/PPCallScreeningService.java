@@ -89,7 +89,8 @@ public class PPCallScreeningService extends CallScreeningService {
                                 event._eventPreferencesCallControl.isRunnable(appContext) &&
                                 event.getStatus() != Event.ESTATUS_STOP) {
 
-                                boolean runningAllowed = DatabaseHandler.getInstance(appContext).checkCallControlAllowedRunning(event._priority);
+                                boolean runningAllowed = (!ApplicationPreferences.applicationEventUsePriority) ||
+                                        DatabaseHandler.getInstance(appContext).checkCallControlAllowedRunning(event._priority);
 //                                Log.e("PPCallScreeningService.onScreenCall", "runningAllowed="+runningAllowed);
 
                                 if (runningAllowed) {
