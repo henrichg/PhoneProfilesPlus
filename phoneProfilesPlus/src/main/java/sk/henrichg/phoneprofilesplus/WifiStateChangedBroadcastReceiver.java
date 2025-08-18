@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.List;
 
