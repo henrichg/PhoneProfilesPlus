@@ -562,6 +562,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                                 //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
 //                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_CALL_RECEIVED -> SENSOR_TYPE_PHONE_CALL");
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "call of events handler SENSOR_TYPE_PHONE_CALL - callEventType="+callEventType);
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);

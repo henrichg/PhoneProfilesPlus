@@ -191,6 +191,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
             if (EventStatic.getGlobalEventsRunning(savedContext)) {
+//                Log.e("PhoneStateListener.onServiceStateChanged", "call of events handler - SENSOR_TYPE_ROAMING");
                 final Context appContext = savedContext.getApplicationContext();
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
@@ -325,6 +326,8 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         speakerphoneSelected = false;
 
+//        Log.e("PhoneStateListener.callStarted", "*** callStarted");
+
         /*
         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
@@ -440,6 +443,8 @@ public class PhoneCallsListener extends PhoneStateListener {
 
             //dataWrapper.invalidateDataWrapper();
         }
+
+//        Log.e("PhoneStateListener.callAnswered", "*** callAnswered");
     }
 
     private static void callEnded(boolean incoming,
@@ -501,6 +506,8 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         PPExecutors.scheduleDisableRingerModeInternalChangeExecutor();
         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+
+//        Log.e("PhoneStateListener.callEnded", "*** callEnded");
     }
 
 }
