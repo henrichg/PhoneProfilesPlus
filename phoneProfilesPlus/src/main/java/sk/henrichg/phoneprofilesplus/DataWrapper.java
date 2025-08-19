@@ -3004,6 +3004,11 @@ class DataWrapper {
                         case DatabaseHandler.ETYPE_CALL_CONTROL:
                             sensorEnabled = _event._eventPreferencesCallControl._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_ETHERNET:
+                            sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    (_event._eventPreferencesRadioSwitch._ethernet != 0);
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;

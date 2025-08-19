@@ -1177,7 +1177,8 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS,
                         DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS,
-                        DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF
+                        DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF,
+                        DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -1198,6 +1199,7 @@ class DatabaseHandlerEvents {
                 eventPreferences._defaultSIMForCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS));
                 eventPreferences._defaultSIMForSMS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS));
                 eventPreferences._simOnOff = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF));
+                eventPreferences._ethernet = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1895,6 +1897,7 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, eventPreferences._defaultSIMForCalls);
         values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, eventPreferences._defaultSIMForSMS);
         values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF, eventPreferences._simOnOff);
+        values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET, eventPreferences._ethernet);
 
         // updating row
         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -2909,6 +2912,9 @@ class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MUSIC_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_CALL_CONTROL)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_RADIO_SWITCH_ETHERNET)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET + "!=0";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +

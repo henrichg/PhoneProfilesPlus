@@ -412,7 +412,7 @@ class Event {
 
     private void createEventPreferencesRadioSwitch()
     {
-        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     private void createEventPreferencesAlarmClock()
@@ -667,7 +667,9 @@ class Event {
                 (this._eventPreferencesMusic._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCallControl._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._ethernet != 0) &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED))
                 ;
     }
 

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
@@ -10,6 +11,7 @@ import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
+import android.net.EthernetManager;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
@@ -444,6 +446,19 @@ class EventStatic {
         //noinspection IfStatementWithIdenticalBranches
         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE)) {
             preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            return preferenceAllowed;
+        }
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET)) {
+            if (PPApplication.HAS_FEATURE_ETHERNET) {
+                @SuppressLint("WrongConstant")
+                EthernetManager ethernetManager = (EthernetManager) context.getApplicationContext().getSystemService(Context.ETHERNET_SERVICE);
+                if (ethernetManager == null)
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                else
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            }
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             return preferenceAllowed;
         }
         if (preferenceKey.equals(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED)) {

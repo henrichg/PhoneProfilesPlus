@@ -417,7 +417,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DURATION + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE + " " + DatabaseHandler.INTEGER_TYPE// + ","
+                + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE + " " + DatabaseHandler.INTEGER_TYPE + ","
+                + DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET + " " + DatabaseHandler.INTEGER_TYPE// + ","
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1002,6 +1003,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ACTIVATED_PROFILE_START_TIME, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE, DatabaseHandler.INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_ET_EORDER, DatabaseHandler.INTEGER_TYPE, columns);
@@ -3898,6 +3900,11 @@ class DatabaseHandlerCreateUpdateDB {
         if (oldVersion < 2545)
         {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE + "=0");
+        }
+
+        if (oldVersion < 2546)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET + "=0");
         }
 
     }

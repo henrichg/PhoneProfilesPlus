@@ -2373,6 +2373,8 @@
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
 
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

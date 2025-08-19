@@ -92,6 +92,17 @@
         app:ppEntryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_radioSwitch_ethernet"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchEthernet"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventRadioSwitchWithConnectionArray"
+        app:ppEntryValues="@array/eventRadioSwitchhWithConnectionValues"
+        app:dependency="eventRadioSwitchEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_airplaneMode"
         app:summary="@string/array_pref_radioSwitch_notDetect"
