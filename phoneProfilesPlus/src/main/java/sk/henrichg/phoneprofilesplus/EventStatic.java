@@ -449,16 +449,16 @@ class EventStatic {
             return preferenceAllowed;
         }
         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET)) {
-            if (PPApplication.HAS_FEATURE_ETHERNET) {
+            //if (PPApplication.HAS_FEATURE_ETHERNET) {
                 @SuppressLint("WrongConstant")
                 EthernetManager ethernetManager = (EthernetManager) context.getApplicationContext().getSystemService(Context.ETHERNET_SERVICE);
                 if (ethernetManager == null)
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 else
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            //}
+            //else
+            //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             return preferenceAllowed;
         }
         if (preferenceKey.equals(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED)) {

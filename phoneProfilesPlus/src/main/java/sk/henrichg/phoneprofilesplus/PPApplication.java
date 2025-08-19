@@ -519,7 +519,7 @@ public class PPApplication extends Application
     static volatile boolean HAS_FEATURE_LOCATION = false;
     static volatile boolean HAS_FEATURE_LOCATION_GPS = false;
     static volatile boolean HAS_FEATURE_CAMERA_FLASH = false;
-    static volatile boolean HAS_FEATURE_ETHERNET = false;
+    //static volatile boolean HAS_FEATURE_ETHERNET = false;
     // this is required for target 33
     //static volatile boolean HAS_FEATURE_TELEPHONY_MESSAGING = false;
 
@@ -1388,7 +1388,7 @@ public class PPApplication extends Application
         HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
         HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
-        HAS_FEATURE_ETHERNET = hasSystemFeature(packageManager, PackageManager.FEATURE_ETHERNET);
+        //HAS_FEATURE_ETHERNET = hasSystemFeature(packageManager, PackageManager.FEATURE_ETHERNET);
         //HAS_FEATURE_TELEPHONY_MESSAGING = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY_MESSAGING);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");

@@ -463,6 +463,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     hasHardware = false;
                 }
             }
+            /*
             if (key.equals(PREF_EVENT_RADIO_SWITCH_ETHERNET) && (!PPApplication.HAS_FEATURE_ETHERNET)) {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
@@ -474,7 +475,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
                 hasHardware = false;
             }
-
+            */
 
             if (hasHardware) {
                 PPListPreference listPreference = prefMng.findPreference(key);
@@ -588,9 +589,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ETHERNET);
         if (preference != null) {
+            //noinspection UnnecessaryLocalVariable
             boolean __enabled = enabled;
-            if (!PPApplication.HAS_FEATURE_ETHERNET)
-                __enabled = false;
+            //if (!PPApplication.HAS_FEATURE_ETHERNET)
+            //    __enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
@@ -824,8 +826,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (preference != null)
                     preference.setEnabled(enabled);
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ETHERNET);
-                if (preference != null)
-                    preference.setEnabled(enabled && PPApplication.HAS_FEATURE_ETHERNET);
+                //if (preference != null)
+                //    preference.setEnabled(enabled && PPApplication.HAS_FEATURE_ETHERNET);
 
                 setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_ENABLED, preferences, context);
             }
@@ -1192,7 +1194,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                 }
 
-                if ((_ethernet != 0) && PPApplication.HAS_FEATURE_ETHERNET) {
+                if ((_ethernet != 0) /*&& PPApplication.HAS_FEATURE_ETHERNET*/) {
 
                     @SuppressLint("WrongConstant")
                     EthernetManager etherentManager = (EthernetManager) eventsHandler.context.getApplicationContext().getSystemService(Context.ETHERNET_SERVICE);
