@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.EthernetManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
@@ -1186,6 +1188,71 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     (!sim2Exists);
                             break;
                     }
+                }
+
+                if ((_ethernet != 0) && PPApplication.HAS_FEATURE_ETHERNET) {
+
+                    @SuppressLint("WrongConstant")
+                    EthernetManager etherentManager = (EthernetManager) eventsHandler.context.getApplicationContext().getSystemService(Context.ETHERNET_SERVICE);
+                    if (etherentManager != null) {
+                        boolean enabled = etherentManager.getAvailableInterfaces().length > 0;
+
+                        boolean connected = false;
+                        if ((_ethernet == 3) || (_ethernet == 4)) {
+                            ConnectivityManager connManager = null;
+                            try {
+                                connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            } catch (Exception e) {
+                                // java.lang.NullPointerException: missing IConnectivityManager
+                                // Dual SIM?? Bug in Android ???
+                                PPApplicationStatic.recordException(e);
+                            }
+                            if (connManager != null) {
+                                //noinspection deprecation
+                                NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
+                                //noinspection deprecation
+                                connected = activeNetwork != null && activeNetwork.isConnected();
+//                                    PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
+
+                                tested = true;
+
+                                /*
+                                Network[] networks = connManager.getAllNetworks();
+                                if ((networks != null) && (networks.length > 0)) {
+                                    for (Network network : networks) {
+                                        try {
+                                            NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                            if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                connected = WifiNetworkCallback.connected;
+
+                                                tested = true;
+                                                break;
+                                            }
+                                        } catch (Exception e) {
+                                            // Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
+                                            PPApplicationStatic.recordException(e);
+                                        }
+                                    }
+                                }
+                                */
+                            }
+                        }
+                        else
+                            tested = true;
+                        if (_ethernet == 1)
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                        else
+                        if (_ethernet == 2)
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
+                        else
+                        if (_ethernet == 3)
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
+                        else
+                        if (_ethernet == 4)
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
+                    }
+                    else
+                        eventsHandler.notAllowedRadioSwitch = true;
                 }
 
                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && tested;
