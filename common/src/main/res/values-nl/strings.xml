@@ -850,7 +850,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Programma\'s forceren het te stoppen</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Om \"Forceer stoppen programma\" mogelijk te maken hier kliķken om PhoneProfilesPlusExtender te installeren.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Om \"Forceer stoppen programma\" mogelijk te maken, PhoneProfilesPlusExtender aan zetten bij toegankelijkheidsinstellingen.</string>
-    <string name="shortcut_activate_profile">Activeer profiel:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Het werkt alleen wanneer het scherm aanstaat en ontgrendeld is.</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) mobiele netwerk type voorkeuren</string>
     <string name="profile_preferences_deviceCloseAllApplications">Sluit alle programma\'s</string>
@@ -2336,4 +2335,12 @@
     <string name="install_pppps_text13_1">1. Installeer en start Shizuku (als het apparaat niet geroot is). Klik hier om het te installeren vanuit de App store.</string>
     <string name="install_pppps_text14_1">2. Installeer InstallWithOptions. Klik hier om het vanuit de App store te installeren.</string>
     <string name="important_info_advanced_protection">BELANGRIJK: Indien ingeschakeld in \"Geavanceerde bescherming\", is het niet mogelijk om de vereiste applicaties te installeren (PPPE, PPPPPPS, InstallWithOptions, Shizuku) via applicatiewinkels van derden (Drofi-ify, F-Droid, NeoStore). Ook de meeste functionaliteiten in PPP werken niet correct. Schakel het uit.</string>
+    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
+    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
+    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
 </resources>
