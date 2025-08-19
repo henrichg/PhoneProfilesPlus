@@ -284,14 +284,16 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
                         _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
                     }
+                    _addBullet = true;
                 }
 
                 if (this._ethernet != 0) {
                     if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET, false, context).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (_addBullet)
+                            _value.append(StringConstants.STR_BULLET);
                         _value.append(context.getString(R.string.event_preferences_radioSwitch_ethernet)).append(StringConstants.STR_COLON_WITH_SPACE);
                         String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
                         _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(fields[this._ethernet], disabled, addBullet, context)).append(StringConstants.TAG_BOLD_END_HTML);
-                        _addBullet = true;
                     }
                 }
 
@@ -1212,29 +1214,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
                                 //noinspection deprecation
                                 connected = activeNetwork != null && activeNetwork.isConnected();
-//                                    PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
+//                                    PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "ethernet connected="+connected);
 
                                 tested = true;
-
-                                /*
-                                Network[] networks = connManager.getAllNetworks();
-                                if ((networks != null) && (networks.length > 0)) {
-                                    for (Network network : networks) {
-                                        try {
-                                            NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                            if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                                connected = WifiNetworkCallback.connected;
-
-                                                tested = true;
-                                                break;
-                                            }
-                                        } catch (Exception e) {
-                                            // Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
-                                            PPApplicationStatic.recordException(e);
-                                        }
-                                    }
-                                }
-                                */
                             }
                         }
                         else
