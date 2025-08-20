@@ -183,7 +183,8 @@
         android:supportsRtl="true"
         android:resizeableActivity="true"
         android:allowBackup="false"
-        android:persistent="true" >
+        android:persistent="true"
+        android:requestLegacyExternalStorage="true" >
 
 <!--        tools:replace - required for rncryptor-native-->
 <!--        tools:replace="android:label,android:allowBackup"-->

@@ -4757,15 +4757,22 @@ class ActivateProfileHelper {
     }
 
     private static void changeWallpaperFromFolder(Profile profile, Context context) {
+//        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "(1)");
+
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         // next allowed wallpaper change is 50 seconds after last chaange of wallpaper
         final long _time = now.getTimeInMillis() + gmtOffset - (50 * 1000);
 
+//        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "_time="+_time);
+//        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "PPApplication.wallpaperChangeTime="+PPApplication.wallpaperChangeTime);
+
         if (PPApplication.applicationFullyStarted &&
                 ((PPApplication.wallpaperChangeTime == 0) ||
                  (PPApplication.wallpaperChangeTime <= _time))) {
+
+//            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "(2)");
 
 //            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "(1)");
             final Context appContext = context.getApplicationContext();
@@ -4793,7 +4800,6 @@ class ActivateProfileHelper {
                         // test get list of files from folder
 
                         Uri folderUri = Uri.parse(profile._deviceWallpaperFolder);
-
 //                        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "folderUri="+folderUri);
 
                         //List<Uri> uriList = new ArrayList<>();
@@ -4801,8 +4807,9 @@ class ActivateProfileHelper {
 
                         //Cursor cursor = null;
                         try {
-                            appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                            appContext.getContentResolver().takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            // moved to ProfilesPrefsFragment.doOnActivityResult for WallpaperFolderPreference.RESULT_GET_FOLDER
+                            //appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                            //appContext.getContentResolver().takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                             /*
                             appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
@@ -4852,6 +4859,7 @@ class ActivateProfileHelper {
                                         imageUriList.add(file);
                                 }
                             }
+//                            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "imageUriList.isEmpty()="+imageUriList.isEmpty());
                         } catch (Exception e) {
 //                            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", Log.getStackTraceString(e));
                         //} finally {

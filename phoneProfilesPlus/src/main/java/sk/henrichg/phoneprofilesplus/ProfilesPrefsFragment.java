@@ -25,6 +25,7 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -2300,6 +2301,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String  d = data.getDataString();
             if (d != null) {
                 Uri selectedFolder = Uri.parse(d);
+                try {
+                    context.grantUriPermission(PPApplication.PACKAGE_NAME, selectedFolder, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                    context.getContentResolver().takePersistableUriPermission(selectedFolder, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (Exception e) {
+                    Log.e("ProfilesPrefsFragment.doOnActivityResult", Log.getStackTraceString(e));
+                }
                 WallpaperFolderPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
                 if (preference != null)
                     preference.setWallpaperFolder(selectedFolder.toString());
