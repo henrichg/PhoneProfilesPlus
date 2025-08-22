@@ -469,14 +469,46 @@ class LocationScanner
         synchronized (PPApplication.locationScannerMutex) {
             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                 if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
-                    PPApplication.locationScanner.updateGeofencesInDB();
+
+                    final Context appContext = PPApplication.locationScanner.context.getApplicationContext();
+
+                    Runnable runnable = () -> {
+
+                        synchronized (PPApplication.handleEventsMutex) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LocationScanner_doLocationChanged);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                PPApplication.locationScanner.updateGeofencesInDB();
+
+                            } catch (Exception e) {
+//                              PPApplicationStatic.logE("[IN_EXECUTOR] LocationScanner.doLocationChanged", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                //worker.shutdown();
+                            }
+
+                        }
+                    };
+                    PPApplicationStatic.createBasicExecutorPool();
+                    PPApplication.eventsHandlerExecutor.submit(runnable);
 
                     if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
 //                        Log.e("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
                                 new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER},
-                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 0);
+                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 5);
                     }
                 }
             }
