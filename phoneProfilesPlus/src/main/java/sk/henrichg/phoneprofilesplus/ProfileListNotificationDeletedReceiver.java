@@ -11,7 +11,11 @@ public class ProfileListNotificationDeletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] KeepScreenOnNotificationDeletedReceiver.onReceive", "xxx");
-        ProfileListNotification.forceDrawNotificationWhenIsDeleted(context.getApplicationContext());
+        Runnable runnable = () -> {
+            ProfileListNotification.forceDrawNotificationWhenIsDeleted(context.getApplicationContext());
+        };
+        PPApplicationStatic.createEventsHandlerExecutor();
+        PPApplication.basicExecutorPool.submit(runnable);
     }
 
 }

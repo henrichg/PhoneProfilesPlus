@@ -74,11 +74,13 @@ public class PPCallScreeningService extends CallScreeningService {
 //                    Log.e("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     List<Contact> contactList = null;
-                    if (contactsCache != null) {
+                    try {
+                        if (contactsCache != null) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "contactsCache.getList()");
-                        contactList = contactsCache.getList(/*false*/);
-                    }
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+                    } catch (Exception ignored) {}
 
                     boolean blockCallingPhoneNumber = false;
                     boolean sendSMS = false;

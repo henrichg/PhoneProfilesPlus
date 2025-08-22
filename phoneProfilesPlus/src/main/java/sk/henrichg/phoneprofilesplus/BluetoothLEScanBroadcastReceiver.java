@@ -17,28 +17,32 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        BluetoothScanWorker.fillBoundedDevicesList(appContext);
+        Runnable runnable = () -> {
 
-        final int forceOneScan = ApplicationPreferences.prefForceOneBluetoothLEScan;
+            BluetoothScanWorker.fillBoundedDevicesList(appContext);
 
-        if (EventStatic.getGlobalEventsRunning(context) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
-        {
-            //if (scanStarted) {
+            final int forceOneScan = ApplicationPreferences.prefForceOneBluetoothLEScan;
+
+            if (EventStatic.getGlobalEventsRunning(context) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                //if (scanStarted) {
 
 
-            BluetoothScanWorker.setWaitForLEResults(appContext, false);
-            BluetoothScanner.setForceOneLEBluetoothScan(appContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                BluetoothScanWorker.setWaitForLEResults(appContext, false);
+                BluetoothScanner.setForceOneLEBluetoothScan(appContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-            if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
-            {
+                if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                {
 //                Log.e("BluetoothLEScanBroadcastReceiver.onReceive", "call event handler SENSOR_TYPE_BLUETOOTH_SCANNER");
-                PPExecutors.handleEvents(appContext,
-                        new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
-                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
-            }
-            //}
+                    PPExecutors.handleEvents(appContext,
+                            new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
+                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+                }
+                //}
 
-        }
+            }
+        };
+        PPApplicationStatic.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
 }

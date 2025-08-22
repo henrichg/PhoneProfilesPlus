@@ -23,14 +23,13 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (EventStatic.getGlobalEventsRunning(context)) {
-            synchronized (PPApplication.handleEventsMutex) {
-
-                    final Context appContext = context.getApplicationContext();
-                if (useHandler) {
-                    PPExecutors.handleEvents(appContext,
-                            new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_END},
-                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_EVENT_DELAY_END, 0);
-                } else {
+            final Context appContext = context.getApplicationContext();
+            if (useHandler) {
+                PPExecutors.handleEvents(appContext,
+                        new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_END},
+                        PPExecutors.SENSOR_NAME_SENSOR_TYPE_EVENT_DELAY_END, 0);
+            } else {
+                synchronized (PPApplication.handleEventsMutex) {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] EventDelayEndBroadcastReceiver.doWork", "SENSOR_TYPE_EVENT_DELAY_END");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_EVENT_DELAY_END});
