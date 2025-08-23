@@ -236,15 +236,15 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         ActivityInfo activityInfo = tryGetActivity(appContext, componentName);
                         boolean isActivity = activityInfo != null;
                         if (isActivity) {
-                            setApplicationInForeground(appContext, packageName);
-
-                            Calendar now = Calendar.getInstance();
-                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                            final long _time = now.getTimeInMillis() + gmtOffset;
-
                             if (EventStatic.getGlobalEventsRunning(appContext)) {
                                 Runnable runnable3 = () -> {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
+
+                                    setApplicationInForeground(appContext, packageName);
+
+                                    Calendar now = Calendar.getInstance();
+                                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                    final long _time = now.getTimeInMillis() + gmtOffset;
 
                                     synchronized (PPApplication.handleEventsMutex) {
 
@@ -259,29 +259,29 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                             }
 
                                             //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> packageName="+packageName);
+//                                          PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
+//                                          PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> packageName="+packageName);
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.setEventApplicationParameters(packageName, _time);
                                             eventsHandler.handleEvents(new int[]{
                                                     EventsHandler.SENSOR_TYPE_APPLICATION,
                                                     EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
 
-                                        /*
-                                        DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                        dataWrapper3.fillEventList();
-                                        //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION)) {
-//                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                        }
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION)) {
-//                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-                                        }
-                                        dataWrapper3.invalidateDataWrapper();
-                                        */
+                                            /*
+                                            DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                            dataWrapper3.fillEventList();
+                                            //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                                            if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION)) {
+    //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
+                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                            }
+                                            if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION)) {
+    //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
+                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                            }
+                                            dataWrapper3.invalidateDataWrapper();
+                                            */
 
                                         } catch (Exception e) {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
