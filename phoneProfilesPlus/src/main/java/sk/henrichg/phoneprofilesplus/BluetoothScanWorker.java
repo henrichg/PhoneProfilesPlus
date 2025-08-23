@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -101,13 +102,34 @@ public class BluetoothScanWorker extends Worker {
             final Context appContext = context.getApplicationContext();
             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-//                long start1 = System.currentTimeMillis();
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
-                BluetoothScanWorker.scheduleWork(appContext, false);
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start1;
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
-                //worker.shutdown();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanWorker_doWork);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+//                  long start1 = System.currentTimeMillis();
+//                  PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+                    BluetoothScanWorker.scheduleWork(appContext, false);
+//                  long finish = System.currentTimeMillis();
+//                  long timeElapsed = finish - start1;
+//                  PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
+                    //worker.shutdown();
+
+                } catch (Exception e) {
+                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanWorker,doWork", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+
             };
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);

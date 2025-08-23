@@ -9,6 +9,7 @@ import android.os.Build;
 // is from reginer android.jar
 import android.os.DeadSystemException;
 import android.os.DeadSystemRuntimeException;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -106,50 +107,70 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 final Context appContext = context.getApplicationContext();
                 final WeakReference<Throwable> exceptionWeakRef = new WeakReference<>(__exception);
                 Runnable runnable = () -> {
-                    Throwable _exception = exceptionWeakRef.get();
-                    if (_exception != null) {
-                        int actualVersionCode = 0;
-                        try {
-                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
-                        } catch (Exception ignored) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_CustomACRAReportingAdministrator_shouldStartCollecting);
+                            wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        StackTraceElement[] arr = _exception.getStackTrace();
-                        StringBuilder report = new StringBuilder(_exception.toString());
+                        Throwable _exception = exceptionWeakRef.get();
+                        if (_exception != null) {
+                            int actualVersionCode = 0;
+                            try {
+                                PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
+                            } catch (Exception ignored) {
+                            }
 
-                        report.append(StringConstants.STR_DOUBLE_NEWLINE);
+                            StackTraceElement[] arr = _exception.getStackTrace();
+                            StringBuilder report = new StringBuilder(_exception.toString());
 
-                        report.append("----- App version code: ").append(actualVersionCode).append(StringConstants.STR_DOUBLE_NEWLINE);
+                            report.append(StringConstants.STR_DOUBLE_NEWLINE);
 
-                        /*
-                        for (StackTraceElement anArr : arr) {
-                            report.append("    ").append(anArr.toString()).append("\n");
-                        }
-                        report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                        */
+                            report.append("----- App version code: ").append(actualVersionCode).append(StringConstants.STR_DOUBLE_NEWLINE);
 
-                        report.append("--------- Stack trace ---------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                        for (StackTraceElement anArr : arr) {
-                            report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
-                        }
-                        report.append(StringConstants.CHAR_NEW_LINE);
-
-                        // If the exception was thrown in a background thread inside
-                        // AsyncTask, then the actual exception can be found with getCause
-                        Throwable cause = _exception.getCause();
-                        if (cause != null) {
+                            /*
+                            for (StackTraceElement anArr : arr) {
+                                report.append("    ").append(anArr.toString()).append("\n");
+                            }
                             report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                            report.append("--------- Cause ---------------").append(StringConstants.STR_DOUBLE_NEWLINE);
-                            report.append(cause).append(StringConstants.STR_DOUBLE_NEWLINE);
-                            arr = cause.getStackTrace();
+                            */
+
+                            report.append("--------- Stack trace ---------").append(StringConstants.STR_DOUBLE_NEWLINE);
                             for (StackTraceElement anArr : arr) {
                                 report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
                             }
-                        }
-                        report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                            report.append(StringConstants.CHAR_NEW_LINE);
 
-                        logIntoFile(appContext, "E", "CustomACRAReportingAdministrator", report.toString());
+                            // If the exception was thrown in a background thread inside
+                            // AsyncTask, then the actual exception can be found with getCause
+                            Throwable cause = _exception.getCause();
+                            if (cause != null) {
+                                report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                                report.append("--------- Cause ---------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                                report.append(cause).append(StringConstants.STR_DOUBLE_NEWLINE);
+                                arr = cause.getStackTrace();
+                                for (StackTraceElement anArr : arr) {
+                                    report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
+                                }
+                            }
+                            report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+
+                            logIntoFile(appContext, "E", "CustomACRAReportingAdministrator", report.toString());
+                        }
+
+                    } catch (Exception e) {
+                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
                     }
                 };
                 PPApplicationStatic.createBasicExecutorPool();

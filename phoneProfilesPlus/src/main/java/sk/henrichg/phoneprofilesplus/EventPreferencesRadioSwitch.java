@@ -825,7 +825,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
                 if (preference != null)
                     preference.setEnabled(enabled);
-                preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ETHERNET);
+                //preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ETHERNET);
                 //if (preference != null)
                 //    preference.setEnabled(enabled && PPApplication.HAS_FEATURE_ETHERNET);
 

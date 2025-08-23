@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 public class PhoneCallsListener extends PhoneStateListener {
 
@@ -101,103 +103,123 @@ public class PhoneCallsListener extends PhoneStateListener {
         final Context appContext = savedContext.getApplicationContext();
         Runnable runnable = () -> {
 
-            /*
-            TelephonyManager telephonyManager;
-            if (simSlot == 1)
-                telephonyManager = PPApplication.telephonyManagerSIM1;
-            else
-            if (simSlot == 2)
-                telephonyManager = PPApplication.telephonyManagerSIM2;
-            else
-                telephonyManager = PPApplication.telephonyManagerDefault;
-
-            if (telephonyManager.isNetworkRoaming()) {
-                // In Roaming
-            } else {
-                // Not in Roaming
-            }
-            if (serviceState.getDataRoaming()) {
-            } else {
-            }
-            */
-
-            /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                Object ret = HiddenApiBypass.invoke(ServiceState.class, serviceState, "getVoiceRoaming");
-                Log.e("PhoneCallsListener.onServiceStateChanged", "ret="+ret);
-            }*/
-            // You can also check roaming state using this
-            if (serviceState.getRoaming()) {
-                // In Roaming
-                networkRoaming = true;
-            } else {
-                // Not in Roaming
-                networkRoaming = false;
-            }
-            if (serviceState.getDataRoaming()) {
-                dataRoaming = true;
-            } else {
-                dataRoaming = false;
-            }
-
-            /*
-            int dataRoaming = Settings.Global.getInt(savedContext.getContentResolver(), Settings.Global.DATA_ROAMING, 0);
-            Log.e("PhoneCallsListener.onServiceStateChanged", "dataRoaming="+dataRoaming);
-            if (dataRoaming == 1) {
-                Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - settings global - data");
-            } else {
-                Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - settings global - data");
-            }
-            */
-
-            EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
-            boolean oldNetworkRoaming = false;
-            boolean oldDataRoaming = false;
-//          PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(1) PPApplication.eventRoamingSensorMutex");
-            synchronized (PPApplication.eventRoamingSensorMutex) {
-                switch (simSlot) {
-                    case 0:
-                        oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
-                        oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
-                        break;
-                    case 1:
-                        oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
-                        oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
-                        break;
-                    case 2:
-                        oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
-                        oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
-                        break;
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PhoneCallListener_onServiceStateChanged);
+                    wakeLock.acquire(10 * 60 * 1000);
                 }
-            }
 
-            EventPreferencesRoaming.setEventRoamingInSIMSlot(savedContext, simSlot, networkRoaming, dataRoaming);
-            boolean newNetworkRoaming = false;
-            boolean newDataRoaming = false;
-            EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
-//          PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(2) PPApplication.eventRoamingSensorMutex");
-            synchronized (PPApplication.eventRoamingSensorMutex) {
-                switch (simSlot) {
-                    case 0:
-                        newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
-                        newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
-                        break;
-                    case 1:
-                        newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
-                        newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
-                        break;
-                    case 2:
-                        newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
-                        newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
-                        break;
+                /*
+                TelephonyManager telephonyManager;
+                if (simSlot == 1)
+                    telephonyManager = PPApplication.telephonyManagerSIM1;
+                else
+                if (simSlot == 2)
+                    telephonyManager = PPApplication.telephonyManagerSIM2;
+                else
+                    telephonyManager = PPApplication.telephonyManagerDefault;
+
+                if (telephonyManager.isNetworkRoaming()) {
+                    // In Roaming
+                } else {
+                    // Not in Roaming
                 }
-            }
+                if (serviceState.getDataRoaming()) {
+                } else {
+                }
+                */
 
-            if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
-                if (EventStatic.getGlobalEventsRunning(appContext)) {
-//                Log.e("PhoneStateListener.onServiceStateChanged", "call of events handler - SENSOR_TYPE_ROAMING");
-                    PPExecutors.handleEvents(appContext,
-                            new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
-                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
+                /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                    Object ret = HiddenApiBypass.invoke(ServiceState.class, serviceState, "getVoiceRoaming");
+                    Log.e("PhoneCallsListener.onServiceStateChanged", "ret="+ret);
+                }*/
+                // You can also check roaming state using this
+                if (serviceState.getRoaming()) {
+                    // In Roaming
+                    networkRoaming = true;
+                } else {
+                    // Not in Roaming
+                    networkRoaming = false;
+                }
+                if (serviceState.getDataRoaming()) {
+                    dataRoaming = true;
+                } else {
+                    dataRoaming = false;
+                }
+
+                /*
+                int dataRoaming = Settings.Global.getInt(savedContext.getContentResolver(), Settings.Global.DATA_ROAMING, 0);
+                Log.e("PhoneCallsListener.onServiceStateChanged", "dataRoaming="+dataRoaming);
+                if (dataRoaming == 1) {
+                    Log.e("PhoneCallsListener.onServiceStateChanged", "is in roaming - settings global - data");
+                } else {
+                    Log.e("PhoneCallsListener.onServiceStateChanged", "is NOT in roaming - settings global - data");
+                }
+                */
+
+                EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
+                boolean oldNetworkRoaming = false;
+                boolean oldDataRoaming = false;
+    //          PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(1) PPApplication.eventRoamingSensorMutex");
+                synchronized (PPApplication.eventRoamingSensorMutex) {
+                    switch (simSlot) {
+                        case 0:
+                            oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
+                            oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
+                            break;
+                        case 1:
+                            oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
+                            oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
+                            break;
+                        case 2:
+                            oldNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
+                            oldDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
+                            break;
+                    }
+                }
+
+                EventPreferencesRoaming.setEventRoamingInSIMSlot(savedContext, simSlot, networkRoaming, dataRoaming);
+                boolean newNetworkRoaming = false;
+                boolean newDataRoaming = false;
+                EventPreferencesRoaming.getEventRoamingInSIMSlot(savedContext, simSlot);
+    //          PPApplicationStatic.logE("[SYNCHRONIZED] PhoneCallsListener.onServiceStateChanged", "(2) PPApplication.eventRoamingSensorMutex");
+                synchronized (PPApplication.eventRoamingSensorMutex) {
+                    switch (simSlot) {
+                        case 0:
+                            newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
+                            newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
+                            break;
+                        case 1:
+                            newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot1;
+                            newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot1;
+                            break;
+                        case 2:
+                            newNetworkRoaming = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot2;
+                            newDataRoaming = ApplicationPreferences.prefEventRoamingDataInSIMSlot2;
+                            break;
+                    }
+                }
+
+                if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
+                    if (EventStatic.getGlobalEventsRunning(appContext)) {
+    //                Log.e("PhoneStateListener.onServiceStateChanged", "call of events handler - SENSOR_TYPE_ROAMING");
+                        PPExecutors.handleEvents(appContext,
+                                new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
+                                PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
+                    }
+                }
+
+            } catch (Exception e) {
+                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PhoneCallsListener.onServiceStateChanged", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
                 }
             }
 
@@ -254,26 +276,47 @@ public class PhoneCallsListener extends PhoneStateListener {
         Runnable runnable = () -> {
 //            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
-            //Context appContext= appContextWeakRef.get();
-
-            //if (appContext != null) {
-//            int simSlot = 0;
-//            if (subscriptionInfo != null)
-//                simSlot = subscriptionInfo.getSimSlotIndex()+1;
-
-                switch (phoneEvent) {
-                    case SERVICE_PHONE_EVENT_START:
-                        callStarted(incoming, /*number, eventTime,*/ appContext);
-                        break;
-                    case SERVICE_PHONE_EVENT_ANSWER:
-                        callAnswered(/*incoming,*/ /*number, eventTime,*/ appContext);
-                        break;
-                    case SERVICE_PHONE_EVENT_END:
-                        callEnded(incoming, /*missed,*/ /*number, eventTime,*/ appContext);
-                        break;
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PhoneCallListener_doCall);
+                    wakeLock.acquire(10 * 60 * 1000);
                 }
 
-            //}
+                //Context appContext= appContextWeakRef.get();
+
+                //if (appContext != null) {
+    //            int simSlot = 0;
+    //            if (subscriptionInfo != null)
+    //                simSlot = subscriptionInfo.getSimSlotIndex()+1;
+
+                    switch (phoneEvent) {
+                        case SERVICE_PHONE_EVENT_START:
+                            callStarted(incoming, /*number, eventTime,*/ appContext);
+                            break;
+                        case SERVICE_PHONE_EVENT_ANSWER:
+                            callAnswered(/*incoming,*/ /*number, eventTime,*/ appContext);
+                            break;
+                        case SERVICE_PHONE_EVENT_END:
+                            callEnded(incoming, /*missed,*/ /*number, eventTime,*/ appContext);
+                            break;
+                    }
+
+                //}
+
+            } catch (Exception e) {
+                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PhoneCallsListener.doCall", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+
         };
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);

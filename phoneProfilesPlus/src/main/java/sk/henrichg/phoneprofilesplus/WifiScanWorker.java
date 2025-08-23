@@ -8,6 +8,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -114,11 +115,33 @@ public class WifiScanWorker extends Worker {
 //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
 //                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] WifiScanWorker.doWork", "shortInterval=false");
 //                PPApplicationStatic.logE("[BLUETOOTH] WifiScanWorker.doWork", "xxxxxxxxx sheduleWork");
-                WifiScanWorker.scheduleWork(appContext, false);
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start1;
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - timeElapsed="+timeElapsed);
-                //worker.shutdown();
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_WifScaWorker_doWork);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    WifiScanWorker.scheduleWork(appContext, false);
+    //                long finish = System.currentTimeMillis();
+    //                long timeElapsed = finish - start1;
+    //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** WifiScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG - timeElapsed="+timeElapsed);
+                    //worker.shutdown();
+
+                } catch (Exception e) {
+                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanWorker.doWork", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+
             };
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);

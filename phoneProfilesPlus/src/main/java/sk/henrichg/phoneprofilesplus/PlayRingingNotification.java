@@ -10,11 +10,13 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -655,148 +657,168 @@ class PlayRingingNotification
         //final Context appContext = getApplicationContext();
         Runnable runnable = () -> {
 
-            AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PlayRingingNotificaiton_playNotificaitonSound);
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-            //int ringerMode = ApplicationPreferences.prefRingerMode;
-            //int zenMode = ApplicationPreferences.prefZenMode;
-            //boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
-            int systemZenMode = ActivateProfileHelper.getSystemZenMode(appContext);
-            boolean isAudible = (audioManager != null) &&
-                    ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
+                AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
 
-            if (notificationVibrate || ((!isAudible) && (!notificationSound.isEmpty()))) {
-                // vibrate when is configured or when is not audible and sound is configured
+                //int ringerMode = ApplicationPreferences.prefRingerMode;
+                //int zenMode = ApplicationPreferences.prefZenMode;
+                //boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
+                int systemZenMode = ActivateProfileHelper.getSystemZenMode(appContext);
+                boolean isAudible = (audioManager != null) &&
+                        ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
 
-                // why vibrate?
-                // 1. vibration is configured by user
-                // 2. notification sound is configured by user, but sound mode is not audible
-                Vibrator vibrator = (Vibrator) appContext.getSystemService(Context.VIBRATOR_SERVICE);
-                if ((vibrator != null) && vibrator.hasVibrator()) {
-                    try {
-                        if (!isAudible) {
-                            // sound mode is not audible, force vibrate = Vibration intensity is ignored
-                            vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
-                        } else {
-                            // Vibration intensity is also used
-                            if (Build.VERSION.SDK_INT >= 33)
-                                vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
-                                        VibrationAttributes.createForUsage(VibrationAttributes.USAGE_NOTIFICATION));
-                            else
-                                vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
-                                        new AudioAttributes.Builder()
-                                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                                                .build());
+                if (notificationVibrate || ((!isAudible) && (!notificationSound.isEmpty()))) {
+                    // vibrate when is configured or when is not audible and sound is configured
+
+                    // why vibrate?
+                    // 1. vibration is configured by user
+                    // 2. notification sound is configured by user, but sound mode is not audible
+                    Vibrator vibrator = (Vibrator) appContext.getSystemService(Context.VIBRATOR_SERVICE);
+                    if ((vibrator != null) && vibrator.hasVibrator()) {
+                        try {
+                            if (!isAudible) {
+                                // sound mode is not audible, force vibrate = Vibration intensity is ignored
+                                vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                            } else {
+                                // Vibration intensity is also used
+                                if (Build.VERSION.SDK_INT >= 33)
+                                    vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+                                            VibrationAttributes.createForUsage(VibrationAttributes.USAGE_NOTIFICATION));
+                                else
+                                    vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+                                            new AudioAttributes.Builder()
+                                                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                                                    .build());
+                            }
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
                         }
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
                     }
                 }
-            }
 
-            if ((!PlayRingingNotification.ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
+                if ((!PlayRingingNotification.ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
 
-                stopPlayNotificationSound(false, appContext);
+                    stopPlayNotificationSound(false, appContext);
 
-                if (!notificationSound.isEmpty())
-                {
-                    if (isAudible || playAlsoInSilentMode) {
+                    if (!notificationSound.isEmpty())
+                    {
+                        if (isAudible || playAlsoInSilentMode) {
 
-                        Uri notificationUri = Uri.parse(notificationSound);
-                        try {
-                            ContentResolver contentResolver = appContext.getContentResolver();
-                            appContext.grantUriPermission(PPApplication.PACKAGE_NAME, notificationUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                            contentResolver.takePersistableUriPermission(notificationUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        } catch (Exception e) {
-                            // java.lang.SecurityException: UID 10157 does not have permission to
-                            // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
-                            // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                            //Log.e("PhoneProfilesService.playNotificationSound", Log.getStackTraceString(e));
-                            //PPApplicationStatic.recordException(e);
-                        }
+                            Uri notificationUri = Uri.parse(notificationSound);
+                            try {
+                                ContentResolver contentResolver = appContext.getContentResolver();
+                                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, notificationUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(notificationUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            } catch (Exception e) {
+                                // java.lang.SecurityException: UID 10157 does not have permission to
+                                // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                                // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
+                                //Log.e("PhoneProfilesService.playNotificationSound", Log.getStackTraceString(e));
+                                //PPApplicationStatic.recordException(e);
+                            }
 
-                        try {
-                            PlayRingingNotification.notificationMediaPlayer = new MediaPlayer();
+                            try {
+                                PlayRingingNotification.notificationMediaPlayer = new MediaPlayer();
 
-                            int usage = AudioAttributes.USAGE_NOTIFICATION;
-                            if (!isAudible)
-                                usage = AudioAttributes.USAGE_ALARM;
+                                int usage = AudioAttributes.USAGE_NOTIFICATION;
+                                if (!isAudible)
+                                    usage = AudioAttributes.USAGE_ALARM;
 
-                            AudioAttributes attrs = new AudioAttributes.Builder()
-                                    .setUsage(usage)
-                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                                    .build();
-                            PlayRingingNotification.notificationMediaPlayer.setAudioAttributes(attrs);
+                                AudioAttributes attrs = new AudioAttributes.Builder()
+                                        .setUsage(usage)
+                                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                        .build();
+                                PlayRingingNotification.notificationMediaPlayer.setAudioAttributes(attrs);
 
-                            PlayRingingNotification.notificationMediaPlayer.setDataSource(appContext, notificationUri);
-                            PlayRingingNotification.notificationMediaPlayer.prepare();
-                            PlayRingingNotification.notificationMediaPlayer.setLooping(false);
+                                PlayRingingNotification.notificationMediaPlayer.setDataSource(appContext, notificationUri);
+                                PlayRingingNotification.notificationMediaPlayer.prepare();
+                                PlayRingingNotification.notificationMediaPlayer.setLooping(false);
 
-                            PPApplication.volumesMediaVolumeChangeed = false;
+                                PPApplication.volumesMediaVolumeChangeed = false;
 
-                            if (!isAudible) {
-                                if (audioManager != null) {
-                                    PlayRingingNotification.oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                                    int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                                    int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
-                                    PPApplication.volumesInternalChange = true;
-                                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != mediaRingingVolume)
-                                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                }
-                            } else
-                                PlayRingingNotification.oldVolumeForPlayNotificationSound = -1;
+                                if (!isAudible) {
+                                    if (audioManager != null) {
+                                        PlayRingingNotification.oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                                        int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                                        int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
+                                        PPApplication.volumesInternalChange = true;
+                                        if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != mediaRingingVolume)
+                                            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                    }
+                                } else
+                                    PlayRingingNotification.oldVolumeForPlayNotificationSound = -1;
 
-                            PlayRingingNotification.notificationMediaPlayer.start();
+                                PlayRingingNotification.notificationMediaPlayer.start();
 
-                            PlayRingingNotification.notificationIsPlayed = true;
+                                PlayRingingNotification.notificationIsPlayed = true;
 
-                            PlayRingingNotification.notificationPlayTimer = new Timer();
-                            PlayRingingNotification.notificationPlayTimer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
+                                PlayRingingNotification.notificationPlayTimer = new Timer();
+                                PlayRingingNotification.notificationPlayTimer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
 
-                                    if (PlayRingingNotification.notificationMediaPlayer != null) {
-                                        try {
-                                            if (PlayRingingNotification.notificationMediaPlayer.isPlaying())
-                                                PlayRingingNotification.notificationMediaPlayer.stop();
-                                        } catch (Exception e) {
-                                            //PPApplicationStatic.recordException(e);
-                                        }
-                                        try {
-                                            PlayRingingNotification.notificationMediaPlayer.release();
-                                        } catch (Exception e) {
-                                            //PPApplicationStatic.recordException(e);
-                                        }
-
-                                        if ((PlayRingingNotification.notificationIsPlayed) && (PlayRingingNotification.oldVolumeForPlayNotificationSound != -1) &&
-                                                (!PPApplication.volumesMediaVolumeChangeed)) {
+                                        if (PlayRingingNotification.notificationMediaPlayer != null) {
                                             try {
-                                                if (audioManager != null) {
-                                                    PPApplication.volumesInternalChange = true;
-                                                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != PlayRingingNotification.oldVolumeForRingingSimulation)
-                                                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                                }
+                                                if (PlayRingingNotification.notificationMediaPlayer.isPlaying())
+                                                    PlayRingingNotification.notificationMediaPlayer.stop();
                                             } catch (Exception e) {
                                                 //PPApplicationStatic.recordException(e);
                                             }
+                                            try {
+                                                PlayRingingNotification.notificationMediaPlayer.release();
+                                            } catch (Exception e) {
+                                                //PPApplicationStatic.recordException(e);
+                                            }
+
+                                            if ((PlayRingingNotification.notificationIsPlayed) && (PlayRingingNotification.oldVolumeForPlayNotificationSound != -1) &&
+                                                    (!PPApplication.volumesMediaVolumeChangeed)) {
+                                                try {
+                                                    if (audioManager != null) {
+                                                        PPApplication.volumesInternalChange = true;
+                                                        if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != PlayRingingNotification.oldVolumeForRingingSimulation)
+                                                            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, PlayRingingNotification.oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                                    }
+                                                } catch (Exception e) {
+                                                    //PPApplicationStatic.recordException(e);
+                                                }
+                                            }
+
                                         }
 
+                                        PlayRingingNotification.notificationIsPlayed = false;
+                                        PlayRingingNotification.notificationMediaPlayer = null;
+                                        PPApplication.volumesMediaVolumeChangeed = false;
+
+                                        PlayRingingNotification.notificationPlayTimer = null;
                                     }
+                                }, PlayRingingNotification.notificationMediaPlayer.getDuration());
 
-                                    PlayRingingNotification.notificationIsPlayed = false;
-                                    PlayRingingNotification.notificationMediaPlayer = null;
-                                    PPApplication.volumesMediaVolumeChangeed = false;
+                            }
+                            catch (Exception e) {
+                                //Log.e("PhoneProfilesService.playNotificationSound", "exception");
+                                stopPlayNotificationSound(true, appContext);
 
-                                    PlayRingingNotification.notificationPlayTimer = null;
-                                }
-                            }, PlayRingingNotification.notificationMediaPlayer.getDuration());
-
+                                Permissions.grantPlayRingtoneNotificationPermissions(appContext, false);
+                            }
                         }
-                        catch (Exception e) {
-                            //Log.e("PhoneProfilesService.playNotificationSound", "exception");
-                            stopPlayNotificationSound(true, appContext);
+                    }
+                }
 
-                            Permissions.grantPlayRingtoneNotificationPermissions(appContext, false);
-                        }
+            } catch (Exception e) {
+                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PlayRingingNotification.playNotificationSound", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
             }

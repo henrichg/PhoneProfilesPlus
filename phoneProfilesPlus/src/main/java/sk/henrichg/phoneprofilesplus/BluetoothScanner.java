@@ -7,7 +7,9 @@ import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -118,18 +120,39 @@ class BluetoothScanner {
                                 @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
-                                    if (Permissions.checkBluetoothForEMUI(appContext)) {
-                                        try {
-                                            if (BluetoothScanWorker.bluetooth == null)
-                                                BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
-                                            //lock();
-                                            //    CmdBluetooth.setBluetooth(false);
-                                            if (BluetoothScanWorker.bluetooth.isEnabled()) {
-//                                                Log.e("BluetoothScanner.doScan", "######## (1) disable bluetooth");
-                                                BluetoothScanWorker.bluetooth.disable();
+
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanner_doScan_1);
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
+                                        if (Permissions.checkBluetoothForEMUI(appContext)) {
+                                            try {
+                                                if (BluetoothScanWorker.bluetooth == null)
+                                                    BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
+                                                //lock();
+                                                //    CmdBluetooth.setBluetooth(false);
+                                                if (BluetoothScanWorker.bluetooth.isEnabled()) {
+    //                                                Log.e("BluetoothScanner.doScan", "######## (1) disable bluetooth");
+                                                    BluetoothScanWorker.bluetooth.disable();
+                                                }
+                                            } catch (Exception e) {
+                                                PPApplicationStatic.recordException(e);
                                             }
-                                        } catch (Exception e) {
-                                            PPApplicationStatic.recordException(e);
+                                        }
+
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.doScan", Log.getStackTraceString(e));
+                                        PPApplicationStatic.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
                                         }
                                     }
                                 };
@@ -235,6 +258,14 @@ class BluetoothScanner {
                                 Runnable runnable = () -> {
     //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanner_doScan_2);
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
                                         if (Permissions.checkBluetoothForEMUI(appContext)) {
                                             try {
                                                 if (BluetoothScanWorker.bluetooth == null)
@@ -249,6 +280,18 @@ class BluetoothScanner {
                                                 PPApplicationStatic.recordException(e);
                                             }
                                         }
+
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.doScan", Log.getStackTraceString(e));
+                                        PPApplicationStatic.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
 
                                 };
                                 PPApplicationStatic.createScannersExecutor();
@@ -547,32 +590,54 @@ class BluetoothScanner {
                     final WeakReference<BluetoothScanner> scannerWeakRef = new WeakReference<>(this);
                     @SuppressLint("MissingPermission")
                     Runnable runnable = () -> {
-                        BluetoothAdapter _bluetooth = bluetoothWeakRef.get();
-                        BluetoothScanner scanner = scannerWeakRef.get();
 
-                        if ((_bluetooth != null) && (scanner != null)) {
-                            if (Permissions.checkBluetoothForEMUI(appContext)) {
-                                //lock(); // lock is required for enabling bluetooth
-                                //    CmdBluetooth.setBluetooth(true);
-//                            Log.e("BluetoothScanner.enableBluetooth", "######## enable bluetooth");
-                                _bluetooth.enable();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanner_enableBluetooth);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                long start = SystemClock.uptimeMillis();
-                                do {
-                                    if (!ApplicationPreferences.prefEventBluetoothScanRequest)
-                                        break;
-                                    if (_bluetooth.getState() == BluetoothAdapter.STATE_ON) {
-                                        GlobalUtils.sleep(5000);
-                                        if (forLE)
-                                            scanner.startLEScan(appContext);
-                                        else
-                                            scanner.startCLScan(appContext);
-                                        break;
-                                    }
-                                    GlobalUtils.sleep(200);
-                                } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+                            BluetoothAdapter _bluetooth = bluetoothWeakRef.get();
+                            BluetoothScanner scanner = scannerWeakRef.get();
+
+                            if ((_bluetooth != null) && (scanner != null)) {
+                                if (Permissions.checkBluetoothForEMUI(appContext)) {
+                                    //lock(); // lock is required for enabling bluetooth
+                                    //    CmdBluetooth.setBluetooth(true);
+    //                            Log.e("BluetoothScanner.enableBluetooth", "######## enable bluetooth");
+                                    _bluetooth.enable();
+
+                                    long start = SystemClock.uptimeMillis();
+                                    do {
+                                        if (!ApplicationPreferences.prefEventBluetoothScanRequest)
+                                            break;
+                                        if (_bluetooth.getState() == BluetoothAdapter.STATE_ON) {
+                                            GlobalUtils.sleep(5000);
+                                            if (forLE)
+                                                scanner.startLEScan(appContext);
+                                            else
+                                                scanner.startCLScan(appContext);
+                                            break;
+                                        }
+                                        GlobalUtils.sleep(200);
+                                    } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.enableBluetooth", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
+
                     };
                     PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);

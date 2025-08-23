@@ -166,7 +166,9 @@ class ActivateProfileHelper {
 
 //        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "profile._name="+profile._name);
 
-        int RADIOS_SLEEP = 300;
+        int RADIOS_SLEEP_300 = 300;
+        int RADIOS_SLEEP_200 = 200;
+        int RADIOS_SLEEP_1000 = 1000;
         boolean firstSleepCalled = false;
 
         Context appContext = context.getApplicationContext();
@@ -185,7 +187,7 @@ class ActivateProfileHelper {
                             if (!firstSleepCalled) {
 //                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 sleep()");
                                 // 300
-                                GlobalUtils.sleep(RADIOS_SLEEP);
+                                GlobalUtils.sleep(RADIOS_SLEEP_300);
                                 firstSleepCalled = true;
                             }
 
@@ -205,7 +207,7 @@ class ActivateProfileHelper {
                             }
                             if (_setSIM1OnOff) {
                                 setSIMOnOff(appContext, _setOn, 1);
-                                GlobalUtils.sleep(200);
+                                GlobalUtils.sleep(RADIOS_SLEEP_200);
                             }
                         }
                     }
@@ -214,7 +216,7 @@ class ActivateProfileHelper {
                             if (!firstSleepCalled) {
                                 // 300
 //                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 sleep()");
-                                GlobalUtils.sleep(RADIOS_SLEEP);
+                                GlobalUtils.sleep(RADIOS_SLEEP_300);
                                 firstSleepCalled = true;
                             }
 
@@ -235,7 +237,7 @@ class ActivateProfileHelper {
                             }
                             if (_setSIM2OnOff) {
                                 setSIMOnOff(appContext, _setOn, 2);
-                                GlobalUtils.sleep(200);
+                                GlobalUtils.sleep(RADIOS_SLEEP_200);
                             }
                         }
                     }
@@ -250,7 +252,7 @@ class ActivateProfileHelper {
                     if (!firstSleepCalled) {
                         // 300
 //                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceDefaultSIMCards sleep()");
-                        GlobalUtils.sleep(RADIOS_SLEEP);
+                        GlobalUtils.sleep(RADIOS_SLEEP_300);
                         firstSleepCalled = true;
                     }
 
@@ -298,13 +300,13 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     firstSleepCalled = true;
                 }
 
                 // in array.xml, networkTypeGSMValues are 100+ values
                 setPreferredNetworkType(appContext, profile._deviceNetworkType - 100, 0);
-                GlobalUtils.sleep(200);
+                GlobalUtils.sleep(RADIOS_SLEEP_200);
             }
         }
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -316,13 +318,13 @@ class ActivateProfileHelper {
                             if (!firstSleepCalled) {
                                 // 300
 //                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM1 sleep()");
-                                GlobalUtils.sleep(RADIOS_SLEEP);
+                                GlobalUtils.sleep(RADIOS_SLEEP_300);
                                 firstSleepCalled = true;
                             }
 
                             // in array.xml, networkTypeGSMValues are 100+ values
                             setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM1 - 100, 1);
-                            GlobalUtils.sleep(200);
+                            GlobalUtils.sleep(RADIOS_SLEEP_200);
                         }
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
@@ -330,13 +332,13 @@ class ActivateProfileHelper {
                             if (!firstSleepCalled) {
                                 // 300
 //                                PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkTypeSIM2 sleep()");
-                                GlobalUtils.sleep(RADIOS_SLEEP);
+                                GlobalUtils.sleep(RADIOS_SLEEP_300);
                                 firstSleepCalled = true;
                             }
 
                             // in array.xml, networkTypeGSMValues are 100+ values
                             setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM2 - 100, 2);
-                            GlobalUtils.sleep(200);
+                            GlobalUtils.sleep(RADIOS_SLEEP_200);
                         }
                     }
                 }
@@ -348,7 +350,7 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     firstSleepCalled = true;
                 }
 
@@ -385,7 +387,7 @@ class ActivateProfileHelper {
                 if (_setMobileData) {
                     setMobileData(appContext, _isMobileData, 0);
                     // 200
-                    GlobalUtils.sleep(1000);
+                    GlobalUtils.sleep(RADIOS_SLEEP_1000);
                 }
             }
         }
@@ -485,7 +487,7 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     firstSleepCalled = true;
                 }
 
@@ -533,7 +535,7 @@ class ActivateProfileHelper {
                         }
                         if (setWifiAPState) {
                             setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
-                            GlobalUtils.sleep(1000);
+                            GlobalUtils.sleep(RADIOS_SLEEP_1000);
                         }
                     }
                 }
@@ -574,7 +576,7 @@ class ActivateProfileHelper {
                     if (setWifiAPState) {
                         //CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
                         setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
-                        GlobalUtils.sleep(1000);
+                        GlobalUtils.sleep(RADIOS_SLEEP_1000);
                     }
                 }
             }
@@ -587,7 +589,7 @@ class ActivateProfileHelper {
                     if (!firstSleepCalled) {
                         // 300
 //                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi sleep()");
-                        GlobalUtils.sleep(RADIOS_SLEEP);
+                        GlobalUtils.sleep(RADIOS_SLEEP_300);
                         firstSleepCalled = true;
                     }
 
@@ -647,7 +649,7 @@ class ActivateProfileHelper {
                                     PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_WIFI,
                                             null, profile._name, "");
                                 }
-                                GlobalUtils.sleep(200);
+                                GlobalUtils.sleep(RADIOS_SLEEP_200);
                             }
                         }
                     }
@@ -660,7 +662,7 @@ class ActivateProfileHelper {
                     if (!firstSleepCalled) {
                         // 300
 //                        PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID sleep()");
-                        GlobalUtils.sleep(RADIOS_SLEEP);
+                        GlobalUtils.sleep(RADIOS_SLEEP_300);
                         firstSleepCalled = true;
                     }
 
@@ -759,7 +761,7 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     firstSleepCalled = true;
                 }
 
@@ -822,7 +824,7 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     firstSleepCalled = true;
                 }
 
@@ -884,7 +886,7 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     firstSleepCalled = true;
                 }
 
@@ -925,7 +927,7 @@ class ActivateProfileHelper {
                 if (!firstSleepCalled) {
                     // 300
 //                    PPApplicationStatic.logE("[BLUETOOTH] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC sleep()");
-                    GlobalUtils.sleep(RADIOS_SLEEP);
+                    GlobalUtils.sleep(RADIOS_SLEEP_300);
                     //noinspection UnusedAssignment
                     firstSleepCalled = true;
                 }
@@ -9460,15 +9462,36 @@ class ActivateProfileHelper {
                     // must be started sthis service
                     // read: https://github.com/henrichg/PhoneProfilesPlus/issues/81#issuecomment-2343379766
                     Runnable runnable = () -> {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            Intent intent = new Intent();
-                            intent.setComponent(new ComponentName("com.samsung.android.bluelightfilter", "com.samsung.android.bluelightfilter.BlueLightFilterService"));
-                            intent.putExtra("BLUE_LIGHT_FILTER_SERVICE_TYPE", (profile._screenNightLight == 1) ? 24 : 25);
-                            appContext.startService(intent);
-                        } catch (Exception eee) {
-                            //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
-                            PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ActivateProfileHelper_setScreenNightLight);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            try {
+                                Intent intent = new Intent();
+                                intent.setComponent(new ComponentName("com.samsung.android.bluelightfilter", "com.samsung.android.bluelightfilter.BlueLightFilterService"));
+                                intent.putExtra("BLUE_LIGHT_FILTER_SERVICE_TYPE", (profile._screenNightLight == 1) ? 24 : 25);
+                                appContext.startService(intent);
+                            } catch (Exception eee) {
+                                //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                                PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                            }
+
+                        } catch (Exception e) {
+                            PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
+
                     };
                     PPApplicationStatic.createDelayedProfileActivationExecutor();
                     // 1000 ms, because is delayed change of SETTINGS_BLUE_LIGHT_FILTER in PPPPS, Shizuku root

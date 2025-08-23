@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1609,9 +1610,30 @@ class DataWrapper {
         if (_profile != null) {
             Runnable runnable = () -> {
                 synchronized (PPApplication.activateProfileExecuteMutex) {
-//                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
-                    ActivateProfileHelper.execute(context, _profile, forRestartEvents);
-//                    PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "execute END _profile._name=" + _profile._name);
+                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DataWrapper_activateProfile);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+//                      PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
+                        ActivateProfileHelper.execute(context, _profile, forRestartEvents);
+//                      PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "execute END _profile._name=" + _profile._name);
+
+                    } catch (Exception e) {
+                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] DataWrapper._activateProfile", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+
                 }
             };
             PPApplicationStatic.createActivateProfileExecuteExecutorPool();
@@ -2499,15 +2521,6 @@ class DataWrapper {
 //                long start = System.currentTimeMillis();
 //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                if (logType != PPApplication.ALTYPE_UNDEFINED)
-                    PPApplicationStatic.addActivityLog(appContext, logType, null, null, "");
-
-                // in it is alerady wakelock
-                //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
-                dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, manualRestart, true, false);
-
-                /*
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -2516,21 +2529,16 @@ class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPExecutors.doRestartEventsWithDelay(alsoRescan, unblockEventsRun, logType, context);
-
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                     if (logType != PPApplication.ALTYPE_UNDEFINED)
                         PPApplicationStatic.addActivityLog(appContext, logType, null, null, "");
+
+                    // in it is alerady wakelock
                     //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                     dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, manualRestart, true, false);
-                    //dataWrapper.invalidateDataWrapper();
 
-
-//                    long finish = System.currentTimeMillis();
-//                    long timeElapsed = finish - start;
-//                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- END - timeElapsed="+timeElapsed);
                 } catch (Exception e) {
-//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] DataWrapper.restartEventsWithDelay", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2539,9 +2547,7 @@ class DataWrapper {
                         } catch (Exception ignored) {
                         }
                     }
-                    //worker.shutdown();
                 }
-                */
             };
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);

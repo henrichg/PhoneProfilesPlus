@@ -86,6 +86,33 @@ class WakelockTags {
     static final String WAKELOCK_TAG_EndCallCallLengthBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":EndCallCallLengthBroadcastReceiver_onReceive";
     static final String WAKELOCK_TAG_LocationScanner_doLocationChanged = PPApplication.PACKAGE_NAME + ":LocationScanner_doLocationChanged";
 
+    static final String WAKELOCK_TAG_ActivateProfileHelper_setScreenNightLight = PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_setScreenNightLight";
+    static final String WAKELOCK_TAG_BluetoothConnectedDeviceDetector_getConnectedDevices = PPApplication.PACKAGE_NAME + ":BluetoothConnectedDeviceDetector_getConnectedDevices";
+    static final String WAKELOCK_TAG_BluetoothLEScanBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":BluetoothLEScanBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_BluetoothScanner_doScan_1 = PPApplication.PACKAGE_NAME + ":BluetoothScanner_doScan_1";
+    static final String WAKELOCK_TAG_BluetoothScanner_doScan_2 = PPApplication.PACKAGE_NAME + ":BluetoothScanner_doScan_2";
+    static final String WAKELOCK_TAG_BluetoothScanner_enableBluetooth = PPApplication.PACKAGE_NAME + ":BluetoothScanner_enableBluetooth";
+    static final String WAKELOCK_TAG_BluetoothScanWorker_doWork = PPApplication.PACKAGE_NAME + ":BluetoothScanWorker_doWork";
+    static final String WAKELOCK_TAG_CustomACRAReportingAdministrator_shouldStartCollecting = PPApplication.PACKAGE_NAME + ":CustomACRAReportingAdministrator_shouldStartCollecting";
+    static final String WAKELOCK_TAG_DataWrapper_activateProfile = PPApplication.PACKAGE_NAME + ":DataWrapper_activateProfile";
+    static final String WAKELOCK_TAG_DataWrapper_restartEventsWithDelay = PPApplication.PACKAGE_NAME + ":DataWrapper_restartEventsWithDelay";
+    static final String WAKELOCK_TAG_NextAlarmClockBroadcastReceiver_setAlarm = PPApplication.PACKAGE_NAME + ":NextAlarmClockBroadcastReceiver_setAlarm";
+    static final String WAKELOCK_TAG_PeriodicEventHandlerWorker_doWork = PPApplication.PACKAGE_NAME + ":PeriodicEventHandlerWorker_doWork";
+    static final String WAKELOCK_TAG_PhoneCallListener_onServiceStateChanged = PPApplication.PACKAGE_NAME + ":PhoneCallListener_onServiceStateChanged";
+    static final String WAKELOCK_TAG_PhoneCallListener_doCall = PPApplication.PACKAGE_NAME + ":PhoneCallListener_doCall";
+    static final String WAKELOCK_TAG_PlayRingingNotificaiton_playNotificaitonSound = PPApplication.PACKAGE_NAME + ":PlayRingingNotificaiton_playNotificaitonSound";
+    static final String WAKELOCK_TAG_PPAudioPlaybackCallback_onPlaybackConfigChanged = PPApplication.PACKAGE_NAME + ":PPAudioPlaybackCallback_onPlaybackConfigChanged";
+    static final String WAKELOCK_TAG_ProfileListNotificationArrowsBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":ProfileListNotificationArrowsBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_ProfileListNotificationDeletedReceiver_onReceive = PPApplication.PACKAGE_NAME + ":ProfileListNotificationDeletedReceiver_onReceive";
+    static final String WAKELOCK_TAG_SearchCalendarEventsWorker_doWork = PPApplication.PACKAGE_NAME + ":SearchCalendarEventsWorker_doWork";
+    static final String WAKELOCK_TAG_SettingsContentObserver_onChange = PPApplication.PACKAGE_NAME + ":SettingsContentObserver_onChange";
+    static final String WAKELOCK_TAG_WifScanBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":WifScanBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_WifScaner_doScan_1 = PPApplication.PACKAGE_NAME + ":WifScaner_doScan_1";
+    static final String WAKELOCK_TAG_WifScaner_doScan_2 = PPApplication.PACKAGE_NAME + ":WifScaner_doScan_2";
+    static final String WAKELOCK_TAG_WifScaner_enableWifi = PPApplication.PACKAGE_NAME + ":WifScaner_enableWifi";
+    static final String WAKELOCK_TAG_WifScaWorker_doWork = PPApplication.PACKAGE_NAME + ":WifScaWorker_doWork";
+    static final String WAKELOCK_TAG_MobileCellsRegistrationStopButtonBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":MobileCellsRegistrationStopButtonBroadcastReceiver_onReceive";
+
     private WakelockTags() {
         // private constructor to prevent instantiation
     }
