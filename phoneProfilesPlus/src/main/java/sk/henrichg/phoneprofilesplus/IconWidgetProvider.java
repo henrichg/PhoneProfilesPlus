@@ -65,7 +65,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFutureIconWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
             }
         }
     }
@@ -1538,7 +1538,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             PPApplication.scheduledFutureIconWidgetExecutor.add(sheduledFutureWidgetData);
                         }
                         sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }

@@ -1228,7 +1228,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
             }
             sheduledFutureWidgetData.scheduledFutures =
-                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
         }
     }
 
@@ -1279,7 +1279,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
             }
         }
     }
@@ -1343,7 +1343,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                         }
                         sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }
@@ -1386,7 +1386,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                         }
                         sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }

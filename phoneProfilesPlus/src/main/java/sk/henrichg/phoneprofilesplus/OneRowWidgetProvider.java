@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -70,7 +69,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
             }
         }
     }
@@ -1461,7 +1460,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
                         }
                         sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }
