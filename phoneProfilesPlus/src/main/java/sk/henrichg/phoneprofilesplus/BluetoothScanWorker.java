@@ -119,7 +119,7 @@ public class BluetoothScanWorker extends Worker {
                     //worker.shutdown();
 
                 } catch (Exception e) {
-                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanWorker,doWork", Log.getStackTraceString(e));
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanWorker,doWork", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

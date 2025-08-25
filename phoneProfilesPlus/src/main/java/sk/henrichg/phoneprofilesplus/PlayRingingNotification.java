@@ -812,7 +812,7 @@ class PlayRingingNotification
                 }
 
             } catch (Exception e) {
-                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PlayRingingNotification.playNotificationSound", Log.getStackTraceString(e));
+//                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PlayRingingNotification.playNotificationSound", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {

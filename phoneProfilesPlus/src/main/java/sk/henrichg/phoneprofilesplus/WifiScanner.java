@@ -136,7 +136,7 @@ class WifiScanner {
                                     }
 
                                 } catch (Exception e) {
-                                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanner.doScan", Log.getStackTraceString(e));
+//                                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanner.doScan", Log.getStackTraceString(e));
                                     PPApplicationStatic.recordException(e);
                                 } finally {
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -243,7 +243,7 @@ class WifiScanner {
 
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                             } catch (Exception e) {
-                                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanner.doScan", Log.getStackTraceString(e));
+//                                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanner.doScan", Log.getStackTraceString(e));
                                 PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -437,7 +437,7 @@ class WifiScanner {
                                 }
 
                             } catch (Exception e) {
-                                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanner.enableWifi", Log.getStackTraceString(e));
+//                                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanner.enableWifi", Log.getStackTraceString(e));
                                 PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {

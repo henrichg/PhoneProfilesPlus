@@ -28,7 +28,7 @@ public class ProfileListNotificationDeletedReceiver extends BroadcastReceiver {
                 ProfileListNotification.forceDrawNotificationWhenIsDeleted(context.getApplicationContext());
 
             } catch (Exception e) {
-                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ProfileListNotificationDeletedReceiver.onReceive", Log.getStackTraceString(e));
+//                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ProfileListNotificationDeletedReceiver.onReceive", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {

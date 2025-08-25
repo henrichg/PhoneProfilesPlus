@@ -52,7 +52,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                 }
 
             } catch (Exception e) {
-                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothLEScanBroadcastReceiver.onReceive", Log.getStackTraceString(e));
+//                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothLEScanBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {

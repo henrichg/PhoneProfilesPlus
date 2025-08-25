@@ -9481,7 +9481,7 @@ class ActivateProfileHelper {
                             }
 
                         } catch (Exception e) {
-                            PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
+//                            PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {

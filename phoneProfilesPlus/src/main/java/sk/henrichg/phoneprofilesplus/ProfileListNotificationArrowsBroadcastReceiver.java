@@ -46,7 +46,7 @@ public class ProfileListNotificationArrowsBroadcastReceiver extends BroadcastRec
                         }
 
                     } catch (Exception e) {
-                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ProfileListNotificationArrowsBroadcastReceiver.onReceive", Log.getStackTraceString(e));
+//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] ProfileListNotificationArrowsBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

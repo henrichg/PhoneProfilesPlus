@@ -93,7 +93,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     }
 
                 } catch (Exception e) {
-                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanBroadcastReceiver.onReceive", Log.getStackTraceString(e));
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

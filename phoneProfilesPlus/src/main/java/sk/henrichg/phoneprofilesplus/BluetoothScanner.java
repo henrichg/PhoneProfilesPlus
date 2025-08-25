@@ -145,7 +145,7 @@ class BluetoothScanner {
                                         }
 
                                     } catch (Exception e) {
-                                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.doScan", Log.getStackTraceString(e));
+//                                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.doScan", Log.getStackTraceString(e));
                                         PPApplicationStatic.recordException(e);
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -282,7 +282,7 @@ class BluetoothScanner {
                                         }
 
                                     } catch (Exception e) {
-                                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.doScan", Log.getStackTraceString(e));
+//                                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.doScan", Log.getStackTraceString(e));
                                         PPApplicationStatic.recordException(e);
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -627,7 +627,7 @@ class BluetoothScanner {
                             }
 
                         } catch (Exception e) {
-                            PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.enableBluetooth", Log.getStackTraceString(e));
+//                            PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanner.enableBluetooth", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {

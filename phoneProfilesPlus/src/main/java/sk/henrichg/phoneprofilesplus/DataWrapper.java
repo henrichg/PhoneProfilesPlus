@@ -1623,7 +1623,7 @@ class DataWrapper {
 //                      PPApplicationStatic.logE("[BLUETOOTH] DataWrapper._activateProfile", "execute END _profile._name=" + _profile._name);
 
                     } catch (Exception e) {
-                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] DataWrapper._activateProfile", Log.getStackTraceString(e));
+//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] DataWrapper._activateProfile", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2538,7 +2538,7 @@ class DataWrapper {
                     dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, manualRestart, true, false);
 
                 } catch (Exception e) {
-                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] DataWrapper.restartEventsWithDelay", Log.getStackTraceString(e));
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] DataWrapper.restartEventsWithDelay", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

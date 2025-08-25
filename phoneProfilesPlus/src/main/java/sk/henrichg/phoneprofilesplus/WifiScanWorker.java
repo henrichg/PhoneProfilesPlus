@@ -131,7 +131,7 @@ public class WifiScanWorker extends Worker {
                     //worker.shutdown();
 
                 } catch (Exception e) {
-                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanWorker.doWork", Log.getStackTraceString(e));
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] WifiScanWorker.doWork", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

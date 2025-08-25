@@ -76,7 +76,7 @@ public class SearchCalendarEventsWorker extends Worker {
                     //worker.shutdown();
 
                 } catch (Exception e) {
-                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

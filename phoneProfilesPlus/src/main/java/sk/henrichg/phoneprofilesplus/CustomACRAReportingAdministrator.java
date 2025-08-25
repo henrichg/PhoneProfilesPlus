@@ -162,7 +162,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                         }
 
                     } catch (Exception e) {
-                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(e));
+//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

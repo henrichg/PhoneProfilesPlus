@@ -62,7 +62,7 @@ public class PPAudioPlaybackCallback extends  AudioManager.AudioPlaybackCallback
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_MUSIC});
 
                     } catch (Exception e) {
-                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PPAudioPlaybackCallback.onPlaybackConfigChanged", Log.getStackTraceString(e));
+//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PPAudioPlaybackCallback.onPlaybackConfigChanged", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

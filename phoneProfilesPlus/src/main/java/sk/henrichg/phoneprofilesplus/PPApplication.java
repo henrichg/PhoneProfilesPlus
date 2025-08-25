@@ -324,8 +324,8 @@ public class PPApplication extends Application
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
                                                 //+"|[MOBILE_DATA]"
-                                                +"|[WAKELOCK_EXCEPTION]"
-                                                +"|[UPDATE_GUI]"
+                                                //+"|[WAKELOCK_EXCEPTION]"
+                                                //+"|[UPDATE_GUI]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

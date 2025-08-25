@@ -34,7 +34,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
-        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onUpdate", "xxxxxxxxxxx");
+//        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onUpdate", "xxxxxxxxxxx");
 
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
@@ -1424,7 +1424,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         String action = intent.getAction();
 //        PPApplicationStatic.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
-        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onReceive", "action="+action);
+//        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
@@ -1498,7 +1498,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                            int appWidgetId,
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
-        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxxxxxxx");
+//        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxxxxxxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }

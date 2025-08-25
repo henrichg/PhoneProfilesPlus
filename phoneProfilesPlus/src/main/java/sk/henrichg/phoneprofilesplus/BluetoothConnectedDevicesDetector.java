@@ -471,7 +471,7 @@ class BluetoothConnectedDevicesDetector {
                                 }
 
                             } catch (Exception e) {
-                                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
+//                                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
                                 PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {

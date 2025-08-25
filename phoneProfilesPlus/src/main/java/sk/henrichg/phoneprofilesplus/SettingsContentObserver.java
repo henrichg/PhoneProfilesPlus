@@ -361,7 +361,7 @@ class SettingsContentObserver  extends ContentObserver {
                 }
 
             } catch (Exception e) {
-                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] SettingsContentObserver.onChange", Log.getStackTraceString(e));
+//                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] SettingsContentObserver.onChange", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {

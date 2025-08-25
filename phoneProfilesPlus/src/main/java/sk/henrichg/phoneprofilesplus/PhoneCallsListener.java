@@ -212,7 +212,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 }
 
             } catch (Exception e) {
-                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PhoneCallsListener.onServiceStateChanged", Log.getStackTraceString(e));
+//                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PhoneCallsListener.onServiceStateChanged", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -306,7 +306,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 //}
 
             } catch (Exception e) {
-                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PhoneCallsListener.doCall", Log.getStackTraceString(e));
+//                PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PhoneCallsListener.doCall", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {

@@ -121,7 +121,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         //worker.shutdown();
 
                     } catch (Exception e) {
-                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
+//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
                         PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {

@@ -231,7 +231,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                     }
 
                 } catch (Exception e) {
-                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] NextAlarmClockBroadcastReceiver.setAlarm", Log.getStackTraceString(e));
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] NextAlarmClockBroadcastReceiver.setAlarm", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
