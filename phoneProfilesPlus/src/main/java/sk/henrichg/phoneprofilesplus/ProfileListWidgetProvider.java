@@ -1380,8 +1380,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                 DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                                 for (int appWidgetId : appWidgetIds) {
                                     //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
-                                    RemoteViews layout;
-                                    layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                                    RemoteViews layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                     try {
                                         appWidgetManager.updateAppWidget(appWidgetId, layout);
                                     } catch (Exception e) {
@@ -1465,9 +1464,27 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
                             if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
                                 for (int appWidgetId : appWidgetIds) {
-                                    doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
+                                    RemoteViews widget = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                                    try {
+                                        appWidgetManager.updateAppWidget(appWidgetId, widget);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+
+                                    if (!ApplicationPreferences.applicationWidgetListGridLayout)
+                                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+                                    else {
+                                        if (ApplicationPreferences.applicationWidgetListCompactGrid)
+                                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
+                                        else
+                                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+                                    }
+
+                                    //doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
                                 }
+                                dataWrapper.invalidateDataWrapper();
                             }
 
                         } catch (Exception e) {
