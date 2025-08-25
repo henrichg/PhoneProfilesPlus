@@ -69,6 +69,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
             };
             PPApplicationStatic.createDelayedGuiExecutor();
 //            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureIconWidgetExecutor != null)
+                PPApplication.scheduledFutureIconWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureIconWidgetExecutor =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            /*
             for (int appWidgetId : appWidgetIds) {
                 boolean found = false;
                 SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -88,6 +93,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 sheduledFutureWidgetData.scheduledFutures =
                         PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
+            */
         }
     }
 
@@ -1563,6 +1569,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
 //                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFutureIconWidgetExecutor != null)
+                        PPApplication.scheduledFutureIconWidgetExecutor.cancel(true);
+                    if (drawImmediatelly)
+                        PPApplication.scheduledFutureIconWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    else
+                        PPApplication.scheduledFutureIconWidgetExecutor =
+                            PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    /*
                     for (int appWidgetId : appWidgetIds) {
                         boolean found = false;
                         SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -1586,6 +1601,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData.scheduledFutures =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
+                    */
                 }
             }
         }

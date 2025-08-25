@@ -75,6 +75,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             //PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureOneRowWidgetExecutor != null)
+                PPApplication.scheduledFutureOneRowWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureOneRowWidgetExecutor =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            /*
             for (int appWidgetId : appWidgetIds) {
                 boolean found = false;
                 SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -94,6 +99,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 sheduledFutureWidgetData.scheduledFutures =
                         PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
+            */
         }
     }
 
@@ -1489,6 +1495,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     //PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFutureOneRowWidgetExecutor != null)
+                        PPApplication.scheduledFutureOneRowWidgetExecutor.cancel(true);
+                    if (drawImmediatelly)
+                        PPApplication.scheduledFutureOneRowWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    else
+                        PPApplication.scheduledFutureOneRowWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    /*
                     for (int appWidgetId : appWidgetIds) {
                         boolean found = false;
                         SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -1512,6 +1527,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData.scheduledFutures =
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
+                    */
                 }
             }
         }

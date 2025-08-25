@@ -1234,8 +1234,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            //PPApplication.delayedGuiExecutor.submit(runnable);
+            // can be used submit, because it is immediate call and for one appWidgetId
+            PPApplication.delayedGuiExecutor.submit(runnable);
 //            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+            /*
             boolean found = false;
             SheduledFutureWidgetData sheduledFutureWidgetData = null;
             for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureProfileListWidgetExecutor) {
@@ -1257,6 +1259,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //else
             //    sheduledFutureWidgetData.scheduledFutures =
             //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            */
         }
     }
 
@@ -1311,6 +1314,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             };
             PPApplicationStatic.createDelayedGuiExecutor();
 //            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureProfileListWidgetExecutor != null)
+                PPApplication.scheduledFutureProfileListWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureProfileListWidgetExecutor =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            /*
             for (int appWidgetId : appWidgetIds) {
                 boolean found = false;
                 SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -1330,6 +1338,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 sheduledFutureWidgetData.scheduledFutures =
                         PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
+            */
         }
     }
 
@@ -1397,6 +1406,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
 //                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFutureProfileListWidgetExecutor != null)
+                        PPApplication.scheduledFutureProfileListWidgetExecutor.cancel(true);
+                    //if (drawImmediatelly)
+                    PPApplication.scheduledFutureProfileListWidgetExecutor =
+                            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    //else
+                    //    PPApplication.scheduledFutureProfileListWidgetExecutor =
+                    //            PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    /*
                     for (int appWidgetId : appWidgetIds) {
                         boolean found = false;
                         SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -1420,6 +1438,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //    sheduledFutureWidgetData.scheduledFutures =
                         //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
+                    */
                 }
             }
             else
@@ -1466,6 +1485,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
 //                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFutureProfileListWidgetExecutor != null)
+                        PPApplication.scheduledFutureProfileListWidgetExecutor.cancel(true);
+                    if (drawImmediatelly)
+                        PPApplication.scheduledFutureProfileListWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    else
+                        PPApplication.scheduledFutureProfileListWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    /*
                     for (int appWidgetId : appWidgetIds) {
                         boolean found = false;
                         SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -1489,6 +1517,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData.scheduledFutures =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
+                    */
                 }
             }
         }

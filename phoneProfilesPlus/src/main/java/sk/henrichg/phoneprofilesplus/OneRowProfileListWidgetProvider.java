@@ -111,6 +111,11 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             };
             PPApplicationStatic.createDelayedGuiExecutor();
 //            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureOneRowProfileListWidgetExecutor != null)
+                PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            /*
             for (int appWidgetId : appWidgetIds) {
                 boolean found = false;
                 SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -130,6 +135,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 sheduledFutureWidgetData.scheduledFutures =
                         PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
+            */
         }
     }
 
@@ -1219,6 +1225,15 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         };
                         PPApplicationStatic.createDelayedGuiExecutor();
 //                        PPApplication.delayedGuiExecutor.submit(runnable);
+                        if (PPApplication.scheduledFutureOneRowProfileListWidgetExecutor != null)
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.cancel(true);
+                        if (drawImmediatelly)
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                        /*
                         for (int appWidgetId : appWidgetIds) {
                             boolean found = false;
                             SheduledFutureWidgetData sheduledFutureWidgetData = null;
@@ -1242,6 +1257,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                 sheduledFutureWidgetData.scheduledFutures =
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                         }
+                        */
                     }
                 }
             }
