@@ -1396,39 +1396,15 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[IN_LISTENER] PanelWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
         final Context appContext = context.getApplicationContext();
-        Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onAppWidgetOptionsChanged");
 
-            //Context appContext= appContextWeakRef.get();
-            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+        String preferenceKey = "isLargeLayout_" + appWidgetId;
 
-            //if ((appContext != null) && (appWidgetManager != null)) {
-            //createProfilesDataWrapper(context);
+        // remove preference, will by computed in setLayoutParams
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+        editor.remove(preferenceKey);
+        editor.apply();
 
-            String preferenceKey = "isLargeLayout_" + appWidgetId;
-
-            // remove preference, will by computed in setLayoutParams
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.remove(preferenceKey);
-            editor.apply();
-
-            updateAfterWidgetOptionsChanged(appContext, appWidgetId);
-
-            //if (dataWrapper != null)
-            //    dataWrapper.invalidateDataWrapper();
-            //dataWrapper = null;
-            //}
-        };
-        PPApplicationStatic.createDelayedGuiExecutor();
-        PPApplication.delayedGuiExecutor.submit(runnable);
-        //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
-    }
-
-    private static void updateAfterWidgetOptionsChanged(Context appContext, int appWidgetId) {
-        //Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
 
         doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, false*/);
     }
