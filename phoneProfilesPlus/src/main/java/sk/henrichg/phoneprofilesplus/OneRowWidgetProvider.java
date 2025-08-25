@@ -43,7 +43,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
-                Log.e("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -1435,7 +1434,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
-                        Log.e("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -1446,20 +1444,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     //PPApplication.delayedGuiExecutor.submit(runnable);
-                    Log.e("OneRowWidgetProvider.onReceive", "appWidgetIds.lenght="+appWidgetIds.length);
                     for (int appWidgetId : appWidgetIds) {
-                        Log.e("OneRowWidgetProvider.onReceive", "appWidgetId="+appWidgetId);
                         boolean found = false;
                         SheduledFutureWidgetData sheduledFutureWidgetData = null;
                         for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureOneRowWidgetExecutor) {
                             if (futureWidgetData.appWidgetId == appWidgetId) {
-                                Log.e("OneRowWidgetProvider.onReceive", "found futureWidgetData.appWidgetId="+futureWidgetData.appWidgetId);
                                 sheduledFutureWidgetData = futureWidgetData;
                                 found = true;
                                 break;
                             }
                         }
-                        Log.e("OneRowWidgetProvider.onReceive", "found="+found);
                         if (found)
                             sheduledFutureWidgetData.scheduledFutures.cancel(true);
                         else {
