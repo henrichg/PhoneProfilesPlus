@@ -542,6 +542,7 @@ public class PPApplication extends Application
     static final String EXTRA_EVENT_STATUS = "event_status";
     static final String EXTRA_APPLICATION_START = "application_start";
     static final String EXTRA_DEVICE_BOOT = "device_boot";
+    static final String EXTRA_DRAW_IMMEDIATELY = "draw_IMMEDIATELY";
 
     static final String BUNDLE_KEY = "key";
 

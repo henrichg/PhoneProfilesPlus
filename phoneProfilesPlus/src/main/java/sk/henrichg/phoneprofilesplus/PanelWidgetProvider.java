@@ -1051,7 +1051,8 @@ public class PanelWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, AppWidgetManager _appWidgetManager, final int appWidgetId, boolean fromOnUpdate)
+    private static void doOnUpdate(Context context, AppWidgetManager _appWidgetManager,
+                                   final int appWidgetId, boolean fromOnUpdate)
     {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
         RemoteViews widget = buildLayout(context, appWidgetId, dataWrapper);
@@ -1091,8 +1092,12 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                 sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                 PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
             }
-            sheduledFutureWidgetData.scheduledFutures =
-                    PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+            //if (drawImmediatelly)
+                sheduledFutureWidgetData.scheduledFutures =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            //else
+            //    sheduledFutureWidgetData.scheduledFutures =
+            //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
         }
     }
 
@@ -1152,6 +1157,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
+                //boolean drawImmediatelly = true;//intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 //final int spanX = intent.getIntExtra("spanX", 1);
                 //final int spanY = intent.getIntExtra("spanY", 1);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
@@ -1199,13 +1205,18 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                             PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
                         }
-                        sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        //if (drawImmediatelly)
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        //else
+                        //    sheduledFutureWidgetData.scheduledFutures =
+                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }
             else
             if (action.equalsIgnoreCase(ACTION_REFRESH_PANELWIDGET)) {
+                boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
                 final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, PanelWidgetProvider.class));
 
@@ -1241,7 +1252,11 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                             PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
                         }
-                        sheduledFutureWidgetData.scheduledFutures =
+                        if (drawImmediatelly)
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            sheduledFutureWidgetData.scheduledFutures =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
@@ -1313,6 +1328,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PanelWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_PANELWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, PanelWidgetProvider.class);

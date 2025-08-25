@@ -1160,6 +1160,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET)) {
+                boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
                 if (manager != null) {
                     final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
@@ -1193,7 +1194,11 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                 sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                                 PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                             }
-                            sheduledFutureWidgetData.scheduledFutures =
+                            if (drawImmediatelly)
+                                sheduledFutureWidgetData.scheduledFutures =
+                                        PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                            else
+                                sheduledFutureWidgetData.scheduledFutures =
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                         }
                     }
@@ -1224,12 +1229,14 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
     static void updateWidgets(Context context/*, boolean refresh*/) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 

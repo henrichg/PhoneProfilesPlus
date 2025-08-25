@@ -1227,8 +1227,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                 PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
             }
-            sheduledFutureWidgetData.scheduledFutures =
-                    PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+            //if (drawImmediatelly)
+                sheduledFutureWidgetData.scheduledFutures =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            //else
+            //    sheduledFutureWidgetData.scheduledFutures =
+            //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
         }
     }
 
@@ -1296,6 +1300,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
+                //boolean drawImmediatelly = true;//intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 //final int spanX = intent.getIntExtra("spanX", 1);
                 //final int spanY = intent.getIntExtra("spanY", 1);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
@@ -1342,13 +1347,18 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                             PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                         }
-                        sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        //if (drawImmediatelly)
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        //else
+                        //    sheduledFutureWidgetData.scheduledFutures =
+                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }
             else
             if (action.equalsIgnoreCase(ACTION_REFRESH_LISTWIDGET)) {
+                boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
                 final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
@@ -1385,7 +1395,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                             PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                         }
-                        sheduledFutureWidgetData.scheduledFutures =
+                        if (drawImmediatelly)
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            sheduledFutureWidgetData.scheduledFutures =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
@@ -1545,6 +1559,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ProfileListWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_LISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, ProfileListWidgetProvider.class);

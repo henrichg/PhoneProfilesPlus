@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -1426,6 +1427,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
+            boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
                 final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
@@ -1459,8 +1461,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                             PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
                         }
-                        sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        Log.e("OneRowWidgetProvider.onReceive", "drawImmediatelly="+drawImmediatelly);
+                        if (drawImmediatelly)
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
             }
@@ -1493,6 +1500,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 //        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxxxxxxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
@@ -1569,6 +1577,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent3 = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

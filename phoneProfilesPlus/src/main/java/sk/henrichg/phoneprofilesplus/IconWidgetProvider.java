@@ -1499,6 +1499,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
+            boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
                 final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
@@ -1537,7 +1538,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
                             PPApplication.scheduledFutureIconWidgetExecutor.add(sheduledFutureWidgetData);
                         }
-                        sheduledFutureWidgetData.scheduledFutures =
+                        if (drawImmediatelly)
+                            sheduledFutureWidgetData.scheduledFutures =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            sheduledFutureWidgetData.scheduledFutures =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
                     }
                 }
@@ -1552,6 +1557,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
@@ -1626,6 +1632,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, IconWidgetProvider.class);
