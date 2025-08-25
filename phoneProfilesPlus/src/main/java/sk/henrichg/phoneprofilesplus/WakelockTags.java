@@ -112,6 +112,18 @@ class WakelockTags {
     static final String WAKELOCK_TAG_WifScaner_enableWifi = PPApplication.PACKAGE_NAME + ":WifScaner_enableWifi";
     static final String WAKELOCK_TAG_WifScaWorker_doWork = PPApplication.PACKAGE_NAME + ":WifScaWorker_doWork";
     static final String WAKELOCK_TAG_MobileCellsRegistrationStopButtonBroadcastReceiver_onReceive = PPApplication.PACKAGE_NAME + ":MobileCellsRegistrationStopButtonBroadcastReceiver_onReceive";
+    static final String WAKELOCK_TAG_IconWidgetProvider_onReceive = PPApplication.PACKAGE_NAME + ":IconWidgetProvider_onReceive";
+    static final String WAKELOCK_TAG_IconWidgetProvider_onUpdate = PPApplication.PACKAGE_NAME + ":IconWidgetProvider_onUpdate";
+    static final String WAKELOCK_TAG_OneRowWidgetProvider_onReceive = PPApplication.PACKAGE_NAME + ":OneRowWidgetProvider_onReceive";
+    static final String WAKELOCK_TAG_OneRowWidgetProvider_onUpdate = PPApplication.PACKAGE_NAME + ":OneRowWidgetProvider_onUpdate";
+    static final String WAKELOCK_TAG_ProfileListWidgetProvider_doOnUpdate = PPApplication.PACKAGE_NAME + ":ProfileListWidgetProvider_doOnUpdate";
+    static final String WAKELOCK_TAG_ProfileListWidgetProvider_onUpdate = PPApplication.PACKAGE_NAME + ":ProfileListWidgetProvider_onUpdate";
+    static final String WAKELOCK_TAG_ProfileListWidgetProvider_onReceive = PPApplication.PACKAGE_NAME + ":ProfileListWidgetProvider_onReceive";
+    static final String WAKELOCK_TAG_OneRowProfileListWidgetProvider_onReceive = PPApplication.PACKAGE_NAME + ":OneRowProfileListWidgetProvider_onReceive";
+    static final String WAKELOCK_TAG_OneRowProfileListWidgetProvider_onUpdate = PPApplication.PACKAGE_NAME + ":OneRowProfileListWidgetProvider_onUpdate";
+    static final String WAKELOCK_TAG_PanelWidgetProvider_doOnUpdate = PPApplication.PACKAGE_NAME + ":PanelWidgetProvider_doOnUpdate";
+    static final String WAKELOCK_TAG_PanelWidgetProvider_onUpdate = PPApplication.PACKAGE_NAME + ":PanelWidgetProvider_onUpdate";
+    static final String WAKELOCK_TAG_PanelWidgetProvider_onReceive = PPApplication.PACKAGE_NAME + ":PanelWidgetProvider_onReceive";
 
     private WakelockTags() {
         // private constructor to prevent instantiation

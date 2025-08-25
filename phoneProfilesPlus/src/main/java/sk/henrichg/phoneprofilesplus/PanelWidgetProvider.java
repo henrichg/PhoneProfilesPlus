@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -1064,14 +1065,37 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         }
 
         if (!fromOnUpdate) {
+            final Context appContext = context.getApplicationContext();
             final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             Runnable runnable = () -> {
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-                if (appWidgetManager != null) {
-                /*if (!ApplicationPreferences.applicationWidgetPanelGridLayout(context))
-                    appWidgetManager.notifyAppWidgetViewDataChanged(cocktailId, R.id.widget_panel);
-                else*/
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_panel_grid);
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_doOnUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                    if (appWidgetManager != null) {
+                    /*if (!ApplicationPreferences.applicationWidgetPanelGridLayout(context))
+                        appWidgetManager.notifyAppWidgetViewDataChanged(cocktailId, R.id.widget_panel);
+                    else*/
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_panel_grid);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.doOnUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
@@ -1097,7 +1121,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
             //else
             //    sheduledFutureWidgetData.scheduledFutures =
-            //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+            //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1113,13 +1137,32 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                for (int appWidgetId : appWidgetIds) {
-                    doOnUpdate(appContext, appWidgetManager, appWidgetId, true);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    for (int appWidgetId : appWidgetIds) {
+                        doOnUpdate(appContext, appWidgetManager, appWidgetId, true);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.doOnUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
-
             };
             PPApplicationStatic.createDelayedGuiExecutor();
 //            PPApplication.delayedGuiExecutor.submit(runnable);
@@ -1140,7 +1183,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
         }
     }
@@ -1168,23 +1211,44 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onReceive (1)");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
-                            for (int appWidgetId : appWidgetIds) {
-                                //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
-                                RemoteViews layout;
-                                layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
+                                for (int appWidgetId : appWidgetIds) {
+                                    //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
+                                    RemoteViews layout;
+                                    layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                                    try {
+                                        appWidgetManager.updateAppWidget(appWidgetId, layout);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                }
+                                dataWrapper.invalidateDataWrapper();
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
-                                    appWidgetManager.updateAppWidget(appWidgetId, layout);
-                                } catch (Exception e) {
-                                    PPApplicationStatic.recordException(e);
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                            dataWrapper.invalidateDataWrapper();
+                            //worker.shutdown();
                         }
+
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
 //                    PPApplication.delayedGuiExecutor.submit(runnable);
@@ -1210,7 +1274,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
                         //else
                         //    sheduledFutureWidgetData.scheduledFutures =
-                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }
@@ -1225,14 +1289,36 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     Runnable runnable = () -> {
     //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            for (int appWidgetId : appWidgetIds) {
-                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
                             }
+
+                            //Context appContext= appContextWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                for (int appWidgetId : appWidgetIds) {
+                                    doOnUpdate(appContext, appWidgetManager, appWidgetId, false);
+                                }
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
                         }
+
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
 //                    PPApplication.delayedGuiExecutor.submit(runnable);
@@ -1257,7 +1343,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
                         else
                             sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }

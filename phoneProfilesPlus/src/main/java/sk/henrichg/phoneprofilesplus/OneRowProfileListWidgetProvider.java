@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -81,11 +82,31 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowProfileListWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] OneRowProfileListWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
@@ -107,7 +128,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
         }
     }
@@ -1169,11 +1190,31 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
-                            //Context appContext= appContextWeakRef.get();
-                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowProfileListWidgetProvider_onReceive);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                                _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                                }
+
+                            } catch (Exception e) {
+//                              PPApplicationStatic.logE("[IN_EXECUTOR] OneRowProfileListWidgetProvider.onReceive", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                //worker.shutdown();
                             }
                         };
                         PPApplicationStatic.createDelayedGuiExecutor();
@@ -1199,7 +1240,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                         PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
                             else
                                 sheduledFutureWidgetData.scheduledFutures =
-                                    PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                         }
                     }
                 }

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -39,11 +40,31 @@ public class IconWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_IconWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
@@ -65,7 +86,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFutureIconWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
         }
     }
@@ -1508,16 +1529,36 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_IconWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            _onUpdate(appContext, appWidgetManager, appWidgetIds);
-//                        This not working. This uses one row profie list provider. Why???
-//                        Intent updateIntent = new Intent();
-//                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-//                        context.sendBroadcast(updateIntent);
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                _onUpdate(appContext, appWidgetManager, appWidgetIds);
+    //                        This not working. This uses one row profie list provider. Why???
+    //                        Intent updateIntent = new Intent();
+    //                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+    //                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+    //                        context.sendBroadcast(updateIntent);
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] IconWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
@@ -1543,7 +1584,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
                         else
                             sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }

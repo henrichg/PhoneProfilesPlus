@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -1192,21 +1193,44 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         if (!fromOnUpdate) {
+            final Context appContext = context.getApplicationContext();
             final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.doOnUpdate");
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-                if (appWidgetManager != null) {
-                    //if (isLargeLayout) {
-                    if (!ApplicationPreferences.applicationWidgetListGridLayout)
-                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
-                    else {
-                        if (ApplicationPreferences.applicationWidgetListCompactGrid)
-                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
-                        else
-                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ProfileListWidgetProvider_doOnUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
-                    //}
+
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                    if (appWidgetManager != null) {
+                        //if (isLargeLayout) {
+                        if (!ApplicationPreferences.applicationWidgetListGridLayout)
+                            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+                        else {
+                            if (ApplicationPreferences.applicationWidgetListCompactGrid)
+                                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
+                            else
+                                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+                        }
+                        //}
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider.doOnUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
@@ -1232,7 +1256,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
             //else
             //    sheduledFutureWidgetData.scheduledFutures =
-            //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+            //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1248,20 +1272,41 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
-                //createProfilesDataWrapper(_context);
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-
-                    for (int appWidgetId : appWidgetIds) {
-                        doOnUpdate(appContext, appWidgetManager, appWidgetId, true/*, true*/);
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ProfileListWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //if (dataWrapper != null)
-                    //    dataWrapper.invalidateDataWrapper();
-                    //dataWrapper = null;
+                    //createProfilesDataWrapper(_context);
+
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+
+                        for (int appWidgetId : appWidgetIds) {
+                            doOnUpdate(appContext, appWidgetManager, appWidgetId, true/*, true*/);
+                        }
+
+                        //if (dataWrapper != null)
+                        //    dataWrapper.invalidateDataWrapper();
+                        //dataWrapper = null;
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
@@ -1283,7 +1328,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
                 }
                 sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             }
         }
     }
@@ -1311,22 +1356,43 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ProfileListWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
-                            for (int appWidgetId : appWidgetIds) {
-                                //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
-                                RemoteViews layout;
-                                layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                            //Context appContext= appContextWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
+                                for (int appWidgetId : appWidgetIds) {
+                                    //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
+                                    RemoteViews layout;
+                                    layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                                    try {
+                                        appWidgetManager.updateAppWidget(appWidgetId, layout);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                }
+                                dataWrapper.invalidateDataWrapper();
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
-                                    appWidgetManager.updateAppWidget(appWidgetId, layout);
-                                } catch (Exception e) {
-                                    PPApplicationStatic.recordException(e);
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                            dataWrapper.invalidateDataWrapper();
+                            //worker.shutdown();
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
@@ -1352,7 +1418,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
                         //else
                         //    sheduledFutureWidgetData.scheduledFutures =
-                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }
@@ -1368,13 +1434,34 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider,onReceive", "appWidgetIds.length="+appWidgetIds.length);
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            for (int appWidgetId : appWidgetIds) {
-                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ProfileListWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
                             }
+
+                            //Context appContext= appContextWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                for (int appWidgetId : appWidgetIds) {
+                                    doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
+                                }
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] ProfileListWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
@@ -1400,7 +1487,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                     PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
                         else
                             sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 2, TimeUnit.SECONDS);
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }
