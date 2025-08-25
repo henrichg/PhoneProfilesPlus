@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -23,6 +24,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
 public class OneRowWidgetProvider extends AppWidgetProvider {
@@ -32,6 +34,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
+        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onUpdate", "xxxxxxxxxxx");
+
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context.getApplicationContext();
@@ -39,6 +43,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             LocaleHelper.setApplicationLocale(appContext);
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
+                Log.e("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -48,7 +53,26 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+            //PPApplication.delayedGuiExecutor.submit(runnable);
+            for (int appWidgetId : appWidgetIds) {
+                boolean found = false;
+                SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureOneRowWidgetExecutor) {
+                    if (futureWidgetData.appWidgetId == appWidgetId) {
+                        sheduledFutureWidgetData = futureWidgetData;
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                else {
+                    sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                    PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
+                }
+                sheduledFutureWidgetData.scheduledFutures =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            }
         }
     }
 
@@ -1400,26 +1424,51 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         String action = intent.getAction();
 //        PPApplicationStatic.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
+        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
-                if ((ids != null) && (ids.length > 0)) {
+                final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
+                if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                     final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
-//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
+                        Log.e("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
                         if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            _onUpdate(appContext, appWidgetManager, ids);
+                            _onUpdate(appContext, appWidgetManager, appWidgetIds);
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    //PPApplication.delayedGuiExecutor.submit(runnable);
+                    Log.e("OneRowWidgetProvider.onReceive", "appWidgetIds.lenght="+appWidgetIds.length);
+                    for (int appWidgetId : appWidgetIds) {
+                        Log.e("OneRowWidgetProvider.onReceive", "appWidgetId="+appWidgetId);
+                        boolean found = false;
+                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureOneRowWidgetExecutor) {
+                            if (futureWidgetData.appWidgetId == appWidgetId) {
+                                Log.e("OneRowWidgetProvider.onReceive", "found futureWidgetData.appWidgetId="+futureWidgetData.appWidgetId);
+                                sheduledFutureWidgetData = futureWidgetData;
+                                found = true;
+                                break;
+                            }
+                        }
+                        Log.e("OneRowWidgetProvider.onReceive", "found="+found);
+                        if (found)
+                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                        else {
+                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                            PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
+                        }
+                        sheduledFutureWidgetData.scheduledFutures =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    }
                 }
             }
         }
@@ -1449,6 +1498,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                            int appWidgetId,
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
+        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxxxxxxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }

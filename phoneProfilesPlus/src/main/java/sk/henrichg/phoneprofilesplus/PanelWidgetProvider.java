@@ -1075,7 +1075,24 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             //PPApplication.delayedGuiExecutor.submit(runnable);
-            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+//            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+            boolean found = false;
+            SheduledFutureWidgetData sheduledFutureWidgetData = null;
+            for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
+                if (futureWidgetData.appWidgetId == appWidgetId) {
+                    sheduledFutureWidgetData = futureWidgetData;
+                    found = true;
+                    break;
+                }
+            }
+            if (found)
+                sheduledFutureWidgetData.scheduledFutures.cancel(true);
+            else {
+                sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
+            }
+            sheduledFutureWidgetData.scheduledFutures =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1100,7 +1117,26 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            for (int appWidgetId : appWidgetIds) {
+                boolean found = false;
+                SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
+                    if (futureWidgetData.appWidgetId == appWidgetId) {
+                        sheduledFutureWidgetData = futureWidgetData;
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                else {
+                    sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                    PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
+                }
+                sheduledFutureWidgetData.scheduledFutures =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            }
         }
     }
 
@@ -1145,8 +1181,27 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
                     //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+                    for (int appWidgetId : appWidgetIds) {
+                        boolean found = false;
+                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
+                            if (futureWidgetData.appWidgetId == appWidgetId) {
+                                sheduledFutureWidgetData = futureWidgetData;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found)
+                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                        else {
+                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                            PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
+                        }
+                        sheduledFutureWidgetData.scheduledFutures =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    }
                 }
             }
             else
@@ -1169,7 +1224,26 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    for (int appWidgetId : appWidgetIds) {
+                        boolean found = false;
+                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
+                            if (futureWidgetData.appWidgetId == appWidgetId) {
+                                sheduledFutureWidgetData = futureWidgetData;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found)
+                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                        else {
+                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                            PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
+                        }
+                        sheduledFutureWidgetData.scheduledFutures =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    }
                 }
             }
         }
@@ -1196,7 +1270,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
             editor.remove(preferenceKey);
             editor.apply();
-
 
             updateAfterWidgetOptionsChanged(appContext, appWidgetId);
 

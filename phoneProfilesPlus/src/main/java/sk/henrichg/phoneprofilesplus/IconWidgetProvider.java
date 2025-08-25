@@ -20,6 +20,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
 public class IconWidgetProvider extends AppWidgetProvider {
@@ -46,7 +47,26 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            for (int appWidgetId : appWidgetIds) {
+                boolean found = false;
+                SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureIconWidgetExecutor) {
+                    if (futureWidgetData.appWidgetId == appWidgetId) {
+                        sheduledFutureWidgetData = futureWidgetData;
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                else {
+                    sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                    PPApplication.scheduledFutureIconWidgetExecutor.add(sheduledFutureWidgetData);
+                }
+                sheduledFutureWidgetData.scheduledFutures =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            }
         }
     }
 
@@ -1481,8 +1501,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
-                if ((ids != null) && (ids.length > 0)) {
+                final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
+                if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                     final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
@@ -1491,7 +1511,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
                         if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            _onUpdate(appContext, appWidgetManager, ids);
+                            _onUpdate(appContext, appWidgetManager, appWidgetIds);
 //                        This not working. This uses one row profie list provider. Why???
 //                        Intent updateIntent = new Intent();
 //                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
@@ -1500,7 +1520,26 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    for (int appWidgetId : appWidgetIds) {
+                        boolean found = false;
+                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureIconWidgetExecutor) {
+                            if (futureWidgetData.appWidgetId == appWidgetId) {
+                                sheduledFutureWidgetData = futureWidgetData;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found)
+                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                        else {
+                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                            PPApplication.scheduledFutureIconWidgetExecutor.add(sheduledFutureWidgetData);
+                        }
+                        sheduledFutureWidgetData.scheduledFutures =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    }
                 }
             }
         }

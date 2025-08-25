@@ -216,7 +216,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -325,6 +325,7 @@ public class PPApplication extends Application
                                                 //+"|[BLUETOOTH]"
                                                 //+"|[MOBILE_DATA]"
                                                 +"|[WAKELOCK_EXCEPTION]"
+                                                +"|[UPDATE_GUI]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1184,6 +1185,11 @@ public class PPApplication extends Application
     volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureNotificationListenerEventsHandlerExecutor = null;
+    volatile static List<SheduledFutureWidgetData> scheduledFutureIconWidgetExecutor = new ArrayList<>();
+    volatile static List<SheduledFutureWidgetData> scheduledFutureOneRowWidgetExecutor = new ArrayList<>();
+    volatile static List<SheduledFutureWidgetData> scheduledFutureProfileListWidgetExecutor = new ArrayList<>();
+    volatile static List<SheduledFutureWidgetData> scheduledFuturePanelWidgetExecutor = new ArrayList<>();
+    volatile static List<SheduledFutureWidgetData> scheduledFutureOneRowProfileListWidgetExecutor = new ArrayList<>();
 
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;

@@ -1211,7 +1211,24 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             };
             PPApplicationStatic.createDelayedGuiExecutor();
             //PPApplication.delayedGuiExecutor.submit(runnable);
-            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+//            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+            boolean found = false;
+            SheduledFutureWidgetData sheduledFutureWidgetData = null;
+            for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureProfileListWidgetExecutor) {
+                if (futureWidgetData.appWidgetId == appWidgetId) {
+                    sheduledFutureWidgetData = futureWidgetData;
+                    found = true;
+                    break;
+                }
+            }
+            if (found)
+                sheduledFutureWidgetData.scheduledFutures.cancel(true);
+            else {
+                sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
+            }
+            sheduledFutureWidgetData.scheduledFutures =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1244,8 +1261,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
-            //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            for (int appWidgetId : appWidgetIds) {
+                boolean found = false;
+                SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureProfileListWidgetExecutor) {
+                    if (futureWidgetData.appWidgetId == appWidgetId) {
+                        sheduledFutureWidgetData = futureWidgetData;
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                else {
+                    sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                    PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
+                }
+                sheduledFutureWidgetData.scheduledFutures =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            }
         }
     }
 
@@ -1290,8 +1325,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
-                    //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    for (int appWidgetId : appWidgetIds) {
+                        boolean found = false;
+                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureProfileListWidgetExecutor) {
+                            if (futureWidgetData.appWidgetId == appWidgetId) {
+                                sheduledFutureWidgetData = futureWidgetData;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found)
+                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                        else {
+                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                            PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
+                        }
+                        sheduledFutureWidgetData.scheduledFutures =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    }
                 }
             }
             else
@@ -1315,8 +1368,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
-                    //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    for (int appWidgetId : appWidgetIds) {
+                        boolean found = false;
+                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
+                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureProfileListWidgetExecutor) {
+                            if (futureWidgetData.appWidgetId == appWidgetId) {
+                                sheduledFutureWidgetData = futureWidgetData;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found)
+                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
+                        else {
+                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
+                            PPApplication.scheduledFutureProfileListWidgetExecutor.add(sheduledFutureWidgetData);
+                        }
+                        sheduledFutureWidgetData.scheduledFutures =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+                    }
                 }
             }
         }
@@ -1415,7 +1486,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 editor.remove(preferenceKey);
                 editor.apply();
 
-
                 updateAfterWidgetOptionsChanged(appContext, appWidgetId);
 
                 //if (dataWrapper != null)
@@ -1425,7 +1495,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         };
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
-        //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
     }
 
     private static void updateAfterWidgetOptionsChanged(Context appContext, int appWidgetId) {
