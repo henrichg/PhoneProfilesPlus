@@ -79,27 +79,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 PPApplication.scheduledFutureOneRowWidgetExecutor.cancel(true);
             PPApplication.scheduledFutureOneRowWidgetExecutor =
                     PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-            /*
-            for (int appWidgetId : appWidgetIds) {
-                boolean found = false;
-                SheduledFutureWidgetData sheduledFutureWidgetData = null;
-                for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureOneRowWidgetExecutor) {
-                    if (futureWidgetData.appWidgetId == appWidgetId) {
-                        sheduledFutureWidgetData = futureWidgetData;
-                        found = true;
-                        break;
-                    }
-                }
-                if (found)
-                    sheduledFutureWidgetData.scheduledFutures.cancel(true);
-                else {
-                    sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
-                    PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
-                }
-                sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-            }
-            */
         }
     }
 
@@ -1503,31 +1482,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     else
                         PPApplication.scheduledFutureOneRowWidgetExecutor =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-                    /*
-                    for (int appWidgetId : appWidgetIds) {
-                        boolean found = false;
-                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
-                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFutureOneRowWidgetExecutor) {
-                            if (futureWidgetData.appWidgetId == appWidgetId) {
-                                sheduledFutureWidgetData = futureWidgetData;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (found)
-                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
-                        else {
-                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
-                            PPApplication.scheduledFutureOneRowWidgetExecutor.add(sheduledFutureWidgetData);
-                        }
-                        if (drawImmediatelly)
-                            sheduledFutureWidgetData.scheduledFutures =
-                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-                        else
-                            sheduledFutureWidgetData.scheduledFutures =
-                                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-                    }
-                    */
                 }
             }
         }

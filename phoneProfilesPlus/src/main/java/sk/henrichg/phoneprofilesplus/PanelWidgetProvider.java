@@ -1101,29 +1101,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             PPApplicationStatic.createDelayedGuiExecutor();
             // can be used submit, because it is immediate call and for one appWidgetId
             PPApplication.delayedGuiExecutor.submit(runnable);
-            /*
-            boolean found = false;
-            SheduledFutureWidgetData sheduledFutureWidgetData = null;
-            for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
-                if (futureWidgetData.appWidgetId == appWidgetId) {
-                    sheduledFutureWidgetData = futureWidgetData;
-                    found = true;
-                    break;
-                }
-            }
-            if (found)
-                sheduledFutureWidgetData.scheduledFutures.cancel(true);
-            else {
-                sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
-                PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
-            }
-            //if (drawImmediatelly)
-                sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-            //else
-            //    sheduledFutureWidgetData.scheduledFutures =
-            //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-            */
         }
     }
 
@@ -1172,27 +1149,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                 PPApplication.scheduledFuturePanelWidgetExecutor.cancel(true);
             PPApplication.scheduledFuturePanelWidgetExecutor =
                     PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-            /*
-            for (int appWidgetId : appWidgetIds) {
-                boolean found = false;
-                SheduledFutureWidgetData sheduledFutureWidgetData = null;
-                for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
-                    if (futureWidgetData.appWidgetId == appWidgetId) {
-                        sheduledFutureWidgetData = futureWidgetData;
-                        found = true;
-                        break;
-                    }
-                }
-                if (found)
-                    sheduledFutureWidgetData.scheduledFutures.cancel(true);
-                else {
-                    sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
-                    PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
-                }
-                sheduledFutureWidgetData.scheduledFutures =
-                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-            }
-            */
         }
     }
 
@@ -1267,31 +1223,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     //else
                     //    PPApplication.scheduledFuturePanelWidgetExecutor =
                     //            PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-                    /*
-                    for (int appWidgetId : appWidgetIds) {
-                        boolean found = false;
-                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
-                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
-                            if (futureWidgetData.appWidgetId == appWidgetId) {
-                                sheduledFutureWidgetData = futureWidgetData;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (found)
-                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
-                        else {
-                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
-                            PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
-                        }
-                        //if (drawImmediatelly)
-                            sheduledFutureWidgetData.scheduledFutures =
-                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-                        //else
-                        //    sheduledFutureWidgetData.scheduledFutures =
-                        //        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-                    }
-                    */
                 }
             }
             else
@@ -1360,31 +1291,6 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     else
                         PPApplication.scheduledFuturePanelWidgetExecutor =
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-                    /*
-                    for (int appWidgetId : appWidgetIds) {
-                        boolean found = false;
-                        SheduledFutureWidgetData sheduledFutureWidgetData = null;
-                        for (SheduledFutureWidgetData futureWidgetData : PPApplication.scheduledFuturePanelWidgetExecutor) {
-                            if (futureWidgetData.appWidgetId == appWidgetId) {
-                                sheduledFutureWidgetData = futureWidgetData;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (found)
-                            sheduledFutureWidgetData.scheduledFutures.cancel(true);
-                        else {
-                            sheduledFutureWidgetData = new SheduledFutureWidgetData(appWidgetId, null);
-                            PPApplication.scheduledFuturePanelWidgetExecutor.add(sheduledFutureWidgetData);
-                        }
-                        if (drawImmediatelly)
-                            sheduledFutureWidgetData.scheduledFutures =
-                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
-                        else
-                            sheduledFutureWidgetData.scheduledFutures =
-                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-                    }
-                    */
                 }
             }
         }

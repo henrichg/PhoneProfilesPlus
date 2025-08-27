@@ -1191,13 +1191,6 @@ public class PPApplication extends Application
     volatile static ScheduledFuture<?> scheduledFutureProfileListWidgetExecutor = null;
     volatile static ScheduledFuture<?> scheduledFuturePanelWidgetExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureOneRowProfileListWidgetExecutor = null;
-    /*
-    volatile static List<SheduledFutureWidgetData> scheduledFutureIconWidgetExecutor = new ArrayList<>();
-    volatile static List<SheduledFutureWidgetData> scheduledFutureOneRowWidgetExecutor = new ArrayList<>();
-    volatile static List<SheduledFutureWidgetData> scheduledFutureProfileListWidgetExecutor = new ArrayList<>();
-    volatile static List<SheduledFutureWidgetData> scheduledFuturePanelWidgetExecutor = new ArrayList<>();
-    volatile static List<SheduledFutureWidgetData> scheduledFutureOneRowProfileListWidgetExecutor = new ArrayList<>();
-    */
 
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;
