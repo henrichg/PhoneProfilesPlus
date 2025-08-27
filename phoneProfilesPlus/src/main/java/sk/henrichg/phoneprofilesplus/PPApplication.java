@@ -1191,7 +1191,7 @@ public class PPApplication extends Application
     volatile static ScheduledFuture<?> scheduledFutureProfileListWidgetExecutor = null;
     volatile static ScheduledFuture<?> scheduledFuturePanelWidgetExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureOneRowProfileListWidgetExecutor = null;
-
+x
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;
     // required for sensor manager
