@@ -174,7 +174,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         if (gitHubInstallation)
                             _doWorkGitHub(appContext);
                         else
-                            _doWorkOthers(appContext);
+                            //_doWorkOthers(appContext);
+                            _doWorkGitHub(appContext);
 
                     } catch (Exception ignored) {
                     }
@@ -268,9 +269,12 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    /*
     private static void  _doWorkOthers(Context appContext) {
+        ///  **** tu nie je verzia !!!!
         showNotification(appContext, "", 0, false);
     }
+    */
 
     private static void _doWorkGitHub(Context appContext) {
         try {
