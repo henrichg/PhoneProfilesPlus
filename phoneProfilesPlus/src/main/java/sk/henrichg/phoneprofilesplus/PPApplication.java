@@ -29,6 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkManager;
 
+import com.github.anrwatchdog.ANRWatchDog;
+
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.config.CoreConfigurationBuilder;
@@ -216,7 +218,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -269,6 +271,7 @@ public class PPApplication extends Application
 // this si for get 0, 50 100% level
 //                                                +"|SettingsContentObserver.onChange"
 
+                                                +"|[ANRWatchDog]"
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
@@ -1315,6 +1318,11 @@ public class PPApplication extends Application
             Log.e("################# PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
         }
+
+        new ANRWatchDog().setANRListener(error -> {
+            // Handle the error. For example, log it to HockeyApp:
+            PPApplicationStatic.logE("[ANRWatchDog]", error.toString());
+        }).start();
 
         // must be there, requires Context
         romIsGalaxy = isGalaxyROM(getApplicationContext());

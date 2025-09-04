@@ -87,6 +87,9 @@ dependencies {
 
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
+    //https://github.com/SalomonBrys/ANR-WatchDog
+    implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
+
     //implementation 'androidx.multidex:multidex:2.0.1'
 
     /// for usage of @hidden Android API
