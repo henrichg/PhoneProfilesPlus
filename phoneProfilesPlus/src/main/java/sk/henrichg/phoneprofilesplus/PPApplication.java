@@ -1321,7 +1321,7 @@ public class PPApplication extends Application
 
         new ANRWatchDog().setANRListener(error -> {
             // Handle the error. For example, log it to HockeyApp:
-            PPApplicationStatic.logE("[ANRWatchDog]", error.toString());
+            PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
         }).start();
 
         // must be there, requires Context

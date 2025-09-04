@@ -465,6 +465,9 @@ public class EditorProfileListFragment extends Fragment
             if ((fragment != null) /*&& (fragment.isAdded())*/) {
                 fragment.progressBar.setVisibility(View.VISIBLE);
             }
+
+            // this is for ANR test only
+            //GlobalUtils.sleep(20 * 1000);
         }
 
         @Override
