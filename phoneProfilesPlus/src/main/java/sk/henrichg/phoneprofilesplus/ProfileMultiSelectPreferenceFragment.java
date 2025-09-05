@@ -24,6 +24,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
     private ListView listView;
     private LinearLayout listViewRoot;
     RelativeLayout emptyList;
+    private Button unselectAllButton;
 
     private ProfileMultiSelectPreferenceAdapter profilePreferenceAdapter;
 
@@ -66,7 +67,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
             viewHolder.checkBox.setChecked(profile._checked);
         });
 
-        final Button unselectAllButton = view.findViewById(R.id.profile_multiselect_pref_dlg_unselect_all);
+        unselectAllButton = view.findViewById(R.id.profile_multiselect_pref_dlg_unselect_all);
         //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
@@ -184,6 +185,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
                 if (notForUnselect) {
                     fragment.listViewRoot.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
+                    fragment.unselectAllButton.setEnabled(false);
                 }
             }
         }
@@ -233,6 +235,8 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
 
                     fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapter(fragment, prefContext, preference.dataWrapper.profileList);
                     fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+
+                    fragment.unselectAllButton.setEnabled(true);
                 });
             }
         }

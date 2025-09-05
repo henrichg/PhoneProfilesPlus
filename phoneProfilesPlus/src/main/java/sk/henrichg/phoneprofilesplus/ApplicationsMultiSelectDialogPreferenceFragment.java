@@ -27,6 +27,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
     // Layout widgets.
     private LinearLayout linlaProgress;
     private LinearLayout linlaData;
+    private Button unselectAllButton;
 
     private ApplicationsMultiSelectPreferenceAdapter listAdapter;
 
@@ -74,7 +75,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
         itemTouchHelper.attachToRecyclerView(listView);
         */
 
-        final Button unselectAllButton = view.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
+        unselectAllButton = view.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
         //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
@@ -148,6 +149,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
                 if (notForUnselect) {
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
+                    fragment.unselectAllButton.setEnabled(false);
                 }
             }
         }
@@ -189,6 +191,8 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
                     if (notForUnselect) {
                         fragment.linlaData.setVisibility(View.VISIBLE);
                     }
+
+                    fragment.unselectAllButton.setEnabled(true);
 
                     fragment.listAdapter.notifyDataSetChanged();
                 });

@@ -28,6 +28,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
     private LinearLayout linlaProgress;
     private LinearLayout linlaData;
     RelativeLayout emptyList;
+    private Button unselectAllButton;
+    private Button refreshButton;
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
@@ -72,13 +74,13 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             }
         });
 
-        final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
+        unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
         //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
             refreshListView(true, false);
         });
-        final Button refreshButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_refresh);
+        refreshButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_refresh);
         //noinspection DataFlowIssue
         refreshButton.setOnClickListener(v -> {
 //            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
@@ -153,6 +155,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 if (!forUnselect) {
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
+                    fragment.unselectAllButton.setEnabled(false);
+                    fragment.refreshButton.setEnabled(false);
                 }
             }
         }
@@ -279,6 +283,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 //                            }
 //                        }
                     }
+
+                    fragment.unselectAllButton.setEnabled(true);
+                    fragment.refreshButton.setEnabled(true);
 
                     fragment.listAdapter.notifyDataSetChanged();
                 });
