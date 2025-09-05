@@ -1323,7 +1323,13 @@ public class PPApplication extends Application
         // This disables displaying of ANR dialog by system
         new ANRWatchDog().setANRListener(error -> {
             PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
+
+            // if user click notification, it displays dialog for ACRA and this again
+            // may generate again anmd again notiofication (in looping... :-( )
             //PPApplicationStatic.recordException(error);
+
+            // this force close PPP, as for normal not handled exception
+            //System.exit(0);
         }).start();
 
         // must be there, requires Context
