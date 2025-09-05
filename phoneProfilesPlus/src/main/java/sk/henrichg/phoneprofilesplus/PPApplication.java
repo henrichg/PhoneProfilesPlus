@@ -1319,9 +1319,9 @@ public class PPApplication extends Application
             return;
         }
 
+        // Handle the ANR error
         // This disables displaying of ANR dialog by system
         new ANRWatchDog().setANRListener(error -> {
-            // Handle the ANR error
             PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
             //PPApplicationStatic.recordException(error);
         }).start();
