@@ -2814,8 +2814,8 @@ class Event {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000L;
-
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
 
@@ -3038,8 +3038,8 @@ class Event {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
-
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                     }

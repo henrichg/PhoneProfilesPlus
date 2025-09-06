@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
-import android.util.Log;
+import android.os.SystemClock;
 
 import com.google.gson.Gson;
 
@@ -227,7 +227,11 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                     AlarmManager _alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                     if (_alarmManager != null) {
-                        _alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alamCalendarTime, pendingIntent);
+                        //_alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alamCalendarTime, pendingIntent);
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
+                        long duration = alamCalendarTime - now.getTimeInMillis();
+                        long _alamCalendarTime = SystemClock.elapsedRealtime() + duration;
+                        _alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, _alamCalendarTime, pendingIntent);
                     }
 
                 } catch (Exception e) {

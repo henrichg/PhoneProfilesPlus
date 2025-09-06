@@ -148,8 +148,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
-
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;
@@ -208,6 +208,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         long duration = configuredTime.getTimeInMillis() - now.getTimeInMillis();
                         alarmTime = SystemClock.elapsedRealtime() + duration;
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);

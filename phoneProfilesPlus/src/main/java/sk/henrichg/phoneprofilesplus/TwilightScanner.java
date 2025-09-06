@@ -449,7 +449,11 @@ class TwilightScanner {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
                         mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                        //mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
+                        long duration = nextUpdate - now.getTimeInMillis();
+                        nextUpdate = SystemClock.elapsedRealtime() + duration;
+                        mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextUpdate, pendingIntent);
                     }
                 }
             }
