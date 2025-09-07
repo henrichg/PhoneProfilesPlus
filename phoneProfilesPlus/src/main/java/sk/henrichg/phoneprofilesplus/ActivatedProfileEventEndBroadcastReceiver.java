@@ -26,6 +26,7 @@ public class ActivatedProfileEventEndBroadcastReceiver extends BroadcastReceiver
 
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
+            PPApplicationStatic.logE("[EXECUTOR_CALL] ActivatedProfileEventEndBroadcastReceiver.doWork", "PPExecutors.handleEvents");
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE_EVENT_END},
                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_ACTIVATED_PROFILE_EVENT_END, 0);

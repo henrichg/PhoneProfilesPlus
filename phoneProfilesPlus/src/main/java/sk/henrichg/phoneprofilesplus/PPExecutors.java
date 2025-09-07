@@ -244,10 +244,12 @@ class PPExecutors {
             }
         };
         if (delay == 0) {
+            PPApplicationStatic.logE("[EXECUTOR_CALL] PPExecutors.handleEvents", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else {
+            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPExecutors.handleEvents", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);        }
     }

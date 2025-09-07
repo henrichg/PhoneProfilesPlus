@@ -116,6 +116,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             };
+            PPApplicationStatic.logE("[EXECUTOR_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

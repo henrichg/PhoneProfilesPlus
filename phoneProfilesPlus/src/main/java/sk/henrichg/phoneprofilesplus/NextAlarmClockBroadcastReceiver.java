@@ -247,6 +247,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 }
 
             };
+            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] NextAlarmClockBroadcastReceiver.setAlarm", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }

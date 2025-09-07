@@ -953,6 +953,7 @@ class DataWrapper {
                 }
             }
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.stopEventsForProfileFromMainThread", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -1045,6 +1046,7 @@ class DataWrapper {
                 }
             }
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.pauseAllEventsForGlobalStopEvents", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -1113,6 +1115,7 @@ class DataWrapper {
                 }
             }
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.stopAllEventsFromMainThread", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -1726,6 +1729,7 @@ class DataWrapper {
                 }
             }
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.activateProfileFromMainThread", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
 
@@ -2286,6 +2290,7 @@ class DataWrapper {
                     }
                 }
             };
+            PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithRescan", "xxx");
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
@@ -2548,6 +2553,7 @@ class DataWrapper {
                     }
                 }
             };
+            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] DataWrapper.restartEventsWithDelay", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }

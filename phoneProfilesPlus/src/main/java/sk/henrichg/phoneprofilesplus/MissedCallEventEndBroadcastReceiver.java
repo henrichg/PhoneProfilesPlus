@@ -25,6 +25,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
 //            Log.e("MissedCallEventEndBroadcastReceiver.doWork", "call of events handler SENSOR_TYPE_PHONE_CALL_EVENT_END");
+            PPApplicationStatic.logE("[EXECUTOR_CALL] MissedCallEventEndBroadcastReceiver.doWork", "PPExecutors.handleEvents");
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END},
                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_PHONE_CALL_EVENT_END, 0);

@@ -62,6 +62,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             };
+            PPApplicationStatic.logE("[EXECUTOR_CALL] AlarmClockBroadcastReceiver.onReceive", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

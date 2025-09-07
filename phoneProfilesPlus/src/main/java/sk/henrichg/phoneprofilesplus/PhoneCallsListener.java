@@ -205,6 +205,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
                     if (EventStatic.getGlobalEventsRunning(appContext)) {
     //                Log.e("PhoneStateListener.onServiceStateChanged", "call of events handler - SENSOR_TYPE_ROAMING");
+                        PPApplicationStatic.logE("[EXECUTOR_CALL] PhoneCallsListener.onServiceStateChanged", "PPExecutors.handleEvents");
                         PPExecutors.handleEvents(appContext,
                                 new int[]{EventsHandler.SENSOR_TYPE_ROAMING},
                                 PPExecutors.SENSOR_NAME_SENSOR_TYPE_ROAMING, 0);
@@ -224,6 +225,7 @@ public class PhoneCallsListener extends PhoneStateListener {
             }
 
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] PhoneCallsListener.onServiceStateChanged", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -318,6 +320,7 @@ public class PhoneCallsListener extends PhoneStateListener {
             }
 
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] PhoneCallsListener.doCall", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

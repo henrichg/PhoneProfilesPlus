@@ -143,6 +143,7 @@ public class WifiScanWorker extends Worker {
                 }
 
             };
+            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] WifiScanWorker.doWork", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 

@@ -81,8 +81,9 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                         }
                     //}
                 };
+                PPApplicationStatic.logE("[EXECUTOR_CALL] TimeChangedReceiver.onReceive", "(xxx");
                 PPApplicationStatic.createEventsHandlerExecutor();
-                    PPApplication.eventsHandlerExecutor.submit(runnable);
+                PPApplication.eventsHandlerExecutor.submit(runnable);
                 //}
             }
         }

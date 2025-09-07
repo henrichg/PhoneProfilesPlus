@@ -24,6 +24,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
 
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
+            PPApplicationStatic.logE("[EXECUTOR_CALL] EventCalendarBroadcastReceiver.doWork", "PPExecutors.handleEvents");
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_CALENDAR},
                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_CALENDAR, 0);

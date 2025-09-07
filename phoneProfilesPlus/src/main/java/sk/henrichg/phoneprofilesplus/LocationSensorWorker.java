@@ -38,6 +38,7 @@ public class LocationSensorWorker extends Worker {
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationSensorWorker.doWork", "SENSOR_TYPE_LOCATION_SCANNER");
 //                Log.e("[EVENTS_HANDLER_CALL] LocationSensorWorker.doWork", "SENSOR_TYPE_LOCATION_SCANNER");
                 synchronized (PPApplication.handleEventsMutex) {
+                    PPApplicationStatic.logE("[HANDLE_EVENTS_FROM_WORK] LocationSensorWorker.doWork", "SENSOR_TYPE_LOCATION_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER});
                 }

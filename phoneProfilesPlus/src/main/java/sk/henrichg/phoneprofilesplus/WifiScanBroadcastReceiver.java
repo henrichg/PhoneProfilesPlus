@@ -83,6 +83,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
     //                            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ handleEvents");
     //                            PPApplicationStatic.logE("[BLUETOOTH] WifiScanBroadcastReceiver.onReceive", "^^^^^^^^^ !!! is with delay 5 second !!!");
 //                                    PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "handle events for scan results");
+                                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] WifiScanBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
                                     PPExecutors.handleEvents(appContext,
                                             new int[]{EventsHandler.SENSOR_TYPE_WIFI_SCANNER},
                                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
@@ -105,6 +106,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] WifiScanBroadcastReceiver.onReceive", "(xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

@@ -218,7 +218,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -275,7 +275,10 @@ public class PPApplication extends Application
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
-//                                                +"|[EXECUTOR_CALL]"
+                                                +"|[EXECUTOR_CALL]"
+                                                +"|[DELAYED_EXECUTOR_CALL]"
+                                                +"|[HANDLE_EVENTS_FROM_WORK]"
+                                                +"|[HANDLE_EVENTS_NOT_FROM_EXECUTOR_WORK]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -1160,7 +1163,6 @@ public class PPApplication extends Application
     volatile static ExecutorService basicExecutorPool = null;
     //volatile static ExecutorService profileActiationExecutorPool = null;
     //volatile static ExecutorService soundModeExecutorPool = null;
-
     // for call of ActivateProfileHelper.execute()
     volatile static ExecutorService activateProfileExecuteExecutorPool = null;
     // for call of ActivateProfileHelper.executeForVolumes()
@@ -1169,11 +1171,9 @@ public class PPApplication extends Application
     // for call of ActivateProfileHelper.executeForRadios()
     // - required for increase speed of profile activation
     volatile static ExecutorService profileRadiosExecutorPool = null;
-
     volatile static ExecutorService profileRunApplicationsExecutorPool = null;
     volatile static ExecutorService profileIteractivePreferencesExecutorPool = null;
     volatile static ExecutorService profileActivationDurationExecutorPool = null;
-
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;

@@ -51,6 +51,7 @@ public class ContactsContentObserverWorker extends Worker {
                     if (EventStatic.getGlobalEventsRunning(appContext)) {
 //                      PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] ContactsContentObserverWorker.doWork", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
 //                        Log.e("[EVENTS_HANDLER_CALL] ContactsContentObserverWorker.doWork", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
+                        PPApplicationStatic.logE("[HANDLE_EVENTS_FROM_WORK] ContactsContentObserverWorker.doWork", "SENSOR_TYPE_CONTACTS_CACHE_CHANGED");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED});
                     }

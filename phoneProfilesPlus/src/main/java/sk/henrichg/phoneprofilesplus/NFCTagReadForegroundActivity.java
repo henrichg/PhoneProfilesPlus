@@ -111,6 +111,7 @@ public class NFCTagReadForegroundActivity extends AppCompatActivity {
                     }
 
                 };
+                PPApplicationStatic.logE("[EXECUTOR_CALL] NFCTagReadForegroundActivity,onCreate.onTagRead", "xxx");
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
 

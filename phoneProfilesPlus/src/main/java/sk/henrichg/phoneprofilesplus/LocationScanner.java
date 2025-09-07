@@ -501,12 +501,14 @@ class LocationScanner
 
                         }
                     };
+                    PPApplicationStatic.logE("[EXECUTOR_CALL] LocationScanner.doLocationChanged", "xxx");
                     PPApplicationStatic.createBasicExecutorPool();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
 
                     if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
 //                        Log.e("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
+                        PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] LocationScanner.doLocationChanged", "PPExecutors.handleEvents");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
                                 new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER},
                                 PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 5);

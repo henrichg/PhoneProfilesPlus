@@ -52,6 +52,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                 }
             //}
         };
+        PPApplicationStatic.logE("[EXECUTOR_CALL] StartEventNotificationDeletedReceiver.onReceive", "(xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

@@ -198,6 +198,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             };
+            PPApplicationStatic.logE("[EXECUTOR_CALL] StartEventNotificationBroadcastReceiver.doWork", "(xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
