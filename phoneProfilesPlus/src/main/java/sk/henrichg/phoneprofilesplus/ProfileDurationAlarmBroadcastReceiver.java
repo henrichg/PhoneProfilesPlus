@@ -499,7 +499,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
-                                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] ProfileDurationAlarmBroadcastReceiver._doWork", "(1) dataWrapper.restartEventsWithDelay");
+//                                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] ProfileDurationAlarmBroadcastReceiver._doWork", "(1) dataWrapper.restartEventsWithDelay");
                                 dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             } else {
                                 doActivateProfile = true;
@@ -538,7 +538,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
-                                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] ProfileDurationAlarmBroadcastReceiver._doWork", "(2) dataWrapper.restartEventsWithDelay");
+//                                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] ProfileDurationAlarmBroadcastReceiver._doWork", "(2) dataWrapper.restartEventsWithDelay");
                                 dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }

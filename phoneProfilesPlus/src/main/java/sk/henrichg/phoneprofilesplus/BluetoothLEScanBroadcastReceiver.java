@@ -43,7 +43,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                     if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                     {
     //                Log.e("BluetoothLEScanBroadcastReceiver.onReceive", "call event handler SENSOR_TYPE_BLUETOOTH_SCANNER");
-                        PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
+//                        PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
                         PPExecutors.handleEvents(appContext,
                                 new int[]{EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER},
                                 PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
@@ -65,7 +65,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             }
 
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

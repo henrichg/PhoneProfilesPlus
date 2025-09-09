@@ -131,7 +131,7 @@ public class BluetoothScanWorker extends Worker {
                 }
 
             };
-            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] BluetoothScanWorker.doWork", "xxxx");
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] BluetoothScanWorker.doWork", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*

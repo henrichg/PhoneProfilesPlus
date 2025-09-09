@@ -50,7 +50,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-            PPApplicationStatic.logE("[EXECUTOR_CALL] PowerSaveModeBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] PowerSaveModeBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE},
                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_POWER_SAVE_MODE, 0);

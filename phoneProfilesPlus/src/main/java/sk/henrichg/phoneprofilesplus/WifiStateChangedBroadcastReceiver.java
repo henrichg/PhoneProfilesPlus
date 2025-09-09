@@ -188,7 +188,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] WifiStateChangedBroadcastReceiver.handleEvents", "(xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] WifiStateChangedBroadcastReceiver.handleEvents", "(xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(__runnable);
     }

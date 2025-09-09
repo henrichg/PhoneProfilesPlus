@@ -3485,7 +3485,7 @@ class PhoneProfilesServiceStatic
 
                             if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                 if (PPApplication.notificationScannerRunning) {
-                                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PhoneProfilesServiceStatic.doCommand", "PPExecutors.handleEvents");
+//                                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PhoneProfilesServiceStatic.doCommand", "PPExecutors.handleEvents");
                                     PPExecutors.handleEvents(appContext,
                                             new int[]{EventsHandler.SENSOR_TYPE_NOTIFICATION},
                                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);

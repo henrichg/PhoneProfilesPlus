@@ -69,7 +69,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             };
-            PPApplicationStatic.logE("[EXECUTOR_CALL] WifiAPStateChangeBroadcastReceiver.onReceive", "(xxx");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] WifiAPStateChangeBroadcastReceiver.onReceive", "(xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

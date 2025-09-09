@@ -48,7 +48,7 @@ public class SearchCalendarEventsWorker extends Worker {
             if (EventStatic.getGlobalEventsRunning(context)) {
                 // start events handler
                 synchronized (PPApplication.handleEventsMutex) {
-                    PPApplicationStatic.logE("[HANDLE_EVENTS_FROM_WORK] SearchCalendarEventsWorker.doWork", "SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
+//                    PPApplicationStatic.logE("[HANDLE_EVENTS_FROM_WORK] SearchCalendarEventsWorker.doWork", "SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS});
                 }
@@ -87,7 +87,7 @@ public class SearchCalendarEventsWorker extends Worker {
                     }
                 }
             };
-            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] SearchCalendarEventsWorker.doWork", "xxxx");
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] SearchCalendarEventsWorker.doWork", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*

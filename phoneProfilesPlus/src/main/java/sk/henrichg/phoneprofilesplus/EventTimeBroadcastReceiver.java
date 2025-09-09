@@ -21,7 +21,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             if (EventStatic.getGlobalEventsRunning(context)) {
                 final Context appContext = context.getApplicationContext();
 //                Log.e("EventTimeBroadcastReceiver.onReceive", "call of events handler");
-                PPApplicationStatic.logE("[EXECUTOR_CALL] EventTimeBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
+//                PPApplicationStatic.logE("[EXECUTOR_CALL] EventTimeBroadcastReceiver.onReceive", "PPExecutors.handleEvents");
                 PPExecutors.handleEvents(appContext,
                         new int[]{EventsHandler.SENSOR_TYPE_TIME},
                         PPExecutors.SENSOR_NAME_SENSOR_TYPE_TIME, 0);

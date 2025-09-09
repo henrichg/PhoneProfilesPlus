@@ -24,7 +24,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
-            PPApplicationStatic.logE("[EXECUTOR_CALL] SMSEventEndBroadcastReceiver.doWork", "PPExecutors.handleEvents");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] SMSEventEndBroadcastReceiver.doWork", "PPExecutors.handleEvents");
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_SMS_EVENT_END},
                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_SMS_EVENT_END, 0);

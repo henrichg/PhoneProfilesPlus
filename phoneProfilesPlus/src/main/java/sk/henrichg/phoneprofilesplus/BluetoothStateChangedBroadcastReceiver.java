@@ -112,7 +112,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             };
-            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "(1) xxx");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "(1) xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
@@ -152,7 +152,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                 }
                 //}
             };
-            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "(2) xxx");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "(2) xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

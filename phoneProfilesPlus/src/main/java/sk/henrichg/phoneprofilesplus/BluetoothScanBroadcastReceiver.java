@@ -172,7 +172,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             };
-            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothScanBroadcastReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothScanBroadcastReceiver.onReceive", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
 

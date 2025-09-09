@@ -65,7 +65,7 @@ public class AnswerCallRingingLengthBroadcastReceiver extends BroadcastReceiver 
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] AnswerCallRingingLengthBroadcastReceiver.doWork", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] AnswerCallRingingLengthBroadcastReceiver.doWork", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

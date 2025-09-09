@@ -77,7 +77,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             };
-            PPApplicationStatic.logE("[EXECUTOR_CALL] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

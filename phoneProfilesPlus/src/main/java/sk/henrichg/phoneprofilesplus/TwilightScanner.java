@@ -88,7 +88,7 @@ class TwilightScanner {
 
                 if (EventStatic.getGlobalEventsRunning(context)) {
 //                    Log.e("TwilightScanner.setTwilightState", "call of events handler");
-                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] TwilightScanner.setTwilightState", "PPExecutors.handleEvents");
+//                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] TwilightScanner.setTwilightState", "PPExecutors.handleEvents");
                     PPExecutors.handleEvents(context,
                             new int[]{EventsHandler.SENSOR_TYPE_TIME},
                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_TIME, 10);

@@ -47,7 +47,7 @@ public class PPCallScreeningService extends CallScreeningService {
 //                          Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - start");
                             Calendar now = Calendar.getInstance();
                             long time = now.getTimeInMillis();
-                            PPApplicationStatic.logE("[HANDLE_EVENTS_NOT_FROM_EXECUTOR_WORK] PPCallScreeningService.onScreenCall", "SENSOR_TYPE_CALL_CONTROL");
+//                            PPApplicationStatic.logE("[HANDLE_EVENTS_NOT_FROM_EXECUTOR_WORK] PPCallScreeningService.onScreenCall", "SENSOR_TYPE_CALL_CONTROL");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.setEventCallControlParameters(callingPhoneNumber, time, callDirection);
                             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_CONTROL});

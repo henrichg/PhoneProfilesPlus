@@ -87,7 +87,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
                     }
                 };
-                PPApplicationStatic.logE("[EXECUTOR_CALL] DeviceIdleModeBroadcastReceiver.onReceive", "xxx");
+//                PPApplicationStatic.logE("[EXECUTOR_CALL] DeviceIdleModeBroadcastReceiver.onReceive", "xxx");
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
             }

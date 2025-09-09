@@ -253,7 +253,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         PPApplicationStatic.createDelayedEventsHandlerExecutor();
         if (PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor != null)
             PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor.cancel(false);
-        PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPNotificationListenerService.handleEventsNotificationListener", "xxxx");
+//        PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPNotificationListenerService.handleEventsNotificationListener", "xxxx");
         PPApplication.scheduledFutureNotificationListenerEventsHandlerExecutor =
                 PPApplication.delayedEventsHandlerExecutor.schedule(runnable, scanInterval, TimeUnit.SECONDS);
     }

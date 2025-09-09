@@ -132,7 +132,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         }
                     }
                 };
-                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PeriodicEventsHandlerWorker.doWork", "xxxx");
+//                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PeriodicEventsHandlerWorker.doWork", "xxxx");
                 PPApplicationStatic.createDelayedEventsHandlerExecutor();
                 PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 /*

@@ -953,7 +953,7 @@ class DataWrapper {
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.stopEventsForProfileFromMainThread", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.stopEventsForProfileFromMainThread", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -1046,7 +1046,7 @@ class DataWrapper {
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.pauseAllEventsForGlobalStopEvents", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.pauseAllEventsForGlobalStopEvents", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -1115,7 +1115,7 @@ class DataWrapper {
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.stopAllEventsFromMainThread", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.stopAllEventsFromMainThread", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -1729,7 +1729,7 @@ class DataWrapper {
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.activateProfileFromMainThread", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.activateProfileFromMainThread", "xxx");
         PPApplicationStatic.createBasicExecutorPool();
         PPApplication.eventsHandlerExecutor.submit(runnable);
 
@@ -2290,7 +2290,7 @@ class DataWrapper {
                     }
                 }
             };
-            PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithRescan", "xxx");
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] DataWrapper.restartEventsWithRescan", "xxx");
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
@@ -2523,7 +2523,7 @@ class DataWrapper {
             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
 //                long start = System.currentTimeMillis();
-                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
+//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** DataWrapper.restartEventsWithDelay", "--------------- START");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -2553,7 +2553,7 @@ class DataWrapper {
                     }
                 }
             };
-            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] DataWrapper.restartEventsWithDelay", "xxxx");
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] DataWrapper.restartEventsWithDelay", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }

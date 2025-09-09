@@ -113,7 +113,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
                                             null, null, "");
 
-                                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "dataWrapper.restartEventsWithDelay");
+//                                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "dataWrapper.restartEventsWithDelay");
                                     dataWrapper2.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
                                 }
 
@@ -131,7 +131,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                             //}
                         }
                     };
-                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(1) xxx");
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(1) xxx");
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
                 }
@@ -221,7 +221,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                     }
                 };
-                PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(2) xxx");
+//                PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(2) xxx");
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable2);
 
@@ -300,7 +300,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                         //}
                                     }
                                 };
-                                PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(3) xxx");
+//                                PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(3) xxx");
                                 PPApplicationStatic.createEventsHandlerExecutor();
                                 PPApplication.eventsHandlerExecutor.submit(runnable3);
                             }
@@ -525,7 +525,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                         }
                     };
-                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(4) xxx");
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(4) xxx");
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }
@@ -710,7 +710,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                         }
                     };
-                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(5) xxx");
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(5) xxx");
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }

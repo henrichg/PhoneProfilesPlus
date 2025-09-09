@@ -67,7 +67,7 @@ public class EndCallCallLengthBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         };
-        PPApplicationStatic.logE("[EXECUTOR_CALL] EndCallCallLengthBroadcastReceiver.doWork", "xxx");
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] EndCallCallLengthBroadcastReceiver.doWork", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
 

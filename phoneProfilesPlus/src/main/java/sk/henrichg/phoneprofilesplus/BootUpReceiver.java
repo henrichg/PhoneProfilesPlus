@@ -111,7 +111,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 if (EventStatic.getGlobalEventsRunning(appContext)) {
 
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "SENSOR_TYPE_BOOT_COMPLETED");
-                                    PPApplicationStatic.logE("[EXECUTOR_CALL] BootUpReceiver.onReceive", "PPExecutors.handleEvents");
+//                                    PPApplicationStatic.logE("[EXECUTOR_CALL] BootUpReceiver.onReceive", "PPExecutors.handleEvents");
                                     PPExecutors.handleEvents(appContext,
                                             new int[]{EventsHandler.SENSOR_TYPE_BOOT_COMPLETED},
                                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_BOOT_COMPLETED, 0);
