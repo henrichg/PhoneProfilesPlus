@@ -325,7 +325,7 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-//                                                +"|[BLUETOOTH_CONNECT]"
+                                                +"|[BLUETOOTH_CONNECT]"
 //                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
@@ -1322,7 +1322,8 @@ public class PPApplication extends Application
         // Handle the ANR error
         // This disables displaying of ANR dialog by system
         new ANRWatchDog().setANRListener(error -> {
-            PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
+            //PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
+            PPApplicationStatic.logException("[ANRWatchDog]", Log.getStackTraceString(error));
 
             // if user click notification, it displays dialog for ACRA and this again
             // may generate again anmd again notiofication (in looping... :-( )
