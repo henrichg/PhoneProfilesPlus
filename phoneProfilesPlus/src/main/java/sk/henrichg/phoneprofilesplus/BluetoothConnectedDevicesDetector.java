@@ -63,7 +63,7 @@ class BluetoothConnectedDevicesDetector {
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                 if (_callEventHandler) {
 //                    Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(1) call of event handler from MainWorker");
-                    callEventHandler();
+                    callEventHandler(true);
                 }
 
 //                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "(BT not enabled) END of getConnectedDevices");
@@ -139,7 +139,7 @@ class BluetoothConnectedDevicesDetector {
 
                                     if (_callEventHandler && deviceDetected) {
     //                                    Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(2) call of event handler from MainWorker");
-                                        callEventHandler();
+                                        callEventHandler(false);
                                     }
                                 }
 
@@ -467,7 +467,7 @@ class BluetoothConnectedDevicesDetector {
 
                                 if (_callEventHandler) {
     //                                Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(3) call of event handler from MainWorker");
-                                    callEventHandler();
+                                    callEventHandler(false);
                                 }
 
                             } catch (Exception e) {
@@ -538,7 +538,17 @@ class BluetoothConnectedDevicesDetector {
         //}
     }
 
-    private static void callEventHandler() {
+    private static void callEventHandler(boolean useExecutor) {
+        if (useExecutor) {
+            Runnable runnable = BluetoothConnectedDevicesDetector::_callEventHandler;
+            PPApplicationStatic.createDelayedEventsHandlerExecutor();
+            PPApplication.eventsHandlerExecutor.submit(runnable);
+        }
+        else
+            _callEventHandler();
+    }
+
+    private static void _callEventHandler() {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.callEventHandler", "xxx wait 10 seconds to call worker xxx");
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
 
