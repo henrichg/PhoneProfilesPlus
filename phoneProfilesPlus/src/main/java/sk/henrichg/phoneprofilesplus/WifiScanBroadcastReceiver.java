@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.PowerManager;
-import android.util.Log;
 
 public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 

@@ -6,7 +6,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 

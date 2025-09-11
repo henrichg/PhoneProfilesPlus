@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
-import android.util.Log;
 
 // result broadcast for LE BT scanning
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {

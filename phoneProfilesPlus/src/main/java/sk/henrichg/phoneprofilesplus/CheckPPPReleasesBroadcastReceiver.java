@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.PowerManager;
@@ -142,14 +141,14 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     try {
-                        boolean gitHubInstallation;
+                        //boolean gitHubInstallation;
                         //if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
                         //    getVersion = false;
                         //else
                         //if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
                         //    getVersion = false;
                         //else {
-                            PackageManager packageManager = appContext.getPackageManager();
+                            //PackageManager packageManager = appContext.getPackageManager();
 
                             //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
                             //boolean amazonAppStoreInstalled = (intent != null);
@@ -157,6 +156,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             //Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
                             //boolean huaweiAppGalleryInstalled = (intent != null);
 
+                            /*
                             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
                             boolean fdroidInstalled = (intent != null);
 
@@ -169,13 +169,14 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
                             boolean apkPureInstalled = (intent != null);
 
-                            gitHubInstallation = !(/*huaweiAppGalleryInstalled ||*/ fdroidInstalled || droidifyInstalled || neostoreInstalled || apkPureInstalled);
+                            gitHubInstallation = !(fdroidInstalled || droidifyInstalled || neostoreInstalled || apkPureInstalled);
+                            */
                         //}
-                        if (gitHubInstallation)
-                            _doWorkGitHub(appContext);
-                        else
-                            //_doWorkOthers(appContext);
-                            _doWorkGitHub(appContext);
+                        _doWorkGitHub(appContext);
+                        //if (gitHubInstallation)
+                        //    _doWorkGitHub(appContext);
+                        //else
+                        //    _doWorkOthers(appContext);
 
                     } catch (Exception ignored) {
                     }

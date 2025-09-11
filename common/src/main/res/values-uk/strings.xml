@@ -2316,7 +2316,7 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Якщо в сповіщеннях іконка застосунку PhoneProfilesPlus замість іконки профілю, Ви можете змінити це. Натисніть тут, щоб побачити як.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">В цьому випадку рекомендується</string>
     <string name="profile_preferences_volumeMediaInfo_summary_2">Увага: Це може не працювати з під PPP. Краще буде вимкнути в налаштуваннях пристрою.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На деяких пристроях (Oppo, OnePlus...) не працює зміна гучності медіа. У цьому випадку PPP змінює гучність спеціальних можливостей.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На деяких пристроях (Oppo, OnePlus…) не працює зміна гучності медіа. У цьому випадку PPP змінює гучність спеціальних можливостей.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accessibility prompt volume\" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Натисніть тут і встановіть PhoneProfilesPlusExtender, щоб змінювати звук служби спеціальних можливостей.</string>

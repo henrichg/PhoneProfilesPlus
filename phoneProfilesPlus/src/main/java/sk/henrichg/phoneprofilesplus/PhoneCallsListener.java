@@ -9,7 +9,6 @@ import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 public class PhoneCallsListener extends PhoneStateListener {
 

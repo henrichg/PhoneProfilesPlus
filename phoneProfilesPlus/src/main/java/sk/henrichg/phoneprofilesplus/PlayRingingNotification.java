@@ -16,7 +16,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;

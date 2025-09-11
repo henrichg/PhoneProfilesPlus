@@ -5,7 +5,6 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.AudioPlaybackConfiguration;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.List;
 
