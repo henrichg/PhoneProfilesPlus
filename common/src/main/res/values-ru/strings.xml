@@ -2335,12 +2335,13 @@
     <string name="install_pppps_text13_1">1. Установите и запустите Shizuku (если устройство без рута). Нажмите сюда, чтобы установить его из магазина приложений.</string>
     <string name="install_pppps_text14_1">2. Установите InstallWithOptions. Нажмите сюда, чтобы установить его из магазина приложений.</string>
     <string name="important_info_advanced_protection">ВАЖНО: Если на устройстве включена \"Дополнительная защита\", то установить требуемые приложения (PPPE, PPPPS, InstallWithOptions, Shizuku) из сторонних магазинов (Drofi-ify, F-Droid, NeoStore) будет невозможно. Помимо этого, большая часть функционала PPP также не будет работать должным образом. Пожалуйста, отключите её.</string>
-    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
-    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
-    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
-    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
-    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="profile_list_item_menu_create_shortcut">Создать ярлык для профиля</string>
+    <string name="shortcut_to_profile_created_toast">Ярлык для профиля создан</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Ярлык для \"Перезапуска событий\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Нажмите сюда, чтобы создать на домашнем экране ярлык для \"Перезапуска событий\"</string>
+    <string name="shortcut_for_restart_events_dialog_title">Ярлык для \"Перезапуска событий\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Ярлык для \"Перезапуска событий\" создан</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">ВНИМАНИЕ: В помещениях определение местоположения работает плохо и, к тому же, сильно расходует батарею.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Интервал сканирования уведомлений (сек.)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>

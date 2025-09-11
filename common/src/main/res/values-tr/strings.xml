@@ -411,7 +411,7 @@
     <string name="important_info_profile_activation_text8">Muharrik ve Düzenleyici başlığı bir \"Trafik ışığı\"dır.</string>
     <string name="important_info_profile_activation_text9">Durumlar başladı.</string>
     <string name="important_info_profile_activation_text10">Durumlar başlatılamaz - Bir Tercih el ile faaliyete geçirilmiş.</string>
-    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
+    <string name="important_info_profile_activation_text11">Durumlar durduruldu - Düzenleyicinin üst kısmındaki \"Durumların çalışmasına izin ver\" düğmesi ile Durumların çalışmasına izin verilebilir.</string>
     <string name="important_info_profile_activation_restart_events_icon">Durumları tekrar başlat simgesi:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
     <string name="important_info_android_doze_mode">Android 6+\'da \"Uyku modu\" ve \"Uygulama Bekletme\" uygulanmaktadır. Durumlar vasıtasıyla Tercihi faaliyete geçirmede sorun yaşanırsa şunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı ilave etmeniz lazımdır.</string>
@@ -2343,4 +2343,5 @@
     <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>

@@ -2335,12 +2335,13 @@
     <string name="install_pppps_text13_1">1. Installez et démarrez Shizuku (si l\'appareil n\'est pas rooté). Cliquez ici pour l\'installer depuis le store.</string>
     <string name="install_pppps_text14_1">2. Installez InstallWithOptions. Cliquez ici pour l\'installer depuis le Store.</string>
     <string name="important_info_advanced_protection">IMPORTANT : Si la protection avancée est activée sur l\'appareil, il est impossible d\'installer les applications requises (PPPE, PPPPS, InstallWithOptions, Shizuku) depuis les boutiques d\'applications tierces (Drofi-ify, F-Droid, NeoStore). De plus, la plupart des fonctionnalités de PPP ne fonctionnent pas correctement. Veuillez la désactiver.</string>
-    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
-    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
-    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
-    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
-    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="profile_list_item_menu_create_shortcut">Créer un raccourci vers le profil</string>
+    <string name="shortcut_to_profile_created_toast">Raccourci vers le profil créé</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Raccourci vers « Redémarrer les événements »</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Cliquez ici pour créer un raccourci vers « Relancer les événements » sur l\'écran d\'accueil</string>
+    <string name="shortcut_for_restart_events_dialog_title">Raccourci vers « Redémarrer les événements »</string>
+    <string name="shortcut_for_restart_events_created_toast">Raccourci vers « Redémarrer les événements » créé</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">AVERTISSEMENT : La localisation GPS fonctionne mal en intérieur. Elle consomme également beaucoup de batterie.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Intervalle d\'analyse des notifications (sec)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>

@@ -2343,4 +2343,5 @@
     <string name="shortcut_for_restart_events_created_toast">Odkaz na \"Restart událostí\" byl vytvořen</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">VAROVÁNÍ: GPS lokalizace funguje s problémy ve vnitřních prostorách. Také spotřebovává spoustu baterie.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Interval skenování notifikace (sek)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>

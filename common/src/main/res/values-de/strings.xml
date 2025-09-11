@@ -2335,12 +2335,13 @@
     <string name="install_pppps_text13_1">1. Installieren und starten Sie Shizuku (wenn das Gerät nicht gerootet ist). Klicken Sie hier, um es aus dem Store zu installieren.</string>
     <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
     <string name="important_info_advanced_protection">WICHTIG: Wenn im Gerät die Option \"Erweiterter Schutz\" aktiviert ist, ist es nicht möglich, die erforderlichen Anwendungen (PPPE, PPPPS, InstallWithOptions, Shizuku) aus Anwendungsspeichern von Drittanbietern (Drofi-ify, F-Droid, NeoStore) zu installieren. Außerdem funktionieren die meisten Funktionen in PPP nicht richtig. Bitte deaktivieren Sie.</string>
-    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
-    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
-    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
-    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
-    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="profile_list_item_menu_create_shortcut">Verknüpfung zum Profil erstellen</string>
+    <string name="shortcut_to_profile_created_toast">Verknüpfung zum Profil erstellt</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Verknüpfung zu „Ereignisse neu starten“</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Hier klicken, um eine Verknüpfung zu „Ereignisse neu starten“ im Startbildschirm zu erstellen</string>
+    <string name="shortcut_for_restart_events_dialog_title">Verknüpfung zu „Ereignisse neu starten“</string>
+    <string name="shortcut_for_restart_events_created_toast">Verknüpfung zu „Ereignisse neu starten“ erstellt</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">Warnhinweis: Die GPS-Ortsbestimmung funktioniert in Innenräumen nur eingeschränkt. Zudem benötigt sie viel Akkuleistung.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Häufigkeit der Benachrichtigungsabfrage (in Sek.)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>

@@ -2315,16 +2315,16 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoClick_summary">如果在状态栏显示PhoneProfilesPlus 应用程序而不是情景图标，您可以更改它。点此查看如何显示。</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">如果在通知中显示PhoneProfilesPlus 应用程序而不是情景图标，您可以更改它。点此查看如何显示。</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">在这种情况下建议使用</string>
-    <string name="profile_preferences_volumeMediaInfo_summary_2">Note: This may not work from PPP. It is better to disable it in the device settings.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
-    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accessibility prompt volume\" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
-    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">To change \"Accessibility prompts volume\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">To change \"Accessibility prompts volume\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
-    <string name="profile_preferences_deviceVPNInfo_summary">This parameter requires an application that must be installed. Click here for more information.</string>
-    <string name="vpn_profile_pref_dlg_info_app_install_links">It is important that you have installed application on your device, which is configured in the \"VPN application\" parameter.</string>
-    <string name="preference_not_allowed_reason_not_installed_delta">not installed Delta</string>
-    <string name="profile_preferences_deviceWiFiAPInfo36_summary">This parameter requires an application Delta that must be installed. Click here for more information.</string>
+    <string name="profile_preferences_volumeMediaInfo_summary_2">注意：这可能无法从 PPP 中运行。最好在设备设置中禁用它。</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">在某些设备（一加、OPPO等）上，媒体音量调节功能无法使用。因此，PPP需要在这些设备上更改无障碍提示音量。</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">在某些设备（一加、OPPO等）上，媒体音量调节功能无法使用。因此，PPP需要更改这些设备的无障碍提示音量。但要实现这一点，需要安装PhoneProfielsPlusExtender。请安装并启用该应用。</string>
+    <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">在某些设备 (一加, Oppo, …), 更改\"无障碍提示音量\" 需要 PhoneProfilesPlusExtender。请安装并启用它。</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">要更改“无障碍提示音量”，请点此安装 PhoneProfilesPlusExtender。</string>
+    <string name="profile_preferences_volumeAccessibilityPrompt_AccessibilitySettingsForExtender_summary">要更改“无障碍提示音量”，允许系统设置中的 PhoneProfilesPlusExture “辅助功能”。</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">此参数需要安装必要的应用程序。点击此处获取更多信息。</string>
+    <string name="vpn_profile_pref_dlg_info_app_install_links">您需要在您的设备上安装必要的应用程序，此应用已经在“VPN 应用程序”参数中配置。</string>
+    <string name="preference_not_allowed_reason_not_installed_delta">未安装 Delta</string>
+    <string name="profile_preferences_deviceWiFiAPInfo36_summary">此参数需要安装必要的应用程序Delta 。点击此处获取更多信息。</string>
     <string name="wifi_ap_profile_pref_dlg_info_app_install_links">It is important that you have installed application Delta on your device.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_1">Important: in application Delta must be enabled \"Tasker integration\".</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
@@ -2343,4 +2343,5 @@
     <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>

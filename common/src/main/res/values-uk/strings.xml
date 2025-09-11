@@ -2316,7 +2316,7 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfoOneUI7Click_summary">Якщо в сповіщеннях іконка застосунку PhoneProfilesPlus замість іконки профілю, Ви можете змінити це. Натисніть тут, щоб побачити як.</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary_3">В цьому випадку рекомендується</string>
     <string name="profile_preferences_volumeMediaInfo_summary_2">Увага: Це може не працювати з під PPP. Краще буде вимкнути в налаштуваннях пристрою.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">На деяких пристроях (Oppo, OnePlus...) не працює зміна гучності медіа. У цьому випадку PPP змінює гучність спеціальних можливостей.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of media volume not working. For this reason PPP must change accessibility volume in these devices. But is required PhoneProfielsPlusExtender for this. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityOnePlusInfo_31_summary">In some devices (OnePlus, Oppo, …), change of \"Accessibility prompt volume\" requires PhoneProfilesPlusExtender. Please instal and enable it.</string>
     <string name="profile_preferences_volumeAccessibilityPrompt_PPPExtender_install_summary">Натисніть тут і встановіть PhoneProfilesPlusExtender, щоб змінювати звук служби спеціальних можливостей.</string>
@@ -2332,15 +2332,16 @@
     <string name="preferences_installDeltaPreferences_title">Застосунок Delta не встановлений.</string>
     <string name="important_info_profile_shizuku_howTo_2_1">Натисніть тут, щоб встановити Shizuku з магазину.</string>
     <string name="install_pppps_text13">1. Встановіть і запустіть Shizuku (якщо пристрій не має прав root). Натисніть тут, щоб завантажити його.</string>
-    <string name="install_pppps_text13_1">1. Install and start Shizuku (if device is not rooted). Click here to install it from store.</string>
+    <string name="install_pppps_text13_1">1. Встановіть і запустіть Shizuku (якщо пристрій не має прав root). Натисніть тут, щоб завантажити його.</string>
     <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
     <string name="important_info_advanced_protection">ВАЖЛИВО: Якщо на пристрої активовано \"Розширений захист\", неможливо встановити потрібні застосунки (PPPE, PPS, InstallWithOptions, Shizuku) з інших магазинів застосунків (Drofi-ify, F-Droid, NeoStore). Також більшість функцій в PPP не будуть працюють правильно. Будь ласка, вимкніть його.</string>
-    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
-    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
-    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
-    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
-    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="profile_list_item_menu_create_shortcut">Створити посилання на профіль</string>
+    <string name="shortcut_to_profile_created_toast">Посилання на профіль створено</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Посилання на \"Перезавантаження подій\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Натисніть, щоб створити посилання на \"Перезавантаження подій\" в лаунчері</string>
+    <string name="shortcut_for_restart_events_dialog_title">Посилання на \"Перезавантаження подій\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Посилання на «Перезавантаження подій» створено</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">УВАГА: GPS погано працює в приміщенні, а також споживає багато енергії.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Інтервал сканування сповіщень (сек)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 </resources>
