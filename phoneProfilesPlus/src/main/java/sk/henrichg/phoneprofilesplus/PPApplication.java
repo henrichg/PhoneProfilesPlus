@@ -1385,7 +1385,7 @@ public class PPApplication extends Application
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplicationStatic.createScannersExecutor();
         PPApplicationStatic.createPlayToneExecutor();
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplicationStatic.createDelayedAppNotificationExecutor();
         PPApplicationStatic.createDelayedProfileListNotificationExecutor();
@@ -1996,6 +1996,7 @@ public class PPApplication extends Application
                         //worker.shutdown();
                     }
                 };
+                PPApplicationStatic.createUpdateGuiExecutor();
                 PPApplication.updateGuiExecutor.submit(runnable);
                 return;
             }
@@ -2050,9 +2051,11 @@ public class PPApplication extends Application
                 }
             };
 //            Log.e("PPApplication.updateGUI", "xxx call of shedule xxx");
+            PPApplicationStatic.createUpdateGuiExecutor();
             if (scheduledFutureUpdateGuiExecutor != null)
                 scheduledFutureUpdateGuiExecutor.cancel(false);
-            scheduledFutureUpdateGuiExecutor = PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+            scheduledFutureUpdateGuiExecutor =
+                    PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
             if (!longDelay) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPAppNotification.drawNotification");

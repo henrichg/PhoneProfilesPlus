@@ -2533,7 +2533,7 @@ class PPApplicationStatic {
         if (PPApplication.playToneExecutor == null)
             PPApplication.playToneExecutor = Executors.newSingleThreadExecutor();
     }
-    static void createNonBlockedExecutor() {
+    static void createDisableInternalChangeExecutor() {
         if (PPApplication.disableInternalChangeExecutor == null)
             PPApplication.disableInternalChangeExecutor = Executors.newSingleThreadScheduledExecutor();
     }

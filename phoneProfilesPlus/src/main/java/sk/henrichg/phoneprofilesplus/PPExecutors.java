@@ -61,7 +61,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- END");
             //worker.smallExecutor.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 30, TimeUnit.SECONDS);
     }
 
@@ -75,7 +75,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableRingerModeInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
@@ -93,7 +93,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         //handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, 0);
     }
@@ -108,7 +108,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableVolumesInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
@@ -125,7 +125,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
