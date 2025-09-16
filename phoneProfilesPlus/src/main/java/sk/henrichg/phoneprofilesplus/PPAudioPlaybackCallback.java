@@ -76,7 +76,7 @@ public class PPAudioPlaybackCallback extends  AudioManager.AudioPlaybackCallback
 
             };
 //            PPApplicationStatic.logE("[EXECUTOR_CALL] PPAudioPlaybackCallback.onPlaybackConfigChanged", "xxx");
-            PPApplicationStatic.createBasicExecutorPool();
+            PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }

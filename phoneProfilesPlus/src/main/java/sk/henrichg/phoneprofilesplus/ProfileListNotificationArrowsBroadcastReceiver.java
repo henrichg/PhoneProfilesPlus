@@ -58,7 +58,7 @@ public class ProfileListNotificationArrowsBroadcastReceiver extends BroadcastRec
 
                 }
             };
-            PPApplicationStatic.createEventsHandlerExecutor();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
     }

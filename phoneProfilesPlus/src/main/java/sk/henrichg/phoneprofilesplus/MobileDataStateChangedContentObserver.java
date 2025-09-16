@@ -67,7 +67,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                 }
             };
 //            PPApplicationStatic.logE("[EXECUTOR_CALL] MobileDataStateChangedContentObserver.doOnChange", "xxx");
-            PPApplicationStatic.createBasicExecutorPool();
+            PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
     }

@@ -364,7 +364,7 @@ public class MobileCellsRegistrationService extends Service
                     }
                 }
             };
-            PPApplicationStatic.createEventsHandlerExecutor();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
 

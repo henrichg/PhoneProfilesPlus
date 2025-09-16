@@ -371,7 +371,7 @@ class SettingsContentObserver  extends ContentObserver {
                 }
             }
         };
-        PPApplicationStatic.createEventsHandlerExecutor();
+        PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 

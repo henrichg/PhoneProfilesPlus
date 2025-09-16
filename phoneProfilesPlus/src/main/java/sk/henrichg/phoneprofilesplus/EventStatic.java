@@ -612,7 +612,7 @@ class EventStatic {
                         }
                     };
 //                    PPApplicationStatic.logE("[EXECUTOR_CALL] EventStatic.runStopEvent", "(1) xxx");
-                    PPApplicationStatic.createBasicExecutorPool();
+                    PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
 
                 }
@@ -663,7 +663,7 @@ class EventStatic {
                     }
                 };
 //                PPApplicationStatic.logE("[EXECUTOR_CALL] EventStatic.runStopEvent", "(2) xxx");
-                PPApplicationStatic.createBasicExecutorPool();
+                PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
 
             }

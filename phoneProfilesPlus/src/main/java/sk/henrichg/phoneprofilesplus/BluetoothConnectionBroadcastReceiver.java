@@ -531,7 +531,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
 
         };
-        PPApplicationStatic.createDelayedEventsHandlerExecutor();
+        PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 

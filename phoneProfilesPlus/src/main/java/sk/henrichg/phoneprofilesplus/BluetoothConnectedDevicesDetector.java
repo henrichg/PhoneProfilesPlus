@@ -541,7 +541,7 @@ class BluetoothConnectedDevicesDetector {
     private static void callEventHandler(boolean useExecutor) {
         if (useExecutor) {
             Runnable runnable = BluetoothConnectedDevicesDetector::_callEventHandler;
-            PPApplicationStatic.createDelayedEventsHandlerExecutor();
+            PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else

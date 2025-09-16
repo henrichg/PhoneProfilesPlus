@@ -502,7 +502,7 @@ class LocationScanner
                         }
                     };
 //                    PPApplicationStatic.logE("[EXECUTOR_CALL] LocationScanner.doLocationChanged", "xxx");
-                    PPApplicationStatic.createBasicExecutorPool();
+                    PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
 
                     if (callEventsHandler) {

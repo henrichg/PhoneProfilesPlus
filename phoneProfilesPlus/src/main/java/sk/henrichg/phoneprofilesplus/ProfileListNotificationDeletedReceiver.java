@@ -38,7 +38,7 @@ public class ProfileListNotificationDeletedReceiver extends BroadcastReceiver {
                 }
             }
         };
-        PPApplicationStatic.createEventsHandlerExecutor();
+        PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 

@@ -391,7 +391,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
         };
 //        PPApplicationStatic.logE("[EXECUTOR_CALL] ScreenOnOffBroadcastReceiver.doScreenOnOff", "(xxx");
-        PPApplicationStatic.createBasicExecutorPool();
+        PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
 
     }

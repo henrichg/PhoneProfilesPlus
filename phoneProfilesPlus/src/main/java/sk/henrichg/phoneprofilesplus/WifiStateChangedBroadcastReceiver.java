@@ -108,7 +108,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                     handleEvents(appContext, wifiState);
                 };
                 PPApplicationStatic.createEventsHandlerExecutor();
-                PPApplication.basicExecutorPool.submit(__runnable);
+                PPApplication.eventsHandlerExecutor.submit(__runnable);
             }
         }
 
