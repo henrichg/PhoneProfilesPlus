@@ -3208,7 +3208,7 @@ class Event {
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
                 } catch (SecurityException en) {
-                    PPApplicationStatic.logException("Event.notifyEventStart", Log.getStackTraceString(en));
+                    PPApplicationStatic.logException("Event.notifyEventStart", Log.getStackTraceString(en), false);
                 } catch (Exception e) {
                     //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);

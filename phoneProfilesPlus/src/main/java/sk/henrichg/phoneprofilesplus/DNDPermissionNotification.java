@@ -107,7 +107,7 @@ class DNDPermissionNotification {
                     PPApplication.DO_NOT_DISTURB_ACCESS_NOTIFICATION_TAG,
                     PPApplication.DO_NOT_DISTURB_ACCESS_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("DNDPermissionNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("DNDPermissionNotification.showNotification", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

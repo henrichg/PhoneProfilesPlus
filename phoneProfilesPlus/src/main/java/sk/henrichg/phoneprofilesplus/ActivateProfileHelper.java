@@ -1775,7 +1775,7 @@ class ActivateProfileHelper {
                         PPApplication.volumesMediaVolumeChangeed = true;
                 }
                 catch (Exception e2) {
-                    PPApplicationStatic.logException("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2));
+                    PPApplicationStatic.logException("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2), false);
                     //PPApplicationStatic.recordException(e2);
                 }
             }
@@ -3889,7 +3889,7 @@ class ActivateProfileHelper {
                                     Settings.Global.putInt(appContext.getContentResolver(), SETTINGS_HEADSUP_NOTIFICATION_ENABLED, value);
                                 G1OK = true;
                             } catch (Exception ee) {
-                                PPApplicationStatic.logException("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(ee));
+                                PPApplicationStatic.logException("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(ee), false);
                             }
                         }
                         if (!G1OK) {
@@ -3969,7 +3969,7 @@ class ActivateProfileHelper {
                                         Settings.Secure.putInt(appContext.getContentResolver(), SETTINGS_DOZE_ALWAYS_ON, value);
                                     G1OK = true;
                                 } catch (Exception ee) {
-                                    PPApplicationStatic.logException("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(ee));
+                                    PPApplicationStatic.logException("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(ee), false);
                                 }
                             }
                         //}
@@ -5590,7 +5590,7 @@ class ActivateProfileHelper {
         try {
             mNotificationManager.notify(notificationTag, notificationId, notification);
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -6458,7 +6458,7 @@ class ActivateProfileHelper {
                     PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
                     PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("ActivateProfileHelper.showKeepScreenOnNotificaiton", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ActivateProfileHelper.showKeepScreenOnNotificaiton", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -7459,7 +7459,7 @@ class ActivateProfileHelper {
                     }
                     G1OK = true;
                 } catch (Exception ee) {
-                    PPApplicationStatic.logException("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
+                    PPApplicationStatic.logException("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee), false);
                 }
             }
             if (!G1OK) {
@@ -7518,7 +7518,7 @@ class ActivateProfileHelper {
                     }
                     G1OK = true;
                 } catch (Exception ee) {
-                    PPApplicationStatic.logException("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
+                    PPApplicationStatic.logException("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee), false);
                 }
             }
             if (!G1OK) {
@@ -7573,7 +7573,7 @@ class ActivateProfileHelper {
                     Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
                 //G1OK = true;
             } catch (Exception ee) {
-                PPApplicationStatic.logException("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(ee));
+                PPApplicationStatic.logException("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(ee), false);
             }
         }
         /*if (!G1OK) {
@@ -7656,7 +7656,7 @@ class ActivateProfileHelper {
                                                 Settings.Global.putInt(appContext.getContentResolver(), SETTINGS_LOW_POWER, ((_isPowerSaveMode) ? 1 : 0));
                                             G1OK = true;
                                         } catch (Exception ee) {
-                                            PPApplicationStatic.logException("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(ee));
+                                            PPApplicationStatic.logException("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(ee), false);
                                         }
                                     }
                                     if (!G1OK) {
@@ -7839,7 +7839,7 @@ class ActivateProfileHelper {
                         G1OK = true;
                     }
                     catch (Exception e2) {
-                        PPApplicationStatic.logException("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(e2));
+                        PPApplicationStatic.logException("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(e2), false);
                         //PPApplicationStatic.recordException(e2);
                     }
                 }
@@ -8891,7 +8891,7 @@ class ActivateProfileHelper {
                         PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int)profile._id,
                         notification);
             } catch (SecurityException en) {
-                PPApplicationStatic.logException("ActivateProfileHelper.generateNotifiction", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("ActivateProfileHelper.generateNotifiction", Log.getStackTraceString(en), false);
             } catch (Exception e) {
                 //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -8903,7 +8903,7 @@ class ActivateProfileHelper {
                         PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
                         PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
             } catch (SecurityException en) {
-                PPApplicationStatic.logException("ActivateProfileHelper.generateNotifiction", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("ActivateProfileHelper.generateNotifiction", Log.getStackTraceString(en), false);
             } catch (Exception e) {
                 //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -9477,7 +9477,7 @@ class ActivateProfileHelper {
                                 appContext.startService(intent);
                             } catch (Exception eee) {
                                 //Log.e("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
-                                PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee));
+                                PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(eee), false);
                             }
 
                         } catch (Exception e) {
@@ -9573,7 +9573,7 @@ class ActivateProfileHelper {
                         }
                         G1OK = true;
                     } catch (Exception e2) {
-                        PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e2));
+                        PPApplicationStatic.logException("ActivateProfileHelper.setScreenNightLight", Log.getStackTraceString(e2), false);
                         //PPApplicationStatic.recordException(e2);
                     }
                 }
@@ -9866,7 +9866,7 @@ class ActivateProfileHelper {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK /*| Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
                     context.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e), false);
                 }
                 // WARNING: do not remove this sleep !!!
                 // Is required to set time space between two calls of this method.
@@ -9885,7 +9885,7 @@ class ActivateProfileHelper {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK /*| Intent.FLAG_ACTIVITY_CLEAR_TOP*/);
                 context.startService(intent);
             } catch (Exception e) {
-                PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e), false);
             }
             // WARNING: do not remove this sleep !!!
             // Is required to set time space between two calls of this method.

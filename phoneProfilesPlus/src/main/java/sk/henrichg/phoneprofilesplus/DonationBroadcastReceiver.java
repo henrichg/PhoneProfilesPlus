@@ -271,7 +271,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_TAG,
                         PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
             } catch (SecurityException en) {
-                PPApplicationStatic.logException("DonationBroadcastReceiver._doWork", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("DonationBroadcastReceiver._doWork", Log.getStackTraceString(en), false);
             } catch (Exception e) {
                 //Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);

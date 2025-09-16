@@ -273,7 +273,7 @@ public class MobileCellsRegistrationService extends Service
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

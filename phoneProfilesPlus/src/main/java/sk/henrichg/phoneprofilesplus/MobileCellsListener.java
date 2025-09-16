@@ -825,7 +825,7 @@ class MobileCellsListener extends PhoneStateListener {
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + cellId,
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + cellId, mBuilder.build());
                         } catch (SecurityException en) {
-                            PPApplicationStatic.logException("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(en));
+                            PPApplicationStatic.logException("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(en), false);
                         } catch (Exception e) {
                             //Log.e("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);

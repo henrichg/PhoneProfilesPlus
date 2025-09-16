@@ -1323,7 +1323,7 @@ public class PPApplication extends Application
         // This disables displaying of ANR dialog by system
         new ANRWatchDog().setANRListener(error -> {
             //PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
-            PPApplicationStatic.logException("[ANRWatchDog]", Log.getStackTraceString(error));
+            PPApplicationStatic.logException("[ANRWatchDog]", Log.getStackTraceString(error), true);
 
             // if user click notification, it displays dialog for ACRA and this again
             // may generate again anmd again notiofication (in looping... :-( )

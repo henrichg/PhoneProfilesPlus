@@ -592,7 +592,7 @@ class LocationScanner
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_TAG,
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("LocationScanner.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("LocationScanner.showNotification", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("LocationScanner.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

@@ -218,7 +218,7 @@ public class MainWorker extends Worker {
                                                 PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
                                                 PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID, mBuilder.build());
                                     } catch (SecurityException en) {
-                                        PPApplicationStatic.logException("MainWorker.doWork", Log.getStackTraceString(en));
+                                        PPApplicationStatic.logException("MainWorker.doWork", Log.getStackTraceString(en), false);
                                     } catch (Exception e) {
                                         //Log.e("MainWorker.doWork", Log.getStackTraceString(e));
                                         PPApplicationStatic.recordException(e);

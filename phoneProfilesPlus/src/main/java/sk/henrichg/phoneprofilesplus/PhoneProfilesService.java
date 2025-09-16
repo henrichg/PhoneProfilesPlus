@@ -1172,7 +1172,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.invalidateDataWrapper();
 
             } catch (Exception eee) {
-                PPApplicationStatic.logException("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
+                PPApplicationStatic.logException("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee), false);
                 //PPApplicationStatic.recordException(eee);
                 throw eee;
             } finally {

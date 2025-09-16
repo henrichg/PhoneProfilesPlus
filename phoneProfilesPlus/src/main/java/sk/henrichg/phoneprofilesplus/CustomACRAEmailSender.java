@@ -105,7 +105,7 @@ public class CustomACRAEmailSender implements ReportSender {
                             //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                             context.startActivity(chooser);
                         } catch (Exception e) {
-                            PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(e), false);
                         }
                     } else {
                         String emailAddress = mailConfig.getMailTo();
@@ -169,7 +169,7 @@ public class CustomACRAEmailSender implements ReportSender {
                                 context.startActivity(chooser);
 //                                Log.e("CustomACRAEmailSender.send", "mail sent");
                             } catch (Exception e) {
-                                PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(e));
+                                PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(e), false);
                             }
                         }
                     }
@@ -178,7 +178,7 @@ public class CustomACRAEmailSender implements ReportSender {
                 }
             }
         } catch (Exception ee) {
-            PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(ee));
+            PPApplicationStatic.logException("CustomACRAEmailSender.send", Log.getStackTraceString(ee), false);
         }
     }
 

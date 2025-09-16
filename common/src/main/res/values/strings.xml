@@ -2375,6 +2375,10 @@
 
     <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
 
+    <string name="anr_notification_title">Sorry, application not responding (ANR) occurred</string>
+    <string name="anr_notification_text">Please click here, to send log.txt file to author. Thank you very much.</string>
+    <string name="email_anr_subject">Application not responding (ANR)</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -7,16 +7,20 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -28,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkInfo;
@@ -368,7 +373,7 @@ class PPApplicationStatic {
                         try {
                             mNotificationManager.notify(notificationTag, notificationId, notification);
                         } catch (SecurityException en) {
-                            PPApplicationStatic.logException("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en));
+                            PPApplicationStatic.logException("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en), false);
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.showError", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
@@ -522,23 +527,23 @@ class PPApplicationStatic {
     }
 
     @SuppressLint("MissingPermission")
-    static void logException(String tag, String text) {
-        if (logEnabled()) {
-            if (logContainsFilterTag(tag)) {
-                //if (logIntoLogCat) Log.e(tag, text);
+    static void logException(String tag, String text, boolean forANR) {
+        try {
+            if (forANR) {
                 if (PPApplication.logIntoLogCat)
                     Log.e("[EXCEPTION] " + tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+                // crash=true is required, must be for save to log.txt
                 logIntoFile("E", tag, text, true);
 
-                if (DebugVersion.enabled && (PPApplication.getInstance() != null)) {
+                if (PPApplication.getInstance() != null) {
                     Context appContext = PPApplication.getInstance().getApplicationContext();
                     createExclamationNotificationChannel(appContext, false);
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                             .setColor(ContextCompat.getColor(appContext, R.color.errorColor))
-                            .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                            .setSmallIcon(R.drawable.ic_ppp_notification)
                             .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
-                            .setContentTitle("App exception occured!!") // title for notification
-                            .setContentText("Read log.txt") // message for notification
+                            .setContentTitle(appContext.getString(R.string.anr_notification_title))
+                            .setContentText(appContext.getString(R.string.anr_notification_text))
                             .setAutoCancel(true); // clear notification after click
                     //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
                     mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -547,18 +552,155 @@ class PPApplicationStatic {
 
                     mBuilder.setGroup(PPApplication.APP_EXCEPTION_NOTIFICATION_GROUP);
 
-                    Notification notification = mBuilder.build();
+                    ArrayList<Uri> uris = new ArrayList<>();
 
-                    NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
-                    try {
-                        mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
-                    } catch (Exception en) {
-                        Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
+                    File sd = appContext.getExternalFilesDir(null);
+                    File logFile = new File(sd, PPApplication.LOG_FILENAME);
+                    if (logFile.exists()) {
+                        Uri fileUri = FileProvider.getUriForFile(appContext, PPApplication.PACKAGE_NAME + ".provider", logFile);
+                        uris.add(fileUri);
+                    }
+                /*
+                File crashFile = new File(sd, CustomACRAReportingAdministrator.CRASH_FILENAME);
+                if (crashFile.exists()) {
+                    Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", crashFile);
+                    uris.add(fileUri);
+                }
+                */
+
+                    Intent chooser = null;
+
+                    if (!uris.isEmpty()) {
+                        String emailAddress = StringConstants.AUTHOR_EMAIL;
+
+                        if (Build.VERSION.SDK_INT >= 35) {
+                            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+                            emailIntent.setType("message/rfc822"); // only email apps should handle this
+                            //emailIntent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON));
+
+                            emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+                            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+
+                            String packageVersion = "";
+                            try {
+                                PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + appContext.getString(R.string.email_anr_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, EditorActivity.getEmailBodyText(appContext));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            try {
+                                chooser = Intent.createChooser(emailIntent, appContext.getString(R.string.email_chooser));
+                                //chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                                //startActivity(chooser);
+                            } catch (Exception e) {
+                                //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            }
+                        } else {
+                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                    StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
+
+                            String packageVersion = "";
+                            try {
+                                PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
+                            } catch (Exception e) {
+                                PPApplicationStatic.recordException(e);
+                            }
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + appContext.getString(R.string.email_anr_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, EditorActivity.getEmailBodyText(appContext));
+                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            List<ResolveInfo> resolveInfo = appContext.getPackageManager().queryIntentActivities(emailIntent, 0);
+                            List<LabeledIntent> intents = new ArrayList<>();
+                            for (ResolveInfo info : resolveInfo) {
+                                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                                intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFILES_PLUS + packageVersion + " - " + appContext.getString(R.string.email_anr_subject));
+                                intent.putExtra(Intent.EXTRA_TEXT, EditorActivity.getEmailBodyText(appContext));
+                                intent.setType(StringConstants.MINE_TYPE_ALL); // gmail will only match with type set
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                                intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(appContext.getPackageManager()), info.icon));
+                            }
+                            if (!intents.isEmpty()) {
+                                try {
+                                    chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), appContext.getString(R.string.email_chooser));
+                                    chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
+                                    //startActivity(chooser);
+                                } catch (Exception e) {
+                                    PPApplicationStatic.recordException(e);
+                                }
+                            }
+                        }
+
+                        if (chooser != null) {
+                            PendingIntent pIntent;
+                            pIntent = PendingIntent.getActivity(appContext, 5000, chooser, PendingIntent.FLAG_UPDATE_CURRENT);
+                            mBuilder.setContentIntent(pIntent);
+
+                            Notification notification = mBuilder.build();
+
+                            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                            try {
+                                mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
+                            } catch (Exception en) {
+                                Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
+                            }
+                        }
+                    } else {
+                        // toast notification
+                        PPApplication.showToast(appContext, appContext.getString(R.string.toast_debug_log_files_not_exists),
+                                Toast.LENGTH_SHORT);
                     }
                 }
+
+            } else {
+                if (logEnabled()) {
+                    if (logContainsFilterTag(tag)) {
+                        //if (logIntoLogCat) Log.e(tag, text);
+                        if (PPApplication.logIntoLogCat)
+                            Log.e("[EXCEPTION] " + tag, "[ " + tag + " ]" + StringConstants.STR_COLON_WITH_SPACE + text);
+                        logIntoFile("E", tag, text, true);
+
+                        if (DebugVersion.enabled && (PPApplication.getInstance() != null)) {
+                            Context appContext = PPApplication.getInstance().getApplicationContext();
+                            createExclamationNotificationChannel(appContext, false);
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                                    .setColor(ContextCompat.getColor(appContext, R.color.errorColor))
+                                    .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                                    .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
+                                    .setContentTitle("App exception occurred!!") // title for notification
+                                    .setContentText("Read log.txt") // message for notification
+                                    .setAutoCancel(true); // clear notification after click
+                            //mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+                            mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+                            mBuilder.setGroup(PPApplication.APP_EXCEPTION_NOTIFICATION_GROUP);
+
+                            Notification notification = mBuilder.build();
+
+                            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                            try {
+                                mNotificationManager.notify(PPApplication.APP_EXCEPTION_NOTIFICATION_TAG, PPApplication.APP_EXCEPTION_NOTIFICATION_ID, notification);
+                            } catch (Exception en) {
+                                Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
+                            }
+                        }
+                    }
+                } else
+                    Log.e(tag, text);
             }
-        } else
-            Log.e(tag, text);
+        } catch (Exception ignored) {}
     }
 
     /*
