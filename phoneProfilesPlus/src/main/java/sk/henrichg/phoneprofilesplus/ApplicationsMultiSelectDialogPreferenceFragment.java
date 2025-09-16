@@ -149,8 +149,8 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
                 if (notForUnselect) {
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
-                    fragment.unselectAllButton.setEnabled(false);
                 }
+                fragment.unselectAllButton.setEnabled(false);
             }
         }
 

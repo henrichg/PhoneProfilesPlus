@@ -200,8 +200,8 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                 if (notForUnselect) {
                     fragment.rellaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
-                    fragment.unselectAllButton.setEnabled(false);
                 }
+                fragment.unselectAllButton.setEnabled(false);
             }
         }
 
@@ -287,7 +287,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                         }
                     }
 
-                    fragment.unselectAllButton.setEnabled(false);
+                    fragment.unselectAllButton.setEnabled(true);
                 });
             }
         }

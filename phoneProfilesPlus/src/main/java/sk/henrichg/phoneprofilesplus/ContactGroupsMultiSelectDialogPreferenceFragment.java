@@ -155,9 +155,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 if (!forUnselect) {
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
-                    fragment.unselectAllButton.setEnabled(false);
-                    fragment.refreshButton.setEnabled(false);
                 }
+                fragment.unselectAllButton.setEnabled(false);
+                fragment.refreshButton.setEnabled(false);
             }
         }
 
