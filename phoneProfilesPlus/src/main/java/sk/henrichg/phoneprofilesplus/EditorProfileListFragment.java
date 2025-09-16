@@ -466,7 +466,7 @@ public class EditorProfileListFragment extends Fragment
                 fragment.progressBar.setVisibility(View.VISIBLE);
             }
 
-            // this is for ANR test only
+            // !!! this is for ANR test only, comment it
             //GlobalUtils.sleep(20 * 1000);
         }
 
