@@ -251,7 +251,8 @@ class PPExecutors {
         else {
 //            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPExecutors.handleEvents", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
-            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);        }
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+        }
     }
 
     static private void handleEventsMianWorker(int _sensorType, String _sensorWorkTag/*, int delay*/) {
