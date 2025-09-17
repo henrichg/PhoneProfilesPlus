@@ -700,7 +700,9 @@ class PPApplicationStatic {
                 } else
                     Log.e(tag, text);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception en) {
+            Log.e("PPApplicationStatic.logException", Log.getStackTraceString(en));
+        }
     }
 
     /*

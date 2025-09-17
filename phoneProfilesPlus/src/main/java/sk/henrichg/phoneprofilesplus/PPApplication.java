@@ -218,7 +218,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -268,10 +268,10 @@ public class PPApplication extends Application
                                                 //+"|CustomACRAReportingAdministrator.shouldStartCollecting"
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
+                                                +"|[ANRWatchDog]"
 // this si for get 0, 50 100% level
 //                                                +"|SettingsContentObserver.onChange"
 
-                                                +"|[ANRWatchDog]"
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
@@ -325,7 +325,7 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-                                                +"|[BLUETOOTH_CONNECT]"
+                                                //+"|[BLUETOOTH_CONNECT]"
 //                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
