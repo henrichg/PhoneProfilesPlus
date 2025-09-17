@@ -2344,4 +2344,7 @@
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">VAROVÁNÍ: GPS lokalizace funguje s problémy ve vnitřních prostorách. Také spotřebovává spoustu baterie.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Interval skenování notifikace (sek)</string>
     <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+    <string name="anr_notification_title">Promiňte, aplikace nereaguje (ANR)</string>
+    <string name="anr_notification_text">Kliknutím zde, odešlete autorovi soubor log.txt. Děkuji velmi pěkně.</string>
+    <string name="email_anr_subject">Aplikace neodpovídá (ANR)</string>
 </resources>
