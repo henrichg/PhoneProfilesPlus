@@ -439,6 +439,8 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
+                    // must be used, because of delay 5 seconds
+//                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] EventPreferencesPeriodic.increaseCounter", "PPExecutors.handleEvents");
                     PPExecutors.handleEvents(dataWrapper.context,
                             new int[]{EventsHandler.SENSOR_TYPE_PERIODIC},
                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5);

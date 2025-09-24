@@ -146,8 +146,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
+                    // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                     long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationIntervalStart * 1000L;
-
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
             }
@@ -168,7 +168,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                     //Context appContext= appContextWeakRef.get();
 
-                    //if (appContext != null) {
+                    synchronized (PPApplication.handleEventsMutex) {
+                        //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -193,9 +194,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    //}
+                        //}
+                    }
                 }
             };
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] StartEventNotificationBroadcastReceiver.doWork", "(xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

@@ -850,7 +850,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikácie, ktorým vynútiť zastavenie</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pre povolenie parametra \"Vynútiť zastavenie aplikácií\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Vynútiť zastavenie aplikácií\".</string>
-    <string name="shortcut_activate_profile">Aktivácia profilu:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje len ak je obrazovka zapnutá a odomknutá.</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Nastavenia typu mobilnej siete</string>
     <string name="profile_preferences_deviceCloseAllApplications">Zatvoriť všetky aplikácie</string>
@@ -1117,7 +1116,7 @@
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Podľa času pripojenia</string>
     <string name="menu_export_and_email">E-mail s nastaveniami</string>
     <string name="menu_export_and_email_to_author">E-mail s nastaveniami autorovi</string>
-    <string name="menu_email_debug_logs_to_author">E-mailom s ladiacimi súbormi autorovi</string>
+    <string name="menu_email_debug_logs_to_author">E-mail s ladiacimi súbormi autorovi</string>
     <string name="menu_support">Podpora</string>
     <string name="email_debug_log_files_subject">Ladiace súbory</string>
     <string name="toast_debug_log_files_not_exists">Ladiace súbory neexistujú</string>
@@ -2336,4 +2335,16 @@
     <string name="install_pppps_text13_1">1. Nainštalujte a spustite Shizuku (ak zariadenie nie je rootované). Kliknite sem a nainštalujte ho z obchodu.</string>
     <string name="install_pppps_text14_1">2. Nainštalujte InstallWithOptions. Kliknite sem pre inštaláciu z obchodu.</string>
     <string name="important_info_advanced_protection">DÔLEŽITÉ: Ak je v zariadení povolená možnosť \"Rozšírená ochrana\", nie je možné nainštalovať požadované aplikácie (PPPE, PPPPS, InstallWithOptions, Shizuku) z obchodov s aplikáciami tretích strán (Drofi-ify, F-Droid, NeoStore). Taktiež väčšina funkcií v PPP nefunguje správne. Prosím vypnite ju.</string>
+    <string name="profile_list_item_menu_create_shortcut">Vytvoriť odkaz na profil</string>
+    <string name="shortcut_to_profile_created_toast">Odkaz na profil bol vytvorený</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Odkaz na \"Reštart udalostí\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Kliknite sem na vytvorenie odkazu na profil v domovskom spúšťači</string>
+    <string name="shortcut_for_restart_events_dialog_title">Odkaz na \"Reštart udalostí\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Odkaz na \"Reštart udalostí\" bol vytvorený</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">UPOZORNENIE: GPS lokalizácia funguje v interiéri s problémami. Taktiež spotrebúva veľa batérie.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Interval skenovania notifikácie (sek.)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+    <string name="anr_notification_title">Prepáčte, aplikácia nereaguje (ANR)</string>
+    <string name="anr_notification_text">Kliknutím sem, odošlete autorovi súbor log.txt. Ďakujem veľmi pekne.</string>
+    <string name="email_anr_subject">Aplikácia nereaguje (ANR)</string>
 </resources>

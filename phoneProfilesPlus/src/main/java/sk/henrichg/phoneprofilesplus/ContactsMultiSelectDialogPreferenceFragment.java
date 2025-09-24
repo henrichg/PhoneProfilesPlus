@@ -37,6 +37,8 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
     RelativeLayout emptyList;
     private TextView contactsFilter;
     private ContactsFilterDialog mContactsFilterDialog;
+    private Button unselectAllButton;
+    private Button refreshButton;
 
     private ContactsMultiSelectPreferenceAdapter listAdapter;
 
@@ -81,7 +83,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
         listAdapter = new ContactsMultiSelectPreferenceAdapter(preference);
         listView.setAdapter(listAdapter);
 
-        final Button unselectAllButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_unselect_all);
+        unselectAllButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_unselect_all);
         //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
 //            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
@@ -92,7 +94,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
             }
             refreshListView(true, false);
         });
-        final Button refreshButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_refresh);
+        refreshButton = view.findViewById(R.id.contacts_multiselect_pref_dlg_refresh);
         //noinspection DataFlowIssue
         refreshButton.setOnClickListener(v -> {
 //            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
@@ -216,6 +218,8 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
+                fragment.unselectAllButton.setEnabled(false);
+                fragment.refreshButton.setEnabled(false);
             }
         }
 
@@ -331,6 +335,9 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
 
                         fragment.linlaData.setVisibility(View.VISIBLE);
                     }
+
+                    fragment.unselectAllButton.setEnabled(true);
+                    fragment.refreshButton.setEnabled(true);
 
                     fragment.listAdapter.notifyDataSetChanged();
                 });

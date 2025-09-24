@@ -6,7 +6,7 @@
 PhoneProfilesPlus (PPP)
 =======================
 
-[![version](https://img.shields.io/badge/version-7.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.1)
+[![version](https://img.shields.io/badge/version-7.1.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
@@ -57,9 +57,9 @@ __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
-__GitHub (better is using Droid-ify instead):__
+__GitHub (better is using Droid-ify, F-Droid, NeoStore, or similar app store instead):__
 
-- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
+- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, F-Droid, NeoStore, or similar app store, if in your device is not supported application store, and install PhoneProfilesPlus from it.
 
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_

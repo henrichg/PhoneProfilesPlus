@@ -1177,7 +1177,8 @@ class DatabaseHandlerEvents {
                         DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED,
                         DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS,
                         DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS,
-                        DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF
+                        DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF,
+                        DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET
                 },
                 DatabaseHandler.KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -1198,6 +1199,7 @@ class DatabaseHandlerEvents {
                 eventPreferences._defaultSIMForCalls = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS));
                 eventPreferences._defaultSIMForSMS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS));
                 eventPreferences._simOnOff = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF));
+                eventPreferences._ethernet = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
@@ -1895,6 +1897,7 @@ class DatabaseHandlerEvents {
         values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, eventPreferences._defaultSIMForCalls);
         values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, eventPreferences._defaultSIMForSMS);
         values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF, eventPreferences._simOnOff);
+        values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET, eventPreferences._ethernet);
 
         // updating row
         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -2909,6 +2912,9 @@ class DatabaseHandlerEvents {
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MUSIC_ENABLED + "=1";
                     else if (eventType == DatabaseHandler.ETYPE_CALL_CONTROL)
                         eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + "=1";
+                    else if (eventType == DatabaseHandler.ETYPE_RADIO_SWITCH_ETHERNET)
+                        eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET + "!=0";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + DatabaseHandler.TABLE_EVENTS +
@@ -6136,6 +6142,7 @@ class DatabaseHandlerEvents {
             // Select All Query
             final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
                     DatabaseHandler.KEY_E_STATUS + "," +
+                    DatabaseHandler.KEY_E_PRIORITY + "," +
                     DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + "," +
                     DatabaseHandler.KEY_E_CALL_CONTROL_CALL_DIRECTION + "," +
                     DatabaseHandler.KEY_E_CALL_CONTROL_CONTACTS + "," +
@@ -6152,7 +6159,7 @@ class DatabaseHandlerEvents {
                     DatabaseHandler.KEY_E_CALL_CONTROL_CONTROL_TYPE +
                     " FROM " + DatabaseHandler.TABLE_EVENTS +
                     " WHERE " + DatabaseHandler.KEY_E_CALL_CONTROL_ENABLED + "=1" +
-                    " ORDER BY " + DatabaseHandler.KEY_E_ID;
+                    " ORDER BY " + DatabaseHandler.KEY_E_START_ORDER; //KEY_E_ID;
 
             //SQLiteDatabase db = this.getReadableDatabase();
             SQLiteDatabase db = instance.getMyWritableDatabase();
@@ -6165,6 +6172,8 @@ class DatabaseHandlerEvents {
                     Event event = new Event();
                     event._id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
                     event.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_STATUS)));
+                    event._priority = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_PRIORITY));
+
                     event.createEventPreferencesCallControl();
                     getEventPreferencesCallControl(event, db);
                     eventList.add(event);
@@ -6178,6 +6187,45 @@ class DatabaseHandlerEvents {
             PPApplicationStatic.recordException(e);
         }
         return eventList;
+    }
+
+    static boolean checkCallControlAllowedRunning(DatabaseHandler instance, int priorityToCheck)
+    {
+        instance.importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                instance.startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + DatabaseHandler.TABLE_EVENTS +
+                        " WHERE " + "(" + DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + ")" +
+                          " AND " + "(" + DatabaseHandler.KEY_E_PRIORITY + "<>" + Event.EPRIORITY_DO_NOT_USE + ")" +
+                          " AND " + "(" + DatabaseHandler.KEY_E_PRIORITY + ">" + priorityToCheck + ")";
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                //if (cursor != null) {
+                cursor.moveToFirst();
+                r = cursor.getInt(0);
+                cursor.close();
+                //}
+
+//                Log.e("DatabaseHandlerEvents.checkCallControlAllowedRunning", "priorityToCheck="+priorityToCheck);
+//                Log.e("DatabaseHandlerEvents.checkCallControlAllowedRunning", "r="+r);
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+            return r == 0;
+        } finally {
+            instance.stopRunningCommand();
+        }
     }
 
     static void updateActivatedProfileStartTime(DatabaseHandler instance, Event event)

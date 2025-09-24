@@ -27,7 +27,7 @@ public class PPLinearLayoutManager extends LinearLayoutManager {
         try {
             super.onLayoutChildren(recycler, state);
         } catch (IndexOutOfBoundsException e){
-            Log.e("PPLinearLayoutManager.onLayoutChildren", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("PPLinearLayoutManager.onLayoutChildren", Log.getStackTraceString(e), false);
         }
     }
 }

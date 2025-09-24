@@ -1249,6 +1249,7 @@ class EventPreferencesCall extends EventPreferences {
                         eventsHandler.callPassed = false;
                     else {
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "PPApplicationStatic.getContactsCache()");
+//                        Log.e("[CONTACTS_CACHE] EventPreferencesCall.doHandleEvent", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache != null) {
                             List<Contact> contactList;

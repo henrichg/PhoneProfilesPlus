@@ -1468,7 +1468,6 @@ public class PPAppNotification {
             //}
         };
         PPApplicationStatic.createDelayedAppNotificationExecutor();
-
 //        Log.e("PPAppNotification.drawNotification", "xxx call of shedule xxx");
         if (PPApplication.scheduledFutureDelayedAppNotificationExecutor != null)
             PPApplication.scheduledFutureDelayedAppNotificationExecutor.cancel(false);

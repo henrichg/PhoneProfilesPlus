@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
+// BT scaner Worker
 
 /** @noinspection ExtractMethodRecommender*/
 public class BluetoothScanWorker extends Worker {
@@ -91,6 +94,7 @@ public class BluetoothScanWorker extends Worker {
                 bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
             if (EventStatic.getGlobalEventsRunning(context)) {
+//                Log.e("BluetoothScanWorker.doWork", "startScanner");
                 startScanner(context, false);
             }
 
@@ -98,14 +102,36 @@ public class BluetoothScanWorker extends Worker {
             final Context appContext = context.getApplicationContext();
             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
             Runnable runnable = () -> {
-//                long start1 = System.currentTimeMillis();
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
-                BluetoothScanWorker.scheduleWork(appContext, false);
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start1;
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
-                //worker.shutdown();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanWorker_doWork);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+//                  long start1 = System.currentTimeMillis();
+//                  PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG");
+                    BluetoothScanWorker.scheduleWork(appContext, false);
+//                  long finish = System.currentTimeMillis();
+//                  long timeElapsed = finish - start1;
+//                  PPApplicationStatic.logE("[IN_EXECUTOR]  ***** BluetoothScanWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG - timeElapsed="+timeElapsed);
+                    //worker.shutdown();
+
+                } catch (Exception e) {
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothScanWorker,doWork", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+
             };
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] BluetoothScanWorker.doWork", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*
@@ -305,7 +331,7 @@ public class BluetoothScanWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e), false);
                         }
                         if (allFinished) {
                             break;
@@ -347,7 +373,7 @@ public class BluetoothScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }
@@ -384,7 +410,7 @@ public class BluetoothScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }

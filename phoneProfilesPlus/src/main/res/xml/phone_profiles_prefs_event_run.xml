@@ -17,5 +17,11 @@
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/preference_widget_custom_switch" />
-    
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="applicationCreateReastartEventsShortcut"
+        app:title="@string/phone_profiles_pref_createRestartEventsShortcut"
+        app:summary="@string/phone_profiles_pref_createRestartEventsShortcut_summary"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

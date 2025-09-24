@@ -89,45 +89,49 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                     PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                     Runnable runnable = () -> {
+                        synchronized (PPApplication.handleEventsMutex) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (PhoneProfilesService.getInstance() != null) {
-                                DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                dataWrapper2.fillEventList();
-                                //dataWrapper2.fillProfileList(false, false);
-                                PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                    dataWrapper2.fillEventList();
+                                    //dataWrapper2.fillProfileList(false, false);
+                                    PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
 //                                PPApplicationStatic.logE("[RESTART_WIFI_SCANNER] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
-                                PPApplicationStatic.restartAllScanners(appContext, false);
+                                    PPApplicationStatic.restartAllScanners(appContext, false);
 
-                                PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
-                                        null, null, "");
+                                    PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
+                                            null, null, "");
 
-                                dataWrapper2.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
-                            }
+//                                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "dataWrapper.restartEventsWithDelay");
+                                    dataWrapper2.restartEventsWithDelay(/*false,*/ true, false, true, PPApplication.ALTYPE_UNDEFINED);
+                                }
 
-                        } catch (Exception e) {
+                            } catch (Exception e) {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
+                            //}
                         }
-                        //}
                     };
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(1) xxx");
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
                 }
@@ -144,73 +148,80 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                 Runnable runnable2 = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND);
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                    synchronized (PPApplication.handleEventsMutex) {
 
-                        setApplicationInForeground(appContext, "");
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.setEventApplicationParameters("", 0);
-                        eventsHandler.handleEvents(new int[]{
-                                EventsHandler.SENSOR_TYPE_APPLICATION,
-                                EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
-
-                        /*
-                        boolean applicationsAllowed = false;
-                        boolean orientationAllowed = false;
-
-                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                        dataWrapper4.fillEventList();
-                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
-                        if (applicationExists)
-                            applicationsAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED);
-                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
-                        if (orientationExists)
-                            orientationAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED);
-                        dataWrapper4.invalidateDataWrapper();
-
-                        if ((applicationsAllowed) || (orientationAllowed)) {
                             setApplicationInForeground(appContext, "");
 
                             if (EventStatic.getGlobalEventsRunning(appContext)) {
-                                //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-
+//                              PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                if (applicationExists) {
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (2)");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                }
-                                if (orientationExists) {
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (2)");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-                                }
+                                eventsHandler.setEventApplicationParameters("", 0);
+                                eventsHandler.handleEvents(new int[]{
+                                        EventsHandler.SENSOR_TYPE_APPLICATION,
+                                        EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
                             }
-                        }
-                        */
 
-                    } catch (Exception e) {
+                            /*
+                            boolean applicationsAllowed = false;
+                            boolean orientationAllowed = false;
+
+                            DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                            dataWrapper4.fillEventList();
+                            boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION);
+                            if (applicationExists)
+                                applicationsAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                            boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
+                            if (orientationExists)
+                                orientationAllowed = (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                            dataWrapper4.invalidateDataWrapper();
+
+                            if ((applicationsAllowed) || (orientationAllowed)) {
+                                setApplicationInForeground(appContext, "");
+
+                                if (EventStatic.getGlobalEventsRunning(appContext)) {
+                                    //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    if (applicationExists) {
+        //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (2)");
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                    }
+                                    if (orientationExists) {
+        //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (2)");
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                    }
+                                }
+                            }
+                            */
+
+                        } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
+                        //}
+
                     }
-                    //}
                 };
+//                PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(2) xxx");
                 PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable2);
 
@@ -228,64 +239,68 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         ActivityInfo activityInfo = tryGetActivity(appContext, componentName);
                         boolean isActivity = activityInfo != null;
                         if (isActivity) {
-                            setApplicationInForeground(appContext, packageName);
-
-                            Calendar now = Calendar.getInstance();
-                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                            final long _time = now.getTimeInMillis() + gmtOffset;
-
                             if (EventStatic.getGlobalEventsRunning(appContext)) {
                                 Runnable runnable3 = () -> {
 //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
 
-                                    //Context appContext= appContextWeakRef.get();
-                                    //if (appContext != null) {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_FOREGROUND_APPLICATION_CHANGED);
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
+                                    setApplicationInForeground(appContext, packageName);
 
-                                        //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
-//                                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> packageName="+packageName);
-                                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        eventsHandler.setEventApplicationParameters(packageName, _time);
-                                        eventsHandler.handleEvents(new int[]{
-                                                EventsHandler.SENSOR_TYPE_APPLICATION,
-                                                EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
+                                    Calendar now = Calendar.getInstance();
+                                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                    final long _time = now.getTimeInMillis() + gmtOffset;
 
-                                        /*
-                                        DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                        dataWrapper3.fillEventList();
-                                        //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION)) {
-//                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                        }
-                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION)) {
-//                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-                                        }
-                                        dataWrapper3.invalidateDataWrapper();
-                                        */
+                                    synchronized (PPApplication.handleEventsMutex) {
 
-                                    } catch (Exception e) {
+                                        //Context appContext= appContextWeakRef.get();
+                                        //if (appContext != null) {
+                                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                        PowerManager.WakeLock wakeLock = null;
+                                        try {
+                                            if (powerManager != null) {
+                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_FOREGROUND_APPLICATION_CHANGED);
+                                                wakeLock.acquire(10 * 60 * 1000);
+                                            }
+
+                                            //Log.e("PPExtenderBroadcastReceiver.onReceive", "(2) ACTION_FOREGROUND_APPLICATION_CHANGED");
+//                                          PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> SENSOR_TYPE_APPLICATION,SENSOR_TYPE_DEVICE_ORIENTATION");
+//                                          PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_FOREGROUND_APPLICATION_CHANGED -> packageName="+packageName);
+                                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                                            eventsHandler.setEventApplicationParameters(packageName, _time);
+                                            eventsHandler.handleEvents(new int[]{
+                                                    EventsHandler.SENSOR_TYPE_APPLICATION,
+                                                    EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION});
+
+                                            /*
+                                            DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                            dataWrapper3.fillEventList();
+                                            //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                                            if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION)) {
+    //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
+                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                            }
+                                            if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION)) {
+    //                                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
+                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                            }
+                                            dataWrapper3.invalidateDataWrapper();
+                                            */
+
+                                        } catch (Exception e) {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                        PPApplicationStatic.recordException(e);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
+                                            PPApplicationStatic.recordException(e);
+                                        } finally {
+                                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                try {
+                                                    wakeLock.release();
+                                                } catch (Exception ignored) {
+                                                }
                                             }
                                         }
+                                        //}
                                     }
-                                    //}
                                 };
+//                                PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(3) xxx");
                                 PPApplicationStatic.createEventsHandlerExecutor();
                                 PPApplication.eventsHandlerExecutor.submit(runnable3);
                             }
@@ -390,121 +405,127 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                     Runnable runnable3 = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
 
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_SMS_MMS_RECEIVED);
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                        synchronized (PPApplication.handleEventsMutex) {
 
-                            //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_SMS_MMS_RECEIVED);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
 //                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_SMS_MMS_RECEIVED -> SENSOR_TYPE_SMS");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.setEventSMSParameters(origin, time, simSlot);
                                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SMS});
-                            //}
+                                //}
 
-                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                            List<Contact> contactList = null;
-                            if (contactsCache != null) {
+//                                Log.e("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "(1) PPApplicationStatic.getContactsCache()");
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                List<Contact> contactList = null;
+                                if (contactsCache != null) {
 //                                    PPApplicationStatic.logE("[SYNCHRONIZED] PPExtenderBroadcastReceiver.doHandleEvent", "PPApplication.contactsCacheMutex");
 //                                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "contactsCache.getList()");
-                                contactList = contactsCache.getList(/*false*/);
-                            }
+                                    contactList = contactsCache.getList(/*false*/);
+                                }
 
-                            boolean smsFromPhoneNumber = false;
-                            boolean sendSMSFromEvent = false;
-                            String smsTextFromEvent = "";
+                                boolean smsFromPhoneNumber = false;
+                                boolean sendSMSFromEvent = false;
+                                String smsTextFromEvent = "";
 
-                            if (contactList != null) {
+                                if (contactList != null) {
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (1) *****");
 
-                                List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
-                                for (Event event : eventList) {
+                                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+                                    for (Event event : eventList) {
 
-                                    if (event._eventPreferencesSMS._enabled &&
-                                            event._eventPreferencesSMS.isRunnable(appContext)) {
+                                        if (event._eventPreferencesSMS._enabled &&
+                                                event._eventPreferencesSMS.isRunnable(appContext)) {
 
-                                        String contactsFromEvent = event._eventPreferencesSMS._contacts;
-                                        String contactGroupsFromEvent = event._eventPreferencesSMS._contactGroups;
-                                        int contactListTypeFromEvent = event._eventPreferencesSMS._contactListType;
-                                        int forSIMCardFromEvent = event._eventPreferencesSMS._forSIMCard;
-                                        sendSMSFromEvent = event._eventPreferencesSMS._sendSMS;
-                                        smsTextFromEvent = event._eventPreferencesSMS._smsText;
+                                            String contactsFromEvent = event._eventPreferencesSMS._contacts;
+                                            String contactGroupsFromEvent = event._eventPreferencesSMS._contactGroups;
+                                            int contactListTypeFromEvent = event._eventPreferencesSMS._contactListType;
+                                            int forSIMCardFromEvent = event._eventPreferencesSMS._forSIMCard;
+                                            sendSMSFromEvent = event._eventPreferencesSMS._sendSMS;
+                                            smsTextFromEvent = event._eventPreferencesSMS._smsText;
 
-                                        if ((
-                                                /*(contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                                ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
-                                                        ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
-                                        )
-                                                &&  (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) // only white list is allowed for send sms
-                                        ) {
+                                            if ((
+                                                    /*(contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                                    ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
+                                                            ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
+                                            )
+                                                    && (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) // only white list is allowed for send sms
+                                            ) {
 //                                            Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (2) *****");
 
-                                            boolean simSlotOK = true;
-                                            if (forSIMCardFromEvent != 0) {
-                                                boolean hasFeature = false;
-                                                boolean hasSIMCard = false;
-                                                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                                                if (telephonyManager != null) {
-                                                    int phoneCount = telephonyManager.getPhoneCount();
-                                                    if (phoneCount > 1) {
-                                                        hasFeature = true;
-                                                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                                                        hasSIMCard = hasSIMCardData.simCount >= 1;
+                                                boolean simSlotOK = true;
+                                                if (forSIMCardFromEvent != 0) {
+                                                    boolean hasFeature = false;
+                                                    boolean hasSIMCard = false;
+                                                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                                                    if (telephonyManager != null) {
+                                                        int phoneCount = telephonyManager.getPhoneCount();
+                                                        if (phoneCount > 1) {
+                                                            hasFeature = true;
+                                                            HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                                                            hasSIMCard = hasSIMCardData.simCount >= 1;
+                                                        }
                                                     }
+                                                    if (hasFeature && hasSIMCard)
+                                                        simSlotOK = ((simSlot == 1) && (forSIMCardFromEvent == 1)) ||
+                                                                ((simSlot == 2) && (forSIMCardFromEvent == 2));
                                                 }
-                                                if (hasFeature && hasSIMCard)
-                                                    simSlotOK = ((simSlot == 1) && (forSIMCardFromEvent == 1)) ||
-                                                            ((simSlot == 2) && (forSIMCardFromEvent == 2));
-                                            }
 
 //                                            Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (3) *****");
 
-                                            if (simSlotOK)
-                                                smsFromPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, origin);
+                                                if (simSlotOK)
+                                                    smsFromPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, origin);
+                                            }
                                         }
+                                        if (smsFromPhoneNumber)
+                                            break;
                                     }
-                                    if (smsFromPhoneNumber)
-                                        break;
-                                }
 
-                                contactList.clear();
-                            }
+                                    contactList.clear();
+                                }
 
 //                            Log.e("PPExtenderProadcastReceover.onReceive", "smsFromPhoneNumber="+smsFromPhoneNumber);
 
-                            if ((smsFromPhoneNumber) && (Build.VERSION.SDK_INT >= 29)) {
+                                if ((smsFromPhoneNumber) && (Build.VERSION.SDK_INT >= 29)) {
 //                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (6) *****");
-                                if (Permissions.checkSendSMS(appContext)) {
-                                    // send sms
-                                    if (sendSMSFromEvent && ((origin != null) && (!origin.isEmpty())) &&
-                                            (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
-                                        try {
+                                    if (Permissions.checkSendSMS(appContext)) {
+                                        // send sms
+                                        if (sendSMSFromEvent && ((origin != null) && (!origin.isEmpty())) &&
+                                                (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
+                                            try {
 //                                            Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (4) *****");
 
-                                            SmsManager smsManager = SmsManager.getDefault();
-                                            smsManager.sendTextMessage(origin, null, smsTextFromEvent, null, null);
-                                        } catch (Exception e) {
-                                            PPApplicationStatic.recordException(e);
+                                                SmsManager smsManager = SmsManager.getDefault();
+                                                smsManager.sendTextMessage(origin, null, smsTextFromEvent, null, null);
+                                            } catch (Exception e) {
+                                                PPApplicationStatic.recordException(e);
+                                            }
                                         }
+                                    }
+                                }
+
+                            } catch (Exception e) {
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
                                     }
                                 }
                             }
 
-                        } catch (Exception e) {
-//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
-                            }
                         }
                     };
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(4) xxx");
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }
@@ -532,18 +553,21 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                     Runnable runnable3 = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
 
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_CALL_RECEIVED);
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                        synchronized (PPApplication.handleEventsMutex) {
+
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPPExtenderBroadcastReceiver_onReceive_ACTION_CALL_RECEIVED);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
 //                            Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (0) *****");
 
-                            //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
+                                //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
 //                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "ACTION_CALL_RECEIVED -> SENSOR_TYPE_PHONE_CALL");
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "call of events handler SENSOR_TYPE_PHONE_CALL - callEventType="+callEventType);
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
@@ -551,138 +575,142 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
                                 eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime, slotIndex);
                                 eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PHONE_CALL});
-                            //}
+                                //}
 
-                            if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) ||
-                                (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                                if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) ||
+                                        (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                        (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED)) {
 //                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PHONE_CALL_EVENT_MISSED_CALL");
 
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (1) *****");
 
-                                //noinspection ExtractMethodRecommender
+                                    //noinspection ExtractMethodRecommender
 //                                PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "PPApplicationStatic.getContactsCache()");
-                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                                List<Contact> contactList = null;
-                                if (contactsCache != null) {
+//                                    Log.e("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "(2) PPApplicationStatic.getContactsCache()");
+                                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
+                                    List<Contact> contactList = null;
+                                    if (contactsCache != null) {
 //                                    PPApplicationStatic.logE("[SYNCHRONIZED] PPExtenderBroadcastReceiver.doHandleEvent", "PPApplication.contactsCacheMutex");
 //                                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPExtenderBroadcastReceiver.onReceive", "contactsCache.getList()");
-                                    contactList = contactsCache.getList(/*false*/);
-                                }
+                                        contactList = contactsCache.getList(/*false*/);
+                                    }
 
-                                boolean callingPhoneNumber = false;
-                                boolean sendSMSFromEvent = false;
-                                String smsTextFromEvent = "";
+                                    boolean callingPhoneNumber = false;
+                                    boolean sendSMSFromEvent = false;
+                                    String smsTextFromEvent = "";
 
-                                if (contactList != null) {
+                                    if (contactList != null) {
 //                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (2) *****");
 
-                                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
-                                    for (Event event : eventList) {
-                                        boolean canSendSMS = callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL;
+                                        List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+                                        for (Event event : eventList) {
+                                            boolean canSendSMS = callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL;
 
-                                        if (event._eventPreferencesCall._enabled &&
-                                            event._eventPreferencesCall.isRunnable(appContext)) {
+                                            if (event._eventPreferencesCall._enabled &&
+                                                    event._eventPreferencesCall.isRunnable(appContext)) {
 
-                                            if ((!canSendSMS) && (Build.VERSION.SDK_INT >= 29) && (event._eventPreferencesCall._endCall)) {
-                                                canSendSMS = true;
-                                            }
+                                                if ((!canSendSMS) && (Build.VERSION.SDK_INT >= 29) && (event._eventPreferencesCall._endCall)) {
+                                                    canSendSMS = true;
+                                                }
 
 //                                            Log.e("PPExtenderBroadcastReceiver.onReceive", "canSendSMS="+canSendSMS);
 
-                                            if (canSendSMS) {
+                                                if (canSendSMS) {
 //                                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (3) *****");
 
-                                                String contactsFromEvent = event._eventPreferencesCall._contacts;
-                                                String contactGroupsFromEvent = event._eventPreferencesCall._contactGroups;
-                                                int contactListTypeFromEvent = event._eventPreferencesCall._contactListType;
-                                                int callEventFromEvent = event._eventPreferencesCall._callEvent;
-                                                int forSIMCardFromEvent = event._eventPreferencesCall._forSIMCard;
-                                                sendSMSFromEvent = event._eventPreferencesCall._sendSMS;
-                                                smsTextFromEvent = event._eventPreferencesCall._smsText;
+                                                    String contactsFromEvent = event._eventPreferencesCall._contacts;
+                                                    String contactGroupsFromEvent = event._eventPreferencesCall._contactGroups;
+                                                    int contactListTypeFromEvent = event._eventPreferencesCall._contactListType;
+                                                    int callEventFromEvent = event._eventPreferencesCall._callEvent;
+                                                    int forSIMCardFromEvent = event._eventPreferencesCall._forSIMCard;
+                                                    sendSMSFromEvent = event._eventPreferencesCall._sendSMS;
+                                                    smsTextFromEvent = event._eventPreferencesCall._smsText;
 
-                                                if ((
-                                                        /*(contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
-                                                        ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
-                                                        ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
+                                                    if ((
+                                                            /*(contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
+                                                            ((contactsFromEvent != null) && (!contactsFromEvent.isEmpty())) ||
+                                                                    ((contactGroupsFromEvent != null) && (!contactGroupsFromEvent.isEmpty()))
                                                     )
-                                                    &&
-                                                    (
-                                                        (callEventFromEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
-                                                        (callEventFromEvent == EventPreferencesCall.CALL_EVENT_RINGING) ||
-                                                        (callEventFromEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                                                        (callEventFromEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
-                                                    )
-                                                    &&  (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) // only white list is allowed for send sms
-                                                ) {
+                                                            &&
+                                                            (
+                                                                    (callEventFromEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                                                            (callEventFromEvent == EventPreferencesCall.CALL_EVENT_RINGING) ||
+                                                                            (callEventFromEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                                                                            (callEventFromEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
+                                                            )
+                                                            && (contactListTypeFromEvent == EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST) // only white list is allowed for send sms
+                                                    ) {
 //                                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (4) *****");
 
-                                                    boolean simSlotOK = true;
-                                                    if (forSIMCardFromEvent != 0) {
-                                                        boolean hasFeature = false;
-                                                        boolean hasSIMCard = false;
-                                                        final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                                                        if (telephonyManager != null) {
-                                                            int phoneCount = telephonyManager.getPhoneCount();
-                                                            if (phoneCount > 1) {
-                                                                hasFeature = true;
-                                                                HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                                                                hasSIMCard = hasSIMCardData.simCount >= 1;
+                                                        boolean simSlotOK = true;
+                                                        if (forSIMCardFromEvent != 0) {
+                                                            boolean hasFeature = false;
+                                                            boolean hasSIMCard = false;
+                                                            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                                                            if (telephonyManager != null) {
+                                                                int phoneCount = telephonyManager.getPhoneCount();
+                                                                if (phoneCount > 1) {
+                                                                    hasFeature = true;
+                                                                    HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                                                                    hasSIMCard = hasSIMCardData.simCount >= 1;
+                                                                }
                                                             }
+                                                            if (hasFeature && hasSIMCard)
+                                                                simSlotOK = ((slotIndex == 1) && (forSIMCardFromEvent == 1)) ||
+                                                                        ((slotIndex == 2) && (forSIMCardFromEvent == 2));
                                                         }
-                                                        if (hasFeature && hasSIMCard)
-                                                            simSlotOK = ((slotIndex == 1) && (forSIMCardFromEvent == 1)) ||
-                                                                    ((slotIndex == 2) && (forSIMCardFromEvent == 2));
-                                                    }
 
 //                                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (5) *****");
 
-                                                    if (simSlotOK)
-                                                        callingPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, phoneNumber);
+                                                        if (simSlotOK)
+                                                            callingPhoneNumber = isPhoneNumberConfigured(contactsFromEvent, contactGroupsFromEvent, /*contactListType,*/ contactList, phoneNumber);
+                                                    }
                                                 }
                                             }
+                                            if (callingPhoneNumber)
+                                                break;
                                         }
-                                        if (callingPhoneNumber)
-                                            break;
-                                    }
 
-                                    contactList.clear();
-                                }
+                                        contactList.clear();
+                                    }
 
 //                                Log.e("PPExtenderProadcastReceover.onReceive", "callingPhoneNumber="+callingPhoneNumber);
 
-                                if (callingPhoneNumber) {
+                                    if (callingPhoneNumber) {
 //                                    Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (6) *****");
-                                    if (Permissions.checkSendSMS(appContext)) {
-                                        // send sms
-                                        if (sendSMSFromEvent && ((phoneNumber != null) && (!phoneNumber.isEmpty())) &&
-                                                (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
-                                            try {
+                                        if (Permissions.checkSendSMS(appContext)) {
+                                            // send sms
+                                            if (sendSMSFromEvent && ((phoneNumber != null) && (!phoneNumber.isEmpty())) &&
+                                                    (smsTextFromEvent != null) && (!smsTextFromEvent.isEmpty())) {
+                                                try {
 //                                                Log.e("PPExtenderBroadcastReceiver.onReceive", "***** (7) *****");
 
-                                                SmsManager smsManager = SmsManager.getDefault();
-                                                smsManager.sendTextMessage(phoneNumber, null, smsTextFromEvent, null, null);
-                                            } catch (Exception e) {
-                                                PPApplicationStatic.recordException(e);
+                                                    SmsManager smsManager = SmsManager.getDefault();
+                                                    smsManager.sendTextMessage(phoneNumber, null, smsTextFromEvent, null, null);
+                                                } catch (Exception e) {
+                                                    PPApplicationStatic.recordException(e);
+                                                }
                                             }
                                         }
                                     }
+
                                 }
 
-                            }
-
-                        } catch (Exception e) {
+                            } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
+
                         }
                     };
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] PPExtenderBroadcastReceiver.onReceive", "(5) xxx");
                     PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable3);
                 }

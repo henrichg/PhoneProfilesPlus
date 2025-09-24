@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -1051,7 +1052,8 @@ public class PanelWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, AppWidgetManager _appWidgetManager, final int appWidgetId, boolean fromOnUpdate)
+    private static void doOnUpdate(Context context, AppWidgetManager _appWidgetManager,
+                                   final int appWidgetId, boolean fromOnUpdate)
     {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
         RemoteViews widget = buildLayout(context, appWidgetId, dataWrapper);
@@ -1063,19 +1065,42 @@ public class PanelWidgetProvider extends AppWidgetProvider {
         }
 
         if (!fromOnUpdate) {
+            final Context appContext = context.getApplicationContext();
             final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(_appWidgetManager);
             Runnable runnable = () -> {
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-                if (appWidgetManager != null) {
-                /*if (!ApplicationPreferences.applicationWidgetPanelGridLayout(context))
-                    appWidgetManager.notifyAppWidgetViewDataChanged(cocktailId, R.id.widget_panel);
-                else*/
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_panel_grid);
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_doOnUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                    if (appWidgetManager != null) {
+                    /*if (!ApplicationPreferences.applicationWidgetPanelGridLayout(context))
+                        appWidgetManager.notifyAppWidgetViewDataChanged(cocktailId, R.id.widget_panel);
+                    else*/
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_panel_grid);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.doOnUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            //PPApplication.delayedGuiExecutor.submit(runnable);
-            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+            // can be used submit, because it is immediate call and for one appWidgetId
+            PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
 
@@ -1091,16 +1116,39 @@ public class PanelWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                for (int appWidgetId : appWidgetIds) {
-                    doOnUpdate(appContext, appWidgetManager, appWidgetId, true);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    for (int appWidgetId : appWidgetIds) {
+                        doOnUpdate(appContext, appWidgetManager, appWidgetId, true);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.doOnUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
-
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFuturePanelWidgetExecutor != null)
+                PPApplication.scheduledFuturePanelWidgetExecutor.cancel(true);
+            PPApplication.scheduledFuturePanelWidgetExecutor =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1116,6 +1164,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
+                //boolean drawImmediatelly = true;//intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 //final int spanX = intent.getIntExtra("spanX", 1);
                 //final int spanY = intent.getIntExtra("spanY", 1);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
@@ -1126,31 +1175,59 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onReceive (1)");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
-                            for (int appWidgetId : appWidgetIds) {
-                                //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
-                                RemoteViews layout;
-                                layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
+                                for (int appWidgetId : appWidgetIds) {
+                                    //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
+                                    RemoteViews layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                                    try {
+                                        appWidgetManager.updateAppWidget(appWidgetId, layout);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                }
+                                dataWrapper.invalidateDataWrapper();
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
-                                    appWidgetManager.updateAppWidget(appWidgetId, layout);
-                                } catch (Exception e) {
-                                    PPApplicationStatic.recordException(e);
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                            dataWrapper.invalidateDataWrapper();
+                            //worker.shutdown();
                         }
+
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
-                    //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFuturePanelWidgetExecutor != null)
+                        PPApplication.scheduledFuturePanelWidgetExecutor.cancel(true);
+                    //if (drawImmediatelly)
+                    PPApplication.scheduledFuturePanelWidgetExecutor =
+                            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    //else
+                    //    PPApplication.scheduledFuturePanelWidgetExecutor =
+                    //            PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 }
             }
             else
             if (action.equalsIgnoreCase(ACTION_REFRESH_PANELWIDGET)) {
+                boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
                 final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, PanelWidgetProvider.class));
 
@@ -1159,17 +1236,61 @@ public class PanelWidgetProvider extends AppWidgetProvider {
                     Runnable runnable = () -> {
     //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
-
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            for (int appWidgetId : appWidgetIds) {
-                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false);
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PanelWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
                             }
+
+                            //Context appContext= appContextWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
+                                for (int appWidgetId : appWidgetIds) {
+                                    RemoteViews widget = buildLayout(context, appWidgetId, dataWrapper);
+                                    try {
+                                        appWidgetManager.updateAppWidget(appWidgetId, widget);
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+
+                                    /*if (!ApplicationPreferences.applicationWidgetPanelGridLayout(context))
+                                        appWidgetManager.notifyAppWidgetViewDataChanged(cocktailId, R.id.widget_panel);
+                                    else*/
+                                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_panel_grid);
+
+                                    //doOnUpdate(appContext, appWidgetManager, appWidgetId, false);
+                                }
+                                dataWrapper.invalidateDataWrapper();
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] PanelWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
                         }
+
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFuturePanelWidgetExecutor != null)
+                        PPApplication.scheduledFuturePanelWidgetExecutor.cancel(true);
+                    if (drawImmediatelly)
+                        PPApplication.scheduledFuturePanelWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    else
+                        PPApplication.scheduledFuturePanelWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 }
             }
         }
@@ -1181,40 +1302,15 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 //        PPApplicationStatic.logE("[IN_LISTENER] PanelWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
         final Context appContext = context.getApplicationContext();
-        Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PanelWidgetProvider.onAppWidgetOptionsChanged");
 
-            //Context appContext= appContextWeakRef.get();
-            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+        String preferenceKey = "isLargeLayout_" + appWidgetId;
 
-            //if ((appContext != null) && (appWidgetManager != null)) {
-            //createProfilesDataWrapper(context);
+        // remove preference, will by computed in setLayoutParams
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+        editor.remove(preferenceKey);
+        editor.apply();
 
-            String preferenceKey = "isLargeLayout_" + appWidgetId;
-
-            // remove preference, will by computed in setLayoutParams
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-            editor.remove(preferenceKey);
-            editor.apply();
-
-
-            updateAfterWidgetOptionsChanged(appContext, appWidgetId);
-
-            //if (dataWrapper != null)
-            //    dataWrapper.invalidateDataWrapper();
-            //dataWrapper = null;
-            //}
-        };
-        PPApplicationStatic.createDelayedGuiExecutor();
-        PPApplication.delayedGuiExecutor.submit(runnable);
-        //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
-    }
-
-    private static void updateAfterWidgetOptionsChanged(Context appContext, int appWidgetId) {
-        //Context appContext = context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
 
         doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, false*/);
     }
@@ -1240,6 +1336,7 @@ public class PanelWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PanelWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_PANELWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, PanelWidgetProvider.class);

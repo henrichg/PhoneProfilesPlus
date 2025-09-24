@@ -11,6 +11,8 @@ import android.os.PowerManager;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+// result broadcast for CL BT scanning
+
 /** @noinspection ExtractMethodRecommender*/
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -80,6 +82,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             // may be not invoked if not any BT is around
 
                                             if (!BluetoothScanner.bluetoothDiscoveryStarted) {
+//                                                Log.e("BluetoothScanBroadcastReceiver.onReceive", "ACTION_DISCOVERY_STARTED - fillBoundedDevicesList()");
                                                 BluetoothScanner.bluetoothDiscoveryStarted = true;
                                                 BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                             }
@@ -88,6 +91,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             // When discovery finds a device
 
                                             if (!BluetoothScanner.bluetoothDiscoveryStarted) {
+//                                                Log.e("BluetoothScanBroadcastReceiver.onReceive", "ACTION_FOUND - fillBoundedDevicesList()");
                                                 BluetoothScanner.bluetoothDiscoveryStarted = true;
                                                 BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                             }
@@ -132,6 +136,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                         }
                                                     }
                                                     if (!found) {
+//                                                        Log.e("BluetoothScanBroadcastReceiver.onReceive", "ACTION_FOUND - btName="+btName);
                                                         BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                                                 BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
                                                     }
@@ -140,10 +145,13 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             break;
                                         case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
                                             if (!BluetoothScanner.bluetoothDiscoveryStarted) {
+//                                                Log.e("BluetoothScanBroadcastReceiver.onReceive", "ACTION_DISCOVERY_FINISHED - fillBoundedDevicesList()");
                                                 BluetoothScanner.bluetoothDiscoveryStarted = true;
                                                 BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                             }
 
+//                                            Log.e("BluetoothScanBroadcastReceiver.onReceive", "ACTION_DISCOVERY_FINISHED - finishCLScan()");
+                                            // call of events handler for CL scanning
                                             BluetoothScanner.finishCLScan(appContext);
                                             break;
                                     }
@@ -164,6 +172,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             };
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] BluetoothScanBroadcastReceiver.onReceive", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
 

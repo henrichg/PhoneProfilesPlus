@@ -234,7 +234,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                     PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

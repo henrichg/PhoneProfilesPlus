@@ -81,8 +81,9 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                         }
                     //}
                 };
+//                PPApplicationStatic.logE("[EXECUTOR_CALL] TimeChangedReceiver.onReceive", "(xxx");
                 PPApplicationStatic.createEventsHandlerExecutor();
-                    PPApplication.eventsHandlerExecutor.submit(runnable);
+                PPApplication.eventsHandlerExecutor.submit(runnable);
                 //}
             }
         }
@@ -123,6 +124,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm(appContext);
         CheckLatestPPPPSReleasesBroadcastReceiver.setAlarm(appContext);
 
+//        Log.e("TimeChangedReceiver.doWork", "TwilightScanner.doWork()");
         TwilightScanner.doWork();
 
         SearchCalendarEventsWorker.scheduleWork(true);
@@ -144,6 +146,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_TIMEZONE_CHANGED,
                 null, null, "");
+//        Log.e("TimeChangedReceiver.doWork", "call if restart events");
         dataWrapper.restartEventsWithRescan(true, true, false, true, logRestart, false);
     }
 

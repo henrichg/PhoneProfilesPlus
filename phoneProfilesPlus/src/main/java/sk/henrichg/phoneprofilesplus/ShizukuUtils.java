@@ -50,7 +50,9 @@ class ShizukuUtils {
     //static boolean shizukuInstalled = (Shizuku.getVersion() >= 11);
 
     static boolean shizukuAvailable() {
-        return Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
+        PPApplication.shizukuBinded =
+                Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
+        return PPApplication.shizukuBinded;
     }
 
     /**

@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     final Context context;
     
     // Database Version
-    static final int DATABASE_VERSION = 2545;
+    static final int DATABASE_VERSION = 2546;
 
     // Database Name
     static final String DATABASE_NAME = "phoneProfilesManager";
@@ -104,6 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_BRIGHTNESS = 45;
     static final int ETYPE_MUSIC = 46;
     static final int ETYPE_CALL_CONTROL = 47;
+    static final int ETYPE_RADIO_SWITCH_ETHERNET = 48;
 
     // Profiles Table Columns names
     static final String KEY_ID = "id";
@@ -497,6 +498,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_E_ACTIVATED_PROFILE_PERMANENT_RUN = "activatedProfilePermanentRun";
     static final String KEY_E_ACTIVATED_PROFILE_START_TIME = "activatedProfileStartTime";
     static final String KEY_E_ACTIVATED_PROFILE_DETECTED_PROFILE = "activatedProfileDetectedProfile";
+    static final String KEY_E_RADIO_SWITCH_ETHERNET = "radioSwitchEthernet";
 
     // EventTimeLine Table Columns names
     static final String KEY_ET_ID = "id";
@@ -1227,6 +1229,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     List<Event> getCallControlEvents() {
         return DatabaseHandlerEvents.getCallControlEvents(this);
+    }
+
+    boolean checkCallControlAllowedRunning(int priorityToCheck) {
+        return DatabaseHandlerEvents.checkCallControlAllowedRunning(this, priorityToCheck);
     }
 
     void updateActivatedProfileStartTime(Event event)

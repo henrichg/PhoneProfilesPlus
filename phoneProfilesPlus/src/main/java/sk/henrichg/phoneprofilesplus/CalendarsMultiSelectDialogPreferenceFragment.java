@@ -33,6 +33,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
     private LinearLayout linlaProgress;
     private LinearLayout rellaData;
     RelativeLayout emptyList;
+    private Button unselectAllButton;
 
     private CalendarsMultiSelectPreferenceAdapter listAdapter;
 
@@ -83,7 +84,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
             viewHolder.checkBox.setChecked(calendar.checked);
         });
 
-        final Button unselectAllButton = view.findViewById(R.id.calendars_multiselect_pref_dlg_unselect_all);
+        unselectAllButton = view.findViewById(R.id.calendars_multiselect_pref_dlg_unselect_all);
         //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
@@ -200,6 +201,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                     fragment.rellaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
+                fragment.unselectAllButton.setEnabled(false);
             }
         }
 
@@ -284,6 +286,8 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                             fragment.listView.setVisibility(View.VISIBLE);
                         }
                     }
+
+                    fragment.unselectAllButton.setEnabled(true);
                 });
             }
         }

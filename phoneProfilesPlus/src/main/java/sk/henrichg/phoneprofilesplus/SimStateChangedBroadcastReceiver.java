@@ -49,6 +49,8 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
+            synchronized (PPApplication.handleEventsMutex) {
+
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -84,13 +86,12 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     if (EventStatic.getGlobalEventsRunning(appContext)) {
                         //if (PhoneProfilesService.getInstance() != null) {
 
-                            // start events handler
-
+                        // start events handler
 //                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "SENSOR_TYPE_SIM_STATE_CHANGED,SENSOR_TYPE_RADIO_SWITCH");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(new int[]{
-                                    EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED,
-                                    EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(new int[]{
+                                EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED,
+                                EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
 
                         //}
                     }
@@ -106,8 +107,11 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 }
+            }
             //}
+
         };
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] SimStateChangedBroadcastReceiver.onReceive", "(xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }

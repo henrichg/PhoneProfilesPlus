@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -23,6 +24,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
 public class OneRowWidgetProvider extends AppWidgetProvider {
@@ -32,6 +34,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager _appWidgetManager, final int[] appWidgetIds)
     {
 //        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
+//        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onUpdate", "xxxxxxxxxxx");
+
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context.getApplicationContext();
@@ -40,15 +44,41 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    //Context appContext= appContextWeakRef.get();
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] OneRowWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
+
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+            //PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureOneRowWidgetExecutor != null)
+                PPApplication.scheduledFutureOneRowWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureOneRowWidgetExecutor =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1400,26 +1430,58 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         String action = intent.getAction();
 //        PPApplicationStatic.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
+//        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
+            boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
-                if ((ids != null) && (ids.length > 0)) {
+                final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
+                if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                     final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
-//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            _onUpdate(appContext, appWidgetManager, ids);
+                            //Context appContext= appContextWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] OneRowWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
                         }
+
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    //PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFutureOneRowWidgetExecutor != null)
+                        PPApplication.scheduledFutureOneRowWidgetExecutor.cancel(true);
+                    if (drawImmediatelly)
+                        PPApplication.scheduledFutureOneRowWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    else
+                        PPApplication.scheduledFutureOneRowWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 }
             }
         }
@@ -1449,7 +1511,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                            int appWidgetId,
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
+//        PPApplicationStatic.logE("[UPDATE_GUI] OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxxxxxxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
@@ -1526,6 +1590,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent3 = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

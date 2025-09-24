@@ -50,10 +50,9 @@ public class CheckPPPReleasesDialog extends DialogFragment
             if (arguments != null) {
                 store = arguments.getInt(CheckPPPReleasesActivity.EXTRA_MENU_ITEM_ID, 0);
             }
-
             if (store == R.id.menu_check_in_github) {
                 String newVersionName = arguments.getString(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, "");
-                int newVersionCode = arguments.getInt(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, 0);
+                int newVersionCode = arguments.getInt(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, 0);
                 boolean newVersionCritical= arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, false);
                 boolean criticalCheck= arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
                 //booleam refreshOpenedDialog = arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_REFRESH_OPENED_DIALOG, true);

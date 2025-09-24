@@ -906,15 +906,17 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
-                activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
+                try {
+                    activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
 
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_preferences_settings, fragment)
-                        .commit();
+                    activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_preferences_settings, fragment)
+                            .commit();
 
-                //activity.progressLinearLayout.setVisibility(View.GONE);
-                //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
+                    //activity.progressLinearLayout.setVisibility(View.GONE);
+                    //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
+                } catch (Exception ignored) {}
             }
             activity = null;
         }

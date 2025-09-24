@@ -171,7 +171,7 @@ class EventsHandler {
 
     void handleEvents(int[] sensorType) {
 //        PPApplicationStatic.logE("[SYNCHRONIZED] EventsHandler.handleEvents", "PPApplication.eventsHandlerMutex");
-        synchronized (PPApplication.eventsHandlerMutex) {
+        //synchronized (PPApplication.eventsHandlerMutex) {
 //            Log.e("EventsHandler.handleEvents", "(1) *****************");
             boolean manualRestart = Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             boolean isRestart = (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_RESTART_EVENTS)) || manualRestart;
@@ -369,6 +369,7 @@ class EventsHandler {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                         if (_event._eventPreferencesCalendar.isRunnable(context) &&
                             _event._eventPreferencesCalendar.isAllConfigured(context)) {
+//                            Log.e("EventsHandler.handleEvents", "_eventPreferencesCalendar - save start end time");
                             _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
                             _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                         }
@@ -386,6 +387,7 @@ class EventsHandler {
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for sms events, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] EventsHandler.handleEvents", "(1) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
@@ -429,6 +431,7 @@ class EventsHandler {
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
                     // search for call events, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] EventsHandler.handleEvents", "(2) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
@@ -493,8 +496,9 @@ class EventsHandler {
                 if (Arrays.stream(sensorType).anyMatch(i ->
                         (i == SENSOR_TYPE_CALL_CONTROL) ||
                         (i == SENSOR_TYPE_CONTACTS_CACHE_CHANGED))) {
-                    // search for sms events, save start time
+                    // search for call control events and contact cache change, save start time
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] EventsHandler.handleEvents", "(3) PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache != null) {
                         List<Contact> contactList;
@@ -547,7 +551,7 @@ class EventsHandler {
 
             //boolean notified = false;
 
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+            //List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
             Event notifiedPausedEvent = null;
@@ -709,6 +713,10 @@ class EventsHandler {
             //// activate background profile when no profile is activated
 
             // get running events count
+            //!!! toto nie je chyba? Ved eventTimelineList sa podla mna nikde hore nemeni
+            //Nemal by som tu skor pozerat ten z dataWrapper.eventTimelines ???
+            // OPRAVENE, testuj
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
             int runningEventCountE = eventTimelineList.size();
 
             // activated profile may be changed, when event has enabled manual profile activation
@@ -925,7 +933,7 @@ class EventsHandler {
 
 //                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
 
-        }
+        //}
     }
 
     private boolean alwaysEnabledSensor(int sensorType) {
@@ -1053,6 +1061,7 @@ class EventsHandler {
                         String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
+//                        Log.e("[CONTACTS_CACHE] EventsHandler.doEndHandler", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache != null) {
                             List<Contact> contactList;
@@ -1118,6 +1127,9 @@ class EventsHandler {
         else
         if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
             setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
+        }
+        if (Arrays.stream(sensorType).anyMatch(i -> i == SENSOR_TYPE_CALL_CONTROL)) {
+            setEventCallControlParameters("", 0, EventPreferencesCallControl.CALL_DIRECTION_ALL);
         }
     }
 

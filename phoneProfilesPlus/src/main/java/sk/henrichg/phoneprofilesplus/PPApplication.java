@@ -29,6 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkManager;
 
+import com.github.anrwatchdog.ANRWatchDog;
+
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.config.CoreConfigurationBuilder;
@@ -266,6 +268,7 @@ public class PPApplication extends Application
                                                 //+"|CustomACRAReportingAdministrator.shouldStartCollecting"
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
+                                                +"|[ANRWatchDog]"
 // this si for get 0, 50 100% level
 //                                                +"|SettingsContentObserver.onChange"
 
@@ -273,6 +276,9 @@ public class PPApplication extends Application
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
+//                                                +"|[DELAYED_EXECUTOR_CALL]"
+//                                                +"|[HANDLE_EVENTS_FROM_WORK]"
+//                                                +"|[HANDLE_EVENTS_NOT_FROM_EXECUTOR_WORK]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -319,11 +325,13 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-//                                                +"|[BLUETOOTH_CONNECT]"
+                                                //+"|[BLUETOOTH_CONNECT]"
 //                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
                                                 //+"|[MOBILE_DATA]"
+                                                //+"|[WAKELOCK_EXCEPTION]"
+                                                //+"|[UPDATE_GUI]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -519,6 +527,7 @@ public class PPApplication extends Application
     static volatile boolean HAS_FEATURE_LOCATION = false;
     static volatile boolean HAS_FEATURE_LOCATION_GPS = false;
     static volatile boolean HAS_FEATURE_CAMERA_FLASH = false;
+    //static volatile boolean HAS_FEATURE_ETHERNET = false;
     // this is required for target 33
     //static volatile boolean HAS_FEATURE_TELEPHONY_MESSAGING = false;
 
@@ -539,6 +548,7 @@ public class PPApplication extends Application
     static final String EXTRA_EVENT_STATUS = "event_status";
     static final String EXTRA_APPLICATION_START = "application_start";
     static final String EXTRA_DEVICE_BOOT = "device_boot";
+    static final String EXTRA_DRAW_IMMEDIATELY = "draw_IMMEDIATELY";
 
     static final String BUNDLE_KEY = "key";
 
@@ -965,7 +975,7 @@ public class PPApplication extends Application
     static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
     static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
-    static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
+    //static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     static final MobileCellsScannerMutex mobileCellsScannerMutex = new MobileCellsScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
@@ -976,8 +986,11 @@ public class PPApplication extends Application
     static final PanelWidgetDatasetChangedMutex panelWidgetDatasetChangedMutex = new PanelWidgetDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
     static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
+    static final HandleEventsMutex handleEventsMutex = new HandleEventsMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
+
+    static volatile boolean shizukuBinded;
 
     static volatile ApplicationsCache applicationsCache;
     static volatile ContactsCache contactsCache;
@@ -1150,7 +1163,6 @@ public class PPApplication extends Application
     volatile static ExecutorService basicExecutorPool = null;
     //volatile static ExecutorService profileActiationExecutorPool = null;
     //volatile static ExecutorService soundModeExecutorPool = null;
-
     // for call of ActivateProfileHelper.execute()
     volatile static ExecutorService activateProfileExecuteExecutorPool = null;
     // for call of ActivateProfileHelper.executeForVolumes()
@@ -1159,11 +1171,9 @@ public class PPApplication extends Application
     // for call of ActivateProfileHelper.executeForRadios()
     // - required for increase speed of profile activation
     volatile static ExecutorService profileRadiosExecutorPool = null;
-
     volatile static ExecutorService profileRunApplicationsExecutorPool = null;
     volatile static ExecutorService profileIteractivePreferencesExecutorPool = null;
     volatile static ExecutorService profileActivationDurationExecutorPool = null;
-
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;
@@ -1178,6 +1188,12 @@ public class PPApplication extends Application
     volatile static ScheduledFuture<?> scheduledFutureUpdateGuiExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureNotificationListenerEventsHandlerExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureIconWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureOneRowWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureProfileListWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFuturePanelWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureOneRowProfileListWidgetExecutor = null;
 
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;
@@ -1303,6 +1319,20 @@ public class PPApplication extends Application
             return;
         }
 
+        // Handle the ANR error
+        // This disables displaying of ANR dialog by system
+        new ANRWatchDog().setANRListener(error -> {
+            //PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
+            PPApplicationStatic.logException("[ANRWatchDog]", Log.getStackTraceString(error), true);
+
+            // if user click notification, it displays dialog for ACRA and this again
+            // may generate again anmd again notiofication (in looping... :-( )
+            //PPApplicationStatic.recordException(error);
+
+            // this force close PPP, as for normal not handled exception
+            //System.exit(0);
+        }).start();
+
         // must be there, requires Context
         romIsGalaxy = isGalaxyROM(getApplicationContext());
         //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
@@ -1315,6 +1345,7 @@ public class PPApplication extends Application
             GlobalGUIRoutines.darkColorScheme = dynamicTonalPaletteSamsung.dynamicDarkColorSchemeSamsung(getApplicationContext());
         }*/
 
+        PPApplication.shizukuBinded = false;
         RootUtils.initRoot();
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
@@ -1354,7 +1385,7 @@ public class PPApplication extends Application
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplicationStatic.createScannersExecutor();
         PPApplicationStatic.createPlayToneExecutor();
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplicationStatic.createDelayedAppNotificationExecutor();
         PPApplicationStatic.createDelayedProfileListNotificationExecutor();
@@ -1382,6 +1413,7 @@ public class PPApplication extends Application
         HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
         HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
+        //HAS_FEATURE_ETHERNET = hasSystemFeature(packageManager, PackageManager.FEATURE_ETHERNET);
         //HAS_FEATURE_TELEPHONY_MESSAGING = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY_MESSAGING);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");
@@ -1964,6 +1996,7 @@ public class PPApplication extends Application
                         //worker.shutdown();
                     }
                 };
+                PPApplicationStatic.createUpdateGuiExecutor();
                 PPApplication.updateGuiExecutor.submit(runnable);
                 return;
             }
@@ -2017,12 +2050,12 @@ public class PPApplication extends Application
                     //worker.shutdown();
                 }
             };
-
-
 //            Log.e("PPApplication.updateGUI", "xxx call of shedule xxx");
+            PPApplicationStatic.createUpdateGuiExecutor();
             if (scheduledFutureUpdateGuiExecutor != null)
                 scheduledFutureUpdateGuiExecutor.cancel(false);
-            scheduledFutureUpdateGuiExecutor = PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+            scheduledFutureUpdateGuiExecutor =
+                    PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
             if (!longDelay) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPAppNotification.drawNotification");

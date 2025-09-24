@@ -7,28 +7,39 @@
 
 <h1 id="changelog">PhoneProfilesPlus Changelog</h1>
 
-<h2 id="version2">Version: 7.1.1</h2>
+<h2 id="version2">Version: 7.1.2</h2>
 
 <ul>
-    <li>Change: "Media volume" changes in its info preferences.</li>
-    <li>Change: Removed News about "Panel" widget.</li>
-    <li>Change: Info about profile parameter "VPN" changed to info dialog with ability to install VPN applications.</li>
-    <li>Change: Shizuku, InstallWithOptions installation: added support for device app stores.</li>
-    <li>Change: Added Termux application support - required for SentIntent commands implemented for Tasker.</li>
-    <li>Change: Shizuku installation. Must be installed version form IzzyOnDroid/GitHub (not Google Play). In it is added support for "Start o boot" for non-rooted devices.</li>
-    <li>Change: Important info about "Advanced protection".</li>
-    <li>Change: dependency com.github.simbiose:Encryption:2.0.1 as module "encryption".</li>
-    <li>Fix: Activities title in Recents screen: displayed is app title, not activity title.</li>
-    <li>Fix: Media volume, Accessibility prompt volume for OnePlus, Oppo,... devices.</li>
-    <li>Fix: Time sensor - computation of alarm time.</li>
-    <li>Fix: WiFi hotspot for Android 16.</li>
-    <li>Fix: text sizes changed from dp to sp.</li>
-    <li>Removed not needed kotlin dependency required for appcompat.</li>
-    <li>Added templates of required files.</li>
-    <li>Updated permissions.md</li>
-    <li>Added build.md for help, how to build PPP.</li>
-    <li>New required PPPE version.</li>
-    <li>Fixed bugs.</li>
+    <li>Add: "Create shortcut to profile" added into Editor profile list item menu.</li>
+    <li>Add: "Create shortcut for "Restart events" added into Settings/"Run event".</li>
+    <li>Add: Ethernet support for "Radio" sensor.</li>
+    <li>Change: Increased size of event status icons in Editor event items.</li>
+    <li>Change: Better donation days for first 3 donation notifications.</li>
+    <li>Change: Removed forced Droid-ify request.</li>
+    <li>Change: Do not display red text in Editor for events, if event is stopped.</li>
+    <li>Change: Added disable of scanners after restore of backup.</li>
+    <li>Change: Added summary for PPP Settings "Location scanning"/"Use GPS when not in Power Save mode".</li>
+    <li>Change: Synchronized call of EventsHandler.</li>
+    <li>Change: Decreased count of calls of EventsHandler from Notification listener (used in Notification sensor).</li>
+    <li>Change: Added "Notification scan interval" into Notification scanning.</li>
+    <li>Change: Call of runnable {} in required situations.</li>
+    <li>Change: Less redraw of widgets - for decreased battery consumption.</li>
+    <li>Change: Added ANR watchdog to log ANRs.</li>
+    <li>Change: Added send e-mail for ANR.</li>
+    <li>Change: Some alarms changed to ELAPSED_REALTIME_WAKEUP</li>
+    <li>Fix: Fixed ANR for EventsHandler.handleEvents();</li>
+    <li>Fix: "Run application shortcut, intent" if application, shortcut, intent not exists in system (for example after restore of data).</li>
+    <li>Fix: Fixed twice call of "after_first_start" worker when Shizuku binder is called.</li>
+    <li>Fix: Fixed battery consumption in Location scanning.</li>
+    <li>Fix: Fixed battery consumption in Wifi scanning.</li>
+    <li>Fix: Fixed battery consumption in Bluetooth scanning.</li>
+    <li>Fix: Change: Fixed Call screening sensor.</li>
+    <li>Fix: Fixed not working change of random wallpaper from folder.</li>
+    <li>Fix: do not generate notification for exception.</li>
+    <li>Fix: Bad displayed PPP version in GitHub in check version dialog.</li>
+    <li>Fix: Bad working profile duration "Exact time", if is disabled "Use alarm clock".</li>
+    <li>Fix: Changed call of sleep() in main thread to runnable.</li>
+    <li>Fix: Fixed creation and usage of executors.</li>
 </ul>
 
 <ul>
@@ -40,7 +51,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.1">Release information on GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.2">Release information on GitHub.</a>
 </p>
 
 </body>

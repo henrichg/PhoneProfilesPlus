@@ -850,7 +850,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Programma\'s forceren het te stoppen</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Om \"Forceer stoppen programma\" mogelijk te maken hier kliķken om PhoneProfilesPlusExtender te installeren.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Om \"Forceer stoppen programma\" mogelijk te maken, PhoneProfilesPlusExtender aan zetten bij toegankelijkheidsinstellingen.</string>
-    <string name="shortcut_activate_profile">Activeer profiel:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Het werkt alleen wanneer het scherm aanstaat en ontgrendeld is.</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) mobiele netwerk type voorkeuren</string>
     <string name="profile_preferences_deviceCloseAllApplications">Sluit alle programma\'s</string>
@@ -2336,4 +2335,16 @@
     <string name="install_pppps_text13_1">1. Installeer en start Shizuku (als het apparaat niet geroot is). Klik hier om het te installeren vanuit de App store.</string>
     <string name="install_pppps_text14_1">2. Installeer InstallWithOptions. Klik hier om het vanuit de App store te installeren.</string>
     <string name="important_info_advanced_protection">BELANGRIJK: Indien ingeschakeld in \"Geavanceerde bescherming\", is het niet mogelijk om de vereiste applicaties te installeren (PPPE, PPPPPPS, InstallWithOptions, Shizuku) via applicatiewinkels van derden (Drofi-ify, F-Droid, NeoStore). Ook de meeste functionaliteiten in PPP werken niet correct. Schakel het uit.</string>
+    <string name="profile_list_item_menu_create_shortcut">Snelkoppeling naar profiel aanmaken</string>
+    <string name="shortcut_to_profile_created_toast">Snelkoppeling naar profiel gemaakt</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Snelkoppeling naar \"Events herstarten\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Klik hier, om een snelkoppeling naar \"Herstart events\" te maken in de launcher</string>
+    <string name="shortcut_for_restart_events_dialog_title">Snelkoppeling naar \"Events herstarten\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Snelkoppeling naar \"Events herstarten\" aangemaakt</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WAARSCHUWING: GPS-locatie werkt binnen slechter. Het verbruikt ook meer batterij.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notificatie scan interval (sec)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+    <string name="anr_notification_title">Sorry, de applicatie reageert niet (ANR) opgetreden</string>
+    <string name="anr_notification_text">Klik hier, om het log.txt bestand naar de auteur te versturen. Dank je wel.</string>
+    <string name="email_anr_subject">Applicatie reageert niet (ANR)</string>
 </resources>

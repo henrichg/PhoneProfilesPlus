@@ -1368,6 +1368,12 @@ class DatabaseHandlerOthers {
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET, true, instance.context).preferenceAllowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_ETHERNET, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
                             }
 
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED)) != 0) &&

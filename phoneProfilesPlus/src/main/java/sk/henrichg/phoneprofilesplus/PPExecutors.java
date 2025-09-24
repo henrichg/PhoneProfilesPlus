@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 class PPExecutors {
 
-    private static final String WAKELOCK_TAG = PPApplication.PACKAGE_NAME + ":PPPExecutors_handleEvents_";
+    static final String WAKELOCK_TAG = PPApplication.PACKAGE_NAME + ":PPPExecutors_handleEvents_";
 
     static final String SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE = "SENSOR_TYPE_SOUND_PROFILE";
     static final String SENSOR_NAME_SENSOR_TYPE_RADIO_SWITCH = "SENSOR_TYPE_RADIO_SWITCH";
@@ -45,6 +45,7 @@ class PPExecutors {
     static final String SENSOR_NAME_SENSOR_TYPE_APPLICATION_EVENT_END = "SENSOR_TYPE_APPLICATION_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_CALL_CONTROL_EVENT_END = "SENSOR_TYPE_CALL_CONTROL_EVENT_END";
     static final String SENSOR_NAME_SENSOR_TYPE_ACTIVATED_PROFILE_EVENT_END = "SENSOR_TYPE_ACTIVATED_PROFILE_EVENT_END";
+    static final String SENSOR_NAME_SENSOR_TYPE_BOOT_COMPLETED = "SENSOR_TYPE_BOOT_COMPLETED";
 
     private PPExecutors() {
         // private constructor to prevent instantiation
@@ -60,7 +61,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableBlockProfileEventActionExecutor", "--------------- END");
             //worker.smallExecutor.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 30, TimeUnit.SECONDS);
     }
 
@@ -74,7 +75,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableRingerModeInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
@@ -92,7 +93,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableScreenTimeoutInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         //handleEventsMianWorker(EventsHandler.SENSOR_TYPE_SOUND_PROFILE, MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, 0);
     }
@@ -107,7 +108,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableVolumesInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableVolumesInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
@@ -124,7 +125,7 @@ class PPExecutors {
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "--------------- END");
             //worker.shutdown();
         };
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
 
 //        PPApplicationStatic.logE("[MAIN_WORKER_CALL] PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "xxxxxxxxxxxxxxxxxxxx");
@@ -204,43 +205,51 @@ class PPExecutors {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
 
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG + sensorName);
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+//            if (sensorName.equals(PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION))
+//                Log.e("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- START - " + sensorName);
 
-                if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType.length != 0)) {
-                    // start events handler
-//                    for (int st : sensorType)
-//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExecutors.handleEvents", ""+st);
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(sensorType);
-                }
-
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start;
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
-            } catch (Exception e) {
-//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+            synchronized (PPApplication.handleEventsMutex) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG + sensorName);
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    if (EventStatic.getGlobalEventsRunning(appContext) && (sensorType.length != 0)) {
+                        // start events handler
+    //                    for (int st : sensorType)
+    //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExecutors.handleEvents", ""+st);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(sensorType);
+                    }
+
+    //                long finish = System.currentTimeMillis();
+    //                long timeElapsed = finish - start;
+    //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.handleEvents", "--------------- END - " + sensorName + " - timeElapsed="+timeElapsed);
+                } catch (Exception e) {
+    //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
-                //worker.shutdown();
+
             }
         };
         if (delay == 0) {
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] PPExecutors.handleEvents", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else {
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PPExecutors.handleEvents", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
         }

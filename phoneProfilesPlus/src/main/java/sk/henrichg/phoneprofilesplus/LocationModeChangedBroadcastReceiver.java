@@ -23,9 +23,11 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
-                //Context appContext= appContextWeakRef.get();
+                synchronized (PPApplication.handleEventsMutex) {
 
-                //if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -49,6 +51,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 //                        PPApplicationStatic.logE("[SYNCHRONIZED] LocationModeChangedBroadcastReceiver.onReceive", "PPApplication.locationScannerMutex");
                         synchronized (PPApplication.locationScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+//                                Log.e("LocationModeChangedBroadcastReceiver.onReceive", "(1) call of updateTransitionsByLastKnownLocation");
                                 String provider = PPApplication.locationScanner.getProvider(false);
                                 PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }
@@ -71,8 +74,10 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                //}
+                    //}
+                }
             };
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
