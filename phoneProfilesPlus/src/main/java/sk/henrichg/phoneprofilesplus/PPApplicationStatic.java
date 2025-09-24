@@ -421,7 +421,7 @@ class PPApplicationStatic {
     }
 
     /** @noinspection SameParameterValue, BlockingMethodInNonBlockingContext */
-    static private void logIntoFile(String type, String tag, String text, boolean crash) {
+    static void logIntoFile(String type, String tag, String text, boolean crash) {
         if (!(crash || PPApplication.logIntoFile))
             return;
 
@@ -465,7 +465,7 @@ class PPApplicationStatic {
         }
     }
 
-    private static boolean logContainsFilterTag(String tag) {
+    static boolean logContainsFilterTag(String tag) {
         boolean contains = false;
         String[] filterTags = PPApplication.logFilterTags.split(StringConstants.STR_SPLIT_REGEX);
         for (String filterTag : filterTags) {

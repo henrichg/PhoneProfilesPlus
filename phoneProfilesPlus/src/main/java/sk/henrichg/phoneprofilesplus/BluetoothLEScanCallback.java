@@ -166,7 +166,10 @@ class BluetoothLEScanCallback extends ScanCallback {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothLEScanCallback.onScanFailed", "xxx");
 
         Log.e("BluetoothLEScanCallback.onScanFailed", "errorCode=" + errorCode);
-//        PPApplicationStatic.logToACRA("E/BluetoothLEScanCallback.onScanFailed: errorCode=" + errorCode);
+        if (PPApplicationStatic.logEnabled() &&
+                PPApplicationStatic.logContainsFilterTag("BluetoothLEScanCallback.onScanFailed")) {
+            PPApplicationStatic.logIntoFile("E", "BluetoothLEScanCallback.onScanFailed", "errorCode=" + errorCode, false);
+        }
     }
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {

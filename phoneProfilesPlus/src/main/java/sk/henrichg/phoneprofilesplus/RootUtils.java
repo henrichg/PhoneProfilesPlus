@@ -606,7 +606,12 @@ class RootUtils {
         }
         if (!cmd.isFinished()){
             Log.e("RootUtils.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-            //PPApplicationStatic.logToACRA("E/GlobalUtils.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            if (PPApplicationStatic.logEnabled() &&
+                    PPApplicationStatic.logContainsFilterTag("RootUtils.commandWait")) {
+                PPApplicationStatic.logIntoFile("E", "RootUtils.commandWait",
+                        "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill / waitTillMultiplier),
+                        false);
+            }
         }
     }
 
