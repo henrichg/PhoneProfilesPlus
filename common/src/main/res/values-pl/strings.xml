@@ -1891,7 +1891,7 @@
     <string name="one_row_profile_list_widget_description">Wyświetla listę profili bez ich nazw w jednym wierszu.</string>
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widżet: Jednowierszowa lista profili</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Liczba profili na stronie</string>
-    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Jakość strzałek i znacznika aktywowanego profilu</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Jasność strzałek i znacznika aktywowanego profilu</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Uwaga: Nie wszystkie aplikacje zegara używają systemowej głośności alarmu, ponieważ używają własnego poziomu głośności skonfigurowanego w ustawieniach.</string>
     <string name="connect_to_ssid_dialog_help">W tym oknie dialogowym wyświetlana jest lista skonfigurowanych SSID Wi-Fi.\nKliknij tutaj, aby wyświetlić ekran ustawień Wi-Fi. Zawiera on parametr konfiguracji sieci Wi-Fi.</string>
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
@@ -2335,16 +2335,16 @@
     <string name="install_pppps_text13_1">1. Zainstaluj i uruchom Shizuku (jeśli urządzenie nie jest zrootowane). Kliknij tutaj, aby zainstalować je ze sklepu.</string>
     <string name="install_pppps_text14_1">2. Zainstaluj InstallWithOptions. Kliknij tutaj, aby zainstalować go ze sklepu.</string>
     <string name="important_info_advanced_protection">WAŻNE: Jeśli jest włączona w urządzeniu \"Zaawansowana ochrona\", nie jest możliwe zainstalowanie wymaganych aplikacji (PPPE, PPPPS, InstallWithOptions, Shizuku) z innych źródeł aplikacji (Drofi-ify, F-Droid, NeoStore). Również większość funkcji PPP nie działa poprawnie. Proszę ją wyłączyć.</string>
-    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
-    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
-    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
-    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
-    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
-    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="profile_list_item_menu_create_shortcut">Utwórz skrót do profilu</string>
+    <string name="shortcut_to_profile_created_toast">Utworzono skrót do profilu</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Skrót do \"Restartuj zdarzenia\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Kliknij tutaj, aby utworzyć skrót do \"Restartuj zdarzenia\" na ekranie głównym</string>
+    <string name="shortcut_for_restart_events_dialog_title">Skrót do \"Restartuj zdarzenia\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Skrót do \"Restartuj zdarzenia\" utworzony</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">OSTRZEŻENIE: Lokalizacja GPS źle działa wewnątrz pomieszczeń. Zużywa również dużo baterii.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Interwał skanowania powiadomień (sek)</string>
     <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
-    <string name="anr_notification_title">Sorry, application not responding (ANR) occurred</string>
-    <string name="anr_notification_text">Please click here, to send log.txt file to author. Thank you very much.</string>
-    <string name="email_anr_subject">Application not responding (ANR)</string>
+    <string name="anr_notification_title">Przepraszamy, aplikacja nie odpowiada (ANR)</string>
+    <string name="anr_notification_text">Kliknij tutaj, aby wysłać plik log.txt do autora. Bardzo dziękuję.</string>
+    <string name="email_anr_subject">Aplikacja nie odpowiada (ANR)</string>
 </resources>

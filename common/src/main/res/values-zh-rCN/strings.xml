@@ -2344,7 +2344,7 @@
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">警告：GPS定位在室内使用时存在问题。它还会消耗大量电池。</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">通知扫描间隔 (秒)</string>
     <string name="event_preferences_radioSwitch_ethernet">以太网</string>
-    <string name="anr_notification_title">Sorry, application not responding (ANR) occurred</string>
-    <string name="anr_notification_text">Please click here, to send log.txt file to author. Thank you very much.</string>
-    <string name="email_anr_subject">Application not responding (ANR)</string>
+    <string name="anr_notification_title">对不起，应用程序没有响应 (ANR) 发生了</string>
+    <string name="anr_notification_text">请点击此处，向作者发送log.txt文件，非常感谢您。</string>
+    <string name="email_anr_subject">未答复的申请 (ANR)</string>
 </resources>

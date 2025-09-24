@@ -2333,7 +2333,7 @@
     <string name="important_info_profile_shizuku_howTo_2_1">Натисніть тут, щоб встановити Shizuku з магазину.</string>
     <string name="install_pppps_text13">1. Встановіть і запустіть Shizuku (якщо пристрій не має прав root). Натисніть тут, щоб завантажити його.</string>
     <string name="install_pppps_text13_1">1. Встановіть і запустіть Shizuku (якщо пристрій не має прав root). Натисніть тут, щоб завантажити його.</string>
-    <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
+    <string name="install_pppps_text14_1">2. Встановіть InstallWithOptions. Натисніть тут, щоб встановити застосунок з магазину.</string>
     <string name="important_info_advanced_protection">ВАЖЛИВО: Якщо на пристрої активовано \"Розширений захист\", неможливо встановити потрібні застосунки (PPPE, PPS, InstallWithOptions, Shizuku) з інших магазинів застосунків (Drofi-ify, F-Droid, NeoStore). Також більшість функцій в PPP не будуть працюють правильно. Будь ласка, вимкніть його.</string>
     <string name="profile_list_item_menu_create_shortcut">Створити посилання на профіль</string>
     <string name="shortcut_to_profile_created_toast">Посилання на профіль створено</string>
@@ -2344,7 +2344,7 @@
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">УВАГА: GPS погано працює в приміщенні, а також споживає багато енергії.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Інтервал сканування сповіщень (сек)</string>
     <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
-    <string name="anr_notification_title">Sorry, application not responding (ANR) occurred</string>
-    <string name="anr_notification_text">Please click here, to send log.txt file to author. Thank you very much.</string>
-    <string name="email_anr_subject">Application not responding (ANR)</string>
+    <string name="anr_notification_title">Вибачте, застосунок не відповідає (ANR)</string>
+    <string name="anr_notification_text">Щоб відправити log.txt автору натисніть тут. Подякував.</string>
+    <string name="email_anr_subject">Застосунок не відповідає (ANR)</string>
 </resources>
