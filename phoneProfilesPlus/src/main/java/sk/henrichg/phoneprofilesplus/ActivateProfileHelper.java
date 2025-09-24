@@ -968,7 +968,7 @@ class ActivateProfileHelper {
                 compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
             }
         } catch (Exception e) {
-            Log.e("ActivateProfileHelper.isPPPSetAsDefaultAssistant", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("ActivateProfileHelper.isPPPSetAsDefaultAssistant", Log.getStackTraceString(e), false);
         }
         if (compName != null && compName.getPackageName().equals(context.getPackageName())) {
             assistIsSet = true;

@@ -82,7 +82,7 @@ class PPApplicationStatic {
                     }
                 }
             } catch (ExecutionException | InterruptedException e) {
-                Log.e("PPApplicationStatic._cancelWork", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("PPApplicationStatic._cancelWork", Log.getStackTraceString(e), false);
             }
 
             if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))
@@ -1603,7 +1603,7 @@ class PPApplicationStatic {
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
                 // must be onlu log, because this channel is used in ACRA
-                Log.e("PPApplicationStatic.createExclamationNotificationChannel", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("PPApplicationStatic.createExclamationNotificationChannel", Log.getStackTraceString(e), false);
             }
     }
 

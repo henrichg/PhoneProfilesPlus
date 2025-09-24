@@ -245,7 +245,7 @@ public class SearchCalendarEventsWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e), false);
                         }
                         if (allFinished) {
                             break;
@@ -287,7 +287,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }
@@ -324,7 +324,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }

@@ -2305,7 +2305,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     context.grantUriPermission(PPApplication.PACKAGE_NAME, selectedFolder, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     context.getContentResolver().takePersistableUriPermission(selectedFolder, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception e) {
-                    Log.e("ProfilesPrefsFragment.doOnActivityResult", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("ProfilesPrefsFragment.doOnActivityResult", Log.getStackTraceString(e), false);
                 }
                 WallpaperFolderPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
                 if (preference != null)

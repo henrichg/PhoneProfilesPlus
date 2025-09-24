@@ -162,8 +162,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                         }
 
                     } catch (Exception e) {
-//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
+                        PPApplicationStatic.logException("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(e), false);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -177,7 +176,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 PPApplication.basicExecutorPool.submit(runnable);
             }
         } catch (Exception ee) {
-            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
+            PPApplicationStatic.logException("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee), false);
         }
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(3)");

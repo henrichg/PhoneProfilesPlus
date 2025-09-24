@@ -89,7 +89,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
                         break;
                     }
                 } catch (ExecutionException | InterruptedException e) {
-                    Log.e("AvoidRescheduleReceiverWorker.enqueueUniqueWork", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("AvoidRescheduleReceiverWorker.enqueueUniqueWork", Log.getStackTraceString(e), false);
                 }
 
                 if (!running) {

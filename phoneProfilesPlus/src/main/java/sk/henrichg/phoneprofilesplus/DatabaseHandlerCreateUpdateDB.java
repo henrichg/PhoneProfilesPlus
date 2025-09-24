@@ -3772,7 +3772,7 @@ class DatabaseHandlerCreateUpdateDB {
                 db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_PHONE_CALLS_BLOCK_CALLS + "=0");
 
             } catch (Exception e) {
-                Log.e("DatabaseHandlerCreateUpdateDB", Log.getStackTraceString(e));
+                PPApplicationStatic.logException("DatabaseHandlerCreateUpdateDB", Log.getStackTraceString(e), false);
             }
         }
 

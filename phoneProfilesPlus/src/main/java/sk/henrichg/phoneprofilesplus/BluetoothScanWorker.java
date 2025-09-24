@@ -331,7 +331,7 @@ public class BluetoothScanWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e), false);
                         }
                         if (allFinished) {
                             break;
@@ -373,7 +373,7 @@ public class BluetoothScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }
@@ -410,7 +410,7 @@ public class BluetoothScanWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }

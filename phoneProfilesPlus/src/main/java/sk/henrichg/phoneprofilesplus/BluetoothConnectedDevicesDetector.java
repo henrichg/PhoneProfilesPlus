@@ -132,7 +132,7 @@ class BluetoothConnectedDevicesDetector {
                                                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(connectedDevices, appContext);
                                             }
                                         } catch (Exception e) {
-                                            Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
+                                            PPApplicationStatic.logException("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e), false);
                                         }
                                     }
     //                                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.getConnectedDevices", "*** end of isConnected() ***");

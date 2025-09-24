@@ -4632,7 +4632,7 @@ public class EditorActivity extends AppCompatActivity
                                 ret = 0;
                         } catch (Exception e) {
                             //PPApplicationStatic.recordException(e);
-                            Log.e("EditorActivity.doInBackground", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("EditorActivity.doInBackground", Log.getStackTraceString(e), false);
                             ret = 0;
                         }
 
