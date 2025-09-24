@@ -98,7 +98,7 @@ dependencies {
     //implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:+' // not good, generates warning
 
     /// ACRA
-    implementation 'com.google.guava:guava:33.4.8-android' //33.4.0-android'
+    implementation 'com.google.guava:guava:33.5.0-android' //33.4.8-android'
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
     // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
