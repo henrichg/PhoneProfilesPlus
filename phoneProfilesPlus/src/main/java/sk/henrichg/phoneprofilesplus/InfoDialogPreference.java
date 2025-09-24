@@ -20,7 +20,8 @@ public class InfoDialogPreference extends DialogPreference {
 
     static final String ACTIVITY_IMPORTANT_INFO_PROFILES = "@important_info_profiles";
     static final String PPP_APP_INFO_SCREEN = "@ppp_app_info_screen";
-    static final String DROIDIFY_INSTALLATION_SITE = "@droidify_installation_site";
+    //static final String DROIDIFY_INSTALLATION_SITE = "@droidify_installation_site";
+    static final String NEOSTORE_INSTALLATION_SITE = "@neostore_installation_site";
     static final String GRANT_ROOT = "@grant_root";
     static final String VPN_OPENVPN_CONNECT = "@openvpn_connect";
     static final String VPN_OPENVPN_FOR_ANDROID = "@openvpn_for_android";

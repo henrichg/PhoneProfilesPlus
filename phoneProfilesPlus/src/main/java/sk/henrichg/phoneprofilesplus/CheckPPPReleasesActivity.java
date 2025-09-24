@@ -191,7 +191,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT < 33)
                 checkInGitHub(/*activity, false*/);
             else
-                checkInDroidIfy(/*activity,*/ true);
+                checkInNeoStore(/*activity,*/ true);
             displayed = true;
         }
         else
@@ -201,12 +201,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_droidify) {
-            checkInDroidIfy(/*activity,*/ false);
+            checkInDroidIfy(/*activity,*/ /*false*/);
             displayed = true;
         }
         else
         if (store == R.id.menu_check_in_neostore) {
-            checkInNeoStore(/*activity*/);
+            checkInNeoStore(/*activity*/ false);
             displayed = true;
         }
 
@@ -215,10 +215,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 // -1: CheckPPPReleasesBroadcastReceiver
                 // -2: CheckCriticalPPPReleasesBroadcastReceiver
 
-                if (droidifyInstalled)
-                    checkInDroidIfy(/*activity,*/ false);
-                else if (neostoreInstalled)
-                    checkInNeoStore(/*activity*/);
+                if (neostoreInstalled)
+                    checkInNeoStore(/*activity*/ false);
+                else if (droidifyInstalled)
+                    checkInDroidIfy(/*activity,*/ /*false*/);
                 else if (fdroidInstalled)
                     checkInFDroid(/*activity*/);
                 else if (apkPureInstalled)
@@ -227,7 +227,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT < 33)
                         checkInGitHub(/*activity, false*/);
                     else
-                        checkInDroidIfy(/*activity,*/ true);
+                        checkInNeoStore(/*activity,*/ true);
                 }
             }
 /*
@@ -653,10 +653,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    private void checkInDroidIfy(/*final Activity activity,*/ boolean forGitHub) {
+    private void checkInDroidIfy(/*final Activity activity,*/ /*boolean forGitHub*/) {
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_MENU_ITEM_ID, R.id.menu_check_in_droidify);
-        bundle.putBoolean(EXTRA_FOR_GITHUB, forGitHub);
+        //bundle.putBoolean(EXTRA_FOR_GITHUB, forGitHub);
 
         CheckPPPReleasesDialog dialog = new CheckPPPReleasesDialog(this);
         dialog.setArguments(bundle);
@@ -665,160 +665,15 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    private void checkInNeoStore(/*final Activity activity*/) {
+    private void checkInNeoStore(/*final Activity activity*/ boolean forGitHub) {
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_MENU_ITEM_ID, R.id.menu_check_in_neostore);
+        bundle.putBoolean(EXTRA_FOR_GITHUB, forGitHub);
 
         CheckPPPReleasesDialog dialog = new CheckPPPReleasesDialog(this);
         dialog.setArguments(bundle);
         if (!isFinishing())
             dialog.showDialog();
-
-/*
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
-                activity.getString(R.string.menu_check_github_releases), null);
-        //dialogBuilder.setTitle(R.string.menu_check_github_releases);
-
-        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-        try {
-            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")"+StringConstants.TAG_BOLD_END_HTML;
-        } catch (Exception e) {
-            message = StringConstants.TAG_BREAK_HTML;
-        }
-
-        View layout;
-        LayoutInflater inflater = activity.getLayoutInflater();
-
-//        boolean fdroidInstalled = false;
-//        PackageManager pm = activity.getPackageManager();
-//        try {
-//            pm.getPackageInfo(PPApplication.FDROID_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
-//            fdroidInstalled = true;
-//        } catch (Exception ignored) {}
-//        if (fdroidInstalled)
-//            layout = inflater.inflate(R.layout.dialog_for_fdroid_app, null);
-//        else
-//            layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
-        layout = inflater.inflate(R.layout.dialog_for_neostore, null);
-
-        dialogBuilder.setView(layout);
-
-        TextView text;
-        text = layout.findViewById(R.id.dialog_for_neostore_info_text);
-        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
-
-        //noinspection DataFlowIssue
-        text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
-
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setCancelable(true);
-
-        boolean neostoreInstalled = false;
-        PackageManager pm = activity.getPackageManager();
-        try {
-            pm.getPackageInfo(PPApplication.NEOSTORE_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
-            neostoreInstalled = true;
-        } catch (Exception ignored) {}
-
-        text = layout.findViewById(R.id.dialog_for_neostore_neostore_application);
-        View buttonsDivider = layout.findViewById(R.id.dialog_for_neostore_buttonsDivider);
-        if (!neostoreInstalled) {
-            //noinspection DataFlowIssue
-            text.setVisibility(View.VISIBLE);
-            //noinspection DataFlowIssue
-            buttonsDivider.setVisibility(View.VISIBLE);
-
-            CharSequence str1 = activity.getString(R.string.check_releases_neostore_ppp_release);
-            CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-            Spannable sbt = new SpannableString(str2);
-            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    ds.setColor(ds.linkColor);    // you can use custom color
-                    ds.setUnderlineText(false);    // this remove the underline
-                }
-
-                @Override
-                public void onClick(@NonNull View textView) {
-                    String url = PPApplication.IZZY_PPP_RELEASES_URL;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                }
-            };
-            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-            text.setText(sbt);
-            text.setMovementMethod(LinkMovementMethod.getInstance());
-
-            if (Build.VERSION.SDK_INT >= 33) {
-                TextView text2 = layout.findViewById(R.id.dialog_for_neostore_apk_installation);
-                //noinspection DataFlowIssue
-                text2.setVisibility(View.VISIBLE);
-                String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
-                        " " + activity.getString(R.string.install_ppp_store_neostore) +
-                        activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
-                text2.setText(str);
-            }
-        } else {
-            //noinspection DataFlowIssue
-            text.setVisibility(View.GONE);
-            //buttonsDivider.setVisibility(View.GONE);
-        }
-
-        final boolean _neostoreInstalled = neostoreInstalled;
-        int buttonRes = R.string.alert_button_install_store;
-        if (neostoreInstalled)
-            buttonRes = R.string.check_releases_open_neostore;
-        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
-            if (_neostoreInstalled) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
-                intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
-                try {
-                    activity.startActivity(intent);
-                } catch (Exception e) {
-                    //Log.e("CheckPPPReleasesActivity.checkInNeoStore", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-            else {
-                String url = PPApplication.NEOSTORE_APPLICATION_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                }
-            }
-            activity.finish();
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.setOnCancelListener(dialog -> activity.finish());
-        dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        alertDialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!activity.isFinishing())
-            alertDialog.show();
-*/
     }
 
 }

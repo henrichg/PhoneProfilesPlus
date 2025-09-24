@@ -32,14 +32,14 @@ Dialog is displayed, because PPP has target SDK vesion 28 (Android 9). Must be, 
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
-__Droid-ify (F-Droid alternative, preferred over GitHub):__
-- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
-- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
-  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
-
 __Neo Store (F-Droid alternative, preferred over GitHub):__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 - [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.machiav3lli.fdroid)
+  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
+
+__Droid-ify (F-Droid alternative, preferred over GitHub):__
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
+- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
   &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 __F-Droid:__
@@ -57,9 +57,9 @@ __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
-__GitHub (better is using Droid-ify, F-Droid, NeoStore, or similar app store instead):__
+__GitHub (better is using Neo Store, Droid-ify, F-Droid, or similar app store instead):__
 
-- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, F-Droid, NeoStore, or similar app store, if in your device is not supported application store, and install PhoneProfilesPlus from it.
+- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Neo Store, Droid-ify, F-Droid, or similar app store, if in your device is not supported application store, and install PhoneProfilesPlus from it.
 
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_

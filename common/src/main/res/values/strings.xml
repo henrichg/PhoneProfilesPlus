@@ -1999,11 +1999,11 @@
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4">\"Allow restricted settings\" is not displayed, when restricted settings are allowed.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5">However, if PhoneProfilesPlus is installed from a downloaded apk file, \"Allow restricted settings\" may not appear at all.</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6">Then you must uninstall it, and install it from supported store, for example Droid-ify.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6">Then you must uninstall it, and install it from supported store, for example Neo Store.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7">Before uninstallation of PhoneProfilesPlus, do backup of PhoneProfilesPlus settings. It is in Editor menu in</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8">Aftet istallation of PhoneProfilesPlus from supported store, do restore of PhoneProfilesPlus settings. It is in Editor menu in</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10">Click here to open Droid-ify installation site.</string>
-    <string name="install_extender_install_droidify_text">Please install Droid-ify. Is required for installation of PhoneProfilesPlusExtender. After that, do again installation of PhoneProfilesPlusExteder.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10">Click here to open Neo Store installation site.</string>
+    <string name="install_extender_install_droidify_text">Please install Neo Store. Is required for installation of PhoneProfilesPlusExtender. After that, do again installation of PhoneProfilesPlusExteder.</string>
     <string name="alert_button_install_store">Install store</string>;
     <string name="check_releases_droidify_ppp_release">PhoneProfilesPlus release in Droid-ify:</string>
     <string name="check_releases_fdroid_ppp_release">PhoneProfilesPlus release in F-Droid:</string>
@@ -2011,7 +2011,7 @@
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Change media volume while playing music</string>
     <string name="phone_profiles_pref_applicationEventScanningPaused">Scanning paused</string>
     <string name="error_code">error code</string>
-    <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."</string>
+    <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Neo Store."</string>
     <string name="event_preferences_category_eventBrightnessParameters">Brightness sensor</string>
     <string name="event_preference_brightness_summary">This sensor will start an event by brightness level change. Parameters: Operator from\/to, Brightness level from\/to.</string>
     <string name="event_preferences_brightness_level_from">Brightness level from</string>
@@ -2163,7 +2163,7 @@
     <string name="menu_reddit" translatable="false">Reddit</string>
     <string name="menu_bluesky" translatable="false">Bluesky</string>
     <string name="check_releases_apkpure_ppp_release">PhoneProfilesPlus release in APKPure:</string>
-    <string name="install_pppps_install_droidify_text">Please install Droid-ify. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
+    <string name="install_pppps_install_droidify_text">Please install Neo Store. Is required for installation of PPPPutSettings. After that, do again installation of PPPPutSettings.</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_send">Send SMS</string>
     <string name="profile_preference_phoneCallsSendSMS_summary_notSend">Do not send SMS</string>
     <string name="popup_event_states_state">State:</string>
@@ -2435,8 +2435,8 @@
     <string name="extender_accessibility_service_disabled_app_info_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
     <string name="extender_accessibility_service_disabled_app_info_4">\"Allow restricted settings\" is not displayed, when restricted settings are allowed.</string>
     <string name="extender_accessibility_service_disabled_app_info_5">However, if PhoneProfilesPlusExtender is installed from a downloaded apk file, \"Allow restricted settings\" may not appear at all.</string>
-    <string name="extender_accessibility_service_disabled_app_info_6">Then you must uninstall it, and install it from supported store, for example Droid-ify.</string>
-    <string name="extender_accessibility_service_disabled_app_info_7">Click here to open Droid-ify installation site:</string>
+    <string name="extender_accessibility_service_disabled_app_info_6">Then you must uninstall it, and install it from supported store, for example Neo Store.</string>
+    <string name="extender_accessibility_service_disabled_app_info_7">Click here to open Neo Store installation site:</string>
     <string name="extender_accessibility_service_app_info_button">App info</string>
     <string name="extender_menu_support">Support</string>
     <string name="extender_support_subject">support</string>

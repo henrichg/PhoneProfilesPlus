@@ -2,9 +2,9 @@ How to install Shizuku
 ======================
 
 Shizuku is in IzzyOnDroid repository. Recommended is installing it from supported stores:
+- Neo Store
 - Droid-ify
 - F-Droid
-- NeoStore
     
 IzzyOnDroid repository:
 - <https://apt.izzysoft.de/fdroid/index/apk/moe.shizuku.privileged.api>

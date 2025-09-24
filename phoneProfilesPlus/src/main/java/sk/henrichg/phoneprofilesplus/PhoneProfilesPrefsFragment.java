@@ -2089,7 +2089,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     if (!(droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/)) {
                         info = info +
-                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.NEOSTORE_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
                                 getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
                     }
 
@@ -2310,7 +2310,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     if (!(droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/)) {
                         info = info +
-                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.NEOSTORE_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
                                 getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
                     }
 

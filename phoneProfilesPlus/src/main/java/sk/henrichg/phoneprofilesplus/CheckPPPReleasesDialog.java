@@ -59,14 +59,15 @@ public class CheckPPPReleasesDialog extends DialogFragment
                 mDialog = checkInGitHub(newVersionName, newVersionCode, newVersionCritical, criticalCheck);
             }
             if (store == R.id.menu_check_in_droidify) {
-                boolean forGitHub = arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_FOR_GITHUB, false);
-                mDialog = checkInDroidIfy(forGitHub);
+                //boolean forGitHub = arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_FOR_GITHUB, false);
+                mDialog = checkInDroidIfy(/*forGitHub*/);
             }
             if (store == R.id.menu_check_in_fdroid) {
                 mDialog = checkInFDroid();
             }
             if (store == R.id.menu_check_in_neostore) {
-                mDialog = checkInNeoStore();
+                boolean forGitHub = arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_FOR_GITHUB, false);
+                mDialog = checkInNeoStore(forGitHub);
             }
             if (store == R.id.menu_check_in_apkpure) {
                 mDialog = checkInAPKPure();
@@ -225,7 +226,7 @@ public class CheckPPPReleasesDialog extends DialogFragment
             //noinspection DataFlowIssue
             text2.setVisibility(View.VISIBLE);
             String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
-                    " " + activity.getString(R.string.install_ppp_store_droidify) +
+                    " " + activity.getString(R.string.install_ppp_store_neostore) +
                     activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
             text2.setText(str);
         }
@@ -660,7 +661,7 @@ public class CheckPPPReleasesDialog extends DialogFragment
     }
 
     @SuppressLint("InflateParams")
-    private AlertDialog checkInDroidIfy(boolean forGitHub) {
+    private AlertDialog checkInDroidIfy(/*boolean forGitHub*/) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
                 activity.getString(R.string.menu_check_github_releases), null);
@@ -697,9 +698,9 @@ public class CheckPPPReleasesDialog extends DialogFragment
         text = layout.findViewById(R.id.dialog_for_droidify_info_text);
         message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
 
-        if (forGitHub) {
+        /*if (forGitHub) {
             message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_github_download_not_supported);
-        }
+        }*/
 
         //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));
@@ -814,7 +815,7 @@ public class CheckPPPReleasesDialog extends DialogFragment
     }
 
     @SuppressLint("InflateParams")
-    private AlertDialog checkInNeoStore() {
+    private AlertDialog checkInNeoStore(boolean forGitHub) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
                 activity.getString(R.string.menu_check_github_releases), null);
@@ -850,6 +851,10 @@ public class CheckPPPReleasesDialog extends DialogFragment
         TextView text;
         text = layout.findViewById(R.id.dialog_for_neostore_info_text);
         message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
+
+        if (forGitHub) {
+            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_github_download_not_supported);
+        }
 
         //noinspection DataFlowIssue
         text.setText(StringFormatUtils.fromHtml(message, false,  false, 0, 0, true));

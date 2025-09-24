@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dialog_for_droidify_root2"
+    android:id="@+id/dialog_for_neostore_root2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -10,7 +10,7 @@
     android:paddingBottom="3dp">
 
     <View
-        android:id="@+id/dialog_for_droidify_titleBarDivider"
+        android:id="@+id/dialog_for_neostore_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
@@ -18,7 +18,7 @@
         android:background="@color/dialogDividerColor" />
 
     <ScrollView
-        android:id="@+id/dialog_for_droidify_root"
+        android:id="@+id/dialog_for_neostore_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -27,7 +27,7 @@
 <!--        android:fadeScrollbars="false"-->
 
         <LinearLayout
-            android:id="@+id/dialog_for_droidify_linla0"
+            android:id="@+id/dialog_for_neostore_linla0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/install_pppe_install_droidify_info_text"
+                android:id="@+id/install_pppe_install_neostore_info_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
@@ -48,7 +48,7 @@
     </ScrollView>
 
     <View
-        android:id="@+id/install_pppe_install_droidify_buttonsDivider"
+        android:id="@+id/install_pppe_install_neostore_buttonsDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
