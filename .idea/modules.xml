@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidClearChroma/PhoneProfilesPlus.AndroidClearChroma.main.iml" />
