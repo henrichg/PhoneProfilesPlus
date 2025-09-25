@@ -36,7 +36,7 @@ class Event {
     long _fkProfileEnd;
     //public boolean _undoneProfile;
     int _atEndDo;
-    private int _status;
+    int _status;
     String _notificationSoundStart;
     boolean _notificationVibrateStart;
     boolean _repeatNotificationStart;
@@ -412,7 +412,7 @@ class Event {
 
     private void createEventPreferencesRadioSwitch()
     {
-        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     private void createEventPreferencesAlarmClock()
@@ -667,7 +667,9 @@ class Event {
                 (this._eventPreferencesMusic._enabled &&
                         (EventStatic.isEventPreferenceAllowed(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCallControl._enabled &&
-                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesRadioSwitch._enabled && (this._eventPreferencesRadioSwitch._ethernet != 0) &&
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET, false, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED))
                 ;
     }
 
@@ -2316,6 +2318,7 @@ class Event {
                     // Do not restart events when is event paused during restart events !!!
                     // do not reactivate profile to avoid infinite loop
 
+//                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] Event.doActivateEndProfile", "dataWrapper.restartEventsWithDelay");
                     dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
 
                     // keep wakelock awake 5 secods
@@ -2812,8 +2815,8 @@ class Event {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000L;
-
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
 
@@ -3036,8 +3039,8 @@ class Event {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
-
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                     }
@@ -3205,7 +3208,7 @@ class Event {
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
                 } catch (SecurityException en) {
-                    PPApplicationStatic.logException("Event.notifyEventStart", Log.getStackTraceString(en));
+                    PPApplicationStatic.logException("Event.notifyEventStart", Log.getStackTraceString(en), false);
                 } catch (Exception e) {
                     //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);

@@ -411,7 +411,7 @@
     <string name="important_info_profile_activation_text8">Muharrik ve Düzenleyici başlığı bir \"Trafik ışığı\"dır.</string>
     <string name="important_info_profile_activation_text9">Durumlar başladı.</string>
     <string name="important_info_profile_activation_text10">Durumlar başlatılamaz - Bir Tercih el ile faaliyete geçirilmiş.</string>
-    <string name="important_info_profile_activation_text11">Events are stopped - events run can be enabled through Editor top bar icon \"Enable events run\".</string>
+    <string name="important_info_profile_activation_text11">Durumlar durduruldu - Düzenleyicinin üst kısmındaki \"Durumların çalışmasına izin ver\" düğmesi ile Durumların çalışmasına izin verilebilir.</string>
     <string name="important_info_profile_activation_restart_events_icon">Durumları tekrar başlat simgesi:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
     <string name="important_info_android_doze_mode">Android 6+\'da \"Uyku modu\" ve \"Uygulama Bekletme\" uygulanmaktadır. Durumlar vasıtasıyla Tercihi faaliyete geçirmede sorun yaşanırsa şunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı ilave etmeniz lazımdır.</string>
@@ -850,7 +850,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Zorla durdurulacak uygulamalar</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">\"Uygulamaları zorla durdur\" şartına izin vermeyi sağlayan PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">\"Uygulamalar zorla durdur\" şartına izin vermek için \"Sistem Ayarları\" → \"Erişilebilirlik\" ayarlarında PhoneProfilesPlusExtender\'a izin verin.</string>
-    <string name="shortcut_activate_profile">Tercihi faaliyete geçir:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Sadece ekran ve ekran kilidi açık olduğunda çalışır.</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Şebeke ağ türü ayarları</string>
     <string name="profile_preferences_deviceCloseAllApplications">Uygulamaların tamamını kapat</string>
@@ -2105,7 +2104,6 @@
     <string name="install_pppps_text10">For Android 14+ is not normally possible to install PPPPutSettings directly on the device.</string>
     <string name="install_pppps_text11">But exists solution. This requires InstallWithOptions and Shizuku (if device is not rooted).</string>
     <string name="install_pppps_text12">How to proceed:</string>
-    <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). How, is in:</string>
     <string name="install_pppps_text14">2. Install InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Download PPPPutSettings:</string>
     <string name="install_pppps_text16">4. In InstallWithOptions enable: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2332,4 +2330,21 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parameter is in \"Settings/Advanced settings/Tasker integration\". Enable it.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Don\'t forget to save the change by clicking the \"Save\" button.</string>
     <string name="preferences_installDeltaPreferences_title">Delta application is not installed.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Click here to install Shizuku from store.</string>
+    <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). Click here to download it.</string>
+    <string name="install_pppps_text13_1">1. Install and start Shizuku (if device is not rooted). Click here to install it from store.</string>
+    <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
+    <string name="important_info_advanced_protection">IMPORTANT: If is enabled in device \"Advanced protection\", is not possible to install required apllicaitons (PPPE, PPPPS, InstallWithOptions, Shizuku) from third-party applications stores (Drofi-ify, F-Droid, NeoStore). Also most of functionalities in PPP not correctly working. Please disable it.</string>
+    <string name="profile_list_item_menu_create_shortcut">Create shortcut to profile</string>
+    <string name="shortcut_to_profile_created_toast">Shortcut to profile created</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Shortcut to \"Reastart events\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Click here, to create shortcut to \"Reastart events\" in home launcher</string>
+    <string name="shortcut_for_restart_events_dialog_title">Shortcut to \"Restart events\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Shortcut to \"Restart events\" created</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">WARNING: GPS location works with problems indoors. It also consumes a lot of battery.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Notification scan interval (sec)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+    <string name="anr_notification_title">Sorry, application not responding (ANR) occurred</string>
+    <string name="anr_notification_text">Please click here, to send log.txt file to author. Thank you very much.</string>
+    <string name="email_anr_subject">Application not responding (ANR)</string>
 </resources>

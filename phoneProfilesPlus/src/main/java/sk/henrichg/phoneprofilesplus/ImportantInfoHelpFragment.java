@@ -934,20 +934,22 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                     @Override
                     public void onClick(@NonNull View textView) {
-                        if (droidifyInstalled) {
+                        if (neostoreInstalled) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {
+                            }
+                        } else if (droidifyInstalled) {
                             Intent intent = new Intent(Intent.ACTION_VIEW,
                                     Uri.parse("market://details?id=moe.shizuku.privileged.api"));
                             intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                             try {
                                 fragment.startActivity(intent);
                             } catch (Exception ignored) {}
-                        } else if (neostoreInstalled) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
-                            intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
-                            try {
-                                fragment.startActivity(intent);
-                            } catch (Exception ignored) {}
+
                         } else {
                             Intent intent = new Intent(Intent.ACTION_VIEW,
                                     Uri.parse("market://details?id=moe.shizuku.privileged.api"));

@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -22,6 +23,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
@@ -80,15 +82,39 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowProfileListWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] OneRowProfileListWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureOneRowProfileListWidgetExecutor != null)
+                PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1140,23 +1166,52 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET)) {
+                boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
                 if (manager != null) {
-                    final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
-                    if ((ids != null) && (ids.length > 0)) {
+                    final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
+                    if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                         final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
-                            //Context appContext= appContextWeakRef.get();
-                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowProfileListWidgetProvider_onReceive);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                                _onUpdate(appContext, appWidgetManager, ids);
+                                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                                }
+
+                            } catch (Exception e) {
+//                              PPApplicationStatic.logE("[IN_EXECUTOR] OneRowProfileListWidgetProvider.onReceive", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                //worker.shutdown();
                             }
                         };
                         PPApplicationStatic.createDelayedGuiExecutor();
-                        PPApplication.delayedGuiExecutor.submit(runnable);
+//                        PPApplication.delayedGuiExecutor.submit(runnable);
+                        if (PPApplication.scheduledFutureOneRowProfileListWidgetExecutor != null)
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.cancel(true);
+                        if (drawImmediatelly)
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }
@@ -1185,12 +1240,14 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
     static void updateWidgets(Context context/*, boolean refresh*/) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 

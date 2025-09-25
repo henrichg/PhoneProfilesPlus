@@ -209,10 +209,14 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PPApplicationStatic.setDaysForNextDonationNotification(appContext, daysForNextNotification);
             }
         } else {
-            int daysForOneNotification = 9;
+            /*int daysForOneNotification = 9;
             for (int i = 1; i <= donationNotificationCount; i++) {
                 daysForOneNotification = daysForOneNotification + 9 * (i + 1);
-            }
+            }*/
+            int daysForOneNotification = 30;
+            if (donationNotificationCount == 1) daysForOneNotification = daysAfterFirstStart + 50;
+            if (donationNotificationCount == 2) daysForOneNotification = daysAfterFirstStart + 75;
+            if (donationNotificationCount == 3) daysForOneNotification = daysAfterFirstStart + 90;
 //            Log.e("DonationBroadcastReceiver._doWork", "daysForOneNotification="+daysForOneNotification);
 
             notify = (daysAfterFirstStart > 0) && (daysAfterFirstStart >= daysForOneNotification);
@@ -267,7 +271,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_TAG,
                         PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
             } catch (SecurityException en) {
-                PPApplicationStatic.logException("DonationBroadcastReceiver._doWork", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("DonationBroadcastReceiver._doWork", Log.getStackTraceString(en), false);
             } catch (Exception e) {
                 //Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);

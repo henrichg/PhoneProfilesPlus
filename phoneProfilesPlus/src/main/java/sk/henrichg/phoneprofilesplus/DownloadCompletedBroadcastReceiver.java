@@ -54,7 +54,7 @@ public class DownloadCompletedBroadcastReceiver extends BroadcastReceiver {
             intentDownloads.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intentDownloads);
         } catch (Exception e) {
-            Log.e("DownloadCompletedBroadcastReceiver.onReceive", Log.getStackTraceString(e));
+            PPApplicationStatic.logException("DownloadCompletedBroadcastReceiver.onReceive", Log.getStackTraceString(e), false);
         }
     }
 

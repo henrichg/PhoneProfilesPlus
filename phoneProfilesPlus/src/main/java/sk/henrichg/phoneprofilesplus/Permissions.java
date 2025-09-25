@@ -3543,7 +3543,7 @@ class Permissions {
                 try {
                     ShizukuUtils.executeCommand(command1);
                 } catch (Exception e) {
-                    Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e), false);
                 }
             }
         } else
@@ -3558,7 +3558,7 @@ class Permissions {
                     RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                     RootUtils.commandWait(command, RootCommandWaitCalledFromConstants.ROOT_COMMAND_WAIT_CALLED_FROM_SET_HYPER_OS_WIFI_BLUETOOTH_DIALOGS_APPOP);
                 } catch (Exception e) {
-                    Log.e("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("Permissions.setHyperOSWifiBluetoothDialogAppOp", Log.getStackTraceString(e), false);
                 }
             }
         }

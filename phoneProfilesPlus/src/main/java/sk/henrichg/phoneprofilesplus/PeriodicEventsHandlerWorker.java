@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.PowerManager;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -77,20 +78,23 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                 if (EventStatic.getGlobalEventsRunning(getApplicationContext())) {
 
-                    boolean callEventsHandler = false;
-                    Set<String> tags = getTags();
-                    for (String tag : tags) {
+                    synchronized (PPApplication.handleEventsMutex) {
 
-                        if (tag.equals(WORK_TAG)) {
-                            callEventsHandler = true;
-                            break;
+                        boolean callEventsHandler = false;
+                        Set<String> tags = getTags();
+                        for (String tag : tags) {
+
+                            if (tag.equals(WORK_TAG)) {
+                                callEventsHandler = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if (callEventsHandler) {
+                        if (callEventsHandler) {
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
-                        EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
-                        eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER});
+                            EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
+                            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER});
+                        }
                     }
                 }
 
@@ -100,12 +104,34 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 Runnable runnable = () -> {
 //                    long start1 = System.currentTimeMillis();
 //                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG");
-                    PeriodicEventsHandlerWorker.enqueueWork(appContext);
-//                    long finish = System.currentTimeMillis();
-//                    long timeElapsed = finish - start1;
-//                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
-                    //worker.shutdown();
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PeriodicEventHandlerWorker_doWork);
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        PeriodicEventsHandlerWorker.enqueueWork(appContext);
+//                      long finish = System.currentTimeMillis();
+//                      long timeElapsed = finish - start1;
+//                      PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PeriodicEventsHandlerWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG - timeElapsed="+timeElapsed);
+                        //worker.shutdown();
+
+                    } catch (Exception e) {
+//                        PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
                 };
+//                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] PeriodicEventsHandlerWorker.doWork", "xxxx");
                 PPApplicationStatic.createDelayedEventsHandlerExecutor();
                 PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 /*

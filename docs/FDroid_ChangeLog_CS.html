@@ -7,38 +7,39 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 7.1</h2>
+<h2 id="version2">Verze: 7.1.2</h2>
 
 <ul lang="en">
-    <li>Add: Added "Answer call" into "Call sensor".</li>
-    <li>Add: Added "End call" into "Call sensor".</li>
-    <li>Add: Added "Send SMS" into "SMS sensor".</li>
-    <li>Add: "Play music" profile parameter.</li>
-    <li>Change: Smart Launcher support.</li>
-    <li>Change: Samsung One UI 7 support.</li>
-    <li>Change: Android 16 support.</li>
-    <li>Change: Layout changes in landscape mode.</li>
-    <li>Change: Another changes in layout,</li>
-    <li>Change: Small changes in simulating call ringing.</li>
-    <li>Change: Added button "Refresh" for contacts, contact groups dialog.</li>
-    <li>Change: Added "Events lifecycle" into "Activity log" filters.</li>
-    <li>Change: Added configuration of activated profile for "Activity log" filter "Profile activations".</li>
-    <li>Change: Added configuration of event for "Activity log" event filters.</li>
-    <li>Change: Moved "Set call screening" preference into "System" with name "Default roles applications".</li>
-    <li>Change: Added parameter into Settings for disable ringing call simulation.</li>
-    <li>Change: "Call screening" event sensor renamed to "Call control".</li>
-    <li>Change: Added toast about exit of application by user (from Editor menu, notification).</li>
-    <li>Change: Better configuration of alarm for sensors with parameter "Duration".</li>
-    <li>Change: Added required info preferences about "Restricted settings".</li>
-    <li>Change: Added "Duration" into "Activated profile sensor".</li>
-    <li>Change: Small changes in profile parameter "Force stop applications".</li>
-    <li>Change: Check PPP release: Minimizing suppression of new PPP version notification.</li>
-    <li>Change: New required PPPE version 9.0.1.2.</li>
-    <li>Fix: Small fixes in Time and NFC sensor.</li>
-    <li>Fix: Do not close PopupWindow at orientation change.</li>
-    <li>Fix: Wrong displayed required PPPPS for "Screen timeout" for Oppo device.</li>
-    <li>Fix: Not detected PPPPS if is disabled by system (Samsung deep sleep).</li>
-    <li>Fix: Fixed permission check for "Answer call" and "End call" in "Call sensor".</li>
+    <li>Add: "Create shortcut to profile" added into Editor profile list item menu.</li>
+    <li>Add: "Create shortcut for "Restart events" added into Settings/"Run event".</li>
+    <li>Add: Ethernet support for "Radio" sensor.</li>
+    <li>Change: Increased size of event status icons in Editor event items.</li>
+    <li>Change: Better donation days for first 3 donation notifications.</li>
+    <li>Change: Removed forced Droid-ify request.</li>
+    <li>Change: Do not display red text in Editor for events, if event is stopped.</li>
+    <li>Change: Added disable of scanners after restore of backup.</li>
+    <li>Change: Added summary for PPP Settings "Location scanning"/"Use GPS when not in Power Save mode".</li>
+    <li>Change: Synchronized call of EventsHandler.</li>
+    <li>Change: Decreased count of calls of EventsHandler from Notification listener (used in Notification sensor).</li>
+    <li>Change: Added "Notification scan interval" into Notification scanning.</li>
+    <li>Change: Call of runnable {} in required situations.</li>
+    <li>Change: Less redraw of widgets - for decreased battery consumption.</li>
+    <li>Change: Added ANR watchdog to log ANRs.</li>
+    <li>Change: Added send e-mail for ANR.</li>
+    <li>Change: Some alarms changed to ELAPSED_REALTIME_WAKEUP</li>
+    <li>Fix: Fixed ANR for EventsHandler.handleEvents();</li>
+    <li>Fix: "Run application shortcut, intent" if application, shortcut, intent not exists in system (for example after restore of data).</li>
+    <li>Fix: Fixed twice call of "after_first_start" worker when Shizuku binder is called.</li>
+    <li>Fix: Fixed battery consumption in Location scanning.</li>
+    <li>Fix: Fixed battery consumption in Wifi scanning.</li>
+    <li>Fix: Fixed battery consumption in Bluetooth scanning.</li>
+    <li>Fix: Change: Fixed Call screening sensor.</li>
+    <li>Fix: Fixed not working change of random wallpaper from folder.</li>
+    <li>Fix: do not generate notification for exception.</li>
+    <li>Fix: Bad displayed PPP version in GitHub in check version dialog.</li>
+    <li>Fix: Bad working profile duration "Exact time", if is disabled "Use alarm clock".</li>
+    <li>Fix: Changed call of sleep() in main thread to runnable.</li>
+    <li>Fix: Fixed creation and usage of executors.</li>
 </ul>
 
 <ul>
@@ -50,7 +51,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1">Informace o vydání na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.2">Informace o vydání na GitHub.</a>
 </p>
 
 </body>

@@ -45,6 +45,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
     private int bluetoothScanInterval;
     private int locationScanInterval;
     private int orientationScanInterval;
+    private int notificationScanInterval;
     //private String activeDefaultProfile;
     private boolean useAlarmClockEnabled;
 
@@ -140,6 +141,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         bluetoothScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
         locationScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
         orientationScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
+        notificationScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL, "5"));
 
         useAlarmClockEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
@@ -563,6 +565,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
         PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventNotificationEnableScanning);
+        PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventNotificationScanInterval);
+
         //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             // PPApplicationStatic.recordException(e);
@@ -665,7 +669,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity
         }
 
         if (permissionsChanged ||
-                (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)) {
+                (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning) ||
+                (notificationScanInterval != ApplicationPreferences.applicationEventNotificationScanInterval)) {
             PPApplicationStatic.restartNotificationScanner(appContext);
         }
 

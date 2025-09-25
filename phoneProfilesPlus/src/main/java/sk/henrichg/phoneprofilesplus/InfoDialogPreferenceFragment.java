@@ -72,7 +72,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                                       CharSequence dialodTitle, Context context, Activity activity) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
         boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.PPP_APP_INFO_SCREEN);
-        boolean showDroidifyInstallationSite = linkUrl.startsWith(InfoDialogPreference.DROIDIFY_INSTALLATION_SITE);
+        boolean showNeoStoreInstallationSite = linkUrl.startsWith(InfoDialogPreference.NEOSTORE_INSTALLATION_SITE);
         boolean grantRoot = linkUrl.equals(InfoDialogPreference.GRANT_ROOT);
         boolean showOpenVPNConectInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_OPENVPN_CONNECT);
         boolean showOpenVPNForAndroidInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_OPENVPN_FOR_ANDROID);
@@ -128,8 +128,8 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 dialog2.showDialog();
             }
         }
-        if (showDroidifyInstallationSite) {
-            String url = PPApplication.DROIDIFY_APPLICATION_URL;
+        if (showNeoStoreInstallationSite) {
+            String url = PPApplication.NEOSTORE_APPLICATION_URL;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
@@ -196,17 +196,18 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         boolean neostoreInstalled = (_intent != null);
 
         if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
-            if (droidifyInstalled) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=dev.shadoe.delta"));
-                intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
-                try {
-                    activity.startActivity(intent);
-                } catch (Exception ignored) {}
-            } else if (neostoreInstalled) {
+            if (neostoreInstalled) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=dev.shadoe.delta"));
                 intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {
+                }
+            } else if (droidifyInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                 try {
                     activity.startActivity(intent);
                 } catch (Exception ignored) {}

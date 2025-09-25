@@ -1578,6 +1578,7 @@
         <item>@string/profile_list_item_menu_activate</item>
         <item>@string/profile_list_item_menu_duplicate</item>
         <item>@string/profile_list_item_menu_delete</item>
+        <item>@string/profile_list_item_menu_create_shortcut</item>
     </string-array>
     <string-array name="profileListItemShowInActivatorArray">
         <item>@string/array_show_profile_in_activator_not_show</item>

@@ -850,7 +850,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikace, u kterých vynutit zastavení</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pro povolení parametru \"Vynutit zastavení aplikací\", klikněte zde pro instalaci PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovém nastavení \"Usnadnění\", pro povolení parametru \"Vynutit zastavení aplikací\".</string>
-    <string name="shortcut_activate_profile">Aktivace profilu:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje jen, když je obrazovka zapnutá a odemčená.</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Nastavení typu mobilní sítě</string>
     <string name="profile_preferences_deviceCloseAllApplications">Zavřít všechny aplikace</string>
@@ -1117,7 +1116,7 @@
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Podle času připojení</string>
     <string name="menu_export_and_email">E-mail s nastaveními</string>
     <string name="menu_export_and_email_to_author">E-mail s nastaveními autorovi</string>
-    <string name="menu_email_debug_logs_to_author">E-mailem s ladícími soubory autorovi</string>
+    <string name="menu_email_debug_logs_to_author">E-mail s ladícími soubory autorovi</string>
     <string name="menu_support">Podpora</string>
     <string name="email_debug_log_files_subject">Ladící soubory</string>
     <string name="toast_debug_log_files_not_exists">Ladící soubory neexistují</string>
@@ -2105,7 +2104,6 @@
     <string name="install_pppps_text10">Pro Android 14+ není normálně možné nainstalovat PPPPutSettings přímo v zařízení.</string>
     <string name="install_pppps_text11">Ale existuje řešení. Vyžaduje to InstallWithOptions a Shizuku (pokud zařízení není rootováno).</string>
     <string name="install_pppps_text12">Jak postupovat:</string>
-    <string name="install_pppps_text13">1. Nainstalujte a spusťte Shizuku (pokud zařízení není rootováno). Jak, je v:</string>
     <string name="install_pppps_text14">2. Nainstalujte InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Stáhněte PPPPutSettings:</string>
     <string name="install_pppps_text16">4. V InstallWithOptions povolte: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2332,4 +2330,21 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Parametr se nachází v \"Settings/Advanced settings/Tasker integration\". Povolte jej.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Nezapomeňte uložit změnu kliknutím na tlačítko \"Save\".</string>
     <string name="preferences_installDeltaPreferences_title">Aplikácia Delta nie je nainštalovaná.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Klikněte zde pro instalaci Shizuku z obchodu.</string>
+    <string name="install_pppps_text13">1. Nainstalujte a spusťte Shizuku (pokud zařízení nemá root). Klikněte zde pro jeho stažení.</string>
+    <string name="install_pppps_text13_1">1. Nainstalujte a spusťte Shizuku (pokud zařízení není rootnuto). Klikněte zde pro instalaci z obchodu.</string>
+    <string name="install_pppps_text14_1">2. Nainstalujte InstallWithOptions. Klikněte zde pro instalaci z obchodu.</string>
+    <string name="important_info_advanced_protection">DŮLEŽITÉ: Pokud je v zařízení povolena možnost \"Rozšířená ochrana“, nelze nainstalovat požadované aplikace (PPPE, PPPPS, InstallWithOptions, Shizuku) z obchodů s aplikacemi třetích stran (Drofi-ify, F-Droid, NeoStore). Také většina funkcí v PPP nefunguje správně. Prosim vypněte ji.</string>
+    <string name="profile_list_item_menu_create_shortcut">Vytvořit zástupce na profil</string>
+    <string name="shortcut_to_profile_created_toast">Zástupce profilu vytvořen</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Zástupce na \"Restart událostí\"</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Klikněte zde pro vytvoření odkazu pro \"Restart událostí\" v domovském launcheru</string>
+    <string name="shortcut_for_restart_events_dialog_title">Zástupce na \"Restart událostí\"</string>
+    <string name="shortcut_for_restart_events_created_toast">Odkaz na \"Restart událostí\" byl vytvořen</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">VAROVÁNÍ: GPS lokalizace funguje s problémy ve vnitřních prostorách. Také spotřebovává spoustu baterie.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Interval skenování notifikace (sek)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+    <string name="anr_notification_title">Promiňte, aplikace nereaguje (ANR)</string>
+    <string name="anr_notification_text">Kliknutím zde, odešlete autorovi soubor log.txt. Děkuji velmi pěkně.</string>
+    <string name="email_anr_subject">Aplikace neodpovídá (ANR)</string>
 </resources>

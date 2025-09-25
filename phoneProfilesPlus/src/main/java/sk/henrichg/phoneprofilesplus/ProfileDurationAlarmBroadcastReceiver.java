@@ -148,8 +148,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
                         alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
-
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;
@@ -166,12 +166,23 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             configuredTime.set(Calendar.MINUTE, profile._endOfActivationTime % 60);
             configuredTime.set(Calendar.SECOND, 0);
             configuredTime.set(Calendar.MILLISECOND, 0);
+            configuredTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+            configuredTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+            configuredTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
 
             if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                 // configured time is not expired
                 // set alarm
 
                 long alarmTime = configuredTime.getTimeInMillis();
+
+                /*
+                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+                String time = sdf.format(now.getTimeInMillis());
+                Log.e("ProfileDurationAlarmBroadcastReceiver.setAlarm", "now="+time);
+                time = sdf.format(configuredTime.getTimeInMillis());
+                Log.e("ProfileDurationAlarmBroadcastReceiver.setAlarm", "configuredTime="+time);
+                */
 
                 // save configured end of activation time for generator of profile name with duration
                 ProfileStatic.setActivatedProfileEndDurationTime(context, profile._id, profile._endOfActivationTime);
@@ -197,8 +208,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
-
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
+                        long duration = configuredTime.getTimeInMillis() - now.getTimeInMillis();
+                        alarmTime = SystemClock.elapsedRealtime() + duration;
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     }
                     //this._isInDelay = true;
@@ -487,6 +499,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
+//                                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] ProfileDurationAlarmBroadcastReceiver._doWork", "(1) dataWrapper.restartEventsWithDelay");
                                 dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             } else {
                                 doActivateProfile = true;
@@ -525,6 +538,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         "");
 
                                 // manualRestart must be false to avoid infinite loop
+//                                PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] ProfileDurationAlarmBroadcastReceiver._doWork", "(2) dataWrapper.restartEventsWithDelay");
                                 dataWrapper.restartEventsWithDelay(/*false,*/ false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }

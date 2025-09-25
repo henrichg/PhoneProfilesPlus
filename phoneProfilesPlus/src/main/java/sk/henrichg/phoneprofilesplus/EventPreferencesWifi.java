@@ -520,7 +520,7 @@ class EventPreferencesWifi extends EventPreferences {
                                         }*/
                                         } catch (Exception e) {
 //                                        Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                            PPApplicationStatic.recordException(e);
+//                                            PPApplicationStatic.recordException(e);
                                         }
                                     }
                                 }

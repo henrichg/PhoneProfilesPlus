@@ -562,6 +562,9 @@ class EventPreferencesCallControl extends EventPreferences {
     boolean isPhoneNumberConfigured(List<Contact> contactList, String phoneNumber) {
         boolean phoneNumberFound = false;
 
+        if (phoneNumber.isEmpty())
+            return false;
+
         //if (this._contactListType != CONTACT_LIST_TYPE_NOT_USE) {
             /*ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
             if (contactsCache == null)
@@ -572,24 +575,23 @@ class EventPreferencesCallControl extends EventPreferences {
                 contactList = contactsCache.getList(); //false
             }*/
 
-            // find phone number in groups
-            String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
-            for (String split : splits) {
-                if (!split.isEmpty()) {
+        // find phone number in groups
+        String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
+        for (String split : splits) {
+            if (!split.isEmpty()) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCall.isPhoneNumberConfigured", "(2) PPApplication.contactsCacheMutex");
-                    synchronized (PPApplication.contactsCacheMutex) {
-                        if (contactList != null) {
-                            for (Contact contact : contactList) {
-                                if (contact.groups != null) {
-                                    long groupId = contact.groups.indexOf(Long.valueOf(split));
-                                    if (groupId != -1) {
-                                        // group found in contact
-                                        if (contact.phoneId != 0) {
-                                            String _phoneNumber = contact.phoneNumber;
-                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                phoneNumberFound = true;
-                                                break;
-                                            }
+                synchronized (PPApplication.contactsCacheMutex) {
+                    if (contactList != null) {
+                        for (Contact contact : contactList) {
+                            if (contact.groups != null) {
+                                long groupId = contact.groups.indexOf(Long.valueOf(split));
+                                if (groupId != -1) {
+                                    // group found in contact
+                                    if (contact.phoneId != 0) {
+                                        String _phoneNumber = contact.phoneNumber;
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            break;
                                         }
                                     }
                                 }
@@ -597,32 +599,33 @@ class EventPreferencesCallControl extends EventPreferences {
                         }
                     }
                 }
-
-                if (phoneNumberFound)
-                    break;
             }
 
-            if (!phoneNumberFound) {
-                // find phone number in contacts
-                // contactId#phoneId|...
-                splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
-                for (String split : splits) {
-                    String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+            if (phoneNumberFound)
+                break;
+        }
 
-                    if ((!split.isEmpty()) &&
-                            (splits2.length == 3) &&
-                            (!splits2[0].isEmpty()) &&
-                            (!splits2[1].isEmpty()) &&
-                            (!splits2[2].isEmpty())) {
-                        String contactPhoneNumber = splits2[1];
-                        if (PhoneNumberUtils.compare(contactPhoneNumber, phoneNumber)) {
-                            // phone number is in sensor configured
-                            phoneNumberFound = true;
-                            break;
-                        }
+        if (!phoneNumberFound) {
+            // find phone number in contacts
+            // contactId#phoneId|...
+            splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
+            for (String split : splits) {
+                String[] splits2 = split.split(StringConstants.STR_SPLIT_CONTACTS_REGEX);
+
+                if ((!split.isEmpty()) &&
+                        (splits2.length == 3) &&
+                        (!splits2[0].isEmpty()) &&
+                        (!splits2[1].isEmpty()) &&
+                        (!splits2[2].isEmpty())) {
+                    String contactPhoneNumber = splits2[1];
+                    if (PhoneNumberUtils.compare(contactPhoneNumber, phoneNumber)) {
+                        // phone number is in sensor configured
+                        phoneNumberFound = true;
+                        break;
                     }
                 }
             }
+        }
 
             //if (this._contactListType == CONTACT_LIST_TYPE_BLACK_LIST)
             //    phoneNumberFound = !phoneNumberFound;
@@ -958,8 +961,10 @@ class EventPreferencesCallControl extends EventPreferences {
 
                             boolean phoneNumberFound = false;
 
-                            if ((_callDirection == CALL_DIRECTION_ALL) || (_callDirection == callDirection)) {
+                            if (((_callDirection == CALL_DIRECTION_ALL) || (_callDirection == callDirection)) &&
+                                (!phoneNumber.isEmpty())) {
 //                                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesCallScreening.doHandleEvent", "PPApplicationStatic.getContactsCache()");
+//                                Log.e("[CONTACTS_CACHE] EventPreferencesCallScreening.doHandleEvent", "PPApplicationStatic.getContactsCache()");
                                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache != null) {
                                     List<Contact> contactList;

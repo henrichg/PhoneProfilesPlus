@@ -43,7 +43,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     static final String EXTRA_STORE = "extra_store";
     static final String EXTRA_FINISH_ACTIVITY = "extra_finish_activity";
     static final int STORE_GITHUB = 1;
-    static final int STORE_DROIDIFY = 2;
+    static final int STORE_NEOSTORE = 2;
     static final int STORE_ALL = 99;
 
     @SuppressLint("SetTextI18n")

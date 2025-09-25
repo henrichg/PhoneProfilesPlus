@@ -77,16 +77,10 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 final Context appContext = context.getApplicationContext();
                 //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
+                    // wkelock netreba, je to volane z onCreate aktivity
+
 //                    long start = System.currentTimeMillis();
 //                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
-
-//                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-//                        PowerManager.WakeLock wakeLock = null;
-//                        try {
-//                            if (powerManager != null) {
-//                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LockDeviceActivityFinishBroadcastReceiver_executor_1");
-//                                wakeLock.acquire(10 * 60 * 1000);
-//                            }
 
                         LockDeviceActivityFinishBroadcastReceiver.doWork(appContext);
 
@@ -94,17 +88,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                        long timeElapsed = finish - start;
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
-//                        } catch (Exception e) {
-////                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-//                            PPApplicationStatic.recordException(e);
-//                        } finally {
-//                            if ((wakeLock != null) && wakeLock.isHeld()) {
-//                                try {
-//                                    wakeLock.release();
-//                                } catch (Exception ignored) {
-//                                }
-//                            }
-//                        }
                 };
                 PPApplicationStatic.createDelayedProfileActivationExecutor();
                 PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
@@ -165,6 +148,8 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     final Context appContext = context.getApplicationContext();
                     //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
+                        // wkelock netreba, je to volane z onCreate aktivity
+
 //                        long start = System.currentTimeMillis();
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
 

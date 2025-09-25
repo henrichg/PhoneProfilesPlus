@@ -29,8 +29,10 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CalendarEventExistsCheckBroadcastReceiver.doWork");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
+                synchronized (PPApplication.handleEventsMutex) {
+
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -41,6 +43,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
 
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
+//                        Log.e("CalendarEventExistsCheckBroadcastReceiver.doWork", "call of events handler");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK});
 
@@ -63,8 +66,10 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                             }
                         }
                     }
-                //}
+                    //}
+                }
             };
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
             /*}

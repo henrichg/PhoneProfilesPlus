@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -114,7 +115,9 @@ class ImportantInfoNotification {
 //        Log.e("ImportantInfoNotification.canShowInfoNotification", "newsLatest="+newsLatest);
         if (newsLatest) {
             // change to false for not show notification
-            news = PPApplication.SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS;
+
+            // 7281 (Advanced protection) is only for Android 16
+            news = PPApplication.SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS && (Build.VERSION.SDK_INT >= 36);
         }
 
         /*if (news4550) {
@@ -193,7 +196,7 @@ class ImportantInfoNotification {
                     notificationTag,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ImportantInfoNotification.showNotification", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

@@ -64,8 +64,8 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
             if (store == PPPPSDialogPreferenceFragment.STORE_GITHUB34) {
                 mDialog = installPPPPutSettingsFromGitHub34(activity, finishActivity);
             }
-            if (store == PPPPSDialogPreferenceFragment.STORE_DROIDIFY) {
-                mDialog = installFromDroidIfy(activity, finishActivity);
+            if (store == PPPPSDialogPreferenceFragment.STORE_NEOSTORE) {
+                mDialog = installFromNeoStore(activity, finishActivity);
             }
             if (store == PPPPSDialogPreferenceFragment.STORE_ALL) {
                 mDialog = installPPPPutSettings(activity, finishActivity);
@@ -109,7 +109,7 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
     }
 
     @SuppressLint("InflateParams")
-    private AlertDialog installFromDroidIfy(final Activity activity,
+    private AlertDialog installFromNeoStore(final Activity activity,
                                             boolean finishActivity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
@@ -118,10 +118,10 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
-        layout = inflater.inflate(R.layout.dialog_install_pppe_install_droidify, null);
+        layout = inflater.inflate(R.layout.dialog_install_pppe_install_neostore, null);
         dialogBuilder.setView(layout);
 
-        TextView text = layout.findViewById(R.id.install_pppe_install_droidify_info_text);
+        TextView text = layout.findViewById(R.id.install_pppe_install_neostore_info_text);
 
         String dialogText = "";
 
@@ -146,7 +146,7 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
 
         int buttonRes = R.string.alert_button_install_store;
         dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
-            String url = PPApplication.DROIDIFY_APPLICATION_URL;
+            String url = PPApplication.NEOSTORE_APPLICATION_URL;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
@@ -395,17 +395,18 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    if (droidifyInstalled) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("market://details?id=moe.shizuku.privileged.api"));
-                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
-                        try {
-                            activity.startActivity(intent);
-                        } catch (Exception ignored) {}
-                    } else if (neostoreInstalled) {
+                    if (neostoreInstalled) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=moe.shizuku.privileged.api"));
                         intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {
+                        }
+                    } else if (droidifyInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                         } catch (Exception ignored) {}
@@ -451,17 +452,18 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    if (droidifyInstalled) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("market://details?id=dev.zwander.installwithoptions"));
-                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
-                        try {
-                            activity.startActivity(intent);
-                        } catch (Exception ignored) {}
-                    } else if (neostoreInstalled) {
+                    if (neostoreInstalled) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=dev.zwander.installwithoptions"));
                         intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                        try {
+                            activity.startActivity(intent);
+                        } catch (Exception ignored) {
+                        }
+                    } else if (droidifyInstalled) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=dev.zwander.installwithoptions"));
+                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                         } catch (Exception ignored) {}
@@ -746,10 +748,10 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
 
                 dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
                     //noinspection IfStatementWithIdenticalBranches
-                    if (droidifyInstalled) {
+                    if (neostoreInstalled) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
-                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                        intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                             //if ((_preference != null) && (_preference.fragment != null))
@@ -763,10 +765,10 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
                             if (finishActivity)
                                 activity.finish();
                         }
-                    } else if (neostoreInstalled) {
+                    } else if (droidifyInstalled) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
-                        intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                             //if ((_preference != null) && (_preference.fragment != null))
@@ -832,7 +834,7 @@ public class PPPPutSettingsInstallDialog extends DialogFragment
                 if (Build.VERSION.SDK_INT < 33)
                     return installPPPPutSettingsFromGitHub(activity, /*_preference,*/ finishActivity);
                 else
-                    return installFromDroidIfy(activity, /*_preference,*/ finishActivity);
+                    return installFromNeoStore(activity, /*_preference,*/ finishActivity);
             }
         } else
             return installPPPPutSettingsFromGitHub34(activity, /*_preference,*/ finishActivity);

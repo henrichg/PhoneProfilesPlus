@@ -53,65 +53,42 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
         // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
 
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = null;
-        try {
-            if (powerManager != null) {
-                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_VPNNetworkCallback_doConnection_1);
-                wakeLock.acquire(10 * 60 * 1000);
-            }
+        final Context appContext = context.getApplicationContext();
+        Runnable runnable = () -> {
 
-            _doConnection(context);
+            synchronized (PPApplication.handleEventsMutex) {
 
-        } catch (Exception e) {
-//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
-        } finally {
-            if ((wakeLock != null) && wakeLock.isHeld()) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
                 try {
-                    wakeLock.release();
-                } catch (Exception ignored) {
-                }
-            }
-        }
-        /*}
-        else {
-            final Context appContext = context.getApplicationContext();
-            Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=VPNNetworkCallback.doConnection");
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_VPNNetworkCallback_doConnection_1);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":VPNNetworkCallback_doConnection_2");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                    _doConnection(appContext);
 
-                        _doConnection(appContext);
-
-                    } catch (Exception e) {
-//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                } catch (Exception e) {
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
-                //}
-            };
-            PPApplicationStatic.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
-        }*/
+                }
+            }
+        };
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] VPNNetworkCallback.doConnection", "(xxx");
+        PPApplicationStatic.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
     private void _doConnection(Context appContext) {
         if (EventStatic.getGlobalEventsRunning(appContext)) {
+
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 
@@ -120,7 +97,6 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 //            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] VPNNetworkCallback._doConnection", "SENSOR_TYPE_VPN");
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_VPN});
-
         }
     }
 

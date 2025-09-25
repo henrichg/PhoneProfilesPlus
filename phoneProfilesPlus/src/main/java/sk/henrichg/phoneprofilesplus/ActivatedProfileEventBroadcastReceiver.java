@@ -34,8 +34,9 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ActivatedProfileEventBroadcastReceiver.doWork");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
+                synchronized (PPApplication.handleEventsMutex) {
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -54,7 +55,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             for (Event _event : dataWrapper.eventList) {
                                 if ((_event._eventPreferencesActivatedProfile._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                                     if (_event._eventPreferencesActivatedProfile.isRunnable(appContext) &&
-                                        _event._eventPreferencesActivatedProfile.isAllConfigured(appContext)) {
+                                            _event._eventPreferencesActivatedProfile.isAllConfigured(appContext)) {
 
                                         if (_event._eventPreferencesActivatedProfile._useDuration) {
                                             databaseHandler.getActivatedProfileStartTime(_event);
@@ -112,8 +113,10 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                //}
+                    //}
+                }
             };
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] ActivatedProfileEventBroadcastReceiver.doWork", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }

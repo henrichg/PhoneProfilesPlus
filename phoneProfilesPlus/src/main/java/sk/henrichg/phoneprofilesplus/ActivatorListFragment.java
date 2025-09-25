@@ -191,8 +191,10 @@ public class ActivatorListFragment extends Fragment {
         if (!activityDataWrapper.profileListFilled)
         {
             if (!isAsyncTaskRunning()) {
-                loadAsyncTask = new LoadProfileListAsyncTask(this);
-                loadAsyncTask.execute();
+                if (getActivity() != null) {
+                    loadAsyncTask = new LoadProfileListAsyncTask(this);
+                    loadAsyncTask.execute();
+                }
             }
         }
         else

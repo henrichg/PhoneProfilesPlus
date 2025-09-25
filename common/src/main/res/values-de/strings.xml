@@ -850,7 +850,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Zu beendende Programme</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Sie müssen PhoneProfilesPlusExtender installieren um Programme automatisiert beenden zu können.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Um \"App sofort stoppen\" Parameter zu aktivieren, aktivieren sie PhoneProfilesPlusExtender unter Bedienungshilfen in den Systemeinstellungen.</string>
-    <string name="shortcut_activate_profile">Profil aktivieren</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Funktioniert nur wenn das Display an und entsperrt ist.</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobilfunknetz Einstellungen</string>
     <string name="profile_preferences_deviceCloseAllApplications">Alle Anwendungen beenden</string>
@@ -1879,7 +1878,7 @@
     <string name="install_pppps_text2">This opens browser to download PPPPutSettings.apk into folder \"Download\".</string>
     <string name="install_pppps_text3">Then install this apk by clicking notification about downloaded apk.</string>
     <string name="install_pppps_text4">Note: Target Android version for PPPPutSettings is 5.1. For this reason is not compatible with Google Play Protect. But PPPPutSettings is safe, only PhoneProfilesPlus is allowed to use it.</string>
-    <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
+    <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings ist nicht installiert!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Source code - PPPPS:</string>
     <string name="profile_preferences_notificationLed_23">Benachrichtigungs-LED</string>
@@ -1910,7 +1909,7 @@
     <string name="important_info_pppps_new_version_notification">Please install the new version of PPPPutSettings. More information about installation is in \"Important information\", section \"News\". Click here, to show it.</string>
     <string name="important_info_pppps_new_version">Please install the new version of PPPPutSettings. More information about installation is in parameters for which is PPPPutSettings required.</string>
     <string name="important_info_pppps_new_version_2">Click here to install latest version of PPPPutSettings.</string>
-    <string name="latest_pppps_release">New PPPPutSettings version</string>
+    <string name="latest_pppps_release">Neue PPPPutSettings Version</string>
     <string name="latest_pppps_release_notification">Click this notification to install new PPPPutSettings release.</string>
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
     <string name="pppextender_pref_dialog_install_button">PPPE installieren</string>
@@ -2105,7 +2104,6 @@
     <string name="install_pppps_text10">For Android 14+ is not normally possible to install PPPPutSettings directly on the device.</string>
     <string name="install_pppps_text11">But exists solution. This requires InstallWithOptions and Shizuku (if device is not rooted).</string>
     <string name="install_pppps_text12">How to proceed:</string>
-    <string name="install_pppps_text13">1. Install and start Shizuku (if device is not rooted). How, is in:</string>
     <string name="install_pppps_text14">2. Install InstallWithOptions:</string>
     <string name="install_pppps_text15">3. Download PPPPutSettings:</string>
     <string name="install_pppps_text16">4. In InstallWithOptions enable: \"Bypass Low Target SDK Block\", \"Replace existing\".</string>
@@ -2332,4 +2330,21 @@
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_2">Aktivieren Sie den Parameter unter „Einstellungen“ ➜ „Erweiterte Einstellungen“ ➜ „Tasker-Integration“.</string>
     <string name="wifi_ap_profile_pref_dlg_info_delta_config_3">Vergessen Sie nicht, die Änderung zu speichern, indem Sie auf die Schaltfläche „Speichern“ klicken.</string>
     <string name="preferences_installDeltaPreferences_title">Die Anwendung Delta ist nicht installiert.</string>
+    <string name="important_info_profile_shizuku_howTo_2_1">Klicken Sie hier, um Shizuku aus dem Store zu installieren.</string>
+    <string name="install_pppps_text13">1. Installieren und starten Sie Shizuku (wenn das Gerät nicht gerootet ist). Klicken Sie hier, um es herunterzuladen.</string>
+    <string name="install_pppps_text13_1">1. Installieren und starten Sie Shizuku (wenn das Gerät nicht gerootet ist). Klicken Sie hier, um es aus dem Store zu installieren.</string>
+    <string name="install_pppps_text14_1">2. Install InstallWithOptions. Click here to install it from store.</string>
+    <string name="important_info_advanced_protection">WICHTIG: Wenn im Gerät die Option \"Erweiterter Schutz\" aktiviert ist, ist es nicht möglich, die erforderlichen Anwendungen (PPPE, PPPPS, InstallWithOptions, Shizuku) aus Anwendungsspeichern von Drittanbietern (Drofi-ify, F-Droid, NeoStore) zu installieren. Außerdem funktionieren die meisten Funktionen in PPP nicht richtig. Bitte deaktivieren Sie.</string>
+    <string name="profile_list_item_menu_create_shortcut">Verknüpfung zum Profil erstellen</string>
+    <string name="shortcut_to_profile_created_toast">Verknüpfung zum Profil erstellt</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut">Verknüpfung zu „Ereignisse neu starten“</string>
+    <string name="phone_profiles_pref_createRestartEventsShortcut_summary">Hier klicken, um eine Verknüpfung zu „Ereignisse neu starten“ im Startbildschirm zu erstellen</string>
+    <string name="shortcut_for_restart_events_dialog_title">Verknüpfung zu „Ereignisse neu starten“</string>
+    <string name="shortcut_for_restart_events_created_toast">Verknüpfung zu „Ereignisse neu starten“ erstellt</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS_summary">Warnhinweis: Die GPS-Ortsbestimmung funktioniert in Innenräumen nur eingeschränkt. Zudem benötigt sie viel Akkuleistung.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInterval">Häufigkeit der Benachrichtigungsabfrage (in Sek.)</string>
+    <string name="event_preferences_radioSwitch_ethernet">Ethernet</string>
+    <string name="anr_notification_title">Sorry, application not responding (ANR) occurred</string>
+    <string name="anr_notification_text">Please click here, to send log.txt file to author. Thank you very much.</string>
+    <string name="email_anr_subject">Application not responding (ANR)</string>
 </resources>

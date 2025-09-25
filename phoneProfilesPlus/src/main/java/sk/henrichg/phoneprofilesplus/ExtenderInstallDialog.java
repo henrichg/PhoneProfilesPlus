@@ -56,8 +56,8 @@ public class ExtenderInstallDialog extends DialogFragment
             if (store == ExtenderDialogPreferenceFragment.STORE_GITHUB) {
                 mDialog = installExtenderFromGitHub(activity, finishActivity);
             }
-            if (store == ExtenderDialogPreferenceFragment.STORE_DROIDIFY) {
-                mDialog = installFromDroidIfy(activity, finishActivity);
+            if (store == ExtenderDialogPreferenceFragment.STORE_NEOSTORE) {
+                mDialog = installFromNeoStore(activity, finishActivity);
             }
             if (store == ExtenderDialogPreferenceFragment.STORE_ALL) {
                 mDialog = installPPPExtender(activity, finishActivity);
@@ -101,7 +101,7 @@ public class ExtenderInstallDialog extends DialogFragment
     }
 
     @SuppressLint("InflateParams")
-    private AlertDialog installFromDroidIfy(final Activity activity,
+    private AlertDialog installFromNeoStore(final Activity activity,
                                             boolean finishActivity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         GlobalGUIRoutines.setCustomDialogTitle(activity, dialogBuilder, false,
@@ -110,10 +110,10 @@ public class ExtenderInstallDialog extends DialogFragment
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
-        layout = inflater.inflate(R.layout.dialog_install_pppe_install_droidify, null);
+        layout = inflater.inflate(R.layout.dialog_install_pppe_install_neostore, null);
         dialogBuilder.setView(layout);
 
-        TextView text = layout.findViewById(R.id.install_pppe_install_droidify_info_text);
+        TextView text = layout.findViewById(R.id.install_pppe_install_neostore_info_text);
 
         String dialogText = "";
 
@@ -138,7 +138,7 @@ public class ExtenderInstallDialog extends DialogFragment
 
         int buttonRes = R.string.alert_button_install_store;
         dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
-            String url = PPApplication.DROIDIFY_APPLICATION_URL;
+            String url = PPApplication.NEOSTORE_APPLICATION_URL;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
@@ -250,7 +250,7 @@ public class ExtenderInstallDialog extends DialogFragment
             //noinspection DataFlowIssue
             text2.setVisibility(View.VISIBLE);
             String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
-                    " " + activity.getString(R.string.install_ppp_store_droidify) +
+                    " " + activity.getString(R.string.install_ppp_store_neostore) +
                     activity.getString(R.string.check_releases_install_from_apk_note2_pppe);
             text2.setText(str);
         }
@@ -413,8 +413,8 @@ public class ExtenderInstallDialog extends DialogFragment
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
-                if (droidifyInstalled) {
-                    intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                if (neostoreInstalled) {
+                    intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
                         //if ((_preference != null) && (_preference.fragment != null))
@@ -428,8 +428,8 @@ public class ExtenderInstallDialog extends DialogFragment
                         if (finishActivity)
                             activity.finish();
                     }
-                } else if (neostoreInstalled) {
-                    intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                } else if (droidifyInstalled) {
+                    intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
                         //if ((_preference != null) && (_preference.fragment != null))
@@ -510,7 +510,7 @@ public class ExtenderInstallDialog extends DialogFragment
             if (Build.VERSION.SDK_INT < 33)
                 return installExtenderFromGitHub(activity, /*_preference,*/ finishActivity);
             else
-                return installFromDroidIfy(activity, /*_preference,*/ finishActivity);
+                return installFromNeoStore(activity, /*_preference,*/ finishActivity);
         }
     }
 

@@ -335,8 +335,10 @@ public class EditorEventListFragment extends Fragment
                     final Runnable progressBarRunnable = () -> {
                         EditorEventListFragment fragment = fragmentWeakRef.get();
                         if (fragment != null) {
-                            fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
-                            fragment.loadAsyncTask.execute();
+                            if (fragment.getActivity() != null) {
+                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
+                                fragment.loadAsyncTask.execute();
+                            }
                         }
                     };
                     progressBarHandler.post(progressBarRunnable);
@@ -1305,14 +1307,18 @@ public class EditorEventListFragment extends Fragment
                         final Runnable progressBarRunnable = () -> {
                             EditorEventListFragment fragment = fragmentWeakRef.get();
                             if (fragment != null) {
-                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
-                                fragment.loadAsyncTask.execute();
+                                if (fragment.getActivity() != null) {
+                                    fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
+                                    fragment.loadAsyncTask.execute();
+                                }
                             }
                         };
                         progressBarHandler.post(progressBarRunnable);
                     } else {
-                        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
-                        loadAsyncTask.execute();
+                        if (getActivity() != null) {
+                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
+                            loadAsyncTask.execute();
+                        }
                     }
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1374,14 +1380,18 @@ public class EditorEventListFragment extends Fragment
                         final Runnable progressBarRunnable = () -> {
                             EditorEventListFragment fragment = fragmentWeakRef.get();
                             if (fragment != null) {
-                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
-                                fragment.loadAsyncTask.execute();
+                                if (fragment.getActivity() != null) {
+                                    fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
+                                    fragment.loadAsyncTask.execute();
+                                }
                             }
                         };
                         progressBarHandler.post(progressBarRunnable);
                     } else {
-                        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
-                        loadAsyncTask.execute();
+                        if (getActivity() != null) {
+                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
+                            loadAsyncTask.execute();
+                        }
                     }
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.

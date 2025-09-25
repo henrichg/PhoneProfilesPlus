@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -34,6 +35,7 @@ public class SearchCalendarEventsWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        //noinspection ExtractMethodRecommender
         try {
 //            long start = System.currentTimeMillis();
 //            PPApplicationStatic.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
@@ -45,23 +47,47 @@ public class SearchCalendarEventsWorker extends Worker {
 
             if (EventStatic.getGlobalEventsRunning(context)) {
                 // start events handler
-//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SearchCalendarEventsWorker.doWork", "SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
-                EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS});
+                synchronized (PPApplication.handleEventsMutex) {
+//                    PPApplicationStatic.logE("[HANDLE_EVENTS_FROM_WORK] SearchCalendarEventsWorker.doWork", "SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS});
+                }
             }
 
+
 //            PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** SearchCalendarEventsWorker.doWork", "schedule - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
-            //final Context appContext = context.getApplicationContext();
             //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            final Context appContext = context.getApplicationContext();
             Runnable runnable = () -> {
-//                long start1 = System.currentTimeMillis();
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
-                SearchCalendarEventsWorker.scheduleWork(false);
-//                long finish = System.currentTimeMillis();
-//                long timeElapsed = finish - start1;
-//                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - timeElapsed="+timeElapsed);
-                //worker.shutdown();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_SearchCalendarEventsWorker_doWork);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+    //                long start1 = System.currentTimeMillis();
+    //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- START - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG");
+                    SearchCalendarEventsWorker.scheduleWork(false);
+    //                long finish = System.currentTimeMillis();
+    //                long timeElapsed = finish - start1;
+    //                PPApplicationStatic.logE("[IN_EXECUTOR]  ***** SearchCalendarEventsWorker.doWork", "--------------- END - SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG - timeElapsed="+timeElapsed);
+                    //worker.shutdown();
+
+                } catch (Exception e) {
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] SearchCalendarEventsWorker.doWork", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
             };
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] SearchCalendarEventsWorker.doWork", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
             /*
@@ -219,7 +245,7 @@ public class SearchCalendarEventsWorker extends Worker {
                                 }
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
+                            PPApplicationStatic.logException("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e), false);
                         }
                         if (allFinished) {
                             break;
@@ -261,7 +287,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }
@@ -298,7 +324,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
                         return running;
                     } catch (ExecutionException | InterruptedException e) {
-                        Log.e("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("SearchCalendarEventsWorker.waitForFinish", Log.getStackTraceString(e), false);
                         return false;
                     }
                 }

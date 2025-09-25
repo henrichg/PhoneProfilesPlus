@@ -44,7 +44,7 @@ class ContactsContentObserver extends ContentObserver {
                         break;
                     }
                 } catch (ExecutionException | InterruptedException e) {
-                    Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", Log.getStackTraceString(e));
+                    PPApplicationStatic.logException("ContactsContentObserver.enqueueContactsContentObserverWorker", Log.getStackTraceString(e), false);
                 }
 
                 //Log.e("ContactsContentObserver.enqueueContactsContentObserverWorker", "PPApplication.repeatCreateContactCacheIfSQLError="+PPApplication.repeatCreateContactCacheIfSQLError);

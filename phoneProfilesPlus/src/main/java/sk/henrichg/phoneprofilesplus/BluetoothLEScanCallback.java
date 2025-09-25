@@ -11,6 +11,8 @@ import android.util.Log;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+// callbeck for get scanned LE BT
+// supported is one device scan  and batch scan
 class BluetoothLEScanCallback extends ScanCallback {
 
     private final Context context;
@@ -61,6 +63,8 @@ class BluetoothLEScanCallback extends ScanCallback {
                     String btName = device.getName();
                     if ((btName != null) && (!btName.isEmpty())) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onScanResult", "btName="+btName);
+
+//                        Log.e("BluetoothLEScanCallback.onScanResult", "addLEScanResult()="+btName);
 
                         BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
                                 BluetoothScanWorker.getBluetoothType(device), false, 0, false, true);
@@ -130,6 +134,8 @@ class BluetoothLEScanCallback extends ScanCallback {
                         if ((btName != null) && (!btName.isEmpty())) {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onBatchScanResults", "btName="+btName);
 
+//                            Log.e("BluetoothLEScanCallback.onBatchScanResults", "addLEScanResult()="+btName);
+
                             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
                                     BluetoothScanWorker.getBluetoothType(device), false, 0, false, true);
 
@@ -160,7 +166,10 @@ class BluetoothLEScanCallback extends ScanCallback {
 //        PPApplicationStatic.logE("[IN_LISTENER] BluetoothLEScanCallback.onScanFailed", "xxx");
 
         Log.e("BluetoothLEScanCallback.onScanFailed", "errorCode=" + errorCode);
-//        PPApplicationStatic.logToACRA("E/BluetoothLEScanCallback.onScanFailed: errorCode=" + errorCode);
+        if (PPApplicationStatic.logEnabled() &&
+                PPApplicationStatic.logContainsFilterTag("BluetoothLEScanCallback.onScanFailed")) {
+            PPApplicationStatic.logIntoFile("E", "BluetoothLEScanCallback.onScanFailed", "errorCode=" + errorCode, false);
+        }
     }
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {

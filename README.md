@@ -4,9 +4,9 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 PhoneProfilesPlus (PPP)
-===========================
+=======================
 
-[![version](https://img.shields.io/badge/version-7.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1)
+[![version](https://img.shields.io/badge/version-7.1.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
@@ -21,6 +21,9 @@ Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3 \
 \
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
+### How to build PPP
+- [Show it](docs/build.md)
+
 ### Sources of PhoneProfilesPlus:
 
 NOTE: Google Play Protect may display dialog box with title "Unsafe app blocked" and description "This app was build for an older version of Android and doesn`t include the latest privacy protection."
@@ -29,14 +32,14 @@ Dialog is displayed, because PPP has target SDK vesion 28 (Android 9). Must be, 
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
-__Droid-ify (F-Droid alternative, preferred over GitHub):__
-- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
-- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
-  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
-
 __Neo Store (F-Droid alternative, preferred over GitHub):__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 - [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.machiav3lli.fdroid)
+  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
+
+__Droid-ify (F-Droid alternative, preferred over GitHub):__
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
+- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
   &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 __F-Droid:__
@@ -54,9 +57,9 @@ __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
-__GitHub (better is using Droid-ify instead):__
+__GitHub (better is using Neo Store, Droid-ify, F-Droid, or similar app store instead):__
 
-- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
+- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Neo Store, Droid-ify, F-Droid, or similar app store, if in your device is not supported application store, and install PhoneProfilesPlus from it.
 
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
@@ -125,7 +128,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - From Android 8.0
 - minSdkVersion = 26
 - targetSdkVersion = 28
-- compiledSdkVersion = 35
+- compiledSdkVersion = 36
 
 ##### Required external libs - open-source
 

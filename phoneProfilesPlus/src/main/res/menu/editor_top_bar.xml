@@ -173,15 +173,15 @@
                 android:orderInCategory="101"
                 app:showAsAction="never" />
 -->
-            <item android:id="@+id/menu_check_in_droidify"
-                android:title="@string/menu_check_releases_droidify"
-                android:orderInCategory="102"
-                android:icon="@drawable/ic_droidify"
-                app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_neostore"
                 android:title="@string/menu_check_releases_neostore"
-                android:orderInCategory="103"
+                android:orderInCategory="102"
                 android:icon="@drawable/ic_neostore"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_droidify"
+                android:title="@string/menu_check_releases_droidify"
+                android:orderInCategory="103"
+                android:icon="@drawable/ic_droidify"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_fdroid"
                 android:title="@string/menu_check_releases_fdroid"

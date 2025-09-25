@@ -206,6 +206,7 @@ class ApplicationPreferences {
     static volatile boolean applicationEventWifiScanIgnoreHotspot;
     static volatile boolean applicationEventNotificationEnableScanning;
     static volatile String applicationEventNotificationScanInPowerSaveMode;
+    static volatile int applicationEventNotificationScanInterval;
     static volatile boolean applicationEventNotificationScanOnlyWhenScreenIsOn;
     static volatile int applicationWidgetOneRowRoundedCornersRadius;
     static volatile int applicationWidgetListRoundedCornersRadius;
@@ -534,6 +535,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventPeriodicScanningScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT = "applicationEventWifiScanIgnoreHotspot";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING = "applicationEventNotificationEnableScannig";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL = "applicationEventNotificationScanInterval";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventNotificationScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventNotificationScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS = "applicationWidgetOneRowRoundedCornersRadius";
@@ -1512,10 +1514,13 @@ class ApplicationPreferences {
             else
                 defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
         }
-        else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
-                (Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
         else
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            if ((Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+            else
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
+        } else
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
@@ -1652,6 +1657,11 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE = false;
     static void applicationEventNotificationEnableScanning(Context context) {
         applicationEventNotificationEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL_DEFAULT_VALUE = "5";
+    static void applicationEventNotificationScanInterval(Context context) {
+        applicationEventNotificationScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL_DEFAULT_VALUE));
     }
 
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE = "1";

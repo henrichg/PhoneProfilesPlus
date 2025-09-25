@@ -412,7 +412,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);

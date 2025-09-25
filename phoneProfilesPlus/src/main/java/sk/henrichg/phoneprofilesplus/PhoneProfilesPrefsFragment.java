@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -53,7 +54,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
@@ -66,6 +66,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private ShortcutToEditorAddedBroadcastReceiver shortcutToEditorAddedReceiver;
     private ShortcutToMobileCellScanningAddedBroadcastReceiver shortcutToMobileCellScanningAddedReceiver;
+    private ShortcutForRestartEventsAddedBroadcastReceiver shortcutForRestartEventsAddedReceiver;
 
     //boolean scrollToSet = false;
     private boolean nestedFragment = false;
@@ -171,6 +172,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_DO_NOT_KILL_MY_APP = "applicationDoNotKillMyApp";
     static final String PREF_CREATE_EDITOR_SHORTCUT = "applicationCreateEditorShortcut";
     static final String PREF_CREATE_MOBILE_CELL_SCANNING_SHORTCUT = "applicationCreateMobileCellScanningShortcut";
+    static final String PREF_CREATE_RESTART_EVENTS_SHORTCUT = "applicationCreateReastartEventsShortcut";
 
     static final String PREF_WIFI_SCANNING_CATEGORY = "wifiScanningCategory";
     static final String PREF_BLUETOOTH_SCANNING_CATEGORY = "bluetoothScanningCategory";
@@ -198,6 +200,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
     private static final String ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED";
+    private static final String ACTION_SHORTCUT_FOR_RESTART_EVENTS_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_FOR_RESTART_EVENTS_ADDED";
 
     //private static final String EXTRA_APP_PACKAGE = "app_package";
     //private static final String EXTRA_APP_UID = "app_uid";
@@ -1140,7 +1143,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     try {
                         success = autoStartPermissionHelper.getAutoStartPermission(activity);
                     }catch (Exception e) {
-                        PPApplicationStatic.logException("****** PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
+                        PPApplicationStatic.logException("****** PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e), false);
                         success = false;
                     }
                     if (!success) {
@@ -1900,7 +1903,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //Context appContext = activity.getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
-                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
                     if (shortcut.getId().equals(SHORTCUT_ID_EDITOR)) {
@@ -1908,7 +1911,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         break;
                     }
                 }
-                if (!exists) {
+                if (!exists) {*/
                     if (shortcutToEditorAddedReceiver == null) {
                         shortcutToEditorAddedReceiver = new ShortcutToEditorAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
@@ -1968,9 +1971,96 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         return false;
                     });
-                }
+                /*}
                 else
-                    preference.setVisible(false);
+                    preference.setVisible(false);*/
+            } else
+                preference.setVisible(false);
+        }
+
+        preference = prefMng.findPreference(PREF_CREATE_RESTART_EVENTS_SHORTCUT);
+        if (preference != null) {
+            //Context appContext = activity.getApplicationContext();
+            if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
+
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                boolean exists = false;
+                for (ShortcutInfoCompat shortcut : shortcuts) {
+                    if (shortcut.getId().equals(SHORTCUT_ID_EDITOR)) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {*/
+                if (shortcutForRestartEventsAddedReceiver == null) {
+                    shortcutForRestartEventsAddedReceiver = new ShortcutForRestartEventsAddedBroadcastReceiver();
+                    IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_FOR_RESTART_EVENTS_ADDED);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(shortcutForRestartEventsAddedReceiver, shortcutAddedFilter, receiverFlags);
+                }
+
+                preference.setVisible(true);
+                preference.setOnPreferenceClickListener(preference120 -> {
+                    PPEditTextAlertDialog editTextDialog = new PPEditTextAlertDialog(
+                            getString(R.string.shortcut_for_restart_events_dialog_title),
+                            getString(R.string.shortcut_to_dialog_lablel),
+                            getString(R.string.menu_restart_events),
+                            getString(R.string.shortcut_to_dialog_create_button),
+                            getString(android.R.string.cancel),
+                            (dialog1, which) -> {
+                                String iconName = "";
+                                AlertDialog dialog = (AlertDialog) dialog1;
+                                EditText editText = dialog.findViewById(R.id.dialog_with_edittext_edit);
+                                if (editText != null)
+                                    iconName = editText.getText().toString();
+                                if (iconName.isEmpty())
+                                    iconName = getString(R.string.menu_restart_events);
+                                //Log.e("PhoneProfilesPrefsFragment createEditorShortcut", "iconName="+iconName);
+
+                                Intent shortcutIntent = new Intent(appContext, BackgroundActivateProfileActivity.class);
+                                shortcutIntent.setAction(Intent.ACTION_MAIN);
+                                shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+                                shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+                                shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                Profile profile = DataWrapperStatic.getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
+                                        StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                                profile.generateIconBitmap(appContext, false, 0, false);
+
+                                ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, "restart_events");
+                                shortcutBuilderCompat.setIntent(shortcutIntent);
+                                shortcutBuilderCompat.setShortLabel(iconName);
+                                shortcutBuilderCompat.setLongLabel(iconName);
+
+                                shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profile._iconBitmap));
+
+                                try {
+                                    Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_FOR_RESTART_EVENTS_ADDED);
+                                    PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent, 0);
+
+                                    ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                                    ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
+                                    //activity.setResult(Activity.RESULT_OK, intent);
+                                } catch (Exception e) {
+                                    // show dialog about this crash
+                                    // for Microsft laucher it is:
+                                    // java.lang.IllegalArgumentException ... already exists but disabled
+                                }
+                            },
+                            null, null,
+                            true, true, //false,
+                            activity
+                    );
+                    if (!activity.isFinishing())
+                        editTextDialog.showDialog();
+
+                    return false;
+                });
+                /*}
+                else
+                    preference.setVisible(false);*/
             } else
                 preference.setVisible(false);
         }
@@ -1981,8 +2071,37 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
 //                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
 
+                    PackageManager packageManager = activity.getPackageManager();
+                    Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+                    boolean fdroidInstalled = (_intent != null);
+                    _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                    boolean droidifyInstalled = (_intent != null);
+                    _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                    boolean neostoreInstalled = (_intent != null);
+
+                    String info =
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
+
+                    if (!(droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/)) {
+                        info = info +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.NEOSTORE_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                    }
+
+                    info = info +
+                            getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                            "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                            "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\".";
+
                     infoDialogPreference.setInfoText(
-                        StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                        info
+                        /*StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
@@ -1993,7 +2112,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
                         "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
-                        "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                        "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."*/
                     );
                     infoDialogPreference.setIsHtml(true);
 
@@ -2007,7 +2126,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //Context appContext = activity.getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
-                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
                     if (shortcut.getId().equals(SHORTCUT_ID_MOBILE_CELL_SCANNING)) {
@@ -2015,7 +2134,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         break;
                     }
                 }
-                if (!exists) {
+                if (!exists) {*/
                     if (shortcutToMobileCellScanningAddedReceiver == null) {
                         shortcutToMobileCellScanningAddedReceiver = new ShortcutToMobileCellScanningAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_MOBILE_CELL_SCANNING_ADDED);
@@ -2075,9 +2194,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         return false;
                     });
-                }
+                /*}
                 else
-                    preference.setVisible(false);
+                    preference.setVisible(false);*/
             } else
                 preference.setVisible(false);
         }
@@ -2173,19 +2292,48 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
 //                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
 
-                    _infoDialogPreference.setInfoText(
+                    PackageManager packageManager = activity.getPackageManager();
+                    Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+                    boolean fdroidInstalled = (_intent != null);
+                    _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                    boolean droidifyInstalled = (_intent != null);
+                    _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                    boolean neostoreInstalled = (_intent != null);
+
+                    String info =
                             StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
                                     getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                                     getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                                     getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                                     getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
-                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
-                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
-                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
-                                    "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
+
+                    if (!(droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/)) {
+                        info = info +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.NEOSTORE_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                    }
+
+                    info = info +
+                            getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                            "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                            "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\".";
+
+                    _infoDialogPreference.setInfoText(
+                        info
+                        /*StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."*/
                     );
                     _infoDialogPreference.setIsHtml(true);
 
@@ -2877,6 +3025,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
         setSummary(PREF_SET_CALL_SCREENING_ROLE_SETTINGS);
         setSummary(PREF_APPLICATION_WIDGET_PANEL_INFO);
+
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL);
 
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, true, activity.getApplicationContext());
         if (preferenceAllowed.preferenceAllowed != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -4201,7 +4351,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING)) {
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL)) {
             if (!preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false)) {
                 if (ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
@@ -4903,6 +5055,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             else {
                 ApplicationPreferences.applicationEventNotificationEnableScanning(context);
                 ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(context);
+                ApplicationPreferences.applicationEventNotificationScanInterval(context);
                 _value.append(getString(R.string.phone_profiles_pref_applicationEventNotificationEnableScanning)).append(StringConstants.STR_COLON_WITH_SPACE);
                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML)
@@ -4921,6 +5074,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary), prefMng, key, activity))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
                     }
+                    _value.append(StringConstants.TAG_SEPARATOR_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventNotificationScanInterval)).append(StringConstants.STR_COLON_WITH_SPACE)
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventNotificationScanInterval), prefMng, key, activity))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                     _value.append(StringConstants.TAG_SEPARATOR_BREAK_HTML);
                     _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
