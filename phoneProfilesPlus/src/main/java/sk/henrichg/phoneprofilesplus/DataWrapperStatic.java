@@ -164,7 +164,8 @@ class DataWrapperStatic {
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_CLEAR_NOTIFICATION_TEXT),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_OFF))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_OFF)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_PLAY_MUSIC))
                 );
     }
 
@@ -963,7 +964,7 @@ class DataWrapperStatic {
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
             } catch (SecurityException en) {
-                PPApplicationStatic.logException("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en), false);
             } catch (Exception e) {
                 //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);

@@ -18,6 +18,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
+        setTitle(R.string.notifications_preferences_notification_type);
 
         activityStarted = true;
     }
@@ -34,7 +35,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
 
         if (activityStarted) {
             if (ApplicationPreferences.notificationProfileListDisplayNotification) {
-                GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+                GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
 
                 SingleSelectListDialog dialog = new SingleSelectListDialog(
                         false,

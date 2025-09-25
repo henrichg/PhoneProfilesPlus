@@ -70,7 +70,10 @@ public class PhoneProfilesService extends Service
     static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
     static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
     static final String ACTION_APPLICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ApplicationEventEndBroadcastReceiver";
-    static final String ACTION_CALL_SCREENING_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallScreeningEventEndBroadcastReceiver";
+    static final String ACTION_CALL_CONTROL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CallControlEventEndBroadcastReceiver";
+    static final String ACTION_ANSWER_CALL_RINGING_LENGTH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AnswerCallRingingLengthBroadcastReceiver";
+    static final String ACTION_END_CALL_CALL_LENGTH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EndCallCallLengthBroadcastReceiver";
+    static final String ACTION_ACTIVATED_PROFILE_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ActivatedProfileEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -140,8 +143,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR = "register_receivers_for_sms_sensor";
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
     static final String EXTRA_DISABLE_NOT_USED_SCANNERS = "disable_not_used_scanners";
-    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "register_receivers_for_call_screening_sensor";
-    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SCREENING_SENSOR = "unregister_receivers_for_call_screening_sensor";
+    //static final String EXTRA_REGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR = "register_receivers_for_call_control_sensor";
+    //static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_CONTROL_SENSOR = "unregister_receivers_for_call_control_sensor";
 
     static final String EXTRA_START_FOR_SHIZUKU_START = "start_for_shizuku_start";
 
@@ -163,6 +166,8 @@ public class PhoneProfilesService extends Service
     private final Shizuku.OnBinderReceivedListener BINDER_RECEIVED_LISTENER = () -> {
         if (!Shizuku.isPreV11()) {
             PPApplicationStatic.logE("PhoneProfilesService.BINDER_RECEIVED_LISTENER", "*** Shizuku started ***");
+
+            PPApplication.shizukuBinded = true;
 
             RootUtils.initRoot();
 
@@ -360,6 +365,7 @@ public class PhoneProfilesService extends Service
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventNotificationEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventNotificationScanInterval);
         //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplicationStatic.recordException(e);
@@ -843,10 +849,10 @@ public class PhoneProfilesService extends Service
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 1, false, false);
                 EventPreferencesRoaming.setEventRoamingInSIMSlot(appContext, 2, false, false);
 
-                //EventPreferencesCallScreening.setEventCallScreeningActive(appContext, false);
-                EventPreferencesCallScreening.setEventCallScreeningTime(appContext, 0);
-                EventPreferencesCallScreening.setEventCallScreeningPhoneNumber(appContext, "");
-                EventPreferencesCallScreening.setEventCallScreeningCallDirection(appContext, 0);
+                //EventPreferencesCallControl.setEventCallControlActive(appContext, false);
+                EventPreferencesCallControl.setEventCallControlTime(appContext, 0);
+                EventPreferencesCallControl.setEventCallControlPhoneNumber(appContext, "");
+                EventPreferencesCallControl.setEventCallControlCallDirection(appContext, 0);
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
@@ -1114,29 +1120,30 @@ public class PhoneProfilesService extends Service
 
                 //PPApplication.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
-                Data workData = new Data.Builder()
-                        .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, __activateProfiles)
-                        .putBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, _startFromExternalApplication)
-                        .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
-                        .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
-                        .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
-                        .putBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
-                        //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
-                        .build();
+                if (!PPApplication.shizukuBinded) {
+                    Data workData = new Data.Builder()
+                            .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, __activateProfiles)
+                            .putBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, _startFromExternalApplication)
+                            .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
+                            .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
+                            .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
+                            .putBoolean(PhoneProfilesService.EXTRA_START_FOR_SHIZUKU_START, false)
+                            //.putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
+                            .build();
 
 //                    PPApplicationStatic.logE("[MAIN_WORKER_CALL] PhoneProfilesService.doForFirstStart", "xxxxxxxxxxxxxxxxxxxx");
 
-                OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
-                                .setInputData(workData)
-                                //.setInitialDelay(5, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                .build();
-                try {
-                    if (PPApplicationStatic.getApplicationStarted(true, false)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                        if (workManager != null) {
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
+                                    .setInputData(workData)
+                                    //.setInitialDelay(5, TimeUnit.SECONDS)
+                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                    .build();
+                    try {
+                        if (PPApplicationStatic.getApplicationStarted(true, false)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
 
 //                                        //if (PPApplicationStatic.logEnabled()) {
 //                                        ListenableFuture<List<WorkInfo>> statuses;
@@ -1148,13 +1155,14 @@ public class PhoneProfilesService extends Service
 //                                        //}
 
 //                                PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doFirstStart", "keepResultsForAtLeast");
-                            //workManager.enqueue(worker);
-                            // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
-                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                                //workManager.enqueue(worker);
+                                // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
+                                workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            }
                         }
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
                     }
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
                 }
                 //}
                 //}
@@ -1164,7 +1172,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.invalidateDataWrapper();
 
             } catch (Exception eee) {
-                PPApplicationStatic.logException("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
+                PPApplicationStatic.logException("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee), false);
                 //PPApplicationStatic.recordException(eee);
                 throw eee;
             } finally {
@@ -1182,6 +1190,169 @@ public class PhoneProfilesService extends Service
         PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
     }
 
+    //TODO - add here change of application preferences after package replaced
+    private void _doForPackageReplaced_older(Context appContext, int oldVersionCode, int actualVersionCode) {
+        if (actualVersionCode <= 2322) {
+            // for old packages use Priority in events
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
+            editor.apply();
+        }
+        if (actualVersionCode <= 2400) {
+            PPApplicationStatic.setDaysAfterFirstStart(appContext, 0);
+            PPApplicationStatic.setDonationNotificationCount(appContext, 0);
+            DonationBroadcastReceiver.setAlarm(appContext);
+        }
+
+        if (actualVersionCode <= 2700) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
+            editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
+            editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
+            editor.apply();
+        }
+        if (actualVersionCode <= 3200) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, true);
+            editor.apply();
+        }
+        if (actualVersionCode <= 3500) {
+            if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+                editor.apply();
+            }
+
+            // continue donation notification
+            if (PPApplicationStatic.getDaysAfterFirstStart(appContext) == 8) {
+                PPApplicationStatic.setDonationNotificationCount(appContext, 1);
+            }
+        }
+
+        if (actualVersionCode <= 3900) {
+            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
+                    preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
+                    preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
+            editor.apply();
+        }
+
+        if (actualVersionCode <= 4550) {
+            if (Build.VERSION.SDK_INT < 29) {
+                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                boolean darkBackground = preferences.getBoolean("notificationDarkBackground", false);
+                if (darkBackground) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                    editor.apply();
+                }
+            }
+        }
+
+        if (actualVersionCode <= 4600) {
+            List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+            for (Event event : eventList) {
+                if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
+                    String searchStringOrig = event._eventPreferencesCalendar._searchString;
+                    //String searchStringNew = "";
+                    StringBuilder str = new StringBuilder();
+                    String[] searchStringSplits = searchStringOrig.split(StringConstants.STR_SPLIT_REGEX);
+                    for (String split : searchStringSplits) {
+                        if (!split.isEmpty()) {
+                            if (str.length() > 0)
+                                str.append("|");
+                            if (split.startsWith("!"))
+                                str.append("\\");
+                            str.append(split);
+                        }
+                    }
+                    event._eventPreferencesCalendar._searchString = str.toString();
+                    DatabaseHandler.getInstance(appContext).updateEvent(event);
+                }
+            }
+        }
+
+        if (actualVersionCode <= 4870) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
+            editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
+
+            String theme = ApplicationPreferences.applicationTheme(appContext, false);
+            if (!(theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE) ||
+                    theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK) ||
+                    theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE))) {
+                String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
+                if (Build.VERSION.SDK_INT >= 28)
+                    defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
+                GlobalGUIRoutines.switchNightMode(appContext, true);
+            }
+
+            editor.apply();
+        }
+
+        if (actualVersionCode <= 5020) {
+            if (Build.VERSION.SDK_INT >= 28) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE);
+                GlobalGUIRoutines.switchNightMode(appContext, true);
+                editor.apply();
+            }
+        }
+
+        if (actualVersionCode <= 5250) {
+            if (oldVersionCode <= 5210) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+
+                NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
+                try {
+                    NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
+                    if (channel != null) {
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+
+                int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
+                if (filterEventsSelectedItem == 2)
+                    filterEventsSelectedItem++;
+                editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+                editor.apply();
+                ApplicationPreferences.editorEventsViewSelectedItem(appContext);
+            }
+        }
+
+        if (actualVersionCode <= 5430) {
+            SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+            String notificationBackgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+            SharedPreferences.Editor editor = preferences.edit();
+            if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
+                editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
+            if (notificationBackgroundColor.equals("2")) {
+                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+            } else if (notificationBackgroundColor.equals("4")) {
+                editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
+                editor.apply();
+            }
+            editor.apply();
+        }
+    }
+
     @SuppressLint("ObsoleteSdkInt")
     private boolean doForPackageReplaced(Context appContext, int oldVersionCode) {
         //int oldVersionCode = PPApplicationStatic.getSavedVersionCode(appContext);
@@ -1197,11 +1368,6 @@ public class PhoneProfilesService extends Service
 
         Permissions.setAllShowRequestPermissions(appContext, true);
 
-        //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-        //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-        //MobileCellsScanner.setShowEnableLocationNotification(appContext, true);
-        //ActivateProfileHelper.setScreenUnlocked(appContext, true);
-
         if (PPApplicationStatic.logEnabled()) {
             PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "----- oldVersionCode=" + oldVersionCode);
             PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "----- actualVersionCode=" + actualVersionCode);
@@ -1210,251 +1376,7 @@ public class PhoneProfilesService extends Service
             if (oldVersionCode < actualVersionCode) {
                 PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "is new version");
 
-                //PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG, appContext);
-
-                if (actualVersionCode <= 2322) {
-                    // for old packages use Priority in events
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
-                    editor.apply();
-                }
-                if (actualVersionCode <= 2400) {
-                    PPApplicationStatic.setDaysAfterFirstStart(appContext, 0);
-                    PPApplicationStatic.setDonationNotificationCount(appContext, 0);
-                    DonationBroadcastReceiver.setAlarm(appContext);
-                }
-
-                if (actualVersionCode <= 2700) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-
-                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
-
-                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_FRAGMENT_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_ACTIVATOR_LIST_ADAPTER_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_ADAPTER_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_ADAPTER_START_TARGET_HELPS_ORDER, false);
-                    editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.putBoolean(PPApplication.PREF_EVENTS_PREFS_ACTIVITY_START_TARGET_HELPS, false);
-                    editor.apply();
-                }
-                if (actualVersionCode <= 3200) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(PPApplication.PREF_PROFILES_PREFS_ACTIVITY_START_TARGET_HELPS, true);
-                    editor.apply();
-                }
-                if (actualVersionCode <= 3500) {
-                    if (!ApplicationPreferences.getSharedPreferences(appContext).contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
-
-                        /*String rescan;
-                        rescan = ApplicationPreferences.applicationEventLocationRescan;
-                        if (rescan.equals("0"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
-                        if (rescan.equals("2"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
-                        rescan = ApplicationPreferences.applicationEventWifiRescan;
-                        if (rescan.equals("0"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
-                        if (rescan.equals("2"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
-                        rescan = ApplicationPreferences.applicationEventBluetoothRescan;
-                        if (rescan.equals("0"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
-                        if (rescan.equals("2"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
-                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
-                        if (rescan.equals("0"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
-                        if (rescan.equals("2"))
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");*/
-
-                        editor.apply();
-                    }
-
-                    // continue donation notification
-                    if (PPApplicationStatic.getDaysAfterFirstStart(appContext) == 8) {
-                        PPApplicationStatic.setDonationNotificationCount(appContext, 1);
-                    }
-                }
-
-                if (actualVersionCode <= 3900) {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
-                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
-                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
-                    editor.apply();
-                }
-
-                //if (actualVersionCode <= 4100) {
-                //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-                //    if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3)) {
-                //        // Toggle is not supported for wifi AP in Android 8+
-                //        SharedPreferences.Editor editor = preferences.edit();
-                //        editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
-                //        editor.apply();
-                //    }
-                //}
-
-                //if (actualVersionCode <= 4200) {
-                //    ApplicationPreferences.getSharedPreferences(appContext);
-                //    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
-                //    editor.apply();
-
-                //    SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-                //    if (preferences.getInt(Profile.PREF_PROFILE_LOCK_DEVICE, 0) == 3) {
-                //        editor = preferences.edit();
-                //        editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
-                //        editor.apply();
-                //    }
-                //}
-
-                //if (actualVersionCode <= 4400) {
-                //    ApplicationPreferences.getSharedPreferences(appContext);
-                //    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
-                //        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator(appContext));
-                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground(appContext));
-                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB(appContext));
-                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT(appContext));
-                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor(appContext));
-                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness(appContext));
-                //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners(appContext));
-                //        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
-                //        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
-                //        editor.apply();
-                //    }
-                //}
-
-                if (actualVersionCode <= 4550) {
-                    if (Build.VERSION.SDK_INT < 29) {
-                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                        boolean darkBackground = preferences.getBoolean("notificationDarkBackground", false);
-                        if (darkBackground) {
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
-                            editor.apply();
-                        }
-                    }
-                }
-
-                if (actualVersionCode <= 4600) {
-                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
-                    for (Event event : eventList) {
-                        if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
-                            String searchStringOrig = event._eventPreferencesCalendar._searchString;
-                            //String searchStringNew = "";
-                            StringBuilder str = new StringBuilder();
-                            String[] searchStringSplits = searchStringOrig.split(StringConstants.STR_SPLIT_REGEX);
-                            for (String split : searchStringSplits) {
-                                if (!split.isEmpty()) {
-                                    //String searchPattern = split;
-                                    //if (searchPattern.startsWith("!")) {
-                                    //    searchPattern = "\\" + searchPattern;
-                                    //}
-                                    //if (!searchStringNew.isEmpty())
-                                    //    searchStringNew = searchStringNew + "|";
-                                    //searchStringNew = searchStringNew + searchPattern;
-                                    if (str.length() > 0)
-                                        str.append("|");
-                                    if (split.startsWith("!"))
-                                        str.append("\\");
-                                    str.append(split);
-                                }
-                            }
-                            //event._eventPreferencesCalendar._searchString = searchStringNew;
-                            event._eventPreferencesCalendar._searchString = str.toString();
-                            DatabaseHandler.getInstance(appContext).updateEvent(event);
-                        }
-                    }
-                }
-
-                if (actualVersionCode <= 4870) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_PROFILE_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
-                    editor.putBoolean(PPApplication.PREF_EDITOR_EVENT_LIST_FRAGMENT_START_TARGET_HELPS_FILTER_SPINNER, true);
-
-                    String theme = ApplicationPreferences.applicationTheme(appContext, false);
-                    if (!(theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE) ||
-                            theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK) ||
-                            theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE))) {
-                        String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
-                        if (Build.VERSION.SDK_INT >= 28)
-                            defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
-                        GlobalGUIRoutines.switchNightMode(appContext, true);
-                    }
-
-                    editor.apply();
-                }
-
-                if (actualVersionCode <= 5020) {
-                    if (Build.VERSION.SDK_INT >= 28) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE);
-                        GlobalGUIRoutines.switchNightMode(appContext, true);
-                        editor.apply();
-                    }
-                }
-
-                if (actualVersionCode <= 5250) {
-                    if (oldVersionCode <= 5210) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-
-                            NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
-                            try {
-                                NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
-                                if (channel != null) {
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
-                                            channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
-                                }
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-
-                        int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
-                        if (filterEventsSelectedItem == 2)
-                            filterEventsSelectedItem++;
-                        editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
-                        editor.apply();
-                        ApplicationPreferences.editorEventsViewSelectedItem(appContext);
-                    }
-                }
-
-                if (actualVersionCode <= 5430) {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                    String notificationBackgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
-                    SharedPreferences.Editor editor = preferences.edit();
-                    if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR))
-                        editor.putInt(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
-                    //if (!preferences.contains(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE))
-                    //    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
-                    if (notificationBackgroundColor.equals("2")) {
-                        //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
-                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
-                    } else if (notificationBackgroundColor.equals("4")) {
-                        //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
-                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
-                        editor.apply();
-                    }
-                    editor.apply();
-                }
-
-                /*
-                if (actualVersionCode <= 5700) {
-                    // restart service for move screen timeout 24hr and permanent to Keep screen on
-                }
-                */
+                _doForPackageReplaced_older(appContext, oldVersionCode, actualVersionCode);
 
                 if (actualVersionCode <= 6200) {
                     if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0) {
@@ -1567,19 +1489,11 @@ public class PhoneProfilesService extends Service
                             editor.apply();
                         }
                     }
-
-                    // remove all not used non-named mobile cells
-                    //PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
-                    //DatabaseHandler db = DatabaseHandler.getInstance(appContext);
-                    //db.deleteNonNamedNotUsedCells();
-                    //PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
                 }
                 if (actualVersionCode <= 6920) {
                     // remove all not used non-named mobile cells
-                    //PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
                     DatabaseHandler db = DatabaseHandler.getInstance(appContext);
                     db.deleteNonNamedNotUsedCells();
-                    //PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
                 }
                 if (actualVersionCode <= 6960) {
                     SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
@@ -1606,180 +1520,6 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 }
-
-                /*
-                if (actualVersionCode <= 7060) {
-                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
-
-                    // convert old contacts data to new
-                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                    if (contactsCache == null) {
-                        PPApplicationStatic.createContactsCache(appContext, false);
-                        contactsCache = PPApplicationStatic.getContactsCache();
-                    }
-                    List<Contact> contactList = contactsCache.getList();
-                    if (contactList != null) {
-                        for (Event event : eventList) {
-                            boolean dataChanged = false;
-
-                            if (!event._eventPreferencesCall._contacts.isEmpty()) {
-                                String[] splits = event._eventPreferencesCall._contacts.split(StringConstants.STR_SPLIT_REGEX);
-                                String _split = splits[0];
-                                String[] _splits2 = _split.split("#");
-                                boolean oldData = false;
-                                try {
-//                                    if (event._name.equals("Белый лист"))
-//                                        Log.e("PhoneProfilesService.doForPackageReplaced", "_splits2[0]="+_splits2[0]);
-                                    //noinspection unused
-                                    long l = Long.parseLong(_splits2[0]);
-                                    oldData = true;
-                                } catch (Exception ignored) {}
-//                                if (event._name.equals("Белый лист"))
-//                                    Log.e("PhoneProfilesService.doForPackageReplaced", "oldData="+oldData);
-                                if (oldData) {
-                                    StringBuilder newContacts = new StringBuilder();
-                                    for (String split : splits) {
-                                        String[] splits2 = split.split("#");
-                                        long contactId = Long.parseLong(splits2[0]);
-                                        long phoneId = Long.parseLong(splits2[1]);
-
-                                        boolean found = false;
-                                        for (Contact contact : contactList) {
-                                            if (phoneId != 0) {
-                                                if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
-                                                    found = true;
-                                            } else {
-                                                if (contact.contactId == contactId)
-                                                    found = true;
-                                            }
-                                            if (found) {
-                                                if (newContacts.length() > 0)
-                                                    newContacts.append("|");
-                                                newContacts
-                                                        .append(contact.name)
-                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
-                                                        .append(contact.phoneNumber)
-                                                        .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
-                                                        .append(contact.accountType);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    event._eventPreferencesCall._contacts = newContacts.toString();
-                                    dataChanged = true;
-                                }
-                            }
-
-                            if (!event._eventPreferencesSMS._contacts.isEmpty()) {
-                                String[] splits = event._eventPreferencesSMS._contacts.split(StringConstants.STR_SPLIT_REGEX);
-                                String _split = splits[0];
-                                String[] _splits2 = _split.split("#");
-                                boolean oldData = false;
-                                try {
-                                    //noinspection unused
-                                    long l = Long.parseLong(_splits2[0]);
-                                    oldData = true;
-                                } catch (Exception ignored) {
-                                }
-                                if (oldData) {
-                                    StringBuilder newContacts = new StringBuilder();
-                                    for (String split : splits) {
-                                        String[] splits2 = split.split("#");
-                                        if (splits2.length != 3) {
-                                            // old data
-                                            splits2 = split.split("#");
-                                            if (splits2.length != 2)
-                                                continue;
-                                            long contactId = Long.parseLong(splits2[0]);
-                                            long phoneId = Long.parseLong(splits2[1]);
-
-                                            boolean found = false;
-                                            for (Contact contact : contactList) {
-                                                if (phoneId != 0) {
-                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
-                                                        found = true;
-                                                } else {
-                                                    if (contact.contactId == contactId)
-                                                        found = true;
-                                                }
-                                                if (found) {
-                                                    if (newContacts.length() > 0)
-                                                        newContacts.append("|");
-                                                    newContacts
-                                                            .append(contact.name)
-                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
-                                                            .append(contact.phoneNumber)
-                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
-                                                            .append(contact.accountType);
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    event._eventPreferencesSMS._contacts = newContacts.toString();
-                                    dataChanged = true;
-                                }
-                            }
-
-                            if (!event._eventPreferencesNotification._contacts.isEmpty()) {
-                                String[] splits = event._eventPreferencesNotification._contacts.split(StringConstants.STR_SPLIT_REGEX);
-                                String _split = splits[0];
-                                String[] _splits2 = _split.split("#");
-                                boolean oldData = false;
-                                try {
-                                    //noinspection unused
-                                    long l = Long.parseLong(_splits2[0]);
-                                    oldData = true;
-                                } catch (Exception ignored) {
-                                }
-                                if (oldData) {
-                                    StringBuilder newContacts = new StringBuilder();
-                                    for (String split : splits) {
-                                        String[] splits2 = split.split("#");
-                                        if (splits2.length != 3) {
-                                            // old data
-                                            splits2 = split.split("#");
-                                            if (splits2.length != 2)
-                                                continue;
-                                            long contactId = Long.parseLong(splits2[0]);
-                                            long phoneId = Long.parseLong(splits2[1]);
-
-                                            boolean found = false;
-                                            for (Contact contact : contactList) {
-                                                if (phoneId != 0) {
-                                                    if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
-                                                        found = true;
-                                                } else {
-                                                    if (contact.contactId == contactId)
-                                                        found = true;
-                                                }
-                                                if (found) {
-                                                    if (newContacts.length() > 0)
-                                                        newContacts.append("|");
-                                                    newContacts
-                                                            .append(contact.name)
-                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
-                                                            .append(contact.phoneNumber)
-                                                            .append(StringConstants.STR_SPLIT_CONTACTS_REGEX)
-                                                            .append(contact.accountType);
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    event._eventPreferencesNotification._contacts = newContacts.toString();
-                                    dataChanged = true;
-                                }
-                            }
-
-                            if (dataChanged)
-                                DatabaseHandler.getInstance(appContext).updateEvent(event);
-                        }
-
-                    }
-
-                }
-                */
 
                 if (actualVersionCode <= 7145) {
                     SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
@@ -1850,6 +1590,49 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                if (actualVersionCode <= 7280) {
+                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                            (Build.VERSION.SDK_INT >= 35)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.notificationUseDecorationDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                            editor.apply();
+                        }
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI &&
+                            (Build.VERSION.SDK_INT >= 28)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                    if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 36)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.notificationUseDecorationDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, false);
+                            editor.apply();
+                        }
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                                ApplicationPreferences.notificationShowProfileIconDefaultValue())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+                            editor.apply();
+                        }
+                    }
+                }
             }
 
             // Keep this !!! stop tap target for package replaced
@@ -1875,20 +1658,6 @@ public class PhoneProfilesService extends Service
                     count++;
                 }
             }
-
-    //        // cancel all PPP notification (except PPService notification
-    //        NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-    //        if (notificationManager != null) {
-    //            StatusBarNotification[] notitications = notificationManager.getActiveNotifications();
-    //            for (StatusBarNotification notification : notitications) {
-    //                if (notification.getId() != PPApplication.PROFILE_NOTIFICATION_ID) {
-    //                    if (notification.getTag().isEmpty())
-    //                        notificationManager.cancel(notification.getId());
-    //                    else
-    //                        notificationManager.cancel(notification.getTag(), notification.getId());
-    //                }
-    //            }
-    //        }
 
         }
 

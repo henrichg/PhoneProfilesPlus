@@ -191,8 +191,10 @@ public class ActivatorListFragment extends Fragment {
         if (!activityDataWrapper.profileListFilled)
         {
             if (!isAsyncTaskRunning()) {
-                loadAsyncTask = new LoadProfileListAsyncTask(this);
-                loadAsyncTask.execute();
+                if (getActivity() != null) {
+                    loadAsyncTask = new LoadProfileListAsyncTask(this);
+                    loadAsyncTask.execute();
+                }
             }
         }
         else
@@ -219,6 +221,8 @@ public class ActivatorListFragment extends Fragment {
 
         Handler progressBarHandler;
         Runnable progressBarRunnable;
+
+        private int numColumns;
 
         private static class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
@@ -260,6 +264,9 @@ public class ActivatorListFragment extends Fragment {
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
                 //fragment.progressBar.setVisibility(View.VISIBLE);
+
+                if (applicationActivatorGridLayout)
+                    numColumns = fragment.gridView.getNumColumns();
             }
         }
 
@@ -296,8 +303,6 @@ public class ActivatorListFragment extends Fragment {
                         if (profile._showInActivator)
                             ++count;
                     }
-
-                    int numColumns = fragment.gridView.getNumColumns();
 
                     int modulo = count % numColumns;
                     if (modulo > 0) {
@@ -364,6 +369,7 @@ public class ActivatorListFragment extends Fragment {
                                 // Activator must be displayed for grant notification permission
                                 if (((ActivatorActivity) fragment.getActivity()).firstStartOfPPP) {
                                     try {
+                                        //noinspection DataFlowIssue
                                         fragment.getActivity().finish();
                                     } catch (Exception e) {
                                         PPApplicationStatic.recordException(e);
@@ -622,6 +628,7 @@ public class ActivatorListFragment extends Fragment {
             }
         }
         else {
+            //noinspection DataFlowIssue
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");

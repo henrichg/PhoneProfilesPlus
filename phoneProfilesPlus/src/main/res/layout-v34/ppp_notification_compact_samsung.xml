@@ -30,7 +30,7 @@
         android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:layout_alignParentStart="true">
 
-        <include layout="@layout/ppp_notification_text_compat" />
+        <include layout="@layout/ppp_notification_text_compat_samsung" />
 
     </LinearLayout>
 

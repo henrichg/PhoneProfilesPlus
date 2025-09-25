@@ -68,9 +68,11 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP(); // toto cita z databazy, ak je len jedne kontakt nastaveny
     }
 
-    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect) {
+    /** @noinspection SameParameterValue*/
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean forUnselect,
+                         final boolean forceRefresh) {
         if (fragment != null)
-            fragment.refreshListView(forUnselect);
+            fragment.refreshListView(forUnselect, forceRefresh);
     }
 
     void setContactsFilter(ContactFilter filter) {
@@ -432,7 +434,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         //getValueCMSDP();
         setSummaryCMSDP();
-        refreshListView(false);
+        refreshListView(false, false);
         //notifyChanged();
     }
 

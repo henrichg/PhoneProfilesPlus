@@ -25,13 +25,14 @@ class ShizukuUtils {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo appInfo = packageManager.getApplicationInfo(SHIZUKU_PACKAGE_NAME, PackageManager.MATCH_ALL);
-            boolean installed = appInfo.enabled;
-            if (installed) {
+            //boolean installed = appInfo.enabled;
+            //   !!! Do not use this, because in Samsung may be disabled, when is set to deep sleep automatically
+            //if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
                 return PPApplicationStatic.getVersionCode(pInfo);
-            } else {
-                return 0;
-            }
+            //} else {
+            //    return 0;
+            //}
         } catch (Exception e) {
             // extender is not installed = package not found
             //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
@@ -49,7 +50,9 @@ class ShizukuUtils {
     //static boolean shizukuInstalled = (Shizuku.getVersion() >= 11);
 
     static boolean shizukuAvailable() {
-        return Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
+        PPApplication.shizukuBinded =
+                Shizuku.pingBinder() && ((Shizuku.getVersion() >= 11) && (!Shizuku.isPreV11()));
+        return PPApplication.shizukuBinded;
     }
 
     /**

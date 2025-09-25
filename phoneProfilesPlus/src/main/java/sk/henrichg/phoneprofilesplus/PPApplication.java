@@ -29,6 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkManager;
 
+import com.github.anrwatchdog.ANRWatchDog;
+
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.config.CoreConfigurationBuilder;
@@ -56,7 +58,7 @@ public class PPApplication extends Application
                                         //implements Application.ActivityLifecycleCallbacks
 {
     // this version code must by <= then version code in dependencies.gradle
-    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7240;
+    static final int PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS = 7281;
     // TODO set it to false if you do not want to show News
     static final boolean SHOW_IMPORTANT_INFO_NEWS = true;
     // TODO set it to false if you do not want to show notification
@@ -65,10 +67,10 @@ public class PPApplication extends Application
     //// Extender versions
     // for this version will be displayed upgrade notification
     //  required must by <= latest
-    static final int VERSION_CODE_EXTENDER_REQUIRED = 910;
-    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0";
+    static final int VERSION_CODE_EXTENDER_REQUIRED = 935;
+    static final String VERSION_NAME_EXTENDER_REQUIRED = "9.0.1.3";
     // Used for check required version. This version must be in IzzyOnDroid
-    static final int VERSION_CODE_EXTENDER_LATEST = 910;
+    static final int VERSION_CODE_EXTENDER_LATEST = 935;
     //static final String VERSION_NAME_EXTENDER_LATEST = "8.1.7";
     ///////
 
@@ -187,16 +189,25 @@ public class PPApplication extends Application
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG = "https://henrichg.github.io/PhoneProfilesPlus/airplane_mode_radios_config.html";
     static final String HELP_AIRPLANE_MODE_RADIOS_CONFIG_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/airplane_mode_radios_config.md";
 
+    //This file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/install_shizuku.md
+    static final String HELP_INSTALL_SHIZUKU_URL = "https://henrichg.github.io/PhoneProfilesPlus/install_shizuku.html";
+    static final String HELP_INSTALL_SHIZUKU_URL_DEVEL = "https://github.com/henrichg/PhoneProfilesPlus/blob/devel/docs/install_shizuku.md";
+
     static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
     //This file: https://github.com/henrichg/PPPPutSettings/blob/main/docs/install_apk_from_pc.md
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL = "https://henrichg.github.io/PPPPutSettings/install_apk_from_pc.html";
     //static final String GITHUB_PPPPS_HOW_TO_INSTALL_URL_DEVEL = "https://github.com/henrichg/PPPPutSettings/blob/devel/docs/install_apk_from_pc.md";
 
-    static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
+    //static final String SHIUKU_HOW_TO_START_URL = "https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/shizuku.md";
 
-    // TODO change to latest version
-    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.6.4/InstallWithOptions_0.6.4-release.apk";
+    // TODO change InstallWithOptions downlaod to latest version
+    static final String INSTALL_WITH_OPTIONS_DOWNLOAD_URL = "https://github.com/zacharee/InstallWithOptions/releases/download/0.8.0/InstallWithOptions_0.8.0-release.apk";
+
+    static final String OPENVPN_CONNECT_APPLICATION_URL = "https://play.google.com/store/apps/details?id=net.openvpn.openvpn";
+    static final String OPENVPN_FOR_ANDROID_APPLICATION_URL = "https://play.google.com/store/apps/details?id=de.blinkt.openvpn";
+    static final String WIREGUARD_APPLICATION_URL = "https://play.google.com/store/apps/details?id=com.wireguard.android&";
+    static final String DELTA_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/dev.shadoe.delta";
 
     //static final String GALAXY_STORE_PACKAGE_NAME = "com.sec.android.app.samsungapps";
     //static final String GALAXY_STORE_PPP_RELEASES_URL = "https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus";
@@ -257,6 +268,7 @@ public class PPApplication extends Application
                                                 //+"|CustomACRAReportingAdministrator.shouldStartCollecting"
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
+                                                +"|[ANRWatchDog]"
 // this si for get 0, 50 100% level
 //                                                +"|SettingsContentObserver.onChange"
 
@@ -264,6 +276,9 @@ public class PPApplication extends Application
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
+//                                                +"|[DELAYED_EXECUTOR_CALL]"
+//                                                +"|[HANDLE_EVENTS_FROM_WORK]"
+//                                                +"|[HANDLE_EVENTS_NOT_FROM_EXECUTOR_WORK]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
@@ -310,11 +325,13 @@ public class PPApplication extends Application
 
                                                 //+"|[CONTACTS_CACHE]"
                                                 //+"|[CONTACTS_OBSERVER]"
-//                                                +"|[BLUETOOTH_CONNECT]"
+                                                //+"|[BLUETOOTH_CONNECT]"
 //                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 //+"|BluetoothStateChangedBroadcastReceiver.onReceive"
                                                 //+"|[BLUETOOTH]"
                                                 //+"|[MOBILE_DATA]"
+                                                //+"|[WAKELOCK_EXCEPTION]"
+                                                //+"|[UPDATE_GUI]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -403,12 +420,12 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
-    static final int ALTYPE_CALL_SCREENING_BLOCKED_CALL = 114;
+    static final int ALTYPE_CALL_CONTROL_BLOCKED_CALL = 114;
     // TODO actual max. value = 115;
 
     static final int ALFILTER_ALL = 0;
-    static final int ALFILTER_CALL_SCREENING_BLOCKED_CALL = 1;
-        // ALTYPE_CALL_SCREENING_BLOCKED_CALL
+    static final int ALFILTER_CALL_CONTROL_BLOCKED_CALL = 1;
+        // ALTYPE_CALL_CONTROL_BLOCKED_CALL
     static final int ALFITER_ERRORS = 2;
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION
         // ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT
@@ -461,6 +478,25 @@ public class PPApplication extends Application
         // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
         // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
         // ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION
+    static final int ALFILTER_EVENTS_LIFECYCLE = 8;
+        // ALTYPE_EVENT_START
+        // ALTYPE_EVENT_START_DELAY
+        // ALTYPE_EVENT_END_NONE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE
+        // ALTYPE_EVENT_END_UNDO_PROFILE
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE
+        // ALTYPE_EVENT_END_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE
+        // ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS
+        // ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE
+        // ALTYPE_EVENT_END_DELAY
+        // ALTYPE_EVENT_STOP
+        // ALTYPE_RESTART_EVENTS
+        // ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS
+        // ALTYPE_MERGED_PROFILE_ACTIVATION
+        // ALTYPE_PROFILE_ACTIVATION
 
     static final String MODEL_NEXUS = "Nexus";
     static final String MANUFACTURER_HMD_GLOBAL = "HMD Global";
@@ -491,6 +527,7 @@ public class PPApplication extends Application
     static volatile boolean HAS_FEATURE_LOCATION = false;
     static volatile boolean HAS_FEATURE_LOCATION_GPS = false;
     static volatile boolean HAS_FEATURE_CAMERA_FLASH = false;
+    //static volatile boolean HAS_FEATURE_ETHERNET = false;
     // this is required for target 33
     //static volatile boolean HAS_FEATURE_TELEPHONY_MESSAGING = false;
 
@@ -499,6 +536,7 @@ public class PPApplication extends Application
     static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
     static final String PACKAGE_NAME_PPPPS = "sk.henrichg.pppputsettings";
     //static final String PACKAGE_NAME_SHIZUKU = "moe.shizuku.privileged.api";
+    static final String PACKAGE_NAME_DELTA = "dev.shadoe.delta";
 
     static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
@@ -510,6 +548,7 @@ public class PPApplication extends Application
     static final String EXTRA_EVENT_STATUS = "event_status";
     static final String EXTRA_APPLICATION_START = "application_start";
     static final String EXTRA_DEVICE_BOOT = "device_boot";
+    static final String EXTRA_DRAW_IMMEDIATELY = "draw_IMMEDIATELY";
 
     static final String BUNDLE_KEY = "key";
 
@@ -802,6 +841,7 @@ public class PPApplication extends Application
     static final String ACTION_SMS_MMS_RECEIVED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_SMS_MMS_RECEIVED";
     static final String ACTION_CALL_RECEIVED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_CALL_RECEIVED";
     static final String ACTION_LOCK_DEVICE = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_LOCK_DEVICE";
+    static final String ACTION_SET_ACCESSIBILITY_VOLUME = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_SET_ACCESSIBILITY_VOLUME";
     static final String PPP_EXTENDER_PERMISSION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACCESSIBILITY_SERVICE_PERMISSION";
 
     //static final String ACTION_SHOW_PROFILE_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION";
@@ -836,6 +876,7 @@ public class PPApplication extends Application
 
     static final String EXTRA_APPLICATIONS = "extra_applications";
     static final String EXTRA_BLOCK_PROFILE_EVENT_ACTION = "extra_block_profile_event_actions";
+    static final String EXTRA_ACCESSIBILITY_VOLUME_VALUE = "extra_accessibility_volume_value";
 
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
@@ -934,7 +975,7 @@ public class PPApplication extends Application
     static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
     static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
-    static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
+    //static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     static final MobileCellsScannerMutex mobileCellsScannerMutex = new MobileCellsScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
@@ -945,8 +986,11 @@ public class PPApplication extends Application
     static final PanelWidgetDatasetChangedMutex panelWidgetDatasetChangedMutex = new PanelWidgetDatasetChangedMutex();
     static final DashClockWidgetMutex dashClockWidgetMutex = new DashClockWidgetMutex();
     static final DynamicShortcutsMutex dynamicShortcutsMutex = new DynamicShortcutsMutex();
+    static final HandleEventsMutex handleEventsMutex = new HandleEventsMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
+
+    static volatile boolean shizukuBinded;
 
     static volatile ApplicationsCache applicationsCache;
     static volatile ContactsCache contactsCache;
@@ -1081,7 +1125,10 @@ public class PPApplication extends Application
     static volatile ApplicationEventEndBroadcastReceiver applicationEventEndBroadcastReceiver = null;
     //static volatile MusicBroadcastReceiver musicBroadcastReceiver = null;
     static volatile PPAudioPlaybackCallback audioPlaybackCallback = null;
-    static volatile CallScreeningEventEndBroadcastReceiver callScreeningEventEndBroadcastReceiver = null;
+    static volatile CallControlEventEndBroadcastReceiver callControlEventEndBroadcastReceiver = null;
+    static volatile AnswerCallRingingLengthBroadcastReceiver answerCallRingingLengthBroadcastReceiver = null;
+    static volatile EndCallCallLengthBroadcastReceiver endCallCallLengthBroadcastReceiver = null;
+    static volatile ActivatedProfileEventEndBroadcastReceiver activatedProfileEventEndBroadcastReceiver = null;
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 
@@ -1116,7 +1163,6 @@ public class PPApplication extends Application
     volatile static ExecutorService basicExecutorPool = null;
     //volatile static ExecutorService profileActiationExecutorPool = null;
     //volatile static ExecutorService soundModeExecutorPool = null;
-
     // for call of ActivateProfileHelper.execute()
     volatile static ExecutorService activateProfileExecuteExecutorPool = null;
     // for call of ActivateProfileHelper.executeForVolumes()
@@ -1125,11 +1171,9 @@ public class PPApplication extends Application
     // for call of ActivateProfileHelper.executeForRadios()
     // - required for increase speed of profile activation
     volatile static ExecutorService profileRadiosExecutorPool = null;
-
     volatile static ExecutorService profileRunApplicationsExecutorPool = null;
     volatile static ExecutorService profileIteractivePreferencesExecutorPool = null;
     volatile static ExecutorService profileActivationDurationExecutorPool = null;
-
     volatile static ExecutorService eventsHandlerExecutor = null;
     volatile static ExecutorService scannersExecutor = null;
     volatile static ExecutorService playToneExecutor = null;
@@ -1144,6 +1188,12 @@ public class PPApplication extends Application
     volatile static ScheduledFuture<?> scheduledFutureUpdateGuiExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedAppNotificationExecutor = null;
     volatile static ScheduledFuture<?> scheduledFutureDelayedProfileListNotificationExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureNotificationListenerEventsHandlerExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureIconWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureOneRowWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureProfileListWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFuturePanelWidgetExecutor = null;
+    volatile static ScheduledFuture<?> scheduledFutureOneRowProfileListWidgetExecutor = null;
 
     // required for callbacks, observers, ...
     volatile static HandlerThread handlerThreadBroadcast = null;
@@ -1269,6 +1319,21 @@ public class PPApplication extends Application
             return;
         }
 
+        // Handle the ANR error
+        // This disables displaying of ANR dialog by system
+        new ANRWatchDog().setANRListener(error -> {
+            //PPApplicationStatic.logE("[ANRWatchDog]", Log.getStackTraceString(error));
+            PPApplicationStatic.logException("[ANRWatchDog]", Log.getStackTraceString(error), true);
+
+            // if user click notification, it displays dialog for ACRA and this again
+            // may generate again anmd again notiofication (in looping... :-( )
+            //PPApplicationStatic.recordException(error);
+
+            // this force close PPP, as for normal not handled exception
+            //System.exit(0);
+        }).start();
+
+        // must be there, requires Context
         romIsGalaxy = isGalaxyROM(getApplicationContext());
         //romIsGalaxy611 = isGalaxyROM611(getApplicationContext());
 
@@ -1280,6 +1345,7 @@ public class PPApplication extends Application
             GlobalGUIRoutines.darkColorScheme = dynamicTonalPaletteSamsung.dynamicDarkColorSchemeSamsung(getApplicationContext());
         }*/
 
+        PPApplication.shizukuBinded = false;
         RootUtils.initRoot();
 
 //        PPApplicationStatic.logE("[SYNCHRONIZED] PPApplication.onCreate", "PPApplication.applicationStartedMutex");
@@ -1319,7 +1385,7 @@ public class PPApplication extends Application
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplicationStatic.createScannersExecutor();
         PPApplicationStatic.createPlayToneExecutor();
-        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplicationStatic.createDisableInternalChangeExecutor();
         PPApplicationStatic.createDelayedGuiExecutor();
         PPApplicationStatic.createDelayedAppNotificationExecutor();
         PPApplicationStatic.createDelayedProfileListNotificationExecutor();
@@ -1347,6 +1413,7 @@ public class PPApplication extends Application
         HAS_FEATURE_LOCATION = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
         HAS_FEATURE_CAMERA_FLASH = hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
+        //HAS_FEATURE_ETHERNET = hasSystemFeature(packageManager, PackageManager.FEATURE_ETHERNET);
         //HAS_FEATURE_TELEPHONY_MESSAGING = hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY_MESSAGING);
 
         PPApplicationStatic.logE("##### PPApplication.onCreate", "end of get features");
@@ -1929,6 +1996,7 @@ public class PPApplication extends Application
                         //worker.shutdown();
                     }
                 };
+                PPApplicationStatic.createUpdateGuiExecutor();
                 PPApplication.updateGuiExecutor.submit(runnable);
                 return;
             }
@@ -1982,12 +2050,12 @@ public class PPApplication extends Application
                     //worker.shutdown();
                 }
             };
-
-
 //            Log.e("PPApplication.updateGUI", "xxx call of shedule xxx");
+            PPApplicationStatic.createUpdateGuiExecutor();
             if (scheduledFutureUpdateGuiExecutor != null)
                 scheduledFutureUpdateGuiExecutor.cancel(false);
-            scheduledFutureUpdateGuiExecutor = PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
+            scheduledFutureUpdateGuiExecutor =
+                    PPApplication.updateGuiExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
             if (!longDelay) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPAppNotification.drawNotification");

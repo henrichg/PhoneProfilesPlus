@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -272,7 +273,7 @@ public class MobileCellsRegistrationService extends Service
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            PPApplicationStatic.logException("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
+            PPApplicationStatic.logException("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en), false);
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -341,7 +342,30 @@ public class MobileCellsRegistrationService extends Service
 
         @Override
         public void onReceive( Context context, Intent intent ) {
-            listener.stopRegistrationFromListener();
+            final Context appContext = context.getApplicationContext();
+            Runnable runnable = () -> {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileCellsRegistrationStopButtonBroadcastReceiver_onReceive);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+                    listener.stopRegistrationFromListener();
+                } catch (Exception e) {
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] SettingsContentObserver.onChange", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            };
+            PPApplicationStatic.createBasicExecutorPool();
+            PPApplication.basicExecutorPool.submit(runnable);
         }
 
     }

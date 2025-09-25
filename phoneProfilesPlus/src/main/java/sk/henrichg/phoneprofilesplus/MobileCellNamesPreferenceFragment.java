@@ -144,7 +144,7 @@ public class MobileCellNamesPreferenceFragment extends PreferenceDialogFragmentC
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
             boolean simIsReady = false;
             if (telephonyManager != null) {
-                if (Permissions.checkPhone(prefContext.getApplicationContext())) {
+                if (Permissions.checkReadPhoneState(prefContext.getApplicationContext())) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
                     if (mSubscriptionManager != null) {

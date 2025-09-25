@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 // added support for click to message links
 // supported is all from InfoDialogPreferencesFragment.onLinkClickedListener()
@@ -107,10 +108,12 @@ public class PPAlertDialog extends DialogFragment
             if (neutralText != null)
                 dialogBuilder.setNeutralButton(neutralText, neutralClick);
 
+            /*
             if (cancelListener != null)
                 dialogBuilder.setOnCancelListener(cancelListener);
             if (dismissListener != null)
                 dialogBuilder.setOnDismissListener(dismissListener);
+            */
 
             dialogBuilder.setCancelable(cancelable);
 
@@ -147,8 +150,18 @@ public class PPAlertDialog extends DialogFragment
         return mDialog;
     }
 
+    public void onCancel (@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (cancelListener != null)
+            cancelListener.onCancel(dialog);
+    }
+
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+
+        if (dismissListener != null)
+            dismissListener.onDismiss(dialog);
+
         if (activity != null)
             GlobalGUIRoutines.unlockScreenOrientation(activity);
     }
@@ -163,7 +176,9 @@ public class PPAlertDialog extends DialogFragment
 
     void showDialog() {
         if ((activity != null) && (!activity.isFinishing())) {
-            show(activity.getSupportFragmentManager(), "PP_ALERT_DIALOG");
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "PP_ALERT_DIALOG");
         }
     }
 

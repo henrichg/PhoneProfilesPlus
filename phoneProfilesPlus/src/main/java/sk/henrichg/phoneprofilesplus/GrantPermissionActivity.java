@@ -599,7 +599,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 _showRequestValue.append(context.getString(R.string.permissions_for_profile_text3));
 
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
@@ -831,7 +831,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_TYPE_PROFILE_SEND_SMS:
                         s = getString(R.string.permission_why_profile_send_sms);
                         break;
-                    case Permissions.PERMISSION_TYPE_EVENT_CALL_SCREENING_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_CALL_CONTROL_PREFERENCES:
                         s = getString(R.string.permission_why_event_call_screening);
                         break;
                     case Permissions.PERMISSION_TYPE_PROFILE_CLEAR_NOTIFICATIONS:
@@ -1005,7 +1005,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
             } catch (SecurityException en) {
-                PPApplicationStatic.logException("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
+                PPApplicationStatic.logException("GrantPermissionActivity.showNotification", Log.getStackTraceString(en), false);
             } catch (Exception e) {
                 //Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
@@ -1084,7 +1084,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                 PPAlertDialog dialog = new PPAlertDialog(
@@ -1220,7 +1220,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                 CharSequence message;
@@ -1334,10 +1334,18 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                finishActivity = permissionsChanged && (!modifyPhonePermission);
 //            }
             if (!permissionsChanged) {
-                boolean phonePermission = Permissions.checkPhone(context);
+                boolean phonePermission = Permissions.checkReadPhoneState(context);
                 permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
                 // finish Editor when permission is disabled
                 finishActivity = permissionsChanged && (!phonePermission);
+            }
+            if (Build.VERSION.SDK_INT >= 29) {
+                if (!permissionsChanged) {
+                    boolean phonePermission = Permissions.checkAnswerPhoneCalls(context);
+                    permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
+                    // finish Editor when permission is disabled
+                    finishActivity = permissionsChanged && (!phonePermission);
+                }
             }
             if (!permissionsChanged) {
                 boolean storagePermission = Permissions.checkReadStorage(context);

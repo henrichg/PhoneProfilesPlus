@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -73,6 +74,10 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.PPP_APP_INFO_SCREEN);
         boolean showDroidifyInstallationSite = linkUrl.startsWith(InfoDialogPreference.DROIDIFY_INSTALLATION_SITE);
         boolean grantRoot = linkUrl.equals(InfoDialogPreference.GRANT_ROOT);
+        boolean showOpenVPNConectInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_OPENVPN_CONNECT);
+        boolean showOpenVPNForAndroidInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_OPENVPN_FOR_ANDROID);
+        boolean showWireguardInstallationSite = linkUrl.startsWith(InfoDialogPreference.VPN_WIREGUARD);
+        boolean showDeltaInstallationSite = linkUrl.startsWith(InfoDialogPreference.DELTA_APP);
 
         int iiFragment;// = -1;
         // 0 = System
@@ -143,10 +148,84 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 Permissions.grantRootX(null, activity);
             }
         }
+        if (showOpenVPNConectInstallationSite) {
+            String url = PPApplication.OPENVPN_CONNECT_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
+        if (showOpenVPNForAndroidInstallationSite) {
+            String url = PPApplication.OPENVPN_FOR_ANDROID_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
+        if (showWireguardInstallationSite) {
+            String url = PPApplication.WIREGUARD_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                context.startActivity(Intent.createChooser(i, context.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
+        if (showDeltaInstallationSite) {
+            installDelta(activity);
+        }
     }
 
     @Override
     public void onLongClick(String text) {
+
+    }
+
+    static void installDelta(final Activity activity) {
+        if (activity == null) {
+            return;
+        }
+
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+        boolean fdroidInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+        boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
+
+        if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
+            if (droidifyInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {}
+            } else if (neostoreInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {}
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=dev.shadoe.delta"));
+                intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception ignored) {}
+            }
+        } else {
+            String url = PPApplication.DELTA_APPLICATION_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
+        }
 
     }
 

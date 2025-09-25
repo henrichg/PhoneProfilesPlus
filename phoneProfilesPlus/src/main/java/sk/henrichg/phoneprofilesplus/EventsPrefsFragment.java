@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -46,7 +47,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 /** @noinspection ExtractMethodRecommender*/
 public class EventsPrefsFragment extends PreferenceFragmentCompat
@@ -100,6 +100,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_EVENT_HIDE_NOT_USED_SENSORS = "eventHideNotUsedSensors";
     private static final int RESULT_MUSIC_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1999;
     private static final int RESULT_SET_CALL_SCREENING_ROLE = 2000;
+    private static final int RESULT_SIMULATE_RINGING_CALL = 2001;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -361,7 +362,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //if (fragmentManager != null) {
                 //noinspection deprecation
                 dialogFragment.setTargetFragment(this, 0);
-                dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".EventsPrefsActivity.DIALOG");
+                if (!fragmentManager.isDestroyed())
+                    dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".EventsPrefsActivity.DIALOG");
                 //}
             }
         } else {
@@ -395,7 +397,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = __activity.findViewById(R.id.activity_preferences_toolbar);
             //noinspection DataFlowIssue
-            toolbar.setSubtitle(__activity.getString(R.string.title_activity_event_preferences));
+            toolbar.setSubtitle(__activity.getString(R.string.title_activity_event_preferences)+"   ");
             toolbar.setTitle(__activity.getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
 
@@ -1263,7 +1265,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             Context appContext = context.getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
-                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                /*List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
                     if (shortcut.getId().equals(EventPreferencesNFC.SHORTCUT_ID_READ_NFC_TAG)) {
@@ -1271,7 +1273,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         break;
                     }
                 }
-                if (!exists) {
+                if (!exists) {*/
                     if (shortcutToReadNFCTagAddedReceiver == null) {
                         shortcutToReadNFCTagAddedReceiver = new ShortcutToReadNFCTagAddedBroadcastReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(EventPreferencesNFC.ACTION_SHORTCUT_TO_READ_NFC_TAG_ADDED);
@@ -1336,9 +1338,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                         return false;
                     });
-                }
+                /*}
                 else
-                    preference.setVisible(false);
+                    preference.setVisible(false);*/
             } else
                 preference.setVisible(false);
         }
@@ -1388,19 +1390,49 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             final InfoDialogPreference _infoDialogPreference = prefMng.findPreference(EventPreferencesMusic.PREF_EVENT_MUSIC_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
             if (_infoDialogPreference != null) {
                 _infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
-                    _infoDialogPreference.setInfoText(
+
+                    PackageManager packageManager = activity.getPackageManager();
+                    Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+                    boolean fdroidInstalled = (_intent != null);
+                    _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                    boolean droidifyInstalled = (_intent != null);
+                    _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                    boolean neostoreInstalled = (_intent != null);
+
+                    String info =
                             StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
-                                    "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_export) + "\"." + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                                    EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
-                                    "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_import) + "\"."
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                    getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
+
+                    if (!(droidifyInstalled || neostoreInstalled || fdroidInstalled /*|| galaxyStoreInstalled*/)) {
+                        info = info +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                    }
+
+                    info = info +
+                            getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                            "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                            "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\".";
+
+                    _infoDialogPreference.setInfoText(
+                        info
+                        /*StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML + StringConstants.TAG_URL_LINK_END_HTML + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                                "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_export) + "\"." + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                                EventsPrefsFragment.this.getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                                "\"" + EventsPrefsFragment.this.getString(R.string.menu_import_export) + "\"/\"" + EventsPrefsFragment.this.getString(R.string.menu_import) + "\"."*/
                     );
                     _infoDialogPreference.setIsHtml(true);
 
@@ -1410,18 +1442,32 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            preference = prefMng.findPreference(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_SET_CALL_SCREENING_ROLE);
+            preference = prefMng.findPreference(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_SET_CALL_SCREENING_ROLE);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference1 -> {
                     // start preferences activity for default profile
                     //if (getActivity() != null) {
                         Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
-                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_CALL_SCREENING_CATEGORY_ROOT);
+                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_DEFAULT_ROLES_APPLICATIONS_ROOT);
                         getActivity().startActivityForResult(intent, RESULT_SET_CALL_SCREENING_ROLE);
                     //}
                     return false;
                 });
             }
+        }
+
+        preference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_SIMULATE_RINGING_CALL_SETTINGS);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(preference1 -> {
+                // start preferences activity for default profile
+                //if (activity != null) {
+                Intent intent = new Intent(activity.getBaseContext(), PhoneProfilesPrefsActivity.class);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_SYSTEM_CATEGORY_ROOT);
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                activity.startActivityForResult(intent, RESULT_SIMULATE_RINGING_CALL);
+                //}
+                return false;
+            });
         }
 
     }
@@ -1722,16 +1768,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG)) {
             ContactsMultiSelectDialogPreference preference1 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
             if (preference1 != null)
-                preference1.refreshListView(false);
+                preference1.refreshListView(false, false);
             preference1 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACTS);
             if (preference1 != null)
-                preference1.refreshListView(false);
+                preference1.refreshListView(false, false);
             ContactGroupsMultiSelectDialogPreference preference2 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACT_GROUPS);
             if (preference2 != null)
-                preference2.refreshListView(false);
+                preference2.refreshListView(false, false);
             preference2 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACT_GROUPS);
             if (preference2 != null)
-                preference2.refreshListView(false);
+                preference2.refreshListView(false, false);
         }
         /*if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1773,12 +1819,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         if (requestCode == RESULT_SET_CALL_SCREENING_ROLE) {
             if (Build.VERSION.SDK_INT >= 29) {
-                event._eventPreferencesCallScreening.checkPreferences(prefMng, !nestedFragment, context);
+                event._eventPreferencesCallControl.checkPreferences(prefMng, !nestedFragment, context);
                 setRedTextToPreferences();
 
                 PPApplication.updateGUI(true, false, context);
             }
         }
+
     }
 
     @SuppressWarnings("deprecation")
@@ -1902,7 +1949,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             boolean showVPNSensor;
             boolean showWifiSensor;
             boolean showMusicSensor;
-            boolean showCallScreeningSensor;
+            boolean showCallControlSensor;
 
             if ((activity != null) && (!saveDisplayed) && (!activity.displayedSensors.isEmpty())) {
                 showAccessoriesSensor = activity.displayedSensors.contains(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED);
@@ -1931,7 +1978,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVPNSensor = activity.displayedSensors.contains(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED);
                 showWifiSensor= activity.displayedSensors.contains(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
                 showMusicSensor = activity.displayedSensors.contains(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
-                showCallScreeningSensor = activity.displayedSensors.contains(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED);
+                showCallControlSensor = activity.displayedSensors.contains(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED);
             }
             else {
                 showAccessoriesSensor = preferences.getBoolean(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, false);
@@ -1960,7 +2007,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 showVPNSensor = preferences.getBoolean(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, false);
                 showWifiSensor= preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false);
                 showMusicSensor = preferences.getBoolean(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED, false);
-                showCallScreeningSensor = preferences.getBoolean(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED, false);
+                showCallControlSensor = preferences.getBoolean(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED, false);
             }
 
             if (saveDisplayed && (activity != null)) {
@@ -2017,8 +2064,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     activity.displayedSensors.add(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED);
                 if (showMusicSensor)
                     activity.displayedSensors.add(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED);
-                if (showCallScreeningSensor)
-                    activity.displayedSensors.add(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED);
+                if (showCallControlSensor)
+                    activity.displayedSensors.add(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED);
             }
 
             Preference preference = prefMng.findPreference(PREF_EVENT_HIDE_NOT_USED_SENSORS);
@@ -2048,7 +2095,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     (!showVPNSensor) &&
                     (!showWifiSensor) &&
                     (!showMusicSensor) &&
-                    (!showCallScreeningSensor)) {
+                    (!showCallControlSensor)) {
                 hideSensors = false;
                 if (preference != null)
                     preference.setEnabled(false);
@@ -2239,11 +2286,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     showSensor = showMusicSensor;
                 preference.setVisible(showSensor);
             }
-            preference = prefMng.findPreference(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_CATEGORY);
+            preference = prefMng.findPreference(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_CATEGORY);
             if (preference != null) {
                 boolean showSensor = !hideSensors;
                 if (hideSensors)
-                    showSensor = showCallScreeningSensor;
+                    showSensor = showCallControlSensor;
                 preference.setVisible(showSensor);
             }
         }

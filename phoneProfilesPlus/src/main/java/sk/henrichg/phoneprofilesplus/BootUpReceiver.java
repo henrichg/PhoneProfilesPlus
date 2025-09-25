@@ -50,8 +50,10 @@ public class BootUpReceiver extends BroadcastReceiver {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
+                //synchronized (PPApplication.handleEventsMutex) {
+
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -109,8 +111,14 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 if (EventStatic.getGlobalEventsRunning(appContext)) {
 
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "SENSOR_TYPE_BOOT_COMPLETED");
+//                                    PPApplicationStatic.logE("[EXECUTOR_CALL] BootUpReceiver.onReceive", "PPExecutors.handleEvents");
+                                    PPExecutors.handleEvents(appContext,
+                                            new int[]{EventsHandler.SENSOR_TYPE_BOOT_COMPLETED},
+                                            PPExecutors.SENSOR_NAME_SENSOR_TYPE_BOOT_COMPLETED, 0);
+                                    /*
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_BOOT_COMPLETED});
+                                    */
                                 }
                             }
                         } else {
@@ -140,6 +148,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                             }
                         }
                     }
+                    //}
+
                 //}
             };
             PPApplicationStatic.createBasicExecutorPool();

@@ -325,8 +325,8 @@ class ContactsCache {
                                 }
                             }
 
-                            if (!event._eventPreferencesCallScreening._contacts.isEmpty()) {
-                                String[] splits = event._eventPreferencesCallScreening._contacts.split(StringConstants.STR_SPLIT_REGEX);
+                            if (!event._eventPreferencesCallControl._contacts.isEmpty()) {
+                                String[] splits = event._eventPreferencesCallControl._contacts.split(StringConstants.STR_SPLIT_REGEX);
                                 String _split = splits[0];
                                 String[] _splits2 = _split.split("#");
                                 boolean oldData = false;
@@ -371,7 +371,7 @@ class ContactsCache {
                                             }
                                         }
                                     }
-                                    event._eventPreferencesCallScreening._contacts = newContacts.toString();
+                                    event._eventPreferencesCallControl._contacts = newContacts.toString();
                                     dataChanged = true;
                                 }
                             }

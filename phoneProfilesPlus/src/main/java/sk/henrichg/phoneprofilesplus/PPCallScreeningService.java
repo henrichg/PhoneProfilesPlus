@@ -23,33 +23,43 @@ public class PPCallScreeningService extends CallScreeningService {
             final Context appContext = getApplicationContext();
 
             Uri callHandle =  callDetails.getHandle();
-            if (callHandle != null) //noinspection ExtractMethodRecommender
+            if (EventStatic.getGlobalEventsRunning(appContext) && (callHandle != null))
             {
 
                 //Runnable runnable = () -> { // NOT WORKING BLOCK CALL WTH THIS !!!
                 final String callingPhoneNumber = callHandle.getSchemeSpecificPart();
 //                Log.e("PPCallScreeningService.onScreenCall", "callingPhoneNumber="+callingPhoneNumber);
                 final int callDirection = callDetails.getCallDirection();
+//                Log.e("PPCallScreeningService.onScreenCall", "callDirection="+callDirection);
 
-                // Required is direct call of EventsHandler, because must be tested,
-                // event status (must be running to block call).
-                // If this is longer then 5 seconds, then system unbind this service and
-                // used is default call screening, call is ringing. Uff :-)
-                //Runnable runnable = () -> {
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                List<Event> callControlEventList = DatabaseHandler.getInstance(appContext).getCallControlEvents();
+//                Log.e("PPCallScreeningService.onScreenCall", "callControlEventList.size()="+callControlEventList.size());
 
-//                    Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - start");
-                    Calendar now = Calendar.getInstance();
-                    long time = now.getTimeInMillis();
-//                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPCallScreeningService.onScreenCall", "SENSOR_TYPE_CALL_SCREENING");
-                    eventsHandler.setEventCallScreeningParameters(callingPhoneNumber, time, callDirection);
-                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_SCREENING});
-//                    Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - end");
-                //};
-                //PPApplicationStatic.createBasicExecutorPool();
-                //PPApplication.basicExecutorPool.submit(runnable);
+                if (!callControlEventList.isEmpty()) {
+                    // Required is direct call of EventsHandler, because must be tested,
+                    // event status (must be running to block call).
+                    // If this is longer then 5 seconds, then system unbind this service and
+                    // used is default call screening, call is ringing. Uff :-)
+                    //Runnable runnable = () -> {
+                    synchronized (PPApplication.handleEventsMutex) {
 
-                //GlobalUtils.sleep(6000);
+                        try {
+//                          Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - start");
+                            Calendar now = Calendar.getInstance();
+                            long time = now.getTimeInMillis();
+//                            PPApplicationStatic.logE("[HANDLE_EVENTS_NOT_FROM_EXECUTOR_WORK] PPCallScreeningService.onScreenCall", "SENSOR_TYPE_CALL_CONTROL");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.setEventCallControlParameters(callingPhoneNumber, time, callDirection);
+                            eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_CALL_CONTROL});
+//                          Log.e("PPCallScreeningService.onScreenCall", "call of EventsHandler - end");
+                        } catch (Exception ignored) {}
+                    }
+                    //};
+                    //PPApplicationStatic.createBasicExecutorPool();
+                    //PPApplication.basicExecutorPool.submit(runnable);
+
+                    //GlobalUtils.sleep(6000);
+                }
 
                 CallResponse.Builder response = new CallResponse.Builder();
 
@@ -61,57 +71,62 @@ public class PPCallScreeningService extends CallScreeningService {
 
                     //noinspection ExtractMethodRecommender
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "PPApplicationStatic.getContactsCache()");
+//                    Log.e("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "PPApplicationStatic.getContactsCache()");
                     ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     List<Contact> contactList = null;
-                    if (contactsCache != null) {
+                    try {
+                        if (contactsCache != null) {
 //                    PPApplicationStatic.logE("[SYNCHRONIZED] EventPreferencesCallScreening.doHandleEvent", "PPApplication.contactsCacheMutex");
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] PPCallScreeningService.onScreenCall", "contactsCache.getList()");
-                        contactList = contactsCache.getList(/*false*/);
-                    }
+                            contactList = contactsCache.getList(/*false*/);
+                        }
+                    } catch (Exception ignored) {}
 
                     boolean blockCallingPhoneNumber = false;
                     boolean sendSMS = false;
                     String smsText = "";
 
                     if (contactList != null) {
-                        List<Event> eventList = DatabaseHandler.getInstance(appContext).getCallScreeningEvents();
-//                        Log.e("PPCallScreeningService.onScreenCall", "eventList.size()="+eventList.size());
-                        for (Event event : eventList) {
-                            if (event._eventPreferencesCallScreening._enabled &&
-                                event._eventPreferencesCallScreening.isRunnable(appContext) &&
-                                event.getStatus() == Event.ESTATUS_RUNNING) {
+//                        Log.e("PPCallScreeningService.onScreenCall", "contactList != null");
+                        for (Event event : callControlEventList) {
+                            if (event._eventPreferencesCallControl._enabled &&
+                                event._eventPreferencesCallControl.isRunnable(appContext) &&
+                                event.getStatus() != Event.ESTATUS_STOP) {
 
-                                // call event._eventPreferencesCallScreening.doHableEvent()
-                                // to get sensor pass for event
-                                //EventsHandler eventsHandler = new EventsHandler(appContext);
-                                //event._eventPreferencesCallScreening.doHandleEventOnlyCheckPhoneNumberAndDirection(eventsHandler, callingPhoneNumber, callDirection);
-                                //if ((!eventsHandler.notAllowedCallScreening) && eventsHandler.callScreeningPassed) {
-                                    // snsor is passed block call
-                                    //Log.e("PPCallScreeningService.onScreenCall", "semsor passed for event="+event._name);
+                                boolean runningAllowed = false;
+                                if (ApplicationPreferences.applicationEventUsePriority &&
+                                        (event._priority != Event.EPRIORITY_DO_NOT_USE)) {
+                                    runningAllowed = DatabaseHandler.getInstance(appContext).checkCallControlAllowedRunning(event._priority);
+                                }
+//                                Log.e("PPCallScreeningService.onScreenCall", "runningAllowed="+runningAllowed);
 
-                                    String contacts = event._eventPreferencesCallScreening._contacts;
-                                    String contactGroups = event._eventPreferencesCallScreening._contactGroups;
+                                if (runningAllowed) {
+
+                                    String contacts = event._eventPreferencesCallControl._contacts;
+                                    String contactGroups = event._eventPreferencesCallControl._contactGroups;
                                     //int contactListType = event._eventPreferencesCallScreening._contactListType;
-                                    boolean notInContacts = event._eventPreferencesCallScreening._notInContacts;
-                                    int direction = event._eventPreferencesCallScreening._callDirection;
-                                    boolean blockCalls = event._eventPreferencesCallScreening._blockCalls;
-                                    sendSMS = event._eventPreferencesCallScreening._sendSMS;
-                                    smsText = event._eventPreferencesCallScreening._smsText;
+                                    boolean notInContacts = event._eventPreferencesCallControl._notInContacts;
+                                    int direction = event._eventPreferencesCallControl._callDirection;
+                                    boolean blockCalls = event._eventPreferencesCallControl._controlType == EventPreferencesCallControl.CONTROL_TYPE_BLOCK_CALLS;
+                                    sendSMS = event._eventPreferencesCallControl._sendSMS;
+                                    smsText = event._eventPreferencesCallControl._smsText;
 
                                     if (notInContacts) {
-                                        if (direction != EventPreferencesCallScreening.CALL_DIRECTION_OUTGOING)
+                                        if (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
                                             blockCallingPhoneNumber = !isPhoneNumberInContacts(contactList, callingPhoneNumber);
                                     } else {
                                         if ((
                                                 /*(contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) ||*/
                                                 ((contacts != null) && (!contacts.isEmpty())) ||
                                                         ((contactGroups != null) && (!contactGroups.isEmpty()))
-                                        ) && (direction != EventPreferencesCallScreening.CALL_DIRECTION_OUTGOING)
+                                        ) && (direction != EventPreferencesCallControl.CALL_DIRECTION_OUTGOING)
                                                 && blockCalls) {
                                             blockCallingPhoneNumber = isPhoneNumberConfigured(contacts, contactGroups, /*contactListType,*/ contactList, callingPhoneNumber);
+//                                            Log.e("PPCallScreeningService.onScreenCall", "blockCallingPhoneNumber="+blockCallingPhoneNumber);
                                         }
                                     }
-                                //}
+                                    //}
+                                }
                             }
                             if (blockCallingPhoneNumber)
                                 break;
@@ -126,7 +141,7 @@ public class PPCallScreeningService extends CallScreeningService {
                         //block call
 
                         // blocked call to Activity log
-                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_CALL_SCREENING_BLOCKED_CALL, null, callingPhoneNumber, "");
+                        PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_CALL_CONTROL_BLOCKED_CALL, null, callingPhoneNumber, "");
 
                         response.setDisallowCall(true);
                         response.setRejectCall(true);

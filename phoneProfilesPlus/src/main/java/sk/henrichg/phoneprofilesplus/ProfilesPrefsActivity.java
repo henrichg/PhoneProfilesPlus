@@ -56,7 +56,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         //if (Build.VERSION.SDK_INT >= 34)
@@ -65,7 +65,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_profile_events_preferences);
+        setContentView(R.layout.activity_profile_event_preferences);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
@@ -76,7 +76,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
         //noinspection DataFlowIssue
-        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
+        toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences)+"   ");
         toolbar.setTitle(getString(R.string.profile_string_0));
 
         settingsLinearLayout = findViewById(R.id.activity_preferences_settings);
@@ -144,7 +144,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 //        PPApplicationStatic.logE("[CONTACTS_OBSERVER] ProfilesPrefsActivity.onResume", "PPApplication.blockContactContentObserver=true");
 //        PPApplication.blockContactContentObserver = true;
 
-        // TODO !!! why I remove these dialogs for contacts?
         /*
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         //if (fragments == null)
@@ -501,7 +500,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._clearNotificationText,
                         origProfile._screenNightLight,
                         origProfile._screenNightLightPrefs,
-                        origProfile._screenOnOff
+                        origProfile._screenOnOff,
+                        origProfile._playMusic
                 );
                 showSaveMenu = true;
             }
@@ -725,6 +725,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._screenNightLight = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT, ""));
             profile._screenNightLightPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_LIGHT_PREFS, ""));
             profile._screenOnOff = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_OFF, ""));
+            profile._playMusic = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_PLAY_MUSIC, ""));
         }
 
         return profile;
@@ -905,15 +906,17 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             if ((activity != null) && (!activity.isFinishing())) {
 //                Log.e("ProfilesPrefsActivity.StartPreferencesActivityAsyncTask", ".onPostExecute");
 
-                activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
+                try {
+                    activity.toolbar.setTitle(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
 
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.activity_preferences_settings, fragment)
-                        .commit();
+                    activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.activity_preferences_settings, fragment)
+                            .commit();
 
-                //activity.progressLinearLayout.setVisibility(View.GONE);
-                //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
+                    //activity.progressLinearLayout.setVisibility(View.GONE);
+                    //activity.settingsLinearLayout.setVisibility(View.VISIBLE);
+                } catch (Exception ignored) {}
             }
             activity = null;
         }

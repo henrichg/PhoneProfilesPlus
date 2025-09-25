@@ -696,11 +696,18 @@ class EventPreferencesNotification extends EventPreferences {
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                    AlarmManager.AlarmClockInfo clockInfo;
+                    if (_duration * 1000L >= Event.EVENT_ALARM_TIME_SOFT_OFFSET)
+                        clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                    else
+                        clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    if (_duration * 1000L >= Event.EVENT_ALARM_TIME_OFFSET)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    else
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 }
             }
         }
@@ -1029,6 +1036,7 @@ class EventPreferencesNotification extends EventPreferences {
                     //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "PPApplicationStatic.getContactsCache()");
+//                        Log.e("[CONTACTS_CACHE] EventPreferencesNotification.isNotificationVisible", "PPApplicationStatic.getContactsCache()");
                         ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                         if (contactsCache == null)
                             return false;
@@ -1232,6 +1240,7 @@ class EventPreferencesNotification extends EventPreferences {
                 StatusBarNotification activeNotification;
 
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "PPApplicationStatic.getContactsCache()");
+//                Log.e("[CONTACTS_CACHE] EventPreferencesNotification.getNewestVisibleNotification", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null)
                     return null;

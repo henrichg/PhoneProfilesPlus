@@ -27,7 +27,7 @@
             android:id="@+id/event_pref_dlg_item_event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:text="@string/event_name_default"
             android:textSize="@dimen/listItem_editorEventList_eventName_size"

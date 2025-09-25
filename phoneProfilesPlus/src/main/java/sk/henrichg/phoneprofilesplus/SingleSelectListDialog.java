@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class SingleSelectListDialog extends DialogFragment
 {
@@ -67,8 +68,10 @@ public class SingleSelectListDialog extends DialogFragment
             View layout = inflater.inflate(R.layout.dialog_pp_list_preference, null);
             dialogBuilder.setView(layout);
 
+            /*
             if (cancelListener != null)
                 dialogBuilder.setOnCancelListener(cancelListener);
+            */
 
             View buttonsDivider = layout.findViewById(R.id.pp_list_pref_dlg_buttonBarDivider);
             //if (hideButtonsDivider)
@@ -106,6 +109,12 @@ public class SingleSelectListDialog extends DialogFragment
         return mDialog;
     }
 
+    public void onCancel (@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (cancelListener != null)
+            cancelListener.onCancel(dialog);
+    }
+
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         if (activity != null)
@@ -119,8 +128,11 @@ public class SingleSelectListDialog extends DialogFragment
 //    }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "SINGLE_CHOICE_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "SINGLE_CHOICE_DIALOG");
+        }
     }
 
 }

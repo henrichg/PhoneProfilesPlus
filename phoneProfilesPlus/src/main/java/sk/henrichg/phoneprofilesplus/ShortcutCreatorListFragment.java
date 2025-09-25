@@ -51,8 +51,9 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-        loadAsyncTask = new LoadProfileListAsyncTask(this);
-
+        if (getActivity() != null) {
+            loadAsyncTask = new LoadProfileListAsyncTask(this);
+        }
     }
 
     @Override
@@ -300,7 +301,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         isIconResourceID = profile.getIsIconResourceID();
                         iconIdentifier = profile.getIconIdentifier();
                         profileName = profile._name;
-                        longLabel = fragment.getString(R.string.shortcut_activate_profile) + profileName;
+                        longLabel = /*fragment.getString(R.string.shortcut_activate_profile) +*/ profileName;
                         useCustomColor = profile.getUseCustomColorForIcon();
                         String id;
                         if (position == 0) {

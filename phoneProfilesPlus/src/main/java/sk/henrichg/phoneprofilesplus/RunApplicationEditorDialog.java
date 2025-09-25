@@ -25,6 +25,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -94,6 +95,7 @@ public class RunApplicationEditorDialog extends DialogFragment
         applicationList = new ArrayList<>();
     }
 
+    @SuppressLint("DialogFragmentCallbacksDetector")
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -141,6 +143,9 @@ public class RunApplicationEditorDialog extends DialogFragment
 
                 startApplicationDelay = iValue;
             }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
+            mDelayValueDialog.setOnShowListener(dialog -> GlobalGUIRoutines.lockScreenOrientation(activity));
+            mDelayValueDialog.setOnCancelListener(dialog -> GlobalGUIRoutines.unlockScreenOrientation(activity));
+
             GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
             delayValueRoot.setOnClickListener(view -> {
                         mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
@@ -165,7 +170,7 @@ public class RunApplicationEditorDialog extends DialogFragment
             filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
             PPSpinnerAdapter spinnerAdapter = new PPSpinnerAdapter(
                     activity,
-                    R.layout.ppp_spinner_filter,
+                    R.layout.ppp_spinner,
                     activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
             spinnerAdapter.setDropDownViewResource(R.layout.ppp_spinner_dropdown);
             //noinspection DataFlowIssue
@@ -636,8 +641,11 @@ public class RunApplicationEditorDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "RUN_APPLICATION_EDITOR_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "RUN_APPLICATION_EDITOR_DIALOG");
+        }
     }
 
 }

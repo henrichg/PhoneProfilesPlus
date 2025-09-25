@@ -575,40 +575,82 @@ pauseEvent() moze byt aj s mergedProfile == null a to:
 Takze co robim, ked je == null?
 - aktivujem end profile a robim undo, restart events nerobim
 
-
 --------------------------
 
-Add: Panel widget. Removed Samsung Edge panel.
-Change: Call of BT detector at screen on.
-Change: Better BT connected devices detection for disconnection.
-Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.
-Change: Increased speed of profile activation.
-Change: Support for Smart Launcher rounded corners in widgets.
-Change: Enabled rounded corners radius for SmartLauncher.
-Change: Rounded corners radius up to 32 (for Smart Launcher support).
-Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.
-Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.
-Change: Better show,hide header and bottom toolbar at scroll in Editor.
-Change: GUI components size different for landscape orientation.
-Change: Small GUI changes.
-Change: Changes in widgets.
-Change: Removed toolbar from Location editor.
-Change: Location editor - display map immediately at start od editor.
-Change: Show dialog about offline device status in Location editor.
-Change: Better functionality of "Rename with address" button in Location editor.
-Change: Empty line in preference summary changed to dots.
-Change: Permanent display also thumb of scrollbars.
-Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.
-Change: Do not rotate to default orientation if is required to lock orientation change.
-Change: Increased max. log file size.
-Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.
-Fix: Not working good BT van connection.
-Fix: Fixed not refreshed Tones dialog after grant permission.
-Fix: Not disabled buttons in Mobile cells registration dialog at its start.
-Fix: Not deleted red text after deletion of profile, event with errors.
-Fix: Maybe fixed draw of PPP notification at first start.
-Fix: Restart events not working properly in specific situations.
-Fix: Location preference dialog GUI.
-Fix: WindowLeak exception generated for dialogs in orientation change.
-Fix: Undo in profile duration and event end.
+Check critical PPP release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Zmen na PPApplication.PROFILE_NOTIFICATION_CHANNEL. Da sa toto vypnut cez action button.
+- notifikacia: PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID
+- Maze najprv nekriticku notifikaciu: PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID
+- Alarm je v shared preferences v PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm"
+- Este sa zapisuje PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification"
+  To by malo zapisovat release code PPP. Pozri kde ako sa pouziva.
+Check PPP release - mesacne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Rozmyslaj, ci nezmenis na PPApplication.PROFILE_NOTIFICATION_CHANNEL.
+  Lebo ak denny check uzivatel zakaze, mohol by tento zistit novu verziu.
+- notifikacia: PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID
+- Nezobrazuje tuto ak je zobrazena kriticka PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_PPP_RELEASE_ALARM = "github_release_alarm"
+- Tu zistuje ci je daky obchod nainstalovany. Ak je, vola _doWorkOthers(), inac _doWorkGitHub().
+  Je mozne, ze su identicke, mal by som to skontrolovat.
+Check PPPE release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Nechaj ako je. Tu sa zobrazuje, ci je nova verzia PPPE aj u parametroch proflu/udalosti.
+- notifikacia: PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_REQUIRED_EXTENDER_RELEASE_ALARM = "required_extender_release_alarm"
+Check PPPPS release - denne:
+- kanal: PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL !!!
+  Nechaj ako je. Tu sa zobrazuje, ci je nova verzia PPPE aj u parametroch proflu/udalosti.
+- notifikacia: PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID
+- alarm je v shared preferences v PREF_LATEST_PPPPS_RELEASE_ALARM = "latest_pppps_release_alarm"
+
+
+-------------
+
+EventPreferencesNotification.doHanleEvents()
+- Vola isNotificationVisible() a v nom je citanie ContactCache.
+  Ako pozeram, tak prechadza notifikacie primarne, cize len v ramci notifikcie pozera kontakty.
+  V ramci notiikacie pozera konkretnu notifikaciu a v nej hlada, ci je z kontaktu v _contacts.
+  A pozera len notifikacie z:
+  - com.google.android.dialer
+  - android.incallui
+  - com.android.server.telecom
+  - com.google.android.dialer
+  - com.samsung.android.dialer
+  - com.android.phone
+  - com.android.contacts
+
+EventPreferencesCall.doHanleEvents()
+- Vola PPApplicationStatic.getContactsCache().
+  Ako pozeram, tak prechadza konkretne tel. cislo ak callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED
+!!!
+  Tu je otazne, ci ak nebezi hovor sa ApplicationPreferences.prefEventCallEventType nastavi na PHONE_CALL_EVENT_UNDEFINED.
+  Toto pozri, je to velmi dolezite.
+  Toot je spravene.
+
+PPCallScreeningService.onScreenCall()
+- Vola PPApplicationStatic.getContactsCache().
+  V nom checkuje konkretne tel. cislo co pride do servisu.
+
+EventPreferencesCallControl.doHanleEvents()
+- Vola PPApplicationStatic.getContactsCache().
+  V nom checkuje konkretne tel. cislo co pride do servisum vid .onScreenCall().
+!!!
+  Tu je otazne, ci, sa niekedy a kedy vobec ApplicationPreferences.prefEventCallControlPhoneNumber da prazdne.
+  Toto pozri, je to velmi dolezite.
+  Tak nie, nikdy sa nevynuluje to tel. cislo a ktohovie kedy sa teda ma vobec zmenit. Myslim ze minimalne odchytenim
+  konca hovoru.
+  SPRAVIL SOM
+
+PPExtenderBroadcastReceiver.ACTION_SMS_MMS_RECEIVED
+- Toto je OK, lebo tu hlada c cache len konkretne tel cislo, co odchyti Extender.
+  A hlave pride to, len ak Extender zachyti smsku.
+
+PPExtenderBroadcastReceiver.ACTION_CALL_RECEIVED
+- Toto je OK, lebo tu hlada c cache len konkretne tel cislo, co odchyti Extender.
+  A hlave pride to, len ak Extender zachyti hovor.
+
+------------
+
 

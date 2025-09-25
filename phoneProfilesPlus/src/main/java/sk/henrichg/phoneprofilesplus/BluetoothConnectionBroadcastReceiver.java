@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.os.SystemClock;
 
 import androidx.work.ExistingWorkPolicy;
@@ -83,10 +84,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             final Context appContext = context.getApplicationContext();
 
             if (_device != null) {
-                // in it is used Runnable with depaly 5 seconds
+                // in it is used Runnable with delay 5 seconds
 //                PPApplicationStatic.logE("[BLUETOOTH_CONNECT] BluetoothConnectionBroadcastReceiver.onReceive", "called BluetoothConnectedDevicesDetector.getConnectedDevices");
                 BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
                 // in it is used w0rk with delay 8 seconds
+//                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "(1) call of event handler from MainWorker");
                 callEventHandler(appContext);
             }
         }
@@ -469,47 +471,68 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void callEventHandler(final Context appContext) {
-//        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
-//        PPApplicationStatic.logE("[MAIN_WORKER_CALL] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
+        Runnable runnable = () -> {
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothScanWorker_doWork);
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-        if (ApplicationPreferences.prefEventBluetoothScanRequest ||
-                ApplicationPreferences.prefEventBluetoothLEScanRequest ||
-                ApplicationPreferences.prefEventBluetoothWaitForResult ||
-                ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
-                ApplicationPreferences.prefEventBluetoothEnabledForScan)
-            PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
+                if (ApplicationPreferences.prefEventBluetoothScanRequest ||
+                        ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                        ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                        ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                        ApplicationPreferences.prefEventBluetoothEnabledForScan)
+                    // must be used Runnable because in this method is sllep 25 seconds
+                    PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
 
-//        Log.e("BluetoothConnectedDevicesDetector.callEventHandler", "[1] enqueue MainWorker");
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG)
+                                //.setInputData(workData)
+                                .setInitialDelay(8, TimeUnit.SECONDS) // 8 because 5 is for getConnectedDevices
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                .build();
+                try {
+//                  if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
 
-        OneTimeWorkRequest worker =
-                new OneTimeWorkRequest.Builder(MainWorker.class)
-                        .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG)
-                        //.setInputData(workData)
-                        .setInitialDelay(8, TimeUnit.SECONDS) // 8 because 5 is for getConnectedDevices
-                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                        .build();
-        try {
-//            if (PPApplicationStatic.getApplicationStarted(true, true)) {
-            WorkManager workManager = PPApplication.getWorkManagerInstance();
-            if (workManager != null) {
-
-//                            //if (PPApplicationStatic.logEnabled()) {
-//                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
-//                            try {
-//                                List<WorkInfo> workInfoList = statuses.get();
-//                            } catch (Exception ignored) {
-//                            }
-//                            //}
+//                      //if (PPApplicationStatic.logEnabled()) {
+//                          ListenableFuture<List<WorkInfo>> statuses;
+//                          statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                          try {
+//                              List<WorkInfo> workInfoList = statuses.get();
+//                          } catch (Exception ignored) {
+//                          }
+//                      //}
 //
-//                PPApplicationStatic.logE("[WORKER_CALL] BluetoothConnectionBroadcastReceiver.callEventHandler", "xxx");
-                //workManager.enqueue(worker);
-                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-//                }
+//                      PPApplicationStatic.logE("[WORKER_CALL] BluetoothConnectionBroadcastReceiver.callEventHandler", "xxx");
+                        //workManager.enqueue(worker);
+                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+//                      }
+                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+
+            } catch (Exception e) {
+//              PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] BluetoothConnectionBroadcastReceiver,doWork", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
-        } catch (Exception e) {
-            PPApplicationStatic.recordException(e);
-        }
+
+        };
+        PPApplicationStatic.createEventsHandlerExecutor();
+        PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {

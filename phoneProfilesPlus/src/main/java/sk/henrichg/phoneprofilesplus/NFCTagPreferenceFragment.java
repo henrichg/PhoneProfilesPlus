@@ -172,7 +172,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             }
         });
         */
-        final ImageView helpIcon = view.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
+        final AppCompatImageButton helpIcon = view.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
         //noinspection DataFlowIssue
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> DialogHelpPopupWindow.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.nfc_tag_pref_dlg_help, false));

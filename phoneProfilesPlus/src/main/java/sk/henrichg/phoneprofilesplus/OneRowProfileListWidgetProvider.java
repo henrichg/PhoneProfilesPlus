@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -22,6 +23,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
@@ -80,15 +82,39 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowProfileListWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] OneRowProfileListWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureOneRowProfileListWidgetExecutor != null)
+                PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                        PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -613,28 +639,88 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 //                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                     if (maxHeight < configuredHeight)
                         applicationWidgetOneRowProfileListFillBackground = true;
-                    if (applicationWidgetOneRowProfileListFillBackground)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list);
+                    if (applicationWidgetOneRowProfileListFillBackground) {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill);
+                    }
+                    else {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list);
+                    }
                 } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
                     configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
 //                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                     if (maxHeight < configuredHeight)
                         applicationWidgetOneRowProfileListFillBackground = true;
-                    if (applicationWidgetOneRowProfileListFillBackground)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher);
+                    if (applicationWidgetOneRowProfileListFillBackground) {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill);
+                    }
+                    else {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher);
+                    }
                 } else {
                     configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
 //                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                     if (maxHeight < configuredHeight)
                         applicationWidgetOneRowProfileListFillBackground = true;
-                    if (applicationWidgetOneRowProfileListFillBackground)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest);
+                    if (applicationWidgetOneRowProfileListFillBackground) {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill);
+                    }
+                    else {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest);
+                    }
                 }
             } else {
                 if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
@@ -642,28 +728,88 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 //                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                     if (maxHeight < configuredHeight)
                         applicationWidgetOneRowProfileListFillBackground = true;
-                    if (applicationWidgetOneRowProfileListFillBackground)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_dn);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_dn);
+                    if (applicationWidgetOneRowProfileListFillBackground) {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_dn_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_dn);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_dn);
+                    }
+                    else {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_dn_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_dn);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_dn);
+                    }
                 } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
                     configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
 //                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                     if (maxHeight < configuredHeight)
                         applicationWidgetOneRowProfileListFillBackground = true;
-                    if (applicationWidgetOneRowProfileListFillBackground)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_dn);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_dn);
+                    if (applicationWidgetOneRowProfileListFillBackground) {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_dn_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_dn);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_dn);
+                    }
+                    else {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_dn_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_dn);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_dn);
+                    }
                 } else {
                     configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
 //                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                     if (maxHeight < configuredHeight)
                         applicationWidgetOneRowProfileListFillBackground = true;
-                    if (applicationWidgetOneRowProfileListFillBackground)
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_dn);
-                    else
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_dn);
+                    if (applicationWidgetOneRowProfileListFillBackground) {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_dn_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_dn);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_dn);
+                    }
+                    else {
+                        if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                            int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                            int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                            if (width < height)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_dn_sl_land);
+                            else
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_dn);
+                        }
+                        else
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_dn);
+                    }
                 }
             }
 
@@ -766,15 +912,32 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 remoteViews.setOnClickPendingIntent(profileRootId[i], null);
             }
 
+            Bitmap bitmap;
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                     applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                 //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                 // left arrow
-                Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                    if (width < height)
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_top, true, context);
+                    else
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                } else
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
                 remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
                 // right arrow
-                bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                    int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                    int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                    if (width < height)
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_bottom, true, context);
+                    else
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                } else
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
                 remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                 //}
@@ -784,11 +947,27 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
                 if (color != 0) {
                     // left arrow
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                    if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                        int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                        int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                        if (width < height)
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_top, true, context);
+                        else
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                    } else
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
                     bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
                     // right arrow
-                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                    if (PPApplicationStatic.isSmartLauncherDefault(context)) {
+                        int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+                        int height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
+                        if (width < height)
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_bottom, true, context);
+                        else
+                            bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                    } else
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
                     bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                 }
@@ -987,23 +1166,52 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET)) {
+                boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
                 AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
                 if (manager != null) {
-                    final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
-                    if ((ids != null) && (ids.length > 0)) {
+                    final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
+                    if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                         final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                         Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
-                            //Context appContext= appContextWeakRef.get();
-                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_OneRowProfileListWidgetProvider_onReceive);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                                _onUpdate(appContext, appWidgetManager, ids);
+                                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                                }
+
+                            } catch (Exception e) {
+//                              PPApplicationStatic.logE("[IN_EXECUTOR] OneRowProfileListWidgetProvider.onReceive", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                //worker.shutdown();
                             }
                         };
                         PPApplicationStatic.createDelayedGuiExecutor();
-                        PPApplication.delayedGuiExecutor.submit(runnable);
+//                        PPApplication.delayedGuiExecutor.submit(runnable);
+                        if (PPApplication.scheduledFutureOneRowProfileListWidgetExecutor != null)
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor.cancel(true);
+                        if (drawImmediatelly)
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                        else
+                            PPApplication.scheduledFutureOneRowProfileListWidgetExecutor =
+                                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                     }
                 }
             }
@@ -1032,12 +1240,14 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
     static void updateWidgets(Context context/*, boolean refresh*/) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowProfileListWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 

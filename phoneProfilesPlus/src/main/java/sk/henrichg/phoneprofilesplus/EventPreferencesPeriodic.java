@@ -406,11 +406,18 @@ class EventPreferencesPeriodic extends EventPreferences {
                     Intent editorIntent = new Intent(context, EditorActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                    AlarmManager.AlarmClockInfo clockInfo;
+                    if (_duration * 1000L >= Event.EVENT_ALARM_TIME_SOFT_OFFSET)
+                        clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                    else
+                        clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    if (_duration * 1000L >= Event.EVENT_ALARM_TIME_OFFSET)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    else
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 }
             }
         }
@@ -432,6 +439,8 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
+                    // must be used, because of delay 5 seconds
+//                    PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] EventPreferencesPeriodic.increaseCounter", "PPExecutors.handleEvents");
                     PPExecutors.handleEvents(dataWrapper.context,
                             new int[]{EventsHandler.SENSOR_TYPE_PERIODIC},
                             PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5);

@@ -884,13 +884,13 @@
     </string-array>
     <string-array name="forceStopApplicationArray">
         <item>@string/array_pref_no_force_stop</item>
-        <item>@string/array_pref_force_stop_with_pppe</item>
         <item>@string/array_pref_force_stop_with_command</item>
+        <item>@string/array_pref_force_stop_with_pppe</item>
     </string-array>
     <string-array name="forceStopApplicationValues">
         <item>0</item>
-        <item>1</item>
         <item>2</item>
+        <item>1</item>
     </string-array>
     <string-array name="networkTypePrefsArray">
         <item>@string/array_pref_no_show</item>
@@ -1578,6 +1578,7 @@
         <item>@string/profile_list_item_menu_activate</item>
         <item>@string/profile_list_item_menu_duplicate</item>
         <item>@string/profile_list_item_menu_delete</item>
+        <item>@string/profile_list_item_menu_create_shortcut</item>
     </string-array>
     <string-array name="profileListItemShowInActivatorArray">
         <item>@string/array_show_profile_in_activator_not_show</item>
@@ -1685,12 +1686,12 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-    <string-array name="eventCallScreeningCallDirecitonArray">
+    <string-array name="eventCallControlCallDirecitonArray">
         <item>@string/array_event_pref_call_screening_direction_incoming</item>
         <item>@string/array_event_pref_call_screening_direction_outgoing</item>
         <item>@string/array_event_pref_call_screening_direction_all</item>
     </string-array>
-    <string-array name="eventCallScreeningCallDirecitonValues">
+    <string-array name="eventCallControlCallDirecitonValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -1722,6 +1723,30 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </string-array>
+    <string-array name="eventCallControlControlTypeArray">
+        <item>@string/event_preference_call_control_control_type_nothing</item>
+        <item>@string/event_preference_call_control_control_type_blockCalls</item>
+    </string-array>
+    <string-array name="eventCallControlControlTypeValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="playMusicArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_playMusicArray_play</item>
+        <item>@string/array_pref_playMusicArray_next</item>
+        <item>@string/array_pref_playMusicArray_previous</item>
+        <item>@string/array_pref_playMusicArray_pause</item>
+        <item>@string/array_pref_playMusicArray_stop</item>
+    </string-array>
+    <string-array name="playMusicValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>

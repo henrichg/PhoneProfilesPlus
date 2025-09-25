@@ -28,6 +28,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
     private LinearLayout linlaProgress;
     private LinearLayout linlaData;
     RelativeLayout emptyList;
+    private Button unselectAllButton;
+    private Button refreshButton;
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
@@ -72,11 +74,17 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             }
         });
 
-        final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
+        unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
         //noinspection DataFlowIssue
         unselectAllButton.setOnClickListener(v -> {
             preference.value="";
-            refreshListView(true);
+            refreshListView(true, false);
+        });
+        refreshButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_refresh);
+        //noinspection DataFlowIssue
+        refreshButton.setOnClickListener(v -> {
+//            PPApplicationStatic.logE("[CONTACTS_DIALOG] ContactsMultiSelectDialogPreferenceFragment.onClick", "unselectAllButton click");
+            refreshListView(false, true);
         });
 
         if (Permissions.grantContactGroupsDialogPermissions(prefContext)) {
@@ -89,7 +97,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
             handler.postDelayed(() -> {
                 ContactGroupsMultiSelectDialogPreferenceFragment fragment = fragmentWeakRef.get();
                 if (fragment != null)
-                    fragment.refreshListView(false);
+                    fragment.refreshListView(false, false);
             }, 200);
         }
     }
@@ -114,22 +122,25 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
         preference.fragment = null;
     }
 
-    void refreshListView(final boolean forUnselect) {
-        asyncTask = new RefreshListViewAsyncTask(forUnselect, preference, this, prefContext);
+    void refreshListView(final boolean forUnselect, final boolean forceRefresh) {
+        asyncTask = new RefreshListViewAsyncTask(forUnselect, forceRefresh, preference, this, prefContext);
         asyncTask.execute();
     }
 
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
         final boolean forUnselect;
+        final boolean forceRefresh;
         private final WeakReference<ContactGroupsMultiSelectDialogPreference> preferenceWeakRef;
         private final WeakReference<ContactGroupsMultiSelectDialogPreferenceFragment> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
         public RefreshListViewAsyncTask(final boolean forUnselect,
+                                        final boolean forceRefresh,
                                         ContactGroupsMultiSelectDialogPreference preference,
                                         ContactGroupsMultiSelectDialogPreferenceFragment fragment,
                                         Context prefContext) {
             this.forUnselect = forUnselect;
+            this.forceRefresh = forceRefresh;
             this.preferenceWeakRef = new WeakReference<>(preference);
             this.fragmentWeakRef = new WeakReference<>(fragment);
             this.prefContextWeakRef = new WeakReference<>(prefContext);
@@ -145,6 +156,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                     fragment.linlaData.setVisibility(View.GONE);
                     fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
+                fragment.unselectAllButton.setEnabled(false);
+                fragment.refreshButton.setEnabled(false);
             }
         }
 
@@ -160,8 +173,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                 // must be first
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactsCache()");
                 ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
-                if (contactsCache == null) {
-                    // cache not created, create it
+                if ((contactsCache == null) || forceRefresh) {
+                    // cache not created, or must be force refreshing, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactsCache()");
                     PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false, false/*, true*/, false);
                     /*contactsCache = PPApplicationStatic.getContactsCache();
@@ -185,15 +198,18 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                     } else {
                         // wait for cache end
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactsCache.getCaching()");
-                        while (contactsCache.getCaching())
+                        int i = 0;
+                        while (contactsCache.getCaching() && (i < 30)) {
                             GlobalUtils.sleep(100);
+                            ++i;
+                        }
                     }
                 }
                 //must be seconds, this ads groups into contacts
 //                PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.getContactGroupsCache()");
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
-                if (contactGroupsCache == null) {
-                    // cache not created, create it
+                if ((contactGroupsCache == null) || forceRefresh) {
+                    // cache not created, or must be force refreshing, create it
 //                    PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "PPApplicationStatic.createContactGroupsCache()");
                     PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false/*, false*//*, true*/, false);
                     /*contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
@@ -216,8 +232,11 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
                     } else {
                         // wait for cache end
 //                        PPApplicationStatic.logE("[CONTACTS_CACHE] ContactGroupsMultiSelectDialogPreferenceFragment.doInBackground", "contactGroupsCache.getCaching()");
-                        while (contactGroupsCache.getCaching())
+                        int i = 0;
+                        while (contactGroupsCache.getCaching() && (i < 30)) {
                             GlobalUtils.sleep(100);
+                            ++i;
+                        }
                     }
                 }
 
@@ -264,6 +283,9 @@ public class ContactGroupsMultiSelectDialogPreferenceFragment extends Preference
 //                            }
 //                        }
                     }
+
+                    fragment.unselectAllButton.setEnabled(true);
+                    fragment.refreshButton.setEnabled(true);
 
                     fragment.listAdapter.notifyDataSetChanged();
                 });

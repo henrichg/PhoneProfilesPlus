@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
@@ -10,6 +11,7 @@ import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
+import android.net.EthernetManager;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
@@ -155,7 +157,7 @@ class EventStatic {
                             if (notCheckPreferences)
                                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
-                                if (!Permissions.checkPhone(appContext)) {
+                                if (!Permissions.checkReadPhoneState(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
                                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
                                 } else
@@ -211,7 +213,7 @@ class EventStatic {
                             if (notCheckPreferences)
                                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
-                                if (!Permissions.checkPhone(appContext)) {
+                                if (!Permissions.checkReadPhoneState(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
                                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
                                 } else
@@ -248,12 +250,15 @@ class EventStatic {
                             preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (notCheckPreferences)
-                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
-                                if (!Permissions.checkPhone(appContext)) {
+                                boolean notSetPermission = false;
+                                if (!Permissions.checkReadPhoneState(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
                                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
-                                } else
+                                    notSetPermission = true;
+                                }
+                                if (notSetPermission)
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
                         }
@@ -316,7 +321,7 @@ class EventStatic {
                             if (notCheckPreferences)
                                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
-                                if (!Permissions.checkPhone(appContext)) {
+                                if (!Permissions.checkReadPhoneState(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
                                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
                                 } else
@@ -372,6 +377,7 @@ class EventStatic {
                 try {
                     connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 } catch (Exception e) {
+                    //noinspection UnusedAssignment
                     preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 }
                 if (connManager == null)
@@ -395,7 +401,7 @@ class EventStatic {
                             if (notCheckPreferences)
                                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             else {
-                                if (!Permissions.checkPhone(appContext)) {
+                                if (!Permissions.checkReadPhoneState(appContext)) {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
                                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
                                 } else
@@ -442,6 +448,19 @@ class EventStatic {
             preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_ETHERNET)) {
+            //if (PPApplication.HAS_FEATURE_ETHERNET) {
+                @SuppressLint("WrongConstant")
+                EthernetManager ethernetManager = (EthernetManager) context.getApplicationContext().getSystemService(Context.ETHERNET_SERVICE);
+                if (ethernetManager == null)
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                else
+                    preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            //}
+            //else
+            //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
         if (preferenceKey.equals(EventPreferencesMusic.PREF_EVENT_MUSIC_ENABLED)) {
             AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager == null)
@@ -458,7 +477,7 @@ class EventStatic {
                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             return preferenceAllowed;
         }
-        if (preferenceKey.equals(EventPreferencesCallScreening.PREF_EVENT_CALL_SCREENING_ENABLED))
+        if (preferenceKey.equals(EventPreferencesCallControl.PREF_EVENT_CALL_CONTROL_ENABLED))
         {
             if (PPApplication.HAS_FEATURE_TELEPHONY) {
                 preferenceAllowed.preferenceAllowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -564,35 +583,37 @@ class EventStatic {
                         Event event = eventWeakRef.get();
 
                         if ((dataWrapper != null) && (event != null)) {
-                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                            synchronized (PPApplication.handleEventsMutex) {
 
-    //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
-                                synchronized (PPApplication.eventsHandlerMutex) {
+                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_1);
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    //                            PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(1) PPApplication.eventsHandlerMutex");
                                     event.pauseEvent(dataWrapper, false, false,
                                             false, true, null, false, false, false, true);
-                                }
 
-                            } catch (Exception e) {
-    //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplicationStatic.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                    PPApplicationStatic.recordException(e);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             }
                         }
                     };
-                    PPApplicationStatic.createBasicExecutorPool();
-                    PPApplication.basicExecutorPool.submit(runnable);
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL] EventStatic.runStopEvent", "(1) xxx");
+                    PPApplicationStatic.createEventsHandlerExecutor();
+                    PPApplication.eventsHandlerExecutor.submit(runnable);
 
                 }
                 else {
@@ -615,35 +636,35 @@ class EventStatic {
                     Event event = eventWeakRef.get();
 
                     if ((dataWrapper != null) && (event != null)) {
-                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                        synchronized (PPApplication.handleEventsMutex) {
+                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EditorEventListFragment_runStopEvent_2);
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-    //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
-                            synchronized (PPApplication.eventsHandlerMutex) {
+                                //                        PPApplicationStatic.logE("[SYNCHRONIZED] EventStatic.runStopEvent", "(2) PPApplication.eventsHandlerMutex");
                                 event.stopEvent(dataWrapper, false, false,
                                         true, true, true); // activate return profile
-                            }
-
-                        } catch (Exception e) {
-    //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplicationStatic.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }
                     }
                 };
-                PPApplicationStatic.createBasicExecutorPool();
-                PPApplication.basicExecutorPool.submit(runnable);
+//                PPApplicationStatic.logE("[EXECUTOR_CALL] EventStatic.runStopEvent", "(2) xxx");
+                PPApplicationStatic.createEventsHandlerExecutor();
+                PPApplication.eventsHandlerExecutor.submit(runnable);
 
             }
 
@@ -754,16 +775,31 @@ class EventStatic {
 
     static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
         Context appContext = context.getApplicationContext();
-        boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).isEmpty();
-        /*if (Build.VERSION.SDK_INT >= 29) {
-            if (!Settings.canDrawOverlays(context))
-                grantedAllPermissions = false;
-        }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
 
-        boolean eventIsRunnable = event.isRunnable(appContext, false) &&
-                                    event.isAllConfigured(appContext, false);
+        //(event._status <> Event.ESTATUS_STOP) &&
+
+        boolean enabledSomeSensor;
+        boolean grantedAllPermissions;
+        boolean accessibilityEnabled;
+        boolean eventIsRunnable;
+
+        if (event._status == Event.ESTATUS_STOP) {
+            enabledSomeSensor = true;
+            grantedAllPermissions = true;
+            accessibilityEnabled =  true;
+            eventIsRunnable = true;
+        } else {
+            enabledSomeSensor = event.isEnabledSomeSensor(appContext);
+            grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).isEmpty();
+            /*if (Build.VERSION.SDK_INT >= 29) {
+                if (!Settings.canDrawOverlays(context))
+                    grantedAllPermissions = false;
+            }*/
+            accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
+
+            eventIsRunnable = event.isRunnable(appContext, false) &&
+                                event.isAllConfigured(appContext, false);
+        }
 
         return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }

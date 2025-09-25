@@ -51,10 +51,10 @@ class ApplicationPreferences {
     static volatile boolean prefEventRoamingDataInSIMSlot1;
     static volatile boolean prefEventRoamingNetworkInSIMSlot2;
     static volatile boolean prefEventRoamingDataInSIMSlot2;
-    //static volatile boolean prefEventCallScreeningActive;
-    static volatile long prefEventCallScreeningTime;
-    static volatile String prefEventCallScreeningPhoneNumber;
-    static volatile int prefEventCallScreeningCallDirection;
+    //static volatile boolean prefEventCallControlActive;
+    static volatile long prefEventCallControlTime;
+    static volatile String prefEventCallControlPhoneNumber;
+    static volatile int prefEventCallControlCallDirection;
 
     static volatile boolean applicationEventNeverAskForEnableRun;
     static volatile boolean applicationNeverAskForGrantRoot;
@@ -126,7 +126,7 @@ class ApplicationPreferences {
     static volatile int applicationEventBluetoothLEScanDuration;
     static volatile int applicationEventLocationUpdateInterval;
     static volatile String applicationEventLocationUpdateInPowerSaveMode;
-    static volatile boolean  applicationEventLocationUseGPS;
+    static volatile boolean applicationEventLocationUseGPS;
     //static volatile String  applicationEventLocationRescan;
     static volatile int applicationEventOrientationScanInterval;
     static volatile String applicationEventOrientationScanInPowerSaveMode;
@@ -143,7 +143,7 @@ class ApplicationPreferences {
     static volatile boolean applicationEventWifiScanOnlyWhenScreenIsOn;
     static volatile boolean applicationEventBluetoothScanOnlyWhenScreenIsOn;
     static volatile boolean applicationEventMobileCellScanOnlyWhenScreenIsOn;
-    static volatile boolean  applicationEventOrientationScanOnlyWhenScreenIsOn;
+    static volatile boolean applicationEventOrientationScanOnlyWhenScreenIsOn;
     static volatile boolean applicationRestartEventsWithAlert;
     static volatile boolean applicationWidgetListRoundedCorners;
     static volatile boolean applicationWidgetIconRoundedCorners;
@@ -177,14 +177,14 @@ class ApplicationPreferences {
     static volatile String applicationWidgetOneRowIconLightness;
     static volatile boolean applicationWidgetOneRowRoundedCorners;
     static volatile boolean applicationWidgetOneRowBackgroundType;
-    static volatile String  applicationWidgetOneRowBackgroundColor;
+    static volatile String applicationWidgetOneRowBackgroundColor;
     static volatile String applicationWidgetListLightnessBorder;
     static volatile String applicationWidgetOneRowLightnessBorder;
     static volatile String applicationWidgetIconLightnessBorder;
     static volatile boolean applicationWidgetListShowBorder;
     static volatile boolean applicationWidgetOneRowShowBorder;
     static volatile boolean applicationWidgetIconShowBorder;
-    static volatile boolean  applicationWidgetListCustomIconLightness;
+    static volatile boolean applicationWidgetListCustomIconLightness;
     static volatile boolean applicationWidgetOneRowCustomIconLightness;
     static volatile boolean applicationWidgetIconCustomIconLightness;
     //static volatile boolean notificationDarkBackground;
@@ -206,6 +206,7 @@ class ApplicationPreferences {
     static volatile boolean applicationEventWifiScanIgnoreHotspot;
     static volatile boolean applicationEventNotificationEnableScanning;
     static volatile String applicationEventNotificationScanInPowerSaveMode;
+    static volatile int applicationEventNotificationScanInterval;
     static volatile boolean applicationEventNotificationScanOnlyWhenScreenIsOn;
     static volatile int applicationWidgetOneRowRoundedCornersRadius;
     static volatile int applicationWidgetListRoundedCornersRadius;
@@ -234,12 +235,12 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetListUseDynamicColors;
     static volatile String applicationRestartEventsIconColor;
     //static volatile boolean applicationIncreaseBrightnessForProfileIcon;
-    static volatile String  applicationWidgetIconBackgroundColorNightModeOff;
-    static volatile String  applicationWidgetIconBackgroundColorNightModeOn;
-    static volatile String  applicationWidgetOneRowBackgroundColorNightModeOff;
-    static volatile String  applicationWidgetOneRowBackgroundColorNightModeOn;
-    static volatile String  applicationWidgetListBackgroundColorNightModeOff;
-    static volatile String  applicationWidgetListBackgroundColorNightModeOn;
+    static volatile String applicationWidgetIconBackgroundColorNightModeOff;
+    static volatile String applicationWidgetIconBackgroundColorNightModeOn;
+    static volatile String applicationWidgetOneRowBackgroundColorNightModeOff;
+    static volatile String applicationWidgetOneRowBackgroundColorNightModeOn;
+    static volatile String applicationWidgetListBackgroundColorNightModeOff;
+    static volatile String applicationWidgetListBackgroundColorNightModeOn;
     static volatile String applicationWidgetIconLayoutHeight;
     static volatile boolean applicationWidgetIconFillBackground;
     static volatile boolean applicationWidgetOneRowFillBackground;
@@ -250,7 +251,7 @@ class ApplicationPreferences {
     static volatile String applicationWidgetOneRowProfileListIconLightness;
     static volatile boolean applicationWidgetOneRowProfileListRoundedCorners;
     static volatile boolean applicationWidgetOneRowProfileListBackgroundType;
-    static volatile String  applicationWidgetOneRowProfileListBackgroundColor;
+    static volatile String applicationWidgetOneRowProfileListBackgroundColor;
     static volatile String applicationWidgetOneRowProfileListLightnessBorder;
     static volatile boolean applicationWidgetOneRowProfileListShowBorder;
     static volatile boolean applicationWidgetOneRowProfileListCustomIconLightness;
@@ -258,8 +259,8 @@ class ApplicationPreferences {
     static volatile String applicationWidgetOneRowProfileListLayoutHeight;
     static volatile boolean applicationWidgetOneRowProfileListChangeColorsByNightMode;
     static volatile boolean applicationWidgetOneRowProfileListUseDynamicColors;
-    static volatile String  applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
-    static volatile String  applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
+    static volatile String applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
+    static volatile String applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
     static volatile String applicationWidgetOneRowProfileListArrowsMarkLightness;
     static volatile int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
     static volatile boolean notificationProfileListDisplayNotification;
@@ -287,8 +288,8 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetPanelCustomIconLightness;
     static volatile String applicationWidgetPanelVerticalPosition;
     static volatile boolean applicationWidgetPanelChangeColorsByNightMode;
-    static volatile String  applicationWidgetPanelBackgroundColorNightModeOff;
-    static volatile String  applicationWidgetPanelBackgroundColorNightModeOn;
+    static volatile String applicationWidgetPanelBackgroundColorNightModeOff;
+    static volatile String applicationWidgetPanelBackgroundColorNightModeOn;
     static volatile boolean applicationWidgetIconLightnessTChangeByNightMode;
     static volatile boolean applicationWidgetOneRowLightnessTChangeByNightMode;
     static volatile boolean applicationWidgetListLightnessTChangeByNightMode;
@@ -369,6 +370,7 @@ class ApplicationPreferences {
     static volatile boolean applicationWidgetListPrefIndicatorUseDynamicColor;
     static volatile boolean applicationEditorHideEventDetails;
     static volatile boolean applicationEditorHideEventDetailsForStartOrder;
+    static volatile boolean applicationSimulateRingingCall;
 
     private volatile static SharedPreferences preferences = null;
 
@@ -533,6 +535,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventPeriodicScanningScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT = "applicationEventWifiScanIgnoreHotspot";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING = "applicationEventNotificationEnableScannig";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL = "applicationEventNotificationScanInterval";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventNotificationScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventNotificationScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS = "applicationWidgetOneRowRoundedCornersRadius";
@@ -647,6 +650,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowPrefIndicatorLightnessChangeByNightMode";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetListPrefIndicatorLightnessChangeByNightMode";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode";
+    static final String PREF_APPLICATION_SIMULATE_RINGING_CALL = "applicationSimulateRingingCall";
 
     // scannings
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
@@ -952,7 +956,7 @@ class ApplicationPreferences {
         return defaultValue;
     }
     static void applicationWidgetListBackground(Context context) {
-       applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, applicationWidgetListBackgroundDefaultValue(/*context*/));
+        applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, applicationWidgetListBackgroundDefaultValue(/*context*/));
     }
 
     static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B_DEFAULT_VALUE = "0";
@@ -1262,7 +1266,8 @@ class ApplicationPreferences {
 
     static final boolean PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE = true;
     static void applicationEventOrientationScanOnlyWhenScreenIsOn(Context context) {
-        applicationEventOrientationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);    }
+        applicationEventOrientationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON_DEFAULT_VALUE);
+    }
 
     static final boolean PREF_APPLICATION_RESTART_EVENTS_ALERT_DEFAULT_VALUE = true;
     static void applicationRestartEventsWithAlert(Context context) {
@@ -1503,12 +1508,19 @@ class ApplicationPreferences {
     static private final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS = false;
     static boolean notificationUseDecorationDefaultValue() {
         boolean defaultValue;
-        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31))
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+        if (PPApplication.deviceIsPixel) {
+            if ((Build.VERSION.SDK_INT >= 31) && (Build.VERSION.SDK_INT < 36))
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+            else
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
+        }
         else
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
-        else
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            if ((Build.VERSION.SDK_INT >= 33) && (Build.VERSION.SDK_INT < 35))
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+            else
+                defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
+        } else
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
@@ -1574,8 +1586,7 @@ class ApplicationPreferences {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
             defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_SAMSUNG_31P;
-        }
-        else
+        } else
             defaultValue = PREF_NOTIFICATION_NOTIFICATION_STYLE_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
@@ -1595,21 +1606,19 @@ class ApplicationPreferences {
         notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, notificationNotificationStyleDefaultValue());
     }
 
-    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = true; //false;
+    static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P = true;
     static private final boolean PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_OTHERS = true;
     static boolean notificationShowProfileIconDefaultValue() {
         boolean defaultValue;
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             defaultValue = PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P;
-        }
-        else
+        } else
             defaultValue = PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
     static void notificationShowProfileIcon(Context context) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 31)) {
             if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_SHOW_PROFILE_ICON)) {
-                // not contains this preference set to false
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, PREF_NOTIFICATION_SHOW_PROFILE_ICON_DEFAULT_VALUE_SAMSUNG_31P);
@@ -1648,6 +1657,11 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE = false;
     static void applicationEventNotificationEnableScanning(Context context) {
         applicationEventNotificationEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL_DEFAULT_VALUE = "5";
+    static void applicationEventNotificationScanInterval(Context context) {
+        applicationEventNotificationScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL, PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_INTERVAL_DEFAULT_VALUE));
     }
 
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE = "1";
@@ -2621,6 +2635,11 @@ class ApplicationPreferences {
     static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE = false;
     static void applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode(Context context) {
         applicationWidgetOneRowProfileListArrowsMarkLightnessChangeByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_CHANGE_BY_NIGHT_MODE_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_SIMULATE_RINGING_CALL_DEFAULT_VALUE = true;
+    static void applicationSimulateRingingCall(Context context) {
+        applicationSimulateRingingCall = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SIMULATE_RINGING_CALL, PREF_APPLICATION_SIMULATE_RINGING_CALL_DEFAULT_VALUE);
     }
 
 }

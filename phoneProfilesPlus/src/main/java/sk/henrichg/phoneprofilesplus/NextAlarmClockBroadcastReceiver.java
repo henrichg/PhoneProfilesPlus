@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
+import android.os.SystemClock;
 
 import com.google.gson.Gson;
 
@@ -192,35 +194,60 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 //if (instance == null)
                 //    return;
 
-                // !!! Keep disabled "if", next alarm my be received before registering
-                // AlarmClockBroadcastReceiver for example from Editor
-                //if (instance.alarmClockBroadcastReceiver != null) {
-                //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_NextAlarmClockBroadcastReceiver_setAlarm);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
-                Intent intent = new Intent();
-                intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
-                //intent.setClass(context, AlarmClockBroadcastReceiver.class);
+                    // !!! Keep disabled "if", next alarm my be received before registering
+                    // AlarmClockBroadcastReceiver for example from Editor
+                    //if (instance.alarmClockBroadcastReceiver != null) {
+                    //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
 
-                intent.putExtra(AlarmClockBroadcastReceiver.EXTRA_ALARM_PACKAGE_NAME, alarmPackageName);
+                    //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
+                    //intent.setClass(context, AlarmClockBroadcastReceiver.class);
 
-                // set alarm
+                    intent.putExtra(AlarmClockBroadcastReceiver.EXTRA_ALARM_PACKAGE_NAME, alarmPackageName);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, hashData(alarmPackageName), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    // set alarm
 
-                // Do not use this!!! User sends me e-mail with problems about usage of setAlarmClock
-//                Intent editorIntent = new Intent(context, EditorActivity.class);
-//                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmCalendar.getTimeInMillis(), infoPendingIntent);
-//                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, hashData(alarmPackageName), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                AlarmManager _alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
-                if (_alarmManager != null) {
-                    _alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alamCalendarTime, pendingIntent);
+                    // Do not use this!!! User sends me e-mail with problems about usage of setAlarmClock
+    //                Intent editorIntent = new Intent(context, EditorActivity.class);
+    //                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    //                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    //                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmCalendar.getTimeInMillis(), infoPendingIntent);
+    //                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+
+                    AlarmManager _alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+                    if (_alarmManager != null) {
+                        //_alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alamCalendarTime, pendingIntent);
+                        // must be used SystemClock.elapsedRealtime() because of AlarmManager.ELAPSED_REALTIME_WAKEUP
+                        long duration = alamCalendarTime - now.getTimeInMillis();
+                        long _alamCalendarTime = SystemClock.elapsedRealtime() + duration;
+                        _alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, _alamCalendarTime, pendingIntent);
+                    }
+
+                } catch (Exception e) {
+//                    PPApplicationStatic.logE("[WAKELOCK_EXCEPTION] NextAlarmClockBroadcastReceiver.setAlarm", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
 
             };
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] NextAlarmClockBroadcastReceiver.setAlarm", "xxxx");
             PPApplicationStatic.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }

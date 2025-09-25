@@ -63,7 +63,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         super.onStart();
 
         // set theme and language for dialog alert ;-)
-        GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
+        GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         if (menuItemId == 0) {
@@ -73,10 +73,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             newVersionName = "";
             newVersionCode = 0;
         }
-        showDialog(this, menuItemId);
 
+        boolean _showDialog = true;
         if (menuItemId == R.id.menu_check_in_github) {
             if (Build.VERSION.SDK_INT < 33) {
+                _showDialog = false;
                 try {
                     //final Activity activity = this;
                     final Context appContext = getApplicationContext();
@@ -125,10 +126,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
 //            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
+                    _showDialog = true;
                 }
             }
         }
 
+        if (_showDialog)
+            showDialog(this, menuItemId);
     }
 
     @Override
@@ -186,9 +190,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (store == R.id.menu_check_in_github) {
             if (Build.VERSION.SDK_INT < 33)
                 checkInGitHub(/*activity, false*/);
-            else {
+            else
                 checkInDroidIfy(/*activity,*/ true);
-            }
             displayed = true;
         }
         else
@@ -223,9 +226,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 else {
                     if (Build.VERSION.SDK_INT < 33)
                         checkInGitHub(/*activity, false*/);
-                    else {
+                    else
                         checkInDroidIfy(/*activity,*/ true);
-                    }
                 }
             }
 /*

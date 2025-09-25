@@ -70,6 +70,22 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/event_preferences_call_answerCall"
+        app:summary=""
+        app:key="eventCallAnswerCallCategoryRoot"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallAnswerCallParameters" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:title="@string/event_preferences_call_endCall"
+        app:summary=""
+        app:key="eventCallEndCallCategoryRoot"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallEndCallParameters" />
+
     <sk.henrichg.phoneprofilesplus.InformationPreference
         app:key="eventCallSendSMSInfo"
         app:title="@string/event_preference_callSendSMS"
@@ -91,6 +107,13 @@
         app:defaultValue=""
         app:dependency="eventCallSendSMS"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="eventCallSimulateRingingCallSettings"
+        app:title="@string/pref_event_simaulateRingingCall"
+        app:summary="@string/pref_event_simaulateRingingCall_summary"
+        app:layout="@layout/mp_preference_material_widget"
+        app:dependency="eventCallEnabled"/>
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"

@@ -306,7 +306,7 @@ public class EditorEventListFragment extends Fragment
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_event) {
                 if (eventListAdapter != null) {
-                    if (!activity.isFinishing()) {
+                    if ((activity != null) && (!activity.isFinishing())) {
                         ((EditorActivity) activity).addEventDialog = new AddEventDialog(((EditorActivity) activity)/*, this*/);
                         ((EditorActivity) activity).addEventDialog.showDialog();
                     }
@@ -329,16 +329,20 @@ public class EditorEventListFragment extends Fragment
             if (itemId == R.id.menu_generate_predefined_events) {
                 //final Activity activity = getActivity();
                 //final EditorEventListFragment fragment = this;
-                final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
-                final Runnable progressBarRunnable = () -> {
-                    EditorEventListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
-                        fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
-                        fragment.loadAsyncTask.execute();
-                    }
-                };
-                progressBarHandler.post(progressBarRunnable);
+                if (activity != null) {
+                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    final WeakReference<EditorEventListFragment> fragmentWeakRef = new WeakReference<>(this);
+                    final Runnable progressBarRunnable = () -> {
+                        EditorEventListFragment fragment = fragmentWeakRef.get();
+                        if (fragment != null) {
+                            if (fragment.getActivity() != null) {
+                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, true);
+                                fragment.loadAsyncTask.execute();
+                            }
+                        }
+                    };
+                    progressBarHandler.post(progressBarRunnable);
+                }
                 return true;
             }
             else
@@ -890,7 +894,7 @@ public class EditorEventListFragment extends Fragment
     }
 */
 
-    private void duplicateEvent(Event origEvent)
+    void duplicateEvent(Event origEvent)
     {
         /*
         Event newEvent = new Event(
@@ -976,38 +980,11 @@ public class EditorEventListFragment extends Fragment
 
         final Event event = (Event)view.getTag();
 
-        int itemsRes;
-        if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP)
-            itemsRes = R.array.eventListItemEditEnableRunArray;
-        else
-            itemsRes = R.array.eventListItemEditStopArray;
-
-        SingleSelectListDialog dialog = new SingleSelectListDialog(
-                true,
-                getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + event._name,
-                getString(R.string.tooltip_options_menu),
-                itemsRes,
-                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
-                (dialog1, which) -> {
-                    switch (which) {
-                        case 0:
-                            //runStopEvent(event);
-                            EventStatic.runStopEvent(activityDataWrapper, event, (EditorActivity) getActivity());
-                            break;
-                        case 1:
-                            duplicateEvent(event);
-                            break;
-                        case 2:
-                            deleteEventWithAlert(event);
-                            break;
-                        default:
-                    }
-                },
-                null,
-                //false,
-                (AppCompatActivity) getActivity());
+        EditorEventListItemMenuDialog dialog = new EditorEventListItemMenuDialog((EditorActivity) getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putLong(PPApplication.EXTRA_EVENT_ID, event._id);
+        dialog.setArguments(bundle);
         dialog.showDialog();
-
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -1062,7 +1039,7 @@ public class EditorEventListFragment extends Fragment
  */
     }
 
-    private void deleteEventWithAlert(Event event)
+    void deleteEventWithAlert(Event event)
     {
         final Event _event = event;
 
@@ -1330,14 +1307,18 @@ public class EditorEventListFragment extends Fragment
                         final Runnable progressBarRunnable = () -> {
                             EditorEventListFragment fragment = fragmentWeakRef.get();
                             if (fragment != null) {
-                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
-                                fragment.loadAsyncTask.execute();
+                                if (fragment.getActivity() != null) {
+                                    fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
+                                    fragment.loadAsyncTask.execute();
+                                }
                             }
                         };
                         progressBarHandler.post(progressBarRunnable);
                     } else {
-                        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
-                        loadAsyncTask.execute();
+                        if (getActivity() != null) {
+                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
+                            loadAsyncTask.execute();
+                        }
                     }
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1399,14 +1380,18 @@ public class EditorEventListFragment extends Fragment
                         final Runnable progressBarRunnable = () -> {
                             EditorEventListFragment fragment = fragmentWeakRef.get();
                             if (fragment != null) {
-                                fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
-                                fragment.loadAsyncTask.execute();
+                                if (fragment.getActivity() != null) {
+                                    fragment.loadAsyncTask = new LoadEventListAsyncTask(fragment, fragment.filterType, fragment.orderType, false);
+                                    fragment.loadAsyncTask.execute();
+                                }
                             }
                         };
                         progressBarHandler.post(progressBarRunnable);
                     } else {
-                        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
-                        loadAsyncTask.execute();
+                        if (getActivity() != null) {
+                            loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
+                            loadAsyncTask.execute();
+                        }
                     }
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1902,6 +1887,13 @@ public class EditorEventListFragment extends Fragment
 
         final Event event = (Event)view.getTag();
 
+        EditorEventListItemIgnoreManualActivationMenuDialog dialog = new EditorEventListItemIgnoreManualActivationMenuDialog((EditorActivity) getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putLong(PPApplication.EXTRA_EVENT_ID, event._id);
+        dialog.setArguments(bundle);
+        dialog.showDialog();
+
+        /*
         int value;
         if (event._ignoreManualActivation && event._noPauseByManualActivation)
             value = 2;
@@ -1957,6 +1949,7 @@ public class EditorEventListFragment extends Fragment
                 //false,
                 (AppCompatActivity) getActivity());
         dialog.showDialog();
+        */
 
 /*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -2171,7 +2164,8 @@ public class EditorEventListFragment extends Fragment
                             DatabaseHandler.getInstance(dataWrapper.context).getDeviceBootStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getPeriodicStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getApplicationStartTime(event);
-                            DatabaseHandler.getInstance(dataWrapper.context).getCallScreeningStartTime(event);
+                            DatabaseHandler.getInstance(dataWrapper.context).getCallControlStartTime(event);
+                            DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfileStartTime(event);
                         }
                     }
 

@@ -7,42 +7,39 @@
 
 <h1 id="changelog">PhoneProfilesPlus Zoznam zmien</h1>
 
-<h2 id="version2">Verzia: 7.0.2</h2>
+<h2 id="version2">Verzia: 7.1.2</h2>
 
 <ul lang="en">
-    <li>Add: Panel widget. Removed Samsung Edge panel.</li>
-    <li>Change: Call of BT detector at screen on.</li>
-    <li>Change: Better BT connected devices detection for disconnection.</li>
-    <li>Change: Call of "isConnected" in BT connected devices detector after 5 seconds. Maybe it is fix for not detected some BT devices.</li>
-    <li>Change: Increased speed of profile activation.</li>
-    <li>Change: Support for Smart Launcher rounded corners in widgets.</li>
-    <li>Change: Enabled rounded corners radius for SmartLauncher.</li>
-    <li>Change: Rounded corners radius up to 32 (for Smart Launcher support).</li>
-    <li>Change: Help popup for custom profile icon - icons from theme pack applicaitons. Added is link for download "ThemeX: Extract Launcher Theme" from APKPure.</li>
-    <li>Change: Added NOTE about special parameters for USB debugging, for some devices into doc files.</li>
-    <li>Change: Better show,hide header and bottom toolbar at scroll in Editor.</li>
-    <li>Change: GUI components size different for landscape orientation.</li>
-    <li>Change: Small GUI changes.</li>
-    <li>Change: Changes in widgets.</li>
-    <li>Change: Removed toolbar from Location editor.</li>
-    <li>Change: Location editor - display map immediately at start od editor.</li>
-    <li>Change: Show dialog about offline device status in Location editor.</li>
-    <li>Change: Better functionality of "Rename with address" button in Location editor.</li>
-    <li>Change: Empty line in preference summary changed to dots.</li>
-    <li>Change: Permanent display also thumb of scrollbars.</li>
-    <li>Change: "Disable fade scrollbar" moved from components to styles. This allows scrollbars permanently visible also in spinners and menus.</li>
-    <li>Change: Do not rotate to default orientation if is required to lock orientation change.</li>
-    <li>Change: Increased max. log file size.</li>
-    <li>Change: Do not show Privacy Policy for Huawei devices. PPP is not upgraded in Huawei App Gallery.</li>
-    <li>Fix: Not working good BT van connection.</li>
-    <li>Fix: Fixed not refreshed Tones dialog after grant permission.</li>
-    <li>Fix: Not disabled buttons in Mobile cells registration dialog at its start.</li>
-    <li>Fix: Not deleted red text after deletion of profile, event with errors.</li>
-    <li>Fix: Maybe fixed draw of PPP notification at first start.</li>
-    <li>Fix: Restart events not working properly in specific situations.</li>
-    <li>Fix: Location preference dialog GUI.</li>
-    <li>Fix: WindowLeak exception generated for dialogs in orientation change.</li>
-    <li>Fix: Undo in profile duration and event end.</li>
+    <li>Add: "Create shortcut to profile" added into Editor profile list item menu.</li>
+    <li>Add: "Create shortcut for "Restart events" added into Settings/"Run event".</li>
+    <li>Add: Ethernet support for "Radio" sensor.</li>
+    <li>Change: Increased size of event status icons in Editor event items.</li>
+    <li>Change: Better donation days for first 3 donation notifications.</li>
+    <li>Change: Removed forced Droid-ify request.</li>
+    <li>Change: Do not display red text in Editor for events, if event is stopped.</li>
+    <li>Change: Added disable of scanners after restore of backup.</li>
+    <li>Change: Added summary for PPP Settings "Location scanning"/"Use GPS when not in Power Save mode".</li>
+    <li>Change: Synchronized call of EventsHandler.</li>
+    <li>Change: Decreased count of calls of EventsHandler from Notification listener (used in Notification sensor).</li>
+    <li>Change: Added "Notification scan interval" into Notification scanning.</li>
+    <li>Change: Call of runnable {} in required situations.</li>
+    <li>Change: Less redraw of widgets - for decreased battery consumption.</li>
+    <li>Change: Added ANR watchdog to log ANRs.</li>
+    <li>Change: Added send e-mail for ANR.</li>
+    <li>Change: Some alarms changed to ELAPSED_REALTIME_WAKEUP</li>
+    <li>Fix: Fixed ANR for EventsHandler.handleEvents();</li>
+    <li>Fix: "Run application shortcut, intent" if application, shortcut, intent not exists in system (for example after restore of data).</li>
+    <li>Fix: Fixed twice call of "after_first_start" worker when Shizuku binder is called.</li>
+    <li>Fix: Fixed battery consumption in Location scanning.</li>
+    <li>Fix: Fixed battery consumption in Wifi scanning.</li>
+    <li>Fix: Fixed battery consumption in Bluetooth scanning.</li>
+    <li>Fix: Change: Fixed Call screening sensor.</li>
+    <li>Fix: Fixed not working change of random wallpaper from folder.</li>
+    <li>Fix: do not generate notification for exception.</li>
+    <li>Fix: Bad displayed PPP version in GitHub in check version dialog.</li>
+    <li>Fix: Bad working profile duration "Exact time", if is disabled "Use alarm clock".</li>
+    <li>Fix: Changed call of sleep() in main thread to runnable.</li>
+    <li>Fix: Fixed creation and usage of executors.</li>
 </ul>
 
 <ul>
@@ -54,7 +51,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.2">Informácie o vydaní na GitHub.</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.2">Informácie o vydaní na GitHub.</a>
 </p>
 
 </body>

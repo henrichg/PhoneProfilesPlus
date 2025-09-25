@@ -89,9 +89,12 @@ class ProfilePreferencesIndicator {
 
             //noinspection ConstantValue
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -197,9 +200,12 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -257,9 +263,12 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -344,9 +353,12 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
         else
@@ -404,15 +416,21 @@ class ProfilePreferencesIndicator {
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
             if (bitmapResult != null) {
-                try {
-                    bitmapResult.recycle();
-                } catch (Exception ignored) {}
+                if (!bitmapResult.isRecycled()) {
+                    try {
+                        bitmapResult.recycle();
+                    } catch (Exception ignored) {
+                    }
+                }
             }
         }
 
-        try {
-            preferenceBitmap.recycle();
-        } catch (Exception ignored) {}
+        if (!preferenceBitmap.isRecycled()) {
+            try {
+                preferenceBitmap.recycle();
+            } catch (Exception ignored) {
+            }
+        }
 
     }
 
@@ -2121,6 +2139,23 @@ class ProfilePreferencesIndicator {
                     }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
+                }
+            }
+            // play music
+            if (profile._playMusic != 0) {
+                if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_PLAY_MUSIC, null, sharedPreferences, true, appContext).preferenceAllowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._playMusic > 0) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_playMusic);
+                        if (fillStrings)
+                            strings[countDrawables++] = "plmu";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_play_music;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
                 }
             }
 

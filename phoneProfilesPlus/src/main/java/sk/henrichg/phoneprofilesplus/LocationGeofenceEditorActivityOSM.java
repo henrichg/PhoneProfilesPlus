@@ -121,7 +121,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
         EditorActivity.itemDragPerformed = false;
 
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, true, false);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -145,6 +145,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             getSupportActionBar().setElevation(0);
         }
         */
+        setTitle(R.string.location_editor_title);
 
         //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 

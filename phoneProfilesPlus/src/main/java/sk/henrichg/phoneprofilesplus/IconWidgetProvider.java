@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
 
 /** @noinspection ExtractMethodRecommender*/
 public class IconWidgetProvider extends AppWidgetProvider {
@@ -38,15 +40,39 @@ public class IconWidgetProvider extends AppWidgetProvider {
             Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
-                //Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_IconWidgetProvider_onUpdate);
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+
+                } catch (Exception e) {
+//                  PPApplicationStatic.logE("[IN_EXECUTOR] IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    //worker.shutdown();
                 }
             };
             PPApplicationStatic.createDelayedGuiExecutor();
-            PPApplication.delayedGuiExecutor.submit(runnable);
+//            PPApplication.delayedGuiExecutor.submit(runnable);
+            if (PPApplication.scheduledFutureIconWidgetExecutor != null)
+                PPApplication.scheduledFutureIconWidgetExecutor.cancel(true);
+            PPApplication.scheduledFutureIconWidgetExecutor =
+                    PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
         }
     }
 
@@ -1479,28 +1505,57 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
+            boolean drawImmediatelly = intent.getBooleanExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, false);
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
-                if ((ids != null) && (ids.length > 0)) {
+                final int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
+                if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                     final WeakReference<AppWidgetManager> appWidgetManagerWeakRef = new WeakReference<>(manager);
                     Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_IconWidgetProvider_onReceive);
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
-                            _onUpdate(appContext, appWidgetManager, ids);
-//                        This not working. This uses one row profie list provider. Why???
-//                        Intent updateIntent = new Intent();
-//                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-//                        context.sendBroadcast(updateIntent);
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if (/*(appContext != null) &&*/ (appWidgetManager != null)) {
+                                _onUpdate(appContext, appWidgetManager, appWidgetIds);
+    //                        This not working. This uses one row profie list provider. Why???
+    //                        Intent updateIntent = new Intent();
+    //                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+    //                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+    //                        context.sendBroadcast(updateIntent);
+                            }
+
+                        } catch (Exception e) {
+//                          PPApplicationStatic.logE("[IN_EXECUTOR] IconWidgetProvider.onReceive", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
                         }
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+//                    PPApplication.delayedGuiExecutor.submit(runnable);
+                    if (PPApplication.scheduledFutureIconWidgetExecutor != null)
+                        PPApplication.scheduledFutureIconWidgetExecutor.cancel(true);
+                    if (drawImmediatelly)
+                        PPApplication.scheduledFutureIconWidgetExecutor =
+                                PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+                    else
+                        PPApplication.scheduledFutureIconWidgetExecutor =
+                            PPApplication.delayedGuiExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
                 }
             }
         }
@@ -1513,6 +1568,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                            Bundle newOptions) {
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.onAppWidgetOptionsChanged", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
@@ -1587,6 +1643,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
+        intent3.putExtra(PPApplication.EXTRA_DRAW_IMMEDIATELY, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, IconWidgetProvider.class);

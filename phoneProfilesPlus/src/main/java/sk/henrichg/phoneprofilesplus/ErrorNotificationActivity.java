@@ -53,7 +53,7 @@ public class ErrorNotificationActivity extends AppCompatActivity {
         //GlobalGUIRoutines.lockScreenOrientation(this, false);
 
         // set theme and language for dialog alert ;-)
-        GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false);
+        GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         boolean isError = false;

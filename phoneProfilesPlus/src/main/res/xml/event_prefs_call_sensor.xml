@@ -69,20 +69,12 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-<!--    <sk.henrichg.phoneprofilesplus.SendSMSDialogPreference-->
-<!--        app:title="@string/event_preference_callSendSMS"-->
-<!--        app:key="eventCallSendSMS"-->
-<!--        app:defaultValue="false"-->
-<!--        app:dependency="eventCallEnabled"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
-
-<!--    <sk.henrichg.phoneprofilesplus.PPEditTextDialogPreference-->
-<!--        app:key="eventCallSMSText"-->
-<!--        app:title="@string/event_preference_callSMSText"-->
-<!--        android:selectAllOnFocus="true"-->
-<!--        app:defaultValue=""-->
-<!--        app:dependency="eventCallSendSMS"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
+    <sk.henrichg.phoneprofilesplus.StartActivityPreference
+        app:key="eventCallSimulateRingingCallSettings"
+        app:title="@string/pref_event_simaulateRingingCall"
+        app:summary="@string/pref_event_simaulateRingingCall_summary"
+        app:layout="@layout/mp_preference_material_widget"
+        app:dependency="eventCallEnabled"/>
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"

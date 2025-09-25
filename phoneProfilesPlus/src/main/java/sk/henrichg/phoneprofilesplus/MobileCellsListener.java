@@ -117,9 +117,12 @@ class MobileCellsListener extends PhoneStateListener {
                             }
                         }
                     } else if (_cellInfo instanceof CellInfoCdma) {
+                        //noinspection deprecation
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
+                        //noinspection deprecation
                         if (MobileCellsScanner.isValidCellId(identityCdma.getBasestationId(), Long.MAX_VALUE)) {
                             if (_cellInfo.isRegistered()) {
+                                //noinspection deprecation
                                 registeredCell = identityCdma.getBasestationId();
                                 registeredCellLong = Long.MAX_VALUE;
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
@@ -239,6 +242,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             }
         };
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] MobileCellsListener.onCellInfoChanged", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -296,6 +300,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             }
         };
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] MobileCellsListener.onServiceStateChanged", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -425,6 +430,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
             }
         };
+//        PPApplicationStatic.logE("[EXECUTOR_CALL] MobileCellsListener.onCellLocationChanged", "xxx");
         PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
@@ -481,6 +487,7 @@ class MobileCellsListener extends PhoneStateListener {
                     }
                 }
             };
+//            PPApplicationStatic.logE("[EXECUTOR_CALL] MobileCellsListener.rescanMobileCells", "xxx");
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
@@ -490,7 +497,7 @@ class MobileCellsListener extends PhoneStateListener {
         if (EventStatic.getGlobalEventsRunning(appContext))
         {
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.handleEvents", "******** ### *******");
-
+//            PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] MobileCellsListener.handleEvents", "PPExecutors.handleEvents");
             PPExecutors.handleEvents(appContext,
                     new int[]{EventsHandler.SENSOR_TYPE_MOBILE_CELLS},
                     PPExecutors.SENSOR_NAME_SENSOR_TYPE_MOBILE_CELLS, 5);
@@ -818,7 +825,7 @@ class MobileCellsListener extends PhoneStateListener {
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + cellId,
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + cellId, mBuilder.build());
                         } catch (SecurityException en) {
-                            PPApplicationStatic.logException("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(en));
+                            PPApplicationStatic.logException("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(en), false);
                         } catch (Exception e) {
                             //Log.e("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);

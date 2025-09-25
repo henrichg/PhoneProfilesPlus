@@ -8,6 +8,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -190,6 +191,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView infoTextnews2 = view.findViewById(R.id.important_info_news_2);
         TextView infoTextnews3 = view.findViewById(R.id.important_info_news_3);
         TextView infoTextnews4 = view.findViewById(R.id.important_info_news_4);*/
+        TextView infoTextnewAP = view.findViewById(R.id.activity_info_advancedProtection_news);
         if (!news) {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.GONE);
@@ -203,6 +205,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoTextnews3.setVisibility(View.GONE);
             if (infoTextnews4 != null)
                 infoTextnews4.setVisibility(View.GONE);*/
+            if (infoTextnewAP != null)
+                infoTextnewAP.setVisibility(View.GONE);
         } else {
             //noinspection DataFlowIssue
             infoTextNews.setVisibility(View.VISIBLE);
@@ -211,6 +215,18 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoTextNewsSeparator.setVisibility(View.VISIBLE);
 
             //TODO add textVews of News
+
+            if (infoTextnewAP != null) {
+                if (Build.VERSION.SDK_INT >= 36) {
+                    infoTextnewAP.setVisibility(View.VISIBLE);
+                }
+                else {
+                    infoTextNews.setVisibility(View.GONE);
+                    infoTextNewsSeparator.setVisibility(View.GONE);
+                    infoTextnewAP.setVisibility(View.GONE);
+                }
+            }
+
             /*if (infoTextnews1 != null)
                 infoTextnews1.setVisibility(View.VISIBLE);
             if (infoTextnews2 != null)
@@ -894,33 +910,89 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
+        boolean fdroidInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+        boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+        boolean neostoreInstalled = (_intent != null);
+
         TextView helpForShizukuDownloadTextView = view.findViewById(R.id.activity_info_notification_profile_shizuku_howTo_2);
         if (helpForShizukuDownloadTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
-            Spannable spannable = new SpannableString(str1);
-            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    ds.setColor(ds.linkColor);    // you can use custom color
-                    ds.setUnderlineText(false);    // this remove the underline
-                }
-
-                @Override
-                public void onClick(@NonNull View textView) {
-                    String url = "https://shizuku.rikka.app/download/";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
+            String str1;
+            if (fdroidInstalled || droidifyInstalled || neostoreInstalled) {
+                str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2_1) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                Spannable spannable = new SpannableString(str1);
+                //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
                     }
-                }
-            };
-            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-            helpForShizukuDownloadTextView.setText(spannable);
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        if (droidifyInstalled) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {}
+                        } else if (neostoreInstalled) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.NEOSTORE_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {}
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=moe.shizuku.privileged.api"));
+                            intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
+                            try {
+                                fragment.startActivity(intent);
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                };
+                spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                helpForShizukuDownloadTextView.setText(spannable);
+            } else {
+                str1 = fragment.getString(R.string.important_info_profile_shizuku_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                Spannable spannable = new SpannableString(str1);
+                //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        //String url = "https://shizuku.rikka.app/download/";
+                        String url;
+                        if (DebugVersion.enabled)
+                            url = PPApplication.HELP_INSTALL_SHIZUKU_URL_DEVEL;
+                        else
+                            url = PPApplication.HELP_INSTALL_SHIZUKU_URL;
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                };
+                spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                helpForShizukuDownloadTextView.setText(spannable);
+            }
             helpForShizukuDownloadTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
@@ -954,6 +1026,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             helpForShizukuSetupTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
+        /*
         if (PPApplication.SHOW_IMPORTANT_INFO_NEWS) {
             TextView panelsAppLink = view.findViewById(R.id.important_info_news_3_PanelsAppLink);
             if (panelsAppLink != null) {
@@ -985,14 +1058,22 @@ public class ImportantInfoHelpFragment extends Fragment {
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 panelsAppLink.setText(spannable);
                 panelsAppLink.setMovementMethod(LinkMovementMethod.getInstance());
-            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
-                getString(R.string.important_info_translations),
-                getString(R.string.about_application_translations2),
-                getString(R.string.about_application_translations_subject),
-                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
-                true, activity);*/
+                //AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                //    getString(R.string.important_info_translations),
+                //    getString(R.string.about_application_translations2),
+                //    getString(R.string.about_application_translations_subject),
+                //    AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                //    true, activity);
             }
         }
+        */
+
+        if (Build.VERSION.SDK_INT < 36) {
+            TextView infoText99 = view.findViewById(R.id.activity_info_advancedProtection);
+            if (infoText99 != null)
+                infoText99.setVisibility(View.GONE);
+        }
+
     }
 
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,

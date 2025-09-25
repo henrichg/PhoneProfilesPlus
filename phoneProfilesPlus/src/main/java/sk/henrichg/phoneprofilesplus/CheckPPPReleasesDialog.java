@@ -23,6 +23,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 public class CheckPPPReleasesDialog extends DialogFragment
 {
@@ -49,10 +50,9 @@ public class CheckPPPReleasesDialog extends DialogFragment
             if (arguments != null) {
                 store = arguments.getInt(CheckPPPReleasesActivity.EXTRA_MENU_ITEM_ID, 0);
             }
-
             if (store == R.id.menu_check_in_github) {
                 String newVersionName = arguments.getString(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, "");
-                int newVersionCode = arguments.getInt(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, 0);
+                int newVersionCode = arguments.getInt(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, 0);
                 boolean newVersionCritical= arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, false);
                 boolean criticalCheck= arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
                 //booleam refreshOpenedDialog = arguments.getBoolean(CheckPPPReleasesActivity.EXTRA_REFRESH_OPENED_DIALOG, true);
@@ -96,8 +96,11 @@ public class CheckPPPReleasesDialog extends DialogFragment
     }
 
     void showDialog() {
-        if ((activity != null) && (!activity.isFinishing()))
-            show(activity.getSupportFragmentManager(), "CHECK_PPP_RELEASES_DIALOG");
+        if ((activity != null) && (!activity.isFinishing())) {
+            FragmentManager manager = activity.getSupportFragmentManager();
+            if (!manager.isDestroyed())
+                show(manager, "CHECK_PPP_RELEASES_DIALOG");
+        }
     }
 
     @SuppressLint("SetTextI18n")

@@ -4,9 +4,9 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 PhoneProfilesPlus (PPP)
-===========================
+=======================
 
-[![version](https://img.shields.io/badge/version-7.0.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.0.2)
+[![version](https://img.shields.io/badge/version-7.1.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/7.1.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)\
@@ -20,6 +20,9 @@ PhoneProfilesPlus (PPP)
 Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3 \
 \
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
+
+### How to build PPP
+- [Show it](docs/build.md)
 
 ### Sources of PhoneProfilesPlus:
 
@@ -54,9 +57,9 @@ __APKPure:__
 - [PPP release](https://apkpure.net/p/sk.henrichg.phoneprofilesplus)
 - [Store application (download)](https://apkpure.net/apkpure/com.apkpure.aegon)
 
-__GitHub (better is using Droid-ify instead):__
+__GitHub (better is using Droid-ify, F-Droid, NeoStore, or similar app store instead):__
 
-- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
+- NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, F-Droid, NeoStore, or similar app store, if in your device is not supported application store, and install PhoneProfilesPlus from it.
 
 - [PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
@@ -125,7 +128,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - From Android 8.0
 - minSdkVersion = 26
 - targetSdkVersion = 28
-- compiledSdkVersion = 35
+- compiledSdkVersion = 36
 
 ##### Required external libs - open-source
 
@@ -144,8 +147,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - ExpandableLayout - https://github.com/skydoves/ExpandableLayout
 - SmoothBottomBar - https://github.com/ibrahimsn98/SmoothBottomBar
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
-- Encryption - https://github.com/simbiose/Encryption
 - Shizuku - https://github.com/RikkaApps/Shizuku, https://github.com/RikkaApps/Shizuku-API
+- Encryption (as module, code modified) - https://github.com/simbiose/Encryption
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker

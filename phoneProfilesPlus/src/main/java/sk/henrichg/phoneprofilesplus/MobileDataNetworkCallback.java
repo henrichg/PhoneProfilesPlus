@@ -165,15 +165,18 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
         if (EventStatic.getGlobalEventsRunning(appContext)) {
 //            PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback._doConnection", "xxx");
 
-            //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-            //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+            synchronized (PPApplication.handleEventsMutex) {
 
-            if (PhoneProfilesService.getInstance() != null) {
-                // start events handler
+                //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+                //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+
+                if (PhoneProfilesService.getInstance() != null) {
+                    // start events handler
 
 //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] MobileDataNetworkCallback._doConnection", "SENSOR_TYPE_RADIO_SWITCH");
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(new int[]{EventsHandler.SENSOR_TYPE_RADIO_SWITCH});
+                }
             }
         }
     }

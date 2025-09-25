@@ -1,17 +1,21 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
@@ -32,6 +36,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +92,10 @@ public class EditorProfileListFragment extends Fragment
     //boolean targetHelpsSequenceStarted;
 
     private int filterType = FILTER_TYPE_ALL;
+
+    private static final String ACTION_SHORTCUT_TO_PROFILE_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_PROFILE_ADDED";
+
+    private ShortcutToProfileAddedBroadcastReceiver shortcutToProfileAddedReceiver;
 
     /**
      * The fragment's current callback objects
@@ -251,7 +262,7 @@ public class EditorProfileListFragment extends Fragment
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_profile) {
                 if (profileListAdapter != null) {
-                    if (!activity.isFinishing()) {
+                    if ((activity != null) && (!activity.isFinishing())) {
                         ((EditorActivity) activity).addProfileDialog = new AddProfileDialog((EditorActivity) activity/*, this*/);
                         ((EditorActivity) activity).addProfileDialog.showDialog();
                     }
@@ -272,16 +283,20 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             if (itemId == R.id.menu_generate_predefined_profiles) {
-                final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
-                final Runnable progressBarRunnable = () -> {
-                    EditorProfileListFragment fragment = fragmentWeakRef.get();
-                    if (fragment != null) {
-                        fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
-                        fragment.loadAsyncTask.execute();
-                    }
-                };
-                progressBarHandler.post(progressBarRunnable);
+                if (activity != null) {
+                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                    final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
+                    final Runnable progressBarRunnable = () -> {
+                        EditorProfileListFragment fragment = fragmentWeakRef.get();
+                        if (fragment != null) {
+                            if (fragment.getActivity() != null) {
+                                fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, true);
+                                fragment.loadAsyncTask.execute();
+                            }
+                        }
+                    };
+                    progressBarHandler.post(progressBarRunnable);
+                }
                 return true;
             }
             else
@@ -293,16 +308,20 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    final Handler progressBarHandler = new Handler(activity.getMainLooper());
-                    final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
-                    final Runnable progressBarRunnable = () -> {
-                        EditorProfileListFragment fragment = fragmentWeakRef.get();
-                        if (fragment != null) {
-                            fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
-                            fragment.loadAsyncTask.execute();
-                        }
-                    };
-                    progressBarHandler.post(progressBarRunnable);
+                    if (activity != null) {
+                        final Handler progressBarHandler = new Handler(activity.getMainLooper());
+                        final WeakReference<EditorProfileListFragment> fragmentWeakRef = new WeakReference<>(this);
+                        final Runnable progressBarRunnable = () -> {
+                            EditorProfileListFragment fragment = fragmentWeakRef.get();
+                            if (fragment != null) {
+                                if (fragment.getActivity() != null) {
+                                    fragment.loadAsyncTask = new LoadProfileListAsyncTask(fragment, fragment.filterType, false);
+                                    fragment.loadAsyncTask.execute();
+                                }
+                            }
+                        };
+                        progressBarHandler.post(progressBarRunnable);
+                    }
                 } else {
                     if (profileListAdapter != null) {
                         // added touch helper for drag and drop items
@@ -446,6 +465,9 @@ public class EditorProfileListFragment extends Fragment
             if ((fragment != null) /*&& (fragment.isAdded())*/) {
                 fragment.progressBar.setVisibility(View.VISIBLE);
             }
+
+            // !!! this is for ANR test only, comment it
+            //GlobalUtils.sleep(20 * 1000);
         }
 
         @Override
@@ -660,7 +682,7 @@ public class EditorProfileListFragment extends Fragment
         onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex);
     }
 
-    private void duplicateProfile(Profile origProfile)
+    void duplicateProfile(Profile origProfile)
     {
         int editMode;
 
@@ -749,29 +771,10 @@ public class EditorProfileListFragment extends Fragment
 
         final Profile profile = (Profile)view.getTag();
 
-        SingleSelectListDialog dialog = new SingleSelectListDialog(
-                true,
-                getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
-                getString(R.string.tooltip_options_menu),
-                R.array.profileListItemEditArray,
-                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
-                (dialog1, which) -> {
-                    switch (which) {
-                        case 0:
-                            activateProfile(profile/*, true*/, false);
-                            break;
-                        case 1:
-                            duplicateProfile(profile);
-                            break;
-                        case 2:
-                            deleteProfileWithAlert(profile);
-                            break;
-                        default:
-                    }
-                },
-                null,
-                //false,
-                (AppCompatActivity) getActivity());
+        EditorProfileListItemMenuDialog dialog = new EditorProfileListItemMenuDialog((EditorActivity) getActivity());
+        Bundle bundle = new Bundle();
+        bundle.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        dialog.setArguments(bundle);
         dialog.showDialog();
 
 /*
@@ -817,7 +820,7 @@ public class EditorProfileListFragment extends Fragment
 */
     }
 
-    private void deleteProfileWithAlert(Profile profile)
+    void deleteProfileWithAlert(Profile profile)
     {
         final Profile _profile = profile;
 
@@ -1193,46 +1196,10 @@ public class EditorProfileListFragment extends Fragment
 
         if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
-            int value;
-            if (profile._showInActivator)
-                value = 1;
-            else
-                value = 0;
-
-            SingleSelectListDialog dialog = new SingleSelectListDialog(
-                    true,
-                    getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
-                    getString(R.string.profile_preferences_showInActivator),
-                    R.array.profileListItemShowInActivatorArray,
-                    value,
-                    (dialog1, which) -> {
-                        switch (which) {
-                            case 0:
-                                profile._showInActivator = false;
-                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                                //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
-
-                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                        getString(R.string.show_profile_in_activator_not_show_toast),
-                                        Toast.LENGTH_LONG);
-                                break;
-                            case 1:
-                                profile._showInActivator = true;
-                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                                //profileListAdapter.notifyDataSetChanged();
-                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, PPApplication.EDIT_MODE_EDIT);
-
-                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                        getString(R.string.show_profile_in_activator_show_toast),
-                                        Toast.LENGTH_LONG);
-                                break;
-                            default:
-                        }
-                    },
-                    null,
-                    //false,
-                    (AppCompatActivity) getActivity());
+            EditorProfileListItemShowInActivatorMenuDialog dialog = new EditorProfileListItemShowInActivatorMenuDialog((EditorActivity) getActivity());
+            Bundle bundle = new Bundle();
+            bundle.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            dialog.setArguments(bundle);
             dialog.showDialog();
 
 /*
@@ -1766,6 +1733,235 @@ public class EditorProfileListFragment extends Fragment
                 item.setVisible(activityDataWrapper.profileList.isEmpty());
                 item = menu.findItem(R.id.menu_delete_all_profiles);
                 item.setVisible(!activityDataWrapper.profileList.isEmpty());
+            }
+        }
+    }
+
+    void createShortcutToProfile(Profile profile)
+    {
+        //final Profile _profile = profile;
+
+        if (getActivity() != null) {
+            Context appContext = getActivity().getApplicationContext();
+            if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
+                if (shortcutToProfileAddedReceiver == null) {
+                    shortcutToProfileAddedReceiver = new ShortcutToProfileAddedBroadcastReceiver();
+                    IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_PROFILE_ADDED);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(shortcutToProfileAddedReceiver, shortcutAddedFilter, receiverFlags);
+                }
+
+                CreateShortcutAsyncTask createShortcutAsyncTask = new CreateShortcutAsyncTask(profile, this);
+                createShortcutAsyncTask.execute();
+            }
+        }
+    }
+
+    private static class CreateShortcutAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final Profile profile;
+        boolean isIconResourceID;
+        String iconIdentifier;
+        Bitmap profileBitmap;
+        //Bitmap shortcutOverlayBitmap;
+        Bitmap profileShortcutBitmap;
+        String profileName;
+        String longLabel;
+        boolean useCustomColor;
+        Intent shortcutIntent;
+        ShortcutInfoCompat.Builder shortcutBuilderCompat;
+
+        private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
+
+        public CreateShortcutAsyncTask(final Profile profile,
+                                       EditorProfileListFragment fragment) {
+            this.profile = profile;
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            EditorProfileListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+
+//                PPApplicationStatic.logE("[SYNCHRONIZED] ShortcutCreatorListFragment.CreateShortcutAsyncTask", "DataWrapper.profileList");
+//                synchronized (fragment.activityDataWrapper.profileList) {
+//                    profile = fragment.activityDataWrapper.profileList.get(position);
+//                }
+
+                if (fragment.getActivity() != null) {
+                    Context context = fragment.getActivity().getApplicationContext();
+
+                    if (profile != null) {
+                        isIconResourceID = profile.getIsIconResourceID();
+                        iconIdentifier = profile.getIconIdentifier();
+                        profileName = profile._name;
+                        longLabel = /*fragment.getString(R.string.shortcut_activate_profile) +*/ profileName;
+                        useCustomColor = profile.getUseCustomColorForIcon();
+                        String id;
+                        /*if (position == 0) {
+                            profileName = fragment.getString(R.string.menu_restart_events);
+                            longLabel = profileName;
+                            id = "restart_events";
+                        } else*/
+                            id = "profile_" + profile._id;
+
+                        if (profileName.isEmpty())
+                            profileName = " ";
+
+                        /*
+                        if (position == 0) {
+                            // restart events
+                            //shortcutIntent = new Intent(context, ActionForExternalApplicationActivity.class);
+                            shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
+                            shortcutIntent = new Intent(context, BackgroundActivateProfileActivity.class);
+                            shortcutIntent.setAction(Intent.ACTION_MAIN);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+                        } else*/ {
+                            shortcutIntent = new Intent(context, BackgroundActivateProfileActivity.class);
+                            shortcutIntent.setAction(Intent.ACTION_MAIN);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+                            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        }
+
+                        /*
+                        Intent intent = new Intent();
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+                        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, profileName);
+                        */
+
+                        shortcutBuilderCompat = new ShortcutInfoCompat.Builder(context, id);
+                        shortcutBuilderCompat.setIntent(shortcutIntent);
+                        shortcutBuilderCompat.setShortLabel(profileName);
+                        shortcutBuilderCompat.setLongLabel(longLabel);
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            EditorProfileListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if (fragment.getActivity() != null) {
+                    Context context = fragment.getActivity().getApplicationContext();
+
+                    if (profile != null) {
+                        //profile.releaseIconBitmap();
+                        profile.generateIconBitmap(context, false, 0, false);
+
+                        if (isIconResourceID) {
+                            if (profile._iconBitmap != null)
+                                profileBitmap = profile._iconBitmap;
+                            else {
+                                //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                                int iconResource = ProfileStatic.getIconResource(iconIdentifier);
+                                //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                            }
+                        } else {
+                            int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                            int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
+                            //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
+                            profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, false, context);
+                            if (profileBitmap == null) {
+                                int iconResource = R.drawable.ic_profile_default;
+                                //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+                                profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
+                            }
+                        }
+                        if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
+                            if (isIconResourceID || useCustomColor) {
+                                // icon is from resource or colored by custom color
+                                int monochromeValue = 0xFF;
+                                String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0))
+                                    monochromeValue = 0x00;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
+                                    monochromeValue = 0x20;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
+                                    monochromeValue = 0x40;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
+                                    monochromeValue = 0x60;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50))
+                                    monochromeValue = 0x80;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62))
+                                    monochromeValue = 0xA0;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75))
+                                    monochromeValue = 0xC0;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87))
+                                    monochromeValue = 0xE0;
+                                //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 0xFF;
+                                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
+                            } else {
+                                float monochromeValue = 255f;
+                                String applicationWidgetIconLightness = ApplicationPreferences.applicationShortcutIconLightness;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0))
+                                    monochromeValue = -255f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
+                                    monochromeValue = -192f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
+                                    monochromeValue = -128f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
+                                    monochromeValue = -64f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50))
+                                    monochromeValue = 0f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62))
+                                    monochromeValue = 64f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75))
+                                    monochromeValue = 128f;
+                                if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87))
+                                    monochromeValue = 192f;
+                                //if (applicationWidgetIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) monochromeValue = 255f;
+                                profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
+                                if (ApplicationPreferences.applicationShortcutCustomIconLightness)
+                                    profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
+                            }
+                        }
+
+                        profileShortcutBitmap = profileBitmap;
+                        //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            EditorProfileListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if ((fragment.getActivity() != null) && !fragment.getActivity().isFinishing()) {
+
+                    Context context = fragment.getActivity().getApplicationContext();
+
+                    if (profile != null) {
+
+                        try {
+                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_PROFILE_ADDED);
+                            PendingIntent successCallback = PendingIntent.getBroadcast(context, 10, pinnedShortcutCallbackIntent, 0);
+
+                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                            ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, successCallback.getIntentSender());
+                            //activity.setResult(Activity.RESULT_OK, intent);
+                        } catch (Exception e) {
+                            // show dialog about this crash
+                            // for Microsft laucher it is:
+                            // java.lang.IllegalArgumentException ... already exists but disabled
+                        }
+                    }
+
+                    fragment.getActivity().finish();
+                }
             }
         }
     }
