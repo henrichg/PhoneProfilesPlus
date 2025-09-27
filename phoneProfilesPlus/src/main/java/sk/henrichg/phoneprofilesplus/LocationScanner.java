@@ -476,7 +476,7 @@ class LocationScanner
                     Runnable runnable = () -> {
 
                         synchronized (PPApplication.handleEventsMutex) {
-                            if (PPApplication.locationScanner != null) {
+                            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
@@ -510,7 +510,7 @@ class LocationScanner
 //                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
 //                        Log.e("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
 //                        PPApplicationStatic.logE("[DELAYED_EXECUTOR_CALL] LocationScanner.doLocationChanged", "PPExecutors.handleEvents");
-                        PPExecutors.handleEvents(PPApplication.locationScanner.context,
+                        PPExecutors.handleEvents(appContext,
                                 new int[]{EventsHandler.SENSOR_TYPE_LOCATION_SCANNER},
                                 PPExecutors.SENSOR_NAME_SENSOR_TYPE_LOCATION_SCANNER, 5);
                     }
