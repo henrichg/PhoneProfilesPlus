@@ -476,29 +476,30 @@ class LocationScanner
                     Runnable runnable = () -> {
 
                         synchronized (PPApplication.handleEventsMutex) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LocationScanner_doLocationChanged);
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                PPApplication.locationScanner.updateGeofencesInDB();
-
-                            } catch (Exception e) {
-//                              PPApplicationStatic.logE("[IN_EXECUTOR] LocationScanner.doLocationChanged", Log.getStackTraceString(e));
-                                PPApplicationStatic.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
+                            if (PPApplication.locationScanner != null) {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_LocationScanner_doLocationChanged);
+                                        wakeLock.acquire(10 * 60 * 1000);
                                     }
-                                }
-                                //worker.shutdown();
-                            }
 
+                                    PPApplication.locationScanner.updateGeofencesInDB();
+
+                                } catch (Exception e) {
+//                              PPApplicationStatic.logE("[IN_EXECUTOR] LocationScanner.doLocationChanged", Log.getStackTraceString(e));
+                                    PPApplicationStatic.recordException(e);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                    //worker.shutdown();
+                                }
+                            }
                         }
                     };
 //                    PPApplicationStatic.logE("[EXECUTOR_CALL] LocationScanner.doLocationChanged", "xxx");
