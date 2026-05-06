@@ -24,6 +24,15 @@ Discord PPP server invitation: https://discord.gg/Yb5hgAstQ3 \
 ### How to build PPP
 - [Show it](docs/build.md)
 
+##### Build requirements
+
+- **Android Studio** with **Android SDK** (compileSdk 36, buildTools 36.0.0)
+- **Java 11** (source and target compatibility)
+- **Gradle 9.1.0** (via wrapper) with **Android Gradle Plugin 8.13.0**
+- **Custom android.jar** with hidden/internal APIs exposed, from [aosp-android-jar](https://github.com/Reginer/aosp-android-jar). The downloaded `android.jar` must be copied into `<android-sdk>/platforms/android-36/`, replacing the stock one. Without this, compilation will fail with errors referencing `android.os.ServiceManager`, `com.android.internal.telephony.ITelephony`, and other internal APIs.
+- **`passwords_keys.gradle`** in the project root (see `templates/` folder for the template). Contains signing keystore config and encryption keys.
+- **`local.properties`** in the project root pointing to your SDK (see `templates/` folder).
+
 ### Sources of PhoneProfilesPlus:
 
 NOTE: Google Play Protect may display dialog box with title "Unsafe app blocked" and description "This app was build for an older version of Android and doesn`t include the latest privacy protection."
